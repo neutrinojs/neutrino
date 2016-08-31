@@ -1,0 +1,57 @@
+{
+  "name": "neutrino",
+  "version": "2.0.0",
+  "description": "Create and build JS applications with managed configurations",
+  "main": "bin/neutrino",
+  "bin": {
+    "neutrino": "./bin/neutrino"
+  },
+  "commands": [
+    {
+      "command": "init <packageName>",
+      "description": "Scaffold and initialize a project based on a scaffolding package"
+    },
+    {
+      "command": "start",
+      "description": "Start a development server on a given port",
+      "options": {
+        "-p, --preset [nameOrFile]": "Specify a configuration preset for running the development server",
+        "--port [port]": [
+          "Specify a port on which to start the development server",
+          4000
+        ]
+      }
+    },
+    {
+      "command": "build",
+      "description": "Compile the source directory to a built project",
+      "environment": "production",
+      "options": {
+        "-p, --preset [nameOrFile]": "Specify a configuration preset for building the source"
+      }
+    },
+    {
+      "command": "test",
+      "description": "Run a set of test suites",
+      "environment": "test",
+      "options": {
+        "-p, --preset [nameOrFile]": "Specify a configuration preset for running tests",
+        "--watch": "Watch source directory for changes and re-run tests"
+      }
+    }
+  ],
+  "keywords": [],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MPL-2.0",
+  "dependencies": {
+    "karma": "1.2.0",
+    "npm": "3.10.6",
+    "resolve": "1.1.7",
+    "vorpal": "1.4.1",
+    "webpack": "1.13.2",
+    "webpack-dev-server": "1.15.0",
+    "webpack-hot-middleware": "2.12.2",
+    "webpack-merge": "0.14.1",
+    "yeoman-environment": "1.6.3"
+  }
+}

@@ -1,0 +1,55 @@
+#!/usr/bin/env node
+'use strict';
+
+const path = require('path');
+const Vorpal = require('vorpal');
+const commands = require('../package.json').commands;
+
+const cli = new Vorpal();
+const register = (command) => {
+  const cmd = command.command;
+  const name = cmd.split(' ')[0];
+  const options = command.options || [];
+  const dir = path.resolve(__dirname, `../commands/${name}`);
+  const cliCommand = cli.command(cmd, command.description);
+
+  Object
+    .keys(options)
+    .map(option => {
+      if (Array.isArray(options[option])) {
+        cliCommand.option.apply(cliCommand, [option].concat(options[option]));
+      } else {
+        cliCommand.option(option, options[option]);
+      }
+    });
+
+  cliCommand
+    .action(function(args) {
+      const done = (code) => process.exit(code || 0);
+
+      if (this.commandObject._events) {
+        const options = Object
+          .keys(this.commandObject._events)
+          .reduce((options, key) => {
+            options[key] = this.commandObject[key];
+
+            return options;
+          }, {});
+
+        args.options = Object.assign(options, args.options);
+      }
+
+      process.env.NODE_ENV = command.environment || 'development';
+
+      // Kick off the command
+      require(dir)(args, done);
+    });
+};
+
+commands.map(register);
+
+cli
+  .find('exit')
+  .hidden();
+
+cli.parse.apply(cli, process.argv[2] ? [process.argv] : process.argv.concat(['help']));
