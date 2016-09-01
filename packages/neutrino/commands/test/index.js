@@ -14,6 +14,10 @@ const browser = (config, args, done) => {
   karma.singleRun = !args.options.watch;
   karma.autoWatch = args.options.watch;
 
+  if (args.files) {
+    karma.files = args.files;
+  }
+
   new Server(karma, done).start();
 };
 
