@@ -13,7 +13,6 @@ module.exports = merge(preset, {
     configFile: path.join(__dirname, '../config/eslint.js')
   },
   mocha: {
-    recursive: true,
     reporter: 'spec',
     ui: 'tdd',
     bail: true
