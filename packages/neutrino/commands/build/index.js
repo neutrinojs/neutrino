@@ -5,7 +5,10 @@ const DevServer = require('webpack-dev-server');
 const webpack = require('webpack');
 
 const build = (config, done) => {
-  webpack(config, (err, stats) => {
+  const compiler = webpack(config);
+
+
+  compiler.run((err, stats) => {
     if (!err) {
       console.log(stats.toString({ colors: true }));
     } else {
@@ -20,7 +23,24 @@ const build = (config, done) => {
   });
 };
 
-const watch = (config, done) => {
+const watch = (config, handler, done) => {
+  const compiler = webpack(config);
+  const watcher = compiler.watch(config.watchOptions || {}, (err, stats) => {
+    if (!err) {
+      return handler();
+    }
+
+    console.error(err.stack || err);
+
+    if (err.details) {
+      console.error(err.details);
+    }
+  });
+
+  process.on('SIGINT', () => watcher.close(done));
+};
+
+const devServer = (config, done) => {
   const protocol = config.devServer.https ? 'https' : 'http';
   const host = config.devServer.host || 'localhost';
   const port = config.devServer.port || 5000;
@@ -46,6 +66,9 @@ module.exports = (args, done) => {
     return build(config, done);
   }
 
-  watch(config, done);
+  devServer(config, done);
 };
 
+module.exports.build = build;
+module.exports.devServer = devServer;
+module.exports.watch = watch;
