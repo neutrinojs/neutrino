@@ -31,8 +31,8 @@
       }
     },
     {
-      "command": "test",
-      "description": "Run a set of test suites",
+      "command": "test [files...]",
+      "description": "Run a set of test suites against the configured test directory or specifid files",
       "environment": "test",
       "options": {
         "-p, --preset [nameOrFile]": "Specify a configuration preset for running tests",

@@ -3,7 +3,7 @@ const toParam = require('change-case').paramCase;
 
 let proc;
 
-module.exports = (config, done) => {
+module.exports = (config, args, done) => {
   if (proc) {
     proc.kill();
   }
@@ -11,19 +11,23 @@ module.exports = (config, done) => {
   const babelLoader = config.module.loaders.find(loader => loader.loader.includes('babel'));
   const mocha = config.mocha;
 
+  if (args.files) {
+    mocha.recursive = true;
+  }
+
   process.env.NEUTRINO_BABEL_CONFIG = JSON.stringify(babelLoader ? babelLoader.query : {});
 
-  const args = Object
+  const argv = Object
     .keys(mocha)
-    .reduce((args, key) => {
+    .reduce((argv, key) => {
       const value = mocha[key];
 
       return value === true ?
-        args.concat(`--${toParam(key)}`) :
-        args.concat(`--${toParam(key)}`, mocha[key]);
+        argv.concat(`--${toParam(key)}`) :
+        argv.concat(`--${toParam(key)}`, mocha[key]);
     }, ['--require', require.resolve('./register')]);
 
-  proc = spawn('node_modules/.bin/mocha', args, {
+  proc = spawn('node_modules/.bin/mocha', args.files ? argv.concat(args.files) : argv, {
     cwd: process.cwd(),
     env: process.env,
     stdio: 'inherit'

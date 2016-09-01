@@ -19,8 +19,8 @@ const browser = (config, args, done) => {
 
 const node = (config, args, done) => {
   args.options.watch ?
-    builder.watch(config, () => mocha(config), done) :
-    builder.build(config, () => mocha(config, done));
+    builder.watch(config, () => mocha(config, args), done) :
+    builder.build(config, () => mocha(config, args, done));
 };
 
 module.exports = (args, done) => {
