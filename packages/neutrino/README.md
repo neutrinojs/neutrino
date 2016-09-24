@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="neutrino.png" height="96" />
+  <img src="neutrino.png" height="120" />
 </p>
 
 <p align="center">Create and build modern JavaScript applications with zero initial configuration and minimal fuss.</p>
@@ -25,9 +25,9 @@ situation your preset doesn't cover.
 
 ## Core Presets
 
-- [Web](https://github.com/mozilla-neutrino/neutrino-preset-web]: Build modern, generic web applications
-- [Node.js](https://github.com/mozilla-neutrino/neutrino-preset-node]: Build modern Node.js applications
-- [React](https://github.com/mozilla-neutrino/neutrino-preset-react]: Build React-based web applications
+- [Web](https://github.com/mozilla-neutrino/neutrino-preset-web): Build modern, generic web applications
+- [Node.js](https://github.com/mozilla-neutrino/neutrino-preset-node): Build modern Node.js applications
+- [React](https://github.com/mozilla-neutrino/neutrino-preset-react): Build React-based web applications
 
 ## Requirements
 
