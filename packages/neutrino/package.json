@@ -36,7 +36,11 @@
       }
     }
   ],
-  "keywords": [],
+  "keywords": [
+    "webpack",
+    "preset",
+    "build"
+  ],
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
   "dependencies": {
