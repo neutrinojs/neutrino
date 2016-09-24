@@ -7,7 +7,6 @@ const webpack = require('webpack');
 const build = (config, done) => {
   const compiler = webpack(config);
 
-
   compiler.run((err, stats) => {
     if (!err) {
       console.log(stats.toString({ colors: true }));
@@ -48,7 +47,10 @@ const devServer = (config, done) => {
   const server = new DevServer(compiler, config.devServer);
 
   process.on('SIGINT', done);
-  server.listen(port, host, () => console.log(`Listening on ${protocol}://${host}:${port}`));
+  server.listen(port, host, () => {
+    console.log(`Dev server started at ${protocol}://${host}:${port}`);
+    console.log('Waiting for initial build to finish...');
+  });
 };
 
 module.exports = (args, done) => {
@@ -61,6 +63,7 @@ module.exports = (args, done) => {
   // If we can't start a development server, just do a build,
   // which is currently the case for Node.js packages since we
   // don't have HMR implemented
+  // TODO: look into https://github.com/housinghq/warm-require
   if (!config.devServer || config.target === 'node') {
     console.log('Warning: This preset does not support watch compilation. Falling back to a one-time build.');
     return build(config, done);

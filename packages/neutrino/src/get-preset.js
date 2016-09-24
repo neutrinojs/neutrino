@@ -16,15 +16,23 @@ module.exports = (preset) => {
     preset = pkg.config.preset;
   }
 
+  const modules = [
+    preset,
+    path.join(process.cwd(), preset),
+    path.join(process.cwd(), 'node_modules', preset)
+  ];
+
   // Try requiring the preset as an absolute dependency, and if that fails
   // try requiring it as relative to the project
-  try {
-    return require(preset);
-  } catch (err) {
+  for (let i = 0; i < modules.length; i++) {
     try {
-      return require(path.join(process.cwd(), preset));
+      return require(modules[i]);
     } catch (err) {
-      return require(path.join(process.cwd(), 'node_modules', preset));
+      if (!/Cannot find module/.test(err.message)) {
+        throw err;
+      }
     }
   }
+
+  throw new Error(`Unable to locate preset \`${preset}\``);
 };
