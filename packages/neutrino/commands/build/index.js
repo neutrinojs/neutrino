@@ -9,7 +9,11 @@ const build = (config, done) => {
 
   compiler.run((err, stats) => {
     if (!err) {
-      console.log(stats.toString({ colors: true }));
+      console.log(stats.toString({
+        colors: true,
+        chunks: false,
+        children: false
+      }));
     } else {
       console.error(err.stack || err);
 
