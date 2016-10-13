@@ -4,25 +4,43 @@ const getPreset = require('../../src/get-preset');
 const DevServer = require('webpack-dev-server');
 const webpack = require('webpack');
 
+const handleErrors = (err, stats) => {
+  if (err) {
+    console.error(err.stack || err);
+
+    if (err.details) {
+      console.error(err.details);
+    }
+
+    return true;
+  }
+
+  const jsonStats = stats.toJson();
+
+  if (jsonStats.errors.length) {
+    jsonStats.errors.map(err => console.error(err));
+    return true;
+  }
+
+  return false;
+};
+
 const build = (config, done) => {
   const compiler = webpack(config);
 
   compiler.run((err, stats) => {
-    if (!err) {
-      console.log(stats.toString({
-        colors: true,
-        chunks: false,
-        children: false
-      }));
-    } else {
-      console.error(err.stack || err);
+    const failed = handleErrors(err, stats);
 
-      if (err.details) {
-        console.error(err.details);
-      }
+    if (failed) {
+      return done(1);
     }
 
-    done();
+    console.log(stats.toString({
+      colors: true,
+      chunks: false,
+      children: false
+    }));
+    done(0);
   });
 };
 
