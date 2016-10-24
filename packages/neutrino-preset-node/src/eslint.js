@@ -16,6 +16,9 @@ module.exports = {
     // enforces error handling in callbacks (node environment)
     'handle-callback-err': 'off',
 
+    // Allow console in Node.js
+    'no-console': 'off',
+
     // disallow mixing regular variable and require declarations
     'no-mixed-requires': ['off', false],
 
@@ -36,6 +39,6 @@ module.exports = {
     'no-restricted-modules': 'off',
 
     // disallow use of synchronous methods (off by default)
-    'no-sync': 'off',
+    'no-sync': 'off'
   }
 };

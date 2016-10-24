@@ -10,7 +10,11 @@ projects with a common configuration for Webpack, ESLint, Babel, and Mocha.
 Install neutrino and neutrino-preset-node as development dependencies in your project:
 
 ```sh
+# npm
 npm install --save-dev neutrino neutrino-preset-node
+
+# yarn
+yarn add neutrino neutrino-preset-node --dev
 ```
 
 Modify your package.json scripts to use the Node.js preset to build your project. Remember to also
@@ -36,7 +40,7 @@ Add your source code to `src/`, which is compiled using Babel's es2015 preset.
 
 If you would like to use testing in your project, create a `test/` directory, and write tests in
 JS files with file names ending in `_test.js`, e.g. `test/homepage_test.js` or
-`test/users/admin_test.js`. Run tests with `npm test`, which will output results to the console, and
+`test/users/admin_test.js`. Run tests with `npm test` or `yarn test`, which will output results to the console, and
 also creates test coverage to a `.coverage/` directory.
 
 # Overriding the preset
