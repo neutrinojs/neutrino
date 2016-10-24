@@ -21,7 +21,6 @@ situation your preset doesn't cover.
 
 - Preset-based Webpack building with development and production support
 - Test web projects with Karma + Mocha, and Node.js projects with Mocha
-- Scaffold out new projects with a built-in Yeoman wrapper.
 
 ## Core Presets
 
@@ -31,7 +30,8 @@ situation your preset doesn't cover.
 
 ## Requirements
 
-- Node.js v4+ and npm
+- v3 (latest): Node.js v4+ and yarn
+- v2: Node.js v4+ and npm
 
 ## Getting started
 
@@ -47,7 +47,7 @@ dependencies. In this example, we want to build a React application:
 npm install --save-dev neutrino neutrino-preset-react
 ```
 
-With neutrino and your preset in place, modify the `npm scripts` in your package.json to use
+With neutrino and your preset in place, modify the `scripts` in your package.json to use
 neutrino for building the project:
 
 ```json
@@ -64,11 +64,14 @@ By default, neutrino preset look for source code in `src/`, and tests in `test/`
 scripts to start building!
 
 ```sh
-npm start
+# Build the application in development mode
+yarn start
 
-npm test
+# Build the application and run any tests
+yarn test
 
-npm run build
+# Build the application in production mode, outputting content to build/
+yarn run build
 ```
 
 If you plan to use the same preset across all your script targets, you can add a `config` entry to
