@@ -18,7 +18,7 @@ const config = merge(preset, {
   resolveLoader: {
     root: [MODULES]
   },
-  devtool: process.env.NODE_ENV === 'production' ? null : '#eval-source-map',
+  devtool: process.env.NODE_ENV === 'production' ? 'source-map' : '#eval-source-map',
   externals: [nodeExternals({ modulesFromFile: true })],
   mocha: {
     reporter: 'spec',
@@ -34,5 +34,6 @@ if (!babelLoader.query.plugins) {
 }
 
 babelLoader.query.plugins.push(require.resolve('babel-plugin-transform-runtime'));
+babelLoader.query.plugins.push(require.resolve('babel-plugin-transform-async-to-generator'));
 
 module.exports = config;
