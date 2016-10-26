@@ -18,7 +18,7 @@ const config = merge(preset, {
   resolveLoader: {
     root: [MODULES]
   },
-  devtool: process.env.NODE_ENV === 'production' ? 'source-map' : '#eval-source-map',
+  devtool: 'source-map',
   externals: [nodeExternals({ modulesFromFile: true })],
   mocha: {
     reporter: 'spec',
