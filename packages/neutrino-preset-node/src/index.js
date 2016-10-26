@@ -9,6 +9,9 @@ const MODULES = path.join(__dirname, '../node_modules');
 
 const config = merge(preset, {
   target: 'node',
+  output: {
+    libraryTarget: 'commonjs2'
+  },
   eslint: {
     configFile: path.join(__dirname, 'eslint.js')
   },
