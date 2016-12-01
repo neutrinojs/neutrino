@@ -4,6 +4,7 @@ const merge = require('webpack-merge').smart;
 const preset = require('neutrino-preset-base');
 const nodeExternals = require('webpack-node-externals');
 const path = require('path');
+const webpack = require('webpack');
 
 const MODULES = path.join(__dirname, '../node_modules');
 
@@ -22,6 +23,9 @@ const config = merge(preset, {
     root: [MODULES]
   },
   devtool: 'source-map',
+  plugins: [
+    new webpack.BannerPlugin(`require('source-map-support').install();`, { raw: true, entryOnly: true })
+  ],
   externals: [nodeExternals({ modulesFromFile: true })],
   mocha: {
     reporter: 'spec',

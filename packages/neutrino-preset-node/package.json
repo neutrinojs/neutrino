@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-node",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "Neutrino preset for building Node.js projects",
   "main": "src/index.js",
   "keywords": [
@@ -14,6 +14,8 @@
     "babel-plugin-transform-runtime": "6.15.0",
     "babel-runtime": "6.11.6",
     "neutrino-preset-base": "2.1.0",
+    "source-map-support": "^0.4.6",
+    "webpack": "1.13.2",
     "webpack-merge": "0.15.0",
     "webpack-node-externals": "1.5.4"
   },
