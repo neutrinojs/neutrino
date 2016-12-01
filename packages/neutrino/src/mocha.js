@@ -27,7 +27,7 @@ module.exports = (config, args, done) => {
         argv.concat(`--${toParam(key)}`, mocha[key]);
     }, ['--require', require.resolve('./register')]);
 
-  proc = spawn('node_modules/.bin/mocha', args.files ? argv.concat(args.files) : argv, {
+  proc = spawn(require.resolve('mocha/bin/mocha'), args.files ? argv.concat(args.files) : argv, {
     cwd: process.cwd(),
     env: process.env,
     stdio: 'inherit'
