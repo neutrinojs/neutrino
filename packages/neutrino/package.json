@@ -8,10 +8,6 @@
   },
   "commands": [
     {
-      "command": "init <packageName>",
-      "description": "Scaffold and initialize a project based on a scaffolding package"
-    },
-    {
       "command": "start",
       "description": "Start a development server",
       "options": {
@@ -53,7 +49,6 @@
     "webpack": "1.13.2",
     "webpack-dev-server": "1.16.2",
     "webpack-hot-middleware": "2.13.0",
-    "webpack-merge": "0.15.0",
     "yeoman-environment": "1.6.5"
   }
 }
