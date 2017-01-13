@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">Create and build modern JavaScript applications with zero initial configuration and minimal fuss.</p>
-
+<p align="center"><a href="https://npmjs.org/package/neutrino"><img src="https://badge.fury.io/js/neutrino.svg"></a> <a href="https://david-dm.org/mozilla-neutrino/neutrino"><img src="https://david-dm.org/mozilla-neutrino/neutrino.svg"></a></p>
 ---
 
 Neutrino is a helper tool which lets you build web and Node.js applications with shared
