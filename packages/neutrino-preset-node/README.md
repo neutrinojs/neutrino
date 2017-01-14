@@ -1,4 +1,4 @@
-# Neutrino Node.js Preset
+# Neutrino Node.js Preset [![NPM version][npm-image]][npm-url] [![Dependency Status][daviddm-image]][daviddm-url]
 
 This [neutrino](https://github.com/mozilla-neutrino/neutrino) preset enables building Node.js
 projects with a common configuration for Webpack, ESLint, Babel, and Mocha.
@@ -87,3 +87,13 @@ You can also choose to load different presets for different targets if you so wi
   }
 }
 ```
+
+# Technology
+
+* [neutrino-preset-base](https://github.com/mozilla-neutrino/neutrino-preset-base)
+
+
+[npm-image]: https://badge.fury.io/js/neutrino-preset-node.svg
+[npm-url]: https://npmjs.org/package/neutrino-preset-node
+[daviddm-image]: https://david-dm.org/mozilla-neutrino/neutrino-preset-node.svg
+[daviddm-url]: https://david-dm.org/mozilla-neutrino/neutrino-preset-node
