@@ -5,6 +5,7 @@ const preset = require('neutrino-preset-base');
 const nodeExternals = require('webpack-node-externals');
 const path = require('path');
 const webpack = require('webpack');
+
 const MODULES = path.join(__dirname, '../node_modules');
 
 const config = merge(preset, {
