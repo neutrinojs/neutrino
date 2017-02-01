@@ -15,8 +15,8 @@
     "babel-runtime": "6.11.6",
     "neutrino-preset-base": "2.1.0",
     "source-map-support": "^0.4.6",
-    "webpack": "1.13.2",
-    "webpack-merge": "0.15.0",
+    "webpack": "2.2.0",
+    "webpack-merge": "2.4.0",
     "webpack-node-externals": "1.5.4"
   },
   "peerDependencies": {
