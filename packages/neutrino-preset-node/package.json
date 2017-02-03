@@ -14,13 +14,15 @@
     "babel-plugin-transform-async-to-generator": "6.16.0",
     "babel-plugin-transform-runtime": "6.15.0",
     "babel-runtime": "6.11.6",
-    "neutrino-preset-base": "2.1.0",
     "source-map-support": "^0.4.6",
     "webpack": "2.2.0",
     "webpack-merge": "2.4.0",
     "webpack-node-externals": "1.5.4"
   },
+  "linkDependencies": {
+    "neutrino-preset-base": "4.0.0"
+  },
   "peerDependencies": {
-    "neutrino": "^3.0.0"
+    "neutrino": "^4.0.0"
   }
 }

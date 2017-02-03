@@ -1,15 +1,23 @@
 {
   "name": "neutrino-dev",
-  "version": "1.0.0",
+  "version": "4.0.0",
   "private": true,
-  "keywords": ["neutrino"],
+  "keywords": [
+    "neutrino"
+  ],
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
   "scripts": {
-    "postinstall": "lerna clean && lerna bootstrap",
-    "link-all": "lerna exec -- yarn link"
+    "postinstall": "autolink bootstrap",
+    "clean-all": "autolink clean",
+    "link-all": "autolink link",
+    "bump:major": ".scripts/version-all major",
+    "bump:minor": ".scripts/version-all minor",
+    "bump:patch": ".scripts/version-all patch",
+    "publish-all": ".scripts/publish-all"
   },
   "devDependencies": {
-    "lerna": "2.0.0-beta.36"
+    "semver": "^5.3.0",
+    "yarn-autolink": "^1.1.0"
   }
 }

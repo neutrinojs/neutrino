@@ -26,7 +26,6 @@
     "karma-webpack": "2.0.1",
     "mocha": "3.1.2",
     "mocha-coverage-reporter": "0.0.1",
-    "neutrino-preset-base": "2.1.0",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
     "webpack": "2.2.0",
@@ -34,7 +33,10 @@
     "webpack-merge": "2.4.0",
     "worker-loader": "0.7.1"
   },
+  "linkDependencies": {
+    "neutrino-preset-base": "4.0.0"
+  },
   "peerDependencies": {
-    "neutrino": "^3.0.0"
+    "neutrino": "^4.0.0"
   }
 }
