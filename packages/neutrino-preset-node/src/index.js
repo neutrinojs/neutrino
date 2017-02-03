@@ -11,12 +11,20 @@ const MODULES = path.join(__dirname, '../node_modules');
 const config = merge(preset, {
   target: 'node',
   output: {
+    filename: '[name].js',
     libraryTarget: 'commonjs2'
   },
   resolve: {
     modules: [MODULES]
   },
+  resolveLoader: {
+    modules: [MODULES]
+  },
   devtool: 'source-map',
+  node: {
+    __filename: false,
+    __dirname: false
+  },
   plugins: [
     new webpack.LoaderOptionsPlugin({
       options: {
@@ -30,9 +38,16 @@ const config = merge(preset, {
         }
       }
     }),
-    new webpack.BannerPlugin({ banner: 'require("source-map-support").install();', raw: true, entryOnly: true })
+    new webpack.BannerPlugin({
+      banner: 'require("source-map-support").install();',
+      raw: true,
+      entryOnly: true
+    })
   ],
-  externals: [nodeExternals({ modulesFromFile: true })]
+  externals: [nodeExternals()],
+  performance: {
+    hints: false
+  }
 });
 
 const babelLoader = config.module.rules.find(r => r.use && r.use.loader && r.use.loader.includes('babel'));

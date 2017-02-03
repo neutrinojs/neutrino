@@ -29,6 +29,9 @@ const config = webpackMerge(preset, {
     modules: [MODULES],
     extensions: ['.jsx']
   },
+  resolveLoader: {
+    modules: [MODULES]
+  },
   externals: {
     'react/addons': true,
     'react/lib/ExecutionEnvironment': true,

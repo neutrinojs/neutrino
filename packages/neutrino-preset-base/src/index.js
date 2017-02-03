@@ -28,6 +28,9 @@ const config = {
     modules: [PROJECT_MODULES, BASE_MODULES],
     extensions: ['.js', '.json']
   },
+  resolveLoader: {
+    modules: [PROJECT_MODULES, BASE_MODULES]
+  },
   module: {
     rules: [
       {

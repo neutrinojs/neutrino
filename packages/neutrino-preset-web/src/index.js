@@ -75,6 +75,9 @@ const config = webpackMerge(preset, {
   resolve: {
     modules: [MODULES]
   },
+  resolveLoader: {
+    modules: [MODULES]
+  },
   module: {
     rules: [
       {
