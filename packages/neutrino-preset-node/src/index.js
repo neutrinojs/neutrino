@@ -20,9 +20,7 @@ const config = merge(preset, {
   plugins: [
     new webpack.LoaderOptionsPlugin({
       options: {
-        eslint: {
-          configFile: path.join(__dirname, 'eslint.js')
-        },
+        eslint: { configFile: path.join(__dirname, 'eslint.js') },
         emitError: true,
         failOnError: true,
         mocha: {
