@@ -1,0 +1,15 @@
+{
+  "name": "neutrino-dev",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MPL-2.0",
+  "devDependencies": {
+    "lerna": "2.0.0-beta.36"
+  }
+}
