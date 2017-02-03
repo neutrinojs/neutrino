@@ -1,12 +1,9 @@
 {
   "name": "neutrino-dev",
   "version": "1.0.0",
+  "private": true,
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
+  "keywords": ["neutrino"],
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
   "devDependencies": {
