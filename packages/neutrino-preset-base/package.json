@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-base",
-  "version": "2.1.0",
+  "version": "4.0.0",
   "description": "Neutrino base preset for shared core configuration",
   "main": "src/index.js",
   "keywords": [
@@ -9,6 +9,7 @@
   ],
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
+  "repository": "mozilla-neutrino/neutrino-dev",
   "dependencies": {
     "babel-core": "6.17.0",
     "babel-eslint": "7.0.0",

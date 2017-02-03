@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-node",
-  "version": "2.4.0",
+  "version": "4.0.0",
   "description": "Neutrino preset for building Node.js projects",
   "main": "src/index.js",
   "keywords": [
@@ -9,6 +9,7 @@
   ],
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
+  "repository": "mozilla-neutrino/neutrino-dev",
   "dependencies": {
     "babel-plugin-transform-async-to-generator": "6.16.0",
     "babel-plugin-transform-runtime": "6.15.0",
