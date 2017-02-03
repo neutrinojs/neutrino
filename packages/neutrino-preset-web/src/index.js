@@ -18,10 +18,6 @@ const CSS_LOADER = require.resolve('css-loader');
 const STYLE_LOADER = require.resolve('style-loader');
 const URL_LOADER = require.resolve('url-loader');
 const MODULES = path.join(__dirname, '../node_modules');
-const USER_CONFIG = require(path.join(CWD, 'package.json'));
-const VENDOR_LIBS = Object.keys(USER_CONFIG.dependencies);
-
-preset.entry.index.unshift(require.resolve('babel-polyfill'));
 
 /**
  * Find best fit template.
@@ -51,9 +47,6 @@ const config = webpackMerge(preset, {
     fs: 'empty',
     tls: 'empty'
   },
-  entry: {
-    vendor: VENDOR_LIBS
-  },
   output: {
     publicPath: './'
   },
@@ -63,13 +56,6 @@ const config = webpackMerge(preset, {
       template: findTemplate(),
       inject: 'body',
       xhtml: true
-    }),
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        eslint: {
-          configFile: path.join(__dirname, 'eslint.js')
-        }
-      }
     })
   ],
   resolve: {
@@ -144,6 +130,21 @@ const config = webpackMerge(preset, {
   }
 });
 
+const babelLoader = config.module.rules.find(r => r.use && r.use.loader && r.use.loader.includes('babel'));
+
+// Polyfill based on last 2 major browser versions
+babelLoader.use.options.presets[0][1].targets.browsers = ['last 2 versions'];
+
+const eslintLoader = config.module.rules.find(r => r.use && r.use.loader && r.use.loader.includes('eslint'));
+
+eslintLoader.use.options = merge(eslintLoader.use.options, {
+  globals: ['Buffer'],
+  env: {
+    browser: true,
+    commonjs: true
+  }
+});
+
 if (process.env.NODE_ENV !== 'test') {
   config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
     names: ['vendor', 'manifest'],
@@ -159,7 +160,6 @@ if (process.env.NODE_ENV === 'development') {
   config.devServer = {
     host,
     port,
-    hot: true,
     https: protocol === 'https',
     contentBase: SRC,
     // Enable history API fallback so HTML5 History API based

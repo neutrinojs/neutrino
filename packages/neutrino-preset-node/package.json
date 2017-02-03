@@ -11,12 +11,10 @@
   "license": "MPL-2.0",
   "repository": "mozilla-neutrino/neutrino-dev",
   "dependencies": {
-    "babel-plugin-transform-async-to-generator": "6.16.0",
-    "babel-plugin-transform-runtime": "6.15.0",
-    "babel-runtime": "6.11.6",
+    "babel-runtime": "^6.22.0",
     "source-map-support": "^0.4.6",
-    "webpack": "2.2.0",
-    "webpack-merge": "2.4.0",
+    "webpack": "^2.2.1",
+    "webpack-merge": "^2.6.1",
     "webpack-node-externals": "1.5.4"
   },
   "linkDependencies": {

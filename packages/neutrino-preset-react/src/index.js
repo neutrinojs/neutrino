@@ -6,8 +6,8 @@ const webpackMerge = require('webpack-merge').smart;
 const path = require('path');
 const webpack = require('webpack');
 
-const MODULES = path.join(__dirname, 'node_modules');
-const eslintLoader = preset.module.rules.find(r => r.use && r.use.includes('eslint'));
+const MODULES = path.join(__dirname, '../node_modules');
+const eslintLoader = preset.module.rules.find(r => r.use && r.use.loader && r.use.loader.includes('eslint'));
 const babelLoader = preset.module.rules.find(r => r.use && r.use.loader && r.use.loader.includes('babel'));
 
 eslintLoader.test = /\.jsx?$/;
@@ -15,16 +15,31 @@ babelLoader.test = /\.jsx?$/;
 babelLoader.use.options.presets.push(require.resolve('babel-preset-stage-0'));
 babelLoader.use.options.presets.push(require.resolve('babel-preset-react'));
 
-const config = webpackMerge(preset, {
-  plugins: [
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        eslint: {
-          configFile: path.join(__dirname, 'eslint.js')
-        }
-      }
-    })
+eslintLoader.use.options = merge(eslintLoader.use.options, {
+  plugins: ['react'],
+  extends: [
+    'plugin:react/recommended'
   ],
+  settings: {
+    pragma: 'React',
+    version: '15.0'
+  },
+  parserOptions: {
+    ecmaFeatures: {
+      experimentalObjectRestSpread: true,
+      jsx: true
+    }
+  },
+  rules: {
+    'react/prop-types': ['off'],
+
+    // specify whether double or single quotes should be used in JSX attributes
+    // http://eslint.org/docs/rules/jsx-quotes
+    'jsx-quotes': ['error', 'prefer-double']
+  }
+});
+
+const config = webpackMerge(preset, {
   resolve: {
     modules: [MODULES],
     extensions: ['.jsx']

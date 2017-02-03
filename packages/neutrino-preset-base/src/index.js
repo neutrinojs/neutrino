@@ -5,6 +5,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const webpack = require('webpack');
+const lint = require('./eslint');
 
 const CWD = process.cwd();
 const BUILD = path.join(CWD, 'build');
@@ -37,7 +38,10 @@ const config = {
         test: /\.js$/,
         include: [SRC],
         enforce: 'pre',
-        use: require.resolve('eslint-loader')
+        use: {
+          loader: require.resolve('eslint-loader'),
+          options: lint
+        }
       },
       {
         test: /\.js$/,
@@ -46,7 +50,7 @@ const config = {
           loader: require.resolve('babel-loader'),
           options: {
             presets: [
-              [require.resolve('babel-preset-es2015'), { modules: false }]
+              [require.resolve('babel-preset-env'), { modules: false, targets: {} }]
             ],
             plugins: [],
             env: {
@@ -64,7 +68,10 @@ const config = {
   }
 };
 
-const eslint = { configFile: path.join(__dirname, 'eslint.js'), emitError: true, failOnError: true };
+const eslint = {
+  emitError: true,
+  failOnError: true
+};
 
 if (process.env.NODE_ENV === 'development') {
   config.devtool = 'eval';

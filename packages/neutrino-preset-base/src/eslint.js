@@ -3,7 +3,9 @@ const eslint = {
   useEslintrc: false,
   root: true,
   plugins: ['babel', 'mocha'],
-  extends: ['eslint:recommended'],
+  extends: [
+    'eslint:recommended',
+  ],
   env: {
     es6: true
   },
@@ -18,9 +20,7 @@ const eslint = {
     }
   },
   settings: {},
-  globals: {
-    process: true
-  },
+  globals: ['process'],
   rules: {
     // enforces getter/setter pairs in objects
     'accessor-pairs': 'off',
@@ -386,8 +386,9 @@ const eslint = {
       requireReturnForObjectLiteral: false,
     }],
 
-    // handled by babel rules
-    'arrow-parens': 'off',
+    // require parens in arrow function arguments
+    // http://eslint.org/docs/rules/arrow-parens
+    'arrow-parens': ['error', 'as-needed'],
 
     // require space before/after arrow function's arrow
     // http://eslint.org/docs/rules/arrow-spacing
@@ -398,7 +399,7 @@ const eslint = {
 
     // enforce the spacing around the * in generator functions
     // http://eslint.org/docs/rules/generator-star-spacing
-    'generator-star-spacing': 'off',
+    'generator-star-spacing': ['error', { before: false, after: true }],
 
     // disallow modifying variables of class declarations
     // http://eslint.org/docs/rules/no-class-assign
@@ -452,8 +453,9 @@ const eslint = {
     // require let or const instead of var
     'no-var': 'error',
 
-    // handled by babel rules
-    'object-shorthand': 'off',
+    // require method and property shorthand syntax for object literals
+    // http://eslint.org/docs/rules/object-shorthand
+    'object-shorthand': ['error', 'always'],
 
     // suggest using arrow functions as callbacks
     'prefer-arrow-callback': ['error', {
@@ -520,8 +522,8 @@ const eslint = {
     // babel inserts `'use strict';` for us
     strict: ['error', 'never'],
 
-    // handled by babel rules
-    'array-bracket-spacing': 'off',
+    // enforce spacing inside array brackets
+    'array-bracket-spacing': ['error', 'never'],
 
     // enforce spacing inside single-line blocks
     // http://eslint.org/docs/rules/block-spacing
@@ -884,33 +886,14 @@ const eslint = {
     // disallow use of variables before they are defined
     'no-use-before-define': 'error',
 
-    // enforce the spacing around the * in generator functions
-    // http://eslint.org/docs/rules/generator-star-spacing
-    'babel/generator-star-spacing': ['error', { before: false, after: true }],
-
     // require a capital letter for constructors
     'babel/new-cap': ['error', { newIsCap: true }],
-
-    // enforce spacing inside array brackets
-    'babel/array-bracket-spacing': ['error', 'never'],
 
     // require padding inside curly braces
     'babel/object-curly-spacing': ['error', 'always'],
 
-    // require method and property shorthand syntax for object literals
-    // http://eslint.org/docs/rules/object-shorthand
-    'babel/object-shorthand': ['error', 'always'],
-
-    // require parens in arrow function arguments
-    // http://eslint.org/docs/rules/arrow-parens
-    'babel/arrow-parens': ['error', 'as-needed'],
-
     // guard against awaiting async functions inside of a loop
-    'babel/no-await-in-loop': 'error',
-
-    // forbid trailing commas for function parameter lists. Behaves like, and takes the same options
-    // as comma-dangle
-    'babel/func-params-comma-dangle': 'error'
+    'babel/no-await-in-loop': 'error'
   }
 };
 
