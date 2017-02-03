@@ -40,6 +40,7 @@ const build = (config, done) => {
       chunks: false,
       children: false
     }));
+
     done(0);
   });
 };

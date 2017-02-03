@@ -30,7 +30,7 @@ const node = (config, args, done) => {
 module.exports = (args, done) => {
   const config = getPreset(args.options.preset);
 
-  if (config.mocha) {
+  if (config.plugins.find(p => p.options && p.options.options && p.options.options.mocha)) {
     node(config, args, done);
   } else {
     browser(config, args, done);

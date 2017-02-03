@@ -8,14 +8,15 @@ module.exports = (config, args, done) => {
     proc.kill();
   }
 
-  const babelLoader = config.module.loaders.find(loader => loader.loader.includes('babel'));
-  const mocha = config.mocha;
+  const babelLoader = config.module.rules.find(r => r.use && r.use.loader && r.use.loader.includes('babel'));
+  const mochaLoader = config.plugins.find(p => p.options && p.options.options && p.options.options.mocha);
+  const mocha = mochaLoader ? mochaLoader.options.options.mocha : null;
 
   if (args.files) {
     mocha.recursive = true;
   }
 
-  process.env.NEUTRINO_BABEL_CONFIG = JSON.stringify(babelLoader ? babelLoader.query : {});
+  process.env.NEUTRINO_BABEL_CONFIG = JSON.stringify(babelLoader ? babelLoader.use.options : {});
 
   const argv = Object
     .keys(mocha)
