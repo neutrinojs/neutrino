@@ -32,7 +32,7 @@ const config = merge(preset, {
         }
       }
     }),
-    // new webpack.BannerPlugin('require("source-map-support").install();', { raw: true, entryOnly: true })
+    new webpack.BannerPlugin({ banner: 'require("source-map-support").install();', raw: true, entryOnly: true })
   ],
   externals: [nodeExternals({ modulesFromFile: true })]
 });
