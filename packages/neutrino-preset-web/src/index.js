@@ -4,9 +4,8 @@ const exists = require('exists-file');
 const webpack = require('webpack');
 const HtmlPlugin = require('html-webpack-plugin');
 const merge = require('deepmerge');
-const preset = require('neutrino-preset-base');
+const config = require('neutrino-preset-base');
 const path = require('path');
-const webpackMerge = require('webpack-merge').smart;
 
 const CWD = process.cwd();
 const SRC = path.join(CWD, 'src');
@@ -34,122 +33,116 @@ function findTemplate() {
   return PROJECT_TEMPLATE;
 }
 
-const config = webpackMerge(preset, {
-  target: 'web',
-  node: {
-    console: false,
-    global: true,
-    process: true,
-    Buffer: true,
-    __filename: 'mock',
-    __dirname: 'mock',
-    setImmediate: true,
-    fs: 'empty',
-    tls: 'empty'
-  },
-  output: {
-    publicPath: './'
-  },
-  plugins: [
-    new webpack.EnvironmentPlugin(['NODE_ENV']),
-    new HtmlPlugin({
-      template: findTemplate(),
-      inject: 'body',
-      xhtml: true
-    })
-  ],
-  resolve: {
-    modules: [MODULES]
-  },
-  resolveLoader: {
-    modules: [MODULES]
-  },
-  module: {
-    rules: [
-      {
-        test: /\.html$/,
-        use: {
-          loader: FILE_LOADER,
-          options: {
-            name: '[name].[ext]'
-          }
-        }
-      },
-      {
-        test: /\.css$/,
-        loaders: [STYLE_LOADER, CSS_LOADER]
-      },
-      {
-        test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
-        use: {
-          loader: URL_LOADER,
-          options: {
-            limit: 10000,
-            mimetype: 'application/font-woff'
-          }
-        }
-      },
-      {
-        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-        use: {
-          loader: URL_LOADER,
-          options: {
-            limit: '10000',
-            mimetype: 'application/octet-stream'
-          }
-        }
-      },
-      {
-        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        use: FILE_LOADER
-      },
-      {
-        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        use: {
-          loader: URL_LOADER,
-          options: {
-            limit: '10000',
-            mimetype: 'application/svg+xml'
-          }
-        }
-      },
-      {
-        test: /\.(png|jpg)$/,
-        use: {
-          loader: URL_LOADER,
-          options: {
-            limit: 8192
-          }
-        }
-      },
-      {
-        test: /\.ico(\?v=\d+\.\d+\.\d+)?$/,
-        use: URL_LOADER
-      }
-    ]
-  }
-});
+config.target('web');
+config.output.publicPath('./');
+config.resolve.modules.add(MODULES);
+config.resolveLoader.modules.add(MODULES);
 
-const babelLoader = config.module.rules.find(r => r.use && r.use.loader && r.use.loader.includes('babel'));
+config.node
+  .set('console', false)
+  .set('global', true)
+  .set('process', true)
+  .set('Buffer', true)
+  .set('__filename', 'mock')
+  .set('__dirname', 'mock')
+  .set('setImmediate', true)
+  .set('fs', 'empty')
+  .set('tls', 'empty');
 
-// Polyfill based on last 2 major browser versions
-babelLoader.use.options.presets[0][1].targets.browsers = ['last 2 versions'];
+config.module
+  .rule('html')
+  .test(/\.html$/)
+  .loader('file', FILE_LOADER, {
+    name: '[name].[ext]'
+  });
 
-const eslintLoader = config.module.rules.find(r => r.use && r.use.loader && r.use.loader.includes('eslint'));
+config.module
+  .rule('css')
+  .test(/\.css$/)
+  .loader('style', STYLE_LOADER)
+  .loader('css', CSS_LOADER);
 
-eslintLoader.use.options = merge(eslintLoader.use.options, {
-  globals: ['Buffer'],
-  env: {
-    browser: true,
-    commonjs: true
-  }
-});
+config.module
+  .rule('woff')
+  .test(/\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/)
+  .loader('url', URL_LOADER, {
+    limit: '10000',
+    mimetype: 'application/font-woff'
+  });
+
+config.module
+  .rule('ttf')
+  .test(/\.ttf(\?v=\d+\.\d+\.\d+)?$/)
+  .loader('url', URL_LOADER, {
+    limit: '10000',
+    mimetype: 'application/octet-stream'
+  });
+
+config.module
+  .rule('eot')
+  .test(/\.eot(\?v=\d+\.\d+\.\d+)?$/)
+  .loader('file', FILE_LOADER);
+
+config.module
+  .rule('svg')
+  .test(/\.svg(\?v=\d+\.\d+\.\d+)?$/)
+  .loader('url', URL_LOADER, {
+    limit: '10000',
+    mimetype: 'application/svg+xml'
+  });
+
+config.module
+  .rule('img')
+  .test(/\.(png|jpg)$/)
+  .loader('url', URL_LOADER, {
+    limit: 8192
+  });
+
+config.module
+  .rule('ico')
+  .test(/\.ico(\?v=\d+\.\d+\.\d+)?$/)
+  .loader('url', URL_LOADER);
+
+// modify the babel loader
+config.module
+  .rule('compile')
+  .loader('babel', ({ options }) => {
+    options.presets[0][1].targets.browsers = ['last 2 versions'];
+
+    return { options };
+  });
+
+// modify the lint loader
+config.module
+  .rule('lint')
+  .loader('eslint', ({ options }) => {
+    return {
+      options: merge(options, {
+        globals: ['Buffer'],
+        envs: ['browser', 'commonjs']
+      })
+    };
+  });
+
+config
+  .plugin('env')
+  .use(webpack.EnvironmentPlugin, ['NODE_ENV']);
+
+config
+  .plugin('html')
+  .use(HtmlPlugin, {
+    template: findTemplate(),
+    inject: 'body',
+    xhtml: true
+  });
 
 if (process.env.NODE_ENV !== 'test') {
-  config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
-    names: ['vendor', 'manifest'],
-    minChunks: Infinity
-  }));
+  config
+    .plugin('chunk')
+    .use(webpack.optimize.CommonsChunkPlugin, {
+      names: ['vendor', 'manifest'],
+      minChunks: Infinity
+    });
 }
 
 if (process.env.NODE_ENV === 'development') {
@@ -157,67 +150,82 @@ if (process.env.NODE_ENV === 'development') {
   const host = process.env.HOST || 'localhost';
   const port = parseInt(process.env.PORT) || 5000;
 
-  config.devServer = {
-    host,
-    port,
-    https: protocol === 'https',
-    contentBase: SRC,
-    // Enable history API fallback so HTML5 History API based
-    // routing works. This is a good default that will come
-    // in handy in more complicated setups.
-    historyApiFallback: true,
-    stats: {
-      colors: true,
-      chunks: false,
-      version: false,
+  config
+    .devServer
+    .host(host)
+    .port(port)
+    .https(protocol === 'https')
+    .contentBase(SRC)
+    .historyApiFallback(true)
+    .stats({
       assets: false,
-      modules: false,
       children: false,
-      source: false
-    }
-  };
+      chunks: false,
+      colors: true,
+      errors: true,
+      errorDetails: true,
+      hash: false,
+      modules: false,
+      publicPath: false,
+      timings: false,
+      version: false,
+      warnings: true
+    });
 
-  config.entry.index.push(`webpack-dev-server/client?${protocol}://${host}:${port}/`);
-  config.entry.index.push(`webpack/hot/dev-server`);
-  config.plugins.push(new webpack.HotModuleReplacementPlugin());
+  config
+    .entry('index')
+      .add(`webpack-dev-server/client?${protocol}://${host}:${port}/`)
+      .add('webpack/hot/dev-server');
+
+  config
+    .plugin('hot')
+    .use(webpack.HotModuleReplacementPlugin);
 } else if (process.env.NODE_ENV === 'production') {
-  config.plugins.push(
-    new webpack.optimize.UglifyJsPlugin({ sourceMap: false, compress: { warnings: false }}),
-    new webpack.LoaderOptionsPlugin({ minimize: true })
-  );
+  config
+    .plugin('minify')
+    .use(webpack.optimize.UglifyJsPlugin, {
+      sourceMap: false,
+      compress: { warnings: false }
+    });
+
+  config
+    .plugin('minimize')
+    .use(webpack.LoaderOptionsPlugin, { minimize: true });
 } else if (process.env.NODE_ENV === 'test') {
-  config.karma = {
-    plugins: [
-      require.resolve('karma-webpack'),
-      require.resolve('karma-chrome-launcher'),
-      require.resolve('karma-coverage'),
-      require.resolve('karma-mocha'),
-      require.resolve('karma-mocha-reporter')
-    ],
-    basePath: process.cwd(),
-    browsers: [process.env.CI ? 'ChromeCI' : 'Chrome'],
-    customLaunchers: {
-      ChromeCI: {
-        base: 'Chrome',
-        flags: ['--no-sandbox']
+  config
+    .options
+    .set('karma', {
+      plugins: [
+        require.resolve('karma-webpack'),
+        require.resolve('karma-chrome-launcher'),
+        require.resolve('karma-coverage'),
+        require.resolve('karma-mocha'),
+        require.resolve('karma-mocha-reporter')
+      ],
+      basePath: process.cwd(),
+      browsers: [process.env.CI ? 'ChromeCI' : 'Chrome'],
+      customLaunchers: {
+        ChromeCI: {
+          base: 'Chrome',
+          flags: ['--no-sandbox']
+        }
+      },
+      frameworks: ['mocha'],
+      files: ['test/**/*_test.js'],
+      preprocessors: {
+        'test/**/*_test.js': ['webpack'],
+        'src/**/*.js': ['webpack']
+      },
+      webpackMiddleware: { noInfo: true },
+      reporters: ['mocha', 'coverage'],
+      coverageReporter: {
+        dir: '.coverage',
+        reporters: [
+          { type: 'html', subdir: 'report-html' },
+          { type: 'lcov', subdir: 'report-lcov' }
+        ]
       }
-    },
-    frameworks: ['mocha'],
-    files: ['test/**/*_test.js'],
-    preprocessors: {
-      'test/**/*_test.js': ['webpack'],
-      'src/**/*.js': ['webpack']
-    },
-    webpackMiddleware: { noInfo: true },
-    reporters: ['mocha', 'coverage'],
-    coverageReporter: {
-      dir: '.coverage',
-      reporters: [
-        { type: 'html', subdir: 'report-html' },
-        { type: 'lcov', subdir: 'report-lcov' }
-      ]
-    }
-  };
+    });
 }
 
 module.exports = config;

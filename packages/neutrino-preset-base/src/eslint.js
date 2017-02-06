@@ -3,12 +3,10 @@ const eslint = {
   useEslintrc: false,
   root: true,
   plugins: ['babel', 'mocha'],
-  extends: [
-    'eslint:recommended',
-  ],
-  env: {
-    es6: true
+  baseConfig: {
+    extends: ['eslint:recommended']
   },
+  envs: ['es6'],
   parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 2017,

@@ -27,6 +27,7 @@
     "imports-loader": "^0.7.0",
     "progress-bar-webpack-plugin": "^1.9.3",
     "webpack": "^2.2.1",
+    "webpack-chain": "^1.0.0",
     "webpack-merge": "^2.6.1"
   },
   "peerDependencies": {

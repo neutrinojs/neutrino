@@ -26,11 +26,13 @@ module.exports = (preset) => {
   // try requiring it as relative to the project
   for (let i = 0; i < modules.length; i++) {
     try {
-      const config = require(modules[i]);
+      const module = require(modules[i]);
+      const core = 'toConfig' in module ? module.toConfig() : module;
+      const config = pkg.config && pkg.config.neutrino ?
+        merge(core, pkg.config.neutrino) :
+        core;
 
-      return pkg.config && pkg.config.neutrino ?
-        merge(config, pkg.config.neutrino) :
-        config;
+      return config;
     } catch (err) {
       if (!/Cannot find module/.test(err.message)) {
         throw err;

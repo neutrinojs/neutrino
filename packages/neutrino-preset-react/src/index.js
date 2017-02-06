@@ -1,62 +1,75 @@
 'use strict';
 
-const preset = require('neutrino-preset-web');
+const config = require('neutrino-preset-web');
 const merge = require('deepmerge');
-const webpackMerge = require('webpack-merge').smart;
 const path = require('path');
 const webpack = require('webpack');
 
 const MODULES = path.join(__dirname, '../node_modules');
-const eslintLoader = preset.module.rules.find(r => r.use && r.use.loader && r.use.loader.includes('eslint'));
-const babelLoader = preset.module.rules.find(r => r.use && r.use.loader && r.use.loader.includes('babel'));
 
-eslintLoader.test = /\.jsx?$/;
-babelLoader.test = /\.jsx?$/;
-babelLoader.use.options.presets.push(require.resolve('babel-preset-stage-0'));
-babelLoader.use.options.presets.push(require.resolve('babel-preset-react'));
+// modify lint rule and loader
+config.module
+  .rule('lint')
+  .test(/\.jsx?$/)
+  .loader('eslint', ({ options }) => {
+    return {
+      options: merge(options, {
+        plugins: ['react'],
+        baseConfig: {
+          extends: ['plugin:react/recommended']
+        },
+        parserOptions: {
+          ecmaFeatures: {
+            experimentalObjectRestSpread: true
+          }
+        },
+        rules: {
+          'react/prop-types': ['off'],
+          'jsx-quotes': ['error', 'prefer-double']
+        }
+      })
+    };
+  });
 
-eslintLoader.use.options = merge(eslintLoader.use.options, {
-  plugins: ['react'],
-  extends: [
-    'plugin:react/recommended'
-  ],
-  settings: {
-    pragma: 'React',
-    version: '15.0'
-  },
-  parserOptions: {
-    ecmaFeatures: {
-      experimentalObjectRestSpread: true,
-      jsx: true
+// modify babel rule and loader
+config.module
+  .rule('compile')
+  .test(/\.jsx?$/)
+  .loader('babel', ({ options }) => {
+    if (process.env.NODE_ENV === 'development') {
+      options.plugins.push(require.resolve('react-hot-loader/babel'));
     }
-  },
-  rules: {
-    'react/prop-types': ['off'],
 
-    // specify whether double or single quotes should be used in JSX attributes
-    // http://eslint.org/docs/rules/jsx-quotes
-    'jsx-quotes': ['error', 'prefer-double']
-  }
-});
+    return {
+      options: merge(options, {
+        presets: [
+          require.resolve('babel-preset-stage-0'),
+          require.resolve('babel-preset-react')
+        ]
+      })
+    };
+  });
 
-const config = webpackMerge(preset, {
-  resolve: {
-    modules: [MODULES],
-    extensions: ['.jsx']
-  },
-  resolveLoader: {
-    modules: [MODULES]
-  },
-  externals: {
+config.resolve
+  .modules
+    .add(MODULES)
+    .end()
+  .extensions
+    .add('.jsx');
+
+config.resolveLoader.modules.add(MODULES);
+
+config
+  .externals({
     'react/addons': true,
     'react/lib/ExecutionEnvironment': true,
     'react/lib/ReactContext': 'window'
-  }
-});
+  });
 
 if (process.env.NODE_ENV === 'development') {
-  config.entry.index.unshift(require.resolve('react-hot-loader/patch'));
-  babelLoader.use.options.plugins.push(require.resolve('react-hot-loader/babel'));
+  config
+    .entry('index')
+    .add(require.resolve('react-hot-loader/patch'));
 }
 
 module.exports = config;
