@@ -1,0 +1,18 @@
+{
+  "name": "webpack-chain",
+  "version": "1.0.0",
+  "main": "src/Config.js",
+  "repository": "mozilla-rpweb/webpack-chain",
+  "keywords": [
+    "webpack",
+    "config",
+    "chain",
+    "fluent",
+    "api"
+  ],
+  "files": [
+    "src"
+  ],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MIT"
+}
