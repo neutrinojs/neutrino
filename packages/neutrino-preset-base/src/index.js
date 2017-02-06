@@ -1,10 +1,12 @@
 'use strict';
 
+const Config = require('webpack-chain');
 const CleanPlugin = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const webpack = require('webpack');
+const lint = require('./eslint');
 
 const CWD = process.cwd();
 const BUILD = path.join(CWD, 'build');
@@ -13,77 +15,81 @@ const BASE_MODULES = path.join(__dirname, '../node_modules');
 const SRC = path.join(CWD, 'src');
 const TEST = path.join(CWD, 'test');
 
-const config = {
-  context: CWD,
-  entry: {
-    index: [path.join(SRC, 'index.js')]
-  },
-  output: {
-    path: BUILD,
-    filename: '[name].bundle.js',
-    chunkFilename: '[id].[chunkhash].js'
-  },
-  plugins: [],
-  resolve: {
-    modules: [PROJECT_MODULES, BASE_MODULES],
-    extensions: ['.js', '.json']
-  },
-  resolveLoader: {
-    modules: [PROJECT_MODULES, BASE_MODULES]
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        include: [SRC],
-        enforce: 'pre',
-        use: require.resolve('eslint-loader')
-      },
-      {
-        test: /\.js$/,
-        include: [SRC, TEST],
-        use: {
-          loader: require.resolve('babel-loader'),
-          options: {
-            presets: [
-              [require.resolve('babel-preset-es2015'), { modules: false }]
-            ],
-            plugins: [],
-            env: {
-              test: {
-                plugins: [
-                  // FIXME: This currently breaks the coverage
-                  //[require.resolve('babel-plugin-istanbul'), { exclude: ['test/**/*'] }]
-                ]
-              }
-            }
+const config = new Config();
+
+config
+  .context(CWD)
+  .entry('index')
+    .add(path.join(SRC, 'index.js'))
+    .end()
+  .output
+    .path(path.join(process.cwd(), 'build'))
+    .filename('[name].bundle.js')
+    .chunkFilename('[id].[chunkhash].js')
+    .end()
+  .resolve
+    .modules
+      .add(PROJECT_MODULES)
+      .add(BASE_MODULES)
+      .end()
+    .extensions
+      .add('.js')
+      .add('json')
+      .end()
+    .end()
+  .resolveLoader
+    .modules
+      .add(PROJECT_MODULES)
+      .add(BASE_MODULES);
+
+config
+  .module
+    .rule('lint')
+      .test(/\.js$/)
+      .pre()
+      .include(SRC)
+      .loader('eslint', require.resolve('eslint-loader'), Object.assign({
+        failOnError: process.env.NODE_ENV !== 'development',
+        emitWarning: process.env.NODE_ENV !== 'development',
+        emitError: process.env.NODE_ENV !== 'development'
+      }, lint));
+
+config
+  .module
+    .rule('compile')
+      .test(/\.js$/)
+      .include(SRC, TEST)
+      .loader('babel', require.resolve('babel-loader'), {
+        presets: [
+          [require.resolve('babel-preset-env'), { modules: false, targets: {} }]
+        ],
+        plugins: [],
+        env: {
+          test: {
+            plugins: [
+              // FIXME: This currently breaks the coverage
+              //[require.resolve('babel-plugin-istanbul'), { exclude: ['test/**/*'] }]
+            ]
           }
         }
-      }
-    ]
-  }
-};
-
-const eslint = { configFile: path.join(__dirname, 'eslint.js'), emitError: true, failOnError: true };
+      });
 
 if (process.env.NODE_ENV === 'development') {
-  config.devtool = 'eval';
-  eslint.failOnError = false;
-  eslint.emitWarning = false;
-  eslint.emitError = false;
+  config.devtool('eval');
 } else {
-  // Copy all files except JS files, since they will be Babel-compiled to the output directory.
-  // This only needs to be done in production since in development assets should be served from the
-  // webpack-development-server via the source directory.
-  config.plugins.push(
-    new CopyPlugin([{ context: SRC, from: `**/*` }], { ignore: ['*.js*'] }),
-    new ProgressBarPlugin(),
-    new CleanPlugin([BUILD], { root: CWD })
-  );
+  config.output.filename('[name].[chunkhash].bundle.js');
 
-  config.output.filename = '[name].[chunkhash].bundle.js';
+  config
+    .plugin('copy')
+    .use(CopyPlugin, [{ context: SRC, from: `**/*` }], { ignore: ['*.js*'] });
+
+  config
+    .plugin('progress')
+    .use(ProgressBarPlugin);
+
+  config
+    .plugin('clean')
+    .use(CleanPlugin, [BUILD], { root: CWD });
 }
-
-config.plugins.push(new webpack.LoaderOptionsPlugin({ options: { eslint }}));
 
 module.exports = config;
