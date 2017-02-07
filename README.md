@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/mozilla-neutrino/neutrino-dev/raw/master/logo.png" height="100" />
+  <img src="https://raw.githubusercontent.com/mozilla-neutrino/neutrino-dev/master/logo.png" height="100" />
 </p>
 
 <p align="center">Create and build modern JavaScript applications with zero initial configuration.</p>
