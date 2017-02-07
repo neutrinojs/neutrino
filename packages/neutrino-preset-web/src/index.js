@@ -3,35 +3,19 @@
 const exists = require('exists-file');
 const webpack = require('webpack');
 const HtmlPlugin = require('html-webpack-plugin');
+const htmlTemplate = require('html-webpack-template');
 const merge = require('deepmerge');
 const config = require('neutrino-preset-base');
 const path = require('path');
 
 const CWD = process.cwd();
 const SRC = path.join(CWD, 'src');
-const PRESET_TEMPLATE_EJS = path.join(__dirname, 'template.ejs');
-const PRESET_TEMPLATE_INDEX = path.join(__dirname, 'index.html');
-const PROJECT_TEMPLATE = path.join(SRC, 'template.ejs');
+const PKG = require(path.join(CWD, 'package.json'));
 const FILE_LOADER = require.resolve('file-loader');
 const CSS_LOADER = require.resolve('css-loader');
 const STYLE_LOADER = require.resolve('style-loader');
 const URL_LOADER = require.resolve('url-loader');
 const MODULES = path.join(__dirname, '../node_modules');
-
-/**
- * Find best fit template.
- *
- * return preset template.ejs when no template found in project folder
- */
-function findTemplate() {
-  if (exists.sync(PRESET_TEMPLATE_EJS)) {
-    return PRESET_TEMPLATE_EJS;
-  } else if (exists.sync(PRESET_TEMPLATE_INDEX)) {
-    return PRESET_TEMPLATE_INDEX;
-  }
-
-  return PROJECT_TEMPLATE;
-}
 
 config.target('web');
 config.output.publicPath('./');
@@ -130,11 +114,19 @@ config
 
 config
   .plugin('html')
-  .use(HtmlPlugin, {
-    template: findTemplate(),
-    inject: 'body',
-    xhtml: true
-  });
+  .use(HtmlPlugin, merge({
+    inject: false,
+    template: htmlTemplate,
+    appMountId: 'root',
+    xhtml: true,
+    mobile: true,
+    minify: {
+      useShortDoctype: true,
+      keepClosingSlash: true,
+      collapseWhitespace: true,
+      preserveLineBreaks: true,
+    }
+  }, PKG.config && PKG.config.html ? PKG.config.html : {}));
 
 if (process.env.NODE_ENV !== 'test') {
   config
