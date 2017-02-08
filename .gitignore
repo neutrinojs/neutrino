@@ -43,3 +43,6 @@ jspm_packages
 
 # Webstorm project metadata
 .idea
+
+# Gitbook docs
+_book

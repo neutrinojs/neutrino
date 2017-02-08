@@ -9,7 +9,7 @@
   "commands": [
     {
       "command": "start",
-      "description": "Start a development server",
+      "description": "Build the project in development mode",
       "options": {
         "-p, --preset [nameOrFile]": "Specify a configuration preset for running the development server"
       }
@@ -24,7 +24,7 @@
     },
     {
       "command": "test [files...]",
-      "description": "Run a set of test suites against the configured test directory or specifid files",
+      "description": "Run a set of test suites against the configured test directory or specific files",
       "environment": "test",
       "options": {
         "-p, --preset [nameOrFile]": "Specify a configuration preset for running tests",
