@@ -1,4 +1,4 @@
-# <a href="http://neutrino.js.org"><img src="https://raw.githubusercontent.com/mozilla-neutrino/neutrino-dev/master/logo.png" height="60"></a>
+<h1><p align="center"><a href="http://neutrino.js.org"><img src="https://raw.githubusercontent.com/mozilla-neutrino/neutrino-dev/master/docs/assets/logo.png" height="150"></a></p></h1>
 
 ### Create and build modern JavaScript applications with zero initial configuration
 #### Think: Webpack, but with presets. That's Neutrino.
