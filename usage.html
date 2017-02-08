@@ -1,0 +1,422 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Usage · Neutrino</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="presets/" />
+    
+    
+    <link rel="prev" href="installation.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="installation.html">
+            
+                <a href="installation.html">
+            
+                    
+                    Installation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3" data-path="usage.html">
+            
+                <a href="usage.html">
+            
+                    
+                    Usage
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="presets/">
+            
+                <a href="presets/">
+            
+                    
+                    Presets
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="presets/neutrino-preset-web/">
+            
+                <a href="presets/neutrino-preset-web/">
+            
+                    
+                    Web Preset
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="presets/neutrino-preset-react/">
+            
+                <a href="presets/neutrino-preset-react/">
+            
+                    
+                    React Preset
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="presets/neutrino-preset-node/">
+            
+                <a href="presets/neutrino-preset-node/">
+            
+                    
+                    Node.js Preset
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="presets/neutrino-preset-base/">
+            
+                <a href="presets/neutrino-preset-base/">
+            
+                    
+                    Base Preset
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="presets/overriding-a-preset.md">
+            
+                <span>
+            
+                    
+                    Overriding a preset
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="presets/creating-a-preset.md">
+            
+                <span>
+            
+                    
+                    Creating a preset
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Usage</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="usage">Usage</h1>
+<p>Neutrino is a command-line tool that wraps Webpack in order to support building JavaScript projects
+based on shared configuration presets. You can use Neutrino within your project, preferably using
+scripts defined in your project&apos;s <code>package.json</code>.</p>
+<h2 id="setup">Setup</h2>
+<p>After completing the <a href="installation.html">installation</a> of Neutrino and your Neutrino preset, you will
+want to define some scripts in your project&apos;s <code>package.json</code> in order to simply build your project.
+In a typical project:</p>
+<ul>
+<li><code>scripts.start</code> would be the command you wish to run during development</li>
+<li><code>scripts.build</code> would be the command you wish to run to create a production bundle</li>
+<li><code>scripts.test</code> would be the command you wish to run to execute tests</li>
+</ul>
+<p>Using these script targets may not be suitable for every project; know that they are just
+typical recommendations for script target names, you may choose a different name if necessary
+for your project.</p>
+<h2 id="building-for-development">Building for development</h2>
+<p>Neutrino provides the command <code>neutrino start</code> for creating a bundle during development. Using
+<code>neutrino start</code> sets the Node.js environment to <code>development</code> using the <code>NODE_ENV</code> environment variable,
+which is available in your project source code. Depending on the preset you are using, <code>neutrino start</code>
+may also spin up a development server with hot module reloading capabilities.
+Check your preset for details.</p>
+<p>Usage:</p>
+<pre class="language-"><code class="lang-bash"><span class="token comment" spellcheck="true"># PRESET_MODULE is the name of the preset to build with, e.g. neutrino-preset-react</span>
+neutrino start --preset PRESET_MODULE
+</code></pre>
+<p>Putting this into your <code>package.json</code> will allow you to build your project using either
+<code>yarn start</code> or <code>npm start</code>. Using <code>neutrino-preset-react</code> as an example:</p>
+<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
+  <span class="token property">&quot;scripts&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;start&quot;</span><span class="token operator">:</span> <span class="token string">&quot;neutrino start --preset neutrino-preset-react&quot;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="building-for-production">Building for production</h2>
+<p>Neutrino provides the command <code>neutrino build</code> for creating a bundle for production deployment.
+Using <code>neutrino build</code> sets the Node.js environment to <code>production</code> using the <code>NODE_ENV</code> environment variable,
+which is available in your project source code.</p>
+<pre class="language-"><code class="lang-bash"><span class="token comment" spellcheck="true"># PRESET_MODULE is the name of the preset to build with, e.g. neutrino-preset-react</span>
+neutrino build --preset PRESET_MODULE
+</code></pre>
+<p>Putting this into your <code>package.json</code> will allow you to build your project using either
+<code>yarn start</code> or <code>npm start</code>. Using <code>neutrino-preset-react</code> as an example:</p>
+<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
+  <span class="token property">&quot;scripts&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;start&quot;</span><span class="token operator">:</span> <span class="token string">&quot;neutrino build --preset neutrino-preset-react&quot;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="building-and-running-tests">Building and running tests</h2>
+<p>Neutrino provides the command <code>neutrino test</code> for creating a production bundle for use in executing tests.
+Using <code>neutrino test</code> sets the Node.js environment variable to <code>test</code> using the <code>NODE_ENV</code> environment
+variable, which is available in your project source code.</p>
+<h2 id="default-project-layout">Default project layout</h2>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="installation.html" class="navigation navigation-prev " aria-label="Previous page: Installation">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="presets/" class="navigation navigation-next " aria-label="Next page: Presets">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Usage","level":"1.3","depth":1,"next":{"title":"Presets","level":"1.4","depth":1,"path":"presets/README.md","ref":"presets/README.md","articles":[{"title":"Web Preset","level":"1.4.1","depth":2,"path":"presets/neutrino-preset-web/README.md","ref":"presets/neutrino-preset-web/README.md","articles":[]},{"title":"React Preset","level":"1.4.2","depth":2,"path":"presets/neutrino-preset-react/README.md","ref":"presets/neutrino-preset-react/README.md","articles":[]},{"title":"Node.js Preset","level":"1.4.3","depth":2,"path":"presets/neutrino-preset-node/README.md","ref":"presets/neutrino-preset-node/README.md","articles":[]},{"title":"Base Preset","level":"1.4.4","depth":2,"path":"presets/neutrino-preset-base/README.md","ref":"presets/neutrino-preset-base/README.md","articles":[]},{"title":"Overriding a preset","level":"1.4.5","depth":2,"path":"presets/overriding-a-preset.md","ref":"presets/overriding-a-preset.md","articles":[]},{"title":"Creating a preset","level":"1.4.6","depth":2,"path":"presets/creating-a-preset.md","ref":"presets/creating-a-preset.md","articles":[]}]},"previous":{"title":"Installation","level":"1.2","depth":1,"path":"installation.md","ref":"installation.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"usage.md","mtime":"2017-02-08T17:00:13.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-08T22:51:54.254Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/3.1.1/anchor.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-anchorjs/anchor-style.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

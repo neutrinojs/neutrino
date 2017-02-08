@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Introduction · Neutrino</title>
+        <title>Installation · Neutrino</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -57,8 +57,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="installation.html" />
+    <link rel="next" href="usage.html" />
     
+    
+    <link rel="prev" href="./" />
     
 
     </head>
@@ -87,7 +89,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -100,7 +102,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2" data-path="installation.html">
+        <li class="chapter active" data-level="1.2" data-path="installation.html">
             
                 <a href="installation.html">
             
@@ -253,7 +255,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Introduction</a>
+        <a href="." >Installation</a>
     </h1>
 </div>
 
@@ -268,14 +270,27 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id=""><p align="center"><a href="http://neutrino.js.org" target="_blank"><img src="https://raw.githubusercontent.com/mozilla-neutrino/neutrino-dev/master/docs/assets/logo.png" height="150"></a></p></h1>
-
-<h3 id="create-and-build-modern-javascript-applications-with-zero-initial-configuration">Create and build modern JavaScript applications with zero initial configuration</h3>
-<h4 id="think-webpack-but-with-presets-thats-neutrino">Think: Webpack, but with presets. That&apos;s Neutrino.</h4>
-<hr>
-<p>Neutrino is a companion tool which lets you build web and Node.js applications with shared presets or configurations. It intends to make the process of initializing and building projects much simpler by providing minimal development dependencies. </p>
-<p>Neutrino uses Webpack to build both web and Node.js projects by providing complete build presets which can be shared across targets and projects. You can use Neutrino base presets to get started building a variety of projects, create your
-own presets by extending the Neutrino core ones to be shared across your own projects or even by the community. Presets can even be manipulated on a project-by-project basis to handle almost any build situation your preset doesn&apos;t cover.</p>
+                                <h1 id="installing-neutrino">Installing Neutrino</h1>
+<p>Installing Neutrino requires Node.js v6+, and either <a href="https://yarnpkg.com/lang/en/docs/install/" target="_blank">Yarn</a> or
+npm. At a minimum you will be installing Neutrino and a Neutrino preset, such as <code>neutrino-preset-react</code>.</p>
+<h3 id="yarn-installation">Yarn Installation</h3>
+<p>Run the following command inside your project directory. Substitute <code>PRESET_PKG</code> with the name of the preset
+you wish to install.</p>
+<pre class="language-"><code class="lang-bash">yarn add --dev neutrino PRESET_PKG
+</code></pre>
+<p>For example, if you wanted to build your project using Neutrino&apos;s React preset:</p>
+<pre class="language-"><code class="lang-bash">yarn add --dev neutrino neutrino-preset-react
+</code></pre>
+<h3 id="npm-installation">npm Installation</h3>
+<p>Run the following command inside your project directory. Substitute <code>PRESET_PKG</code> with the name of the preset
+you wish to install.</p>
+<pre class="language-"><code class="lang-bash">npm <span class="token function">install</span> --save-dev neutrino PRESET_PKG
+</code></pre>
+<p>For example, if you wanted to build your project using Neutrino&apos;s React preset:</p>
+<pre class="language-"><code class="lang-bash">npm <span class="token function">install</span> --save-dev neutrino neutrino-preset-react
+</code></pre>
+<h3 id="getting-started">Getting started</h3>
+<p>Please continue through the documentation for instructions on Neutrino usage and default project layout.</p>
 
                                 
                                 </section>
@@ -303,8 +318,12 @@ own presets by extending the Neutrino core ones to be shared across your own pro
 
             
                 
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Introduction">
+                    <i class="fa fa-angle-left"></i>
+                </a>
                 
-                <a href="installation.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Installation">
+                
+                <a href="usage.html" class="navigation navigation-next " aria-label="Next page: Usage">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -315,7 +334,7 @@ own presets by extending the Neutrino core ones to be shared across your own pro
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"Installation","level":"1.2","depth":1,"path":"installation.md","ref":"installation.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"README.md","mtime":"2017-02-08T22:51:05.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-08T22:51:54.254Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Installation","level":"1.2","depth":1,"next":{"title":"Usage","level":"1.3","depth":1,"path":"usage.md","ref":"usage.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"installation.md","mtime":"2017-02-08T17:00:13.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-08T22:51:54.254Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
