@@ -57,7 +57,7 @@ module.exports = class {
 
   toConfig() {
     const entries = this.entries.entries();
-    const config = Object.assign(this.options.entries(), {
+    const config = Object.assign({}, this.options.entries(), {
       node: this.node.entries(),
       output: this.output.entries(),
       resolve: this.resolve.toConfig(),
@@ -65,7 +65,7 @@ module.exports = class {
       devServer: this.devServer.entries(),
       plugins: this.plugins.values().map(value => value.init(value.plugin, value.args)),
       module: this.module.toConfig(),
-      entry: Object
+      entry: entries && Object
         .keys(entries)
         .reduce((acc, key) => {
           acc[key] = entries[key].values();
