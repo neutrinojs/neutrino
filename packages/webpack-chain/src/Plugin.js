@@ -17,9 +17,11 @@ module.exports = class extends Chainable {
   use(plugin, ...args) {
     this.plugin = plugin;
     this.args = args;
+    return this;
   }
 
   inject(handler) {
     this.init = handler;
+    return this;
   }
 };

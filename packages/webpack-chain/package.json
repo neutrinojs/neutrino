@@ -1,6 +1,6 @@
 {
   "name": "webpack-chain",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "src/Config.js",
   "repository": "mozilla-rpweb/webpack-chain",
   "keywords": [
