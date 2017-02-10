@@ -1,0 +1,29 @@
+{
+  "name": "neutrino-preset-karma",
+  "version": "4.0.0",
+  "description": "Neutrino preset for testing Neutrino projects with Karma",
+  "main": "src/index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-preset",
+    "mocha"
+  ],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MPL-2.0",
+  "repository": "mozilla-neutrino/neutrino-dev",
+  "peerDependencies": {
+    "neutrino": "^4.0.0"
+  },
+  "dependencies": {
+    "karma": "^1.4.1",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.1.1",
+    "karma-mocha": "^1.3.0",
+    "karma-mocha-reporter": "^2.2.2",
+    "karma-webpack": "^2.0.2",
+    "mocha": "^3.2.0",
+    "mocha-coverage-reporter": "^0.0.1",
+    "webpack": "^2.2.1",
+    "webpack-dev-middleware": "^1.10.0"
+  }
+}

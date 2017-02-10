@@ -11,15 +11,15 @@
   "license": "MPL-2.0",
   "repository": "mozilla-neutrino/neutrino-dev",
   "dependencies": {
-    "babel-runtime": "^6.22.0",
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-env": "^1.1.8",
     "deepmerge": "^1.3.2",
+    "neutrino-preset-base": "4.0.0",
     "source-map-support": "^0.4.6",
     "webpack": "^2.2.1",
     "webpack-merge": "^2.6.1",
     "webpack-node-externals": "1.5.4"
-  },
-  "linkDependencies": {
-    "neutrino-preset-base": "4.0.0"
   },
   "peerDependencies": {
     "neutrino": "^4.0.0"

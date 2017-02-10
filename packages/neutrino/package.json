@@ -2,36 +2,10 @@
   "name": "neutrino",
   "version": "4.0.0",
   "description": "Create and build JS applications with managed configurations",
-  "main": "bin/neutrino",
+  "main": "src/neutrino.js",
   "bin": {
     "neutrino": "./bin/neutrino"
   },
-  "commands": [
-    {
-      "command": "start",
-      "description": "Build the project in development mode",
-      "options": {
-        "-p, --preset [nameOrFile]": "Specify a configuration preset for running the development server"
-      }
-    },
-    {
-      "command": "build",
-      "description": "Compile the source directory to a built project",
-      "environment": "production",
-      "options": {
-        "-p, --preset [nameOrFile]": "Specify a configuration preset for building the source"
-      }
-    },
-    {
-      "command": "test [files...]",
-      "description": "Run a set of test suites against the configured test directory or specific files",
-      "environment": "test",
-      "options": {
-        "-p, --preset [nameOrFile]": "Specify a configuration preset for running tests",
-        "--watch": "Watch source directory for changes and re-run tests"
-      }
-    }
-  ],
   "keywords": [
     "webpack",
     "preset",
@@ -41,16 +15,9 @@
   "license": "MPL-2.0",
   "repository": "mozilla-neutrino/neutrino-dev",
   "dependencies": {
-    "babel-register": "6.22.0",
-    "change-case": "^3.0.1",
-    "karma": "^1.4.1",
-    "mocha": "^3.2.0",
-    "resolve": "^1.2.0",
-    "vorpal": "1.4.1",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0",
-    "webpack-hot-middleware": "^2.16.1",
     "webpack-merge": "^2.6.1",
-    "yeoman-environment": "^1.6.6"
+    "yargs": "^6.6.0"
   }
 }
