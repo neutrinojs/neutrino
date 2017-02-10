@@ -55,7 +55,7 @@ module.exports = class extends ChainedMap {
   }
 
   toConfig() {
-    const rule = this.entries();
+    const rule = this.entries() || {};
 
     if (this._include.size) {
       rule.include = [...this._include];
