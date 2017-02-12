@@ -1,4 +1,4 @@
-# Neutrino Web Preset
+# Neutrino Web Preset [![NPM version][npm-image]][npm-url] [![Dependency Status][daviddm-image]][daviddm-url]
 
 This [neutrino](https://github.com/mozilla-neutrino/neutrino) preset enables building generic web
 applications with a common configuration for Webpack, ESLint, Babel, Karma+Mocha, along with a
@@ -94,3 +94,15 @@ You can also choose to load different presets for different targets if you so wi
 By default, HTML files are built using the template located in `src/template.ejs` in this repo. If
 you wish to use a custom template or if the default just doesn't suit your needs, you can create a
 `template.ejs` file in your `src/` directory, and this preset will pick it up automatically.
+
+# Technology
+
+* [neutrino-preset-base](https://www.npmjs.com/package/neutrino-preset-base)
+* [html-webpack-plugin](https://www.npmjs.com/package/html-webpack-plugin) simplifies creation of HTML files to serve webpack bundles
+* [webpack-dev-server](https://www.npmjs.com/package/webpack-dev-server) Serves a webpack app. Updates the browser on changes
+* [Karma](https://www.npmjs.com/package/karma) Test Runner for JavaScript
+
+[npm-image]: https://badge.fury.io/js/neutrino-preset-web.svg
+[npm-url]: https://npmjs.org/package/neutrino-preset-web
+[daviddm-image]: https://david-dm.org/mozilla-neutrino/neutrino-preset-web.svg
+[daviddm-url]: https://david-dm.org/mozilla-neutrino/neutrino-preset-web

@@ -1,4 +1,4 @@
-# Neutrino React Preset
+# Neutrino React Preset [![NPM version][npm-image]][npm-url] [![Dependency Status][daviddm-image]][daviddm-url]
 
 This [neutrino](https://github.com/mozilla-neutrino/neutrino) preset enables building JSX-supported
 React-based web applications with a common configuration for Webpack, ESLint, Babel, Karma+Mocha,
@@ -94,3 +94,17 @@ You can also choose to load different presets for different targets if you so wi
 By default, HTML files are built using the `template.ejs` from the [neutrino-preset-web preset](https://github.com/mozilla-neutrino/neutrino-preset-web).
 If you wish to use a custom template or if the default just doesn't suit your needs, you can create
 a `template.ejs` file in your `src/` directory, and it will be picked up automatically.
+
+
+# Technology
+
+* [neutrino-preset-base](https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/neutrino-preset-base)
+* [neutrino-preset-web](https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/neutrino-preset-web)
+* babel-preset-react
+* eslint-plugin-react
+* react-hot-loader
+
+[npm-image]: https://badge.fury.io/js/neutrino-preset-react.svg
+[npm-url]: https://npmjs.org/package/neutrino-preset-react
+[daviddm-image]: https://david-dm.org/mozilla-neutrino/neutrino-preset-react.svg
+[daviddm-url]: https://david-dm.org/mozilla-neutrino/neutrino-preset-react
