@@ -11,6 +11,11 @@ module.exports = class extends Chainable {
     return this;
   }
 
+  prepend(value) {
+    this.collection = new Set([value, ...this.collection]);
+    return this;
+  }
+
   clear() {
     this.collection.clear();
     return this;
