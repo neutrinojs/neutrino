@@ -754,6 +754,21 @@ config.devServer.historyApiFallback({
 
 ---
 
+```js
+// hotEnabled: Boolean
+devServer.hot(hotEnabled)
+```
+
+Enable webpack's Hot Module Replacement feature.
+<sup>[devServer hot docs](https://webpack.js.org/configuration/dev-server/#devserver-hot)</sup>
+
+Example:
+
+```js
+config.devServer.hot(true);
+```
+
+---
 
 ```js
 // stats: String | Object

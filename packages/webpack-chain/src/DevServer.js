@@ -21,6 +21,10 @@ module.exports = class extends ChainedMap {
     return this.set('historyApiFallback', useHistoryApiFallback);
   }
 
+  hot(hot) {
+    return this.set('hot', hot);
+  }
+
   stats(stats) {
     return this.set('stats',  stats);
   }
