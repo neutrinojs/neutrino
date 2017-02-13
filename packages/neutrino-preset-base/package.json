@@ -23,7 +23,7 @@
     "imports-loader": "^0.7.0",
     "progress-bar-webpack-plugin": "^1.9.3",
     "webpack": "^2.2.1",
-    "webpack-chain": "^1.1.0"
+    "webpack-chain": "^1.2.0"
   },
   "peerDependencies": {
     "neutrino": "^4.0.0"

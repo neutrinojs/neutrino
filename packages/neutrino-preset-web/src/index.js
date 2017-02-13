@@ -175,6 +175,7 @@ module.exports = neutrino => {
         .https(protocol === 'https')
         .contentBase(SRC)
         .historyApiFallback(true)
+        .hot(true)
         .stats({
           assets: false,
           children: false,

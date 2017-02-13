@@ -8,7 +8,9 @@
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
   "scripts": {
-    "bootstrap": "oao bootstrap",
+    "fix-line-endings": "find packages -name package.json | xargs sed -i '' -e '$a\\'",
+    "bootstrap": "oao bootstrap && yarn fix-line-endings",
+    "clear-deps": "rm -rf packages/**/node_modules",
     "docs:build": "gitbook build",
     "docs:deploy": "npm run docs:build && gh-pages --dist _book --remote upstream",
     "docs:serve": "gitbook serve"

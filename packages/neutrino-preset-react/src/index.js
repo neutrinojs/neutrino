@@ -7,8 +7,6 @@ const webpack = require('webpack');
 
 const MODULES = path.join(__dirname, '../node_modules');
 
-
-
 module.exports = neutrino => {
   return neutrino.extend(web, config => {
     // modify lint rule and loader
