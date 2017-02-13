@@ -3,11 +3,11 @@ const EventEmitter = require('events').EventEmitter;
 const merge = require('webpack-merge').smart;
 const DevServer = require('webpack-dev-server');
 const webpack = require('webpack');
+const ora = require('ora');
 
 const cwd = process.cwd();
-const noop = Function.prototype;
 
-module.exports = class Neutrino extends EventEmitter {
+class Neutrino extends EventEmitter {
   constructor(presets) {
     super();
     this.configs = [];
@@ -134,19 +134,26 @@ module.exports = class Neutrino extends EventEmitter {
 
   _devServer() {
     return new Promise(resolve => {
+      const starting = ora('Starting development server').start();
       const config = this.getConfig();
       const protocol = config.devServer.https ? 'https' : 'http';
       const host = config.devServer.host || 'localhost';
       const port = config.devServer.port || 5000;
 
+      config.devServer.noInfo = true;
+
       const compiler = webpack(config);
       const server = new DevServer(compiler, config.devServer);
+      const building = ora('Waiting for initial build to finish').start();
 
       process.on('SIGINT', resolve);
-
       server.listen(port, host, () => {
-        console.log(`Dev server started at ${protocol}://${host}:${port}`);
-        console.log('Waiting for initial build to finish...');
+        starting.succeed(`Development server running on: ${protocol}://${host}:${port}`);
+        compiler.plugin('compile', () => {
+          building.text = 'Source changed, re-compiling';
+          building.start();
+        });
+        compiler.plugin('done', () => building.succeed('Build completed'));
       });
     });
   }
@@ -160,4 +167,6 @@ module.exports = class Neutrino extends EventEmitter {
   extend(source, extender) {
     return extender(source(this));
   }
-};
+}
+
+module.exports = Neutrino;
