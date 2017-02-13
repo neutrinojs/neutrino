@@ -13,83 +13,64 @@ const BUILD = path.join(CWD, 'build');
 const PROJECT_MODULES = path.join(CWD, 'node_modules');
 const BASE_MODULES = path.join(__dirname, '../node_modules');
 const SRC = path.join(CWD, 'src');
-const TEST = path.join(CWD, 'test');
 
-const config = new Config();
+module.exports = () => {
+  const config = new Config();
 
-config
-  .context(CWD)
-  .entry('index')
-    .add(path.join(SRC, 'index.js'))
-    .end()
-  .output
-    .path(path.join(process.cwd(), 'build'))
-    .filename('[name].bundle.js')
-    .chunkFilename('[id].[chunkhash].js')
-    .end()
-  .resolve
-    .modules
-      .add(PROJECT_MODULES)
-      .add(BASE_MODULES)
+  config
+    .context(CWD)
+    .entry('index')
+      .add(path.join(SRC, 'index.js'))
       .end()
-    .extensions
-      .add('.js')
-      .add('json')
+    .output
+      .path(path.join(process.cwd(), 'build'))
+      .filename('[name].bundle.js')
+      .chunkFilename('[id].[chunkhash].js')
       .end()
-    .end()
-  .resolveLoader
-    .modules
-      .add(PROJECT_MODULES)
-      .add(BASE_MODULES);
-
-config
-  .module
-    .rule('lint')
-      .test(/\.js$/)
-      .pre()
-      .include(SRC)
-      .loader('eslint', require.resolve('eslint-loader'), Object.assign({
-        failOnError: process.env.NODE_ENV !== 'development',
-        emitWarning: process.env.NODE_ENV !== 'development',
-        emitError: process.env.NODE_ENV !== 'development'
-      }, lint));
-
-config
-  .module
-    .rule('compile')
-      .test(/\.js$/)
-      .include(SRC, TEST)
-      .loader('babel', require.resolve('babel-loader'), {
-        presets: [
-          [require.resolve('babel-preset-env'), { modules: false, targets: {} }]
-        ],
-        plugins: [],
-        env: {
-          test: {
-            plugins: [
-              // FIXME: This currently breaks the coverage
-              //[require.resolve('babel-plugin-istanbul'), { exclude: ['test/**/*'] }]
-            ]
-          }
-        }
-      });
-
-if (process.env.NODE_ENV === 'development') {
-  config.devtool('eval');
-} else {
-  config.output.filename('[name].[chunkhash].bundle.js');
+    .resolve
+      .modules
+        .add(PROJECT_MODULES)
+        .add(BASE_MODULES)
+        .end()
+      .extensions
+        .add('.js')
+        .add('json')
+        .end()
+      .end()
+    .resolveLoader
+      .modules
+        .add(PROJECT_MODULES)
+        .add(BASE_MODULES);
 
   config
-    .plugin('copy')
-    .use(CopyPlugin, [{ context: SRC, from: `**/*` }], { ignore: ['*.js*'] });
+    .module
+      .rule('lint')
+        .test(/\.js$/)
+        .pre()
+        .include(SRC)
+        .loader('eslint', require.resolve('eslint-loader'), Object.assign({
+          failOnError: process.env.NODE_ENV !== 'development',
+          emitWarning: process.env.NODE_ENV !== 'development',
+          emitError: process.env.NODE_ENV !== 'development'
+        }, lint));
 
-  config
-    .plugin('progress')
-    .use(ProgressBarPlugin);
+  if (process.env.NODE_ENV === 'development') {
+    config.devtool('eval');
+  } else {
+    config.output.filename('[name].[chunkhash].bundle.js');
 
-  config
-    .plugin('clean')
-    .use(CleanPlugin, [BUILD], { root: CWD });
-}
+    config
+      .plugin('copy')
+      .use(CopyPlugin, [{ context: SRC, from: `**/*` }], { ignore: ['*.js*'] });
 
-module.exports = config;
+    config
+      .plugin('progress')
+      .use(ProgressBarPlugin);
+
+    config
+      .plugin('clean')
+      .use(CleanPlugin, [BUILD], { root: CWD });
+  }
+
+  return config;
+};

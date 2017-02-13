@@ -1,55 +1,46 @@
 #!/usr/bin/env node
-'use strict';
 
+const Neutrino = require('../src/neutrino');
+const yargs = require('yargs');
 const path = require('path');
-const Vorpal = require('vorpal');
-const commands = require('../package.json').commands;
+const pkg = require(path.join(process.cwd(), 'package.json'));
 
-const cli = new Vorpal();
-const register = (command) => {
-  const cmd = command.command;
-  const name = cmd.split(' ')[0];
-  const options = command.options || [];
-  const dir = path.resolve(__dirname, `../commands/${name}`);
-  const cliCommand = cli.command(cmd, command.description);
+const pkgPresets = pkg.config && pkg.config.presets ? pkg.config.presets : [];
+const environments = { build: 'production', start: 'development', test: 'test' };
+const args = yargs
+  .option('presets', {
+    description: 'A list of Neutrino presets used to configure the build',
+    array: true,
+    default: [],
+    global: true
+  })
+  .command('start', 'Build a project in development mode')
+  .command('build', 'Compile the source directory to a bundled build')
+  .command('test [files..]', 'Run all suites from the test directory or provided files', {
+    watch: {
+      boolean: true
+    }
+  })
+  .demandCommand(1, 'You must specify a command for Neutrino to run.\nUSAGE:  neutrino <command>')
+  .recommendCommands()
+  .strict()
+  .version()
+  .help()
+  .argv;
 
-  Object
-    .keys(options)
-    .map(option => {
-      if (Array.isArray(options[option])) {
-        cliCommand.option.apply(cliCommand, [option].concat(options[option]));
-      } else {
-        cliCommand.option(option, options[option]);
+function run(command, presets) {
+  process.env.NODE_ENV = environments[command];
+  const N = new Neutrino(presets);
+
+  N[command](args)
+    .then(() => process.exit(0))
+    .catch(err => {
+      if (err) {
+        console.error(err);
       }
+
+      process.exit(1);
     });
+}
 
-  cliCommand
-    .action(function(args) {
-      const done = (code) => process.exit(code || 0);
-
-      if (this.commandObject._events) {
-        const options = Object
-          .keys(this.commandObject._events)
-          .reduce((options, key) => {
-            options[key] = this.commandObject[key];
-
-            return options;
-          }, {});
-
-        args.options = Object.assign(options, args.options);
-      }
-
-      process.env.NODE_ENV = command.environment || 'development';
-
-      // Kick off the command
-      require(dir)(args, done);
-    });
-};
-
-commands.map(register);
-
-cli
-  .find('exit')
-  .hidden();
-
-cli.parse.apply(cli, process.argv[2] ? [process.argv] : process.argv.concat(['help']));
+run(args._[0], [...new Set(args.presets.concat(pkgPresets))]);
