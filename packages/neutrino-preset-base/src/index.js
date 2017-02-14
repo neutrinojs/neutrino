@@ -1,6 +1,5 @@
 'use strict';
 
-const Config = require('webpack-chain');
 const CleanPlugin = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
@@ -14,9 +13,7 @@ const PROJECT_MODULES = path.join(CWD, 'node_modules');
 const BASE_MODULES = path.join(__dirname, '../node_modules');
 const SRC = path.join(CWD, 'src');
 
-module.exports = () => {
-  const config = new Config();
-
+module.exports = ({ config }) => {
   config
     .context(CWD)
     .entry('index')
@@ -71,6 +68,4 @@ module.exports = () => {
       .plugin('clean')
       .use(CleanPlugin, [BUILD], { root: CWD });
   }
-
-  return config;
 };

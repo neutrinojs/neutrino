@@ -1389,9 +1389,9 @@ nth-check@~1.0.1:
   dependencies:
     boolbase "~1.0.0"
 
-oao@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/oao/-/oao-0.4.1.tgz#dddf0b89a2cca6c600cecc036aebbdde7667abbd"
+oao@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/oao/-/oao-0.5.0.tgz#bd8b8534548bd0263cfe8721bccc8e590cae0c8a"
   dependencies:
     babel-polyfill "6.22.0"
     commander "2.9.0"
@@ -1401,7 +1401,7 @@ oao@^0.4.1:
     shelljs "0.7.6"
     split "1.0.0"
     storyboard "^3.0.0-rc.2"
-    storyboard-preset-console "^3.0.0-rc.2"
+    storyboard-preset-console "^3.0.0-rc.4"
     timm "^1.2.3"
 
 oauth-sign@~0.8.0, oauth-sign@~0.8.1:
@@ -1842,9 +1842,9 @@ storyboard-listener-console@^3.0.0-rc.2:
   dependencies:
     timm "^1.2.3"
 
-storyboard-preset-console@^3.0.0-rc.2:
-  version "3.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/storyboard-preset-console/-/storyboard-preset-console-3.0.0-rc.2.tgz#7dc2984c802a3b7754af48c981d0020aaad68409"
+storyboard-preset-console@^3.0.0-rc.4:
+  version "3.0.0-rc.4"
+  resolved "https://registry.yarnpkg.com/storyboard-preset-console/-/storyboard-preset-console-3.0.0-rc.4.tgz#6aed03b299d8f2a60b917dc61526bec1b8efa092"
   dependencies:
     storyboard-listener-console "^3.0.0-rc.2"
 

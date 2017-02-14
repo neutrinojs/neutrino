@@ -1,23 +1,6 @@
 const { Server } = require('karma');
 
 module.exports = neutrino => {
-  neutrino.on('test', (config, args) => {
-    const { karma } = neutrino.custom;
-
-    delete config.plugins;
-    karma.webpack = config;
-    karma.singleRun = !args.watch;
-    karma.autoWatch = args.watch;
-
-    if (args.files && args.files.length) {
-      karma.files = args.files;
-    }
-
-    return new Promise(resolve => {
-      new Server(karma, resolve).start();
-    });
-  });
-
   neutrino.custom.karma = {
     plugins: [
       require.resolve('karma-webpack'),
@@ -50,4 +33,21 @@ module.exports = neutrino => {
       ]
     }
   };
+
+  neutrino.on('test', ({ files, watch }) => {
+    const { karma } = neutrino.custom;
+
+    karma.singleRun = !watch;
+    karma.autoWatch = watch;
+    karma.webpack = neutrino.getWebpackOptions();
+    delete karma.webpack.plugins;
+
+    if (files && files.length) {
+      karma.files = files;
+    }
+
+    return new Promise(resolve => {
+      new Server(karma, resolve).start();
+    });
+  });
 };

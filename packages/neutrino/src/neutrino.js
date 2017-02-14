@@ -1,8 +1,8 @@
 const path = require('path');
 const EventEmitter = require('events').EventEmitter;
-const merge = require('webpack-merge').smart;
 const DevServer = require('webpack-dev-server');
 const webpack = require('webpack');
+const Config = require('webpack-chain');
 const ora = require('ora');
 
 const cwd = process.cwd();
@@ -10,37 +10,42 @@ const cwd = process.cwd();
 class Neutrino extends EventEmitter {
   constructor(presets) {
     super();
-    this.configs = [];
-    this.__configCache = null;
+    this.config = new Config();
     this.custom = {};
 
-    presets.map(p => this.loadPreset(p));
-  }
+    // Grab all presets and merge them into a single webpack-chain config instance
+    presets.forEach(preset => {
+      const paths = [
+        path.join(cwd, preset),
+        path.join(cwd, 'node_modules', preset),
+        preset
+      ];
 
-  loadPreset(name) {
-    const paths = [
-      path.join(cwd, name),
-      path.join(cwd, 'node_modules', name),
-      name
-    ];
+      for (let i = 0; i < paths.length; i++) {
+        let src;
 
-    for (let i = 0; i < paths.length; i++) {
-      try {
-        const preset = require(paths[i])(this);
+        try {
+          src = require(paths[i]);
+        } catch (exception) {
+          if (/Cannot find module/.test(exception.message)) {
+            continue;
+          }
 
-        if (preset) {
-          this.configs.push(preset);
+          throw exception;
         }
 
-        return;
-      } catch (err) {
-        if (!/Cannot find module/.test(err.message)) {
-          throw err;
-        }
+        return src(this);
       }
-    }
+    });
 
-    throw new Error(`Unable to locate preset "${name}"`);
+    // Also grab any Neutrino config from package.json and merge it into the config
+    try {
+      const pkg = require(path.join(process.cwd(), 'package.json'));
+
+      if (pkg.config && pkg.config.neutrino) {
+        this.config.merge(pkg.config.neutrino);
+      }
+    } catch (ex) {}
   }
 
   handleErrors(err, stats) {
@@ -64,25 +69,23 @@ class Neutrino extends EventEmitter {
     return false;
   }
 
-  getConfig() {
+  getWebpackOptions() {
     if (this.__configCache) {
       return this.__configCache;
     }
 
-    return this.__configCache = merge(...this.configs.map(c => 'toConfig' in c ? c.toConfig() : c));
+    return this.__configCache = this.config.toConfig();
   }
 
   emitForAll(eventName, payload) {
-    const config = this.getConfig();
-
-    return Promise.all(this.listeners(eventName).map(fn => fn(config, payload)));
+    return Promise.all(this.listeners(eventName).map(fn => fn(payload)));
   }
 
   build(args) {
     return this
-      .emitForAll('prebuild')
+      .emitForAll('prebuild', args)
       .then(() => new Promise((resolve, reject) => {
-        const config = this.getConfig();
+        const config = this.getWebpackOptions();
         const compiler = webpack(config);
 
         compiler.run((err, stats) => {
@@ -101,14 +104,14 @@ class Neutrino extends EventEmitter {
           resolve();
         });
       }))
-      .then(() => this.emitForAll('build'));
+      .then(() => this.emitForAll('build', args));
   }
 
   start(args) {
     return this
-      .emitForAll('prestart')
+      .emitForAll('prestart', args)
       .then(() => {
-        const config = this.getConfig();
+        const config = this.getWebpackOptions();
 
         if (config.devServer) {
           return this._devServer();
@@ -120,7 +123,7 @@ class Neutrino extends EventEmitter {
         }
 
         return new Promise(resolve => {
-          const config = this.getConfig();
+          const config = this.getWebpackOptions();
           const compiler = webpack(config);
           const watcher = compiler.watch(config.watchOptions || {}, (err, stats) => {
             this.handleErrors(err, stats);
@@ -129,13 +132,13 @@ class Neutrino extends EventEmitter {
           process.on('SIGINT', () => watcher.close(resolve));
         });
       })
-      .then(() => this.emitForAll('start'));
+      .then(() => this.emitForAll('start', args));
   }
 
   _devServer() {
     return new Promise(resolve => {
       const starting = ora('Starting development server').start();
-      const config = this.getConfig();
+      const config = this.getWebpackOptions();
       const protocol = config.devServer.https ? 'https' : 'http';
       const host = config.devServer.host || 'localhost';
       const port = config.devServer.port || 5000;
@@ -162,10 +165,6 @@ class Neutrino extends EventEmitter {
     return this
       .emitForAll('pretest', args)
       .then(() => this.emitForAll('test', args));
-  }
-
-  extend(source, extender) {
-    return extender(source(this));
   }
 }
 
