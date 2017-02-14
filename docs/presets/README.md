@@ -1,14 +1,15 @@
 # What are presets?
 
-A preset is a Webpack- or Neutrino-compatible configuration capable of building or modifying
-the build process for a project. Neutrino provides a few core presets to quickly get
-started building some popular project types, but anyone can inherit, extend, and modify these
-presets and tailor them to their project preferences. You can even create your own
-presets from scratch.
+A preset is a Neutrino-compatible configuration capable of building, modifying
+the build process, or interacting with a project as a result of building.
+Neutrino provides a few core presets to quickly get started building some popular project
+types, but anyone can inherit, extend, and modify these presets and tailor them to their project,
+team, or company preferences. You can even create your own presets from scratch.
 
 If you are familiar with Babel presets, Neutrino presets work similarly. For example,
 given the Babel preset `babel-preset-react`, you can compile React code with JSX
-to vanilla JavaScript calls. Neutrino adopts this same concept. Many more aspects of
+to vanilla JavaScript calls. Neutrino adopts this same concept by adapting Webpack into
+a tool that understands configurations-as-packages, i.e. presets. Many more aspects of
 development surround building a complete React project, for which Webpack is commonly used.
 By encapsulating the common needs of a project type into a preset, Neutrino allows you to
 avoid the upfront cost of configuring and instead focus on project development.
