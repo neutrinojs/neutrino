@@ -3,6 +3,7 @@
 * [Introduction](/README.md)
 * [Installation](/installation.md)
 * [Usage](/usage.md)
+* [Project Layout](/project-layout.md)
 * [Presets](/presets/README.md)
   * [Web Preset](/presets/neutrino-preset-web/README.md)
   * [React Preset](/presets/neutrino-preset-react/README.md)
