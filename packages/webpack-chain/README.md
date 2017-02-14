@@ -24,6 +24,7 @@ I welcome any contributor. Just fork and clone, make changes,
 and send a pull request. Some beginner ideas:
 
 - Right now there aren't very many shorthand methods for several options.
+- Missing documentation and usage for `Config merge()`.
 - A higher-level API for `Config.Resolve` and `Config.ResolveLoader` is lacking.
 - Some API documentation is missing for working with module loaders at a low level.
 - General docs improvements.

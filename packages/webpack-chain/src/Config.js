@@ -7,7 +7,7 @@ const DevServer = require('./DevServer');
 const Plugin = require('./Plugin');
 const Module = require('./Module');
 
-module.exports = class {
+class Config {
   constructor() {
     this.options = new ChainedMap(this);
     this.node = new ChainedMap(this);
@@ -83,4 +83,43 @@ module.exports = class {
         return acc;
       }, {});
   }
-};
+
+  merge(obj = {}) {
+    Object
+      .keys(obj)
+      .forEach(key => {
+        const value = obj[key];
+
+        switch (key) {
+          case 'node':
+          case 'output':
+          case 'resolve':
+          case 'resolveLoader':
+          case 'devServer':
+          case 'module': {
+            return this[key].merge(value);
+          }
+
+          case 'entry': {
+            return Object
+              .keys(value)
+              .forEach(name => this.entry(name).merge(value[name]));
+          }
+
+          case 'plugin': {
+            return Object
+              .keys(value)
+              .forEach(name => this.plugin(name).use(value[name]));
+          }
+
+          default: {
+            this.options.set(key, value);
+          }
+        }
+      });
+
+    return this;
+  }
+}
+
+module.exports = Config;

@@ -14,4 +14,28 @@ module.exports = class extends ChainedMap {
       extensions: this.extensions.values()
     }, this.entries());
   }
+
+  merge(obj) {
+    Object
+      .keys(obj)
+      .forEach(key => {
+        const value = obj[key];
+
+        switch (key) {
+          case 'modules': {
+            return this.modules.merge(value);
+          }
+
+          case 'extensions': {
+            return this.extensions.merge(value);
+          }
+
+          default: {
+            this.set(key, value);
+          }
+        }
+      });
+
+    return this;
+  }
 };

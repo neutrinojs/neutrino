@@ -45,4 +45,9 @@ module.exports = class extends Chainable {
     this.options.set(key, value);
     return this;
   }
+
+  merge(obj) {
+    Object.keys(obj).forEach(key => this.set(key, obj[key]));
+    return this;
+  }
 };

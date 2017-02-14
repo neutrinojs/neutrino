@@ -26,4 +26,26 @@ module.exports = class extends ChainedMap {
 
     return Object.assign({ rules }, config);
   }
+
+  merge(obj) {
+    Object
+      .keys(obj)
+      .forEach(key => {
+        const value = obj[key];
+
+        switch (key) {
+          case 'rule': {
+            return Object
+              .keys(value)
+              .forEach(name => this.rule(name).merge(value[name]));
+          }
+
+          default: {
+            this.set(key, value);
+          }
+        }
+      });
+
+    return this;
+  }
 };
