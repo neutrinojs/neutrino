@@ -1,6 +1,5 @@
 'use strict';
 
-const exists = require('exists-file');
 const webpack = require('webpack');
 const HtmlPlugin = require('html-webpack-plugin');
 const htmlTemplate = require('html-webpack-template');

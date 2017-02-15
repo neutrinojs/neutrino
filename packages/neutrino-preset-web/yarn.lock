@@ -969,13 +969,6 @@ caseless@~0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.11.0.tgz#715b96ea9841593cc33067923f5ec60ebda4f7d7"
 
-cb2promise@^1.0.2:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/cb2promise/-/cb2promise-1.0.3.tgz#6f143f0a2a95b52f76b2135dca7c691cecf6b768"
-  dependencies:
-    coffee-script "*"
-    pinkie-promise "*"
-
 center-align@^0.1.1:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/center-align/-/center-align-0.1.3.tgz#aa0d32629b6ee972200411cbd4461c907bc2b7ad"
@@ -1065,10 +1058,6 @@ coa@~1.0.1:
 code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
-
-coffee-script@*:
-  version "1.12.3"
-  resolved "https://registry.yarnpkg.com/coffee-script/-/coffee-script-1.12.3.tgz#de5f4b1b934a4e9f915c57acd7ad323f68f715db"
 
 color-convert@^1.3.0:
   version "1.9.0"
@@ -1494,12 +1483,6 @@ evp_bytestokey@^1.0.0:
   resolved "https://registry.yarnpkg.com/evp_bytestokey/-/evp_bytestokey-1.0.0.tgz#497b66ad9fef65cd7c08a6180824ba1476b66e53"
   dependencies:
     create-hash "^1.1.1"
-
-exists-file@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/exists-file/-/exists-file-3.0.0.tgz#2e886bf9c6b696a8425cff217a897060e22e7465"
-  dependencies:
-    cb2promise "^1.0.2"
 
 expand-brackets@^0.1.4:
   version "0.1.5"
@@ -2516,7 +2499,7 @@ pify@^2.0.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
 
-pinkie-promise@*, pinkie-promise@^2.0.0:
+pinkie-promise@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/pinkie-promise/-/pinkie-promise-2.0.1.tgz#2135d6dfa7a358c069ac9b178776288228450ffa"
   dependencies:
