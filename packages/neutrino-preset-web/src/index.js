@@ -5,8 +5,10 @@ const webpack = require('webpack');
 const HtmlPlugin = require('html-webpack-plugin');
 const htmlTemplate = require('html-webpack-template');
 const merge = require('deepmerge');
-const base = require('neutrino-preset-base');
 const path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
+const CleanPlugin = require('clean-webpack-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 const CWD = process.cwd();
 const SRC = path.join(CWD, 'src');
@@ -18,15 +20,33 @@ const STYLE_LOADER = require.resolve('style-loader');
 const URL_LOADER = require.resolve('url-loader');
 const MODULES = path.join(__dirname, '../node_modules');
 
-module.exports = neutrino => {
-  base(neutrino);
-
-  const { config } = neutrino;
-
-  config.target('web');
-  config.output.publicPath('./');
-  config.resolve.modules.add(MODULES);
-  config.resolveLoader.modules.add(MODULES);
+module.exports = ({ config }) => {
+  config
+    .target('web')
+    .context(CWD)
+    .entry('index')
+      .add(path.join(SRC, 'index.js'))
+      .end()
+    .output
+      .path(path.join(process.cwd(), 'build'))
+      .publicPath('./')
+      .filename('[name].bundle.js')
+      .chunkFilename('[id].[chunkhash].js')
+      .end()
+    .resolve
+      .modules
+        .add(PROJECT_MODULES)
+        .add(MODULES)
+        .end()
+      .extensions
+        .add('.js')
+        .add('json')
+        .end()
+      .end()
+    .resolveLoader
+      .modules
+        .add(PROJECT_MODULES)
+        .add(MODULES);
 
   config.node
     .set('console', false)
@@ -122,16 +142,18 @@ module.exports = neutrino => {
         }
       });
 
-  config.module
-    .rule('lint')
-    .loader('eslint', ({ options }) => {
-      return {
-        options: merge(options, {
-          globals: ['Buffer'],
-          envs: ['browser', 'commonjs']
-        })
-      };
-    });
+  if (config.module.rules.has('lint')) {
+    config.module
+      .rule('lint')
+      .loader('eslint', ({ options }) => {
+        return {
+          options: merge(options, {
+            globals: ['Buffer'],
+            envs: ['browser', 'commonjs']
+          })
+        };
+      });
+  }
 
   config
     .plugin('env')
@@ -165,6 +187,7 @@ module.exports = neutrino => {
     const host = process.env.HOST || 'localhost';
     const port = parseInt(process.env.PORT) || 5000;
 
+    config.devtool('eval');
     config.devServer
       .host(host)
       .port(port)
@@ -195,5 +218,21 @@ module.exports = neutrino => {
     config
       .plugin('hot')
       .use(webpack.HotModuleReplacementPlugin);
+  }
+
+  if (process.env.NODE_ENV !== 'development') {
+    config.output.filename('[name].[chunkhash].bundle.js');
+
+    config
+      .plugin('copy')
+      .use(CopyPlugin, [{ context: SRC, from: `**/*` }], { ignore: ['*.js*'] });
+
+    config
+      .plugin('progress')
+      .use(ProgressBarPlugin);
+
+    config
+      .plugin('clean')
+      .use(CleanPlugin, [BUILD], { root: CWD });
   }
 };

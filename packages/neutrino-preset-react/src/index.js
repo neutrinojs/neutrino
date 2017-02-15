@@ -12,28 +12,30 @@ module.exports = neutrino => {
 
   const { config } = neutrino;
 
-  config.module
-    .rule('lint')
-    .test(/\.jsx?$/)
-    .loader('eslint', ({ options }) => {
-      return {
-        options: merge(options, {
-          plugins: ['react'],
-          baseConfig: {
-            extends: ['plugin:react/recommended']
-          },
-          parserOptions: {
-            ecmaFeatures: {
-              experimentalObjectRestSpread: true
+  if (config.module.rules.has('lint')) {
+    config.module
+      .rule('lint')
+      .test(/\.jsx?$/)
+      .loader('eslint', ({ options }) => {
+        return {
+          options: merge(options, {
+            plugins: ['react'],
+            baseConfig: {
+              extends: ['plugin:react/recommended']
+            },
+            parserOptions: {
+              ecmaFeatures: {
+                experimentalObjectRestSpread: true
+              }
+            },
+            rules: {
+              'react/prop-types': ['off'],
+              'jsx-quotes': ['error', 'prefer-double']
             }
-          },
-          rules: {
-            'react/prop-types': ['off'],
-            'jsx-quotes': ['error', 'prefer-double']
-          }
-        })
-      };
-    });
+          })
+        };
+      });
+  }
 
   config.module
     .rule('compile')
