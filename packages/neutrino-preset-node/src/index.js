@@ -10,6 +10,7 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 const CWD = process.cwd();
 const SRC = path.join(CWD, 'src');
+const BUILD = path.join(CWD, 'build');
 const TEST = path.join(CWD, 'test');
 const MODULES = path.join(__dirname, '../node_modules');
 
@@ -29,7 +30,7 @@ module.exports = neutrino => {
       .add(path.join(SRC, 'index.js'))
       .end()
     .output
-      .path(path.join(process.cwd(), 'build'))
+      .path(BUILD)
       .filename('[name].js')
       .libraryTarget('commonjs2')
       .chunkFilename('[id].[chunkhash].js')

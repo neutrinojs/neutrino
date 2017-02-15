@@ -11,6 +11,7 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 const CWD = process.cwd();
 const SRC = path.join(CWD, 'src');
+const BUILD = path.join(CWD, 'build');
 const TEST = path.join(CWD, 'test');
 const PKG = require(path.join(CWD, 'package.json'));
 const FILE_LOADER = require.resolve('file-loader');
@@ -28,7 +29,7 @@ module.exports = ({ config }) => {
       .add(path.join(SRC, 'index.js'))
       .end()
     .output
-      .path(path.join(process.cwd(), 'build'))
+      .path(BUILD)
       .publicPath('./')
       .filename('[name].bundle.js')
       .chunkFilename('[id].[chunkhash].js')
