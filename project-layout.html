@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Usage · Neutrino</title>
+        <title>Project Layout · Neutrino</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="project-layout.html" />
+    <link rel="next" href="presets/" />
     
     
-    <link rel="prev" href="installation.html" />
+    <link rel="prev" href="usage.html" />
     
 
     </head>
@@ -115,7 +115,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.3" data-path="usage.html">
+        <li class="chapter " data-level="1.3" data-path="usage.html">
             
                 <a href="usage.html">
             
@@ -128,7 +128,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="project-layout.html">
+        <li class="chapter active" data-level="1.4" data-path="project-layout.html">
             
                 <a href="project-layout.html">
             
@@ -410,7 +410,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Usage</a>
+        <a href="." >Project Layout</a>
     </h1>
 </div>
 
@@ -425,99 +425,36 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="usage">Usage</h1>
-<p>Neutrino is a command-line tool that wraps Webpack in order to support building JavaScript projects
-based on shared configuration presets. You can use Neutrino within your project, preferably using
-scripts defined in your project&apos;s <code>package.json</code>.</p>
-<h2 id="setup">Setup</h2>
-<p>After completing the <a href="installation.html">installation</a> of Neutrino and your Neutrino preset, you will
-want to define some scripts in your project&apos;s <code>package.json</code> in order to simply build your project.
-In a typical project:</p>
+                                <h1 id="project-layout">Project Layout</h1>
+<p>Out of the box Neutrino presets expect a project to have a particular structure in order to make the
+development process for new projects as quick as possible. This is broken up into three directories:</p>
 <ul>
-<li><code>scripts.start</code> would be the command you wish to run during development</li>
-<li><code>scripts.build</code> would be the command you wish to run to create a production bundle</li>
-<li><code>scripts.test</code> would be the command you wish to run to execute tests</li>
+<li>Source code</li>
+<li>Build assets</li>
+<li>Testing</li>
 </ul>
-<p>Using these script targets may not be suitable for every project; know that they are just
-typical recommendations for script target names, you may choose a different name if desired
-for your project.</p>
-<h2 id="building-for-development">Building for development</h2>
-<p>Neutrino provides the command <code>neutrino start</code> for creating a bundle during development. Using
-<code>neutrino start</code> sets the Node.js environment to <code>development</code> using the <code>NODE_ENV</code> environment variable,
-which is available in your project source code. Depending on the presets you are using, <code>neutrino start</code>
-may also spin up a development server with hot module reloading capabilities.
-Check the documentation of your preset for details.</p>
-<p>Usage:</p>
-<pre class="language-"><code class="lang-bash"><span class="token comment" spellcheck="true"># PRESET_MODULE is the name of the preset to build with, e.g. neutrino-preset-react</span>
-neutrino start --presets PRESET_MODULE
-</code></pre>
-<p>Putting this into your <code>package.json</code> will allow you to build your project using either
-<code>yarn start</code> or <code>npm start</code>. Using <code>neutrino-preset-react</code> as an example:</p>
-<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
-  <span class="token property">&quot;scripts&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">&quot;start&quot;</span><span class="token operator">:</span> <span class="token string">&quot;neutrino start --preset neutrino-preset-react&quot;</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<h2 id="building-for-production">Building for production</h2>
-<p>Neutrino provides the command <code>neutrino build</code> for creating a bundle for production deployment.
-Using <code>neutrino build</code> sets the Node.js environment to <code>production</code> using the <code>NODE_ENV</code> environment variable,
-which is available in your project source code. See the documentation for your preset for details regarding additional
-steps after your build is completed.</p>
-<pre class="language-"><code class="lang-bash"><span class="token comment" spellcheck="true"># PRESET_MODULE is the name of the preset to build with, e.g. neutrino-preset-react</span>
-neutrino build --presets PRESET_MODULE
-</code></pre>
-<p>Putting this into your <code>package.json</code> will allow you to build your project using either
-<code>yarn build</code> or <code>npm run build</code>. Using <code>neutrino-preset-react</code> as an example:</p>
-<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
-  <span class="token property">&quot;scripts&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">&quot;build&quot;</span><span class="token operator">:</span> <span class="token string">&quot;neutrino build --presets neutrino-preset-react&quot;</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<h2 id="building-and-running-tests">Building and running tests</h2>
-<p>Neutrino provides the command <code>neutrino test</code> for invoking a set of tests included in your project.
-Using <code>neutrino test</code> sets the Node.js environment variable to <code>test</code> using the <code>NODE_ENV</code> environment
-variable, which is available in your project source code. How your source code is built and consumed from tests
-is determined by the preset your are using. Running suites that are built the same as source files are encouraged
-to use a Neutrino-compatible preset. Neutrino currently provides three core testing presets: Karma, Jest, and Mocha.</p>
-<pre class="language-"><code class="lang-bash"><span class="token comment" spellcheck="true"># PRESET_MODULE is the name of the preset to build with, e.g. neutrino-preset-react</span>
-<span class="token comment" spellcheck="true"># TESTING_MODULE is the name of another preset to build with, e.g. neutrino-preset-karma</span>
-neutrino build --presets PRESET_MODULE TESTING_MODULE
-</code></pre>
-<p>Putting this into your <code>package.json</code> will allow you to test your project using either
-<code>yarn test</code> or <code>npm test</code>. Using <code>neutrino-preset-react</code> and <code>neutrino-preset-karma</code> as an example:</p>
-<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
-  <span class="token property">&quot;scripts&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">&quot;test&quot;</span><span class="token operator">:</span> <span class="token string">&quot;neutrino test --presets neutrino-preset-react neutrino-preset-karma&quot;</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>Using the command <code>neutrino test</code> will execute every test file located in your
-<a href="project-layout#Testing">testing directory</a>. You may also provide to this command the specific test files you wish
-to run individually. It is important to note that when combined with the <code>--presets</code> parameter, you should use two
-dashes after the last preset to denote the end of the presets and the beginning of the test files.</p>
-<pre class="language-"><code class="lang-bash">neutrino <span class="token function">test</span> --presets PRESET_A PRESET_B -- a_test.js b_test.js
-</code></pre>
-<h2 id="using-multiple-presets">Using multiple presets</h2>
-<p>All Neutrino commands support the <code>--presets</code> command line parameter, but having to specify this for each script target
-can be cumbersome, especially if you have many presets. Fortunately Neutrino also supports specifying presets using the
-<code>config.presets</code> field in your project&apos;s package.json file. By omitting the <code>--presets</code> flag and specifying a
-<code>config.presets</code> array, every call to a Neutrino command will look up which presets are configured in your package.json.</p>
-<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
-  <span class="token property">&quot;config&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">&quot;presets&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-      <span class="token string">&quot;neutrino-preset-react&quot;</span><span class="token punctuation">,</span>
-      <span class="token string">&quot;neutrino-preset-karma&quot;</span>
-    <span class="token punctuation">]</span>
-  <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token property">&quot;scripts&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">&quot;start&quot;</span><span class="token operator">:</span> <span class="token string">&quot;neutrino start&quot;</span><span class="token punctuation">,</span>
-    <span class="token property">&quot;build&quot;</span><span class="token operator">:</span> <span class="token string">&quot;neutrino build&quot;</span><span class="token punctuation">,</span>
-    <span class="token property">&quot;test&quot;</span><span class="token operator">:</span> <span class="token string">&quot;neutrino test&quot;</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
+<p>Each of these directories are set up via convention by a Neutrino preset, but each can be customized as
+desired by overriding the preset&apos;s configuration or using a different preset. See
+<a href="custom-configuration.md">Custom Configuration</a> for detailed instructions.</p>
+<h2 id="source-code">Source Code</h2>
+<p>By default Neutrino presets expect all project source code to live in a directory named <code>src</code> in the
+root of the project. This includes JavaScript files, CSS stylesheets, images, and any other assets
+that would be available to your compiled project.</p>
+<p>When running your project or creating a build bundle, a preset will look for this <code>src</code> directory for
+the entry point(s) to your application and use this as the relative location for finding other assets
+necessary for creating your builds.</p>
+<h2 id="build-assets">Build Assets</h2>
+<p>When creating a build bundle, a preset will put the compiled assets, including any generated
+JavaScript files, into a directory named <code>build</code> by default. Typically your Neutrino preset will copy
+any non-JavaScript files from the source directory over to the build directory, allowing you to maintain
+the same relative path structure for static assets as is used for the source files.</p>
+<p>Normally most projects will exclude checking in this build directory to source control.
+Be sure to add this directory to your project&apos;s <code>.gitignore</code>, <code>.hgignore</code>, or similar file.</p>
+<h2 id="testing">Testing</h2>
+<p>Neutrino presets by default expect all tests to be located in a directory named <code>test</code>. In order to make the
+separation between tests and test fixtures or harnesses easier to differentiate, Neutrino presets also
+usually look for test files ending in <code>_test.js</code> or <code>.test.js</code>. See your specific test preset for more
+detailed information about running tests and other conventions.</p>
 
                                 
                                 </section>
@@ -545,12 +482,12 @@ can be cumbersome, especially if you have many presets. Fortunately Neutrino als
 
             
                 
-                <a href="installation.html" class="navigation navigation-prev " aria-label="Previous page: Installation">
+                <a href="usage.html" class="navigation navigation-prev " aria-label="Previous page: Usage">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="project-layout.html" class="navigation navigation-next " aria-label="Next page: Project Layout">
+                <a href="presets/" class="navigation navigation-next " aria-label="Next page: Presets">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -561,7 +498,7 @@ can be cumbersome, especially if you have many presets. Fortunately Neutrino als
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Usage","level":"1.3","depth":1,"next":{"title":"Project Layout","level":"1.4","depth":1,"path":"project-layout.md","ref":"project-layout.md","articles":[]},"previous":{"title":"Installation","level":"1.2","depth":1,"path":"installation.md","ref":"installation.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"usage.md","mtime":"2017-02-15T15:54:50.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-15T19:27:49.146Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Project Layout","level":"1.4","depth":1,"next":{"title":"Presets","level":"1.5","depth":1,"path":"presets/README.md","ref":"presets/README.md","articles":[{"title":"Web Preset","level":"1.5.1","depth":2,"path":"presets/neutrino-preset-web/README.md","ref":"presets/neutrino-preset-web/README.md","articles":[]},{"title":"React Preset","level":"1.5.2","depth":2,"path":"presets/neutrino-preset-react/README.md","ref":"presets/neutrino-preset-react/README.md","articles":[]},{"title":"Node.js Preset","level":"1.5.3","depth":2,"path":"presets/neutrino-preset-node/README.md","ref":"presets/neutrino-preset-node/README.md","articles":[]},{"title":"Karma Preset","level":"1.5.4","depth":2,"path":"presets/neutrino-preset-karma/README.md","ref":"presets/neutrino-preset-karma/README.md","articles":[]},{"title":"Mocha Preset","level":"1.5.5","depth":2,"path":"presets/neutrino-preset-mocha/README.md","ref":"presets/neutrino-preset-mocha/README.md","articles":[]},{"title":"Jest Preset","level":"1.5.6","depth":2,"path":"presets/neutrino-preset-jest/README.md","ref":"presets/neutrino-preset-jest/README.md","articles":[]},{"title":"Base Preset","level":"1.5.7","depth":2,"path":"presets/neutrino-preset-base/README.md","ref":"presets/neutrino-preset-base/README.md","articles":[]}]},"previous":{"title":"Usage","level":"1.3","depth":1,"path":"usage.md","ref":"usage.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"project-layout.md","mtime":"2017-02-14T17:32:38.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-15T19:27:49.146Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

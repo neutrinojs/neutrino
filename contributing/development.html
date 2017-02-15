@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Presets · Neutrino</title>
+        <title>Development Process · Neutrino</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -57,10 +57,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="neutrino-preset-web/" />
     
-    
-    <link rel="prev" href="../project-layout.html" />
+    <link rel="prev" href="code-of-conduct.html" />
     
 
     </head>
@@ -141,9 +139,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.5" data-path="./">
+        <li class="chapter " data-level="1.5" data-path="../presets/">
             
-                <a href="./">
+                <a href="../presets/">
             
                     
                     Presets
@@ -155,9 +153,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.5.1" data-path="neutrino-preset-web/">
+        <li class="chapter " data-level="1.5.1" data-path="../presets/neutrino-preset-web/">
             
-                <a href="neutrino-preset-web/">
+                <a href="../presets/neutrino-preset-web/">
             
                     
                     Web Preset
@@ -168,9 +166,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.2" data-path="neutrino-preset-react/">
+        <li class="chapter " data-level="1.5.2" data-path="../presets/neutrino-preset-react/">
             
-                <a href="neutrino-preset-react/">
+                <a href="../presets/neutrino-preset-react/">
             
                     
                     React Preset
@@ -181,9 +179,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.3" data-path="neutrino-preset-node/">
+        <li class="chapter " data-level="1.5.3" data-path="../presets/neutrino-preset-node/">
             
-                <a href="neutrino-preset-node/">
+                <a href="../presets/neutrino-preset-node/">
             
                     
                     Node.js Preset
@@ -194,9 +192,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.4" data-path="neutrino-preset-karma/">
+        <li class="chapter " data-level="1.5.4" data-path="../presets/neutrino-preset-karma/">
             
-                <a href="neutrino-preset-karma/">
+                <a href="../presets/neutrino-preset-karma/">
             
                     
                     Karma Preset
@@ -207,9 +205,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.5" data-path="neutrino-preset-mocha/">
+        <li class="chapter " data-level="1.5.5" data-path="../presets/neutrino-preset-mocha/">
             
-                <a href="neutrino-preset-mocha/">
+                <a href="../presets/neutrino-preset-mocha/">
             
                     
                     Mocha Preset
@@ -220,9 +218,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.6" data-path="neutrino-preset-jest/">
+        <li class="chapter " data-level="1.5.6" data-path="../presets/neutrino-preset-jest/">
             
-                <a href="neutrino-preset-jest/">
+                <a href="../presets/neutrino-preset-jest/">
             
                     
                     Jest Preset
@@ -233,9 +231,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.7" data-path="neutrino-preset-base/">
+        <li class="chapter " data-level="1.5.7" data-path="../presets/neutrino-preset-base/">
             
-                <a href="neutrino-preset-base/">
+                <a href="../presets/neutrino-preset-base/">
             
                     
                     Base Preset
@@ -296,7 +294,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7" data-path="creating-presets.md">
+        <li class="chapter " data-level="1.7" data-path="../presets/creating-presets.md">
             
                 <span>
             
@@ -335,9 +333,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10" data-path="../contributing/">
+        <li class="chapter " data-level="1.10" data-path="./">
             
-                <a href="../contributing/">
+                <a href="./">
             
                     
                     Contributing
@@ -349,9 +347,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../contributing/code-of-conduct.html">
+        <li class="chapter " data-level="1.10.1" data-path="code-of-conduct.html">
             
-                <a href="../contributing/code-of-conduct.html">
+                <a href="code-of-conduct.html">
             
                     
                     Code of Conduct
@@ -362,9 +360,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../contributing/development.html">
+        <li class="chapter active" data-level="1.10.2" data-path="development.html">
             
-                <a href="../contributing/development.html">
+                <a href="development.html">
             
                     
                     Development Process
@@ -410,7 +408,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Presets</a>
+        <a href=".." >Development Process</a>
     </h1>
 </div>
 
@@ -425,39 +423,49 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="what-are-presets">What are presets?</h1>
-<p>A preset is a Neutrino-compatible configuration capable of building, modifying
-the build process, or interacting with a project as a result of building.
-Neutrino provides a few core presets to quickly get started building some popular project
-types, but anyone can inherit, extend, and modify these presets and tailor them to their project,
-team, or company preferences. You can even create your own presets from scratch.</p>
-<p>If you are familiar with Babel presets, Neutrino presets work similarly. For example,
-given the Babel preset <code>babel-preset-react</code>, you can compile React code with JSX
-to vanilla JavaScript calls. Neutrino adopts this same concept by adapting Webpack into
-a tool that understands configurations-as-packages, i.e. presets. Many more aspects of
-development surround building a complete React project, for which Webpack is commonly used.
-By encapsulating the common needs of a project type into a preset, Neutrino allows you to
-avoid the upfront cost of configuring and instead focus on project development.</p>
-<p>Not every project is the same, and oftentimes small tweaks need to be made to the build
-configuration in order to meet this need. Fortunately Neutrino presets can be modified and
-extended directly from the project you are building. No need to be locked in to a particular
-pattern, and no escape hatches that force you into maintaining the entire configuration should
-you need to make changes.</p>
-<p>Presets can be easily distributing by publishing them to npm or GitHub and installing them
-in your project. This also allows others to discover and build projects based on your own
-presets.</p>
-<h3 id="why-not-a-boilerplate-or-alternative">Why not a boilerplate or alternative?</h3>
-<p>Boilerplates are great resources for scaffolding out application-specific code which
-would be difficult or tedious to generate for every project. Unfortunately many projects
-also bake in build configuration into this process, causing a lot of duplication. If you
-need to make a change to your build steps, you are forced to make that change across all
-your similar projects. Using a preset rather than a boilerplate keeps this process DRY.</p>
-<p>Tools like <a href="https://github.com/facebookincubator/create-react-app" target="_blank">Create React App</a> have
-been fantastic improvements to the tooling ecosystem, but unfortunately only works on specific
-environments like React, and do not allow simple extensibility of the build configuration. To
-answer this new and similar projects are cropping up to build different types of projects,
-often duplicating efforts which miss out on the best practices to share with the other project
-types.</p>
+                                <h1 id="developing-neutrino">Developing Neutrino</h1>
+<p>Developing and contributing to Neutrino and its core presets is done through our monorepo located at
+<a href="https://github.com/mozilla-neutrino/neutrino-dev" target="_blank">https://github.com/mozilla-neutrino/neutrino-dev</a>. The code is broken up into a couple different sections:
+packages and documentation.</p>
+<p><em>Note: In this guide, commands executable from the command line are prepended with <code>&#x276F;</code>. Lines not starting
+with this symbol show sample console output from running the previous command.</em></p>
+<h2 id="getting-started">Getting started</h2>
+<p>The first step to start developing neutrino-dev is forking the repository to your own GitHub account.</p>
+<p><a href="https://github.com/mozilla-neutrino/neutrino-dev/fork" target="_blank">Fork mozilla-neutrino/neutrino-dev on GitHub</a></p>
+<p>Once that is done, you can clone your copy of the repository on your computer, replacing <code>USER</code> with the username
+of the account you forked the repository to:</p>
+<pre class="language-"><code class="lang-bash">&#x276F; <span class="token function">git</span> clone git@github.com:USER/neutrino-dev.git
+&#x276F; <span class="token function">cd</span> neutrino-dev
+</code></pre>
+<h2 id="making-changes">Making changes</h2>
+<p>When you make changes to neutrino-dev, you should make them in a branch separate from <code>master</code>. Start from the
+master branch and create a new branch for your changes.</p>
+<p><em>Example: You want to create a core preset for JavaScript Standard Style. You need a new branch for this work.</em></p>
+<pre class="language-"><code class="lang-bash">&#x276F; <span class="token function">git</span> checkout -b standard-style
+Switched to a new branch <span class="token string">&apos;standard-style&apos;</span>
+</code></pre>
+<p>While making changes, be sure to test your code out for expected operation. If possible or applicable, write a
+test that can verify these changes in the future.</p>
+<h2 id="submitting-a-pull-request">Submitting a pull request</h2>
+<p>Once you are satisified with your changes, you should commit them and submit a pull request. Use <code>git add</code>
+in order to add files that should be commited. Give your changes a descriptive but not overly verbose message.</p>
+<pre class="language-"><code class="lang-bash">&#x276F; <span class="token function">git</span> add <span class="token keyword">.</span>
+&#x276F; <span class="token function">git</span> commit -m <span class="token string">&quot;Feature: Adding new core preset for JavaScript Standard Style&quot;</span>
+&#x276F; <span class="token function">git</span> push origin standard-style
+</code></pre>
+<p>Now if you open the GitHub page for your repository, GitHub should display a button to open a pull request for
+the branch and commit you just pushed. When filling out the details of the pull request, try to be as descriptive
+as possible, following our detailed <a href="./">contribution guidelines</a>.</p>
+<h2 id="receiving-updates">Receiving updates</h2>
+<p>If you need to update your local copy of neutrino-dev to be in sync with the main neutrino-dev repository, you
+will want to fetch upstream changes. Add the main neutrino-dev repo as an upstream to your local copy, then fetch
+the latest changes from the master branch.</p>
+<pre class="language-"><code class="lang-bash">&#x276F; <span class="token function">git</span> checkout master
+&#x276F; <span class="token function">git</span> remote add upstream https://github.com/mozilla-neutrino/neutrino-dev.git
+&#x276F; <span class="token function">git</span> pull upstream master
+</code></pre>
+<h2 id="congrats">Congrats!</h2>
+<p>You just made a contribution to Neutrino! We are so happy to have your help! :tada:</p>
 
                                 
                                 </section>
@@ -485,14 +493,10 @@ types.</p>
 
             
                 
-                <a href="../project-layout.html" class="navigation navigation-prev " aria-label="Previous page: Project Layout">
+                <a href="code-of-conduct.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Code of Conduct">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="neutrino-preset-web/" class="navigation navigation-next " aria-label="Next page: Web Preset">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -501,7 +505,7 @@ types.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Presets","level":"1.5","depth":1,"next":{"title":"Web Preset","level":"1.5.1","depth":2,"path":"presets/neutrino-preset-web/README.md","ref":"presets/neutrino-preset-web/README.md","articles":[]},"previous":{"title":"Project Layout","level":"1.4","depth":1,"path":"project-layout.md","ref":"project-layout.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"presets/README.md","mtime":"2017-02-14T17:43:20.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-15T19:27:49.146Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Development Process","level":"1.10.2","depth":2,"previous":{"title":"Code of Conduct","level":"1.10.1","depth":2,"path":"contributing/code-of-conduct.md","ref":"contributing/code-of-conduct.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"contributing/development.md","mtime":"2017-02-15T19:19:59.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-15T19:27:49.146Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Presets · Neutrino</title>
+        <title>Code of Conduct · Neutrino</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="neutrino-preset-web/" />
+    <link rel="next" href="development.html" />
     
     
-    <link rel="prev" href="../project-layout.html" />
+    <link rel="prev" href="./" />
     
 
     </head>
@@ -141,9 +141,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.5" data-path="./">
+        <li class="chapter " data-level="1.5" data-path="../presets/">
             
-                <a href="./">
+                <a href="../presets/">
             
                     
                     Presets
@@ -155,9 +155,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.5.1" data-path="neutrino-preset-web/">
+        <li class="chapter " data-level="1.5.1" data-path="../presets/neutrino-preset-web/">
             
-                <a href="neutrino-preset-web/">
+                <a href="../presets/neutrino-preset-web/">
             
                     
                     Web Preset
@@ -168,9 +168,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.2" data-path="neutrino-preset-react/">
+        <li class="chapter " data-level="1.5.2" data-path="../presets/neutrino-preset-react/">
             
-                <a href="neutrino-preset-react/">
+                <a href="../presets/neutrino-preset-react/">
             
                     
                     React Preset
@@ -181,9 +181,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.3" data-path="neutrino-preset-node/">
+        <li class="chapter " data-level="1.5.3" data-path="../presets/neutrino-preset-node/">
             
-                <a href="neutrino-preset-node/">
+                <a href="../presets/neutrino-preset-node/">
             
                     
                     Node.js Preset
@@ -194,9 +194,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.4" data-path="neutrino-preset-karma/">
+        <li class="chapter " data-level="1.5.4" data-path="../presets/neutrino-preset-karma/">
             
-                <a href="neutrino-preset-karma/">
+                <a href="../presets/neutrino-preset-karma/">
             
                     
                     Karma Preset
@@ -207,9 +207,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.5" data-path="neutrino-preset-mocha/">
+        <li class="chapter " data-level="1.5.5" data-path="../presets/neutrino-preset-mocha/">
             
-                <a href="neutrino-preset-mocha/">
+                <a href="../presets/neutrino-preset-mocha/">
             
                     
                     Mocha Preset
@@ -220,9 +220,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.6" data-path="neutrino-preset-jest/">
+        <li class="chapter " data-level="1.5.6" data-path="../presets/neutrino-preset-jest/">
             
-                <a href="neutrino-preset-jest/">
+                <a href="../presets/neutrino-preset-jest/">
             
                     
                     Jest Preset
@@ -233,9 +233,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.7" data-path="neutrino-preset-base/">
+        <li class="chapter " data-level="1.5.7" data-path="../presets/neutrino-preset-base/">
             
-                <a href="neutrino-preset-base/">
+                <a href="../presets/neutrino-preset-base/">
             
                     
                     Base Preset
@@ -296,7 +296,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7" data-path="creating-presets.md">
+        <li class="chapter " data-level="1.7" data-path="../presets/creating-presets.md">
             
                 <span>
             
@@ -335,9 +335,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10" data-path="../contributing/">
+        <li class="chapter " data-level="1.10" data-path="./">
             
-                <a href="../contributing/">
+                <a href="./">
             
                     
                     Contributing
@@ -349,9 +349,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../contributing/code-of-conduct.html">
+        <li class="chapter active" data-level="1.10.1" data-path="code-of-conduct.html">
             
-                <a href="../contributing/code-of-conduct.html">
+                <a href="code-of-conduct.html">
             
                     
                     Code of Conduct
@@ -362,9 +362,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../contributing/development.html">
+        <li class="chapter " data-level="1.10.2" data-path="development.html">
             
-                <a href="../contributing/development.html">
+                <a href="development.html">
             
                     
                     Development Process
@@ -410,7 +410,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Presets</a>
+        <a href=".." >Code of Conduct</a>
     </h1>
 </div>
 
@@ -425,39 +425,64 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="what-are-presets">What are presets?</h1>
-<p>A preset is a Neutrino-compatible configuration capable of building, modifying
-the build process, or interacting with a project as a result of building.
-Neutrino provides a few core presets to quickly get started building some popular project
-types, but anyone can inherit, extend, and modify these presets and tailor them to their project,
-team, or company preferences. You can even create your own presets from scratch.</p>
-<p>If you are familiar with Babel presets, Neutrino presets work similarly. For example,
-given the Babel preset <code>babel-preset-react</code>, you can compile React code with JSX
-to vanilla JavaScript calls. Neutrino adopts this same concept by adapting Webpack into
-a tool that understands configurations-as-packages, i.e. presets. Many more aspects of
-development surround building a complete React project, for which Webpack is commonly used.
-By encapsulating the common needs of a project type into a preset, Neutrino allows you to
-avoid the upfront cost of configuring and instead focus on project development.</p>
-<p>Not every project is the same, and oftentimes small tweaks need to be made to the build
-configuration in order to meet this need. Fortunately Neutrino presets can be modified and
-extended directly from the project you are building. No need to be locked in to a particular
-pattern, and no escape hatches that force you into maintaining the entire configuration should
-you need to make changes.</p>
-<p>Presets can be easily distributing by publishing them to npm or GitHub and installing them
-in your project. This also allows others to discover and build projects based on your own
-presets.</p>
-<h3 id="why-not-a-boilerplate-or-alternative">Why not a boilerplate or alternative?</h3>
-<p>Boilerplates are great resources for scaffolding out application-specific code which
-would be difficult or tedious to generate for every project. Unfortunately many projects
-also bake in build configuration into this process, causing a lot of duplication. If you
-need to make a change to your build steps, you are forced to make that change across all
-your similar projects. Using a preset rather than a boilerplate keeps this process DRY.</p>
-<p>Tools like <a href="https://github.com/facebookincubator/create-react-app" target="_blank">Create React App</a> have
-been fantastic improvements to the tooling ecosystem, but unfortunately only works on specific
-environments like React, and do not allow simple extensibility of the build configuration. To
-answer this new and similar projects are cropping up to build different types of projects,
-often duplicating efforts which miss out on the best practices to share with the other project
-types.</p>
+                                <h1 id="contributor-covenant-code-of-conduct">Contributor Covenant Code of Conduct</h1>
+<h2 id="our-pledge">Our Pledge</h2>
+<p>In the interest of fostering an open and welcoming environment, we as
+contributors and maintainers pledge to making participation in our project and
+our community a harassment-free experience for everyone, regardless of age, body
+size, disability, ethnicity, gender identity and expression, level of experience,
+nationality, personal appearance, race, religion, or sexual identity and
+orientation.</p>
+<h2 id="our-standards">Our Standards</h2>
+<p>Examples of behavior that contributes to creating a positive environment
+include:</p>
+<ul>
+<li>Using welcoming and inclusive language</li>
+<li>Being respectful of differing viewpoints and experiences</li>
+<li>Gracefully accepting constructive criticism</li>
+<li>Focusing on what is best for the community</li>
+<li>Showing empathy towards other community members</li>
+</ul>
+<p>Examples of unacceptable behavior by participants include:</p>
+<ul>
+<li>The use of sexualized language or imagery and unwelcome sexual attention or
+advances</li>
+<li>Trolling, insulting/derogatory comments, and personal or political attacks</li>
+<li>Public or private harassment</li>
+<li>Publishing others&apos; private information, such as a physical or electronic
+address, without explicit permission</li>
+<li>Other conduct which could reasonably be considered inappropriate in a
+professional setting</li>
+</ul>
+<h2 id="our-responsibilities">Our Responsibilities</h2>
+<p>Project maintainers are responsible for clarifying the standards of acceptable
+behavior and are expected to take appropriate and fair corrective action in
+response to any instances of unacceptable behavior.</p>
+<p>Project maintainers have the right and responsibility to remove, edit, or
+reject comments, commits, code, wiki edits, issues, and other contributions
+that are not aligned to this Code of Conduct, or to ban temporarily or
+permanently any contributor for other behaviors that they deem inappropriate,
+threatening, offensive, or harmful.</p>
+<h2 id="scope">Scope</h2>
+<p>This Code of Conduct applies both within project spaces and in public spaces
+when an individual is representing the project or its community. Examples of
+representing a project or community include using an official project e-mail
+address, posting via an official social media account, or acting as an appointed
+representative at an online or offline event. Representation of a project may be
+further defined and clarified by project maintainers.</p>
+<h2 id="enforcement">Enforcement</h2>
+<p>Instances of abusive, harassing, or otherwise unacceptable behavior may be
+reported by contacting the project lead at eli@mozilla.com. All
+complaints will be reviewed and investigated and will result in a response that
+is deemed necessary and appropriate to the circumstances. The project team is
+obligated to maintain confidentiality with regard to the reporter of an incident.
+Further details of specific enforcement policies may be posted separately.</p>
+<p>Project maintainers who do not follow or enforce the Code of Conduct in good
+faith may face temporary or permanent repercussions as determined by other
+members of the project&apos;s leadership.</p>
+<h2 id="attribution">Attribution</h2>
+<p>This Code of Conduct is adapted from the <a href="http://contributor-covenant.org" target="_blank">Contributor Covenant</a>, version 1.4,
+available at <a href="http://contributor-covenant.org/version/1/4/" target="_blank">http://contributor-covenant.org/version/1/4</a></p>
 
                                 
                                 </section>
@@ -485,12 +510,12 @@ types.</p>
 
             
                 
-                <a href="../project-layout.html" class="navigation navigation-prev " aria-label="Previous page: Project Layout">
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Contributing">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="neutrino-preset-web/" class="navigation navigation-next " aria-label="Next page: Web Preset">
+                <a href="development.html" class="navigation navigation-next " aria-label="Next page: Development Process">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -501,7 +526,7 @@ types.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Presets","level":"1.5","depth":1,"next":{"title":"Web Preset","level":"1.5.1","depth":2,"path":"presets/neutrino-preset-web/README.md","ref":"presets/neutrino-preset-web/README.md","articles":[]},"previous":{"title":"Project Layout","level":"1.4","depth":1,"path":"project-layout.md","ref":"project-layout.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"presets/README.md","mtime":"2017-02-14T17:43:20.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-15T19:27:49.146Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Code of Conduct","level":"1.10.1","depth":2,"next":{"title":"Development Process","level":"1.10.2","depth":2,"path":"contributing/development.md","ref":"contributing/development.md","articles":[]},"previous":{"title":"Contributing","level":"1.10","depth":1,"path":"contributing/README.md","ref":"contributing/README.md","articles":[{"title":"Code of Conduct","level":"1.10.1","depth":2,"path":"contributing/code-of-conduct.md","ref":"contributing/code-of-conduct.md","articles":[]},{"title":"Development Process","level":"1.10.2","depth":2,"path":"contributing/development.md","ref":"contributing/development.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"contributing/code-of-conduct.md","mtime":"2017-02-15T17:19:33.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-15T19:27:49.146Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
