@@ -8,6 +8,7 @@ const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const BabiliPlugin = require('babili-webpack-plugin');
 
 const CWD = process.cwd();
 const SRC = path.join(CWD, 'src');
@@ -135,12 +136,7 @@ module.exports = ({ config }) => {
               ]
             }
           }]
-        ],
-        env: {
-          production: {
-            presets: [require.resolve('babel-preset-babili')]
-          }
-        }
+        ]
       });
 
   if (config.module.rules.has('lint')) {
@@ -235,5 +231,9 @@ module.exports = ({ config }) => {
     config
       .plugin('clean')
       .use(CleanPlugin, [BUILD], { root: CWD });
+
+    config
+      .plugin('minify')
+      .use(BabiliPlugin)
   }
 };

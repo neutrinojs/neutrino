@@ -13,8 +13,8 @@
   "dependencies": {
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
-    "babel-preset-babili": "^0.0.11",
     "babel-preset-env": "^1.1.8",
+    "babili-webpack-plugin": "^0.0.10",
     "clean-webpack-plugin": "^0.1.15",
     "copy-webpack-plugin": "4.0.1",
     "css-loader": "^0.26.1",
