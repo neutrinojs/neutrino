@@ -17,6 +17,7 @@ const FILE_LOADER = require.resolve('file-loader');
 const CSS_LOADER = require.resolve('css-loader');
 const STYLE_LOADER = require.resolve('style-loader');
 const URL_LOADER = require.resolve('url-loader');
+const PROJECT_MODULES = path.join(CWD, 'node_modules');
 const MODULES = path.join(__dirname, '../node_modules');
 
 module.exports = ({ config }) => {
@@ -181,7 +182,9 @@ module.exports = ({ config }) => {
         names: ['vendor', 'manifest'],
         minChunks: Infinity
       });
-  } else if (process.env.NODE_ENV === 'development') {
+  }
+
+  if (process.env.NODE_ENV === 'development') {
     const protocol = !!process.env.HTTPS ? 'https' : 'http';
     const host = process.env.HOST || 'localhost';
     const port = parseInt(process.env.PORT) || 5000;
@@ -217,9 +220,7 @@ module.exports = ({ config }) => {
     config
       .plugin('hot')
       .use(webpack.HotModuleReplacementPlugin);
-  }
-
-  if (process.env.NODE_ENV !== 'development') {
+  } else {
     config.output.filename('[name].[chunkhash].bundle.js');
 
     config
