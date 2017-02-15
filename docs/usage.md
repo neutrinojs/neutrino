@@ -98,7 +98,7 @@ to run individually. It is important to note that when combined with the `--pres
 dashes after the last preset to denote the end of the presets and the beginning of the test files.
 
 ```bash
-neutrino build --presets PRESET_A PRESET_B -- a_test.js b_test.js
+neutrino test --presets PRESET_A PRESET_B -- a_test.js b_test.js
 ```
 
 ## Using multiple presets
