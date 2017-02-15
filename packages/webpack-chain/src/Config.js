@@ -22,6 +22,7 @@ class Config {
 
   externals(externals) {
     this.options.set('externals', externals);
+    return this;
   }
 
   devtool(devtool) {

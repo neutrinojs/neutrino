@@ -85,6 +85,10 @@ module.exports = class extends ChainedMap {
             return this.exclude(...value);
           }
 
+          case 'test': {
+            return this.test(new RegExp(value));
+          }
+
           case 'loader': {
             return Object
               .keys(value)
