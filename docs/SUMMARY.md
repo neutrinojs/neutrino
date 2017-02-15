@@ -18,3 +18,6 @@
 * [Creating presets](/presets/creating-presets.md)
 * [API](/api/README.md)
 * [CLI](/cli/README.md)
+* [Contributing](/contributing/README.md)
+  * [Code of Conduct](/contributing/code-of-conduct.md)
+  * [Development Process](/contributing/development.md)

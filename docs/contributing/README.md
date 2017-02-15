@@ -60,10 +60,10 @@ possible.
 
 ## Getting started
 
-Most contributions will involve working with the neutrino-dev codebase. Please refer to the development
-documentation for technical details on getting started.
+Most contributions will involve working with the neutrino-dev codebase. Please refer to the [development
+documentation](/contributing/development.md) for technical details on getting started.
 
-### Tell your contributors how to file a bug report.
+## Filing bugs and issues
 
 When filing an issue, try to answer these questions:
 
