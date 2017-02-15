@@ -18,7 +18,9 @@ const args = yargs
   .command('build', 'Compile the source directory to a bundled build')
   .command('test [files..]', 'Run all suites from the test directory or provided files', {
     watch: {
-      boolean: true
+      description: 'Watch source files for changes and re-run tests',
+      boolean: true,
+      default: false
     }
   })
   .demandCommand(1, 'You must specify a command for Neutrino to run.\nUSAGE:  neutrino <command>')
@@ -43,4 +45,4 @@ function run(command, presets) {
     });
 }
 
-run(args._[0], [...new Set(args.presets.concat(pkgPresets))]);
+run(args._[0], [...new Set(pkgPresets.concat(args.presets))]);

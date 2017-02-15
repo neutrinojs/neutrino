@@ -8,7 +8,7 @@ const ora = require('ora');
 const cwd = process.cwd();
 
 class Neutrino extends EventEmitter {
-  constructor(presets) {
+  constructor(presets = []) {
     super();
     this.config = new Config();
     this.custom = {};

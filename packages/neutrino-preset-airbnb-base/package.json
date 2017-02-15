@@ -1,0 +1,26 @@
+{
+  "name": "neutrino-preset-airbnb-base",
+  "version": "4.0.0",
+  "description": "Neutrino preset for adding Airbnb's base JS ESLint config, following the Airbnb styleguide",
+  "main": "src/index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-preset",
+    "airbnb",
+    "eslint"
+  ],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MPL-2.0",
+  "repository": "mozilla-neutrino/neutrino-dev",
+  "dependencies": {
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.14.1",
+    "eslint-config-airbnb-base": "^11.1.0",
+    "eslint-loader": "^1.6.1",
+    "eslint-plugin-babel": "^4.0.1",
+    "eslint-plugin-import": "^2.2.0"
+  },
+  "peerDependencies": {
+    "neutrino": "^4.0.0"
+  }
+}

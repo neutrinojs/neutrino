@@ -9,11 +9,12 @@
   "license": "MPL-2.0",
   "scripts": {
     "bootstrap": "oao bootstrap",
-    "add-dep": "oao add",
-    "remove-dep": "oao remove",
-    "clear-deps": "rm -rf packages/**/node_modules",
+    "deps:add": "oao add",
+    "deps:remove": "oao remove",
+    "deps:upgrade": "oao upgrade",
+    "deps:clean": "rm -rf packages/**/node_modules",
     "docs:build": "gitbook build",
-    "docs:deploy": "npm run docs:build && gh-pages --dist _book --remote upstream",
+    "docs:deploy": "npm run docs:build && cp CNAME _book && gh-pages --dist _book --remote upstream",
     "docs:serve": "gitbook serve"
   },
   "devDependencies": {
@@ -23,6 +24,6 @@
     "gitbook-plugin-edit-link": "^2.0.2",
     "gitbook-plugin-github": "^2.0.0",
     "gitbook-plugin-prism": "^2.1.0",
-    "oao": "^0.5.0"
+    "oao": "^0.5.1"
   }
 }
