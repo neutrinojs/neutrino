@@ -7,6 +7,14 @@ packages and documentation.
 _Note: In this guide, commands executable from the command line are prepended with `❯`. Lines not starting
 with this symbol show sample console output from running the previous command._
 
+## Requirements
+
+Developing for neutrino-dev requires:
+
+- Node.js v6.9+
+- Yarn client, installation instructions at https://yarnpkg.com/en/docs/install
+- git, GitHub account
+
 ## Getting started
 
 The first step to start developing neutrino-dev is forking the repository to your own GitHub account.
@@ -19,6 +27,108 @@ of the account you forked the repository to:
 ```bash
 ❯ git clone git@github.com:USER/neutrino-dev.git
 ❯ cd neutrino-dev
+```
+
+Upon cloning, you should install dependencies and bootstrap the project:
+
+```bash
+❯ yarn
+❯ yarn bootstrap
+```
+
+This will create symlinks between the various packages, making local development much easier. It also creates yarn links
+for testing out these packages elsewhere on your system.
+
+## Development commands
+
+The package.json for neutrino-dev defines several commands to assist in the development and deployment process.
+
+---
+
+`bootstrap`
+
+Installs all sub-package dependencies using yarn. External dependencies are installed normally, whereas those belonging
+to the neutrino-dev monorepo itself are `yarn link`ed.
+
+```bash
+❯ yarn bootstrap
+```
+
+---
+
+`deps:add [--dev] <package> <...dependencies>`
+
+Adds one or more new dependencies or development dependencies to a sub-package. Any flags used, such as `--dev` are
+passed on to `yarn add`. For example, if you wanted to add "lodash.clonedeep" to the neutrino package:
+
+```bash
+❯ yarn deps:add neutrino lodash.clonedeep
+```
+
+---
+
+`deps:remove <package> <...dependencies>`
+
+Removes one or more dependencies from a sub-package. Any flags used are
+passed on to `yarn remove`. For example, if you wanted to remove "lodash.clonedeep" from the neutrino package:
+
+```bash
+❯ yarn deps:remove neutrino lodash.clonedeep
+```
+
+---
+
+`deps:upgrade <package> <...dependencies>`
+
+Upgrades one or more dependencies in a sub-package. Any flags used are
+passed on to `yarn upgrade`. For example, if you wanted to upgrade "lodash.clonedeep" in the neutrino package:
+
+```bash
+❯ yarn deps:upgrade neutrino lodash.clonedeep
+```
+
+---
+
+`deps:clean`
+
+Removes the `node_modules` directory from all sub-packages. After running this you will need to re-bootstrap
+neutrino-dev in order to continue development. Useful if you have somehow put your local development environment in an
+unworkable state with regards to local inter-dependencies.
+
+```bash
+❯ yarn deps:clean
+```
+
+---
+
+`docs:serve`
+
+Starts a local development server which builds the documentation in `docs` to a gitbook running on port 4000.
+
+```bash
+❯ yarn docs:serve
+```
+
+---
+
+`docs:build`
+
+Generates a static site by building the documentation in `docs` to a gitbook to the `_book` directory.
+
+```bash
+❯ yarn docs:build
+```
+
+---
+
+`docs:deploy`
+
+Generates a static site by building the documentation in `docs` to a gitbook to the `_book` directory, then pushing the
+contents of `_book` to a `gh-pages` branch on GitHub. In order to run this command, you must have an `upstream` remote
+configured pointing to the root neutrino-dev repo, and have sufficient rights to push to the repository.
+
+```bash
+❯ yarn docs:deploy
 ```
 
 ## Making changes
@@ -51,6 +161,10 @@ Now if you open the GitHub page for your repository, GitHub should display a but
 the branch and commit you just pushed. When filling out the details of the pull request, try to be as descriptive
 as possible, following our detailed [contribution guidelines](/contributing/README.md).
 
+### Congrats!
+
+You just made a contribution to Neutrino! We are so happy to have your help! :tada:
+
 ## Receiving updates
 
 If you need to update your local copy of neutrino-dev to be in sync with the main neutrino-dev repository, you
@@ -62,7 +176,3 @@ the latest changes from the master branch.
 ❯ git remote add upstream https://github.com/mozilla-neutrino/neutrino-dev.git
 ❯ git pull upstream master
 ```
-
-## Congrats!
-
-You just made a contribution to Neutrino! We are so happy to have your help! :tada:

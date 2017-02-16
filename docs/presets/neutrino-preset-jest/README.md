@@ -82,9 +82,9 @@ Run the tests, and view the results in your console:
 Test Suites: 1 passed, 1 total
 Tests:       1 passed, 1 total
 Snapshots:   0 total
-Time:        1.973s
+Time:        0.936s
 Ran all test suites.
-✨  Done in 4.43s.
+✨  Done in 2.12s.
 ```
 
 #### npm
@@ -99,7 +99,7 @@ Ran all test suites.
 Test Suites: 1 passed, 1 total
 Tests:       1 passed, 1 total
 Snapshots:   0 total
-Time:        1.075s
+Time:        0.972s
 Ran all test suites.
 ```
 

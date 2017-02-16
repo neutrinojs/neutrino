@@ -4,7 +4,7 @@
 
 ## Documentation
 
-See the [Neutrino docs](http://neutrino.js.org/presets/neutrino-preset-node/)
+See the [Neutrino docs](https://neutrino.js.org/presets/neutrino-preset-node/)
 for details on installation, getting started, usage, and customizing.
 
 [npm-image]: https://badge.fury.io/js/neutrino-preset-node.svg

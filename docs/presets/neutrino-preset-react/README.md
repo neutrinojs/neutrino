@@ -217,7 +217,50 @@ module.exports = neutrino => {
 
 ## Hot Reloading
 
+While `neutrino-preset-react` supports hot reloading your app using React Hot Loader, it does require some
+application-specific changes in order to operate.
 
+First, install `react-hot-loader` as a dependency, this **must** be React Hot Loader v3+ (currently in beta):
+
+#### Yarn
+
+```bash
+❯ yarn add react-hot-loader@next
+```
+
+#### npm
+
+```bash
+❯ npm install --save react-hot-loader@next
+```
+
+---
+
+- From your `index` entry point (`src/index.js`), import an `AppContainer` from `react-hot-loader`.
+- Wrap your top-level React component in the `AppContainer`.
+- Perform the application render in a reusable function for initial load and subsequent reloads.
+- Add the `hot` acceptance to call this function.
+
+For example:
+
+```jsx
+import React from 'react';
+import { render } from 'react-dom';
+import { AppContainer } from 'react-hot-loader';
+import MyApp from './MyApp';
+
+const load = () => render((
+  <AppContainer>
+    <MyApp />
+  </AppContainer>
+), document.getElementById('root'));
+
+if (module.hot) {
+  module.hot.accept('./MyApp', load);
+}
+
+load();
+```
 
 ## Contributing
 
