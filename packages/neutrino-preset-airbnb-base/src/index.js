@@ -14,7 +14,7 @@ module.exports = ({ config }) => {
         .loader('eslint', require.resolve('eslint-loader'), {
           failOnError: process.env.NODE_ENV !== 'development',
           emitWarning: process.env.NODE_ENV !== 'development',
-          emitError: process.env.NODE_ENV !== 'development'
+          emitError: process.env.NODE_ENV !== 'development',
           cwd: process.cwd(),
           useEslintrc: false,
           root: true,
