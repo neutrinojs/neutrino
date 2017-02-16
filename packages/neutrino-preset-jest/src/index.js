@@ -14,8 +14,14 @@ function normalizeJestConfig(neutrino, args) {
     .keys(aliases)
     .map(key => jest.moduleNameMapper[key] = path.join('<rootDir>', aliases[key]));
 
-  jest.moduleFileExtensions = [...new Set(config.resolve.extensions.values().map(e => e.replace('.', '')))];
-  jest.moduleDirectories = [...new Set(config.resolve.modules.values())];
+  jest.moduleFileExtensions = [...new Set([
+    ...jest.moduleFileExtensions,
+    ...config.resolve.extensions.values().map(e => e.replace('.', ''))
+  ])];
+  jest.moduleDirectories = [...new Set([
+    ...jest.moduleDirectories,
+    ...config.resolve.modules.values()
+  ])];
   jest.globals = Object.assign({
     BABEL_OPTIONS: config.module.rule('compile').loaders.get('babel').options
   }, jest.globals);
@@ -36,7 +42,7 @@ module.exports = neutrino => {
     testPathDirs: [path.join(process.cwd(), 'test')],
     testRegex: '(_test|_spec|\\.test|\\.spec)\\.jsx?$',
     moduleFileExtensions: ['js', 'jsx'],
-    moduleDirectories: ['node_modules'],
+    moduleDirectories: [path.join(__dirname, '../node_modules')],
     moduleNameMapper: {
       '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': require.resolve('./file-mock'),
       '\\.(css|less|sass)$': require.resolve('./style-mock')
