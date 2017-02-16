@@ -4,6 +4,7 @@
 
 ## Features
 
+- Zero upfront configuration necessary to start developing and building a React web app
 - Modern Babel compilation adding JSX and object rest spread syntax.
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
@@ -213,6 +214,10 @@ module.exports = neutrino => {
       .add('react-dom');
 };
 ```
+
+## Hot Reloading
+
+
 
 ## Contributing
 
