@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>React Preset · Neutrino</title>
+        <title>React · Neutrino</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -160,7 +160,7 @@
                 <a href="../neutrino-preset-web/">
             
                     
-                    Web Preset
+                    Web
             
                 </a>
             
@@ -173,7 +173,7 @@
                 <a href="./">
             
                     
-                    React Preset
+                    React
             
                 </a>
             
@@ -186,7 +186,7 @@
                 <a href="../neutrino-preset-node/">
             
                     
-                    Node.js Preset
+                    Node.js
             
                 </a>
             
@@ -194,12 +194,25 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.4" data-path="../neutrino-preset-karma/">
+        <li class="chapter " data-level="1.5.4" data-path="../neutrino-preset-airbnb-base/">
+            
+                <a href="../neutrino-preset-airbnb-base/">
+            
+                    
+                    Airbnb
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../neutrino-preset-karma/">
             
                 <a href="../neutrino-preset-karma/">
             
                     
-                    Karma Preset
+                    Karma
             
                 </a>
             
@@ -207,12 +220,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.5" data-path="../neutrino-preset-mocha/">
+        <li class="chapter " data-level="1.5.6" data-path="../neutrino-preset-mocha/">
             
                 <a href="../neutrino-preset-mocha/">
             
                     
-                    Mocha Preset
+                    Mocha
             
                 </a>
             
@@ -220,25 +233,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.6" data-path="../neutrino-preset-jest/">
+        <li class="chapter " data-level="1.5.7" data-path="../neutrino-preset-jest/">
             
                 <a href="../neutrino-preset-jest/">
             
                     
-                    Jest Preset
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.5.7" data-path="../neutrino-preset-base/">
-            
-                <a href="../neutrino-preset-base/">
-            
-                    
-                    Base Preset
+                    Jest
             
                 </a>
             
@@ -296,9 +296,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7" data-path="../creating-presets.md">
+        <li class="chapter " data-level="1.7" data-path="../../creating-presets.html">
             
-                <span>
+                <a href="../../creating-presets.html">
             
                     
                     Creating presets
@@ -349,12 +349,12 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../../contributing/code-of-conduct.html">
+        <li class="chapter " data-level="1.10.1" data-path="../../contributing/development.html">
             
-                <a href="../../contributing/code-of-conduct.html">
+                <a href="../../contributing/development.html">
             
                     
-                    Code of Conduct
+                    Development Process
             
                 </a>
             
@@ -362,12 +362,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../../contributing/development.html">
+        <li class="chapter " data-level="1.10.2" data-path="../../contributing/code-of-conduct.html">
             
-                <a href="../../contributing/development.html">
+                <a href="../../contributing/code-of-conduct.html">
             
                     
-                    Development Process
+                    Code of Conduct
             
                 </a>
             
@@ -410,7 +410,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../.." >React Preset</a>
+        <a href="../.." >React</a>
     </h1>
 </div>
 
@@ -425,7 +425,206 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="heading">heading</h1>
+                                <h1 id="neutrino-react-preset-">Neutrino React Preset <a href="https://npmjs.org/package/neutrino-preset-react" target="_blank"><img src="https://badge.fury.io/js/neutrino-preset-react.svg" alt="NPM version"></a></h1>
+<p><code>neutrino-preset-react</code> is a Neutrino preset that supports building React web applications.</p>
+<h2 id="features">Features</h2>
+<ul>
+<li>Zero upfront configuration necessary to start developing and building a React web app</li>
+<li>Modern Babel compilation adding JSX and object rest spread syntax.</li>
+<li>Support for React Hot Loader</li>
+<li>Write JSX in .js or .jsx files</li>
+<li>Extends from <a href="../neutrino-preset-web/">neutrino-preset-web</a><ul>
+<li>Modern Babel compilation supporting ES modules, last 2 major browser versions, and async functions</li>
+<li>Webpack loaders for importing HTML, CSS, images, icons, and fonts</li>
+<li>Webpack Dev Server during development</li>
+<li>Automatic creation of HTML pages, no templating necessary</li>
+<li>Hot module replacement support</li>
+<li>Production-optimized bundles with Babili minification and easy chunking</li>
+<li>Easily extensible to customize your project as needed</li>
+</ul>
+</li>
+</ul>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>Node.js v6.9+</li>
+<li>Yarn or npm client</li>
+<li>Neutrino v4</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<p><code>neutrino-preset-react</code> can be installed via the Yarn or npm clients. Inside your project, make sure
+<code>neutrino</code> and <code>neutrino-preset-react</code> are development dependencies. You will also need React and React DOM for actual
+React development.</p>
+<h4 id="yarn">Yarn</h4>
+<pre class="language-"><code class="lang-bash">&#x276F; yarn add --dev neutrino neutrino-preset-react
+&#x276F; yarn add react react-dom
+</code></pre>
+<h4 id="npm">npm</h4>
+<pre class="language-"><code class="lang-bash">&#x276F; npm <span class="token function">install</span> --save-dev neutrino neutrino-preset-react
+&#x276F; npm <span class="token function">install</span> --save react react-dom
+</code></pre>
+<h2 id="project-layout">Project Layout</h2>
+<p><code>neutrino-preset-react</code> follows the standard <a href="../../project-layout.html">project layout</a> specified by Neutrino. This
+means that by default all project source code should live in a directory named <code>src</code> in the root of the
+project. This includes JavaScript files, CSS stylesheets, images, and any other assets that would be available
+to your compiled project.</p>
+<h2 id="quickstart">Quickstart</h2>
+<p>After installing Neutrino and the React preset, add a new directory named <code>src</code> in the root of the project, with
+a single JS file named <code>index.js</code> in it.</p>
+<pre class="language-"><code class="lang-bash">&#x276F; <span class="token function">mkdir</span> src <span class="token operator">&amp;&amp;</span> <span class="token function">touch</span> src/index.js
+</code></pre>
+<p>This React preset exposes an element in the page with an ID of <code>root</code> to which you can mount your application. Edit
+your <code>src/index.js</code> file with the following:</p>
+<pre class="language-"><code class="lang-jsx"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">&apos;react&apos;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> render <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;react-dom&apos;</span><span class="token punctuation">;</span>
+
+<span class="token function">render</span><span class="token punctuation">(</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span>Hello world<span class="token operator">!</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">,</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">&apos;root&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Now edit your project&apos;s package.json to add commands for starting and building the application:</p>
+<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
+  <span class="token property">&quot;scripts&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;start&quot;</span><span class="token operator">:</span> <span class="token string">&quot;neutrino start --presets neutrino-preset-react&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;build&quot;</span><span class="token operator">:</span> <span class="token string">&quot;neutrino build --presets neutrino-preset-react&quot;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Start the app, then open a browser to the address in the console:</p>
+<h4 id="yarn">Yarn</h4>
+<pre class="language-"><code class="lang-bash">&#x276F; yarn start
+&#x2714; Development server running on: http://localhost:5000
+&#x2714; Build completed
+</code></pre>
+<h4 id="npm">npm</h4>
+<pre class="language-"><code class="lang-bash">&#x276F; npm start
+&#x2714; Development server running on: http://localhost:5000
+&#x2714; Build completed
+</code></pre>
+<h2 id="building">Building</h2>
+<p><code>neutrino-preset-react</code> builds static assets to the <code>build</code> directory by default when running <code>neutrino build</code>. Using
+the quick start example above as a reference:</p>
+<pre class="language-"><code class="lang-bash">&#x276F; yarn build
+clean-webpack-plugin: /react/build has been removed.
+Build completed <span class="token keyword">in</span> 6.692s
+
+Hash: 7a83f769b15f88b80727
+Version: webpack 2.2.1
+Time: 6695ms
+                                  Asset       Size  Chunks             Chunk Names
+   index.b615ea9e95317f530317.bundle.js     143 kB    0, 1  <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>  index
+manifest.2211d9c1970bbd3c952b.bundle.js    1.41 kB       1  <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>  manifest
+                             index.html  779 bytes          <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>
+&#x2728;  Done <span class="token keyword">in</span> 8.32s.
+</code></pre>
+<p>You can either serve or deploy the contents of this <code>build</code> directory as a static site.</p>
+<h2 id="customizing">Customizing</h2>
+<p>To override the build configuration, start with the documentation on <a href="../../customization/">customization</a>.
+<code>neutrino-preset-react</code> does not use any additional named rules, loaders, or plugins that aren&apos;t already in use by the
+Web preset. See the <a href="../neutrino-preset-web#customizing">Web documentation customization</a>
+for preset-specific configuration to override.</p>
+<h3 id="simple-customization">Simple customization</h3>
+<p>By following the <a href="../../customization/simple.html">customization guide</a> and knowing the rule, loader, and plugin IDs above,
+you can override and augment the build directly from package.json.</p>
+<h4 id="vendoring">Vendoring</h4>
+<p>By defining an entry point in package.json named <code>vendor</code> you can split out external dependencies into a chunk separate
+from your application code. When working with a React application, it is recommended to start out by splitting off
+React and React DOM into the <code>vendor</code> chunk.</p>
+<p><em>Example: Put React and React DOM into a separate &quot;vendor&quot; chunk:</em></p>
+<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
+  <span class="token property">&quot;config&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;neutrino&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;entry&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;vendor&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token string">&quot;react&quot;</span><span class="token punctuation">,</span>
+          <span class="token string">&quot;react-dom&quot;</span>
+        <span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;dependencies&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;react&quot;</span><span class="token operator">:</span> <span class="token string">&quot;^15.4.2&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;react-dom&quot;</span><span class="token operator">:</span> <span class="token string">&quot;^15.4.2&quot;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Running the build again, you can contrast the bundles generated here with the one generated in the quick start:</p>
+<pre class="language-"><code class="lang-bash">&#x276F; yarn build
+clean-webpack-plugin: /react/build has been removed.
+Build completed <span class="token keyword">in</span> 6.726s
+
+Hash: 0468e662989da55bdc5e
+Version: webpack 2.2.1
+Time: 6730ms
+                                  Asset       Size  Chunks             Chunk Names
+  vendor.0b3c06ba6b2494d683ee.bundle.js     142 kB    0, 2  <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>  vendor
+   index.d264625fd405d81cb995.bundle.js  276 bytes    1, 2  <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>  index
+manifest.29ee4d0db8f2534cc643.bundle.js    1.44 kB       2  <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>  manifest
+                             index.html  866 bytes          <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>
+&#x2728;  Done <span class="token keyword">in</span> 8.21s.
+</code></pre>
+<h4 id="html-files">HTML files</h4>
+<p>If you wish to override how HTML files are created for your React app, refer to the <a href="../neutrino-preset-web/#html-files">relevant section on
+neutrino-preset-web</a>.</p>
+<p><em>Example: Change the application mount ID from &quot;root&quot; to &quot;app&quot;:</em></p>
+<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
+  <span class="token property">&quot;config&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;html&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;appMountId&quot;</span><span class="token operator">:</span> <span class="token string">&quot;app&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="advanced-configuration">Advanced configuration</h3>
+<p>By following the <a href="../../customization/advanced.html">customization guide</a> and knowing the rule, loader, and plugin IDs from
+neutrino-preset-web, you can override and augment the build by creating a JS module which overrides the config.</p>
+<h4 id="vendoring">Vendoring</h4>
+<p>By defining an entry point named <code>vendor</code> you can split out external dependencies into a chunk separate
+from your application code.</p>
+<p><em>Example: Put React and React DOM into a separate &quot;vendor&quot; chunk:</em></p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> neutrino <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  neutrino<span class="token punctuation">.</span>config
+    <span class="token punctuation">.</span><span class="token function">entry</span><span class="token punctuation">(</span><span class="token string">&apos;vendor&apos;</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">&apos;react&apos;</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">&apos;react-dom&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="hot-reloading">Hot Reloading</h2>
+<p>While <code>neutrino-preset-react</code> supports hot reloading your app using React Hot Loader, it does require some
+application-specific changes in order to operate.</p>
+<p>First, install <code>react-hot-loader</code> as a dependency, this <strong>must</strong> be React Hot Loader v3+ (currently in beta):</p>
+<h4 id="yarn">Yarn</h4>
+<pre class="language-"><code class="lang-bash">&#x276F; yarn add react-hot-loader@next
+</code></pre>
+<h4 id="npm">npm</h4>
+<pre class="language-"><code class="lang-bash">&#x276F; npm <span class="token function">install</span> --save react-hot-loader@next
+</code></pre>
+<hr>
+<ul>
+<li>From your <code>index</code> entry point (<code>src/index.js</code>), import an <code>AppContainer</code> from <code>react-hot-loader</code>.</li>
+<li>Wrap your top-level React component in the <code>AppContainer</code>.</li>
+<li>Perform the application render in a reusable function for initial load and subsequent reloads.</li>
+<li>Add the <code>hot</code> acceptance to call this function.</li>
+</ul>
+<p>For example:</p>
+<pre class="language-"><code class="lang-jsx"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">&apos;react&apos;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> render <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;react-dom&apos;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> AppContainer <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;react-hot-loader&apos;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> MyApp <span class="token keyword">from</span> <span class="token string">&apos;./MyApp&apos;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> load <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">(</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>AppContainer</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>MyApp</span> <span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>AppContainer</span><span class="token punctuation">&gt;</span></span>
+<span class="token punctuation">)</span><span class="token punctuation">,</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">&apos;root&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span>module<span class="token punctuation">.</span>hot<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  module<span class="token punctuation">.</span>hot<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span><span class="token string">&apos;./MyApp&apos;</span><span class="token punctuation">,</span> load<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">load</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="contributing">Contributing</h2>
+<p>This preset is part of the <a href="https://github.com/mozilla-neutrino/neutrino-dev" target="_blank">neutrino-dev</a> repository, a monorepo
+containing all resources for developing Neutrino and its core presets. Follow the
+<a href="../../contributing/">contributing guide</a> for details.</p>
 
                                 
                                 </section>
@@ -453,12 +652,12 @@
 
             
                 
-                <a href="../neutrino-preset-web/" class="navigation navigation-prev " aria-label="Previous page: Web Preset">
+                <a href="../neutrino-preset-web/" class="navigation navigation-prev " aria-label="Previous page: Web">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="../neutrino-preset-node/" class="navigation navigation-next " aria-label="Next page: Node.js Preset">
+                <a href="../neutrino-preset-node/" class="navigation navigation-next " aria-label="Next page: Node.js">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -469,7 +668,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"React Preset","level":"1.5.2","depth":2,"next":{"title":"Node.js Preset","level":"1.5.3","depth":2,"path":"presets/neutrino-preset-node/README.md","ref":"presets/neutrino-preset-node/README.md","articles":[]},"previous":{"title":"Web Preset","level":"1.5.1","depth":2,"path":"presets/neutrino-preset-web/README.md","ref":"presets/neutrino-preset-web/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"presets/neutrino-preset-react/README.md","mtime":"2017-02-08T16:02:29.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-15T19:29:37.595Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"React","level":"1.5.2","depth":2,"next":{"title":"Node.js","level":"1.5.3","depth":2,"path":"presets/neutrino-preset-node/README.md","ref":"presets/neutrino-preset-node/README.md","articles":[]},"previous":{"title":"Web","level":"1.5.1","depth":2,"path":"presets/neutrino-preset-web/README.md","ref":"presets/neutrino-preset-web/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"presets/neutrino-preset-react/README.md","mtime":"2017-02-16T18:32:52.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-16T18:33:07.353Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

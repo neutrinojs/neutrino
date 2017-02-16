@@ -57,8 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="code-of-conduct.html" />
     
-    <link rel="prev" href="code-of-conduct.html" />
+    
+    <link rel="prev" href="./" />
     
 
     </head>
@@ -158,7 +160,7 @@
                 <a href="../presets/neutrino-preset-web/">
             
                     
-                    Web Preset
+                    Web
             
                 </a>
             
@@ -171,7 +173,7 @@
                 <a href="../presets/neutrino-preset-react/">
             
                     
-                    React Preset
+                    React
             
                 </a>
             
@@ -184,7 +186,7 @@
                 <a href="../presets/neutrino-preset-node/">
             
                     
-                    Node.js Preset
+                    Node.js
             
                 </a>
             
@@ -192,12 +194,25 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.4" data-path="../presets/neutrino-preset-karma/">
+        <li class="chapter " data-level="1.5.4" data-path="../presets/neutrino-preset-airbnb-base/">
+            
+                <a href="../presets/neutrino-preset-airbnb-base/">
+            
+                    
+                    Airbnb
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../presets/neutrino-preset-karma/">
             
                 <a href="../presets/neutrino-preset-karma/">
             
                     
-                    Karma Preset
+                    Karma
             
                 </a>
             
@@ -205,12 +220,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.5" data-path="../presets/neutrino-preset-mocha/">
+        <li class="chapter " data-level="1.5.6" data-path="../presets/neutrino-preset-mocha/">
             
                 <a href="../presets/neutrino-preset-mocha/">
             
                     
-                    Mocha Preset
+                    Mocha
             
                 </a>
             
@@ -218,25 +233,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.6" data-path="../presets/neutrino-preset-jest/">
+        <li class="chapter " data-level="1.5.7" data-path="../presets/neutrino-preset-jest/">
             
                 <a href="../presets/neutrino-preset-jest/">
             
                     
-                    Jest Preset
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.5.7" data-path="../presets/neutrino-preset-base/">
-            
-                <a href="../presets/neutrino-preset-base/">
-            
-                    
-                    Base Preset
+                    Jest
             
                 </a>
             
@@ -294,9 +296,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7" data-path="../presets/creating-presets.md">
+        <li class="chapter " data-level="1.7" data-path="../creating-presets.html">
             
-                <span>
+                <a href="../creating-presets.html">
             
                     
                     Creating presets
@@ -347,12 +349,12 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="code-of-conduct.html">
+        <li class="chapter active" data-level="1.10.1" data-path="development.html">
             
-                <a href="code-of-conduct.html">
+                <a href="development.html">
             
                     
-                    Code of Conduct
+                    Development Process
             
                 </a>
             
@@ -360,12 +362,12 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.10.2" data-path="development.html">
+        <li class="chapter " data-level="1.10.2" data-path="code-of-conduct.html">
             
-                <a href="development.html">
+                <a href="code-of-conduct.html">
             
                     
-                    Development Process
+                    Code of Conduct
             
                 </a>
             
@@ -429,6 +431,13 @@
 packages and documentation.</p>
 <p><em>Note: In this guide, commands executable from the command line are prepended with <code>&#x276F;</code>. Lines not starting
 with this symbol show sample console output from running the previous command.</em></p>
+<h2 id="requirements">Requirements</h2>
+<p>Developing for neutrino-dev requires:</p>
+<ul>
+<li>Node.js v6.9+</li>
+<li>Yarn client, installation instructions at <a href="https://yarnpkg.com/en/docs/install" target="_blank">https://yarnpkg.com/en/docs/install</a></li>
+<li>git, GitHub account</li>
+</ul>
 <h2 id="getting-started">Getting started</h2>
 <p>The first step to start developing neutrino-dev is forking the repository to your own GitHub account.</p>
 <p><a href="https://github.com/mozilla-neutrino/neutrino-dev/fork" target="_blank">Fork mozilla-neutrino/neutrino-dev on GitHub</a></p>
@@ -436,6 +445,62 @@ with this symbol show sample console output from running the previous command.</
 of the account you forked the repository to:</p>
 <pre class="language-"><code class="lang-bash">&#x276F; <span class="token function">git</span> clone git@github.com:USER/neutrino-dev.git
 &#x276F; <span class="token function">cd</span> neutrino-dev
+</code></pre>
+<p>Upon cloning, you should install dependencies and bootstrap the project:</p>
+<pre class="language-"><code class="lang-bash">&#x276F; yarn
+&#x276F; yarn bootstrap
+</code></pre>
+<p>This will create symlinks between the various packages, making local development much easier. It also creates yarn links
+for testing out these packages elsewhere on your system.</p>
+<h2 id="development-commands">Development commands</h2>
+<p>The package.json for neutrino-dev defines several commands to assist in the development and deployment process.</p>
+<hr>
+<p><code>bootstrap</code></p>
+<p>Installs all sub-package dependencies using yarn. External dependencies are installed normally, whereas those belonging
+to the neutrino-dev monorepo itself are <code>yarn link</code>ed.</p>
+<pre class="language-"><code class="lang-bash">&#x276F; yarn bootstrap
+</code></pre>
+<hr>
+<p><code>deps:add [--dev] <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>package</span><span class="token punctuation">&gt;</span></span> &lt;...dependencies&gt;</code></p>
+<p>Adds one or more new dependencies or development dependencies to a sub-package. Any flags used, such as <code>--dev</code> are
+passed on to <code>yarn add</code>. For example, if you wanted to add &quot;lodash.clonedeep&quot; to the neutrino package:</p>
+<pre class="language-"><code class="lang-bash">&#x276F; yarn deps:add neutrino lodash.clonedeep
+</code></pre>
+<hr>
+<p><code>deps:remove <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>package</span><span class="token punctuation">&gt;</span></span> &lt;...dependencies&gt;</code></p>
+<p>Removes one or more dependencies from a sub-package. Any flags used are
+passed on to <code>yarn remove</code>. For example, if you wanted to remove &quot;lodash.clonedeep&quot; from the neutrino package:</p>
+<pre class="language-"><code class="lang-bash">&#x276F; yarn deps:remove neutrino lodash.clonedeep
+</code></pre>
+<hr>
+<p><code>deps:upgrade <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>package</span><span class="token punctuation">&gt;</span></span> &lt;...dependencies&gt;</code></p>
+<p>Upgrades one or more dependencies in a sub-package. Any flags used are
+passed on to <code>yarn upgrade</code>. For example, if you wanted to upgrade &quot;lodash.clonedeep&quot; in the neutrino package:</p>
+<pre class="language-"><code class="lang-bash">&#x276F; yarn deps:upgrade neutrino lodash.clonedeep
+</code></pre>
+<hr>
+<p><code>deps:clean</code></p>
+<p>Removes the <code>node_modules</code> directory from all sub-packages. After running this you will need to re-bootstrap
+neutrino-dev in order to continue development. Useful if you have somehow put your local development environment in an
+unworkable state with regards to local inter-dependencies.</p>
+<pre class="language-"><code class="lang-bash">&#x276F; yarn deps:clean
+</code></pre>
+<hr>
+<p><code>docs:serve</code></p>
+<p>Starts a local development server which builds the documentation in <code>docs</code> to a gitbook running on port 4000.</p>
+<pre class="language-"><code class="lang-bash">&#x276F; yarn docs:serve
+</code></pre>
+<hr>
+<p><code>docs:build</code></p>
+<p>Generates a static site by building the documentation in <code>docs</code> to a gitbook to the <code>_book</code> directory.</p>
+<pre class="language-"><code class="lang-bash">&#x276F; yarn docs:build
+</code></pre>
+<hr>
+<p><code>docs:deploy</code></p>
+<p>Generates a static site by building the documentation in <code>docs</code> to a gitbook to the <code>_book</code> directory, then pushing the
+contents of <code>_book</code> to a <code>gh-pages</code> branch on GitHub. In order to run this command, you must have an <code>upstream</code> remote
+configured pointing to the root neutrino-dev repo, and have sufficient rights to push to the repository.</p>
+<pre class="language-"><code class="lang-bash">&#x276F; yarn docs:deploy
 </code></pre>
 <h2 id="making-changes">Making changes</h2>
 <p>When you make changes to neutrino-dev, you should make them in a branch separate from <code>master</code>. Start from the
@@ -456,6 +521,8 @@ in order to add files that should be commited. Give your changes a descriptive b
 <p>Now if you open the GitHub page for your repository, GitHub should display a button to open a pull request for
 the branch and commit you just pushed. When filling out the details of the pull request, try to be as descriptive
 as possible, following our detailed <a href="./">contribution guidelines</a>.</p>
+<h3 id="congrats">Congrats!</h3>
+<p>You just made a contribution to Neutrino! We are so happy to have your help! &#x1F389;</p>
 <h2 id="receiving-updates">Receiving updates</h2>
 <p>If you need to update your local copy of neutrino-dev to be in sync with the main neutrino-dev repository, you
 will want to fetch upstream changes. Add the main neutrino-dev repo as an upstream to your local copy, then fetch
@@ -464,8 +531,6 @@ the latest changes from the master branch.</p>
 &#x276F; <span class="token function">git</span> remote add upstream https://github.com/mozilla-neutrino/neutrino-dev.git
 &#x276F; <span class="token function">git</span> pull upstream master
 </code></pre>
-<h2 id="congrats">Congrats!</h2>
-<p>You just made a contribution to Neutrino! We are so happy to have your help! :tada:</p>
 
                                 
                                 </section>
@@ -493,10 +558,14 @@ the latest changes from the master branch.</p>
 
             
                 
-                <a href="code-of-conduct.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Code of Conduct">
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Contributing">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="code-of-conduct.html" class="navigation navigation-next " aria-label="Next page: Code of Conduct">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -505,7 +574,7 @@ the latest changes from the master branch.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Development Process","level":"1.10.2","depth":2,"previous":{"title":"Code of Conduct","level":"1.10.1","depth":2,"path":"contributing/code-of-conduct.md","ref":"contributing/code-of-conduct.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"contributing/development.md","mtime":"2017-02-15T19:19:59.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-15T19:29:37.595Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Development Process","level":"1.10.1","depth":2,"next":{"title":"Code of Conduct","level":"1.10.2","depth":2,"path":"contributing/code-of-conduct.md","ref":"contributing/code-of-conduct.md","articles":[]},"previous":{"title":"Contributing","level":"1.10","depth":1,"path":"contributing/README.md","ref":"contributing/README.md","articles":[{"title":"Development Process","level":"1.10.1","depth":2,"path":"contributing/development.md","ref":"contributing/development.md","articles":[]},{"title":"Code of Conduct","level":"1.10.2","depth":2,"path":"contributing/code-of-conduct.md","ref":"contributing/code-of-conduct.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"contributing/development.md","mtime":"2017-02-16T18:32:52.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-16T18:33:07.353Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

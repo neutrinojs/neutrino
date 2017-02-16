@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Karma Preset · Neutrino</title>
+        <title>Karma · Neutrino</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -60,7 +60,7 @@
     <link rel="next" href="../neutrino-preset-mocha/" />
     
     
-    <link rel="prev" href="../neutrino-preset-node/" />
+    <link rel="prev" href="../neutrino-preset-airbnb-base/" />
     
 
     </head>
@@ -160,7 +160,7 @@
                 <a href="../neutrino-preset-web/">
             
                     
-                    Web Preset
+                    Web
             
                 </a>
             
@@ -173,7 +173,7 @@
                 <a href="../neutrino-preset-react/">
             
                     
-                    React Preset
+                    React
             
                 </a>
             
@@ -186,7 +186,7 @@
                 <a href="../neutrino-preset-node/">
             
                     
-                    Node.js Preset
+                    Node.js
             
                 </a>
             
@@ -194,12 +194,25 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.5.4" data-path="./">
+        <li class="chapter " data-level="1.5.4" data-path="../neutrino-preset-airbnb-base/">
+            
+                <a href="../neutrino-preset-airbnb-base/">
+            
+                    
+                    Airbnb
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.5.5" data-path="./">
             
                 <a href="./">
             
                     
-                    Karma Preset
+                    Karma
             
                 </a>
             
@@ -207,12 +220,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.5" data-path="../neutrino-preset-mocha/">
+        <li class="chapter " data-level="1.5.6" data-path="../neutrino-preset-mocha/">
             
                 <a href="../neutrino-preset-mocha/">
             
                     
-                    Mocha Preset
+                    Mocha
             
                 </a>
             
@@ -220,25 +233,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5.6" data-path="../neutrino-preset-jest/">
+        <li class="chapter " data-level="1.5.7" data-path="../neutrino-preset-jest/">
             
                 <a href="../neutrino-preset-jest/">
             
                     
-                    Jest Preset
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.5.7" data-path="../neutrino-preset-base/">
-            
-                <a href="../neutrino-preset-base/">
-            
-                    
-                    Base Preset
+                    Jest
             
                 </a>
             
@@ -296,9 +296,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7" data-path="../creating-presets.md">
+        <li class="chapter " data-level="1.7" data-path="../../creating-presets.html">
             
-                <span>
+                <a href="../../creating-presets.html">
             
                     
                     Creating presets
@@ -349,12 +349,12 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.10.1" data-path="../../contributing/code-of-conduct.html">
+        <li class="chapter " data-level="1.10.1" data-path="../../contributing/development.html">
             
-                <a href="../../contributing/code-of-conduct.html">
+                <a href="../../contributing/development.html">
             
                     
-                    Code of Conduct
+                    Development Process
             
                 </a>
             
@@ -362,12 +362,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10.2" data-path="../../contributing/development.html">
+        <li class="chapter " data-level="1.10.2" data-path="../../contributing/code-of-conduct.html">
             
-                <a href="../../contributing/development.html">
+                <a href="../../contributing/code-of-conduct.html">
             
                     
-                    Development Process
+                    Code of Conduct
             
                 </a>
             
@@ -410,7 +410,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../.." >Karma Preset</a>
+        <a href="../.." >Karma</a>
     </h1>
 </div>
 
@@ -425,7 +425,138 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="heading">heading</h1>
+                                <h1 id="neutrino-karma-preset-">Neutrino Karma Preset <a href="https://npmjs.org/package/neutrino-preset-karma" target="_blank"><img src="https://badge.fury.io/js/neutrino-preset-karma.svg" alt="NPM version"></a></h1>
+<p><code>neutrino-preset-karma</code> is a Neutrino preset that supports testing web applications using the Karma test runner.</p>
+<h2 id="features">Features</h2>
+<ul>
+<li>Zero upfront configuration necessary to start testing on real browsers with Karma, Mocha, and Chrome</li>
+<li>Babel compilation that compiles your tests using the same Babel options used by your source code</li>
+<li>Source watching for re-running of tests on change</li>
+<li>Out-of-the-box support for running in CI</li>
+<li>Easily extensible to customize your testing as needed</li>
+</ul>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>Node.js v6.9+</li>
+<li>Yarn or npm client</li>
+<li>Neutrino v4, Neutrino build preset</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<p><code>neutrino-preset-karma</code> can be installed via the Yarn or npm clients. Inside your project, make sure
+<code>neutrino</code> and <code>neutrino-preset-karma</code> are development dependencies. You will also be using
+another Neutrino preset for building your application source code.</p>
+<h4 id="yarn">Yarn</h4>
+<pre class="language-"><code class="lang-bash">&#x276F; yarn add --dev neutrino-preset-karma
+</code></pre>
+<h4 id="npm">npm</h4>
+<pre class="language-"><code class="lang-bash">&#x276F; npm <span class="token function">install</span> --save-dev neutrino-preset-karma
+</code></pre>
+<h2 id="project-layout">Project Layout</h2>
+<p><code>neutrino-preset-karma</code> follows the standard <a href="../../project-layout.html">project layout</a> specified by Neutrino. This
+means that by default all project test code should live in a directory named <code>test</code> in the root of the
+project. Test files end in <code>_test.js</code> by default.</p>
+<h2 id="quickstart">Quickstart</h2>
+<p>After adding the Karma preset to your Neutrino-built project, add a new directory named <code>test</code> in the root of the
+project, with a single JS file named <code>simple_test.js</code> in it.</p>
+<pre class="language-"><code class="lang-bash">&#x276F; <span class="token function">mkdir</span> <span class="token function">test</span> <span class="token operator">&amp;&amp;</span> <span class="token function">touch</span> test/simple_test.js
+</code></pre>
+<p>Edit your <code>test/simple_test.js</code> file with the following:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> assert <span class="token keyword">from</span> <span class="token string">&apos;assert&apos;</span><span class="token punctuation">;</span>
+
+<span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">&apos;simple&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">&apos;should be sane&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    assert<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token operator">!</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Now edit your project&apos;s package.json to add commands for testing your application. In this example,
+let&apos;s pretend this is a React project:</p>
+<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
+  <span class="token property">&quot;scripts&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;test&quot;</span><span class="token operator">:</span> <span class="token string">&quot;neutrino test --presets neutrino-preset-node neutrino-preset-karma&quot;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Run the tests, and view the results in your console:</p>
+<h4 id="yarn">Yarn</h4>
+<pre class="language-"><code class="lang-bash">&#x276F; yarn <span class="token function">test</span>
+
+START:
+16 02 2017 10:36:34.713:INFO <span class="token punctuation">[</span>karma<span class="token punctuation">]</span>: Karma v1.4.1 server started at http://0.0.0.0:9876/
+16 02 2017 10:36:34.715:INFO <span class="token punctuation">[</span>launcher<span class="token punctuation">]</span>: Launching browser Chrome with unlimited concurrency
+16 02 2017 10:36:34.731:INFO <span class="token punctuation">[</span>launcher<span class="token punctuation">]</span>: Starting browser Chrome
+16 02 2017 10:36:35.655:INFO <span class="token punctuation">[</span>Chrome 56.0.2924 <span class="token punctuation">(</span>Mac OS X 10.12.3<span class="token punctuation">)</span><span class="token punctuation">]</span>: Connected on socket MkTbqJLpAAa2HFaeAAAA with <span class="token function">id</span> 21326158
+  simple
+    &#x2714; should be sane
+
+Finished <span class="token keyword">in</span> 0.003 secs / 0 secs @ 10:36:35 GMT-0600 <span class="token punctuation">(</span>CST<span class="token punctuation">)</span>
+
+SUMMARY:
+&#x2714; 1 <span class="token function">test</span> completed
+&#x2728;  Done <span class="token keyword">in</span> 7.54s.
+</code></pre>
+<h4 id="npm">npm</h4>
+<pre class="language-"><code class="lang-bash">&#x276F; npm <span class="token function">test</span>
+
+START:
+16 02 2017 10:38:12.865:INFO <span class="token punctuation">[</span>karma<span class="token punctuation">]</span>: Karma v1.4.1 server started at http://0.0.0.0:9876/
+16 02 2017 10:38:12.867:INFO <span class="token punctuation">[</span>launcher<span class="token punctuation">]</span>: Launching browser Chrome with unlimited concurrency
+16 02 2017 10:38:12.879:INFO <span class="token punctuation">[</span>launcher<span class="token punctuation">]</span>: Starting browser Chrome
+16 02 2017 10:38:13.688:INFO <span class="token punctuation">[</span>Chrome 56.0.2924 <span class="token punctuation">(</span>Mac OS X 10.12.3<span class="token punctuation">)</span><span class="token punctuation">]</span>: Connected on socket svRGoxU0etKTKQWhAAAA with <span class="token function">id</span> 68456725
+  simple
+    &#x2714; should be sane
+
+Finished <span class="token keyword">in</span> 0.006 secs / 0 secs @ 10:38:13 GMT-0600 <span class="token punctuation">(</span>CST<span class="token punctuation">)</span>
+
+SUMMARY:
+&#x2714; 1 <span class="token function">test</span> completed
+</code></pre>
+<p>To run tests against files from your source code, simply import them:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> thingToTest <span class="token keyword">from</span> <span class="token string">&apos;../src/thing&apos;</span><span class="token punctuation">;</span>
+</code></pre>
+<p>For more details on specific Karma usage, please refer to their
+<a href="https://karma-runner.github.io/1.0/index.html" target="_blank">documentation</a>.</p>
+<h2 id="executing-single-tests">Executing single tests</h2>
+<p>By default this preset will execute every test file located in your test directory ending in the appropriate file
+extension.
+Use the command line <a href="../../cli/#neutrino-test"><code>files</code> parameters</a> to execute individual tests.</p>
+<h2 id="watching-for-changes">Watching for changes</h2>
+<p><code>neutrino-preset-karma</code> can watch for changes on your source directory and subsequently re-run tests. Simply use the
+<code>--watch</code> flag with your <code>neutrino test</code> command.</p>
+<h2 id="using-from-ci">Using from CI</h2>
+<p><code>neutrino-preset-karma</code> needs no additional configuration to run your tests in CI infrastructure, but you will still
+need to ensure your CI can actually run the tests. This usually means having a display emulator and access to the
+browsers you are testing against.</p>
+<p>To do this in Travis-CI, you will need to add the following to your <code>.travis.yml</code> file for Chrome tests:</p>
+<pre class="language-"><code class="lang-yaml"><span class="token key atrule">before_install</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> export CHROME_BIN=chromium<span class="token punctuation">-</span>browser
+  <span class="token punctuation">-</span> export DISPLAY=<span class="token punctuation">:</span><span class="token number">99.0</span>
+  <span class="token punctuation">-</span> sh <span class="token punctuation">-</span>e /etc/init.d/xvfb start
+</code></pre>
+<h2 id="customizing">Customizing</h2>
+<p>To override the test configuration, start with the documentation on <a href="../../customization/">customization</a>.
+<code>neutrino-preset-karma</code> creates some conventions to make overriding the configuration easier once you are ready to make
+changes.</p>
+<h3 id="simple-customization">Simple customization</h3>
+<p>It is not currently possible to override <code>neutrino-preset-karma</code> settings from the package.json using simple
+customization. Please use the advanced configuration for changes.</p>
+<h3 id="advanced-configuration">Advanced configuration</h3>
+<p>By following the <a href="../../customization/advanced.html">customization guide</a> you can override and augment testing by creating a
+JS module which overrides the config. </p>
+<p>You can also modify Karma settings by overriding with any options Karma accepts. In a standalone Karma project this is
+typically done in a <code>karma.conf.js</code> file, but <code>neutrino-preset-karma</code> unifies advanced configuration through a preset
+override module. When needing to make changes to Karma-specific settings, this is stored in the <code>neutrino.custom.karma</code>
+object, and takes the same configuration options as outlined in the
+<a href="https://karma-runner.github.io/1.0/config/configuration-file.html" target="_blank">Karma documentation</a>.</p>
+<p><em>Example: Change the duration Karma waits for a browser to reconnect (in ms).</em></p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> neutrino <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  neutrino<span class="token punctuation">.</span>custom<span class="token punctuation">.</span>karma<span class="token punctuation">.</span>browserDisconnectTimeout <span class="token operator">=</span> <span class="token number">5000</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="contributing">Contributing</h2>
+<p>This preset is part of the <a href="https://github.com/mozilla-neutrino/neutrino-dev" target="_blank">neutrino-dev</a> repository, a monorepo
+containing all resources for developing Neutrino and its core presets. Follow the
+<a href="../../contributing/">contributing guide</a> for details.</p>
 
                                 
                                 </section>
@@ -453,12 +584,12 @@
 
             
                 
-                <a href="../neutrino-preset-node/" class="navigation navigation-prev " aria-label="Previous page: Node.js Preset">
+                <a href="../neutrino-preset-airbnb-base/" class="navigation navigation-prev " aria-label="Previous page: Airbnb">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="../neutrino-preset-mocha/" class="navigation navigation-next " aria-label="Next page: Mocha Preset">
+                <a href="../neutrino-preset-mocha/" class="navigation navigation-next " aria-label="Next page: Mocha">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -469,7 +600,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Karma Preset","level":"1.5.4","depth":2,"next":{"title":"Mocha Preset","level":"1.5.5","depth":2,"path":"presets/neutrino-preset-mocha/README.md","ref":"presets/neutrino-preset-mocha/README.md","articles":[]},"previous":{"title":"Node.js Preset","level":"1.5.3","depth":2,"path":"presets/neutrino-preset-node/README.md","ref":"presets/neutrino-preset-node/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"presets/neutrino-preset-karma/README.md","mtime":"2017-02-14T17:15:41.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-15T19:29:37.595Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Karma","level":"1.5.5","depth":2,"next":{"title":"Mocha","level":"1.5.6","depth":2,"path":"presets/neutrino-preset-mocha/README.md","ref":"presets/neutrino-preset-mocha/README.md","articles":[]},"previous":{"title":"Airbnb","level":"1.5.4","depth":2,"path":"presets/neutrino-preset-airbnb-base/README.md","ref":"presets/neutrino-preset-airbnb-base/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"presets/neutrino-preset-karma/README.md","mtime":"2017-02-16T18:32:52.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-16T18:33:07.353Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
