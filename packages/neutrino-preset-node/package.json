@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-node",
-  "version": "4.0.0",
+  "version": "3.9.9",
   "description": "Neutrino preset for building Node.js projects",
   "main": "src/index.js",
   "keywords": [
