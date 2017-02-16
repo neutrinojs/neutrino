@@ -5,7 +5,7 @@ config, following the [Airbnb styleguide](https://github.com/airbnb/javascript).
 
 ## Documentation
 
-See the [Neutrino docs](http://neutrino.js.org/presets/neutrino-preset-airbnb-base/)
+See the [Neutrino docs](https://neutrino.js.org/presets/neutrino-preset-airbnb-base/)
 for details on installation, getting started, usage, and customizing.
 
 [npm-image]: https://badge.fury.io/js/neutrino-preset-airbnb-base.svg

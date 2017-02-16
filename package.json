@@ -13,8 +13,8 @@
     "deps:remove": "oao remove",
     "deps:upgrade": "oao upgrade",
     "deps:clean": "rm -rf packages/**/node_modules",
-    "docs:build": "gitbook build",
-    "docs:deploy": "npm run docs:build && cp CNAME _book && gh-pages --dist _book --remote upstream",
+    "docs:build": "gitbook build && cp CNAME _book",
+    "docs:deploy": "yarn docs:build && gh-pages --dist _book --remote upstream",
     "docs:serve": "gitbook serve"
   },
   "devDependencies": {
