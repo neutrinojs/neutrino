@@ -17,5 +17,5 @@ your own presets by extending the Neutrino core ones to be shared across your ow
 Presets can even be manipulated on a project-by-project basis to handle almost any build situation your preset doesn't
 cover.
 
-[npm-image]: https://badge.fury.io/js/neutrino.svg
+[npm-image]: https://img.shields.io/npm/v/neutrino.svg
 [npm-url]: https://npmjs.org/package/neutrino

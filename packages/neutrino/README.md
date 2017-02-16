@@ -3,7 +3,7 @@
 ### Create and build modern JavaScript applications with zero initial configuration
 #### Think Webpack, but with presets. That's Neutrino.
 
-[![NPM version][npm-image]][npm-url]
+[![NPM version][npm-image]][npm-url] [![NPM version][npm-downloads]][npm-url]
 
 ---
 
@@ -22,5 +22,6 @@ cover.
 See the [Neutrino docs](https://neutrino.js.org/)
 for details on installation, getting started, usage, and customizing.
 
-[npm-image]: https://badge.fury.io/js/neutrino.svg
+[npm-image]: https://img.shields.io/npm/v/neutrino.svg
+[npm-downloads]: https://img.shields.io/npm/dt/neutrino.svg
 [npm-url]: https://npmjs.org/package/neutrino

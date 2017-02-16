@@ -1,4 +1,5 @@
-# Neutrino Airbnb Preset [![NPM version][npm-image]][npm-url]
+# Neutrino Airbnb Preset
+[![NPM version][npm-image]][npm-url] [![NPM version][npm-downloads]][npm-url]
 
 `neutrino-preset-airbnb-base` is a Neutrino preset that supports linting JavaScript projects with Airbnb's base ESLint
 config, following the [Airbnb styleguide](https://github.com/airbnb/javascript).
@@ -204,5 +205,6 @@ This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/ne
 containing all resources for developing Neutrino and its core presets. Follow the
 [contributing guide](/contributing/README.md) for details.
 
-[npm-image]: https://badge.fury.io/js/neutrino-preset-airbnb-base.svg
+[npm-image]: https://img.shields.io/npm/v/neutrino-preset-airbnb-base.svg
+[npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-airbnb-base.svg
 [npm-url]: https://npmjs.org/package/neutrino-preset-airbnb-base

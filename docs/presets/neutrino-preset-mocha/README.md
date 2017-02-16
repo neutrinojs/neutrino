@@ -1,4 +1,5 @@
-# Neutrino Mocha Preset [![NPM version][npm-image]][npm-url]
+# Neutrino Mocha Preset
+[![NPM version][npm-image]][npm-url] [![NPM version][npm-downloads]][npm-url]
 
 `neutrino-preset-mocha` is a Neutrino preset that supports testing JavaScript projects with the Mocha test runner.
 
@@ -163,5 +164,6 @@ This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/ne
 containing all resources for developing Neutrino and its core presets. Follow the
 [contributing guide](/contributing/README.md) for details.
 
-[npm-image]: https://badge.fury.io/js/neutrino-preset-mocha.svg
+[npm-image]: https://img.shields.io/npm/v/neutrino-preset-mocha.svg
+[npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-mocha.svg
 [npm-url]: https://npmjs.org/package/neutrino-preset-mocha
