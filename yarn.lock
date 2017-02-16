@@ -1393,9 +1393,9 @@ nth-check@~1.0.1:
   dependencies:
     boolbase "~1.0.0"
 
-oao@^0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/oao/-/oao-0.5.1.tgz#994924fb7fee3ab20d2b4ca15ab0819b89613544"
+oao@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/oao/-/oao-0.5.2.tgz#2fb44b10799ef2672fd913edc6b1046566f954d4"
   dependencies:
     babel-polyfill "6.22.0"
     commander "2.9.0"
