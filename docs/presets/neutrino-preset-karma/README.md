@@ -1,4 +1,5 @@
-# Neutrino Karma Preset [![NPM version][npm-image]][npm-url]
+# Neutrino Karma Preset
+[![NPM version][npm-image]][npm-url] [![NPM version][npm-downloads]][npm-url]
 
 `neutrino-preset-karma` is a Neutrino preset that supports testing web applications using the Karma test runner.
 
@@ -184,5 +185,6 @@ This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/ne
 containing all resources for developing Neutrino and its core presets. Follow the
 [contributing guide](/contributing/README.md) for details.
 
-[npm-image]: https://badge.fury.io/js/neutrino-preset-karma.svg
+[npm-image]: https://img.shields.io/npm/v/neutrino-preset-karma.svg
+[npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-karma.svg
 [npm-url]: https://npmjs.org/package/neutrino-preset-karma
