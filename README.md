@@ -3,7 +3,7 @@
 ### Create and build modern JavaScript applications with zero initial configuration
 #### Neutrino combines the power of Webpack with the simplicity of presets.
 
-[![NPM version][npm-image]][npm-url] [![NPM version][npm-downloads]][npm-url]
+[![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url] [![Join Slack][slack-image]][slack-url]
 
 ---
 
@@ -25,3 +25,5 @@ for details on installation, getting started, usage, and customizing.
 [npm-image]: https://img.shields.io/npm/v/neutrino.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino.svg
 [npm-url]: https://npmjs.org/package/neutrino
+[slack-image]: https://neutrino-slack.herokuapp.com/badge.svg
+[slack-url]: https://neutrino-slack.herokuapp.com/
