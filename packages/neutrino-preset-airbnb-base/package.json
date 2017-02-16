@@ -22,5 +22,7 @@
   },
   "peerDependencies": {
     "neutrino": "^4.0.0"
-  }
+  },
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues"
 }

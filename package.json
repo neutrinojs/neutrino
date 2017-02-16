@@ -2,11 +2,11 @@
   "name": "neutrino-dev",
   "version": "4.0.0",
   "private": true,
-  "keywords": [
-    "neutrino"
-  ],
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "repository": "mozilla-neutrino/neutrino-dev",
   "scripts": {
     "bootstrap": "oao bootstrap",
     "deps:add": "oao add",

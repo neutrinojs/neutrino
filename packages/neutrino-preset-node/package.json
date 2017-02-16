@@ -5,7 +5,9 @@
   "main": "src/index.js",
   "keywords": [
     "neutrino",
-    "neutrino-preset"
+    "neutrino-preset",
+    "node.js",
+    "node"
   ],
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
@@ -27,5 +29,7 @@
   },
   "peerDependencies": {
     "neutrino": "^4.0.0"
-  }
+  },
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues"
 }

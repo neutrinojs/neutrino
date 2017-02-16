@@ -7,9 +7,11 @@
     "neutrino": "./bin/neutrino"
   },
   "keywords": [
+    "neutrino",
     "webpack",
-    "preset",
-    "build"
+    "babel",
+    "neutrino-cli",
+    "neutrino-api"
   ],
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
@@ -20,5 +22,7 @@
     "webpack-chain": "^1.4.0",
     "webpack-dev-server": "^2.3.0",
     "yargs": "^6.6.0"
-  }
+  },
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues"
 }
