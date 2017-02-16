@@ -1,7 +1,7 @@
 <h1><p align="center"><a href="https://neutrino.js.org"><img src="https://raw.githubusercontent.com/mozilla-neutrino/neutrino-dev/master/docs/assets/logo.png" height="150"></a></p></h1>
 
 ### Create and build modern JavaScript applications with zero initial configuration
-#### Think Webpack, but with presets. That's Neutrino.
+#### Neutrino combines the power of Webpack with the simplicity of presets.
 
 [![NPM version][npm-image]][npm-url] [![NPM version][npm-downloads]][npm-url]
 
@@ -9,7 +9,7 @@
 
 Neutrino is a companion tool which lets you build web and Node.js applications with shared presets or configurations. 
 It intends to make the process of initializing and building projects much simpler by providing minimal development
-dependencies. 
+dependencies.
 
 Neutrino uses Webpack to build both web and Node.js projects by providing complete build presets which can be shared
 across targets and projects. You can use Neutrino base presets to get started building a variety of projects, create
