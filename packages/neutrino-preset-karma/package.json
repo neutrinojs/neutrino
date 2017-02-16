@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-karma",
-  "version": "3.9.9",
+  "version": "4.0.0",
   "description": "Neutrino preset for testing Neutrino projects with Karma",
   "main": "src/index.js",
   "keywords": [

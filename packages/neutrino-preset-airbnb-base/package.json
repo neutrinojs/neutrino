@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-airbnb-base",
-  "version": "3.9.9",
+  "version": "4.0.0",
   "description": "Neutrino preset for adding Airbnb's base JS ESLint config, following the Airbnb styleguide",
   "main": "src/index.js",
   "keywords": [
