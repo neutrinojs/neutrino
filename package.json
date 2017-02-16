@@ -1,6 +1,6 @@
 {
   "name": "neutrino-dev",
-  "version": "4.0.0-beta.3",
+  "version": "4.0.0",
   "private": true,
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
