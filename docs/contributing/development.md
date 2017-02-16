@@ -163,7 +163,7 @@ as possible, following our detailed [contribution guidelines](/contributing/READ
 
 ### Congrats!
 
-You just made a contribution to Neutrino! We are so happy to have your help! :tada:
+You just made a contribution to Neutrino! We are so happy to have your help! 🎉
 
 ## Receiving updates
 

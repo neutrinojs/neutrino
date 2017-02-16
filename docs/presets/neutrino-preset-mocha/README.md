@@ -146,8 +146,7 @@ module.exports = neutrino => {
 
 ```bash
 ❯ yarn test
-yarn test v0.19.1
-$ node_modules/neutrino/bin/neutrino test
+
  1   -__,------,
  0   -__|  /\_/\
  0   -_~|_( ^ .^)

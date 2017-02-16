@@ -2,14 +2,14 @@
 
 ### So, you want to contribute to Neutrino?
 
-Thank you for wanting to help out with Neutrino! We are very happy that you want to contribute and have put together
-this guide to help you get started. We want to do our best to help you make successful contribution and be part of our
-team.
+Thank you for wanting to help out with Neutrino! We are very happy that you want to contribute, and have put together
+this guide to help you get started. We want to do our best to help you make successful contributions and be part of our
+community.
 
 ### Participation Conduct
 
 In order to ensure everyone has a fair, pleasant, and inclusive experience contributing to Neutrino, we ask that you
-abide by our [community participation guidelines](CODE_OF_CONDUCT.md), based on the
+abide by our [community participation guidelines](/contributing/code-of-conduct.md), based on the
 [Contributor Covenant](http://contributor-covenant.org/). Please read and understand it for everyone's benefit.
 
 Following these guidelines helps to communicate that you respect the time of the developers managing
@@ -60,10 +60,10 @@ possible.
 
 ## Getting started
 
-Most contributions will involve working with the neutrino-dev codebase. Please refer to the development
-documentation for technical details on getting started.
+Most contributions will involve working with the neutrino-dev codebase. Please refer to the [development
+documentation](/contributing/development.md) for technical details on getting started.
 
-### Tell your contributors how to file a bug report.
+## Filing bugs and issues
 
 When filing an issue, try to answer these questions:
 

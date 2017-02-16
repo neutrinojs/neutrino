@@ -138,7 +138,19 @@ index.js.map  3.73 kB       0  [emitted]  index
 ✨  Done in 1.51s.
 ```
 
-You can either serve or deploy the contents of this `build` directory as a Node.js module, server, or tool.
+You can either serve or deploy the contents of this `build` directory as a Node.js module, server, or tool. For Node.js
+this usually means adding a `main` property to package.json pointing to the built entry point. Also when publishing your
+project to npm, consider excluding your `src` directory by using the `files` property to whitelist `build`,
+or via `.npmignore` to blacklist `src`.
+
+```json
+{
+  "main": "build/index.js",
+  "files": [
+    "build"
+  ]
+}
+```
 
 ## Customizing
 

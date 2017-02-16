@@ -137,16 +137,22 @@ module.exports = neutrino => {
 };
 ```
 
-## Important Points
+## Working with paths
 
-- When working with paths, remember that your preset will be running in the context of a project. You should take care
+When working with paths, remember that your preset will be running in the context of a project. You should take care
 to define application paths by referencing the current working directory with `process.cwd()`. For example if you
-wanted to work with the project's "src" directory, you would merge the path via `path.join(process.cwd(), 'src)`.
-- Because of package conflicts or unknown organization of a project's `node_modules` directory, it is usually safer to
+wanted to work with the project's "src" directory, you would merge the path via `path.join(process.cwd(), 'src')`
+
+## Loader and Babel modules
+
+Because of package conflicts or unknown layout of a project's `node_modules` directory, it is usually safer to
 define loaders, Babel plugins, and Babel presets to Webpack absolutely than by name. In our sample preset above, while
 we could have passed the loader as just `'standard-loader'`, it is safer to resolve its location relative to our preset
 than having Webpack et al to attempt to load it later from a different, potentially incorrect location. Instead we
 passed `require.resolve('standard-loader')`.
+
+As a rule of thumb, if your preset is the one using `require`, you are safe to require by name. If you are passing the
+name of the module off to be required by Webpack or Babel, instead pass the path to the module via `require.resolve`.
 
 ## Publishing
 
