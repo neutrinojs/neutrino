@@ -8,7 +8,7 @@
   * [Web](/presets/neutrino-preset-web/README.md)
   * [React](/presets/neutrino-preset-react/README.md)
   * [Node.js](/presets/neutrino-preset-node/README.md)
-  * [Airbnb](/presets/neutrino-preset-base/README.md)
+  * [Airbnb](/presets/neutrino-preset-airbnb-base/README.md)
   * [Karma](/presets/neutrino-preset-karma/README.md)
   * [Mocha](/presets/neutrino-preset-mocha/README.md)
   * [Jest](/presets/neutrino-preset-jest/README.md)
