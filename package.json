@@ -15,7 +15,9 @@
     "deps:clean": "rm -rf packages/**/node_modules",
     "docs:build": "gitbook build && cp CNAME _book",
     "docs:deploy": "yarn docs:build && gh-pages --dist _book --remote upstream",
-    "docs:serve": "gitbook serve"
+    "docs:serve": "gitbook serve",
+    "release": "yarn release:pre && oao publish",
+    "release:pre": "oao prepublish"
   },
   "devDependencies": {
     "gh-pages": "^0.12.0",
