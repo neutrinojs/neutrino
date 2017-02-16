@@ -12,6 +12,7 @@ const CWD = process.cwd();
 const SRC = path.join(CWD, 'src');
 const BUILD = path.join(CWD, 'build');
 const TEST = path.join(CWD, 'test');
+const PROJECT_MODULES = path.join(CWD, 'node_modules');
 const MODULES = path.join(__dirname, '../node_modules');
 
 module.exports = neutrino => {
@@ -55,7 +56,7 @@ module.exports = neutrino => {
   config
     .plugin('banner')
     .use(webpack.BannerPlugin, {
-      banner: `require(${require.resolve('source-map-support')}).install();`,
+      banner: `require('${require.resolve('source-map-support')}').install();`,
       raw: true,
       entryOnly: true
     });
@@ -118,7 +119,6 @@ module.exports = neutrino => {
             require.resolve('babel-preset-env'),
             {
               modules: false,
-              include: 'transform-regenerator',
               targets: {
                 node: 6.9
               }
