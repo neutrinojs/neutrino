@@ -104,6 +104,8 @@ To run tests against files from your source code, simply import them:
 import thingToTest from '../src/thing';
 ```
 
+For more details on specific Mocha usage, please refer to their [documentation](http://mochajs.org/).
+
 ## Executing single tests
 
 By default this preset will execute every test file located in your test directory ending in `_test.js`.
