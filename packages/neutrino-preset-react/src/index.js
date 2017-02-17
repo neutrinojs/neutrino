@@ -30,7 +30,22 @@ module.exports = neutrino => {
             },
             rules: {
               'react/prop-types': ['off'],
-              'jsx-quotes': ['error', 'prefer-double']
+              'jsx-quotes': ['error', 'prefer-double'],
+              'class-methods-use-this': ['error', {
+                exceptMethods: [
+                  'render',
+                  'getInitialState',
+                  'getDefaultProps',
+                  'getChildContext',
+                  'componentWillMount',
+                  'componentDidMount',
+                  'componentWillReceiveProps',
+                  'shouldComponentUpdate',
+                  'componentWillUpdate',
+                  'componentDidUpdate',
+                  'componentWillUnmount'
+                ]
+              }]
             }
           })
         };
