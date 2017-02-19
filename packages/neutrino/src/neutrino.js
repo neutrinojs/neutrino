@@ -21,7 +21,7 @@ class Neutrino extends EventEmitter {
         preset
       ];
 
-      for (let i = 0; i < paths.length; i++) {
+      for (let i = 0; i < paths.length; i += 1) {
         let src;
 
         try {
