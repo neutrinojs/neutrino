@@ -56,6 +56,17 @@ to the neutrino-dev monorepo itself are `yarn link`ed.
 
 ---
 
+`changelog`
+
+Generates a changelog for the `mozilla-neutrino/neutrino-dev` GitHub repository. This changelog is output to a
+`CHANGELOG.md` file in the root of the repository.
+
+```bash
+❯ yarn changelog
+```
+
+---
+
 `deps:add [--dev] <package> <...dependencies>`
 
 Adds one or more new dependencies or development dependencies to a sub-package. Any flags used, such as `--dev` are

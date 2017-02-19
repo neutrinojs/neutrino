@@ -9,6 +9,7 @@
   "repository": "mozilla-neutrino/neutrino-dev",
   "scripts": {
     "bootstrap": "oao bootstrap",
+    "changelog": "changelog mozilla-neutrino/neutrino-dev all --markdown > CHANGELOG.md",
     "deps:add": "oao add",
     "deps:remove": "oao remove",
     "deps:upgrade": "oao upgrade",
@@ -20,6 +21,7 @@
     "release:pre": "oao prepublish"
   },
   "devDependencies": {
+    "changelog": "^1.0.7",
     "gh-pages": "^0.12.0",
     "gitbook-cli": "^2.3.0",
     "gitbook-plugin-anchorjs": "^1.1.1",
