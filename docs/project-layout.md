@@ -1,19 +1,19 @@
 # Project Layout
 
-Out of the box Neutrino presets expect a project to have a particular structure in order to make the
+Out of the box, Neutrino presets expect a project to have a particular structure to make the
 development process for new projects as quick as possible. This is broken up into three directories:
 
 - Source code
 - Build assets
 - Testing
 
-Each of these directories are set up via convention by a Neutrino preset, but each can be customized as
+Each of these directories is set up via convention by a Neutrino preset, but each can be customized as
 desired by overriding the preset's configuration or using a different preset. See
 [Custom Configuration](/custom-configuration.md) for detailed instructions.
 
 ## Source Code
 
-By default Neutrino presets expect all project source code to live in a directory named `src` in the
+By default, Neutrino presets expect all project source code to live in a directory named `src` in the
 root of the project. This includes JavaScript files, CSS stylesheets, images, and any other assets
 that would be available to your compiled project.
 

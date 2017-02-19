@@ -44,11 +44,11 @@ with and makes changes through this config, which is all available to your prese
 
 Neutrino exposes events for various stages of the build process your preset can hook into **if necessary**.
 
-- `prestart`: Triggered prior to creating a development bundle or launching a dev server.
+- `prestart`: Triggered before creating a development bundle or launching a dev server.
 - `start`: Triggered after the development bundle has finished or the dev server has been stopped.
-- `prebuild`: Triggered prior to creating a production build.
+- `prebuild`: Triggered before creating a production build.
 - `build`: Triggered after the production build has completed.
-- `pretest`: Triggered prior to invoking any test runners.
+- `pretest`: Triggered before invoking any test runners.
 - `test`: Triggered when test runners can start, or after they have all completed.
 
 _Example: Log to the console when a build finishes._
@@ -64,7 +64,7 @@ module.exports = neutrino => {
 If your preset depends on other Neutrino presets, or you are creating a preset that is a combination of multiple
 presets, you can install them as dependencies and simply call them from your preset, providing them with your Neutrino
 instance. When users install your preset, they will bring along your dependencies defined with your package without
-needing to also include your extended presets in their own commands.
+needing also to include your extended presets in their own commands.
 
 _Example: Define a Neutrino preset which combines Node.js and Mocha presets._
 
@@ -140,7 +140,7 @@ module.exports = neutrino => {
 ## Working with paths
 
 When working with paths, remember that your preset will be running in the context of a project. You should take care
-to define application paths by referencing the current working directory with `process.cwd()`. For example if you
+to define application paths by referencing the current working directory with `process.cwd()`. For example, if you
 wanted to work with the project's "src" directory, you would merge the path via `path.join(process.cwd(), 'src')`
 
 ## Loader and Babel modules
