@@ -149,7 +149,7 @@ test that can verify these changes in the future.
 ## Submitting a pull request
 
 Once you are satisified with your changes, you should commit them and submit a pull request. Use `git add`
-in order to add files that should be commited. Give your changes a descriptive but not overly verbose message.
+in order to add files that should be committed. Give your changes a descriptive but not overly verbose message.
 
 ```bash
 ❯ git add .
