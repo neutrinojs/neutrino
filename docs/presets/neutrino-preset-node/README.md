@@ -8,6 +8,7 @@
 - Zero upfront configuration necessary to start developing and building a Node.js project
 - Modern Babel compilation supporting ES modules, Node.js 6.9+, and async functions
 - Auto-wired sourcemaps
+- Tree-shaking to create smaller bundles
 - Chunking of external dependencies apart from application code
 - Easily extensible to customize your project as needed
 
