@@ -458,11 +458,11 @@ with and makes changes through this config, which is all available to your prese
 <h2 id="events">Events</h2>
 <p>Neutrino exposes events for various stages of the build process your preset can hook into <strong>if necessary</strong>.</p>
 <ul>
-<li><code>prestart</code>: Triggered prior to creating a development bundle or launching a dev server.</li>
+<li><code>prestart</code>: Triggered before creating a development bundle or launching a dev server.</li>
 <li><code>start</code>: Triggered after the development bundle has finished or the dev server has been stopped.</li>
-<li><code>prebuild</code>: Triggered prior to creating a production build.</li>
+<li><code>prebuild</code>: Triggered before creating a production build.</li>
 <li><code>build</code>: Triggered after the production build has completed.</li>
-<li><code>pretest</code>: Triggered prior to invoking any test runners.</li>
+<li><code>pretest</code>: Triggered before invoking any test runners.</li>
 <li><code>test</code>: Triggered when test runners can start, or after they have all completed.</li>
 </ul>
 <p><em>Example: Log to the console when a build finishes.</em></p>
@@ -474,7 +474,7 @@ with and makes changes through this config, which is all available to your prese
 <p>If your preset depends on other Neutrino presets, or you are creating a preset that is a combination of multiple
 presets, you can install them as dependencies and simply call them from your preset, providing them with your Neutrino
 instance. When users install your preset, they will bring along your dependencies defined with your package without
-needing to also include your extended presets in their own commands.</p>
+needing also to include your extended presets in their own commands.</p>
 <p><em>Example: Define a Neutrino preset which combines Node.js and Mocha presets.</em></p>
 <pre class="language-"><code class="lang-js"><span class="token keyword">const</span> node <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino-preset-node&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> mocha <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino-preset-mocha&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -533,7 +533,7 @@ go about affecting how your preset works.</p>
 </code></pre>
 <h2 id="working-with-paths">Working with paths</h2>
 <p>When working with paths, remember that your preset will be running in the context of a project. You should take care
-to define application paths by referencing the current working directory with <code>process.cwd()</code>. For example if you
+to define application paths by referencing the current working directory with <code>process.cwd()</code>. For example, if you
 wanted to work with the project&apos;s &quot;src&quot; directory, you would merge the path via <code>path.join(process.cwd(), &apos;src&apos;)</code></p>
 <h2 id="loader-and-babel-modules">Loader and Babel modules</h2>
 <p>Because of package conflicts or unknown layout of a project&apos;s <code>node_modules</code> directory, it is usually safer to
@@ -591,7 +591,7 @@ you want to host it.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Creating presets","level":"1.7","depth":1,"next":{"title":"API","level":"1.8","depth":1,"path":"api/README.md","ref":"api/README.md","articles":[]},"previous":{"title":"Advanced","level":"1.6.2","depth":2,"path":"customization/advanced.md","ref":"customization/advanced.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"creating-presets.md","mtime":"2017-02-16T18:32:52.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-16T21:55:53.737Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Creating presets","level":"1.7","depth":1,"next":{"title":"API","level":"1.8","depth":1,"path":"api/README.md","ref":"api/README.md","articles":[]},"previous":{"title":"Advanced","level":"1.6.2","depth":2,"path":"customization/advanced.md","ref":"customization/advanced.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"creating-presets.md","mtime":"2017-02-20T14:57:01.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-20T14:57:53.010Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
