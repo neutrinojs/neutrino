@@ -72,7 +72,7 @@ Putting this into your `package.json` will allow you to build your project using
 Neutrino provides the command `neutrino test` for invoking a set of tests included in your project.
 Using `neutrino test` sets the Node.js environment variable to `test` using the `NODE_ENV` environment
 variable, which is available in your project source code. How your source code is built and consumed from tests
-is determined by the preset your are using. Running suites that are built the same as source files are encouraged
+is determined by the preset you are using. Running suites that are built the same as source files are encouraged
 to use a Neutrino-compatible preset. Neutrino currently provides three core testing presets: Karma, Jest, and Mocha.
 
 ```bash
@@ -104,7 +104,7 @@ neutrino test --presets PRESET_A PRESET_B -- a_test.js b_test.js
 ## Using multiple presets
 
 All Neutrino commands support the `--presets` command line parameter, but having to specify this for each script target
-can be cumbersome, especially if you have many presets. Fortunately Neutrino also supports specifying presets using the
+can be cumbersome, especially if you have many presets. Fortunately, Neutrino also supports specifying presets using the
 `config.presets` field in your project's package.json file. By omitting the `--presets` flag and specifying a
 `config.presets` array, every call to a Neutrino command will look up which presets are configured in your package.json.
 
