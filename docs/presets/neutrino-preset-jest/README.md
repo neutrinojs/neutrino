@@ -31,7 +31,7 @@ another Neutrino preset for building your application source code.
 #### npm
 
 ```bash
-❯ npm install --save-dev neutrino-preset-mocha
+❯ npm install --save-dev neutrino-preset-jest
 ```
 
 ## Project Layout
@@ -65,7 +65,7 @@ let's pretend this is a Node.js project:
 ```json
 {
   "scripts": {
-    "test": "neutrino test --presets neutrino-preset-node neutrino-preset-mocha"
+    "test": "neutrino test --presets neutrino-preset-node neutrino-preset-jest"
   }
 }
 ```
