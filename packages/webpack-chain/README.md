@@ -187,7 +187,7 @@ config.context(path.resolve(__dirname, 'src'));
 
 ```js
 // devtool: String | false
-config.target(devtool)
+config.devtool(devtool)
 ```
 
 This option controls if and how Source Maps are generated.
