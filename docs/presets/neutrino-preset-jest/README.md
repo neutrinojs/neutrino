@@ -34,6 +34,27 @@ another Neutrino preset for building your application source code.
 ❯ npm install --save-dev neutrino-preset-jest
 ```
 
+### Installation: React Testing
+
+Jest is often used in the testing of React components. If you are using this preset in a React application, which most
+likely means you are using `neutrino-preset-react`, you should also consider adding React's TestUtils and potentially a
+higher-level abstraction such as Airbnb's Enzyme. These should be development dependencies of your project.
+
+#### Yarn
+
+```bash
+❯ yarn add --dev react-addons-test-utils enzyme
+```
+
+#### npm
+
+```bash
+❯ npm install --save-dev react-addons-test-utils enzyme
+```
+
+See the [React's Test Utils documentation](https://facebook.github.io/react/docs/test-utils.html) for specifics on React
+testing with this approach.
+
 ## Project Layout
 
 `neutrino-preset-jest` follows the standard [project layout](/project-layout.md) specified by Neutrino. This
