@@ -107,7 +107,7 @@ Let's edit this `index.js` file to add our preset:
 const path = require('path');
 
 module.exports = neutrino => {
-  neutrino.config
+  neutrino.config.module
     .rule('lint')
       .pre()
       .test(/\.jsx?$/)
