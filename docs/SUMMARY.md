@@ -16,6 +16,7 @@
   * [Simple](/customization/simple.md)
   * [Advanced](/customization/advanced.md)
 * [Creating presets](/creating-presets.md)
+* [Learning Resources](/learning-resources.md)
 * [API](/api/README.md)
 * [CLI](/cli/README.md)
 * [Contributing](/contributing/README.md)
