@@ -14,7 +14,7 @@ community, file an issue or submit a pull request.
 
 [Node.js Quickstart Kit for Neutrino](https://github.com/mozilla-neutrino/node-starter)
 
-[Express Quickstart Kit for Neutrino](https://github.com/mozilla-neutrino/node-starter)
+[Express Quickstart Kit for Neutrino](https://github.com/mozilla-neutrino/express-starter)
 
 [React Quickstart Kit for Neutrino](https://github.com/mozilla-neutrino/react-starter)
 
