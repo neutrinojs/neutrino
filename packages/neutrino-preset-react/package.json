@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-react",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "description": "Neutrino preset for building React web applications",
   "main": "src/index.js",
   "keywords": [
