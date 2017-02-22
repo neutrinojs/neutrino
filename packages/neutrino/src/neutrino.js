@@ -22,20 +22,21 @@ class Neutrino extends EventEmitter {
       ];
 
       for (let i = 0; i < paths.length; i += 1) {
-        let src;
-
         try {
-          src = require(paths[i]);
+          return require(paths[i])(this);
         } catch (exception) {
           if (/Cannot find module/.test(exception.message)) {
             continue;
           }
 
+          exception.message = `Neutrino was unable to load the module '${preset}'. ` +
+            `Ensure this module exports a function and is free from errors.\n${exception.message}`;
           throw exception;
         }
-
-        return src(this);
       }
+
+      throw new Error(`Neutrino cannot find a module with the name or path '${preset}'. ` +
+        `Ensure this module can be found relative to the root of the project.`);
     });
 
     // Also grab any Neutrino config from package.json and merge it into the config
