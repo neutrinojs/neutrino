@@ -27,6 +27,7 @@ module.exports = ({ config }) => {
     .target('web')
     .context(CWD)
     .entry('index')
+      .add(require.resolve('babel-polyfill'))
       .add(path.join(SRC, 'index.js'))
       .end()
     .output
@@ -136,20 +137,19 @@ module.exports = ({ config }) => {
               ]
             }
           }]
-        ]
+        ],
+        plugins: [require.resolve('babel-plugin-syntax-dynamic-import')]
       });
 
   if (config.module.rules.has('lint')) {
     config.module
       .rule('lint')
-      .loader('eslint', ({ options }) => {
-        return {
-          options: merge(options, {
-            globals: ['Buffer'],
-            envs: ['browser', 'commonjs']
-          })
-        };
-      });
+      .loader('eslint', props => merge(props, {
+        options: {
+          globals: ['Buffer'],
+          envs: ['browser', 'commonjs']
+        }
+      }));
   }
 
   config

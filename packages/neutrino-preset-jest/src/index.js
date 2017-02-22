@@ -51,19 +51,17 @@ module.exports = neutrino => {
 
   neutrino.config.module
     .rule('compile')
-    .loader('babel', ({ options }) => {
-      return {
-        options: merge(options, {
-          env: {
-            test: {
-              retainLines: true,
-              presets: [require.resolve('babel-preset-jest')],
-              plugins: [require.resolve('babel-plugin-transform-es2015-modules-commonjs')]
-            }
+    .loader('babel', props => merge(props, {
+      options: {
+        env: {
+          test: {
+            retainLines: true,
+            presets: [require.resolve('babel-preset-jest')],
+            plugins: [require.resolve('babel-plugin-transform-es2015-modules-commonjs')]
           }
-        })
-      };
-    });
+        }
+      }
+    }));
 
   neutrino.on('test', args => {
     const jest = normalizeJestConfig(neutrino, args);

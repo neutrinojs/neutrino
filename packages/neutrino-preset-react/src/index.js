@@ -16,58 +16,54 @@ module.exports = neutrino => {
     config.module
       .rule('lint')
       .test(/\.jsx?$/)
-      .loader('eslint', ({ options }) => {
-        return {
-          options: merge(options, {
-            plugins: ['react'],
-            baseConfig: {
-              extends: ['plugin:react/recommended']
-            },
-            parserOptions: {
-              ecmaFeatures: {
-                experimentalObjectRestSpread: true
-              }
-            },
-            rules: {
-              'react/prop-types': ['off'],
-              'jsx-quotes': ['error', 'prefer-double'],
-              'class-methods-use-this': ['error', {
-                exceptMethods: [
-                  'render',
-                  'getInitialState',
-                  'getDefaultProps',
-                  'getChildContext',
-                  'componentWillMount',
-                  'componentDidMount',
-                  'componentWillReceiveProps',
-                  'shouldComponentUpdate',
-                  'componentWillUpdate',
-                  'componentDidUpdate',
-                  'componentWillUnmount'
-                ]
-              }]
+      .loader('eslint', props => merge(props, {
+        options: {
+          plugins: ['react'],
+          baseConfig: {
+            extends: ['plugin:react/recommended']
+          },
+          parserOptions: {
+            ecmaFeatures: {
+              experimentalObjectRestSpread: true
             }
-          })
-        };
-      });
+          },
+          rules: {
+            'react/prop-types': ['off'],
+            'jsx-quotes': ['error', 'prefer-double'],
+            'class-methods-use-this': ['error', {
+              exceptMethods: [
+                'render',
+                'getInitialState',
+                'getDefaultProps',
+                'getChildContext',
+                'componentWillMount',
+                'componentDidMount',
+                'componentWillReceiveProps',
+                'shouldComponentUpdate',
+                'componentWillUpdate',
+                'componentDidUpdate',
+                'componentWillUnmount'
+              ]
+            }]
+          }
+        }
+      }));
   }
 
   config.module
     .rule('compile')
     .test(/\.jsx?$/)
-    .loader('babel', ({ options }) => {
-      return {
-        options: merge(options, {
-          presets: [require.resolve('babel-preset-react')],
-          plugins: [require.resolve('babel-plugin-transform-object-rest-spread')],
-          env: {
-            development: {
-              plugins: [require.resolve('react-hot-loader/babel')]
-            }
+    .loader('babel', props => merge(props, {
+      options: {
+        presets: [require.resolve('babel-preset-react')],
+        plugins: [require.resolve('babel-plugin-transform-object-rest-spread')],
+        env: {
+          development: {
+            plugins: [require.resolve('react-hot-loader/babel')]
           }
-        })
-      };
-    });
+        }
+      }
+    }));
 
   config.resolve.modules.add(MODULES);
   config.resolve.extensions.add('.jsx');
