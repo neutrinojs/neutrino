@@ -15,6 +15,8 @@
   "dependencies": {
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.1.8",
     "babili-webpack-plugin": "^0.0.10",
     "clean-webpack-plugin": "^0.1.15",
@@ -31,7 +33,6 @@
     "url-loader": "0.5.7",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0",
-    "webpack-merge": "^2.6.1",
     "worker-loader": "0.7.1"
   },
   "peerDependencies": {
