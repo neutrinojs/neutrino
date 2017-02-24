@@ -5,6 +5,8 @@
 
 [![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url] [![Join Slack][slack-image]][slack-url]
 
+[https://github.com/mozilla-neutrino/neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev)
+
 ---
 
 Neutrino is a companion tool which lets you build web and Node.js applications with shared presets or configurations. 
