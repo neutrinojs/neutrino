@@ -86,6 +86,13 @@ assert-plus@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/assert-plus/-/assert-plus-1.0.0.tgz#f12e0f3c5d77b0b1cdd9146942e4e96c1e4dd525"
 
+async-kit@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/async-kit/-/async-kit-2.2.3.tgz#264751a279ddc5f59b419638b805ae2c49858fb7"
+  dependencies:
+    nextgen-events "^0.9.0"
+    tree-kit "^0.5.26"
+
 async-some@~1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/async-some/-/async-some-1.0.2.tgz#4d8a81620d5958791b5b98f802d3207776e95509"
@@ -643,14 +650,12 @@ github-url-from-username-repo@~1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/github-url-from-username-repo/-/github-url-from-username-repo-1.0.2.tgz#7dd79330d2abe69c10c2cef79714c97215791dfa"
 
-"glob@3 || 4":
-  version "4.5.3"
-  resolved "https://registry.yarnpkg.com/glob/-/glob-4.5.3.tgz#c6cb73d3226c1efef04de3c56d012f03377ee15f"
+"glob@3 || 4", "glob@~ 3.2.1":
+  version "3.2.11"
+  resolved "https://registry.yarnpkg.com/glob/-/glob-3.2.11.tgz#4a973f635b9190f715d10987d5c00fd2815ebe3d"
   dependencies:
-    inflight "^1.0.4"
     inherits "2"
-    minimatch "^2.0.1"
-    once "^1.3.0"
+    minimatch "0.3"
 
 glob@^6.0.0:
   version "6.0.4"
@@ -672,13 +677,6 @@ glob@^7.0.0, glob@^7.0.3, glob@^7.0.5:
     minimatch "^3.0.2"
     once "^1.3.0"
     path-is-absolute "^1.0.0"
-
-"glob@~ 3.2.1":
-  version "3.2.11"
-  resolved "https://registry.yarnpkg.com/glob/-/glob-3.2.11.tgz#4a973f635b9190f715d10987d5c00fd2815ebe3d"
-  dependencies:
-    inherits "2"
-    minimatch "0.3"
 
 glob@~7.0.0, glob@~7.0.6:
   version "7.0.6"
@@ -1143,12 +1141,6 @@ minimatch@1:
   dependencies:
     brace-expansion "^1.0.0"
 
-minimatch@^2.0.1:
-  version "2.0.10"
-  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-2.0.10.tgz#8d087c39c6b38c001b97fca7ce6d0e1e80afbac7"
-  dependencies:
-    brace-expansion "^1.0.0"
-
 minimist@0.0.8, minimist@~0.0.1:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
@@ -1170,6 +1162,10 @@ ms@0.7.2:
 mute-stream@0.0.7, mute-stream@~0.0.4:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
+
+nextgen-events@^0.9.0, nextgen-events@^0.9.8:
+  version "0.9.8"
+  resolved "https://registry.yarnpkg.com/nextgen-events/-/nextgen-events-0.9.8.tgz#ed1712c2b37dad55407b3e941672d1568c3a4630"
 
 node-gyp@~3.3.0:
   version "3.3.1"
@@ -1468,9 +1464,9 @@ nth-check@~1.0.1:
   dependencies:
     boolbase "~1.0.0"
 
-oao@^0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/oao/-/oao-0.5.2.tgz#2fb44b10799ef2672fd913edc6b1046566f954d4"
+oao@^0.5.7:
+  version "0.5.7"
+  resolved "https://registry.yarnpkg.com/oao/-/oao-0.5.7.tgz#ab512b50ace0586066d43e2f8e86c2ab40a85ce4"
   dependencies:
     babel-polyfill "6.22.0"
     commander "2.9.0"
@@ -1480,8 +1476,9 @@ oao@^0.5.2:
     semver "5.3.0"
     shelljs "0.7.6"
     split "1.0.0"
-    storyboard "^3.0.0-rc.2"
-    storyboard-preset-console "^3.0.0-rc.4"
+    storyboard "^3.0.0"
+    storyboard-preset-console "^3.0.0"
+    terminal-kit "^0.26.1"
     timm "^1.2.3"
 
 oauth-sign@~0.8.0, oauth-sign@~0.8.1:
@@ -1727,33 +1724,7 @@ regenerator-runtime@^0.10.0:
   version "0.10.1"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.10.1.tgz#257f41961ce44558b18f7814af48c17559f9faeb"
 
-request@2, request@^2.47.0, request@~2.69.0:
-  version "2.69.0"
-  resolved "https://registry.yarnpkg.com/request/-/request-2.69.0.tgz#cf91d2e000752b1217155c005241911991a2346a"
-  dependencies:
-    aws-sign2 "~0.6.0"
-    aws4 "^1.2.1"
-    bl "~1.0.0"
-    caseless "~0.11.0"
-    combined-stream "~1.0.5"
-    extend "~3.0.0"
-    forever-agent "~0.6.1"
-    form-data "~1.0.0-rc3"
-    har-validator "~2.0.6"
-    hawk "~3.1.0"
-    http-signature "~1.1.0"
-    is-typedarray "~1.0.0"
-    isstream "~0.1.2"
-    json-stringify-safe "~5.0.1"
-    mime-types "~2.1.7"
-    node-uuid "~1.4.7"
-    oauth-sign "~0.8.0"
-    qs "~6.0.2"
-    stringstream "~0.0.4"
-    tough-cookie "~2.2.0"
-    tunnel-agent "~0.4.1"
-
-request@^2.34.0, request@^2.74.0, request@~2.74.0:
+request@2, request@^2.34.0, request@^2.47.0, request@^2.74.0, request@~2.74.0:
   version "2.74.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.74.0.tgz#7693ca768bbb0ea5c8ce08c084a45efa05b892ab"
   dependencies:
@@ -1777,6 +1748,32 @@ request@^2.34.0, request@^2.74.0, request@~2.74.0:
     qs "~6.2.0"
     stringstream "~0.0.4"
     tough-cookie "~2.3.0"
+    tunnel-agent "~0.4.1"
+
+request@~2.69.0:
+  version "2.69.0"
+  resolved "https://registry.yarnpkg.com/request/-/request-2.69.0.tgz#cf91d2e000752b1217155c005241911991a2346a"
+  dependencies:
+    aws-sign2 "~0.6.0"
+    aws4 "^1.2.1"
+    bl "~1.0.0"
+    caseless "~0.11.0"
+    combined-stream "~1.0.5"
+    extend "~3.0.0"
+    forever-agent "~0.6.1"
+    form-data "~1.0.0-rc3"
+    har-validator "~2.0.6"
+    hawk "~3.1.0"
+    http-signature "~1.1.0"
+    is-typedarray "~1.0.0"
+    isstream "~0.1.2"
+    json-stringify-safe "~5.0.1"
+    mime-types "~2.1.7"
+    node-uuid "~1.4.7"
+    oauth-sign "~0.8.0"
+    qs "~6.0.2"
+    stringstream "~0.0.4"
+    tough-cookie "~2.2.0"
     tunnel-agent "~0.4.1"
 
 resolve@^1.1.6:
@@ -1818,13 +1815,13 @@ rx@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/rx/-/rx-4.1.0.tgz#a5f13ff79ef3b740fe30aa803fb09f98805d4782"
 
-"semver@2 >=2.2.1 || 3.x || 4 || 5", "semver@2 || 3 || 4 || 5", "semver@2.x || 3.x || 4 || 5", "semver@4 || 5", semver@5.3.0, "semver@^2.3.0 || 3.x || 4 || 5":
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-5.3.0.tgz#9b2ce5d3de02d17c6012ad326aa6b4d0cf54f94f"
-
-semver@5.1.0, semver@~5.1.0:
+"semver@2 >=2.2.1 || 3.x || 4 || 5", "semver@2 || 3 || 4 || 5", "semver@2.x || 3.x || 4 || 5", "semver@4 || 5", semver@5.1.0, "semver@^2.3.0 || 3.x || 4 || 5", semver@~5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.1.0.tgz#85f2cf8550465c4df000cf7d86f6b054106ab9e5"
+
+semver@5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-5.3.0.tgz#9b2ce5d3de02d17c6012ad326aa6b4d0cf54f94f"
 
 semver@^4.0.3, semver@^4.1.0:
   version "4.3.6"
@@ -1922,17 +1919,23 @@ storyboard-listener-console@^3.0.0-rc.2:
   dependencies:
     timm "^1.2.3"
 
-storyboard-preset-console@^3.0.0-rc.4:
-  version "3.0.0-rc.4"
-  resolved "https://registry.yarnpkg.com/storyboard-preset-console/-/storyboard-preset-console-3.0.0-rc.4.tgz#6aed03b299d8f2a60b917dc61526bec1b8efa092"
+storyboard-preset-console@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/storyboard-preset-console/-/storyboard-preset-console-3.0.0.tgz#ae3f098e5b386876b2d41ab7c89d55bfd3ac0a44"
   dependencies:
     storyboard-listener-console "^3.0.0-rc.2"
 
-storyboard@^3.0.0-rc.2:
-  version "3.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/storyboard/-/storyboard-3.0.0-rc.2.tgz#13b39ce9cfc95d8a5a93a7c1157c60adb4753d4a"
+storyboard@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/storyboard/-/storyboard-3.0.0.tgz#839515a88fbefb89a22f9055d3df5b0d5e6e9099"
   dependencies:
     storyboard-core "^3.0.0-rc.2"
+
+string-kit@^0.5.12:
+  version "0.5.15"
+  resolved "https://registry.yarnpkg.com/string-kit/-/string-kit-0.5.15.tgz#02cb7718c91ed750c242f969bcbdc0a3a8218732"
+  dependencies:
+    tree-kit "^0.5.24"
 
 string-width@^2.0.0:
   version "2.0.0"
@@ -1977,6 +1980,15 @@ tar@^2.0.0, tar@~2.2.1:
     fstream "^1.0.2"
     inherits "2"
 
+terminal-kit@^0.26.1:
+  version "0.26.1"
+  resolved "https://registry.yarnpkg.com/terminal-kit/-/terminal-kit-0.26.1.tgz#142d960c98b3afc8e800fe5ebdf9cbbea6abdfa1"
+  dependencies:
+    async-kit "^2.2.3"
+    nextgen-events "^0.9.8"
+    string-kit "^0.5.12"
+    tree-kit "^0.5.26"
+
 text-table@~0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
@@ -2010,6 +2022,10 @@ tough-cookie@~2.3.0:
   resolved "https://registry.yarnpkg.com/tough-cookie/-/tough-cookie-2.3.2.tgz#f081f76e4c85720e6c37a5faced737150d84072a"
   dependencies:
     punycode "^1.4.1"
+
+tree-kit@^0.5.24, tree-kit@^0.5.26:
+  version "0.5.26"
+  resolved "https://registry.yarnpkg.com/tree-kit/-/tree-kit-0.5.26.tgz#8571c86fa24d1db754e5b0cb3a7e09f41e74a8df"
 
 tunnel-agent@~0.4.1:
   version "0.4.3"
@@ -2104,13 +2120,9 @@ which@1, which@~1.2.11, which@~1.2.4:
   dependencies:
     isexe "^1.1.1"
 
-wordwrap@^0.0.2:
+wordwrap@^0.0.2, wordwrap@~0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-0.0.2.tgz#b79669bb42ecb409f83d583cad52ca17eaa1643f"
-
-wordwrap@~0.0.2:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-0.0.3.tgz#a3d5da6cd5c0bc0008d37234bbaf1bed63059107"
 
 wrappy@1, wrappy@~1.0.1, wrappy@~1.0.2:
   version "1.0.2"

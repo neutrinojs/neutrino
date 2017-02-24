@@ -1,6 +1,6 @@
 {
   "name": "neutrino-lint-base",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "description": "Neutrino preset starter for adding building ESLint-based presets",
   "main": "src/index.js",
   "keywords": [
@@ -13,7 +13,7 @@
   "repository": "mozilla-neutrino/neutrino-dev",
   "dependencies": {
     "babel-eslint": "^7.1.1",
-    "eslint": "^3.14.1",
+    "eslint": "^3.16.1",
     "eslint-loader": "^1.6.1",
     "eslint-plugin-babel": "^4.0.1",
     "eslint-plugin-import": "^2.2.0"
