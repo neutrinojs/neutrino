@@ -39,7 +39,7 @@ Putting this into your `package.json` will allow you to build your project using
 ```json
 {
   "scripts": {
-    "start": "neutrino start --preset neutrino-preset-react"
+    "start": "neutrino start --presets neutrino-preset-react"
   }
 }
 ```
