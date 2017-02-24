@@ -65,6 +65,17 @@ module.exports = neutrino => {
       };
     });
 
+  if (neutrino.config.rules.has('lint')) {
+    neutrino.config.module
+      .rule('lint')
+      .loader('eslint', props => merge(props, {
+        options: {
+          plugins: ['jest'],
+          envs: ['jest']
+        }
+      }));
+  }
+
   neutrino.on('test', args => {
     const jest = normalizeJestConfig(neutrino, args);
     const configFile = path.join(os.tmpdir(), 'config.json');
