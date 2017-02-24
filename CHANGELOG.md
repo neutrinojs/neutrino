@@ -1,3 +1,40 @@
+2017-02-23
+==========
+
+  * v4.2 ([#54](https://github.com/mozilla-neutrino/neutrino-dev/issues/54))
+    * Dependency upgrades and minor version bump
+    * lint-base dep upgrade
+    * web preset dep upgrade
+  * add eslint-jest-plugin ([#48](https://github.com/mozilla-neutrino/neutrino-dev/issues/48))
+    * add eslint-jest-plugin
+    * also add envs
+  * Merge pull request [#53](https://github.com/mozilla-neutrino/neutrino-dev/issues/53) from helfi92/add-website
+    Add github repo link to gitbook
+  * Add github repo link to gitbook
+  * Fix typo in usage example ([#52](https://github.com/mozilla-neutrino/neutrino-dev/issues/52))
+  * Merge pull request [#51](https://github.com/mozilla-neutrino/neutrino-dev/issues/51) from helfi92/add-website
+    Add website to GitHub homepage. Fixes [#49](https://github.com/mozilla-neutrino/neutrino-dev/issues/49)
+  * Add website to GitHub homepage. Fixes [#49](https://github.com/mozilla-neutrino/neutrino-dev/issues/49)
+
+2017-02-21
+==========
+
+  * Throw exception on missing module ([#45](https://github.com/mozilla-neutrino/neutrino-dev/issues/45))
+  * v4.1.1
+  * Wrong lint base version
+  * v4.1.0
+  * Introduce lint base to make lint preset creation much easier ([#41](https://github.com/mozilla-neutrino/neutrino-dev/issues/41))
+
+2017-02-20
+==========
+
+  * Wrong URL for express-starter
+  * missing object in the example of preset ([#38](https://github.com/mozilla-neutrino/neutrino-dev/issues/38))
+    Signed-off-by: Marco Casula <mc@clickbit.net>
+  * Docs: learning resources
+  * Jest docs: Usage with React ([#37](https://github.com/mozilla-neutrino/neutrino-dev/issues/37))
+  * Changelogs ([#31](https://github.com/mozilla-neutrino/neutrino-dev/issues/31))
+
 2017-02-19
 ==========
 
@@ -141,24 +178,3 @@
 
   * Changes to linting and adding package config
   * Allowing use of node globals
-  * Adding draft publish script
-  * Swapping lerna for yarn-autolink
-
-2017-02-01
-==========
-
-  * Upcoming major version
-  * import neutrino-preset-react
-  * importing neutrino-preset-web
-  * Linting
-  * Add BannerPlugin
-  * Add new line
-  * Migrate webpack to 2.2.0
-  * add npm and dependency badges
-  * Automatically wire sourcemaps to bundle
-  * Bumping base dep, updating gitignore
-  * Using commonjs2 as a library target for exports
-  * Switching to use source-map for all targets
-  * Building async to generators
-  * Bumping dependency
-  * Upgrading dependencies, adding yarn instructions
