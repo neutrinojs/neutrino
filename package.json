@@ -1,6 +1,6 @@
 {
   "name": "neutrino-dev",
-  "version": "4.1.1",
+  "version": "4.2.0",
   "private": true,
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
@@ -28,6 +28,6 @@
     "gitbook-plugin-edit-link": "^2.0.2",
     "gitbook-plugin-github": "^2.0.0",
     "gitbook-plugin-prism": "^2.1.0",
-    "oao": "^0.5.2"
+    "oao": "^0.5.7"
   }
 }

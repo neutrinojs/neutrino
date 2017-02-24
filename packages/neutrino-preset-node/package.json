@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-node",
-  "version": "4.0.1",
+  "version": "4.2.0",
   "description": "Neutrino preset for building Node.js projects",
   "main": "src/index.js",
   "keywords": [
@@ -13,9 +13,9 @@
   "license": "MPL-2.0",
   "repository": "mozilla-neutrino/neutrino-dev",
   "dependencies": {
-    "babel-core": "^6.22.1",
-    "babel-loader": "^6.2.10",
-    "babel-preset-env": "^1.1.8",
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "babel-preset-env": "^1.1.9",
     "clean-webpack-plugin": "^0.1.15",
     "copy-webpack-plugin": "4.0.1",
     "deepmerge": "^1.3.2",
@@ -24,7 +24,6 @@
     "progress-bar-webpack-plugin": "^1.9.3",
     "source-map-support": "^0.4.6",
     "webpack": "^2.2.1",
-    "webpack-merge": "^2.6.1",
     "webpack-node-externals": "1.5.4"
   },
   "peerDependencies": {
