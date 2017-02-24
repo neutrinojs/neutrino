@@ -70,7 +70,8 @@ module.exports = neutrino => {
       .rule('lint')
       .loader('eslint', props => merge(props, {
         options: {
-          plugins: ['jest']
+          plugins: ['jest'],
+          envs: ['jest']
         }
       }));
   }
