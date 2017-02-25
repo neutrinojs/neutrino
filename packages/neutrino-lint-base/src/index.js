@@ -1,9 +1,12 @@
+const clone = require('lodash.clonedeep');
 const path = require('path');
 
 const MODULES = path.join(__dirname, '../node_modules');
 const IF_NOT_DEV =  process.env.NODE_ENV !== 'development';
 
-module.exports = ({ config }) => {
+module.exports = neutrino => {
+  const { config } = neutrino;
+
   config
     .module
       .rule('lint')
@@ -37,4 +40,16 @@ module.exports = ({ config }) => {
 
   config.resolve.modules.add(MODULES);
   config.resolveLoader.modules.add(MODULES);
+
+  neutrino.custom.eslintrc = () => {
+    const options = clone(config.module.rule('lint').loaders.get('eslint').options);
+
+    options.extends = options.baseConfig.extends;
+    options.useEslintrc = true;
+    options.env = options.envs.reduce((env, key) => Object.assign(env, { [key]: true }, {}));
+    options.globals = options.globals.reduce((globals, key) => Object.assign(env, { [key]: true }, {}));
+    ['envs', 'baseConfig', 'failOnError', 'emitWarning', 'emitError'].map(method => delete options[method]);
+
+    return options;
+  };
 };
