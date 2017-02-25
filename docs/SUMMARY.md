@@ -23,3 +23,4 @@
 * [Contributing](/contributing/README.md)
   * [Development Process](/contributing/development.md)
   * [Code of Conduct](/contributing/code-of-conduct.md)
+* [FAQ](/FAQ.md)
