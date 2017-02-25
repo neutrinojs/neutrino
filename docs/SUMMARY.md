@@ -4,6 +4,7 @@
 * [Installation](/installation.md)
 * [Usage](/usage.md)
 * [Project Layout](/project-layout.md)
+* [FAQ](/FAQ.md)
 * [Presets](/presets/README.md)
   * [Web](/presets/neutrino-preset-web/README.md)
   * [React](/presets/neutrino-preset-react/README.md)
@@ -23,4 +24,3 @@
 * [Contributing](/contributing/README.md)
   * [Development Process](/contributing/development.md)
   * [Code of Conduct](/contributing/code-of-conduct.md)
-* [FAQ](/FAQ.md)
