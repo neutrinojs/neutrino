@@ -51,21 +51,19 @@ module.exports = neutrino => {
 
   neutrino.config.module
     .rule('compile')
-    .loader('babel', ({ options }) => {
-      return {
-        options: merge(options, {
-          env: {
-            test: {
-              retainLines: true,
-              presets: [require.resolve('babel-preset-jest')],
-              plugins: [require.resolve('babel-plugin-transform-es2015-modules-commonjs')]
-            }
+    .loader('babel', props => merge(props, {
+      options: {
+        env: {
+          test: {
+            retainLines: true,
+            presets: [require.resolve('babel-preset-jest')],
+            plugins: [require.resolve('babel-plugin-transform-es2015-modules-commonjs')]
           }
-        })
-      };
-    });
+        }
+      }
+    }));
 
-  if (neutrino.config.rules.has('lint')) {
+  if (neutrino.config.module.rules.has('lint')) {
     neutrino.config.module
       .rule('lint')
       .loader('eslint', props => merge(props, {
