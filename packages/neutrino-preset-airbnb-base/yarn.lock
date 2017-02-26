@@ -693,6 +693,10 @@ loader-utils@^1.0.2:
     emojis-list "^2.0.0"
     json5 "^0.5.0"
 
+lodash.clonedeep@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
+
 lodash.cond@^4.3.0:
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/lodash.cond/-/lodash.cond-4.5.2.tgz#f471a1da486be60f6ab955d17115523dd1d255d5"
@@ -743,15 +747,16 @@ natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
 
-neutrino-lint-base@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/neutrino-lint-base/-/neutrino-lint-base-4.2.0.tgz#00aee13cf669abf2c60ed913380c207e5604ecc2"
+neutrino-lint-base@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/neutrino-lint-base/-/neutrino-lint-base-4.3.0.tgz#aa788bf1904738990b7aec3726c63a0a6d2e8738"
   dependencies:
     babel-eslint "^7.1.1"
     eslint "^3.16.1"
     eslint-loader "^1.6.1"
     eslint-plugin-babel "^4.0.1"
     eslint-plugin-import "^2.2.0"
+    lodash.clonedeep "^4.5.0"
 
 number-is-nan@^1.0.0:
   version "1.0.1"
