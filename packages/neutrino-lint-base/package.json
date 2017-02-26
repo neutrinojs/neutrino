@@ -1,6 +1,6 @@
 {
   "name": "neutrino-lint-base",
-  "version": "4.2.0",
+  "version": "4.3.0",
   "description": "Neutrino preset starter for adding building ESLint-based presets",
   "main": "src/index.js",
   "keywords": [
