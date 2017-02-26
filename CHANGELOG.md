@@ -1,6 +1,37 @@
+2017-02-25
+==========
+
+  * Fixing typo in docs
+  * Upgrading webpack-chain for loader merge bug
+  * Adding Module to preset config ([#70](https://github.com/mozilla-neutrino/neutrino-dev/issues/70))
+    Added the `.module` to the `neutrino.config.rule()` statement.
+  * Moving boilerplate blurb to FAQs ([#69](https://github.com/mozilla-neutrino/neutrino-dev/issues/69))
+  * Airbnb base v4.3.1
+  * Lint base v4.3.1
+  * Fixing neutrino.custom.eslintrc to not except ([#68](https://github.com/mozilla-neutrino/neutrino-dev/issues/68))
+  * Fixing incorrect regex usage in docs for LESS ([#67](https://github.com/mozilla-neutrino/neutrino-dev/issues/67))
+
+2017-02-24
+==========
+
+  * Web and Node preset v4.2.1
+  * Airbnb-base v4.3
+  * lint-base v4.3
+  * Bumping for babel-preset-env bug
+  * Add custom method for generating an eslintrc config ([#63](https://github.com/mozilla-neutrino/neutrino-dev/issues/63))
+  * Merge pull request [#62](https://github.com/mozilla-neutrino/neutrino-dev/issues/62) from helfi92/faq
+    Add FAQ section
+  * Move FAQ's higher up in the summary
+  * Add FAQ section
+
 2017-02-23
 ==========
 
+  * Bumping jest to 4.2.1
+  * Fixing jest exception ([#57](https://github.com/mozilla-neutrino/neutrino-dev/issues/57))
+  * corrected typo in docs/contributing/development.md ([#55](https://github.com/mozilla-neutrino/neutrino-dev/issues/55))
+    corrected `satisified` to `satisfied`
+  * Changelog update
   * v4.2 ([#54](https://github.com/mozilla-neutrino/neutrino-dev/issues/54))
     * Dependency upgrades and minor version bump
     * lint-base dep upgrade
@@ -144,37 +175,3 @@
 
   * Docs/logo update
   * Merge branch 'master' of github.com:mozilla-neutrino/neutrino-dev
-  * Moar docs
-
-2017-02-06
-==========
-
-  * Updates docs/README.md
-    Auto commit by GitBook Editor
-  * CNAME
-  * Logo update
-  * Settings docs edit dir
-  * Initializing docs dir
-  * Adding book.json
-  * Removing gitbook assets
-  * Updates test.md
-    Auto commit by GitBook Editor
-  * Creates SUMMARY.md
-    Auto commit by GitBook Editor
-  * Importing old README
-  * Merge pull request [#2](https://github.com/mozilla-neutrino/neutrino-dev/issues/2) from eliperelman/html-update
-    HTML update
-
-2017-02-05
-==========
-
-  * Simplifying HTML file creation
-  * Merge pull request [#1](https://github.com/mozilla-neutrino/neutrino-dev/issues/1) from eliperelman/linting-and-pkg-config
-    Linting changes and new config API
-  * ESLint fixes and webpack-chain integration
-
-2017-02-02
-==========
-
-  * Changes to linting and adding package config
-  * Allowing use of node globals
