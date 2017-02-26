@@ -1,5 +1,6 @@
 const ChainedMap = require('./ChainedMap');
 const Loader = require('./Loader');
+const merge = require('deepmerge');
 
 module.exports = class extends ChainedMap {
   constructor(parent) {
@@ -92,7 +93,21 @@ module.exports = class extends ChainedMap {
           case 'loader': {
             return Object
               .keys(value)
-              .forEach(name => this.loader(name, value[name].loader, value[name].options));
+              .forEach(name => {
+                if (!this.loaders.has(name)) {
+                  return this.loader(name, value[name].loader, value[name].options);
+                }
+
+                const loader = this.loaders.get(name);
+
+                if (value[name].loader) {
+                  loader.loader = value[name].loader;
+                }
+
+                if (value[name].options) {
+                  loader.options = merge(loader.options, value[name].options);
+                }
+              });
           }
 
           default: {
