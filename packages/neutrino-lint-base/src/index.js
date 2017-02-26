@@ -46,8 +46,8 @@ module.exports = neutrino => {
 
     options.extends = options.baseConfig.extends;
     options.useEslintrc = true;
-    options.env = options.envs.reduce((env, key) => Object.assign(env, { [key]: true }, {}));
-    options.globals = options.globals.reduce((globals, key) => Object.assign(env, { [key]: true }, {}));
+    options.env = options.envs.reduce((env, key) => Object.assign(env, { [key]: true }), {});
+    options.globals = options.globals.reduce((globals, key) => Object.assign(globals, { [key]: true }), {});
     ['envs', 'baseConfig', 'failOnError', 'emitWarning', 'emitError'].map(method => delete options[method]);
 
     return options;
