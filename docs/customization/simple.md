@@ -95,7 +95,7 @@ _Example: Add LESS loading to the project._
       "module": {
         "rule": {
           "styles": {
-            "test": "/\\.less$/",
+            "test": "\\.less$",
             "loader": {
               "less": {
                 "loader": "less-loader",
