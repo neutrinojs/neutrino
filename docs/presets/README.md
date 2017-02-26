@@ -23,18 +23,3 @@ you need to make changes.
 Presets can be easily distributing by publishing them to npm or GitHub and installing them
 in your project. This also allows others to discover and build projects based on your own
 presets.
-
-### Why not a boilerplate or alternative?
-
-Boilerplates are great resources for scaffolding out application-specific code which
-would be difficult or tedious to generate for every project. Unfortunately many projects
-also bake in build configuration into this process, causing a lot of duplication. If you
-need to make a change to your build steps, you are forced to make that change across all
-your similar projects. Using a preset rather than a boilerplate keeps this process DRY.
-
-Tools like [Create React App](https://github.com/facebookincubator/create-react-app) have
-been fantastic improvements to the tooling ecosystem, but unfortunately only works on specific
-environments like React, and do not allow simple extensibility of the build configuration. To
-answer this new and similar projects are cropping up to build different types of projects,
-often duplicating efforts which miss out on the best practices to share with the other project
-types.
