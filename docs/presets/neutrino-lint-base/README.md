@@ -140,7 +140,7 @@ const merge = require('deepmerge');
 
 module.exports = neutrino => {
   lint(neutrino);
-  neutrino.config
+  neutrino.config.module
     .rule('lint')
     .loader('eslint', props => merge(props, {
       options: {
