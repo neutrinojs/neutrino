@@ -164,6 +164,27 @@ that clearly in your preset.
 For specifics on what options are configured when using this linting base, please
 [view the source](https://github.com/mozilla-neutrino/neutrino-dev/blob/master/packages/neutrino-lint-base/src/index.js).
 
+## eslintrc Config
+
+`neutrino-lint-base` also provides a method for getting the ESLint configuration suitable for use in an eslintrc file.
+Typically this is used for providing hints or fix solutions to the development environment, e.g. IDEs and text editors.
+Doing this requires [creating an instance of the Neutrino API](/api/README.md) and providing the presets uses. If you
+keep this information in `config.presets` in package.json, this should be relatively straightforward. By providing
+all the presets used to Neutrino, you can ensure all the linting options used across all those preset will be merged
+together for your development environment, without the need for copying, duplication, or loss of organization and
+separation.
+
+_Example: Create a .eslintrc.js file in the root of the project._
+
+```js
+// .eslintrc.js
+const Neutrino = require('neutrino');
+const pkg = require('./package.json');
+const api = new Neutrino(pkg.config.presets);
+
+module.exports = api.custom.eslintrc();
+```
+
 ---
 
 ## Contributing
