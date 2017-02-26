@@ -511,9 +511,9 @@ babel-plugin-transform-strict-mode@^6.22.0:
     babel-runtime "^6.22.0"
     babel-types "^6.22.0"
 
-babel-preset-env@^1.1.9:
-  version "1.1.9"
-  resolved "https://registry.yarnpkg.com/babel-preset-env/-/babel-preset-env-1.1.9.tgz#49443dcd6ef52b48b7191ea33869e24590a9eb4a"
+babel-preset-env@^1.1.10:
+  version "1.1.10"
+  resolved "https://registry.yarnpkg.com/babel-preset-env/-/babel-preset-env-1.1.10.tgz#c1055b69d25c3cf5383a925ee5c553c323558368"
   dependencies:
     babel-plugin-check-es2015-constants "^6.3.13"
     babel-plugin-syntax-trailing-function-commas "^6.13.0"
