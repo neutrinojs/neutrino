@@ -747,9 +747,9 @@ natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
 
-neutrino-lint-base@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/neutrino-lint-base/-/neutrino-lint-base-4.3.0.tgz#aa788bf1904738990b7aec3726c63a0a6d2e8738"
+neutrino-lint-base@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/neutrino-lint-base/-/neutrino-lint-base-4.3.1.tgz#3f1f37595891ce889f44d03ab6c951d535995ad6"
   dependencies:
     babel-eslint "^7.1.1"
     eslint "^3.16.1"
