@@ -513,6 +513,10 @@ deep-extend@~0.4.0:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/deep-extend/-/deep-extend-0.4.1.tgz#efe4113d08085f4e6f9687759810f807469e2253"
 
+deepmerge@^1.3.2:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-1.3.2.tgz#1663691629d4dbfe364fa12a2a4f0aa86aa3a050"
+
 delayed-stream@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
@@ -2129,9 +2133,11 @@ wbuf@^1.1.0, wbuf@^1.4.0:
   dependencies:
     minimalistic-assert "^1.0.0"
 
-webpack-chain@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/webpack-chain/-/webpack-chain-1.4.0.tgz#95d1c379db6d5f0347f6a33dc35ae9a19083fbb0"
+webpack-chain@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/webpack-chain/-/webpack-chain-1.4.1.tgz#6d5483c33f7b5da11e6c6eec095e253aeb0f6c81"
+  dependencies:
+    deepmerge "^1.3.2"
 
 webpack-dev-middleware@^1.9.0:
   version "1.10.0"
