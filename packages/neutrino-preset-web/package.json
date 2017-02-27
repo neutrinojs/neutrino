@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-web",
-  "version": "4.2.1",
+  "version": "4.2.2",
   "description": "Neutrino preset for building generic web applications",
   "main": "src/index.js",
   "keywords": [
