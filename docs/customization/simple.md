@@ -82,7 +82,7 @@ Using `module.rule.loader` allows to you define the Webpack loader and its optio
 This loader is usually a `dependency` or `devDependency` of your project. Each `loader` object can specify a property
 for the string `loader` and an `options` object.
 
-_Example: Add LESS loading to the project._
+_Example: Add LESS loading to the project, by extending the `css` rule._
 
 ```json
 {
@@ -94,7 +94,7 @@ _Example: Add LESS loading to the project._
     "neutrino": {
       "module": {
         "rule": {
-          "styles": {
+          "css": {
             "test": "\\.less$",
             "loader": {
               "less": {
