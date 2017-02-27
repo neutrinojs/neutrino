@@ -144,6 +144,23 @@ Use the command line [`files` parameters](/cli/README.md#neutrino-test) to execu
 `neutrino-preset-jest` can watch for changes on your source directory and subsequently re-run tests. Simply use the
 `--watch` flag with your `neutrino test` command.
 
+## Coverage reporting
+
+Jest has an integrated coverage reporter, which requires no configuration. To run tests and collect coverage
+information against files from your source code run:
+
+#### Yarn
+
+```bash
+❯ yarn test -- --coverage
+```
+
+#### npm
+
+```bash
+❯ npm test -- --coverage
+```
+
 ## Customizing
 
 To override the test configuration, start with the documentation on [customization](/customization/README.md).

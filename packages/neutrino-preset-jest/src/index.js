@@ -79,7 +79,7 @@ module.exports = neutrino => {
     const configFile = path.join(os.tmpdir(), 'config.json');
 
     return new Promise((resolve, reject) => {
-      const jestCliOptions = { config: configFile, watch: args.watch };
+      const jestCliOptions = { config: configFile, coverage: args.coverage, watch: args.watch };
 
       fs.writeFileSync(configFile, `${JSON.stringify(jest, null, 2)}\n`);
       runCLI(jestCliOptions, jest.rootDir || process.cwd(), result => {
