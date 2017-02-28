@@ -69,6 +69,7 @@ Options:
   --presets  A list of Neutrino presets used to configure the build    [array] [default: []]
   --version  Show version number                                       [boolean]
   --help     Show help                                                 [boolean]
+  --coverage Collect test coverage information and generate report     [boolean] [default: false]
   --watch    Watch source files for changes and re-run tests           [boolean] [default: false]
 ```
 
