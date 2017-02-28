@@ -1,0 +1,50 @@
+.npmsearchlist li {
+  list-style: none;
+  position: relative;
+  font-size: 125%;
+  color: rgb(51, 51, 51);
+  padding-bottom: 1.125em;
+  padding-top: 0.25em;
+  border-bottom: 1px solid rgb(234, 234, 234);
+}
+
+.npmsearchlist h3 {
+  display: block;
+  margin: 0;
+  padding: 20px 0 10px 0;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.npmsearchlist h3 .package-name {
+  font-weight: 500;
+  margin-right: 0.4em;
+  color: #000;
+}
+
+.npmsearchlist h3 .author-name {
+  font-size: 75%;
+  color: rgb(119, 119, 119);
+  font-family: Consolas, "Liberation Mono", Menlo, Monaco, Courier, monospace;
+}
+
+.npmsearchlist p {
+  color: rgb(85, 85, 85);
+  line-height: 20px;
+  margin: 0.5em 0 0;
+  font-size: 0.75em;
+}
+
+.npmsearchlist .stats {
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 0.8em;
+  font-weight: 600;
+  display: block;
+}
+
+.npmsearchlist .stats .version {
+  color: rgb(119, 119, 119);
+  font-size: 17px;
+}
