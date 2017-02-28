@@ -92,6 +92,14 @@ You can also pass a flag `--watch` to watch source files for changes and re-run 
 ❯ neutrino test --watch
 ```
 
+As well you can pass a flag `--coverage` to collect test coverage information and generate a report, if your preset
+supports it.
+
+```bash
+❯ neutrino test --coverage
+```
+
+
 ## Exit codes
 
 When the CLI creates an instance of Neutrino, it waits for all commands to either resolve or reject their Promise.

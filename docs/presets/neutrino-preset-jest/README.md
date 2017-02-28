@@ -150,16 +150,19 @@ Use the command line [`files` parameters](/cli/README.md#neutrino-test) to execu
 Jest has an integrated coverage reporter, which requires no configuration. To collect test coverage information and
 generate report run:
 
-#### Yarn
-
 ```bash
-❯ yarn test -- --coverage
+❯ neutrino test --coverage
 ```
 
-#### npm
+You can also edit your package.json file and create a separate command for generating coverage report, which can be
+very helpful during continues integration of your project:
 
-```bash
-❯ npm test -- --coverage
+```json
+{
+  "scripts": {
+    "coverage": "neutrino test --coverage"
+  }
+}
 ```
 
 See the [Jest's documentation](https://facebook.github.io/jest/docs/configuration.html#collectcoveragefrom-array) for
