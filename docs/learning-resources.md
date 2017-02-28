@@ -10,7 +10,7 @@ community, file an issue or submit a pull request.
 
 ## Screencasts & Videos
 
-## Neutrino Starter Repositories
+## Starter Repositories
 
 [Node.js Quickstart Kit](https://github.com/mozilla-neutrino/node-starter)
 
@@ -19,9 +19,5 @@ community, file an issue or submit a pull request.
 [React Quickstart Kit](https://github.com/mozilla-neutrino/react-starter)
 
 [Web Quickstart Kit](https://github.com/mozilla-neutrino/web-starter)
-
-## Community Starter Repositories
-
-Have a Neutrino starter kit to share? Send us a pull-request with the link and we'll add it here for others to see.
 
 [jerolimov/feathers-starter](https://github.com/jerolimov/feathers-starter)
