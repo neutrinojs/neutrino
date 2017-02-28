@@ -13,6 +13,7 @@
   * [Karma](/presets/neutrino-preset-karma/README.md)
   * [Mocha](/presets/neutrino-preset-mocha/README.md)
   * [Jest](/presets/neutrino-preset-jest/README.md)
+  * [Community presets](/presets/community-presets.md)
 * [Customization](/customization/README.md)
   * [Simple](/customization/simple.md)
   * [Advanced](/customization/advanced.md)
