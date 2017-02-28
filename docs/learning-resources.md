@@ -10,12 +10,18 @@ community, file an issue or submit a pull request.
 
 ## Screencasts & Videos
 
-## Starter Repositories
+## Neutrino Starter Repositories
 
-[Node.js Quickstart Kit for Neutrino](https://github.com/mozilla-neutrino/node-starter)
+[Node.js Quickstart Kit](https://github.com/mozilla-neutrino/node-starter)
 
-[Express Quickstart Kit for Neutrino](https://github.com/mozilla-neutrino/express-starter)
+[Express Quickstart Kit](https://github.com/mozilla-neutrino/express-starter)
 
-[React Quickstart Kit for Neutrino](https://github.com/mozilla-neutrino/react-starter)
+[React Quickstart Kit](https://github.com/mozilla-neutrino/react-starter)
 
-[Web Quickstart Kit for Neutrino](https://github.com/mozilla-neutrino/web-starter)
+[Web Quickstart Kit](https://github.com/mozilla-neutrino/web-starter)
+
+## Community Starter Repositories
+
+Have a Neutrino starter kit to share? Send us a pull-request with the link and we'll add it here for others to see.
+
+[jerolimov/feathers-starter](https://github.com/jerolimov/feathers-starter)
