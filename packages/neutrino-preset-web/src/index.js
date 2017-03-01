@@ -187,7 +187,7 @@ module.exports = ({ config }) => {
       PKG.config && PKG.config.neutrino && PKG.config.neutrino.devServer && PKG.config.neutrino.devServer.host ||
       'localhost';
     const port = parseInt(process.env.PORT) ||
-      PKG.config && PKG.config.devServer && PKG.config.neutrino.devServer && parseInt(PKG.config.neutrino.devServer.port) ||
+      PKG.config && PKG.config.neutrino && PKG.config.neutrino.devServer && parseInt(PKG.config.neutrino.devServer.port) ||
       5000;
 
     config.devtool('eval');
