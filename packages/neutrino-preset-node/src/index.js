@@ -14,9 +14,12 @@ const BUILD = path.join(CWD, 'build');
 const TEST = path.join(CWD, 'test');
 const PROJECT_MODULES = path.join(CWD, 'node_modules');
 const MODULES = path.join(__dirname, '../node_modules');
+const PKG = require(path.join(CWD, 'package.json'));
 
 module.exports = neutrino => {
   const { config } = neutrino;
+  const hasSourceMap = (PKG.dependencies && 'source-map-support' in PKG.dependencies) ||
+    (PKG.devDependencies && 'source-map-support' in PKG.devDependencies);
 
   config
     .target('node')
@@ -53,13 +56,15 @@ module.exports = neutrino => {
 
   config.options.set('performance', { hints: false });
 
-  config
-    .plugin('banner')
-    .use(webpack.BannerPlugin, {
-      banner: `require('${require.resolve('source-map-support')}').install();`,
-      raw: true,
-      entryOnly: true
-    });
+  if (hasSourceMap) {
+    config
+      .plugin('banner')
+      .use(webpack.BannerPlugin, {
+        banner: `require('source-map-support').install();`,
+        raw: true,
+        entryOnly: true
+      });
+  }
 
   if (config.module.rules.has('lint')) {
     config.module

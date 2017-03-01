@@ -35,6 +35,20 @@
 ❯ npm install --save-dev neutrino neutrino-preset-node
 ```
 
+If you want to have automatically wired sourcemaps added to your project, add `source-map-support`:
+
+#### Yarn
+
+```bash
+❯ yarn add source-map-support
+```
+
+#### npm
+
+```bash
+❯ npm install --save source-map-support
+```
+
 ## Project Layout
 
 `neutrino-preset-node` follows the standard [project layout](/project-layout.md) specified by Neutrino. This
@@ -180,7 +194,8 @@ The following is a list of rules and their identifiers which can be overridden:
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-- `banner`: Injects source-map-support into the entry point of your application.
+- `banner`: Injects source-map-support into the entry point of your application if detected in `dependencies` or
+`devDependencies` of your package.json.
 - `copy`: Copies non-JS files from `src` to `build` when using `neutrino build`.
 - `clean`: Clears the contents of `build` prior to creating a production bundle.
 - `progress`: Displays a progress bar when using `neutrino build`.
