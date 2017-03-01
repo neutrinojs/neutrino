@@ -1,6 +1,6 @@
 {
   "name": "neutrino",
-  "version": "4.2.1",
+  "version": "4.3.0",
   "description": "Create and build JS applications with managed configurations",
   "main": "src/neutrino.js",
   "bin": {
