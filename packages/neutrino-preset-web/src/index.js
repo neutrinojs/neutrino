@@ -183,8 +183,12 @@ module.exports = ({ config }) => {
 
   if (process.env.NODE_ENV === 'development') {
     const protocol = !!process.env.HTTPS ? 'https' : 'http';
-    const host = process.env.HOST || 'localhost';
-    const port = parseInt(process.env.PORT) || 5000;
+    const host = process.env.HOST ||
+      PKG.config && PKG.config.neutrino && PKG.config.neutrino.devServer && PKG.config.neutrino.devServer.host ||
+      'localhost';
+    const port = parseInt(process.env.PORT) ||
+      PKG.config && PKG.config.devServer && PKG.config.neutrino.devServer && parseInt(PKG.config.neutrino.devServer.port) ||
+      5000;
 
     config.devtool('eval');
     config.devServer
