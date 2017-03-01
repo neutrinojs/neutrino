@@ -41,7 +41,7 @@ module.exports = neutrino => {
   config.resolve.modules.add(MODULES);
   config.resolveLoader.modules.add(MODULES);
 
-  neutrino.custom.eslintrc = () => {
+  neutrino.eslintrc = () => {
     const options = clone(config.module.rule('lint').loaders.get('eslint').options);
 
     options.extends = options.baseConfig.extends;

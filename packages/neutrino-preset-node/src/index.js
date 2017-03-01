@@ -69,49 +69,47 @@ module.exports = neutrino => {
   if (config.module.rules.has('lint')) {
     config.module
       .rule('lint')
-      .loader('eslint', ({ options }) => {
-        return {
-          options: merge(options, {
-            envs: ['node'],
-            rules: {
-              // enforce return after a callback
-              'callback-return': 'off',
+      .loader('eslint', props => merge(props, {
+        options: {
+          envs: ['node'],
+          rules: {
+            // enforce return after a callback
+            'callback-return': 'off',
 
-              // require all requires be top-level
-              // http://eslint.org/docs/rules/global-require
-              'global-require': 'error',
+            // require all requires be top-level
+            // http://eslint.org/docs/rules/global-require
+            'global-require': 'error',
 
-              // enforces error handling in callbacks (node environment)
-              'handle-callback-err': 'off',
+            // enforces error handling in callbacks (node environment)
+            'handle-callback-err': 'off',
 
-              // Allow console in Node.js
-              'no-console': 'off',
+            // Allow console in Node.js
+            'no-console': 'off',
 
-              // disallow mixing regular variable and require declarations
-              'no-mixed-requires': ['off', false],
+            // disallow mixing regular variable and require declarations
+            'no-mixed-requires': ['off', false],
 
-              // disallow use of new operator with the require function
-              'no-new-require': 'error',
+            // disallow use of new operator with the require function
+            'no-new-require': 'error',
 
-              // disallow string concatenation with __dirname and __filename
-              // http://eslint.org/docs/rules/no-path-concat
-              'no-path-concat': 'error',
+            // disallow string concatenation with __dirname and __filename
+            // http://eslint.org/docs/rules/no-path-concat
+            'no-path-concat': 'error',
 
-              // disallow use of process.env
-              'no-process-env': 'off',
+            // disallow use of process.env
+            'no-process-env': 'off',
 
-              // disallow process.exit()
-              'no-process-exit': 'off',
+            // disallow process.exit()
+            'no-process-exit': 'off',
 
-              // restrict usage of specified node modules
-              'no-restricted-modules': 'off',
+            // restrict usage of specified node modules
+            'no-restricted-modules': 'off',
 
-              // disallow use of synchronous methods (off by default)
-              'no-sync': 'off'
-            }
-          })
-        };
-      });
+            // disallow use of synchronous methods (off by default)
+            'no-sync': 'off'
+          }
+        }
+      }));
   }
 
   config.module
@@ -120,15 +118,12 @@ module.exports = neutrino => {
       .include(SRC, TEST)
       .loader('babel', require.resolve('babel-loader'), {
         presets: [
-          [
-            require.resolve('babel-preset-env'),
-            {
-              modules: false,
-              targets: {
-                node: 6.9
-              }
+          [require.resolve('babel-preset-env'), {
+            modules: false,
+            targets: {
+              node: 6.9
             }
-          ]
+          }]
         ]
       });
 

@@ -1,7 +1,8 @@
 const { Server } = require('karma');
+const merge = require('deepmerge');
 
 module.exports = neutrino => {
-  neutrino.custom.karma = {
+  const defaults = {
     plugins: [
       require.resolve('karma-webpack'),
       require.resolve('karma-chrome-launcher'),
@@ -35,11 +36,16 @@ module.exports = neutrino => {
   };
 
   neutrino.on('test', ({ files, watch }) => {
-    const { karma } = neutrino.custom;
+    const karma = merge.all([
+      defaults,
+      neutrino.options.karma,
+      {
+        singleRun: !watch,
+        autoWatch: watch,
+        webpack: neutrino.getWebpackOptions()
+      }
+    ]);
 
-    karma.singleRun = !watch;
-    karma.autoWatch = watch;
-    karma.webpack = neutrino.getWebpackOptions();
     delete karma.webpack.plugins;
 
     if (files && files.length) {

@@ -22,7 +22,23 @@ const URL_LOADER = require.resolve('url-loader');
 const PROJECT_MODULES = path.join(CWD, 'node_modules');
 const MODULES = path.join(__dirname, '../node_modules');
 
-module.exports = ({ config }) => {
+module.exports = neutrino => {
+  const { config } = neutrino;
+
+  const html = {
+    inject: false,
+    template: htmlTemplate,
+    appMountId: 'root',
+    xhtml: true,
+    mobile: true,
+    minify: {
+      useShortDoctype: true,
+      keepClosingSlash: true,
+      collapseWhitespace: true,
+      preserveLineBreaks: true,
+    }
+  };
+
   config
     .target('web')
     .context(CWD)
@@ -142,14 +158,12 @@ module.exports = ({ config }) => {
   if (config.module.rules.has('lint')) {
     config.module
       .rule('lint')
-      .loader('eslint', ({ options }) => {
-        return {
-          options: merge(options, {
-            globals: ['Buffer'],
-            envs: ['browser', 'commonjs']
-          })
-        };
-      });
+      .loader('eslint', props => merge(props, {
+        options: {
+          globals: ['Buffer'],
+          envs: ['browser', 'commonjs']
+        }
+      }));
   }
 
   config
@@ -158,19 +172,7 @@ module.exports = ({ config }) => {
 
   config
     .plugin('html')
-    .use(HtmlPlugin, merge({
-      inject: false,
-      template: htmlTemplate,
-      appMountId: 'root',
-      xhtml: true,
-      mobile: true,
-      minify: {
-        useShortDoctype: true,
-        keepClosingSlash: true,
-        collapseWhitespace: true,
-        preserveLineBreaks: true,
-      }
-    }, PKG.config && PKG.config.html ? PKG.config.html : {}));
+    .use(HtmlPlugin, merge(html, neutrino.options.html));
 
   if (process.env.NODE_ENV !== 'test') {
     config
@@ -184,10 +186,10 @@ module.exports = ({ config }) => {
   if (process.env.NODE_ENV === 'development') {
     const protocol = !!process.env.HTTPS ? 'https' : 'http';
     const host = process.env.HOST ||
-      PKG.config && PKG.config.neutrino && PKG.config.neutrino.devServer && PKG.config.neutrino.devServer.host ||
+      (PKG.neutrino && PKG.neutrino.config && PKG.neutrino.config.devServer && PKG.neutrino.config.devServer.host) ||
       'localhost';
     const port = parseInt(process.env.PORT) ||
-      PKG.config && PKG.config.neutrino && PKG.config.neutrino.devServer && parseInt(PKG.config.neutrino.devServer.port) ||
+      (PKG.neutrino && PKG.neutrino.config && PKG.neutrino.config.devServer && parseInt(PKG.neutrino.config.devServer.port)) ||
       5000;
 
     config.devtool('eval');

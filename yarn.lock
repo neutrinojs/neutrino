@@ -340,6 +340,14 @@ core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
 
+cross-spawn@^5.0.1:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-5.1.0.tgz#e8bd0efee58fcff6f8f94510a0a554bbfa235449"
+  dependencies:
+    lru-cache "^4.0.1"
+    shebang-command "^1.2.0"
+    which "^1.2.9"
+
 cryptiles@2.x.x:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/cryptiles/-/cryptiles-2.0.5.tgz#3bdfecdc608147c1c67202fa291e7dca59eaa3b8"
@@ -470,6 +478,18 @@ escape-string-regexp@^1.0.0, escape-string-regexp@^1.0.2, escape-string-regexp@^
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
 
+execa@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/execa/-/execa-0.6.0.tgz#934fc9f04a9febb4d4b449d976e92cfd95ef4f6e"
+  dependencies:
+    cross-spawn "^5.0.1"
+    get-stream "^3.0.0"
+    is-stream "^1.1.0"
+    npm-run-path "^2.0.0"
+    p-finally "^1.0.0"
+    signal-exit "^3.0.0"
+    strip-eof "^1.0.0"
+
 exit@0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/exit/-/exit-0.1.2.tgz#0632638f8d877cc82107d30a0fff1a17cba1cd0c"
@@ -587,6 +607,10 @@ generate-object-property@^1.1.0:
   resolved "https://registry.yarnpkg.com/generate-object-property/-/generate-object-property-1.2.0.tgz#9c0e1c40308ce804f4783618b937fa88f99d50d0"
   dependencies:
     is-property "^1.0.0"
+
+get-stream@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-3.0.0.tgz#8e943d1358dc37555054ecbe2edb05aa174ede14"
 
 getpass@^0.1.1:
   version "0.1.6"
@@ -861,6 +885,10 @@ is-property@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/is-property/-/is-property-1.0.2.tgz#57fe1c4e48474edd65b09911f26b1cd4095dda84"
 
+is-stream@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/is-stream/-/is-stream-1.1.0.tgz#12d4a3dd4e68e0b79ceb8dbc84173ae80d91ca44"
+
 is-typedarray@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/is-typedarray/-/is-typedarray-1.0.0.tgz#e479c80858df0c1b11ddda6940f96011fcda4a9a"
@@ -1096,7 +1124,7 @@ lru-cache@2:
   version "2.7.3"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-2.7.3.tgz#6d4524e8b955f95d4f5b58851ce21dd72fb4e952"
 
-lru-cache@~4.0.1:
+lru-cache@^4.0.1, lru-cache@~4.0.1:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-4.0.2.tgz#1d17679c069cda5d040991a09dbc2c0db377e55e"
   dependencies:
@@ -1291,6 +1319,12 @@ npm-registry-client@~7.2.1:
   optionalDependencies:
     npmlog "~2.0.0 || ~3.1.0"
 
+npm-run-path@^2.0.0:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/npm-run-path/-/npm-run-path-2.0.2.tgz#35a9232dfa35d7067b4cb2ddf2357b1871536c5f"
+  dependencies:
+    path-key "^2.0.0"
+
 npm-user-validate@~0.1.2, npm-user-validate@~0.1.5:
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/npm-user-validate/-/npm-user-validate-0.1.5.tgz#52465d50c2d20294a57125b996baedbf56c5004b"
@@ -1468,20 +1502,23 @@ nth-check@~1.0.1:
   dependencies:
     boolbase "~1.0.0"
 
-oao@^0.5.7:
-  version "0.5.7"
-  resolved "https://registry.yarnpkg.com/oao/-/oao-0.5.7.tgz#ab512b50ace0586066d43e2f8e86c2ab40a85ce4"
+oao@^0.7.2:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/oao/-/oao-0.7.2.tgz#ac4b8d3da07fdafe7b9f2e3cbf56edcd996d5d09"
   dependencies:
     babel-polyfill "6.22.0"
     commander "2.9.0"
+    execa "^0.6.0"
     globby "6.1.0"
     inquirer "3.0.1"
     kebab-case "1.0.0"
+    rimraf "^2.6.1"
     semver "5.3.0"
     shelljs "0.7.6"
     split "1.0.0"
-    storyboard "^3.0.0"
-    storyboard-preset-console "^3.0.0"
+    storyboard "^3.1.0"
+    storyboard-listener-console "^3.0.0"
+    storyboard-listener-console-parallel "^3.1.0"
     terminal-kit "^0.26.1"
     timm "^1.2.3"
 
@@ -1537,6 +1574,10 @@ osenv@0, osenv@~0.1.3:
     os-homedir "^1.0.0"
     os-tmpdir "^1.0.0"
 
+p-finally@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/p-finally/-/p-finally-1.0.0.tgz#3fbcfb15b899a44123b34b6dcc18b724336a2cae"
+
 path-array@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/path-array/-/path-array-1.0.1.tgz#7e2f0f35f07a2015122b868b7eac0eb2c4fec271"
@@ -1550,6 +1591,10 @@ path-is-absolute@^1.0.0:
 path-is-inside@^1.0.1, path-is-inside@~1.0.0, path-is-inside@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/path-is-inside/-/path-is-inside-1.0.2.tgz#365417dede44430d1c11af61027facf074bdfc53"
+
+path-key@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/path-key/-/path-key-2.0.1.tgz#411cadb574c5a140d3a4b1910d40d80cc9f40b40"
 
 pify@^2.0.0:
   version "2.3.0"
@@ -1809,6 +1854,12 @@ rimraf@2, rimraf@^2.2.8, rimraf@^2.5.2, rimraf@^2.5.4, rimraf@~2.5.2, rimraf@~2.
   dependencies:
     glob "^7.0.5"
 
+rimraf@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.6.1.tgz#c2338ec643df7a1b7fe5c54fa86f57428a55f33d"
+  dependencies:
+    glob "^7.0.5"
+
 run-async@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/run-async/-/run-async-2.3.0.tgz#0371ab4ae0bdd720d4166d7dfda64ff7a445a6c0"
@@ -1819,13 +1870,13 @@ rx@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/rx/-/rx-4.1.0.tgz#a5f13ff79ef3b740fe30aa803fb09f98805d4782"
 
-"semver@2 >=2.2.1 || 3.x || 4 || 5", "semver@2 || 3 || 4 || 5", "semver@2.x || 3.x || 4 || 5", "semver@4 || 5", semver@5.3.0, "semver@^2.3.0 || 3.x || 4 || 5":
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-5.3.0.tgz#9b2ce5d3de02d17c6012ad326aa6b4d0cf54f94f"
-
-semver@5.1.0, semver@~5.1.0:
+"semver@2 >=2.2.1 || 3.x || 4 || 5", "semver@2 || 3 || 4 || 5", "semver@2.x || 3.x || 4 || 5", "semver@4 || 5", semver@5.1.0, "semver@^2.3.0 || 3.x || 4 || 5", semver@~5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.1.0.tgz#85f2cf8550465c4df000cf7d86f6b054106ab9e5"
+
+semver@5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-5.3.0.tgz#9b2ce5d3de02d17c6012ad326aa6b4d0cf54f94f"
 
 semver@^4.0.3, semver@^4.1.0:
   version "4.3.6"
@@ -1837,6 +1888,16 @@ sha@~2.0.1:
   dependencies:
     graceful-fs "^4.1.2"
     readable-stream "^2.0.2"
+
+shebang-command@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/shebang-command/-/shebang-command-1.2.0.tgz#44aac65b695b03398968c39f363fee5deafdf1ea"
+  dependencies:
+    shebang-regex "^1.0.0"
+
+shebang-regex@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-1.0.0.tgz#da42f49740c0b42db2ca9728571cb190c98efea3"
 
 shelljs@0.7.6:
   version "0.7.6"
@@ -1850,7 +1911,7 @@ sigmund@~1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/sigmund/-/sigmund-1.0.1.tgz#3ff21f198cad2175f9f3b781853fd94d0d19b590"
 
-signal-exit@^3.0.2:
+signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
 
@@ -1917,21 +1978,22 @@ storyboard-core@^3.0.0-rc.2:
     timm "^1.2.3"
     uuid "^3.0.1"
 
-storyboard-listener-console@^3.0.0-rc.2:
-  version "3.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/storyboard-listener-console/-/storyboard-listener-console-3.0.0-rc.2.tgz#3e854d13af2b7b589699bf0306bb355a38264eb7"
+storyboard-listener-console-parallel@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/storyboard-listener-console-parallel/-/storyboard-listener-console-parallel-3.1.0.tgz#97f96f78c51f1e9147af18943ec506777afc3ee7"
+  dependencies:
+    terminal-kit "^0.26.1"
+    timm "^1.2.3"
+
+storyboard-listener-console@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/storyboard-listener-console/-/storyboard-listener-console-3.0.0.tgz#feeb54e25fc5def0f41145d2dea23f6003fff2cd"
   dependencies:
     timm "^1.2.3"
 
-storyboard-preset-console@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/storyboard-preset-console/-/storyboard-preset-console-3.0.0.tgz#ae3f098e5b386876b2d41ab7c89d55bfd3ac0a44"
-  dependencies:
-    storyboard-listener-console "^3.0.0-rc.2"
-
-storyboard@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/storyboard/-/storyboard-3.0.0.tgz#839515a88fbefb89a22f9055d3df5b0d5e6e9099"
+storyboard@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/storyboard/-/storyboard-3.1.0.tgz#00053f50b2df3657a531d26b996e56a606323936"
   dependencies:
     storyboard-core "^3.0.0-rc.2"
 
@@ -1967,6 +2029,10 @@ strip-ansi@^3.0.0, strip-ansi@~3.0.1:
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-3.0.1.tgz#6a385fb8853d952d5ff05d0e8aaf94278dc63dcf"
   dependencies:
     ansi-regex "^2.0.0"
+
+strip-eof@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/strip-eof/-/strip-eof-1.0.0.tgz#bb43ff5598a6eb05d89b59fcd129c983313606bf"
 
 supports-color@^0.2.0:
   version "0.2.0"
@@ -2118,7 +2184,7 @@ weak-map@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/weak-map/-/weak-map-1.0.0.tgz#b66e56a9df0bd25a76bbf1b514db129080614a37"
 
-which@1, which@~1.2.11, which@~1.2.4:
+which@1, which@^1.2.9, which@~1.2.11, which@~1.2.4:
   version "1.2.12"
   resolved "https://registry.yarnpkg.com/which/-/which-1.2.12.tgz#de67b5e450269f194909ef23ece4ebe416fa1192"
   dependencies:

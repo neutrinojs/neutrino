@@ -1,8 +1,7 @@
-const lint = require('neutrino-lint-base');
 const merge = require('deepmerge');
 
 module.exports = neutrino => {
-  lint(neutrino);
+  neutrino.use(require('neutrino-lint-base'));
   neutrino.config.module
     .rule('lint')
     .loader('eslint', props => merge(props, {
