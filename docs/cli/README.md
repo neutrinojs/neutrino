@@ -69,6 +69,7 @@ Options:
   --presets  A list of Neutrino presets used to configure the build    [array] [default: []]
   --version  Show version number                                       [boolean]
   --help     Show help                                                 [boolean]
+  --coverage Collect test coverage information and generate report     [boolean] [default: false]
   --watch    Watch source files for changes and re-run tests           [boolean] [default: false]
 ```
 
@@ -90,6 +91,14 @@ You can also pass a flag `--watch` to watch source files for changes and re-run 
 ```bash
 ❯ neutrino test --watch
 ```
+
+As well you can pass a flag `--coverage` to collect test coverage information and generate a report, if your preset
+supports it.
+
+```bash
+❯ neutrino test --coverage
+```
+
 
 ## Exit codes
 

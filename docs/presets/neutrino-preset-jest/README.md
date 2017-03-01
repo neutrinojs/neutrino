@@ -8,6 +8,7 @@
 - Zero upfront configuration necessary to start testing
 - Babel compilation that compiles your tests using the same Babel options used by your source code
 - Source watching for re-running of tests on change
+- Collecting test coverage information and generating report
 - Easily extensible to customize your testing as needed
 
 ## Requirements
@@ -143,6 +144,29 @@ Use the command line [`files` parameters](/cli/README.md#neutrino-test) to execu
 
 `neutrino-preset-jest` can watch for changes on your source directory and subsequently re-run tests. Simply use the
 `--watch` flag with your `neutrino test` command.
+
+## Coverage reporting
+
+Jest has an integrated coverage reporter, which requires no configuration. To collect test coverage information and
+generate report run:
+
+```bash
+❯ neutrino test --coverage
+```
+
+You can also edit your package.json file and create a separate command for generating coverage report, which can be
+very helpful during continues integration of your project:
+
+```json
+{
+  "scripts": {
+    "coverage": "neutrino test --coverage"
+  }
+}
+```
+
+See the [Jest's documentation](https://facebook.github.io/jest/docs/configuration.html#collectcoveragefrom-array) for
+more configuration options for generating coverage reports.
 
 ## Customizing
 

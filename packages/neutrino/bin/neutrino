@@ -17,6 +17,11 @@ const args = yargs
   .command('start', 'Build a project in development mode')
   .command('build', 'Compile the source directory to a bundled build')
   .command('test [files..]', 'Run all suites from the test directory or provided files', {
+    coverage: {
+      description: 'Collect test coverage information and generate report',
+      boolean: true,
+      default: false
+    },
     watch: {
       description: 'Watch source files for changes and re-run tests',
       boolean: true,
