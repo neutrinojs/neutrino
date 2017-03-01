@@ -2695,9 +2695,9 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
-neutrino-preset-web@^4.2.2:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/neutrino-preset-web/-/neutrino-preset-web-4.2.2.tgz#21fbda025a8aef30ae4cf27febc58175f196a356"
+neutrino-preset-web@^4.2.3:
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/neutrino-preset-web/-/neutrino-preset-web-4.2.3.tgz#48382c18f6b10037db567b9ade7329aec5fdeed8"
   dependencies:
     babel-core "^6.23.1"
     babel-loader "^6.3.2"

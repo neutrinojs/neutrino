@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-react",
-  "version": "4.2.2",
+  "version": "4.2.3",
   "description": "Neutrino preset for building React web applications",
   "main": "src/index.js",
   "keywords": [
@@ -18,7 +18,7 @@
     "babel-preset-react": "^6.23.0",
     "deepmerge": "^1.3.2",
     "eslint-plugin-react": "^6.10.0",
-    "neutrino-preset-web": "^4.2.2",
+    "neutrino-preset-web": "^4.2.3",
     "react-hot-loader": "^3.0.0-beta.6",
     "webpack": "^2.2.1"
   },
