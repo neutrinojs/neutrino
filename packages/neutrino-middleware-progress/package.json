@@ -1,0 +1,21 @@
+{
+  "name": "neutrino-middleware-progress",
+  "version": "5.0.0",
+  "description": "Neutrino middleware for displaying a progress bar during compilation",
+  "main": "index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-middleware",
+    "progress",
+    "bar"
+  ],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MIT",
+  "repository": "mozilla-neutrino/neutrino-dev",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "dependencies": {
+    "progress-bar-webpack-plugin": "^1.9.3",
+    "webpack": "^2.2.1"
+  }
+}

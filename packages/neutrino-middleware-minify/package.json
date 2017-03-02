@@ -1,0 +1,21 @@
+{
+  "name": "neutrino-middleware-minify",
+  "version": "5.0.0",
+  "description": "Neutrino middleware for minifying source code",
+  "main": "index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-middleware",
+    "minify",
+    "babili",
+    "compress"
+  ],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MIT",
+  "repository": "mozilla-neutrino/neutrino-dev",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "dependencies": {
+    "babili-webpack-plugin": "^0.0.10"
+  }
+}

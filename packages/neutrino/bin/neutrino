@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
+// TODO: Remove this once babel-loader updates
+// https://github.com/babel/babel-loader/pull/391
+process.noDeprecation = true;
+
 const Neutrino = require('../src/neutrino');
 const yargs = require('yargs');
 const { join } = require('path');
@@ -58,7 +62,7 @@ function run(command, presets) {
 
     for (let i = 0; i < paths.length; i += 1) {
       try {
-        api.use(require(paths[i]));
+        return api.use(require(paths[i]));
       } catch (exception) {
         if (/Cannot find module/.test(exception.message)) {
           continue;

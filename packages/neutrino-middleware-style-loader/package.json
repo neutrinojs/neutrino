@@ -1,0 +1,22 @@
+{
+  "name": "neutrino-middleware-style-loader",
+  "version": "5.0.0",
+  "description": "Neutrino middleware for importing and loading stylesheets from modules",
+  "main": "index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-middleware",
+    "style",
+    "css",
+    "stylesheet"
+  ],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MIT",
+  "repository": "mozilla-neutrino/neutrino-dev",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "dependencies": {
+    "css-loader": "^0.26.2",
+    "style-loader": "^0.13.2"
+  }
+}

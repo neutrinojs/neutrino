@@ -1,14 +1,14 @@
 const mocha = require('./mocha');
 const merge = require('deepmerge');
 
-module.exports = neutrino => {
+module.exports = (config, neutrino) => {
   const defaults = {
     reporter: 'spec',
     ui: 'tdd',
     bail: true
   };
 
-  neutrino.config.module
+  config.module
     .rule('compile')
     .loader('babel', props => merge(props, {
       options: {

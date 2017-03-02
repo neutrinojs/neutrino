@@ -1,0 +1,22 @@
+{
+  "name": "neutrino-middleware-compile-loader",
+  "version": "5.0.0",
+  "description": "Neutrino middleware for compiling JavaScript using Babel configuration",
+  "main": "index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-middleware",
+    "compile",
+    "babel"
+  ],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MIT",
+  "repository": "mozilla-neutrino/neutrino-dev",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "dependencies": {
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "webpack": "^2.2.1"
+  }
+}

@@ -11,9 +11,8 @@
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
   "repository": "mozilla-neutrino/neutrino-dev",
-  "peerDependencies": {
-    "neutrino": "^5.0.0"
-  },
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
     "babel-core": "^6.23.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.23.0",
@@ -24,6 +23,7 @@
     "jest-cli": "^19.0.2",
     "lodash.clonedeep": "^4.5.0"
   },
-  "homepage": "https://neutrino.js.org",
-  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues"
+  "peerDependencies": {
+    "neutrino": "^5.0.0"
+  }
 }

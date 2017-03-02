@@ -1,0 +1,21 @@
+{
+  "name": "neutrino-middleware-env",
+  "version": "5.0.0",
+  "description": "Neutrino middleware for injecting environment variables into source code",
+  "main": "index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-middleware",
+    "env",
+    "environment",
+    "variables"
+  ],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MIT",
+  "repository": "mozilla-neutrino/neutrino-dev",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "dependencies": {
+    "webpack": "^2.2.1"
+  }
+}

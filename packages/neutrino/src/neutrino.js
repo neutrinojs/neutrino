@@ -17,7 +17,7 @@ class Neutrino extends EventEmitter {
       presets = [presets];
     }
 
-    presets.map(preset => preset(this));
+    presets.map(preset => preset(this.config, this));
   }
 
   handleErrors(err, stats) {

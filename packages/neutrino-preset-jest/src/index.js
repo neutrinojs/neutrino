@@ -33,7 +33,15 @@ function normalizeJestOptions(jestOptions, config, args) {
   return options;
 }
 
-module.exports = neutrino => {
+const compile = ({ babel }) => config => config.module
+  .rule('compile')
+  .loader('babel', props => merge(props, { options: babel }));
+
+const lint = ({ eslint }) => config => config.module
+  .rule('lint')
+  .loader('eslint', props => merge(props, { options: eslint }));
+
+module.exports = (config, neutrino) => {
   const jestOptions = merge.all([
     {
       bail: true,
@@ -53,10 +61,9 @@ module.exports = neutrino => {
     neutrino.options.jest
   ]);
 
-  neutrino.config.module
-    .rule('compile')
-    .loader('babel', props => merge(props, {
-      options: {
+  neutrino.use([
+    compile({
+      babel: {
         env: {
           test: {
             retainLines: true,
@@ -65,17 +72,11 @@ module.exports = neutrino => {
           }
         }
       }
-    }));
+    })
+  ]);
 
   if (neutrino.config.module.rules.has('lint')) {
-    neutrino.config.module
-      .rule('lint')
-      .loader('eslint', props => merge(props, {
-        options: {
-          plugins: ['jest'],
-          envs: ['jest']
-        }
-      }));
+    neutrino.use(lint({ eslint: { plugins: ['jest'], envs: ['jest'] } }));
   }
 
   neutrino.on('test', args => {
