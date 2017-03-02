@@ -25,7 +25,7 @@ between ease of set up and black-boxing the configuration. Once you decide to ma
 you are forced to maintain the entire configuration and its dependencies in perpetuity. We believe Neutrino
 represents a good balance between ease of set up and future extensibility.
 
-## Why don't presets use a normal Webpack configuration object instead of the chaining API?
+### Why don't presets use a normal Webpack configuration object instead of the chaining API?
 
 The Webpack configuration works well when it is embedded into a single project, and it is the only configuration
 file to maintain. Once the configuration is no longer co-located with the project, and needs to be extended or
