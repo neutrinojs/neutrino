@@ -495,6 +495,7 @@
 <li>Zero upfront configuration necessary to start testing</li>
 <li>Babel compilation that compiles your tests using the same Babel options used by your source code</li>
 <li>Source watching for re-running of tests on change</li>
+<li>Collecting test coverage information and generating report</li>
 <li>Easily extensible to customize your testing as needed</li>
 </ul>
 <h2 id="requirements">Requirements</h2>
@@ -587,6 +588,21 @@ Use the command line <a href="../../cli/#neutrino-test"><code>files</code> param
 <h2 id="watching-for-changes">Watching for changes</h2>
 <p><code>neutrino-preset-jest</code> can watch for changes on your source directory and subsequently re-run tests. Simply use the
 <code>--watch</code> flag with your <code>neutrino test</code> command.</p>
+<h2 id="coverage-reporting">Coverage reporting</h2>
+<p>Jest has an integrated coverage reporter, which requires no configuration. To collect test coverage information and
+generate report run:</p>
+<pre class="language-"><code class="lang-bash">&#x276F; neutrino <span class="token function">test</span> --coverage
+</code></pre>
+<p>You can also edit your package.json file and create a separate command for generating coverage report, which can be
+very helpful during continues integration of your project:</p>
+<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
+  <span class="token property">&quot;scripts&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;coverage&quot;</span><span class="token operator">:</span> <span class="token string">&quot;neutrino test --coverage&quot;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>See the <a href="https://facebook.github.io/jest/docs/configuration.html#collectcoveragefrom-array" target="_blank">Jest&apos;s documentation</a> for
+more configuration options for generating coverage reports.</p>
 <h2 id="customizing">Customizing</h2>
 <p>To override the test configuration, start with the documentation on <a href="../../customization/">customization</a>.
 <code>neutrino-preset-jest</code> creates some conventions to make overriding the configuration easier once you are ready to make
@@ -671,7 +687,7 @@ containing all resources for developing Neutrino and its core presets. Follow th
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Jest","level":"1.6.7","depth":2,"next":{"title":"Community presets","level":"1.6.8","depth":2,"path":"presets/community-presets.md","ref":"presets/community-presets.md","articles":[]},"previous":{"title":"Mocha","level":"1.6.6","depth":2,"path":"presets/neutrino-preset-mocha/README.md","ref":"presets/neutrino-preset-mocha/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"presets/neutrino-preset-jest/README.md","mtime":"2017-02-22T16:30:41.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-02-28T20:38:46.520Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Jest","level":"1.6.7","depth":2,"next":{"title":"Community presets","level":"1.6.8","depth":2,"path":"presets/community-presets.md","ref":"presets/community-presets.md","articles":[]},"previous":{"title":"Mocha","level":"1.6.6","depth":2,"path":"presets/neutrino-preset-mocha/README.md","ref":"presets/neutrino-preset-mocha/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"presets/neutrino-preset-jest/README.md","mtime":"2017-03-01T15:25:58.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-03-02T13:16:52.879Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
