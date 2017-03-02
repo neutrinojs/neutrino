@@ -10,7 +10,7 @@
     "bar"
   ],
   "author": "Eli Perelman <eli@eliperelman.com>",
-  "license": "MIT",
+  "license": "MPL-2.0",
   "repository": "mozilla-neutrino/neutrino-dev",
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",

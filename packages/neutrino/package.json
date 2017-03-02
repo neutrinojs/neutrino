@@ -16,6 +16,11 @@
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
   "repository": "mozilla-neutrino/neutrino-dev",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "scripts": {
+    "test": "ava test"
+  },
   "dependencies": {
     "ora": "^1.1.0",
     "webpack": "^2.2.1",
@@ -23,6 +28,7 @@
     "webpack-dev-server": "^2.4.1",
     "yargs": "^6.6.0"
   },
-  "homepage": "https://neutrino.js.org",
-  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues"
+  "devDependencies": {
+    "ava": "^0.18.2"
+  }
 }
