@@ -1,7 +1,7 @@
 const lint = require('neutrino-middleware-eslint');
 const { join } = require('path');
 
-module.exports = (config, neutrino) => neutrino.use(lint({
+module.exports = neutrino => neutrino.use(lint, {
   include: [join(process.cwd(), 'SRC')],
   eslint: {
     baseConfig: {
@@ -15,7 +15,7 @@ module.exports = (config, neutrino) => neutrino.use(lint({
       'object-curly-spacing': 'off',
 
       // require a capital letter for constructors
-      'babel/new-cap': ['error', {newIsCap: true}],
+      'babel/new-cap': ['error', { newIsCap: true }],
 
       // require padding inside curly braces
       'babel/object-curly-spacing': ['error', 'always'],
@@ -24,4 +24,4 @@ module.exports = (config, neutrino) => neutrino.use(lint({
       'babel/no-await-in-loop': 'error'
     }
   }
-}));
+});

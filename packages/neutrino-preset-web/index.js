@@ -11,7 +11,7 @@ const copy = require('neutrino-middleware-copy');
 const progress = require('neutrino-middleware-progress');
 const clean = require('neutrino-middleware-clean');
 const minify = require('neutrino-middleware-minify');
-const merge = require('deepmerge');
+const loaderMerge = require('neutrino-middleware-loader-merge');
 const { join } = require('path');
 
 const CWD = process.cwd();
@@ -22,7 +22,7 @@ const PKG = require(join(CWD, 'package.json'));
 const PROJECT_MODULES = join(CWD, 'node_modules');
 const MODULES = join(__dirname, 'node_modules');
 
-const devServer = (options = {}) => config => config.devServer
+const devServer = ({ config }, options) => config.devServer
   .host(options.host)
   .port(parseInt(options.port))
   .https(options.https)
@@ -44,40 +44,40 @@ const devServer = (options = {}) => config => config.devServer
     warnings: true
   });
 
-module.exports = (config, neutrino) => {
-  neutrino.use([
-    env(),
-    htmlLoader(),
-    styleLoader(),
-    fontLoader(),
-    imageLoader(),
-    htmlTemplate(),
-    compileLoader({
-      include: [SRC, TEST],
-      babel: {
-        presets: [
-          [require.resolve('babel-preset-env'), {
-            modules: false,
-            useBuiltIns: true,
-            include: ['transform-regenerator'],
-            targets: {
-              browsers: [
-                'last 2 Chrome versions',
-                'last 2 Firefox versions',
-                'last 2 Edge versions',
-                'last 2 Opera versions',
-                'last 2 Safari versions',
-                'last 2 iOS versions'
-              ]
-            }
-          }]
-        ]
-      }
-    })
-  ]);
+module.exports = neutrino => {
+  const { config } = neutrino;
+
+  neutrino.use(env);
+  neutrino.use(htmlLoader);
+  neutrino.use(styleLoader);
+  neutrino.use(fontLoader);
+  neutrino.use(imageLoader);
+  neutrino.use(htmlTemplate);
+  neutrino.use(compileLoader, {
+    include: [SRC, TEST],
+    babel: {
+      presets: [
+        [require.resolve('babel-preset-env'), {
+          modules: false,
+          useBuiltIns: true,
+          include: ['transform-regenerator'],
+          targets: {
+            browsers: [
+              'last 2 Chrome versions',
+              'last 2 Firefox versions',
+              'last 2 Edge versions',
+              'last 2 Opera versions',
+              'last 2 Safari versions',
+              'last 2 iOS versions'
+            ]
+          }
+        }]
+      ]
+    }
+  });
 
   if (process.env.NODE_ENV !== 'test') {
-    neutrino.use(chunk());
+    neutrino.use(chunk);
   }
 
   config
@@ -108,14 +108,10 @@ module.exports = (config, neutrino) => {
     .set('tls', 'empty');
 
   if (config.module.rules.has('lint')) {
-    config.module
-      .rule('lint')
-      .loader('eslint', props => merge(props, {
-        options: {
-          globals: ['Buffer'],
-          envs: ['browser', 'commonjs']
-        }
-      }));
+    neutrino.use(loaderMerge('lint', 'eslint'), {
+      globals: ['Buffer'],
+      envs: ['browser', 'commonjs']
+    });
   }
 
   if (process.env.NODE_ENV === 'development') {
@@ -127,10 +123,13 @@ module.exports = (config, neutrino) => {
       (PKG.neutrino && PKG.neutrino.config && PKG.neutrino.config.devServer && PKG.neutrino.config.devServer.port) ||
       5000;
 
-    neutrino.use([
-      devServer({ host, port, https: protocol === 'https', contentBase: SRC }),
-      hot()
-    ]);
+    neutrino.use(hot);
+    neutrino.use(devServer, {
+      host,
+      port,
+      https: protocol === 'https',
+      contentBase: SRC
+    });
 
     config
       .devtool('eval')
@@ -138,13 +137,13 @@ module.exports = (config, neutrino) => {
         .add(`webpack-dev-server/client?${protocol}://${host}:${port}/`)
         .add('webpack/hot/dev-server');
   } else {
-    neutrino.use([
-      copy({ patterns: [{ context: SRC, from: `**/*` }], options: { ignore: ['*.js*'] } }),
-      progress(),
-      clean({ paths: [BUILD] }),
-      minify()
-    ]);
-
+    neutrino.use(clean, { paths: [BUILD] });
+    neutrino.use(progress);
+    neutrino.use(minify);
+    neutrino.use(copy, {
+      patterns: [{ context: SRC, from: `**/*` }],
+      options: { ignore: ['*.js*'] }
+    });
     config.output.filename('[name].[chunkhash].bundle.js');
   }
 };

@@ -18,10 +18,10 @@
   "dependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-react": "^6.23.0",
-    "deepmerge": "^1.3.2",
     "eslint-plugin-react": "^6.10.0",
-    "neutrino-preset-web": "^5.0.0",
-    "react-hot-loader": "^3.0.0-beta.6"
+    "react-hot-loader": "^3.0.0-beta.6",
+    "neutrino-middleware-loader-merge": "^5.0.0",
+    "neutrino-preset-web": "^5.0.0"
   },
   "peerDependencies": {
     "neutrino": "^5.0.0"

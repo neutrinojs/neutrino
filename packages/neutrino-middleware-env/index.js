@@ -1,5 +1,5 @@
 const { EnvironmentPlugin } = require('webpack');
 
-module.exports = (envs = []) => config => config
+module.exports = ({ config }, envs = []) => config
   .plugin('env')
-  .use(EnvironmentPlugin, ['NODE_ENV', ...envs]);
+  .use(EnvironmentPlugin, ['NODE_ENV', ...(Array.isArray(envs) ? envs : [])]);

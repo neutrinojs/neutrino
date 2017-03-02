@@ -1,7 +1,7 @@
 const { CommonsChunkPlugin } = require('webpack').optimize;
 const merge = require('deepmerge');
 
-module.exports = (options = {}) => config => config
+module.exports = ({ config }, options) => config
   .plugin('chunk')
   .use(CommonsChunkPlugin, merge({
     minChunks: Infinity,

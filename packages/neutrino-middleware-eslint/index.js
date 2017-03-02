@@ -5,7 +5,9 @@ const { join } = require('path');
 const IF_NOT_DEV = process.env.NODE_ENV !== 'development';
 const MODULES = join(__dirname, 'node_modules');
 
-module.exports = options => (config, neutrino) => {
+module.exports = (neutrino, options) => {
+  const { config } = neutrino;
+
   config.resolve.modules.add(MODULES);
   config.resolveLoader.modules.add(MODULES);
   config.module

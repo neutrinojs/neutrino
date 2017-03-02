@@ -1,5 +1,5 @@
-module.exports = options => config => config.module
+module.exports = ({ config }, options) => config.module
   .rule('compile')
-  .test(/\.js$/)
+  .test(/\.jsx?$/)
   .include(...options.include)
   .loader('babel', require.resolve('babel-loader'), options.babel);

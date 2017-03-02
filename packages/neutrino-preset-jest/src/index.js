@@ -4,6 +4,7 @@ const path = require('path');
 const merge = require('deepmerge');
 const os = require('os');
 const clone = require('lodash.clonedeep');
+const loaderMerge = require('neutrino-middleware-loader-merge');
 const pkg = require(path.join(process.cwd(), 'package.json'));
 
 function normalizeJestOptions(jestOptions, config, args) {
@@ -33,15 +34,7 @@ function normalizeJestOptions(jestOptions, config, args) {
   return options;
 }
 
-const compile = ({ babel }) => config => config.module
-  .rule('compile')
-  .loader('babel', props => merge(props, { options: babel }));
-
-const lint = ({ eslint }) => config => config.module
-  .rule('lint')
-  .loader('eslint', props => merge(props, { options: eslint }));
-
-module.exports = (config, neutrino) => {
+module.exports = neutrino => {
   const jestOptions = merge.all([
     {
       bail: true,
@@ -57,26 +50,25 @@ module.exports = (config, neutrino) => {
         '\\.(css|less|sass)$': require.resolve('./style-mock')
       }
     },
-    pkg.jest,
-    neutrino.options.jest
+    pkg.jest || {},
+    neutrino.options.jest || {}
   ]);
 
-  neutrino.use([
-    compile({
-      babel: {
-        env: {
-          test: {
-            retainLines: true,
-            presets: [require.resolve('babel-preset-jest')],
-            plugins: [require.resolve('babel-plugin-transform-es2015-modules-commonjs')]
-          }
-        }
+  neutrino.use(loaderMerge('compile', 'babel'), {
+    env: {
+      test: {
+        retainLines: true,
+        presets: [require.resolve('babel-preset-jest')],
+        plugins: [require.resolve('babel-plugin-transform-es2015-modules-commonjs')]
       }
-    })
-  ]);
+    }
+  });
 
   if (neutrino.config.module.rules.has('lint')) {
-    neutrino.use(lint({ eslint: { plugins: ['jest'], envs: ['jest'] } }));
+    neutrino.use(loaderMerge('lint', 'eslint'), {
+      plugins: ['jest'],
+      envs: ['jest']
+    });
   }
 
   neutrino.on('test', args => {

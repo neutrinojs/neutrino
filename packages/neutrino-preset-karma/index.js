@@ -1,7 +1,7 @@
 const { Server } = require('karma');
 const merge = require('deepmerge');
 
-module.exports = (config, neutrino) => {
+module.exports = neutrino => {
   const defaults = {
     plugins: [
       require.resolve('karma-webpack'),
@@ -38,7 +38,7 @@ module.exports = (config, neutrino) => {
   neutrino.on('test', ({ files, watch }) => {
     const karma = merge.all([
       defaults,
-      neutrino.options.karma,
+      neutrino.options.karma || {},
       {
         singleRun: !watch,
         autoWatch: watch,

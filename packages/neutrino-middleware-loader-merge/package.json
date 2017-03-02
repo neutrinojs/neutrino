@@ -1,0 +1,21 @@
+{
+  "name": "neutrino-middleware-loader-merge",
+  "version": "5.0.0",
+  "description": "Neutrino middleware for merging options into existing ruleset loader options",
+  "main": "index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-middleware",
+    "rule",
+    "loader",
+    "merge"
+  ],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MPL-2.0",
+  "repository": "mozilla-neutrino/neutrino-dev",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "dependencies": {
+    "deepmerge": "^1.3.2"
+  }
+}

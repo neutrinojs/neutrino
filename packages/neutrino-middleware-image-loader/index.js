@@ -1,6 +1,6 @@
 const merge = require('deepmerge');
 
-module.exports = (options = {}) => config => {
+module.exports = ({ config }, options) => {
   const { limit } = merge({ limit: 8192 }, options);
   const urlLoader = require.resolve('url-loader');
 

@@ -12,12 +12,8 @@ class Neutrino extends EventEmitter {
     this.options = options;
   }
 
-  use(presets = []) {
-    if (!Array.isArray(presets)) {
-      presets = [presets];
-    }
-
-    presets.map(preset => preset(this.config, this));
+  use(preset, options = {}) {
+    preset(this, options);
   }
 
   handleErrors(err, stats) {

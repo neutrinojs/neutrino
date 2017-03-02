@@ -1,7 +1,7 @@
 const { BannerPlugin } = require('webpack');
 const merge = require('deepmerge');
 
-module.exports = (options = {}) => config => config
+module.exports = ({ config }, options) => config
   .plugin('banner')
   .use(BannerPlugin, merge({
     banner: `require('source-map-support').install();`,
