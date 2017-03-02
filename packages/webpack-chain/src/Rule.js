@@ -53,6 +53,7 @@ module.exports = class extends ChainedMap {
 
   exclude(...paths) {
     paths.forEach(path => this._exclude.add(path));
+    return this;
   }
 
   toConfig() {
