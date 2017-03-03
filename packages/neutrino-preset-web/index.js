@@ -37,6 +37,7 @@ module.exports = neutrino => {
   neutrino.use(compileLoader, {
     include: [SRC, TEST],
     babel: {
+      plugins: [require.resolve('babel-plugin-syntax-dynamic-import')],
       presets: [
         [require.resolve('babel-preset-env'), {
           modules: false,
@@ -65,6 +66,7 @@ module.exports = neutrino => {
     .target('web')
     .context(CWD)
     .entry('index')
+      .add(require.resolve('babel-polyfill'))
       .add(join(SRC, 'index.js'));
 
   config.output
@@ -98,7 +100,7 @@ module.exports = neutrino => {
   if (process.env.NODE_ENV === 'development') {
     const protocol = !!process.env.HTTPS ? 'https' : 'http';
     const host = process.env.HOST || pathOr('localhost', ['neutrino', 'config', 'devServer', 'host'], PKG);
-    const port = process.env.PORT || pathOr(5000, ['neutrino', 'config', 'devServer', 'post'], PKG);
+    const port = process.env.PORT || pathOr(5000, ['neutrino', 'config', 'devServer', 'port'], PKG);
 
     neutrino.use(hot);
     neutrino.use(devServer, {
