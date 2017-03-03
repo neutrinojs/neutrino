@@ -1,0 +1,20 @@
+{
+  "name": "neutrino-middleware-start-server",
+  "version": "5.0.0",
+  "description": "Neutrino middleware for starting a server after a build",
+  "main": "index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-middleware",
+    "start",
+    "server"
+  ],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MPL-2.0",
+  "repository": "mozilla-neutrino/neutrino-dev",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "dependencies": {
+    "start-server-webpack-plugin": "^2.1.2"
+  }
+}

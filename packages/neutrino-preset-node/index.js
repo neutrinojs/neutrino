@@ -4,6 +4,9 @@ const copy = require('neutrino-middleware-copy');
 const progress = require('neutrino-middleware-progress');
 const clean = require('neutrino-middleware-clean');
 const loaderMerge = require('neutrino-middleware-loader-merge');
+const startServer = require('neutrino-middleware-start-server');
+const hot = require('neutrino-middleware-hot');
+const namedModules = require('neutrino-middleware-named-modules');
 const nodeExternals = require('webpack-node-externals');
 const { join } = require('path');
 
@@ -18,6 +21,7 @@ const PKG = require(join(CWD, 'package.json'));
 module.exports = neutrino => {
   const { config } = neutrino;
 
+  neutrino.use(namedModules);
   neutrino.use(compile, {
     include: [SRC, TEST],
     babel: {
@@ -40,7 +44,7 @@ module.exports = neutrino => {
       .set('__dirname', false)
       .end()
     .devtool('source-map')
-    .externals([nodeExternals()])
+    .externals([nodeExternals({ whitelist: [/^webpack/] })])
     .context(CWD)
     .entry('index')
       .add(join(SRC, 'index.js'))
@@ -49,7 +53,7 @@ module.exports = neutrino => {
       .path(BUILD)
       .filename('[name].js')
       .libraryTarget('commonjs2')
-      .chunkFilename('[id].[chunkhash].js')
+      .chunkFilename('[id].[hash:5]-[chunkhash:7].js')
       .end()
     .resolve
       .modules
@@ -80,6 +84,16 @@ module.exports = neutrino => {
       patterns: [{ context: SRC, from: `**/*` }],
       options: { ignore: ['*.js*'] }
     });
+  } else {
+    config
+      .devtool('inline-sourcemap')
+      .entry('index')
+        .add('webpack/hot/poll?1000')
+        .end()
+      .output.options.set('devtoolModuleFilenameTemplate', '[absolute-resource-path]');
+
+    neutrino.use(hot);
+    neutrino.use(startServer, join(SRC, 'index.js'));
   }
 
   if (config.module.rules.has('lint')) {

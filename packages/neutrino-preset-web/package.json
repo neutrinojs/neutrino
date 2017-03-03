@@ -31,6 +31,7 @@
     "neutrino-middleware-hot": "^5.0.0",
     "neutrino-middleware-loader-merge": "^5.0.0",
     "neutrino-middleware-image-loader": "^5.0.0",
+    "neutrino-middleware-named-modules": "^5.0.0",
     "neutrino-middleware-progress": "^5.0.0",
     "neutrino-middleware-minify": "^5.0.0",
     "neutrino-middleware-style-loader": "^5.0.0"

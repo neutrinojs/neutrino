@@ -66,11 +66,6 @@ class Neutrino extends EventEmitter {
           return this.devServer();
         }
 
-        if (config.target === 'node') {
-          console.log('Warning: This preset does not support watch compilation. Falling back to a one-time build.');
-          return this.builder();
-        }
-
         return this.watcher();
       })
       .then(() => this.emitForAll('start', args));
@@ -110,9 +105,11 @@ class Neutrino extends EventEmitter {
 
   watcher() {
     return new Promise(resolve => {
+      const building = ora('Waiting for initial build to finish').start();
       const config = this.getWebpackOptions();
       const compiler = webpack(config);
       const watcher = compiler.watch(config.watchOptions || {}, (err, stats) => {
+        building.succeed('Build completed');
         this.handleErrors(err, stats);
       });
 

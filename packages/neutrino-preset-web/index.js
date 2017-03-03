@@ -12,6 +12,7 @@ const progress = require('neutrino-middleware-progress');
 const clean = require('neutrino-middleware-clean');
 const minify = require('neutrino-middleware-minify');
 const loaderMerge = require('neutrino-middleware-loader-merge');
+const namedModules = require('neutrino-middleware-named-modules');
 const { join } = require('path');
 
 const CWD = process.cwd();
@@ -53,6 +54,7 @@ module.exports = neutrino => {
   neutrino.use(fontLoader);
   neutrino.use(imageLoader);
   neutrino.use(htmlTemplate);
+  neutrino.use(namedModules);
   neutrino.use(compileLoader, {
     include: [SRC, TEST],
     babel: {
