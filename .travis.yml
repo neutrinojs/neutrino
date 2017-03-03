@@ -1,8 +1,12 @@
+language: node_js
+node_js:
+- '6.9'
+- '7.7'
 cache:
   yarn: true
   directories:
     - node_modules
-install:
+before_script:
   - yarn
   - yarn bootstrap
 script:
