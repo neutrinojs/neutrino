@@ -25,6 +25,7 @@ module.exports = neutrino => {
   neutrino.use(compile, {
     include: [SRC, TEST],
     babel: {
+      plugins: [require.resolve('babel-plugin-dynamic-import-node')],
       presets: [
         [require.resolve('babel-preset-env'), {
           modules: false,

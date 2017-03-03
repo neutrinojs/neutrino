@@ -15,6 +15,7 @@
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
+    "babel-plugin-dynamic-import-node": "^1.0.0",
     "babel-preset-env": "^1.1.10",
     "exports-loader": "^0.6.4",
     "imports-loader": "^0.7.1",
