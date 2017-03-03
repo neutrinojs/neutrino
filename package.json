@@ -18,9 +18,11 @@
     "docs:deploy": "yarn docs:build && gh-pages --dist _book --remote upstream",
     "docs:serve": "gitbook serve",
     "release": "yarn release:pre && oao publish",
-    "release:pre": "oao prepublish"
+    "release:pre": "oao prepublish",
+    "test": "ava packages/*/test"
   },
   "devDependencies": {
+    "ava": "^0.18.2",
     "changelog": "^1.0.7",
     "gh-pages": "^0.12.0",
     "gitbook-cli": "^2.3.0",

@@ -38,11 +38,7 @@ class Neutrino extends EventEmitter {
   }
 
   getWebpackOptions() {
-    if (this.__configCache) {
-      return this.__configCache;
-    }
-
-    return this.__configCache = this.config.toConfig();
+    return this.config.toConfig();
   }
 
   emitForAll(eventName, payload) {

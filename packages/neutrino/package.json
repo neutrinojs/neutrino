@@ -27,8 +27,5 @@
     "webpack-chain": "^1.4.2",
     "webpack-dev-server": "^2.4.1",
     "yargs": "^6.6.0"
-  },
-  "devDependencies": {
-    "ava": "^0.18.2"
   }
 }
