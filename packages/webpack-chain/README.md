@@ -155,6 +155,250 @@ If you are familiar with jQuery, `.end()` works similarly. All API calls
 will return the API instance at the current context unless otherwise
 specified. This is so you may chain API calls continuously if desired.
 
+---
+
+### Map-backed entities
+
+API entities listed below which are backed by JavaScript Maps have several methods
+for interacting with their lower-level backing store. For example, the top-level Config
+is backed by a JavaScript Map at `.options`, and so may have its values manipulated via these
+chainable Map methods at `config.options`.
+
+**Unless stated otherwise, these methods will return the Map-backed API, allowing you to chain these methods.**
+
+```js
+clear()
+```
+
+Remove all entries from a Map.
+
+Example:
+
+```js
+config.options.clear();
+```
+
+---
+
+```js
+// key: *
+delete(key)
+```
+
+Remove a single entry from a Map given its key.
+
+Example:
+
+```js
+config.options.delete('performance');
+```
+
+---
+
+```js
+// key: *
+// returns: value
+get(key)
+```
+
+Fetch the value from a Map located at the corresponding key.
+
+Example:
+
+```js
+const value = config.options.get('performance');
+```
+
+---
+
+```js
+// key: *
+// value: *
+set(key, value)
+```
+
+Set a value on the Map stored at the `key` location.
+
+Example:
+
+```js
+config.options.set('performance', { hints: false });
+```
+
+---
+
+```js
+// key: *
+// returns: Boolean
+has(key)
+```
+
+Returns `true` or `false` based on whether a Map as has a value set at a particular key.
+
+Example:
+
+```js
+const hasLinting = config.module.rules.has('lint');
+```
+
+---
+
+```js
+// returns: Array
+values()
+```
+
+Returns an array of all the values stored in the Map.
+
+Example:
+
+```js
+const values = config.options.values();
+```
+
+---
+
+```js
+// returns: Object, undefined if empty
+entries()
+````
+
+Returns an object of all the entries in the backing Map, where the key is the object property,
+and the value corresponding to the key. Will return `undefined` if the backing Map is empty.
+
+```js
+const obj = config.options.entries();
+```
+
+---
+
+```js
+// obj: Object
+merge(obj)
+```
+
+Provide an object which maps its properties and values into the backing Map as keys and values.
+
+Example:
+
+```js
+config.options.merge({
+  bail: true,
+  cache: false
+});
+```
+
+### Set-backed entities
+
+API entities listed below which are backed by JavaScript Sets have several methods
+for interacting with their lower-level backing store. For example, the `Resolve.Modules` API
+is backed by a JavaScript Set, and so may have its values manipulated via these chainable
+Set methods at `config.resolve.modules`.
+
+Another example would be an entry that is returned from `Config.Entry`, e.g. `config.entry('index')`
+returns a chainable Set.
+
+**Unless stated otherwise, these methods will return the Set-backed API, allowing you to chain these methods.**
+
+```js
+// value: *
+add(value)
+```
+
+Add a value to the end of a Set.
+
+Example:
+
+```js
+config.entry('index').add('babel-polyfill');
+```
+
+---
+
+```js
+// value: *
+prepend(value)
+```
+
+Add a value to the beginning of a Set.
+
+Example:
+
+```js
+clear()
+```
+
+Remove all values from a Set.
+
+Example:
+
+```js
+config.entry('index').clear();
+```
+
+---
+
+```js
+// value: *
+delete(value)
+```
+
+Remove a specific value from a Set.
+
+Example:
+
+```js
+config.entry('index').delete('babel-polyfill');
+```
+
+---
+
+```js
+// value: *
+// returns: Boolean
+has(value)
+```
+
+Returns `true` or `false` based on whether or not the backing Set contains the specified value.
+
+Example:
+
+```js
+const hasPolyfill = config.entry('index').has('babel-polyfill');
+```
+
+---
+
+```js
+// returns: Array
+values()
+```
+
+Returns an array of values contained in the backing Set.
+
+Example:
+
+```js
+const entries = config.entry('index').values();
+```
+
+---
+
+```js
+// arr: Array
+merge(arr)
+```
+
+Concatenates the given array to the end of the backing Set.
+
+Example:
+
+```js
+config.entry('index').merge(['webpack-dev-server/client', 'webpack/hot/dev-server']);
+```
+
+---
+
 ### Config.Options
 
 A `Config` instance provides two mechanisms for setting values on the
