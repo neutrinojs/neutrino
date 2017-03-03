@@ -62,7 +62,7 @@ module.exports = neutrino => {
         .end()
       .extensions
         .add('.js')
-        .add('json')
+        .add('.json')
         .end()
       .end()
     .resolveLoader
@@ -85,13 +85,9 @@ module.exports = neutrino => {
       options: { ignore: ['*.js*'] }
     });
   } else {
-    config
-      .devtool('inline-sourcemap')
-      .entry('index')
-        .add('webpack/hot/poll?1000')
-        .end()
-      .output.options.set('devtoolModuleFilenameTemplate', '[absolute-resource-path]');
-
+    config.devtool('inline-sourcemap');
+    config.entry('index').add('webpack/hot/poll?1000');
+    config.output.options.set('devtoolModuleFilenameTemplate', '[absolute-resource-path]');
     neutrino.use(hot);
     neutrino.use(startServer, join(SRC, 'index.js'));
   }

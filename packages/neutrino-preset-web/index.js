@@ -14,6 +14,7 @@ const minify = require('neutrino-middleware-minify');
 const loaderMerge = require('neutrino-middleware-loader-merge');
 const namedModules = require('neutrino-middleware-named-modules');
 const { join } = require('path');
+const { pathOr } = require('ramda');
 
 const CWD = process.cwd();
 const SRC = join(CWD, 'src');
@@ -22,28 +23,6 @@ const TEST = join(CWD, 'test');
 const PKG = require(join(CWD, 'package.json'));
 const PROJECT_MODULES = join(CWD, 'node_modules');
 const MODULES = join(__dirname, 'node_modules');
-
-const devServer = ({ config }, options) => config.devServer
-  .host(options.host)
-  .port(parseInt(options.port))
-  .https(options.https)
-  .contentBase(options.contentBase)
-  .historyApiFallback(true)
-  .hot(true)
-  .stats({
-    assets: false,
-    children: false,
-    chunks: false,
-    colors: true,
-    errors: true,
-    errorDetails: true,
-    hash: false,
-    modules: false,
-    publicPath: false,
-    timings: false,
-    version: false,
-    warnings: true
-  });
 
 module.exports = neutrino => {
   const { config } = neutrino;
@@ -95,7 +74,7 @@ module.exports = neutrino => {
     .chunkFilename('[id].[chunkhash].js');
 
     config.resolve.modules.add(PROJECT_MODULES).add(MODULES);
-    config.resolve.extensions.add('.js').add('json');
+    config.resolve.extensions.add('.js').add('.json');
     config.resolveLoader.modules.add(PROJECT_MODULES).add(MODULES);
 
   config.node
@@ -118,12 +97,8 @@ module.exports = neutrino => {
 
   if (process.env.NODE_ENV === 'development') {
     const protocol = !!process.env.HTTPS ? 'https' : 'http';
-    const host = process.env.HOST ||
-      (PKG.neutrino && PKG.neutrino.config && PKG.neutrino.config.devServer && PKG.neutrino.config.devServer.host) ||
-      'localhost';
-    const port = process.env.PORT ||
-      (PKG.neutrino && PKG.neutrino.config && PKG.neutrino.config.devServer && PKG.neutrino.config.devServer.port) ||
-      5000;
+    const host = process.env.HOST || pathOr('localhost', ['neutrino', 'config', 'devServer', 'host'], PKG);
+    const port = process.env.PORT || pathOr(5000, ['neutrino', 'config', 'devServer', 'post'], PKG);
 
     neutrino.use(hot);
     neutrino.use(devServer, {
@@ -149,3 +124,27 @@ module.exports = neutrino => {
     config.output.filename('[name].[chunkhash].bundle.js');
   }
 };
+
+function devServer({ config }, options) {
+  config.devServer
+    .host(options.host)
+    .port(parseInt(options.port))
+    .https(options.https)
+    .contentBase(options.contentBase)
+    .historyApiFallback(true)
+    .hot(true)
+    .stats({
+      assets: false,
+      children: false,
+      chunks: false,
+      colors: true,
+      errors: true,
+      errorDetails: true,
+      hash: false,
+      modules: false,
+      publicPath: false,
+      timings: false,
+      version: false,
+      warnings: true
+    });
+}
