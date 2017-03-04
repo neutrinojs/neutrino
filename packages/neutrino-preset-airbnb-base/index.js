@@ -1,8 +1,9 @@
 const lint = require('neutrino-middleware-eslint');
+const merge = require('deepmerge');
 const { join } = require('path');
 
-module.exports = neutrino => neutrino.use(lint, {
-  include: [join(process.cwd(), 'SRC')],
+module.exports = (neutrino, options) => neutrino.use(lint, merge({
+  include: options.include ? [] : [join(process.cwd(), 'SRC')],
   eslint: {
     baseConfig: {
       extends: ['airbnb-base']
@@ -24,4 +25,4 @@ module.exports = neutrino => neutrino.use(lint, {
       'babel/no-await-in-loop': 'error'
     }
   }
-});
+}, options));
