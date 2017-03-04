@@ -6,6 +6,7 @@ process.noDeprecation = true;
 
 const Neutrino = require('../src/neutrino');
 const yargs = require('yargs');
+const { pathOr } = require('ramda');
 const { join } = require('path');
 
 const cwd = process.cwd();
@@ -15,7 +16,7 @@ try {
   pkg = require(join(cwd, 'package.json'));
 } catch (ex) {}
 
-const pkgPresets = pkg.neutrino && pkg.neutrino.presets ? pkg.neutrino.presets : [];
+const pkgPresets = pathOr([], ['neutrino', 'presets'], pkg);
 const environments = { build: 'production', start: 'development', test: 'test' };
 const args = yargs
   .option('presets', {
@@ -48,7 +49,7 @@ const args = yargs
 function run(command, presets) {
   process.env.NODE_ENV = environments[command];
 
-  const options = pkg.neutrino && pkg.neutrino.options ? pkg.neutrino.options : {};
+  const options = pathOr({}, ['neutrino', 'options'], pkg);
   const api = new Neutrino(options);
   const cwd = process.cwd();
 
