@@ -9,10 +9,15 @@ module.exports = class extends ChainedMap {
   }
 
   toConfig() {
-    return Object.assign({
-      modules: this.modules.values(),
-      extensions: this.extensions.values()
-    }, this.entries());
+    const modules = this.modules.values();
+    const extensions = this.extensions.values();
+    const entries = this.entries() || {};
+
+    if (!modules.length && !extensions.length && !Object.keys(entries).length) {
+      return;
+    }
+
+    return Object.assign({ modules, extensions }, entries);
   }
 
   merge(obj) {

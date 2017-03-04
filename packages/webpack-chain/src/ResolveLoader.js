@@ -8,9 +8,14 @@ module.exports = class extends ChainedMap {
   }
 
   toConfig() {
-    return Object.assign({
-      modules: this.modules.values()
-    }, this.entries());
+    const modules = this.modules.values();
+    const entries = this.entries() || {};
+
+    if (!modules.length && !Object.keys(entries).length) {
+      return;
+    }
+
+    return Object.assign({ modules }, entries);
   }
 
   merge(obj) {

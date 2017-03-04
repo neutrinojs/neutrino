@@ -58,13 +58,15 @@ class Config {
 
   toConfig() {
     const entries = this.entries.entries();
+    const plugins = this.plugins.values()
+      .map(value => value.init(value.plugin, value.args));
+
     const config = Object.assign({}, this.options.entries(), {
       node: this.node.entries(),
       output: this.output.entries(),
       resolve: this.resolve.toConfig(),
       resolveLoader: this.resolveLoader.toConfig(),
       devServer: this.devServer.entries(),
-      plugins: this.plugins.values().map(value => value.init(value.plugin, value.args)),
       module: this.module.toConfig(),
       entry: entries && Object
         .keys(entries)
@@ -73,6 +75,10 @@ class Config {
           return acc;
         }, {})
     });
+
+    if (plugins.length) {
+      config.plugins = plugins;
+    }
 
     return Object
       .keys(config)
