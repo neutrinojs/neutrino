@@ -1,23 +1,21 @@
-const Chainable = require('./Chainable');
-
-module.exports = class extends Chainable {
-  constructor(parent) {
-    super(parent);
-    this.args = [];
+module.exports = class {
+  constructor(plugin = () => null, args) {
+    this.plugin = plugin;
+    this.args = args;
   }
 
   init(Plugin, args) {
     if (typeof Plugin === 'function') {
-      return new Plugin(...args);
+      return this.args.length ?
+        new Plugin(...args) :
+        new Plugin();
     }
 
     return Plugin;
   }
 
-  use(plugin, ...args) {
-    this.plugin = plugin;
-    this.args = args;
-    return this;
+  tap(handler) {
+    this.args = handler(this.args) || this.args;
   }
 
   inject(handler) {

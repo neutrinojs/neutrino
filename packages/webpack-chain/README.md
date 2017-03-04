@@ -101,8 +101,7 @@ config.module
 // Create named plugins, too!
 
 config
-  .plugin('clean')
-  .use(CleanPlugin, [BUILD], { root: CWD });
+  .plugin('clean', CleanPlugin, [BUILD], { root: CWD });
 
 // Export the completed configuration object to be consumed by webpack
 module.exports = config.toConfig();
@@ -597,22 +596,30 @@ web project:
 ```js
 config
   // We have given this plugin the user-defined name of "env"
-  .plugin('env')
-  // .use takes a plugin to create, and a variable number of arguments which
+  // .plugin also takes a plugin to create, and a variable number of arguments which
   // will be passed to the plugin upon instantiation
-  .use(webpack.EnvironmentPlugin, ['NODE_ENV']);
+  .plugin('env', webpack.EnvironmentPlugin, ['NODE_ENV']);
 ```
 
 _NOTE: Do not use `new` to create the plugin, as this will be done for you._
 
+To modify the arguments that are passed to a plugin, just call `.plugin` again with the same name,
+along with a function which will receive the current plugin arguments and return a new plugin
+arguments array.
+
+```js
+config
+  .plugin('env', args => [...args, 'MY_SECRET_ENV_VAR']);
+```
+
 If you want to modify how a defined plugin will be created, you can call `.inject`
-to instantiate and modify the options provided to the plugin.
+on the `Plugin` instance:
 
 ```js
 // Above the "env" plugin was created. Somewhere else,
-// let's also pull in another environment variable
+// we can modify the instantiation
 config
-  .plugin('env')
+  .plugins.get('env')
   .inject((Plugin, args) => new Plugin([...args, 'SECRET_KEY']));
 ```
 

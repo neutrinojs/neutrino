@@ -48,12 +48,17 @@ class Config {
     return this.entries.get(name);
   }
 
-  plugin(name) {
-    if (!this.plugins.has(name)) {
-      this.plugins.set(name, new Plugin(this));
+  plugin(name, plugin, ...args) {
+    if (this.plugins.has(name)) {
+      const handler = plugin;
+      const instance = this.plugins.get(name);
+
+      instance.tap(handler);
+      return this;
     }
 
-    return this.plugins.get(name);
+    this.plugins.set(name, new Plugin(plugin, args));
+    return this;
   }
 
   toConfig() {
