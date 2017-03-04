@@ -105,11 +105,11 @@ config
   .use(CleanPlugin, [BUILD], { root: CWD });
 
 // Export the completed configuration object to be consumed by webpack
-module.exports = config.getConfig();
+module.exports = config.toConfig();
 ```
 
 Having shared configurations is also simple. Just export the configuration
-and call `.getConfig()` prior to passing to Webpack.
+and call `.toConfig()` prior to passing to Webpack.
 
 ```js
 // webpack.core.js
@@ -126,14 +126,14 @@ const config = require('./webpack.core');
 
 // Dev-specific configuration
 // ...
-module.exports = config.getConfig();
+module.exports = config.toConfig();
 
 // webpack.prod.js
 const config = require('./webpack.core');
 
 // Production-specific configuration
 // ...
-module.exports = config.getConfig();
+module.exports = config.toConfig();
 ```
 
 ## API
