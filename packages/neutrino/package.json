@@ -22,10 +22,12 @@
     "test": "ava test"
   },
   "dependencies": {
+    "deep-sort-object": "^1.0.1",
+    "javascript-stringify": "^1.6.0",
     "ora": "^1.1.0",
     "ramda": "^0.23.0",
     "webpack": "^2.2.1",
-    "webpack-chain": "^1.4.2",
+    "webpack-chain": "^2.0.0",
     "webpack-dev-server": "^2.4.1",
     "yargs": "^6.6.0"
   }

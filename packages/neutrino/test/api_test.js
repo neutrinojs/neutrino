@@ -96,9 +96,6 @@ test('creates a Webpack config', t => {
   });
 
   t.deepEqual(api.getWebpackOptions(), {
-    resolve: { modules: [], extensions: [] },
-    resolveLoader: { modules: [] },
-    plugins: [],
     module: {
       rules: [
         {

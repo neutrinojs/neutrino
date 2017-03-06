@@ -37,7 +37,7 @@ module.exports = neutrino => {
     }
   });
 
-  config.options.set('performance', { hints: false });
+  config.performance.hints(false);
   config
     .target('node')
     .node
@@ -88,7 +88,7 @@ module.exports = neutrino => {
   } else {
     config.devtool('inline-sourcemap');
     config.entry('index').add('webpack/hot/poll?1000');
-    config.output.options.set('devtoolModuleFilenameTemplate', '[absolute-resource-path]');
+    config.output.devtoolModuleFilenameTemplate('[absolute-resource-path]');
     neutrino.use(hot);
     neutrino.use(startServer, join(SRC, 'index.js'));
   }

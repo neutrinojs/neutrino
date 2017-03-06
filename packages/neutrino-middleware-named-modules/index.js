@@ -1,3 +1,3 @@
 const { NamedModulesPlugin } = require('webpack');
 
-module.exports = ({ config }) => config.plugin('named-modules').use(NamedModulesPlugin);
+module.exports = ({ config }) => config.plugin('named-modules', NamedModulesPlugin);

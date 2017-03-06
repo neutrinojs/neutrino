@@ -6,9 +6,12 @@ process.noDeprecation = true;
 
 const Neutrino = require('../src/neutrino');
 const yargs = require('yargs');
-const { pathOr } = require('ramda');
+const { pathOr, pipe, partialRight } = require('ramda');
 const { join } = require('path');
+const stringify = require('javascript-stringify');
+const sort = require('deep-sort-object');
 
+const inspect = pipe(sort, partialRight(stringify, [null, 2]), console.log, process.exit);
 const cwd = process.cwd();
 let pkg = {};
 
@@ -19,6 +22,12 @@ try {
 const pkgPresets = pathOr([], ['neutrino', 'presets'], pkg);
 const environments = { build: 'production', start: 'development', test: 'test' };
 const args = yargs
+  .option('inspect', {
+    description: 'Output a string representation of the configuration used by Neutrino and exit',
+    boolean: true,
+    default: false,
+    global: true
+  })
   .option('presets', {
     description: 'A list of Neutrino presets used to configure the build',
     array: true,
@@ -82,6 +91,10 @@ function run(command, presets) {
   // Also grab any Neutrino config from package.json and merge it into the config at a higher precedence
   if (pkg.neutrino && pkg.neutrino.config) {
     api.config.merge(pkg.neutrino.config);
+  }
+
+  if (args.inspect) {
+    return inspect(api.getWebpackOptions());
   }
 
   api[command](args)
