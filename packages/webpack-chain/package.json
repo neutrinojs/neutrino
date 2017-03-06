@@ -2,7 +2,7 @@
   "name": "webpack-chain",
   "version": "2.0.0",
   "main": "src/Config.js",
-  "repository": "mozilla-rpweb/webpack-chain",
+  "repository": "mozilla-neutrino/webpack-chain",
   "keywords": [
     "webpack",
     "config",
@@ -14,7 +14,7 @@
     "src"
   ],
   "author": "Eli Perelman <eli@eliperelman.com>",
-  "license": "MIT",
+  "license": "MPL-2.0",
   "scripts": {
     "test": "ava test"
   },
