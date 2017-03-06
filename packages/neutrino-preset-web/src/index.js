@@ -170,7 +170,7 @@ module.exports = ({ config }) => {
         collapseWhitespace: true,
         preserveLineBreaks: true,
       }
-    }, PKG.config && PKG.config.html ? PKG.config.html : {}));
+    }, PKG.config && (PKG.config.html || {})));
 
   if (process.env.NODE_ENV !== 'test') {
     config
