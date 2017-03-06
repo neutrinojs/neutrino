@@ -1,5 +1,7 @@
+const merge = require('deepmerge');
+
 module.exports = class {
-  constructor(plugin = () => null, args) {
+  constructor(plugin = () => null, args = []) {
     this.plugin = plugin;
     this.args = args;
   }
@@ -20,6 +22,18 @@ module.exports = class {
 
   inject(handler) {
     this.init = handler;
+    return this;
+  }
+
+  merge(obj) {
+    if (obj.plugin) {
+      this.plugin = plugin;
+    }
+
+    if (obj.args) {
+      this.args = merge(this.args, obj.args);
+    }
+
     return this;
   }
 };

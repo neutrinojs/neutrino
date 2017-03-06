@@ -15,7 +15,14 @@
   ],
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "ava test"
+  },
   "dependencies": {
     "deepmerge": "^1.3.2"
+  },
+  "devDependencies": {
+    "ava": "^0.18.2",
+    "webpack": "^2.2.1"
   }
 }

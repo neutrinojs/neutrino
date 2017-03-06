@@ -4,7 +4,6 @@ const Rule = require('./Rule');
 module.exports = class extends ChainedMap {
   constructor(parent) {
     super(parent);
-
     this.rules = new ChainedMap(this);
   }
 
@@ -17,14 +16,9 @@ module.exports = class extends ChainedMap {
   }
 
   toConfig() {
-    const config = this.entries();
-    const rules = this.rules.values().map(r => r.toConfig());
-
-    if (!config && !rules.length) {
-      return;
-    }
-
-    return Object.assign({ rules }, config);
+    return this.clean(Object.assign(this.entries() || {}, {
+      rules: this.rules.values().map(r => r.toConfig())
+    }));
   }
 
   merge(obj) {

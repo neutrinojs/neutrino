@@ -6,6 +6,13 @@ module.exports = class extends Chainable {
     this.options = new Map();
   }
 
+  extend(methods) {
+    this.shorthands = methods;
+    methods.map(method => {
+      this[method] = value => this.set(method, value);
+    });
+  }
+
   clear() {
     this.options.clear();
     return this;
@@ -49,5 +56,29 @@ module.exports = class extends Chainable {
   merge(obj) {
     Object.keys(obj).forEach(key => this.set(key, obj[key]));
     return this;
+  }
+
+  clean(obj) {
+    return Object
+      .keys(obj)
+      .reduce((acc, key) => {
+        const value = obj[key];
+
+        if (value === undefined) {
+          return acc;
+        }
+
+        if (Array.isArray(value) && !value.length) {
+          return acc;
+        }
+
+        if (Object.prototype.toString.call(value) === '[object Object]' && !Object.keys(value).length) {
+          return acc;
+        }
+
+        acc[key] = value;
+
+        return acc;
+      }, {});
   }
 };

@@ -36,5 +36,6 @@ module.exports = class extends Chainable {
 
   merge(arr) {
     this.collection = new Set([...this.collection, ...arr]);
+    return this;
   }
 };

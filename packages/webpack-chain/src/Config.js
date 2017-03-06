@@ -6,46 +6,45 @@ const Output = require('./Output');
 const DevServer = require('./DevServer');
 const Plugin = require('./Plugin');
 const Module = require('./Module');
+const Performance = require('./Performance');
 
-class Config {
+module.exports = class extends ChainedMap {
   constructor() {
-    this.options = new ChainedMap(this);
+    super();
+    this.devServer = new DevServer(this);
+    this.entryPoints = new ChainedMap(this);
+    this.module = new Module(this);
     this.node = new ChainedMap(this);
     this.output = new Output(this);
+    this.performance = new Performance(this);
     this.plugins = new ChainedMap(this);
     this.resolve = new Resolve(this);
     this.resolveLoader = new ResolveLoader(this);
-    this.entries = new ChainedMap(this);
-    this.devServer = new DevServer(this);
-    this.module = new Module(this);
-  }
-
-  externals(externals) {
-    this.options.set('externals', externals);
-    return this;
-  }
-
-  devtool(devtool) {
-    this.options.set('devtool', devtool);
-    return this;
-  }
-
-  context(context) {
-    this.options.set('context', context);
-    return this;
-  }
-
-  target(target) {
-    this.options.set('target', target);
-    return this;
+    this.extend([
+      'amd',
+      'bail',
+      'cache',
+      'devtool',
+      'context',
+      'externals',
+      'loader',
+      'profile',
+      'recordsPath',
+      'recordsInputPath',
+      'recordsOutputPath',
+      'stats',
+      'target',
+      'watch',
+      'watchOptions'
+    ]);
   }
 
   entry(name) {
-    if (!this.entries.has(name)) {
-      this.entries.set(name, new ChainedSet(this));
+    if (!this.entryPoints.has(name)) {
+      this.entryPoints.set(name, new ChainedSet(this));
     }
 
-    return this.entries.get(name);
+    return this.entryPoints.get(name);
   }
 
   plugin(name, plugin, ...args) {
@@ -62,11 +61,10 @@ class Config {
   }
 
   toConfig() {
-    const entries = this.entries.entries();
-    const plugins = this.plugins.values()
-      .map(value => value.init(value.plugin, value.args));
+    const entries = this.entryPoints.entries();
+    const plugins = this.plugins.values().map(plugin => plugin.init(plugin.plugin, plugin.args));
 
-    const config = Object.assign({}, this.options.entries(), {
+    const config = Object.assign(this.entries() || {}, {
       node: this.node.entries(),
       output: this.output.entries(),
       resolve: this.resolve.toConfig(),
@@ -85,15 +83,7 @@ class Config {
       config.plugins = plugins;
     }
 
-    return Object
-      .keys(config)
-      .reduce((acc, key) => {
-        if (config[key] !== undefined) {
-          acc[key] = config[key];
-        }
-
-        return acc;
-      }, {});
+    return this.clean(config);
   }
 
   merge(obj = {}) {
@@ -121,7 +111,7 @@ class Config {
           case 'plugin': {
             return Object
               .keys(value)
-              .forEach(name => this.plugin(name).use(value[name]));
+              .forEach(name => this.plugins.get(name).merge(value[name]));
           }
 
           default: {
@@ -132,6 +122,4 @@ class Config {
 
     return this;
   }
-}
-
-module.exports = Config;
+};

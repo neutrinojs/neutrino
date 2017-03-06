@@ -5,7 +5,6 @@ const merge = require('deepmerge');
 module.exports = class extends ChainedMap {
   constructor(parent) {
     super(parent);
-
     this.loaders = new Map();
     this._include = new Set();
     this._exclude = new Set();
@@ -57,19 +56,11 @@ module.exports = class extends ChainedMap {
   }
 
   toConfig() {
-    const rule = this.entries() || {};
-
-    if (this._include.size) {
-      rule.include = [...this._include];
-    }
-
-    if (this._exclude.size) {
-      rule.exclude = [...this._exclude];
-    }
-
-    rule.use = [...this.loaders.values()].map(({ loader, options }) => ({ loader, options }));
-
-    return rule;
+    return this.clean(Object.assign(this.entries() || {}, {
+      include: [...this._include],
+      exclude: [...this._exclude],
+      use: [...this.loaders.values()].map(({ loader, options }) => this.clean({ loader, options }))
+    }));
   }
 
   merge(obj) {

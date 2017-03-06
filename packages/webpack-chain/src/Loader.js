@@ -5,12 +5,6 @@ module.exports = class {
   }
 
   tap(handler) {
-    const {
-      loader = this.loader,
-      options = this.options
-    } = handler({ loader: this.loader, options: this.options });
-
-    this.loader = loader;
-    this.options = options;
+    this.options = handler(this.options);
   }
 };
