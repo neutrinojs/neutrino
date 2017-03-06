@@ -55,6 +55,15 @@ config.plugins = config.plugins.map(plugin => {
 This forces a much higher maintenance burden on your project, and this is only a very simple example. Modifying
 loaders created from raw Webpack configuration objects can be **much** more unwieldy.
 
-Using [webpack-chain](https://github.com/mozilla-rpweb/webpack-chain) affords Neutrino the ability to identify and
+Using [webpack-chain](https://github.com/mozilla-neutrino/webpack-chain) affords Neutrino the ability to identify and
 manipulate parts of the configuration without resorting to object and array manipulation hacks, something not currently
 possible when working with raw Webpack configuration data.
+
+### Can I just re-use my existing Webpack configuration?
+
+The Neutrino configuration does let you merge a configuration object, but does not accept a normal Webpack configuration
+out of the box. Since Neutrino uses webpack-chain and enforces naming of plugins, rules, and loaders, you must use an
+object that corresponds with this "schema". Typically this would involve transforming your Webpack configuration to nest
+entities requiring a name into an object which maps the name to the entity.
+
+In short, you must transform your Webpack configuration in order to merge it into the Neutrino configuration cleanly.

@@ -40,7 +40,7 @@ Add a new property to `config` named `neutrino`. This will be an object where we
 ```
 
 Populate this object with configuration overrides. This is not a Webpack configuration, but rather a Neutrino-compatible
-object based on [webpack-chain](https://github.com/mozilla-rpweb/webpack-chain).
+object based on [webpack-chain](https://github.com/mozilla-neutrino/webpack-chain/tree/v1.4.3).
 
 ## Usage
 

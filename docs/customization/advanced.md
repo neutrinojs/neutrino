@@ -7,7 +7,7 @@ needed.
 
 ## Creating a project-specific preset
 
-Neutrino configurations are backed by [webpack-chain](https://github.com/mozilla-rpweb/webpack-chain), a library for
+Neutrino configurations are backed by [webpack-chain](https://github.com/mozilla-neutrino/webpack-chain/tree/v1.4.3), a library for
 making modifications to a Webpack configuration using a fluent or chained API. When your project needs more advanced
 build overrides, you will be interacting with this API in order to perform modifications.
 
@@ -49,7 +49,7 @@ Other than actually changing the config, that is all the setup necessary for Neu
 ## Configuring
 
 The Neutrino instance provided to your custom configurator has a `config` property that is an instance of
-[webpack-chain](https://github.com/mozilla-rpweb/webpack-chain). We won't go in-depth of all the configuration
+[webpack-chain](https://github.com/mozilla-neutrino/webpack-chain/tree/v1.4.3). We won't go in-depth of all the configuration
 possibilities here, but encourage you to check out the documentation for webpack-chain for instruction on your
 particular use case.
 
@@ -81,5 +81,5 @@ module.exports = neutrino => {
 ```
 
 Presets can also have their own custom data in addition to the Neutrino config. See your respective preset for details.
-Again, rather than reiterate the documentation for [webpack-chain](https://github.com/mozilla-rpweb/webpack-chain) here,
+Again, rather than reiterate the documentation for [webpack-chain](https://github.com/mozilla-neutrino/webpack-chain/tree/v1.4.3) here,
 please refer to its documentation for all ways you can modify a config instance to solve your use cases.

@@ -52,7 +52,7 @@ will be merged.
 ### `.config`
 
 When constructing a Neutrino instance, a property of `.config` is set to be a new instance of
-[webpack-chain](https://github.com/mozilla-rpweb/webpack-chain). This property is then available to all presets, which
+[webpack-chain](https://github.com/mozilla-neutrino/webpack-chain/tree/v1.4.3). This property is then available to all presets, which
 subsequently augment it with their specific options. Every preset added uses this single `.config` to store their data,
 meaning that preset load order has an effect on which config values take precedence. Presets loaded later will override
 values set by earlier presets.
