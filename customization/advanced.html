@@ -493,7 +493,7 @@ to the way your Neutrino preset is building your project. If you need more custo
 augmenting your project&apos;s package.json, consider using this advanced configuration guide to modify your build as
 needed.</p>
 <h2 id="creating-a-project-specific-preset">Creating a project-specific preset</h2>
-<p>Neutrino configurations are backed by <a href="https://github.com/mozilla-rpweb/webpack-chain" target="_blank">webpack-chain</a>, a library for
+<p>Neutrino configurations are backed by <a href="https://github.com/mozilla-neutrino/webpack-chain/tree/v1.4.3" target="_blank">webpack-chain</a>, a library for
 making modifications to a Webpack configuration using a fluent or chained API. When your project needs more advanced
 build overrides, you will be interacting with this API in order to perform modifications.</p>
 <p>First, we need to create a project-specific preset to make these changes. This can either be a JS file or a directory
@@ -525,7 +525,7 @@ your project.</em></p>
 <p>Other than actually changing the config, that is all the setup necessary for Neutrino to pick up your custom changes.</p>
 <h2 id="configuring">Configuring</h2>
 <p>The Neutrino instance provided to your custom configurator has a <code>config</code> property that is an instance of
-<a href="https://github.com/mozilla-rpweb/webpack-chain" target="_blank">webpack-chain</a>. We won&apos;t go in-depth of all the configuration
+<a href="https://github.com/mozilla-neutrino/webpack-chain/tree/v1.4.3" target="_blank">webpack-chain</a>. We won&apos;t go in-depth of all the configuration
 possibilities here, but encourage you to check out the documentation for webpack-chain for instruction on your
 particular use case.</p>
 <p>This <code>neutrino.config</code> is an accumulation of all configuration set up to this moment. Every Neutrino preset interacts
@@ -549,7 +549,7 @@ v4.2. This preset has a rule named &quot;compile&quot; and a loader named &quot;
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Presets can also have their own custom data in addition to the Neutrino config. See your respective preset for details.
-Again, rather than reiterate the documentation for <a href="https://github.com/mozilla-rpweb/webpack-chain" target="_blank">webpack-chain</a> here,
+Again, rather than reiterate the documentation for <a href="https://github.com/mozilla-neutrino/webpack-chain/tree/v1.4.3" target="_blank">webpack-chain</a> here,
 please refer to its documentation for all ways you can modify a config instance to solve your use cases.</p>
 
                                 
@@ -594,7 +594,7 @@ please refer to its documentation for all ways you can modify a config instance 
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Advanced","level":"1.7.2","depth":2,"next":{"title":"Creating presets","level":"1.8","depth":1,"path":"creating-presets.md","ref":"creating-presets.md","articles":[{"title":"Creating linting presets","level":"1.8.1","depth":2,"path":"presets/neutrino-lint-base/README.md","ref":"presets/neutrino-lint-base/README.md","articles":[]}]},"previous":{"title":"Simple","level":"1.7.1","depth":2,"path":"customization/simple.md","ref":"customization/simple.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"customization/advanced.md","mtime":"2017-02-16T18:32:52.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-03-02T15:20:54.228Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Advanced","level":"1.7.2","depth":2,"next":{"title":"Creating presets","level":"1.8","depth":1,"path":"creating-presets.md","ref":"creating-presets.md","articles":[{"title":"Creating linting presets","level":"1.8.1","depth":2,"path":"presets/neutrino-lint-base/README.md","ref":"presets/neutrino-lint-base/README.md","articles":[]}]},"previous":{"title":"Simple","level":"1.7.1","depth":2,"path":"customization/simple.md","ref":"customization/simple.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"customization/advanced.md","mtime":"2017-03-06T16:54:11.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-03-06T17:07:12.452Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
