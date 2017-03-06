@@ -22,5 +22,8 @@
     "eslint-plugin-babel": "^4.1.0",
     "eslint-plugin-import": "^2.2.0",
     "lodash.clonedeep": "^4.5.0"
+  },
+  "peerDependencies": {
+    "neutrino": "^5.0.0"
   }
 }

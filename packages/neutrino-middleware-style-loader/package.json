@@ -18,5 +18,8 @@
   "dependencies": {
     "css-loader": "^0.26.2",
     "style-loader": "^0.13.2"
+  },
+  "peerDependencies": {
+    "neutrino": "^5.0.0"
   }
 }

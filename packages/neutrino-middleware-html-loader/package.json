@@ -15,5 +15,8 @@
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
     "file-loader": "^0.10.1"
+  },
+  "peerDependencies": {
+    "neutrino": "^5.0.0"
   }
 }

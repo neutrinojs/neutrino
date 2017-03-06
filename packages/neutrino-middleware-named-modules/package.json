@@ -16,5 +16,8 @@
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
     "webpack": "^2.2.1"
+  },
+  "peerDependencies": {
+    "neutrino": "^5.0.0"
   }
 }

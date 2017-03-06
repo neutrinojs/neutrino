@@ -17,5 +17,8 @@
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
     "babili-webpack-plugin": "^0.0.10"
+  },
+  "peerDependencies": {
+    "neutrino": "^5.0.0"
   }
 }
