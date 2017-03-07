@@ -10,7 +10,7 @@
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
 - Extends from [neutrino-preset-web](/presets/neutrino-preset-web/README.md)
-  - Modern Babel compilation supporting ES modules, last 2 major browser versions, and async functions
+  - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
   - Webpack loaders for importing HTML, CSS, images, icons, and fonts
   - Webpack Dev Server during development
   - Automatic creation of HTML pages, no templating necessary
@@ -22,7 +22,7 @@
 
 - Node.js v6.9+
 - Yarn or npm client
-- Neutrino v4
+- Neutrino v5
 
 ## Installation
 
@@ -187,9 +187,11 @@ _Example: Change the application mount ID from "root" to "app":_
 
 ```json
 {
-  "config": {
-    "html": {
-      "appMountId": "app"
+  "neutrino": {
+    "options": {
+      "html": {
+        "appMountId": "app"
+      }
     }
   }
 }
@@ -216,7 +218,7 @@ module.exports = neutrino => {
 };
 ```
 
-## Hot Reloading
+## Hot Module Replacement
 
 While `neutrino-preset-react` supports hot reloading your app using React Hot Loader, it does require some
 application-specific changes in order to operate.

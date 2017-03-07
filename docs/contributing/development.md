@@ -1,6 +1,6 @@
 # Developing Neutrino
 
-Developing and contributing to Neutrino and its core presets is done through our monorepo located at
+Developing and contributing to Neutrino, its core presets, and middleware is done through our monorepo located at
 https://github.com/mozilla-neutrino/neutrino-dev. The code is broken up into a couple different sections:
 packages and documentation.
 
@@ -17,7 +17,8 @@ Developing for neutrino-dev requires:
 
 ## Getting started
 
-The first step to start developing neutrino-dev is forking the repository to your own GitHub account.
+The first step to start developing neutrino-dev is
+[forking the repository to your own GitHub account](https://help.github.com/articles/fork-a-repo/).
 
 <a href="https://github.com/mozilla-neutrino/neutrino-dev/fork" target="_blank">Fork mozilla-neutrino/neutrino-dev on GitHub</a>
 

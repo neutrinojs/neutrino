@@ -116,6 +116,43 @@ manifest.c10c6464802bf71a2c3f.bundle.js    1.41 kB       1  [emitted]  manifest
 
 You can either serve or deploy the contents of this `build` directory as a static site.
 
+## Hot Module Replacement
+
+While `neutrino-preset-web` supports hot reloading your app, it does require some application-specific changes in order
+to operate. Your application should define split points for which to accept modules to reload using
+`module.hot`:
+
+For example:
+
+```js
+import app from './app';
+
+document
+  .getElementById('root')
+  .appendChild(app('Hello world!'));
+
+if (module.hot) {
+  module.hot.accept('./app');
+}
+```
+
+Or for all paths:
+
+```js
+import app from './app';
+
+document
+  .getElementById('root')
+  .appendChild(app('Hello world!'));
+
+if (module.hot) {
+  module.hot.accept();
+}
+```
+
+Using dynamic imports with `import()` will automatically create split points and hot replace those modules upon
+modification during development.
+
 ## Customizing
 
 To override the build configuration, start with the documentation on [customization](/customization/README.md).
@@ -132,7 +169,7 @@ The following is a list of rules and their identifiers which can be overridden:
 
 - `compile`: Compiles JS files from the `src` directory using Babel. Contains a single loader named `babel`.
 - `html`: Allows importing HTML files from modules. Contains a single loader named `file`.
-- `css`: Allows importing CSS stylesheets from modules. Contains two loaders named `style` and `css`.
+- `style`: Allows importing CSS stylesheets from modules. Contains two loaders named `style` and `css`.
 - `img`, `svg`, `ico`: Allows import image files from modules. Each contains a single loader named `url`.
 - `woff`, `ttf`: Allows importing WOFF and TTF font files from modules. Each contains a single loader named `url`.
 - `eot`: Allows importing EOT font files from modules. Contains a single loader named `file`.
@@ -181,16 +218,18 @@ _Example: Put lodash into a separate "vendor" chunk:_
 #### HTML files
 
 Under the hood `neutrino-preset-web` uses [html-webpack-template](https://www.npmjs.com/package/html-webpack-template)
-for generating HTML files. If you wish to override how these files are creating, define an object in your package.json
-at `config.html` with options matching the format expected by html-webpack-template.
+for generating HTML files. If you wish to override how these files are created, define an object in your package.json
+at `neutrino.options.html` with options matching the format expected by html-webpack-template.
 
 _Example: Change the application mount ID from "root" to "app":_
 
 ```json
 {
-  "config": {
-    "html": {
-      "appMountId": "app"
+  "neutrino": {
+    "options": {
+      "html": {
+        "appMountId": "app"
+      }
     }
   }
 }
@@ -213,6 +252,19 @@ module.exports = neutrino => {
   neutrino.config
     .entry('vendor')
     .add('lodash');
+};
+```
+
+#### HTML files
+
+_Example: Change the application mount ID from "root" to "app":_
+
+```js
+const merge = require('deepmerge');
+
+module.exports = neutrino => {
+  neutrino.config
+    .plugin('html', options => merge(options, { appMountId: 'app' }));
 };
 ```
 

@@ -2,18 +2,22 @@
 
 No two JavaScript projects are ever the same, and as such there may be times when you will need to make modifications
 to the way your Neutrino preset is building your project. By defining a configuration object within your package.json,
-Neutrino will merge this information with that provided by your preset, effectively overriding those options with your
-custom data.
+Neutrino will merge this information with those provided by your presets, overriding those options with your custom
+configuration.
+
+_Note: Using package.json for customization tends to be quite verbose for anything more than simple overrides. If this
+is not to your liking, consider moving your overrides to their own file using
+[Advanced Customization](/customization/advanced.md)._
 
 ## Prepare package.json
 
-First, you will need to define a `config` section within your package.json. You
+First, you will need to define a `neutrino` section within your package.json. You
 [may have already done this](/usage.md#using-multiple-presets) if you
-specified your presets through the `config` as opposed to flags through `scripts`:
+specified your presets through `neutrino` as opposed to flags through `scripts`:
 
 ```json
 {
-  "config": {
+  "neutrino": {
     "presets": [
       "neutrino-preset-react",
       "neutrino-preset-karma"
@@ -26,13 +30,13 @@ specified your presets through the `config` as opposed to flags through `scripts
 }
 ```
 
-Add a new property to `config` named `neutrino`. This will be an object where we can provide configuration data:
+Add a new property to `neutrino` named `config`. This will be an object where we can provide configuration data:
 
 ```json
 {
-  "config": {
+  "neutrino": {
     "presets": [],
-    "neutrino": {
+    "config": {
 
     }
   }
@@ -40,7 +44,8 @@ Add a new property to `config` named `neutrino`. This will be an object where we
 ```
 
 Populate this object with configuration overrides. This is not a Webpack configuration, but rather a Neutrino-compatible
-object based on [webpack-chain](https://github.com/mozilla-neutrino/webpack-chain/tree/v1.4.3).
+object based on [webpack-chain](https://github.com/mozilla-neutrino/webpack-chain). A schematic of what this structure
+looks like is located on the [webpack-chain docs](https://github.com/mozilla-neutrino/webpack-chain#merging-config).
 
 ## Usage
 
@@ -53,8 +58,8 @@ _Example: Define an entry point named `vendor` that bundles React packages separ
 
 ```json
 {
-  "config": {
-    "neutrino": {
+  "neutrino": {
+    "config": {
       "entry": {
         "vendor": [
           "react",
@@ -82,7 +87,7 @@ Using `module.rule.loader` allows to you define the Webpack loader and its optio
 This loader is usually a `dependency` or `devDependency` of your project. Each `loader` object can specify a property
 for the string `loader` and an `options` object.
 
-_Example: Add LESS loading to the project, by extending the `css` rule._
+_Example: Add LESS loading to the project, by overriding the `style` rule._
 
 ```json
 {
@@ -90,11 +95,11 @@ _Example: Add LESS loading to the project, by extending the `css` rule._
     "less": "^2.7.2",
     "less-loader": "^2.2.3"
   },
-  "config": {
-    "neutrino": {
+  "neutrino": {
+    "config": {
       "module": {
         "rule": {
-          "css": {
+          "style": {
             "test": "\\.less$",
             "loader": {
               "less": {
@@ -122,8 +127,8 @@ _Example: Change the public path of the application._
 
 ```json
 {
-  "config": {
-    "neutrino": {
+  "neutrino": {
+    "config": {
       "output": {
         "publicPath": "https://cdn.example.com/assets/"
       }
@@ -140,8 +145,8 @@ _Example: mock the `__filename` and `__dirname` Node.js globals._
 
 ```json
 {
-  "config": {
-    "neutrino": {
+  "neutrino": {
+    "config": {
       "node": {
         "__filename": "mock",
         "__dirname": "mock"
@@ -159,8 +164,8 @@ _Example: gzip the application when serving and listen on port 9000._
 
 ```json
 {
-  "config": {
-    "neutrino": {
+  "neutrino": {
+    "config": {
       "devServer": {
         "compress": true,
         "port": 9000
@@ -173,15 +178,15 @@ _Example: gzip the application when serving and listen on port 9000._
 ### Resolve
 
 Use `resolve` to change how modules are resolved. When using `resolve.extensions` and `resolve.modules`, these should be
-specified as arrays, and will be merged with their respective definitions used in inherited presets. Any additional
-properties attached to `resolve` not defined below will be set on the final module configuration.
+specified as arrays, and will be merged with their respective definitions used in inherited presets. See the
+webpack-chain docs for more details on this structure.
 
 _Example: Add `.mjs` as a resolving extension and specify modules are located in a `custom_modules` directory._
 
 ```json
 {
-  "config": {
-    "neutrino": {
+  "neutrino": {
+    "config": {
       "resolve": {
         "extensions": [".mjs"],
         "modules": ["custom_modules"]
@@ -195,15 +200,14 @@ _Example: Add `.mjs` as a resolving extension and specify modules are located in
 
 Use `resolveLoader` to change how loader packages are resolved. When using `resolveLoader.extensions` and
 `resolveLoader.modules`, these should be specified as arrays, and will be merged with their respective definitions used
-in inherited presets. Any additional properties attached to `resolveLoader` not defined below will be set on the final
-module configuration.
+in inherited presets. See the webpack-chain docs for more details on this structure.
 
 _Example: Add `.loader.js` as a loader extension and specify modules are located in a `web_loaders` directory._
 
 ```json
 {
-  "config": {
-    "neutrino": {
+  "neutrino": {
+    "config": {
       "resolve": {
         "extensions": [".loader.js"],
         "modules": ["web_loaders"]
@@ -215,14 +219,14 @@ _Example: Add `.loader.js` as a loader extension and specify modules are located
 
 ### Additional configuration
 
-Any top-level properties you set on `config.neutrino` will be added to the configuration.
+Any top-level properties you set on `neutrino.config` will be added to the configuration.
 
 _Example: Change the Webpack performance options to error when exceeding performance budgets._
 
 ```json
 {
-  "config": {
-    "neutrino": {
+  "neutrino": {
+    "config": {
       "performance": {
         "hints": "error"
       }

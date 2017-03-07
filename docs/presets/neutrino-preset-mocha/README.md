@@ -13,7 +13,7 @@
 
 - Node.js v6.9+
 - Yarn or npm client
-- Neutrino v4, Neutrino build preset
+- Neutrino v5, Neutrino build preset
 
 ## Installation
 
@@ -71,6 +71,19 @@ let's pretend this is a Node.js project:
 }
 ```
 
+Or if you have set up Neutrino with `neutrino.presets` in your package.json:
+
+```json
+{
+  "neutrino": {
+    "presets": [
+      "neutrino-preset-node",
+      "neutrino-preset-mocha"
+    ]
+  }
+}
+```
+
 Run the tests, and view the results in your console:
 
 #### Yarn
@@ -122,12 +135,16 @@ changes.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-- `compile`: Compiles JS files from the `test` directory using Babel. Contains a single loader named `babel`.
+- `compile`: Compiles JS files from the `test` directory using Babel. Contains a single loader named `babel`. Adopts
+Babel configuration from other presets that have been loaded.
 
 ### Simple customization
 
-By following the [customization guide](/customization/simple.md) and knowing the rule, loader, and plugin IDs above,
-you can override and augment the build directly from package.json.
+By following the [customization guide](/customization/simple.md) you can override and augment the test configuration
+directly from package.json. `neutrino-preset-mocha` will import Mocha configuration from your package.json's
+`neutrino.options.mocha` object if defined. The format is defined on the
+[Mocha documentation site](https://mochajs.org/#usage), with command-line flags mapping to camel-cased options
+in `neutrino.options.mocha`.
 
 ### Advanced configuration
 
@@ -141,7 +158,7 @@ _Example: Switch the test reporter from the default `spec` to `nyan`:_
 
 ```js
 module.exports = neutrino => {
-  neutrino.custom.mocha.reporter = 'nyan';
+  neutrino.options.mocha.reporter = 'nyan';
 };
 ```
 

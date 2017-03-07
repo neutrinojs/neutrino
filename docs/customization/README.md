@@ -7,7 +7,7 @@ context of a project without resorting to creating and publishing an entirely in
 ### Simple Customization
 
 By defining a configuration object within your package.json, Neutrino will merge this information with that provided by
-your preset, effectively overriding those options with your custom data.
+your presets, overriding those options with your custom configuration.
 
 ### Advanced Customization
 
