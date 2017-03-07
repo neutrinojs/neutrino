@@ -12,7 +12,7 @@
   ],
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
-  "repository": "mozilla-neutrino/neutrino-dev",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/neutrino-preset-react",
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {

@@ -12,7 +12,7 @@
   ],
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
-  "repository": "mozilla-neutrino/neutrino-dev",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/neutrino-preset-karma",
   "dependencies": {
     "deepmerge": "^1.3.2",
     "karma": "^1.5.0",
