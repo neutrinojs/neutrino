@@ -1,4 +1,4 @@
-const { join } = require('path');
+const { join, isAbsolute } = require('path');
 const { EventEmitter } = require('events');
 const DevServer = require('webpack-dev-server');
 const webpack = require('webpack');
@@ -6,16 +6,18 @@ const Config = require('webpack-chain');
 const ora = require('ora');
 const merge = require('deepmerge');
 
+const normalizePath = (path, root) => isAbsolute(path) ? path : join(root, path);
+
 class Neutrino extends EventEmitter {
   constructor(options = {}) {
     super();
 
-    const root = options.root || process.cwd();
-    const source = options.source || join(root, 'src');
-    const output = options.output || join(root, 'build');
-    const tests = options.tests || join(root, 'test');
-    const node_modules = options.node_modules || join(root, 'node_modules');
-    const entry = options.entry || join(source, 'index.js');
+    const root = normalizePath(options.root || '', process.cwd());
+    const source = normalizePath(options.source || 'src', root);
+    const output = normalizePath(options.output || 'build', root);
+    const tests = normalizePath(options.tests || 'test', root);
+    const node_modules = normalizePath(options.node_modules || 'node_modules', root);
+    const entry = normalizePath(options.entry || 'index.js', source);
 
     this.config = new Config();
     this.options = merge(options, { root, source, output, tests, node_modules, entry });
