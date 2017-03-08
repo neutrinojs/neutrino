@@ -23,17 +23,12 @@ module.exports = class extends ChainedMap {
     ]);
   }
 
-  plugin(name, plugin, ...args) {
-    if (this.plugins.has(name)) {
-      const handler = plugin;
-      const instance = this.plugins.get(name);
-
-      instance.tap(handler);
-      return this;
+  plugin(name) {
+    if (!this.plugins.has(name)) {
+      this.plugins.set(name, new Plugin(this));
     }
 
-    this.plugins.set(name, new Plugin(plugin, args));
-    return this;
+    return this.plugins.get(name);
   }
 
   toConfig() {
@@ -45,7 +40,7 @@ module.exports = class extends ChainedMap {
       mainFields: this.mainFields.values(),
       mainFiles: this.mainFiles.values(),
       modules: this.modules.values(),
-      plugins: this.plugins.values().map(plugin => plugin.init(plugin.plugin, plugin.args))
+      plugins: this.plugins.values().map(plugin => plugin.toConfig())
     }));
   }
 

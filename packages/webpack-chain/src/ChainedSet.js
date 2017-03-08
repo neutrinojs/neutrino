@@ -3,39 +3,39 @@ const Chainable = require('./Chainable');
 module.exports = class extends Chainable {
   constructor(parent) {
     super(parent);
-    this.collection = new Set();
+    this.store = new Set();
   }
 
   add(value) {
-    this.collection.add(value);
+    this.store.add(value);
     return this;
   }
 
   prepend(value) {
-    this.collection = new Set([value, ...this.collection]);
+    this.store = new Set([value, ...this.store]);
     return this;
   }
 
   clear() {
-    this.collection.clear();
+    this.store.clear();
     return this;
   }
 
   delete(value) {
-    this.collection.delete(value);
+    this.store.delete(value);
     return this;
   }
 
   values() {
-    return [...this.collection];
+    return [...this.store];
   }
 
   has(value) {
-    return this.collection.has(value);
+    return this.store.has(value);
   }
 
   merge(arr) {
-    this.collection = new Set([...this.collection, ...arr]);
+    this.store = new Set([...this.store, ...arr]);
     return this;
   }
 };

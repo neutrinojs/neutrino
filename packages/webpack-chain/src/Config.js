@@ -47,43 +47,29 @@ module.exports = class extends ChainedMap {
     return this.entryPoints.get(name);
   }
 
-  plugin(name, plugin, ...args) {
-    if (this.plugins.has(name)) {
-      const handler = plugin;
-      const instance = this.plugins.get(name);
-
-      instance.tap(handler);
-      return this;
+  plugin(name) {
+    if (!this.plugins.has(name)) {
+      this.plugins.set(name, new Plugin(this));
     }
 
-    this.plugins.set(name, new Plugin(plugin, args));
-    return this;
+    return this.plugins.get(name);
   }
 
   toConfig() {
-    const entries = this.entryPoints.entries();
-    const plugins = this.plugins.values().map(plugin => plugin.init(plugin.plugin, plugin.args));
+    const entryPoints = this.entryPoints.entries() || {};
 
-    const config = Object.assign(this.entries() || {}, {
+    return this.clean(Object.assign(this.entries() || {}, {
       node: this.node.entries(),
       output: this.output.entries(),
       resolve: this.resolve.toConfig(),
       resolveLoader: this.resolveLoader.toConfig(),
       devServer: this.devServer.entries(),
       module: this.module.toConfig(),
-      entry: entries && Object
-        .keys(entries)
-        .reduce((acc, key) => {
-          acc[key] = entries[key].values();
-          return acc;
-        }, {})
-    });
-
-    if (plugins.length) {
-      config.plugins = plugins;
-    }
-
-    return this.clean(config);
+      plugins: this.plugins.values().map(plugin => plugin.toConfig()),
+      entry: Object
+        .keys(entryPoints)
+        .reduce((acc, key) => Object.assign(acc, { [key]: entryPoints[key].values() }), {})
+    }));
   }
 
   merge(obj = {}) {
@@ -111,11 +97,11 @@ module.exports = class extends ChainedMap {
           case 'plugin': {
             return Object
               .keys(value)
-              .forEach(name => this.plugins.get(name).merge(value[name]));
+              .forEach(name => this.plugin(name).merge(value[name]));
           }
 
           default: {
-            this.options.set(key, value);
+            this.set(key, value);
           }
         }
       });

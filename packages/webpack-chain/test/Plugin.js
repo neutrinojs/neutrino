@@ -11,46 +11,56 @@ class StringifyPlugin {
   }
 }
 
-test('tap empty', t => {
-  const plugin = new Plugin(StringifyPlugin);
+test('is Chainable', t => {
+  const parent = { parent: true };
+  const plugin = new Plugin(parent);
 
-  plugin.tap(args => {
+  t.is(plugin.end(), parent);
+});
+
+test('use', t => {
+  const plugin = new Plugin();
+  const instance = plugin.use(StringifyPlugin, ['alpha', 'beta']);
+
+  t.is(instance, plugin);
+  t.is(plugin.get('plugin'), StringifyPlugin);
+  t.deepEqual(plugin.get('args'), ['alpha', 'beta']);
+});
+
+test('tap', t => {
+  const plugin = new Plugin();
+
+  plugin.use(StringifyPlugin, ['alpha', 'beta']);
+
+  const instance = plugin.tap(args => ['gamma', 'delta']);
+
+  t.is(instance, plugin);
+  t.deepEqual(plugin.get('args'), ['gamma', 'delta']);
+});
+
+test('init', t => {
+  const plugin = new Plugin();
+
+  plugin.use(StringifyPlugin);
+
+  const instance = plugin.init((Plugin, args) => {
     t.deepEqual(args, []);
-    return ['alpha', 'beta'];
+    return new Plugin('gamma', 'delta');
   });
+  const initialized = plugin.get('init')(plugin.get('plugin'), plugin.get('args'));
 
-  t.deepEqual(plugin.args, ['alpha', 'beta']);
+  t.is(instance, plugin);
+  t.true(initialized instanceof StringifyPlugin);
+  t.deepEqual(initialized.values, ['gamma', 'delta']);
 });
 
-test('tap with values', t => {
-  const plugin = new Plugin(StringifyPlugin, ['alpha']);
+test('toConfig', t => {
+  const plugin = new Plugin();
 
-  plugin.tap(args => {
-    t.deepEqual(args, ['alpha']);
-    return [...args, 'beta'];
-  });
+  plugin.use(StringifyPlugin);
 
-  t.deepEqual(plugin.args, ['alpha', 'beta']);
-});
+  const initialized = plugin.toConfig();
 
-test('init empty', t => {
-  const plugin = new Plugin(StringifyPlugin);
-  const instance = plugin.init(plugin.plugin, plugin.args);
-
-  t.true(instance instanceof StringifyPlugin);
-});
-
-test('init with values', t => {
-  const plugin = new Plugin(StringifyPlugin, ['alpha', 'beta']);
-  const instance = plugin.init(plugin.plugin, plugin.args);
-
-  t.true(instance instanceof StringifyPlugin);
-  t.deepEqual(instance.values, plugin.args);
-});
-
-test('inject', t => {
-  const plugin = new Plugin(StringifyPlugin, ['alpha', 'beta']);
-
-  plugin.inject((plugin, args) => new StringifyPlugin('gamma'));
-  t.deepEqual(plugin.init(plugin.plugin, plugin.args).values, ['gamma']);
+  t.true(initialized instanceof StringifyPlugin);
+  t.deepEqual(initialized.values, []);
 });

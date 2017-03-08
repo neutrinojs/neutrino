@@ -17,7 +17,7 @@ test('is ChainedMap', t => {
 
   config.set('a', 'alpha');
 
-  t.is(config.options.get('a'), 'alpha');
+  t.is(config.store.get('a'), 'alpha');
 });
 
 test('shorthand methods', t => {
@@ -56,20 +56,20 @@ test('entry', t => {
 
 test('plugin empty', t => {
   const config = new Config();
-  const instance = config.plugin('stringify', StringifyPlugin);
+  const instance = config.plugin('stringify').use(StringifyPlugin).end();
 
   t.is(instance, config);
   t.true(config.plugins.has('stringify'));
-  t.deepEqual(config.plugins.get('stringify').args, []);
+  t.deepEqual(config.plugins.get('stringify').get('args'), []);
 });
 
 test('plugin with args', t => {
   const config = new Config();
-  const instance = config.plugin('stringify', StringifyPlugin, 'alpha', 'beta');
 
-  t.is(instance, config);
+  config.plugin('stringify').use(StringifyPlugin, ['alpha', 'beta']);
+
   t.true(config.plugins.has('stringify'));
-  t.deepEqual(config.plugins.get('stringify').args, ['alpha', 'beta']);
+  t.deepEqual(config.plugins.get('stringify').get('args'), ['alpha', 'beta']);
 });
 
 test('toConfig empty', t => {
@@ -89,15 +89,25 @@ test('toConfig with values', t => {
       .set('__dirname', 'mock')
       .end()
     .target('node')
-    .plugin('stringify', StringifyPlugin)
+    .plugin('stringify')
+      .use(StringifyPlugin)
+      .end()
     .module
       .rule('compile')
-        .include('alpha', 'beta')
-        .exclude('alpha', 'beta')
+        .include
+          .add('alpha')
+          .add('beta')
+          .end()
+        .exclude
+          .add('alpha')
+          .add('beta')
+          .end()
         .post()
         .pre()
         .test(/\.js$/)
-        .loader('babel', 'babel-loader', { presets: ['alpha'] });
+        .use('babel')
+          .loader('babel-loader')
+          .options({ presets: ['alpha'] });
 
   t.deepEqual(config.toConfig(), {
     node: {
@@ -155,15 +165,25 @@ test('validate with values', t => {
       .set('__dirname', 'mock')
       .end()
     .target('node')
-    .plugin('stringify', StringifyPlugin)
+    .plugin('stringify')
+      .use(StringifyPlugin)
+      .end()
     .module
       .rule('compile')
-        .include('alpha', 'beta')
-        .exclude('alpha', 'beta')
+        .include
+          .add('alpha')
+          .add('beta')
+          .end()
+        .exclude
+          .add('alpha')
+          .add('beta')
+          .end()
         .post()
         .pre()
         .test(/\.js$/)
-        .loader('babel', 'babel-loader', { presets: ['alpha'] });
+        .use('babel')
+          .loader('babel-loader')
+          .options({ presets: ['alpha'] });
 
   const errors = validate(config.toConfig());
 

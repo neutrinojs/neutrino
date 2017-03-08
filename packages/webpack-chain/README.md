@@ -20,7 +20,7 @@ This is easier explained through the examples following.
 
 ## Contributing
 
-I welcome any contributor. Just fork and clone, make changes, and send a pull request.
+We welcome any contributor. Just fork and clone, make changes, and send a pull request.
 
 ## Installation
 
@@ -73,26 +73,36 @@ config.module
   .rule('lint')
     .test(/\.js$/)
     .pre()
-    .include('src')
-    // Even create named loaders for later modification
-    .loader('eslint', 'eslint-loader', {
-      rules: {
-        semi: 'off'
-      }
-    });
+    .include
+      .add('src')
+      .end()
+    // Even create named uses (loaders) for later modification
+    .use('eslint')
+      .loader('eslint-loader')
+      .options({
+        rules: {
+          semi: 'off'
+        }
+      });
 
 config.module
   .rule('compile')
     .test(/\.js$/)
-    .include('src', 'test')
-    .loader('babel', 'babel-loader', {
-      presets: [
-        ['babel-preset-es2015', { modules: false }]
-      ]
-    });
+    .include
+      .add('src')
+      .add('test')
+      .end()
+    .use('babel')
+      .loader('babel-loader')
+      .options({
+        presets: [
+          ['babel-preset-es2015', { modules: false }]
+        ]
+      });
 
 // Create named plugins, too!
-config.plugin('clean', CleanPlugin, [BUILD], { root: CWD });
+config.plugin('clean')
+  .use(CleanPlugin, [['dist'], { root: '/dir' }]);
 
 // Export the completed configuration object to be consumed by webpack
 module.exports = config.toConfig();
@@ -513,25 +523,58 @@ config.performance
   .assetFilter(assetFilter)
 ```
 
+#### Config plugins
+
+```js
+// Backed at config.plugins
+config.plugin(name) : ChainedMap
+```
+
 #### Config plugins: adding
 
 _NOTE: Do not use `new` to create the plugin, as this will be done for you._
 
 ```js
-// Backed at config.plugins
-config.plugin(name, WebpackPlugin, ...args) : chainable
+config
+  .plugin(name)
+  .use(WebpackPlugin, args)
 
-// Example
-config.plugin('env', webpack.EnvironmentPlugin, 'NODE_ENV');
+// Examples
+config
+  .plugin('hot')
+  .use(webpack.HotModuleReplacementPlugin);
+
+config
+  .plugin('env')
+  .use(webpack.EnvironmentPlugin, ['NODE_ENV']);
 ```
 
-#### Config plugins: modifying arguments
+#### Config plugins: modify arguments
 
 ```js
-config.plugin(name, args => newArgs)
+config
+  .plugin(name)
+  .tap(args => newArgs)
 
 // Example
-config.plugin('env', args => [...args, 'SECRET_KEY']);
+config
+  .plugin('env')
+  .tap(args => [...args, 'SECRET_KEY']);
+```
+
+#### Config plugins: modify instantiation
+
+```js
+config
+  .plugin(name)
+  .init((Plugin, args) => new Plugin(...args));
+```
+
+#### Config resolve plugins
+
+```js
+// Backed at config.plugins
+config.resolve.plugin(name) : ChainedMap
 ```
 
 #### Config resolve plugins: adding
@@ -539,14 +582,25 @@ config.plugin('env', args => [...args, 'SECRET_KEY']);
 _NOTE: Do not use `new` to create the plugin, as this will be done for you._
 
 ```js
-// Backed at config.resolve.plugins
-config.resolve.plugin(name, WebpackPlugin, ...args) : chainable
+config.resolve
+  .plugin(name)
+  .use(WebpackPlugin, args)
 ```
 
-#### Config resolve plugins: modifying arguments
+#### Config plugins: modify arguments
 
 ```js
-config.resolve.plugin(name, args => newArgs)
+config.resolve
+  .plugin(name)
+  .tap(args => newArgs)
+```
+
+#### Config plugins: modify instantiation
+
+```js
+config.resolve
+  .plugin(name)
+  .init((Plugin, args) => new Plugin(...args))
 ```
 
 #### Config node
@@ -607,38 +661,43 @@ config.module
     .test(test)
     .pre()
     .post()
-    .include(...paths)
-    .exclude(...paths)
+    .enforce(preOrPost)
 ```
 
-#### Config module rules loaders: creating
+#### Config module rules uses (loaders): creating
 
 ```js
-config.module.rules[].loaders : Map
+config.module.rules{}.uses : ChainedMap
 
 config.module
   .rule(name)
-    .loader(name, loader, options: optional)
+    .use(name)
+      .loader(loader)
+      .options(options)
     
 // Example
 
 config.module
   .rule('compile')
-  .loader('babel', 'babel-loader', { presets: ['babel-preset-es2015'] });
+    .use('babel')
+      .loader('babel-loader')
+      .options({ presets: ['babel-preset-es2015'] });
 ```
 
-#### Config module rules loaders: modifying options
+#### Config module rules uses (loaders): modifying options
 
 ```js
 config.module
   .rule(name)
-  .loader(name, options => newOptions)
-  
+    .use(name)
+      .tap(options => newOptions)
+
 // Example
 
 config.module
   .rule('compile')
-  .loader('babel', options => merge(options, { plugins: ['babel-plugin-object-rest-spread'] }));
+    .use('babel')
+      .tap(options => merge(options, { plugins: ['babel-plugin-syntax-object-rest-spread'] }));
 ```
 
 ---
@@ -717,7 +776,12 @@ config.merge({
   },
   
   performance: {
-    [key]: value
+    [key]: value,
+    
+    hints,
+    maxEntrypointSize,
+    maxAssetSize,
+    assetFilter
   },
   
   resolve: {
@@ -757,12 +821,14 @@ config.merge({
       [name]: {
         [key]: value,
         
+        enforce,
+        test,
+        parser,
+        
         include: [...paths],
         exclude: [...paths],
-        test: RegExp,
-        enforce: value,
         
-        loader: {
+        use: {
           [name]: {
             loader: LoaderString,
             options: LoaderOptions

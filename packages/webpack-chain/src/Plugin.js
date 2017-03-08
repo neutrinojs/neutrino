@@ -1,39 +1,39 @@
-const merge = require('deepmerge');
+const ChainedMap = require('./ChainedMap');
 
-module.exports = class {
-  constructor(plugin = () => null, args = []) {
-    this.plugin = plugin;
-    this.args = args;
+module.exports = class extends ChainedMap {
+  constructor(parent) {
+    super(parent);
+    this.extend(['init']);
+
+    this.init((Plugin, args = []) => new Plugin(...args));
   }
 
-  init(Plugin, args) {
-    if (typeof Plugin === 'function') {
-      return this.args.length ?
-        new Plugin(...args) :
-        new Plugin();
-    }
-
-    return Plugin;
+  use(plugin, args = []) {
+    return this
+      .set('plugin', plugin)
+      .set('args', args);
   }
 
-  tap(handler) {
-    this.args = handler(this.args) || this.args;
-  }
-
-  inject(handler) {
-    this.init = handler;
+  tap(f) {
+    this.set('args', f(this.get('args') || []));
     return this;
   }
 
   merge(obj) {
     if (obj.plugin) {
-      this.plugin = obj.plugin;
+      this.set('plugin', obj.plugin);
     }
 
     if (obj.args) {
-      this.args = merge(this.args, obj.args);
+      this.set('args', obj.args);
     }
 
     return this;
+  }
+
+  toConfig() {
+    const init = this.get('init');
+
+    return init(this.get('plugin'), this.get('args'));
   }
 };

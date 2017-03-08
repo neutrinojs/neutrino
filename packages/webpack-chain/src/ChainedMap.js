@@ -3,7 +3,7 @@ const Chainable = require('./Chainable');
 module.exports = class extends Chainable {
   constructor(parent) {
     super(parent);
-    this.options = new Map();
+    this.store = new Map();
   }
 
   extend(methods) {
@@ -14,17 +14,17 @@ module.exports = class extends Chainable {
   }
 
   clear() {
-    this.options.clear();
+    this.store.clear();
     return this;
   }
 
   delete(key) {
-    this.options.delete(key);
+    this.store.delete(key);
     return this;
   }
 
   entries() {
-    const entries = [...this.options];
+    const entries = [...this.store];
 
     if (!entries.length) {
       return;
@@ -37,19 +37,19 @@ module.exports = class extends Chainable {
   }
 
   values() {
-    return [...this.options.values()];
+    return [...this.store.values()];
   }
 
   get(key) {
-    return this.options.get(key);
+    return this.store.get(key);
   }
 
   has(key) {
-    return this.options.has(key);
+    return this.store.has(key);
   }
 
   set(key, value) {
-    this.options.set(key, value);
+    this.store.set(key, value);
     return this;
   }
 

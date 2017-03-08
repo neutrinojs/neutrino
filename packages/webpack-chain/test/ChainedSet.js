@@ -11,15 +11,15 @@ test('is Chainable', t => {
 test('creates a backing Set', t => {
   const set = new ChainedSet();
 
-  t.true(set.collection instanceof Set);
+  t.true(set.store instanceof Set);
 });
 
 test('add', t => {
   const set = new ChainedSet();
 
   t.is(set.add('alpha'), set);
-  t.true(set.collection.has('alpha'));
-  t.is(set.collection.size, 1);
+  t.true(set.store.has('alpha'));
+  t.is(set.store.size, 1);
 });
 
 test('prepend', t => {
@@ -28,8 +28,8 @@ test('prepend', t => {
   set.add('alpha');
 
   t.is(set.prepend('beta'), set);
-  t.true(set.collection.has('beta'));
-  t.deepEqual([...set.collection], ['beta', 'alpha']);
+  t.true(set.store.has('beta'));
+  t.deepEqual([...set.store], ['beta', 'alpha']);
 });
 
 test('clear', t => {
@@ -39,9 +39,9 @@ test('clear', t => {
   set.add('beta');
   set.add('gamma');
 
-  t.is(set.collection.size, 3);
+  t.is(set.store.size, 3);
   t.is(set.clear(), set);
-  t.is(set.collection.size, 0);
+  t.is(set.store.size, 0);
 });
 
 test('delete', t => {
@@ -52,8 +52,8 @@ test('delete', t => {
   set.add('gamma');
 
   t.is(set.delete('beta'), set);
-  t.is(set.collection.size, 2);
-  t.false(set.collection.has('beta'));
+  t.is(set.store.size, 2);
+  t.false(set.store.has('beta'));
 });
 
 test('has', t => {
@@ -65,7 +65,7 @@ test('has', t => {
 
   t.true(set.has('beta'));
   t.false(set.has('delta'));
-  t.is(set.has('beta'), set.collection.has('beta'));
+  t.is(set.has('beta'), set.store.has('beta'));
 });
 
 test('values', t => {

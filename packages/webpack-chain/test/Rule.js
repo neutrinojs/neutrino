@@ -1,6 +1,5 @@
 import test from 'ava';
 import Rule from '../src/Rule';
-import merge from 'deepmerge';
 
 test('is Chainable', t => {
   const parent = { parent: true };
@@ -9,38 +8,24 @@ test('is Chainable', t => {
   t.is(rule.end(), parent);
 });
 
-test('create loader', t => {
+test('shorthand methods', t => {
   const rule = new Rule();
-  const instance = rule.loader('babel', 'babel-loader', { presets: ['alpha'] });
+  const obj = {};
 
-  t.is(instance, rule);
-  t.true(rule.loaders.has('babel'));
-  t.is(rule.loaders.get('babel').loader, 'babel-loader');
-  t.deepEqual(rule.loaders.get('babel').options, { presets: ['alpha'] });
-});
-
-test('override loader', t => {
-  const rule = new Rule();
-  const instance = rule.loader('babel', 'babel-loader', { presets: ['alpha'] });
-
-  t.is(instance, rule);
-
-  rule.loader('babel', options => {
-    t.deepEqual(options, { presets: ['alpha'] });
-
-    return merge(options, { presets: ['beta'] });
+  rule.shorthands.map(method => {
+    obj[method] = 'alpha';
+    t.is(rule[method]('alpha'), rule);
   });
 
-  t.is(rule.loaders.get('babel').loader, 'babel-loader');
-  t.deepEqual(rule.loaders.get('babel').options, { presets: ['alpha', 'beta'] });
+  t.deepEqual(rule.entries(), obj);
 });
 
-test('test', t => {
+test('use', t => {
   const rule = new Rule();
-  const instance = rule.test(/\.js?/);
+  const instance = rule.use('babel').end();
 
   t.is(instance, rule);
-  t.deepEqual(rule.get('test'), /\.js?/);
+  t.true(rule.uses.has('babel'));
 });
 
 test('pre', t => {
@@ -59,20 +44,15 @@ test('post', t => {
   t.deepEqual(rule.get('enforce'), 'post');
 });
 
-test('include', t => {
+test('sets methods', t => {
   const rule = new Rule();
-  const instance = rule.include('alpha', 'beta');
+  const instance = rule
+    .include.add('alpha').add('beta').end()
+    .exclude.add('alpha').add('beta').end();
 
   t.is(instance, rule);
-  t.deepEqual([...rule._include], ['alpha', 'beta']);
-});
-
-test('exclude', t => {
-  const rule = new Rule();
-  const instance = rule.exclude('alpha', 'beta');
-
-  t.is(instance, rule);
-  t.deepEqual([...rule._exclude], ['alpha', 'beta']);
+  t.deepEqual(rule.include.values(), ['alpha', 'beta']);
+  t.deepEqual(rule.exclude.values(), ['alpha', 'beta']);
 });
 
 test('toConfig empty', t => {
@@ -85,12 +65,20 @@ test('toConfig with values', t => {
   const rule = new Rule();
 
   rule
-    .include('alpha', 'beta')
-    .exclude('alpha', 'beta')
+    .include
+      .add('alpha')
+      .add('beta')
+      .end()
+    .exclude
+      .add('alpha')
+      .add('beta')
+      .end()
     .post()
     .pre()
     .test(/\.js$/)
-    .loader('babel', 'babel-loader', { presets: ['alpha'] });
+    .use('babel')
+      .loader('babel-loader')
+      .options({ presets: ['alpha'] });
 
   t.deepEqual(rule.toConfig(), {
     test: /\.js$/,
@@ -113,7 +101,7 @@ test('merge empty', t => {
     test: /\.js$/,
     include: ['alpha', 'beta'],
     exclude: ['alpha', 'beta'],
-    loader: {
+    use: {
       babel: {
         loader: 'babel-loader',
         options: {
@@ -145,15 +133,17 @@ test('merge with values', t => {
   rule
     .test(/\.js$/)
     .post()
-    .include('gamma', 'delta')
-    .loader('babel', 'babel-loader', { presets: ['alpha'] });
+    .include.add('gamma').add('delta').end()
+    .use('babel')
+      .loader('babel-loader')
+      .options({ presets: ['alpha'] });
 
   rule.merge({
     test: /\.jsx$/,
     enforce: 'pre',
     include: ['alpha', 'beta'],
     exclude: ['alpha', 'beta'],
-    loader: {
+    use: {
       babel: {
         options: {
           presets: ['beta']

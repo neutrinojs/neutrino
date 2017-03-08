@@ -1,65 +1,37 @@
 const ChainedMap = require('./ChainedMap');
-const Loader = require('./Loader');
-const merge = require('deepmerge');
+const ChainedSet = require('./ChainedSet');
+const Use = require('./Use');
 
 module.exports = class extends ChainedMap {
   constructor(parent) {
     super(parent);
-    this.loaders = new Map();
-    this._include = new Set();
-    this._exclude = new Set();
+    this.uses = new ChainedMap(this);
+    this.include = new ChainedSet(this);
+    this.exclude = new ChainedSet(this);
+    this.extend(['parser', 'test', 'enforce']);
   }
 
-  loader(name, loader, options) {
-    // If we pass a function to loader, then we are trying to tap
-    // into it for modification
-    if (typeof loader === 'function') {
-      const handler = loader;
-      const instance = this.loaders.get(name);
-
-      instance.tap(handler);
-      return this;
+  use(name) {
+    if (!this.uses.has(name)) {
+      this.uses.set(name, new Use(this));
     }
 
-    if (this.loaders.has(name)) {
-      const instance = this.loaders.get(name);
-
-      instance.loader = loader;
-      instance.options = options;
-      return this;
-    }
-
-    this.loaders.set(name, new Loader(loader, options));
-    return this;
-  }
-
-  test(test) {
-    return this.set('test', test);
+    return this.uses.get(name);
   }
 
   pre() {
-    return this.set('enforce', 'pre');
+    return this.enforce('pre');
   }
 
   post() {
-    return this.set('enforce', 'post');
-  }
-
-  include(...paths) {
-    paths.forEach(path => this._include.add(path));
-    return this;
-  }
-
-  exclude(...paths) {
-    paths.forEach(path => this._exclude.add(path));
-    return this;
+    return this.enforce('post');
   }
 
   toConfig() {
     return this.clean(Object.assign(this.entries() || {}, {
-      include: [...this._include],
-      exclude: [...this._exclude],
-      use: [...this.loaders.values()].map(({ loader, options }) => this.clean({ loader, options }))
+      include: this.include.values(),
+      exclude: this.exclude.values(),
+      use: this.uses.values().map(use => use.toConfig())
     }));
   }
 
@@ -70,36 +42,19 @@ module.exports = class extends ChainedMap {
         const value = obj[key];
 
         switch (key) {
-          case 'include': {
-            return this.include(...value);
+          case 'include':
+          case 'exclude': {
+            return this[key].merge(value);
           }
 
-          case 'exclude': {
-            return this.exclude(...value);
+          case 'use': {
+            return Object
+              .keys(value)
+              .forEach(name => this.use(name).merge(value[name]));
           }
 
           case 'test': {
-            return this.test(new RegExp(value));
-          }
-
-          case 'loader': {
-            return Object
-              .keys(value)
-              .forEach(name => {
-                if (!this.loaders.has(name)) {
-                  return this.loader(name, value[name].loader, value[name].options);
-                }
-
-                const loader = this.loaders.get(name);
-
-                if (value[name].loader) {
-                  loader.loader = value[name].loader;
-                }
-
-                if (value[name].options) {
-                  loader.options = merge(loader.options, value[name].options);
-                }
-              });
+            return this.test(value instanceof RegExp ? value : new RegExp(value));
           }
 
           default: {

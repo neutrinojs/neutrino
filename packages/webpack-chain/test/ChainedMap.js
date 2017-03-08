@@ -11,14 +11,14 @@ test('is Chainable', t => {
 test('creates a backing Map', t => {
   const map = new ChainedMap();
 
-  t.true(map.options instanceof Map);
+  t.true(map.store instanceof Map);
 });
 
 test('set', t => {
   const map = new ChainedMap();
 
   t.is(map.set('a', 'alpha'), map);
-  t.is(map.options.get('a'), 'alpha');
+  t.is(map.store.get('a'), 'alpha');
 });
 
 test('get', t => {
@@ -35,9 +35,9 @@ test('clear', t => {
   map.set('b', 'beta');
   map.set('c', 'gamma');
 
-  t.is(map.options.size, 3);
+  t.is(map.store.size, 3);
   t.is(map.clear(), map);
-  t.is(map.options.size, 0);
+  t.is(map.store.size, 0);
 });
 
 test('delete', t => {
@@ -48,8 +48,8 @@ test('delete', t => {
   map.set('c', 'gamma');
 
   t.is(map.delete('b'), map);
-  t.is(map.options.size, 2);
-  t.false(map.options.has('b'));
+  t.is(map.store.size, 2);
+  t.false(map.store.has('b'));
 });
 
 test('has', t => {
@@ -61,7 +61,7 @@ test('has', t => {
 
   t.true(map.has('b'));
   t.false(map.has('d'));
-  t.is(map.has('b'), map.options.has('b'));
+  t.is(map.has('b'), map.store.has('b'));
 });
 
 test('values', t => {
