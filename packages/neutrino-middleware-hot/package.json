@@ -1,0 +1,25 @@
+{
+  "name": "neutrino-middleware-hot",
+  "version": "5.0.0",
+  "description": "Neutrino middleware for plugging hot module replacement",
+  "main": "index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-middleware",
+    "hmr",
+    "hot",
+    "module",
+    "replacement"
+  ],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MPL-2.0",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/neutrino-middleware-hot",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "dependencies": {
+    "webpack": "^2.2.1"
+  },
+  "peerDependencies": {
+    "neutrino": "^5.0.0"
+  }
+}

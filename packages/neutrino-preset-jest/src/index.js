@@ -1,94 +1,81 @@
 const { runCLI } = require('jest-cli');
-const fs = require('fs');
-const path = require('path');
+const { writeFileSync } = require('fs');
+const { join } = require('path');
 const merge = require('deepmerge');
-const os = require('os');
-const pkg = require(path.join(process.cwd(), 'package.json'));
+const { tmpdir } = require('os');
+const clone = require('lodash.clonedeep');
+const loaderMerge = require('neutrino-middleware-loader-merge');
 
-function normalizeJestConfig(neutrino, args) {
-  const jest = neutrino.custom.jest;
-  const config = neutrino.config;
-  const aliases = config.options.get('alias') || {};
+function normalizeJestOptions(jestOptions, config, args) {
+  const options = clone(jestOptions);
+  const aliases = config.resolve.alias.entries() || {};
 
   Object
     .keys(aliases)
-    .map(key => jest.moduleNameMapper[key] = path.join('<rootDir>', aliases[key]));
+    .map(key => options.moduleNameMapper[key] = join('<rootDir>', aliases[key]));
 
-  jest.moduleFileExtensions = [...new Set([
-    ...jest.moduleFileExtensions,
+  options.moduleFileExtensions = [...new Set([
+    ...options.moduleFileExtensions,
     ...config.resolve.extensions.values().map(e => e.replace('.', ''))
   ])];
-  jest.moduleDirectories = [...new Set([
-    ...jest.moduleDirectories,
+  options.moduleDirectories = [...new Set([
+    ...options.moduleDirectories,
     ...config.resolve.modules.values()
   ])];
-  jest.globals = Object.assign({
-    BABEL_OPTIONS: config.module.rule('compile').loaders.get('babel').options
-  }, jest.globals);
+  options.globals = Object.assign({
+    BABEL_OPTIONS: config.module.rule('compile').use('babel').get('options')
+  }, options.globals);
 
   if (args.files.length) {
-    jest.testRegex = args.files.join('|').replace('.', '\\.');
+    options.testRegex = args.files.join('|').replace('.', '\\.');
   }
 
-  return Object.assign({}, jest, pkg.jest);
+  return options;
 }
 
 module.exports = neutrino => {
-  neutrino.custom.jest = {
+  const jestOptions = merge({
     bail: true,
     transform: {
       "\\.(js|jsx)$": require.resolve('./transformer')
     },
-    testPathDirs: [path.join(process.cwd(), 'test')],
+    roots: [neutrino.options.tests],
     testRegex: '(_test|_spec|\\.test|\\.spec)\\.jsx?$',
     moduleFileExtensions: ['js', 'jsx'],
-    moduleDirectories: [path.join(__dirname, '../node_modules')],
+    moduleDirectories: [join(__dirname, '../node_modules')],
     moduleNameMapper: {
       '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': require.resolve('./file-mock'),
       '\\.(css|less|sass)$': require.resolve('./style-mock')
     }
-  };
+  }, neutrino.options.jest || {});
 
-  neutrino.config.module
-    .rule('compile')
-    .loader('babel', props => merge(props, {
-      options: {
-        env: {
-          test: {
-            retainLines: true,
-            presets: [require.resolve('babel-preset-jest')],
-            plugins: [require.resolve('babel-plugin-transform-es2015-modules-commonjs')]
-          }
-        }
+  neutrino.use(loaderMerge('compile', 'babel'), {
+    env: {
+      test: {
+        retainLines: true,
+        presets: [require.resolve('babel-preset-jest')],
+        plugins: [require.resolve('babel-plugin-transform-es2015-modules-commonjs')]
       }
-    }));
+    }
+  });
 
   if (neutrino.config.module.rules.has('lint')) {
-    neutrino.config.module
-      .rule('lint')
-      .loader('eslint', props => merge(props, {
-        options: {
-          plugins: ['jest'],
-          envs: ['jest']
-        }
-      }));
+    neutrino.use(loaderMerge('lint', 'eslint'), {
+      plugins: ['jest'],
+      envs: ['jest']
+    });
   }
 
   neutrino.on('test', args => {
-    const jest = normalizeJestConfig(neutrino, args);
-    const configFile = path.join(os.tmpdir(), 'config.json');
+    const options = normalizeJestOptions(jestOptions, neutrino.config, args);
+    const configFile = join(tmpdir(), 'config.json');
 
     return new Promise((resolve, reject) => {
-      const jestCliOptions = { config: configFile, coverage: args.coverage, watch: args.watch };
+      const cliOptions = { config: configFile, coverage: args.coverage, watch: args.watch };
+      const dir = options.rootDir || neutrino.options.root;
 
-      fs.writeFileSync(configFile, `${JSON.stringify(jest, null, 2)}\n`);
-      runCLI(jestCliOptions, jest.rootDir || process.cwd(), result => {
-        if (result.numFailedTests || result.numFailedTestSuites) {
-          reject();
-        } else {
-          resolve();
-        }
-      });
+      writeFileSync(configFile, `${JSON.stringify(options, null, 2)}\n`);
+      runCLI(cliOptions, dir, result => result.numFailedTests || result.numFailedTestSuites ? reject() : resolve());
     });
   });
 };

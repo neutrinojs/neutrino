@@ -1,13 +1,33 @@
 #!/usr/bin/env node
 
+// TODO: Remove this once babel-loader updates
+// https://github.com/babel/babel-loader/pull/391
+process.noDeprecation = true;
+
 const Neutrino = require('../src/neutrino');
 const yargs = require('yargs');
-const path = require('path');
-const pkg = require(path.join(process.cwd(), 'package.json'));
+const { pathOr, pipe, partialRight } = require('ramda');
+const { join } = require('path');
+const stringify = require('javascript-stringify');
+const sort = require('deep-sort-object');
 
-const pkgPresets = pkg.config && pkg.config.presets ? pkg.config.presets : [];
+const inspect = pipe(sort, partialRight(stringify, [null, 2]), console.log, process.exit);
+const cwd = process.cwd();
+let pkg = {};
+
+try {
+  pkg = require(join(cwd, 'package.json'));
+} catch (ex) {}
+
+const pkgPresets = pathOr([], ['neutrino', 'presets'], pkg);
 const environments = { build: 'production', start: 'development', test: 'test' };
 const args = yargs
+  .option('inspect', {
+    description: 'Output a string representation of the configuration used by Neutrino and exit',
+    boolean: true,
+    default: false,
+    global: true
+  })
   .option('presets', {
     description: 'A list of Neutrino presets used to configure the build',
     array: true,
@@ -37,9 +57,47 @@ const args = yargs
 
 function run(command, presets) {
   process.env.NODE_ENV = environments[command];
-  const N = new Neutrino(presets);
 
-  N[command](args)
+  const options = pathOr({}, ['neutrino', 'options'], pkg);
+  const config = pathOr({}, ['neutrino', 'config'], pkg);
+  const api = new Neutrino(Object.assign(options, { config }));
+
+  // Grab all presets and merge them into a single webpack-chain config instance
+  presets.forEach(preset => {
+    const paths = [
+      join(cwd, preset),
+      join(cwd, 'node_modules', preset),
+      preset
+    ];
+
+    for (let i = 0; i < paths.length; i += 1) {
+      try {
+        return api.use(require(paths[i]));
+      } catch (exception) {
+        if (/Cannot find module/.test(exception.message)) {
+          continue;
+        }
+
+        exception.message = `Neutrino was unable to load the module '${preset}'. ` +
+          `Ensure this module exports a function and is free from errors.\n${exception.message}`;
+        throw exception;
+      }
+    }
+
+    throw new Error(`Neutrino cannot find a module with the name or path '${preset}'. ` +
+      `Ensure this module can be found relative to the root of the project.`);
+  });
+
+  // Also grab any Neutrino config from package.json and merge it into the config at a higher precedence
+  if (Object.keys(config).length) {
+    api.config.merge(config);
+  }
+
+  if (args.inspect) {
+    return inspect(api.getWebpackOptions());
+  }
+
+  api[command](args)
     .then(() => process.exit(0))
     .catch(err => {
       if (err) {

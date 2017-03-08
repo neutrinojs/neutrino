@@ -1,6 +1,6 @@
 {
   "name": "neutrino",
-  "version": "4.3.1",
+  "version": "5.0.0",
   "description": "Create and build JS applications with managed configurations",
   "main": "src/neutrino.js",
   "bin": {
@@ -15,14 +15,21 @@
   ],
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
-  "repository": "mozilla-neutrino/neutrino-dev",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/neutrino",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "scripts": {
+    "test": "ava test"
+  },
   "dependencies": {
+    "deep-sort-object": "^1.0.1",
+    "deepmerge": "^1.3.2",
+    "javascript-stringify": "^1.6.0",
     "ora": "^1.1.0",
+    "ramda": "^0.23.0",
     "webpack": "^2.2.1",
-    "webpack-chain": "^1.4.2",
+    "webpack-chain": "^3.0.0",
     "webpack-dev-server": "^2.4.1",
     "yargs": "^6.6.0"
-  },
-  "homepage": "https://neutrino.js.org",
-  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues"
+  }
 }

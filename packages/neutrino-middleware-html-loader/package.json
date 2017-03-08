@@ -1,0 +1,22 @@
+{
+  "name": "neutrino-middleware-html-loader",
+  "version": "5.0.0",
+  "description": "Neutrino middleware for importing and loading HTML files from modules",
+  "main": "index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-middleware",
+    "html"
+  ],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MPL-2.0",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/neutrino-middleware-html-loader",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "dependencies": {
+    "file-loader": "^0.10.1"
+  },
+  "peerDependencies": {
+    "neutrino": "^5.0.0"
+  }
+}
