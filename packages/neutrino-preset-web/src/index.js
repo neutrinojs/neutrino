@@ -168,7 +168,7 @@ module.exports = ({ config }) => {
         useShortDoctype: true,
         keepClosingSlash: true,
         collapseWhitespace: true,
-        preserveLineBreaks: true,
+        preserveLineBreaks: true
       }
     }, PKG.config && PKG.config.html ? PKG.config.html : {}));
 
