@@ -1,10 +1,10 @@
 const CleanPlugin = require('clean-webpack-plugin');
 const merge = require('deepmerge');
 
-module.exports = ({ config }, options) => {
-  const { paths, root } = merge({ paths: [], root: process.cwd() }, options);
+module.exports = (neutrino, options) => {
+  const { paths, root } = merge({ paths: [], root: neutrino.options.root }, options);
 
-  config
+  neutrino.config
     .plugin('clean')
     .use(CleanPlugin, [paths, { root }]);
 };
