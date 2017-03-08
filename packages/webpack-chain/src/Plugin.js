@@ -27,7 +27,7 @@ module.exports = class {
 
   merge(obj) {
     if (obj.plugin) {
-      this.plugin = plugin;
+      this.plugin = obj.plugin;
     }
 
     if (obj.args) {
