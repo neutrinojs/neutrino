@@ -23,7 +23,7 @@ for your project.
 Neutrino provides the command `neutrino start` for creating a bundle during development. Using
 `neutrino start` sets the Node.js environment to `development` using the `NODE_ENV` environment variable,
 which is available in your project source code. Depending on the presets you are using, `neutrino start`
-may also spin up a development server with hot module replacement capabilities.
+may also spin up a development server with Hot Module Replacement (HMR) capabilities.
 Check the documentation of your preset for details.
 
 Usage:

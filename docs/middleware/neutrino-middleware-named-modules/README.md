@@ -1,7 +1,7 @@
 # Neutrino Named Modules Middleware
 [![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url] [![Join Slack][slack-image]][slack-url]
 
-`neutrino-middleware-hot` is Neutrino middleware for enabling named modules output via `NamedModulesPlugin`.
+`neutrino-middleware-named-modules` is Neutrino middleware for enabling named modules output via `NamedModulesPlugin`.
 
 ## Requirements
 

@@ -28,7 +28,7 @@ a named rule and named loader in a Neutrino configuration.
 
 ## Usage
 
-`neutrino-middleware-hot` can be consumed from the Neutrino API, middleware, or presets. Require this package
+`neutrino-middleware-loader-merge` can be consumed from the Neutrino API, middleware, or presets. Require this package
 and plug it into Neutrino:
 
 ```js

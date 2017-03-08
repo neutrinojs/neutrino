@@ -13,7 +13,7 @@ added during production builds.
 
 ## Installation
 
-`neutrino-middleware-babili` can be installed via the Yarn or npm clients.
+`neutrino-middleware-minify` can be installed via the Yarn or npm clients.
 
 #### Yarn
 
