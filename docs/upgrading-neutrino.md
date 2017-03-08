@@ -71,6 +71,35 @@ neutrino.config.module
       .tap(options => merge(options, { plugins: ['object-rest-spread'] }));
 ```
 
+- Updates to `include` and `exclude` for rules (from webpack-chain v3). In the previous webpack-chain
+package, `include` and `exclude` were functions where you provided paths as arguments. These are now
+`ChainedMap`s, making them much more extensible should you need to manipulate these values:
+
+```js
+// Adding rule includes and excludes in v4
+neutrino.config.module
+  .rule('compile')
+    .include(x, y)
+    .exclude(x, y);
+
+// Adding rule includes and excludes in v5
+neutrino.config.module
+  .rule('compile')
+    .include
+      .add(x)
+      .add(y)
+      .end()
+    .exclude
+      .add(x)
+      .add(y);
+
+// You can also use .merge() to add multiple paths at once:
+neutrino.config.module
+  .rule('compile')
+    .include.merge([x, y]).end()
+    .exclude.merge([x, y]);
+```
+
 - Simple configuration via package.json now done from top-level `neutrino` object. Rename `config` to `neutrino`, and
 rename `config.neutrino` to `neutrino.config`. Presets also fall under this `neutrino` object. The `custom` object has
 been renamed to `options`.
