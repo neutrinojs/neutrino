@@ -6,6 +6,7 @@ cache:
   yarn: true
   directories:
     - node_modules
+    - packages/*/node_modules
 before_script:
   - yarn
   - yarn bootstrap
