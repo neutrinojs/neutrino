@@ -186,7 +186,7 @@ When creating a Neutrino instance, you have the option of providing an object wh
 middleware as `neutrino.options`.
 
 ```js
-const Neutrino = require('neutrnino');
+const Neutrino = require('neutrino');
 
 const api = new Neutrino();
 
