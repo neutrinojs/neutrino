@@ -15,7 +15,9 @@
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
-    "progress-bar-webpack-plugin": "^1.9.3",
+    "progress-bar-webpack-plugin": "^1.9.3"
+  },
+  "devDependencies": {
     "webpack": "^2.2.1"
   },
   "peerDependencies": {
