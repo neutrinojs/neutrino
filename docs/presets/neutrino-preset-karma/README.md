@@ -139,7 +139,7 @@ For more details on specific Karma usage, please refer to their
 ## Executing single tests
 
 By default this preset will execute every test file located in your test directory ending in the appropriate file
-extension. Use the command line [`files` parameters](/cli/README.md#neutrino-test) to execute individual tests.
+extension. Use the command line [`files` parameters](../../cli/README.md#neutrino-test) to execute individual tests.
 
 ## Watching for changes
 
