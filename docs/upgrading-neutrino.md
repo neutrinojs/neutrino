@@ -3,7 +3,7 @@
 Neutrino v5 introduces a number of changes, with some of them being breaking changes. To upgrade from Neutrino v4
 to v5, be sure to check this list for tasks you may need to perform to use this latest version:
 
-- Updates to config for creating plugins (from webpack-chain v2 upgrade):
+- Updates to config for creating plugins (from webpack-chain v3 upgrade):
 
 ```js
 // Creating plugins in v4
@@ -13,10 +13,11 @@ neutrino.config
   
 // Creating plugins in v5
 neutrino.config
-  .plugin(name, WebpackPlugin, ...args)
+  .plugin(name)
+  .use(WebpackPlugin, args)
 ```
 
-- Updates to config for modifying plugins (from webpack-chain v2 upgrade):
+- Updates to config for modifying plugins (from webpack-chain v3 upgrade):
 
 ```js
 // Modifying plugins in v4
@@ -26,10 +27,31 @@ neutrino.config
   
 // Modifying plugins in v5
 neutrino.config
-  .plugin(name, args => newArgs);
+  .plugin(name)
+  .tap(args => newArgs);
 ```
 
-- Updates to config for modifying loaders (from webpack-chain v2 upgrade). The function now gets its options directly
+- Updates to config for creating loaders (from webpack-chain v3 upgrade):
+
+```js
+// Creating loaders in v4
+neutrino.config.module
+  .rule('compile')
+  .loader('babel', 'babel-loader', {
+    options: {
+      plugins: ['object-rest-spread']
+    }
+  });
+  
+// Creating loaders in v5
+neutrino.config
+  .rule('compile')
+  .use('babel')
+    .loader('babel-loader')
+    .options({ plugins: ['object-rest-spread'] });
+```
+
+- Updates to config for modifying loaders (from webpack-chain v3 upgrade). The function now gets its options directly
 instead of being nested in an object:
 
 ```js
@@ -45,9 +67,8 @@ neutrino.config.module
 // Modifying loaders in v5
 neutrino.config.module
   .rule('compile')
-  .loader('babel', options => merge(options, {
-    plugins: ['object-rest-spread']
-  }));
+    .use('babel')
+      .tap(options => merge(options, { plugins: ['object-rest-spread'] }));
 ```
 
 - Simple configuration via package.json now done from top-level `neutrino` object. Rename `config` to `neutrino`, and
@@ -74,7 +95,7 @@ been renamed to `options`.
 }
 ```
 
-- The Web preset has renamed its styling loader from `css` to `style`:
+- The Web preset has renamed its styling rule from `css` to `style`:
 
 ```js
 // v4 API for Web preset
@@ -98,7 +119,8 @@ neutrino.config.module.rule('style')
 }
 ```
 
-- Jest upgraded to v19, which changes the option `testPathDirs` to `roots`.
+- Jest upgraded to v19, which changes the option `testPathDirs` to `roots`. Jest options set using
+package.json can now only be done at `neutrino.options.jest` (no more package.json `jest`);
 - Linting base is deprecated in favor of `neutrino-middleware-eslint`:
 
 ```js
@@ -119,7 +141,7 @@ neutrino.use(eslint, {
 ```
 
 - When using a linting preset or consuming anything with `neutrino-middleware-eslint`, the `eslintrc()` method has been
-moved from `neutrino.custom` to `.neutrino`:
+moved from `neutrino.custom.eslintrc` to `neutrino.eslintrc`:
 
 ```js
 // v4 API

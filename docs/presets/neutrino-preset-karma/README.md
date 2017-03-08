@@ -174,6 +174,20 @@ directly from package.json. `neutrino-preset-karma` will import Karma configurat
 `neutrino.options.karma` object if defined. The format is defined on the
 [Karma documentation site](http://karma-runner.github.io/1.0/config/configuration-file.html).
 
+_Example: Change the duration Karma waits for a browser to reconnect (in ms)._
+
+```js
+{
+  "neutrino": {
+    "options": {
+      "karma": {
+        "browserDisconnectTimeout": 5000
+      }
+    }
+  }
+}
+```
+
 ### Advanced configuration
 
 By following the [customization guide](../../customization/advanced.md) you can override and augment testing by creating a

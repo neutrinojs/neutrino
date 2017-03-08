@@ -41,7 +41,8 @@ const api = new Neutrino();
 
 function env(neutrino, additionalVars = []) {
   neutrino.config
-    .plugin('env', EnvironmentPlugin, ['NODE_ENV', ...additionalVars]);
+    .plugin('env')
+    .use(EnvironmentPlugin, ['NODE_ENV', ...additionalVars]);
 }
 
 api.use(env); // or:
@@ -58,7 +59,8 @@ consumers.
 const { EnvironmentPlugin } = require('webpack');
 
 module.exports = (neutrino, additionalVars = []) => neutrino.config
-  .plugin('env', EnvironmentPlugin, ['NODE_ENV', ...additionalVars]);
+  .plugin('env')
+  .use(EnvironmentPlugin, ['NODE_ENV', ...additionalVars]);
 ```
 
 ```js
@@ -95,7 +97,8 @@ const { EnvironmentPlugin } = require('webpack');
 
 module.exports = (pluginName = 'env') => (neutrino, additionalVars = []) => {
     neutrino.config
-      .plugin(pluginName, EnvironmentPlugin, ['NODE_ENV', ...additionalVars]);
+      .plugin(pluginName)
+      .use(EnvironmentPlugin, ['NODE_ENV', ...additionalVars]);
 };
 ```
 

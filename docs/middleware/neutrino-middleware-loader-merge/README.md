@@ -41,9 +41,10 @@ neutrino.use(loaderMerge('compile', 'babel'), {
 // Equivalent to:
 neutrino.config.module
   .rule('compile')
-  .loader('babel', options => require('deepmerge')(options, {
-    plugins: ['object-rest-spread']
-  }));
+  .use('babel')
+    .tap(options => require('deepmerge')(options, {
+      plugins: ['object-rest-spread']
+    }));
 ```
 
 This middleware is a factory intended to be invoked with a rule name and a loader name for which to extend the options.

@@ -35,7 +35,7 @@ and plug it into Neutrino:
 const server = require('neutrino-middleware-start-server');
 
 // Use with default options, starting the server
-// for a single-configured entry-point
+// for the main entry point, neutrino.options.entry
 neutrino.use(server);
 
 // Usage with custom server file to start

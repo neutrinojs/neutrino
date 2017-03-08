@@ -143,8 +143,8 @@ _Example: Put React and React DOM into a separate "vendor" chunk:_
 
 ```json
 {
-  "config": {
-    "neutrino": {
+  "neutrino": {
+    "config": {
       "entry": {
         "vendor": [
           "react",
@@ -220,7 +220,7 @@ module.exports = neutrino => {
 
 ## Hot Module Replacement
 
-While `neutrino-preset-react` supports hot reloading your app using React Hot Loader, it does require some
+While `neutrino-preset-react` supports Hot Module Replacement your app using React Hot Loader, it does require some
 application-specific changes in order to operate.
 
 First, install `react-hot-loader` as a dependency, this **must** be React Hot Loader v3+ (currently in beta):
@@ -239,7 +239,8 @@ First, install `react-hot-loader` as a dependency, this **must** be React Hot Lo
 
 ---
 
-- From your `index` entry point (`src/index.js`), import an `AppContainer` from `react-hot-loader`.
+- From your `index` entry point (defaults to `src/index.js` from `neutrino.options.entry`), import an `AppContainer`
+from `react-hot-loader`.
 - Wrap your top-level React component in the `AppContainer`.
 - Perform the application render in a reusable function for initial load and subsequent reloads.
 - Add the `hot` acceptance to call this function.

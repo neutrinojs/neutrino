@@ -206,14 +206,6 @@ _Example: Turn off bailing on test failures._
 
 ```json
 {
-  "jest": {
-    "bail": false
-  }
-}
-```
-
-```json
-{
   "neutrino": {
     "options": {
       "jest": {

@@ -156,12 +156,12 @@ _Example: Turn off semicolons from being required as defined by the Airbnb rules
 
 ```json
 {
-  "config": {
-    "neutrino": {
+  "neutrino": {
+    "config": {
       "module": {
         "rule": {
           "lint": {
-            "loader": {
+            "use": {
               "eslint": {
                 "options": {
                   "rules": {
@@ -210,11 +210,12 @@ const merge = require('deepmerge');
 module.exports = neutrino => {
   neutrino.config.module
     .rule('lint')
-    .loader('eslint', options => merge(options, {
-      rules: {
-        semi: 'off'
-      }
-    }));
+      .use('eslint')
+        .tap(options => merge(options, {
+          rules: {
+            semi: 'off'
+          }
+        }));
 };
 ```
 

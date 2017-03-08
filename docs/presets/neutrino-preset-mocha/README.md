@@ -146,6 +146,33 @@ directly from package.json. `neutrino-preset-mocha` will import Mocha configurat
 [Mocha documentation site](https://mochajs.org/#usage), with command-line flags mapping to camel-cased options
 in `neutrino.options.mocha`.
 
+_Example: Switch the test reporter from the default `spec` to `nyan`:_
+
+```js
+{
+  "neutrino": {
+    "options": {
+      "mocha": {
+        "reporter": "nyan"
+      }
+    }
+  }
+}
+```
+
+```bash
+❯ yarn test
+
+ 1   -__,------,
+ 0   -__|  /\_/\
+ 0   -_~|_( ^ .^)
+     -_ ""  ""
+
+  1 passing (362ms)
+
+✨  Done in 3.28s.
+```
+
 ### Advanced configuration
 
 By following the [customization guide](../../customization/advanced.md) and knowing the rule, and loader IDs above,

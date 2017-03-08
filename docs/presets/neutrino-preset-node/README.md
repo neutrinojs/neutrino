@@ -157,8 +157,8 @@ libraries, and will take a little extra customization to make them suitable for 
 
 ## Hot Module Replacement
 
-While `neutrino-preset-node` supports hot reloading your app, it does require some application-specific changes in order
-to operate. Your application should define split points for which to accept modules to reload using
+While `neutrino-preset-node` supports Hot Module Replacement for your app, it does require some application-specific
+changes in order to operate. Your application should define split points for which to accept modules to reload using
 `module.hot`:
 
 For example:
@@ -235,8 +235,8 @@ _Example: Allow importing modules with an `.mjs` extension._
 
 ```json
 {
-  "config": {
-    "neutrino": {
+  "neutrino": {
+    "config": {
       "resolve": {
         "extensions": [
           ".mjs"

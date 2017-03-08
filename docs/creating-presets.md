@@ -117,10 +117,12 @@ module.exports = neutrino => {
     .rule('lint')
       .pre()
       .test(/\.jsx?$/)
-      .include(path.join(process.cwd(), 'src'))
-      .loader('standard', require.resolve('standard-loader'), {
-        snazzy: false
-      });
+      .include
+        .add(neutrino.options.source)
+        .end()
+      .use('standard')
+        .loader(require.resolve('standard-loader'))
+        .options({ snazzy: false });
 };
 ```
 
@@ -150,6 +152,119 @@ module.exports = neutrino => {
 When working with paths, remember that your preset will be running in the context of a project. You should take care
 to define application paths by referencing the current working directory with `process.cwd()`. For example, if you
 wanted to work with the project's "src" directory, you would merge the path via `path.join(process.cwd(), 'src')`.
+
+Neutrino provides a number of paths that have been defaulted through `neutrino.options` or configured by the user.
+Please consider using these paths for your preset so they play nice with others.
+
+### `options.root`
+
+Set the base directory which Neutrino middleware and presets operate on. Typically this is the project directory where
+the package.json would be located. If the option is not set, Neutrino defaults it to `process.cwd()`. If a relative
+path is specified, it will be resolved relative to `process.cwd()`; absolute paths will be used as-is.
+
+```js
+module.exports = neutrino => {
+  // if not specified, defaults to process.cwd()
+  neutrino.options.root;
+  
+  // relative, resolves to process.cwd() + ./website
+  neutrino.options.root = './website';
+  
+  // absolute
+  neutrino.options.root = '/code/website';
+};
+```
+
+### `options.source`
+
+Set the directory which contains the application source code. If the option is not set, Neutrino defaults it to `src`.
+If a relative path is specified, it will be resolved relative to `options.root`; absolute paths will be used as-is.
+
+```js
+module.exports = neutrino => {
+  // if not specified, defaults to options.root + src
+  neutrino.options.source;
+  
+  // relative, resolves to options.root + ./lib
+  neutrino.options.source = './lib';
+  
+  // absolute
+  neutrino.options.source = '/code/website/lib';
+};
+```
+
+### `options.output`
+
+Set the directory which will be the output of built assets. If the option is not set, Neutrino defaults it to `build`.
+If a relative path is specified, it will be resolved relative to `options.root`; absolute paths will be used as-is.
+
+```js
+module.exports = neutrino => {
+  // if not specified, defaults to options.root + build
+  neutrino.options.output;
+  
+  // relative, resolves to options.root + ./dist
+  neutrino.options.output = './dist';
+  
+  // absolute
+  neutrino.options.output = '/code/website/dist';
+};
+```
+
+### `options.tests`
+
+Set the directory that contains test files. If the option is not set, Neutrino defaults it to `test`.
+If a relative path is specified, it will be resolved relative to `options.root`; absolute paths will be used as-is.
+
+```js
+module.exports = neutrino => {
+  // if not specified, defaults to options.root + test
+  neutrino.options.tests;
+  
+  // relative, resolves to options.root + ./testing
+  neutrino.options.tests = './testing';
+  
+  // absolute
+  neutrino.options.tests = '/code/website/testing';
+};
+```
+
+### `options.entry`
+
+Set the main entry point for the application. If the option is not set, Neutrino defaults it to `index.js`.
+If a relative path is specified, it will be resolved relative to `options.source`; absolute paths will be used as-is.
+
+```js
+module.exports = neutrino => {
+  // if not specified, defaults to options.source + index.js
+  neutrino.options.entry;
+  
+  // relative, resolves to options.source + ./entry.js
+  neutrino.options.entry = './entry.js';
+  
+  // absolute
+  neutrino.options.entry = '/code/website/lib/entry.js';
+};
+```
+
+### `options.node_modules`
+
+Set the directory which contains the Node.js modules of the project. If the option is not set, Neutrino defaults it to
+`node_modules`. If a relative path is specified, it will be resolved relative to `options.root`; absolute paths will be
+used as-is.
+
+```js
+module.exports = neutrino => {
+  // if not specified, defaults to options.root + node_modules
+  neutrino.options.node_modules;
+  
+  // relative, resolves to options.root + ./modules
+  neutrino.options.node_modules = './modules';
+  
+  // absolute
+  neutrino.options.node_modules = '/code/website/modules';
+};
+```
 
 ## Loader and Babel modules
 

@@ -35,6 +35,7 @@ const compile = require('neutrino-middleware-compile-loader');
 
 neutrino.use(compile, {
   include: [],
+  exclude: [],
   babel: {}
 });
 ```

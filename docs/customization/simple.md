@@ -30,6 +30,146 @@ specified your presets through `neutrino` as opposed to flags through `scripts`:
 }
 ```
 
+## Overriding Neutrino options
+
+Neutrino has a number of useful options for customizing its behavior, as well as the behavior of presets and middleware.
+You can override these options using an object at `neutrino.options`:
+
+### `options.root`
+
+Set the base directory which Neutrino middleware and presets operate on. Typically this is the project directory where
+the package.json would be located. If the option is not set, Neutrino defaults it to `process.cwd()`. If a relative
+path is specified, it will be resolved relative to `process.cwd()`; absolute paths will be used as-is.
+
+```js
+{
+  "neutrino": {
+    "options": {
+      // if not specified, defaults to process.cwd()
+      
+      // relative, resolves to process.cwd() + ./website
+      "root": "./website",
+
+      // absolute
+      "root": "/code/website"
+    }
+  }
+}
+```
+
+### `options.source`
+
+Set the directory which contains the application source code. If the option is not set, Neutrino defaults it to `src`.
+If a relative path is specified, it will be resolved relative to `options.root`; absolute paths will be used as-is.
+
+```js
+{
+  "neutrino": {
+    "options": {
+      // if not specified, defaults to options.root + src
+        
+      // relative, resolves to options.root + ./lib
+      "source": "./lib",
+      
+      // absolute
+      "source": "/code/website/lib"
+    }
+  }
+}
+```
+
+### `options.output`
+
+Set the directory which will be the output of built assets. If the option is not set, Neutrino defaults it to `build`.
+If a relative path is specified, it will be resolved relative to `options.root`; absolute paths will be used as-is.
+
+```js
+{
+  "neutrino": {
+    "options": {
+      // if not specified, defaults to options.root + build
+        
+      // relative, resolves to options.root + ./dist
+      "output": "./dist",
+      
+      // absolute
+      "output": "/code/website/dist"
+    }
+  }
+}
+```
+
+### `options.tests`
+
+Set the directory that contains test files. If the option is not set, Neutrino defaults it to `test`.
+If a relative path is specified, it will be resolved relative to `options.root`; absolute paths will be used as-is.
+
+```js
+{
+  "neutrino": {
+    "options": {
+      // if not specified, defaults to options.root + test
+        
+      // relative, resolves to options.root + ./testing
+      "tests": "./testing",
+      
+      // absolute
+      "tests": "/code/website/testing"
+    }
+  }
+}
+```
+
+### `options.entry`
+
+Set the main entry point for the application. If the option is not set, Neutrino defaults it to `index.js`.
+If a relative path is specified, it will be resolved relative to `options.source`; absolute paths will be used as-is.
+
+```js
+{
+  "neutrino": {
+    "options": {
+      // if not specified, defaults to options.source + index.js
+        
+      // relative, resolves to options.source + ./entry.js
+      "entry": "./entry.js",
+      
+      // absolute
+      "entry": "/code/website/lib/entry.js"
+    }
+  }
+}
+```
+
+### `options.node_modules`
+
+Set the directory which contains the Node.js modules of the project. If the option is not set, Neutrino defaults it to
+`node_modules`. If a relative path is specified, it will be resolved relative to `options.root`; absolute paths will be
+used as-is.
+
+```js
+{
+  "neutrino": {
+    "options": {
+      // if not specified, defaults to options.root + node_modules
+        
+      // relative, resolves to options.root + ./modules
+      "node_modules": "./modules"
+      
+      // absolute
+      "node_modules": "/code/website/modules"
+    }
+  }
+}
+```
+
+### Middleware or preset options
+
+Some middleware and presets also have their own custom options. Consult the documentation for the package for specific
+details on its customization.
+
+## Overriding build configuration
+
 Add a new property to `neutrino` named `config`. This will be an object where we can provide configuration data:
 
 ```json

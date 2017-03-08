@@ -6,7 +6,7 @@
 ## Features
 
 - Zero upfront configuration necessary to start developing and building a web app
-- Modern Babel compilation supporting ES modules, last 2 major browser versions, and async functions
+- Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
 - Webpack loaders for importing HTML, CSS, images, icons, and fonts
 - Webpack Dev Server during development
 - Automatic creation of HTML pages, no templating necessary
@@ -118,8 +118,8 @@ You can either serve or deploy the contents of this `build` directory as a stati
 
 ## Hot Module Replacement
 
-While `neutrino-preset-web` supports hot reloading your app, it does require some application-specific changes in order
-to operate. Your application should define split points for which to accept modules to reload using
+While `neutrino-preset-web` supports Hot Module Replacement your app, it does require some application-specific changes
+in order to operate. Your application should define split points for which to accept modules to reload using
 `module.hot`:
 
 For example:
@@ -160,8 +160,9 @@ To override the build configuration, start with the documentation on [customizat
 changes.
 
 By default the Web preset creates a single **main** `index` entry point to your application, and this maps to the
-`index.js` file in the `src` directory. This means that the Web preset is optimized toward the use case of single-page
-applications over multi-page applications.
+`index.js` file in the `src` directory. This value is provided by `neutrino.options.entry`.
+This means that the Web preset is optimized toward the use case of single-page applications over multi-page
+applications.
 
 ### Rules
 
@@ -200,8 +201,8 @@ _Example: Put lodash into a separate "vendor" chunk:_
 
 ```json
 {
-  "config": {
-    "neutrino": {
+  "neutrino": {
+    "config": {
       "entry": {
         "vendor": [
           "lodash"
@@ -263,8 +264,7 @@ _Example: Change the application mount ID from "root" to "app":_
 const merge = require('deepmerge');
 
 module.exports = neutrino => {
-  neutrino.config
-    .plugin('html', options => merge(options, { appMountId: 'app' }));
+  neutrino.options.html.appMountId = 'app';
 };
 ```
 

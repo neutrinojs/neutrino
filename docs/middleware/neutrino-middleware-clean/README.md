@@ -39,7 +39,7 @@ neutrino.use(clean);
 // Usage shows the default values of this middleware:
 neutrino.use(clean, {
   paths: [],
-  root: process.cwd()
+  root: neutrino.options.root
 });
 ```
 
