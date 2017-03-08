@@ -171,7 +171,7 @@ in order to add files that should be committed. Give your changes a descriptive 
 
 Now if you open the GitHub page for your repository, GitHub should display a button to open a pull request for
 the branch and commit you just pushed. When filling out the details of the pull request, try to be as descriptive
-as possible, following our detailed [contribution guidelines](/contributing/README.md).
+as possible, following our detailed [contribution guidelines](./README.md).
 
 ### Congrats!
 

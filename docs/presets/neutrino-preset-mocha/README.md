@@ -35,7 +35,7 @@ another Neutrino preset for building your application source code.
 
 ## Project Layout
 
-`neutrino-preset-mocha` follows the standard [project layout](/project-layout.md) specified by Neutrino. This
+`neutrino-preset-mocha` follows the standard [project layout](../../project-layout.md) specified by Neutrino. This
 means that by default all project test code should live in a directory named `test` in the root of the
 project. Test files end in `_test.js` by default.
 
@@ -123,11 +123,11 @@ For more details on specific Mocha usage, please refer to their [documentation](
 ## Executing single tests
 
 By default this preset will execute every test file located in your test directory ending in `_test.js`.
-Use the command line [`files` parameters](/cli/README.md#neutrino-test) to execute individual tests.
+Use the command line [`files` parameters](../../cli/README.md#neutrino-test) to execute individual tests.
 
 ## Customizing
 
-To override the test configuration, start with the documentation on [customization](/customization/README.md).
+To override the test configuration, start with the documentation on [customization](../../customization/README.md).
 `neutrino-preset-mocha` creates some conventions to make overriding the configuration easier once you are ready to make
 changes.
 
@@ -140,7 +140,7 @@ Babel configuration from other presets that have been loaded.
 
 ### Simple customization
 
-By following the [customization guide](/customization/simple.md) you can override and augment the test configuration
+By following the [customization guide](../../customization/simple.md) you can override and augment the test configuration
 directly from package.json. `neutrino-preset-mocha` will import Mocha configuration from your package.json's
 `neutrino.options.mocha` object if defined. The format is defined on the
 [Mocha documentation site](https://mochajs.org/#usage), with command-line flags mapping to camel-cased options
@@ -148,7 +148,7 @@ in `neutrino.options.mocha`.
 
 ### Advanced configuration
 
-By following the [customization guide](/customization/advanced.md) and knowing the rule, and loader IDs above,
+By following the [customization guide](../../customization/advanced.md) and knowing the rule, and loader IDs above,
 you can override and augment testing by creating a JS module which overrides the config.
 
 You can modify Mocha settings by overriding the preset with any options Mocha accepts. This is stored in the
@@ -179,7 +179,7 @@ module.exports = neutrino => {
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets. Follow the
-[contributing guide](/contributing/README.md) for details.
+[contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-mocha.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-mocha.svg

@@ -9,7 +9,7 @@
 - Modern Babel compilation adding JSX and object rest spread syntax.
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
-- Extends from [neutrino-preset-web](/presets/neutrino-preset-web/README.md)
+- Extends from [neutrino-preset-web](../neutrino-preset-web/README.md)
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
   - Webpack loaders for importing HTML, CSS, images, icons, and fonts
   - Webpack Dev Server during development
@@ -46,7 +46,7 @@ React development.
 
 ## Project Layout
 
-`neutrino-preset-react` follows the standard [project layout](/project-layout.md) specified by Neutrino. This
+`neutrino-preset-react` follows the standard [project layout](../../project-layout.md) specified by Neutrino. This
 means that by default all project source code should live in a directory named `src` in the root of the
 project. This includes JavaScript files, CSS stylesheets, images, and any other assets that would be available
 to your compiled project.
@@ -123,14 +123,14 @@ You can either serve or deploy the contents of this `build` directory as a stati
 
 ## Customizing
 
-To override the build configuration, start with the documentation on [customization](/customization/README.md).
+To override the build configuration, start with the documentation on [customization](../../customization/README.md).
 `neutrino-preset-react` does not use any additional named rules, loaders, or plugins that aren't already in use by the
-Web preset. See the [Web documentation customization](/presets/neutrino-preset-web#customizing)
+Web preset. See the [Web documentation customization](../neutrino-preset-web#customizing)
 for preset-specific configuration to override.
 
 ### Simple customization
 
-By following the [customization guide](/customization/simple.md) and knowing the rule, loader, and plugin IDs above,
+By following the [customization guide](../../customization/simple.md) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build directly from package.json.
 
 #### Vendoring
@@ -181,7 +181,7 @@ manifest.29ee4d0db8f2534cc643.bundle.js    1.44 kB       2  [emitted]  manifest
 #### HTML files
 
 If you wish to override how HTML files are created for your React app, refer to the [relevant section on
-neutrino-preset-web](/presets/neutrino-preset-web/README.md#html-files).
+neutrino-preset-web](../neutrino-preset-web/README.md#html-files).
 
 _Example: Change the application mount ID from "root" to "app":_
 
@@ -199,7 +199,7 @@ _Example: Change the application mount ID from "root" to "app":_
 
 ### Advanced configuration
 
-By following the [customization guide](/customization/advanced.md) and knowing the rule, loader, and plugin IDs from
+By following the [customization guide](../../customization/advanced.md) and knowing the rule, loader, and plugin IDs from
 neutrino-preset-web, you can override and augment the build by creating a JS module which overrides the config.
 
 #### Vendoring
@@ -269,7 +269,7 @@ load();
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets. Follow the
-[contributing guide](/contributing/README.md) for details.
+[contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-react.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-react.svg

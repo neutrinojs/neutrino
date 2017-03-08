@@ -37,7 +37,7 @@ another Neutrino preset for building your application source code.
 
 ## Project Layout
 
-`neutrino-preset-karma` follows the standard [project layout](/project-layout.md) specified by Neutrino. This
+`neutrino-preset-karma` follows the standard [project layout](../../project-layout.md) specified by Neutrino. This
 means that by default all project test code should live in a directory named `test` in the root of the
 project. Test files end in `_test.js` by default.
 
@@ -163,20 +163,20 @@ before_install:
 
 ## Customizing
 
-To override the test configuration, start with the documentation on [customization](/customization/README.md).
+To override the test configuration, start with the documentation on [customization](../../customization/README.md).
 `neutrino-preset-karma` creates some conventions to make overriding the configuration easier once you are ready to make
 changes.
 
 ### Simple customization
 
-By following the [customization guide](/customization/simple.md) you can override and augment the test configuration
+By following the [customization guide](../../customization/simple.md) you can override and augment the test configuration
 directly from package.json. `neutrino-preset-karma` will import Karma configuration from your package.json's
 `neutrino.options.karma` object if defined. The format is defined on the
 [Karma documentation site](http://karma-runner.github.io/1.0/config/configuration-file.html).
 
 ### Advanced configuration
 
-By following the [customization guide](/customization/advanced.md) you can override and augment testing by creating a
+By following the [customization guide](../../customization/advanced.md) you can override and augment testing by creating a
 JS module which overrides the config. 
 
 You can also modify Karma settings by overriding with any options Karma accepts. In a standalone Karma project this is
@@ -197,7 +197,7 @@ module.exports = neutrino => {
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets. Follow the
-[contributing guide](/contributing/README.md) for details.
+[contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-karma.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-karma.svg

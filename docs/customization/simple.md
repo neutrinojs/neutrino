@@ -7,12 +7,12 @@ configuration.
 
 _Note: Using package.json for customization tends to be quite verbose for anything more than simple overrides. If this
 is not to your liking, consider moving your overrides to their own file using
-[Advanced Customization](/customization/advanced.md)._
+[Advanced Customization](./advanced.md)._
 
 ## Prepare package.json
 
 First, you will need to define a `neutrino` section within your package.json. You
-[may have already done this](/usage.md#using-multiple-presets) if you
+[may have already done this](../usage.md#using-multiple-presets) if you
 specified your presets through `neutrino` as opposed to flags through `scripts`:
 
 ```json
@@ -239,4 +239,4 @@ _Example: Change the Webpack performance options to error when exceeding perform
 
 With the options defined above in your package.json, you can perform a variety of build customizations on a per-project
 basis. In the event that you need more customization than what is afforded through JSON, consider either switching to
-[advanced configuration](/customization/advanced.md), or [creating your own preset](/creating-presets.md).
+[advanced configuration](./advanced.md), or [creating your own preset](../creating-presets.md).

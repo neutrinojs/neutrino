@@ -6,7 +6,7 @@ scripts defined in your project's `package.json`.
 
 ## Setup
 
-After completing the [installation](/installation.md) of Neutrino and your Neutrino preset, you will
+After completing the [installation](./installation.md) of Neutrino and your Neutrino preset, you will
 want to define some scripts in your project's `package.json` in order to simply build your project.
 In a typical project:
 
@@ -93,7 +93,7 @@ Putting this into your `package.json` will allow you to test your project using 
 ```
 
 Using the command `neutrino test` will execute every test file located in your
-[testing directory](/project-layout#Testing). You may also provide to this command the specific test files you wish
+[testing directory](./project-layout#Testing). You may also provide to this command the specific test files you wish
 to run individually. It is important to note that when combined with the `--presets` parameter, you should use two
 dashes after the last preset to denote the end of the presets and the beginning of the test files.
 

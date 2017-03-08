@@ -40,7 +40,7 @@
 
 ## Project Layout
 
-`neutrino-preset-web` follows the standard [project layout](/project-layout.md) specified by Neutrino. This
+`neutrino-preset-web` follows the standard [project layout](../../project-layout.md) specified by Neutrino. This
 means that by default all project source code should live in a directory named `src` in the root of the
 project. This includes JavaScript files, CSS stylesheets, images, and any other assets that would be available
 to your compiled project.
@@ -155,7 +155,7 @@ modification during development.
 
 ## Customizing
 
-To override the build configuration, start with the documentation on [customization](/customization/README.md).
+To override the build configuration, start with the documentation on [customization](../../customization/README.md).
 `neutrino-preset-web` creates some conventions to make overriding the configuration easier once you are ready to make
 changes.
 
@@ -188,7 +188,7 @@ The following is a list of plugins and their identifiers which can be overridden
 
 ### Simple customization
 
-By following the [customization guide](/customization/simple.md) and knowing the rule, loader, and plugin IDs above,
+By following the [customization guide](../../customization/simple.md) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build directly from package.json.
 
 #### Vendoring
@@ -237,7 +237,7 @@ _Example: Change the application mount ID from "root" to "app":_
 
 ### Advanced configuration
 
-By following the [customization guide](/customization/advanced.md) and knowing the rule, loader, and plugin IDs above,
+By following the [customization guide](../../customization/advanced.md) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build by creating a JS module which overrides the config.
 
 #### Vendoring
@@ -272,7 +272,7 @@ module.exports = neutrino => {
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets. Follow the
-[contributing guide](/contributing/README.md) for details.
+[contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-web.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-web.svg

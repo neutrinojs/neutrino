@@ -37,7 +37,7 @@ another Neutrino preset for building your application source code.
 
 ## Project Layout
 
-`neutrino-preset-airbnb-base` follows the standard [project layout](/project-layout.md) specified by Neutrino. This
+`neutrino-preset-airbnb-base` follows the standard [project layout](../../project-layout.md) specified by Neutrino. This
 means that by default all project source code should live in a directory named `src` in the root of the
 project.
 
@@ -135,7 +135,7 @@ error Command failed with exit code 1.
 
 ## Customizing
 
-To override the build configuration, start with the documentation on [customization](/customization/README.md).
+To override the build configuration, start with the documentation on [customization](../../customization/README.md).
 `neutrino-preset-airbnb-base` creates some conventions to make overriding the configuration easier once you are ready to
 make changes.
 
@@ -148,7 +148,7 @@ inherited from `neutrino-middleware-eslint`.
 
 ### Simple customization
 
-By following the [customization guide](/customization/simple.md) and knowing the rule and loader IDs above,
+By following the [customization guide](../../customization/simple.md) and knowing the rule and loader IDs above,
 you can override and augment the linting configuration directly from package.json. _Note: Using the simple customization
 approach for linting changes can be quite verbose. Consider using advanced configuration below if this bothers you._
 
@@ -183,7 +183,7 @@ project.
 
 ### Advanced configuration
 
-By following the [customization guide](/customization/advanced.md) and knowing the rule and loader IDs above,
+By following the [customization guide](../../customization/advanced.md) and knowing the rule and loader IDs above,
 you can override and augment the build by creating a JS module which overrides the config. This preset is also
 Neutrino middleware, making it easy to compose and extend the configuration.
 
@@ -222,7 +222,7 @@ module.exports = neutrino => {
 
 `neutrino-lint-airbnb-base` also provides a method for getting the ESLint configuration suitable for use in an eslintrc
 file. Typically this is used for providing hints or fix solutions to the development environment, e.g. IDEs and text
-editors. Doing this requires [creating an instance of the Neutrino API](/api/README.md) and providing the presets uses.
+editors. Doing this requires [creating an instance of the Neutrino API](../../api/README.md) and providing the presets uses.
 If you keep this information in `neutrino.presets` in package.json, this should be relatively straightforward. By
 providing all the presets used to Neutrino, you can ensure all the linting options used across all those preset will be
 merged together for your development environment, without the need for copying, duplication, or loss of organization and
@@ -250,7 +250,7 @@ module.exports = api.eslintrc();
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets. Follow the
-[contributing guide](/contributing/README.md) for details.
+[contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-airbnb-base.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-airbnb-base.svg

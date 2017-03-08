@@ -74,7 +74,7 @@ module.exports = neutrino => {
 
 ## Configuring
 
-If your middleware requires configuration _outside_ of the options necessary for _running_ the middleware, you create
+If your middleware requires configuration _outside_ of the options necessary for _running_ the middleware,
 use a closure technique for simplifying this for your middleware consumers. In short, your module will provide a
 function to consumers which, when executed, will return a Neutrino middleware function. Describing this in code:
 

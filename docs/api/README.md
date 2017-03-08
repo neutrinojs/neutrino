@@ -1,6 +1,6 @@
 # Neutrino API
 
-When using Neutrino via the [CLI](/cli/README.md), it creates an instance of the Neutrino API which picks up
+When using Neutrino via the [CLI](../cli/README.md), it creates an instance of the Neutrino API which picks up
 any presets and arguments passed on the command line or located in package.json. If you desire, you can also create your
 own instance of the Neutrino API and interact with it programmatically.
 
@@ -27,7 +27,7 @@ const api = new Neutrino(options);
 
 ## Loading middleware
 
-Using the Neutrino API you can load [middleware](/middleware/README.md) and presets (which are also just middleware)
+Using the Neutrino API you can load [middleware](../middleware/README.md) and presets (which are also just middleware)
 using the `use` method. The `use` method takes in a middleware function, and optionally any options that should be
 passed to the middleware function.
 
@@ -241,7 +241,7 @@ that resolves when the process receives a `SIGINT` event to stop.
 
 ```js
 api
-  ._devServer()
+  .devServer()
   .then(() => console.log('Exiting process...'));
 ```
 

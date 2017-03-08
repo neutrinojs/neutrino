@@ -30,7 +30,7 @@ receives arguments to modify a request or response along its lifecycle. There ca
 that Express can load, each one potentially modifying a request or response in succession.
 
 When you customize Neutrino with an override, you export a Neutrino middleware function, except this is typically used
-to override Neutrino's configuration. Every preset or middleware the Neutrino has loaded follows this same middleware
+to override Neutrino's configuration. Every preset or middleware that Neutrino has loaded follows this same middleware
 pipeline.
 
 At the moment our custom override isn't doing anything, but it does get us far enough to be able to tell Neutrino
@@ -85,6 +85,7 @@ module.exports = neutrino => {
     .rule('compile')
     .loader('babel', options => {
       options.presets[0][1].targets.node = 4.2;
+      
       return options;
     });
 };

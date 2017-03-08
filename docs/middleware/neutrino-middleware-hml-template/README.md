@@ -66,7 +66,7 @@ The following is a list of plugins and their identifiers which can be overridden
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets. Follow the
-[contributing guide](/contributing/README.md) for details.
+[contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-middleware-html-template.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-middleware-html-template.svg
