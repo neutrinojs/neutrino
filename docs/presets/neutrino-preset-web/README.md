@@ -6,7 +6,7 @@
 ## Features
 
 - Zero upfront configuration necessary to start developing and building a web app
-- Modern Babel compilation supporting ES modules, last 2 major browser versions, and async functions
+- Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
 - Webpack loaders for importing HTML, CSS, images, icons, and fonts
 - Webpack Dev Server during development
 - Automatic creation of HTML pages, no templating necessary
@@ -40,7 +40,7 @@
 
 ## Project Layout
 
-`neutrino-preset-web` follows the standard [project layout](/project-layout.md) specified by Neutrino. This
+`neutrino-preset-web` follows the standard [project layout](../../project-layout.md) specified by Neutrino. This
 means that by default all project source code should live in a directory named `src` in the root of the
 project. This includes JavaScript files, CSS stylesheets, images, and any other assets that would be available
 to your compiled project.
@@ -116,15 +116,53 @@ manifest.c10c6464802bf71a2c3f.bundle.js    1.41 kB       1  [emitted]  manifest
 
 You can either serve or deploy the contents of this `build` directory as a static site.
 
+## Hot Module Replacement
+
+While `neutrino-preset-web` supports Hot Module Replacement your app, it does require some application-specific changes
+in order to operate. Your application should define split points for which to accept modules to reload using
+`module.hot`:
+
+For example:
+
+```js
+import app from './app';
+
+document
+  .getElementById('root')
+  .appendChild(app('Hello world!'));
+
+if (module.hot) {
+  module.hot.accept('./app');
+}
+```
+
+Or for all paths:
+
+```js
+import app from './app';
+
+document
+  .getElementById('root')
+  .appendChild(app('Hello world!'));
+
+if (module.hot) {
+  module.hot.accept();
+}
+```
+
+Using dynamic imports with `import()` will automatically create split points and hot replace those modules upon
+modification during development.
+
 ## Customizing
 
-To override the build configuration, start with the documentation on [customization](/customization/README.md).
+To override the build configuration, start with the documentation on [customization](../../customization/README.md).
 `neutrino-preset-web` creates some conventions to make overriding the configuration easier once you are ready to make
 changes.
 
 By default the Web preset creates a single **main** `index` entry point to your application, and this maps to the
-`index.js` file in the `src` directory. This means that the Web preset is optimized toward the use case of single-page
-applications over multi-page applications.
+`index.js` file in the `src` directory. This value is provided by `neutrino.options.entry`.
+This means that the Web preset is optimized toward the use case of single-page applications over multi-page
+applications.
 
 ### Rules
 
@@ -132,7 +170,7 @@ The following is a list of rules and their identifiers which can be overridden:
 
 - `compile`: Compiles JS files from the `src` directory using Babel. Contains a single loader named `babel`.
 - `html`: Allows importing HTML files from modules. Contains a single loader named `file`.
-- `css`: Allows importing CSS stylesheets from modules. Contains two loaders named `style` and `css`.
+- `style`: Allows importing CSS stylesheets from modules. Contains two loaders named `style` and `css`.
 - `img`, `svg`, `ico`: Allows import image files from modules. Each contains a single loader named `url`.
 - `woff`, `ttf`: Allows importing WOFF and TTF font files from modules. Each contains a single loader named `url`.
 - `eot`: Allows importing EOT font files from modules. Contains a single loader named `file`.
@@ -151,7 +189,7 @@ The following is a list of plugins and their identifiers which can be overridden
 
 ### Simple customization
 
-By following the [customization guide](/customization/simple.md) and knowing the rule, loader, and plugin IDs above,
+By following the [customization guide](../../customization/simple.md) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build directly from package.json.
 
 #### Vendoring
@@ -163,8 +201,8 @@ _Example: Put lodash into a separate "vendor" chunk:_
 
 ```json
 {
-  "config": {
-    "neutrino": {
+  "neutrino": {
+    "config": {
       "entry": {
         "vendor": [
           "lodash"
@@ -181,16 +219,18 @@ _Example: Put lodash into a separate "vendor" chunk:_
 #### HTML files
 
 Under the hood `neutrino-preset-web` uses [html-webpack-template](https://www.npmjs.com/package/html-webpack-template)
-for generating HTML files. If you wish to override how these files are creating, define an object in your package.json
-at `config.html` with options matching the format expected by html-webpack-template.
+for generating HTML files. If you wish to override how these files are created, define an object in your package.json
+at `neutrino.options.html` with options matching the format expected by html-webpack-template.
 
 _Example: Change the application mount ID from "root" to "app":_
 
 ```json
 {
-  "config": {
-    "html": {
-      "appMountId": "app"
+  "neutrino": {
+    "options": {
+      "html": {
+        "appMountId": "app"
+      }
     }
   }
 }
@@ -198,7 +238,7 @@ _Example: Change the application mount ID from "root" to "app":_
 
 ### Advanced configuration
 
-By following the [customization guide](/customization/advanced.md) and knowing the rule, loader, and plugin IDs above,
+By following the [customization guide](../../customization/advanced.md) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build by creating a JS module which overrides the config.
 
 #### Vendoring
@@ -216,11 +256,23 @@ module.exports = neutrino => {
 };
 ```
 
+#### HTML files
+
+_Example: Change the application mount ID from "root" to "app":_
+
+```js
+const merge = require('deepmerge');
+
+module.exports = neutrino => {
+  neutrino.options.html.appMountId = 'app';
+};
+```
+
 ## Contributing
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets. Follow the
-[contributing guide](/contributing/README.md) for details.
+[contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-web.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-web.svg

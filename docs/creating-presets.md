@@ -10,11 +10,14 @@ and dependencies necessary to accomplish those use cases:
 
 ## Getting Started
 
-Neutrino presets are Node.js modules or packages that export a function which accepts a Neutrino instance. You can use
-this instance to modify the configuration, provide your own, expose custom options for your preset, listen for build
+Neutrino presets are Node.js modules or packages that export a function which accepts a Neutrino instance. We call these
+functions "Neutrino middleware", as they sit between the middle of Neutrino and Webpack, modifying a configuration with
+each subsequent middleware call. You can use the Neutrino instance provided to the middleware function to modify
+the configuration, provide your own configuration, expose custom options for your preset, listen for build
 events, and execute functionality.
 
-At a bare minimum, let's start with our package boilerplate for an empty Neutrino preset:
+Neutrino presets are just Neutrino middleware that encapsulate a specific project need. At a bare minimum, let's start
+by exporting a middleware function for an empty Neutrino preset:
 
 ```js
 module.exports = neutrino => {
@@ -22,7 +25,7 @@ module.exports = neutrino => {
 };
 ```
 
-If you are using Babel or Neutrino to build your preset (so meta) with ES modules:
+If you are using Babel or Neutrino to build your preset (very meta) with ES modules:
 
 ```js
 export default neutrino => {
@@ -32,13 +35,13 @@ export default neutrino => {
 
 ## Configuring
 
-The Neutrino instance provided to your custom configurator has a `config` property that is an instance of
-[webpack-chain](https://github.com/mozilla-neutrino/webpack-chain/tree/v1.4.3). We won't go in-depth of all the configuration
-possibilities here, but encourage you to check out the documentation for webpack-chain for instruction on your
-particular use case.
+The Neutrino instance provided to your middleware function has a `config` property that is an instance of
+[webpack-chain](https://github.com/mozilla-neutrino/webpack-chain). We won't go in-depth of all the configuration
+possibilities here, but encourage you to check out the documentation for webpack-chain for instructions on your
+particular use cases.
 
-This `neutrino.config` is an accumulation of all configuration set up to this moment. Every Neutrino preset interacts
-with and makes changes through this config, which is all available to your preset.
+This `neutrino.config` is an accumulation of all configuration set up to this moment. All Neutrino presets and
+middleware interacts with and makes changes through this config, which is all available to your preset.
 
 ## Events
 
@@ -61,10 +64,10 @@ module.exports = neutrino => {
 
 ## Including and merging other presets
 
-If your preset depends on other Neutrino presets, or you are creating a preset that is a combination of multiple
-presets, you can install them as dependencies and simply call them from your preset, providing them with your Neutrino
-instance. When users install your preset, they will bring along your dependencies defined with your package without
-needing also to include your extended presets in their own commands.
+If your preset depends on other Neutrino presets and/or middleware, or you are creating a preset that is a combination
+of multiple presets and/or middleware, you can install them as dependencies and simply have Neutrino use them as
+middleware. When users install your preset, they will bring along these dependencies defined with your package without
+needing to to include your extended presets in their own commands.
 
 _Example: Define a Neutrino preset which combines Node.js and Mocha presets._
 
@@ -73,8 +76,8 @@ const node = require('neutrino-preset-node');
 const mocha = require('neutrino-preset-mocha');
 
 module.exports = neutrino => {
-  node(neutrino);
-  mocha(neutrino);
+  neutrino.use(node);
+  neutrino.use(mocha);
   
   // neutrino.config now contains the accumulation of configuration from
   // the Node.js and Mocha presets
@@ -86,6 +89,9 @@ module.exports = neutrino => {
 Let's create a preset from scratch which allows users to augment their project with
 [JavaScript Standard Style](http://standardjs.com/). For this sample preset we are using
 [Yarn](https://yarnpkg.com) for managing dependencies, but you may use the npm client if you desire.
+
+**Important: this preset is not meant to be functional; rather it is used to demonstrate the concepts of creating
+presets.**
 
 ```bash
 # Create a new directory for your project and change into it:
@@ -111,27 +117,31 @@ module.exports = neutrino => {
     .rule('lint')
       .pre()
       .test(/\.jsx?$/)
-      .include(path.join(process.cwd(), 'src'))
-      .loader('standard', require.resolve('standard-loader'), {
-        snazzy: false
-      });
+      .include
+        .add(neutrino.options.source)
+        .end()
+      .use('standard')
+        .loader(require.resolve('standard-loader'))
+        .options({ snazzy: false });
 };
 ```
 
 ## Custom Data
 
 If you want to expose custom options for your preset that are not appropriate to be stored in the Neutrino config,
-there is a `neutrino.custom` object namespace you can attach to. This way you can document to others how they can
-go about affecting how your preset works.
+there is a `neutrino.options` object namespace you can attach to. This way you can document to others how they can
+go about affecting how your preset works. In addition, you may also instruct users of your preset to override these
+options in either their package.json at `neutrino.options` or using `neutrino.options` in their advanced overrides.
+You can then merge these options back with your defaults at `neutrino.options` when needed.
 
 _Example:_
 
 ```js
-module.exports = neutrino => {
-  neutrino.custom.standardStyle = {
+module.exports = neutrino => { 
+  neutrino.options.standardStyle = Object.assign({
     quiet: false,
     logLevel: 'warn'
-  };
+  }, neutrino.options.standardStyle);
   
   // ...
 };
@@ -141,7 +151,120 @@ module.exports = neutrino => {
 
 When working with paths, remember that your preset will be running in the context of a project. You should take care
 to define application paths by referencing the current working directory with `process.cwd()`. For example, if you
-wanted to work with the project's "src" directory, you would merge the path via `path.join(process.cwd(), 'src')`
+wanted to work with the project's "src" directory, you would merge the path via `path.join(process.cwd(), 'src')`.
+
+Neutrino provides a number of paths that have been defaulted through `neutrino.options` or configured by the user.
+Please consider using these paths for your preset so they play nice with others.
+
+### `options.root`
+
+Set the base directory which Neutrino middleware and presets operate on. Typically this is the project directory where
+the package.json would be located. If the option is not set, Neutrino defaults it to `process.cwd()`. If a relative
+path is specified, it will be resolved relative to `process.cwd()`; absolute paths will be used as-is.
+
+```js
+module.exports = neutrino => {
+  // if not specified, defaults to process.cwd()
+  neutrino.options.root;
+  
+  // relative, resolves to process.cwd() + ./website
+  neutrino.options.root = './website';
+  
+  // absolute
+  neutrino.options.root = '/code/website';
+};
+```
+
+### `options.source`
+
+Set the directory which contains the application source code. If the option is not set, Neutrino defaults it to `src`.
+If a relative path is specified, it will be resolved relative to `options.root`; absolute paths will be used as-is.
+
+```js
+module.exports = neutrino => {
+  // if not specified, defaults to options.root + src
+  neutrino.options.source;
+  
+  // relative, resolves to options.root + ./lib
+  neutrino.options.source = './lib';
+  
+  // absolute
+  neutrino.options.source = '/code/website/lib';
+};
+```
+
+### `options.output`
+
+Set the directory which will be the output of built assets. If the option is not set, Neutrino defaults it to `build`.
+If a relative path is specified, it will be resolved relative to `options.root`; absolute paths will be used as-is.
+
+```js
+module.exports = neutrino => {
+  // if not specified, defaults to options.root + build
+  neutrino.options.output;
+  
+  // relative, resolves to options.root + ./dist
+  neutrino.options.output = './dist';
+  
+  // absolute
+  neutrino.options.output = '/code/website/dist';
+};
+```
+
+### `options.tests`
+
+Set the directory that contains test files. If the option is not set, Neutrino defaults it to `test`.
+If a relative path is specified, it will be resolved relative to `options.root`; absolute paths will be used as-is.
+
+```js
+module.exports = neutrino => {
+  // if not specified, defaults to options.root + test
+  neutrino.options.tests;
+  
+  // relative, resolves to options.root + ./testing
+  neutrino.options.tests = './testing';
+  
+  // absolute
+  neutrino.options.tests = '/code/website/testing';
+};
+```
+
+### `options.entry`
+
+Set the main entry point for the application. If the option is not set, Neutrino defaults it to `index.js`.
+If a relative path is specified, it will be resolved relative to `options.source`; absolute paths will be used as-is.
+
+```js
+module.exports = neutrino => {
+  // if not specified, defaults to options.source + index.js
+  neutrino.options.entry;
+  
+  // relative, resolves to options.source + ./entry.js
+  neutrino.options.entry = './entry.js';
+  
+  // absolute
+  neutrino.options.entry = '/code/website/lib/entry.js';
+};
+```
+
+### `options.node_modules`
+
+Set the directory which contains the Node.js modules of the project. If the option is not set, Neutrino defaults it to
+`node_modules`. If a relative path is specified, it will be resolved relative to `options.root`; absolute paths will be
+used as-is.
+
+```js
+module.exports = neutrino => {
+  // if not specified, defaults to options.root + node_modules
+  neutrino.options.node_modules;
+  
+  // relative, resolves to options.root + ./modules
+  neutrino.options.node_modules = './modules';
+  
+  // absolute
+  neutrino.options.node_modules = '/code/website/modules';
+};
+```
 
 ## Loader and Babel modules
 
@@ -158,5 +281,5 @@ name of the module off to be required by Webpack or Babel, instead pass the path
 
 When your preset is ready to be used by others, feel free to publish and distribute! By putting your preset on npm,
 GitHub, or another location, you can share the hard work put into abstracting away configuration and save everyone
-in the community time and effort. As long as Neutrino can require your preset, it puts no restrictions on where
-you want to host it.
+in the community time and effort. As long as the Neutrino CLI or another preset can require your preset, it puts no
+restrictions on where you want to host it.

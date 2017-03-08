@@ -6,9 +6,10 @@
 ## Features
 
 - Zero upfront configuration necessary to start developing and building a Node.js project
-- Modern Babel compilation supporting ES modules, Node.js 6.9+, and async functions
-- Auto-wired sourcemaps
+- Modern Babel compilation supporting ES modules, Node.js 6.9+, async functions, and dynamic imports
+- Supports automatically-wired sourcemaps
 - Tree-shaking to create smaller bundles
+- Hot Module Replacement with source-watching during development
 - Chunking of external dependencies apart from application code
 - Easily extensible to customize your project as needed
 
@@ -16,7 +17,7 @@
 
 - Node.js v6.9+
 - Yarn or npm client
-- Neutrino v4
+- Neutrino v5
 
 ## Installation
 
@@ -51,7 +52,7 @@ If you want to have automatically wired sourcemaps added to your project, add `s
 
 ## Project Layout
 
-`neutrino-preset-node` follows the standard [project layout](/project-layout.md) specified by Neutrino. This
+`neutrino-preset-node` follows the standard [project layout](../../project-layout.md) specified by Neutrino. This
 means that by default all project source code should live in a directory named `src` in the root of the
 project. This includes JavaScript files that would be available to your compiled project.
 
@@ -82,14 +83,10 @@ createServer(async (req, res) => {
 
 Now edit your project's package.json to add commands for starting and building the application.
 
-**Important Note:** At the time of writing, Neutrino's Node preset does not support `watch`
-compilation with `neutrino start`; it will instead fall back to running a build with the `NODE_ENV`
-environment variable set to `development`.
-
 ```json
 {
   "scripts": {
-    "start": "neutrino start --presets neutrino-preset-node && node build/index.js",
+    "start": "neutrino start --presets neutrino-preset-node",
     "build": "neutrino build --presets neutrino-preset-node"
   }
 }
@@ -101,13 +98,6 @@ Start the app, then either open a browser to http://localhost:3000 or use curl f
 
 ```bash
 ❯ yarn start
-Warning: This preset does not support watch compilation. Falling back to a one-time build.
-Hash: 89e4fb250fc535920ba4
-Version: webpack 2.2.1
-Time: 432ms
-       Asset     Size  Chunks             Chunk Names
-    index.js  4.29 kB       0  [emitted]  index
-index.js.map  3.73 kB       0  [emitted]  index
 Server running on port 3000
 ```
 
@@ -120,13 +110,6 @@ hi!
 
 ```bash
 ❯ npm start
-Warning: This preset does not support watch compilation. Falling back to a one-time build.
-Hash: 89e4fb250fc535920ba4
-Version: webpack 2.2.1
-Time: 432ms
-       Asset     Size  Chunks             Chunk Names
-    index.js  4.29 kB       0  [emitted]  index
-index.js.map  3.73 kB       0  [emitted]  index
 Server running on port 3000
 ```
 
@@ -168,9 +151,52 @@ or via `.npmignore` to blacklist `src`.
 }
 ```
 
+_Note: While this preset works well for many types of Node.js applications, it's important to make the distinction
+between applications and libraries. This preset will not work optimally out of the box for creating distributable
+libraries, and will take a little extra customization to make them suitable for that purpose._
+
+## Hot Module Replacement
+
+While `neutrino-preset-node` supports Hot Module Replacement for your app, it does require some application-specific
+changes in order to operate. Your application should define split points for which to accept modules to reload using
+`module.hot`:
+
+For example:
+
+```js
+import { createServer } from 'http';
+import app from './app';
+
+if (module.hot) {
+  module.hot.accept('./app');
+}
+
+createServer((req, res) => {
+  res.end(app('example'));  
+}).listen(/* */);
+```
+
+Or for all paths:
+
+```js
+import { createServer } from 'http';
+import app from './app';
+
+if (module.hot) {
+  module.hot.accept();
+}
+
+createServer((req, res) => {
+  res.end(app('example'));  
+}).listen(/* */);
+```
+
+Using dynamic imports with `import()` will automatically create split points and hot replace those modules upon
+modification during development.
+
 ## Customizing
 
-To override the build configuration, start with the documentation on [customization](/customization/README.md).
+To override the build configuration, start with the documentation on [customization](../../customization/README.md).
 `neutrino-preset-node` creates some conventions to make overriding the configuration easier once you are ready to make
 changes.
 
@@ -202,15 +228,15 @@ The following is a list of plugins and their identifiers which can be overridden
 
 ### Simple customization
 
-By following the [customization guide](/customization/simple.md) and knowing the rule, loader, and plugin IDs above,
+By following the [customization guide](../../customization/simple.md) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build directly from package.json.
 
 _Example: Allow importing modules with an `.mjs` extension._
 
 ```json
 {
-  "config": {
-    "neutrino": {
+  "neutrino": {
+    "config": {
       "resolve": {
         "extensions": [
           ".mjs"
@@ -223,7 +249,7 @@ _Example: Allow importing modules with an `.mjs` extension._
 
 ### Advanced configuration
 
-By following the [customization guide](/customization/advanced.md) and knowing the rule, loader, and plugin IDs above,
+By following the [customization guide](../../customization/advanced.md) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build by creating a JS module which overrides the config.
 
 _Example: Allow importing modules with an `.mjs` extension._
@@ -238,7 +264,7 @@ module.exports = neutrino => {
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets. Follow the
-[contributing guide](/contributing/README.md) for details.
+[contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-node.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-node.svg

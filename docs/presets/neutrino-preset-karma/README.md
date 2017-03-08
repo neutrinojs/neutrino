@@ -15,7 +15,7 @@
 
 - Node.js v6.9+
 - Yarn or npm client
-- Neutrino v4, Neutrino build preset
+- Neutrino v5, Neutrino build preset
 
 ## Installation
 
@@ -37,7 +37,7 @@ another Neutrino preset for building your application source code.
 
 ## Project Layout
 
-`neutrino-preset-karma` follows the standard [project layout](/project-layout.md) specified by Neutrino. This
+`neutrino-preset-karma` follows the standard [project layout](../../project-layout.md) specified by Neutrino. This
 means that by default all project test code should live in a directory named `test` in the root of the
 project. Test files end in `_test.js` by default.
 
@@ -69,6 +69,19 @@ let's pretend this is a React project:
 {
   "scripts": {
     "test": "neutrino test --presets neutrino-preset-node neutrino-preset-karma"
+  }
+}
+```
+
+Or if you have set up Neutrino with `neutrino.presets` in your package.json:
+
+```json
+{
+  "neutrino": {
+    "presets": [
+      "neutrino-preset-react",
+      "neutrino-preset-karma"
+    ]
   }
 }
 ```
@@ -126,8 +139,7 @@ For more details on specific Karma usage, please refer to their
 ## Executing single tests
 
 By default this preset will execute every test file located in your test directory ending in the appropriate file
-extension.
-Use the command line [`files` parameters](/cli/README.md#neutrino-test) to execute individual tests.
+extension. Use the command line [`files` parameters](/cli/README.md#neutrino-test) to execute individual tests.
 
 ## Watching for changes
 
@@ -151,23 +163,39 @@ before_install:
 
 ## Customizing
 
-To override the test configuration, start with the documentation on [customization](/customization/README.md).
+To override the test configuration, start with the documentation on [customization](../../customization/README.md).
 `neutrino-preset-karma` creates some conventions to make overriding the configuration easier once you are ready to make
 changes.
 
 ### Simple customization
 
-It is not currently possible to override `neutrino-preset-karma` settings from the package.json using simple
-customization. Please use the advanced configuration for changes.
+By following the [customization guide](../../customization/simple.md) you can override and augment the test configuration
+directly from package.json. `neutrino-preset-karma` will import Karma configuration from your package.json's
+`neutrino.options.karma` object if defined. The format is defined on the
+[Karma documentation site](http://karma-runner.github.io/1.0/config/configuration-file.html).
+
+_Example: Change the duration Karma waits for a browser to reconnect (in ms)._
+
+```js
+{
+  "neutrino": {
+    "options": {
+      "karma": {
+        "browserDisconnectTimeout": 5000
+      }
+    }
+  }
+}
+```
 
 ### Advanced configuration
 
-By following the [customization guide](/customization/advanced.md) you can override and augment testing by creating a
+By following the [customization guide](../../customization/advanced.md) you can override and augment testing by creating a
 JS module which overrides the config. 
 
 You can also modify Karma settings by overriding with any options Karma accepts. In a standalone Karma project this is
 typically done in a `karma.conf.js` file, but `neutrino-preset-karma` unifies advanced configuration through a preset
-override module. When needing to make changes to Karma-specific settings, this is stored in the `neutrino.custom.karma`
+override module. When needing to make changes to Karma-specific settings, this is stored in the `neutrino.options.karma`
 object, and takes the same configuration options as outlined in the
 [Karma documentation](https://karma-runner.github.io/1.0/config/configuration-file.html).
 
@@ -175,7 +203,7 @@ _Example: Change the duration Karma waits for a browser to reconnect (in ms)._
 
 ```js
 module.exports = neutrino => {
-  neutrino.custom.karma.browserDisconnectTimeout = 5000;
+  neutrino.options.karma.browserDisconnectTimeout = 5000;
 };
 ```
 
@@ -183,7 +211,7 @@ module.exports = neutrino => {
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets. Follow the
-[contributing guide](/contributing/README.md) for details.
+[contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-karma.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-karma.svg

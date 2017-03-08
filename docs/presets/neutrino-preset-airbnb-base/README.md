@@ -15,7 +15,7 @@ config, following the [Airbnb styleguide](https://github.com/airbnb/javascript).
 
 - Node.js v6.9+
 - Yarn or npm client
-- Neutrino v4, Neutrino build preset
+- Neutrino v5, Neutrino build preset
 
 ## Installation
 
@@ -37,7 +37,7 @@ another Neutrino preset for building your application source code.
 
 ## Project Layout
 
-`neutrino-preset-airbnb-base` follows the standard [project layout](/project-layout.md) specified by Neutrino. This
+`neutrino-preset-airbnb-base` follows the standard [project layout](../../project-layout.md) specified by Neutrino. This
 means that by default all project source code should live in a directory named `src` in the root of the
 project.
 
@@ -51,6 +51,19 @@ linting **before** your build preset. For example, if you are building your proj
   "scripts": {
     "start": "neutrino start --presets neutrino-preset-airbnb-base neutrino-preset-web",
     "build": "neutrino build --presets neutrino-preset-airbnb-base neutrino-preset-web"
+  }
+}
+```
+
+Or if you have set up Neutrino with `neutrino.presets` in your package.json:
+
+```json
+{
+  "neutrino": {
+    "presets": [
+      "neutrino-preset-airbnb-base",
+      "neutrino-preset-web"
+    ]
   }
 }
 ```
@@ -117,19 +130,12 @@ Build completed in 1.287s
 
 ✖ 4 problems (3 errors, 1 warning)
 
- @ multi ./src/index.js
-./src/index.js
-Module build failed: Error: Module failed because of a eslint error.
-
-    at lint (/Users/eli/code/neutrino-dev/packages/neutrino-preset-airbnb-base/node_modules/eslint-loader/index.js:115:17)
-    at Object.module.exports (/Users/eli/code/neutrino-dev/packages/neutrino-preset-airbnb-base/node_modules/eslint-loader/index.js:181:3)
- @ multi ./src/index.js
 error Command failed with exit code 1.
 ```
 
 ## Customizing
 
-To override the build configuration, start with the documentation on [customization](/customization/README.md).
+To override the build configuration, start with the documentation on [customization](../../customization/README.md).
 `neutrino-preset-airbnb-base` creates some conventions to make overriding the configuration easier once you are ready to
 make changes.
 
@@ -137,24 +143,25 @@ make changes.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-- `lint`: Lints JS and JSX files from the `src` directory using ESLint. Contains a single loader named `eslint`.
+- `lint`: Lints JS and JSX files from the `src` directory using ESLint. Contains a single loader named `eslint`. This is
+inherited from `neutrino-middleware-eslint`.
 
 ### Simple customization
 
-By following the [customization guide](/customization/simple.md) and knowing the rule and loader IDs above,
+By following the [customization guide](../../customization/simple.md) and knowing the rule and loader IDs above,
 you can override and augment the linting configuration directly from package.json. _Note: Using the simple customization
-approach for linting changes can be verbose._
+approach for linting changes can be quite verbose. Consider using advanced configuration below if this bothers you._
 
 _Example: Turn off semicolons from being required as defined by the Airbnb rules._
 
 ```json
 {
-  "config": {
-    "neutrino": {
+  "neutrino": {
+    "config": {
       "module": {
         "rule": {
           "lint": {
-            "loader": {
+            "use": {
               "eslint": {
                 "options": {
                   "rules": {
@@ -176,24 +183,39 @@ project.
 
 ### Advanced configuration
 
-By following the [customization guide](/customization/advanced.md) and knowing the rule and loader IDs above,
-you can override and augment the build by creating a JS module which overrides the config.
+By following the [customization guide](../../customization/advanced.md) and knowing the rule and loader IDs above,
+you can override and augment the build by creating a JS module which overrides the config. This preset is also
+Neutrino middleware, making it easy to compose and extend the configuration.
 
 _Example: Turn off semicolons from being required as defined by the Airbnb rules._
 
 ```js
+// If using as middleware, remove from presets and .use it from your override:
+const airbnb = require('neutrino-preset-airbnb-base');
+
+module.exports = neutrino => {
+  neutrino.use(airbnb, {
+    rules: {
+      semi: 'off'
+    }
+  });
+};
+```
+
+```js
+// If using as a preset from the CLI or configured in package.json,
+// override its configuration directly:
 const merge = require('deepmerge');
 
 module.exports = neutrino => {
   neutrino.config.module
     .rule('lint')
-    .loader('eslint', props => merge(props, {
-      options: {
-        rules: {
-          semi: 'off'
-        }
-      }
-    }));
+      .use('eslint')
+        .tap(options => merge(options, {
+          rules: {
+            semi: 'off'
+          }
+        }));
 };
 ```
 
@@ -201,11 +223,11 @@ module.exports = neutrino => {
 
 `neutrino-lint-airbnb-base` also provides a method for getting the ESLint configuration suitable for use in an eslintrc
 file. Typically this is used for providing hints or fix solutions to the development environment, e.g. IDEs and text
-editors. Doing this requires [creating an instance of the Neutrino API](/api/README.md) and providing the presets uses.
-If you keep this information in `config.presets` in package.json, this should be relatively straightforward. By
+editors. Doing this requires [creating an instance of the Neutrino API](../../api/README.md) and providing the presets uses.
+If you keep this information in `neutrino.presets` in package.json, this should be relatively straightforward. By
 providing all the presets used to Neutrino, you can ensure all the linting options used across all those preset will be
 merged together for your development environment, without the need for copying, duplication, or loss of organization and
-separation.
+separation. This is inherited from `neutrino-middleware-eslint`.
 
 _Example: Create a .eslintrc.js file in the root of the project._
 
@@ -213,16 +235,23 @@ _Example: Create a .eslintrc.js file in the root of the project._
 // .eslintrc.js
 const Neutrino = require('neutrino');
 const pkg = require('./package.json');
-const api = new Neutrino(pkg.config.presets);
+const api = new Neutrino();
 
-module.exports = api.custom.eslintrc();
+// If the Airbnb preset is not included in pkg.neutrino.presets,
+// use it manually:
+api.use(require('neutrino-preset-airbnb-base'));
+
+// Add the rest of the presets:
+pkg.neutrino.presets.map(preset => api.use(preset));
+
+module.exports = api.eslintrc();
 ```
 
 ## Contributing
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets. Follow the
-[contributing guide](/contributing/README.md) for details.
+[contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-airbnb-base.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-airbnb-base.svg
