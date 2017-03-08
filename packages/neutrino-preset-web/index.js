@@ -16,12 +16,6 @@ const namedModules = require('neutrino-middleware-named-modules');
 const { join } = require('path');
 const { pathOr } = require('ramda');
 
-const CWD = process.cwd();
-const SRC = join(CWD, 'src');
-const BUILD = join(CWD, 'build');
-const TEST = join(CWD, 'test');
-const PKG = require(join(CWD, 'package.json'));
-const PROJECT_MODULES = join(CWD, 'node_modules');
 const MODULES = join(__dirname, 'node_modules');
 
 module.exports = neutrino => {
@@ -35,7 +29,7 @@ module.exports = neutrino => {
   neutrino.use(htmlTemplate);
   neutrino.use(namedModules);
   neutrino.use(compileLoader, {
-    include: [SRC, TEST],
+    include: [neutrino.options.source, neutrino.options.tests],
     babel: {
       plugins: [require.resolve('babel-plugin-syntax-dynamic-import')],
       presets: [
@@ -64,20 +58,20 @@ module.exports = neutrino => {
 
   config
     .target('web')
-    .context(CWD)
+    .context(neutrino.options.root)
     .entry('index')
       .add(require.resolve('babel-polyfill'))
-      .add(join(SRC, 'index.js'));
+      .add(neutrino.options.entry);
 
   config.output
-    .path(BUILD)
+    .path(neutrino.options.output)
     .publicPath('./')
     .filename('[name].bundle.js')
     .chunkFilename('[id].[chunkhash].js');
 
-    config.resolve.modules.add(PROJECT_MODULES).add(MODULES);
+    config.resolve.modules.add(neutrino.options.node_modules).add(MODULES);
     config.resolve.extensions.add('.js').add('.json');
-    config.resolveLoader.modules.add(PROJECT_MODULES).add(MODULES);
+    config.resolveLoader.modules.add(neutrino.options.node_modules).add(MODULES);
 
   config.node
     .set('console', false)
@@ -99,15 +93,15 @@ module.exports = neutrino => {
 
   if (process.env.NODE_ENV === 'development') {
     const protocol = !!process.env.HTTPS ? 'https' : 'http';
-    const host = process.env.HOST || pathOr('localhost', ['neutrino', 'config', 'devServer', 'host'], PKG);
-    const port = process.env.PORT || pathOr(5000, ['neutrino', 'config', 'devServer', 'port'], PKG);
+    const host = process.env.HOST || pathOr('localhost', ['options', 'config', 'devServer', 'host'], neutrino);
+    const port = process.env.PORT || pathOr(5000, ['options', 'config', 'devServer', 'port'], neutrino);
 
     neutrino.use(hot);
     neutrino.use(devServer, {
       host,
       port,
-      https: protocol === 'https',
-      contentBase: SRC
+      https: pathOr(protocol === 'https', ['options', 'config', 'devServer', 'https'], neutrino),
+      contentBase: neutrino.options.source
     });
 
     config
@@ -116,11 +110,11 @@ module.exports = neutrino => {
         .add(`webpack-dev-server/client?${protocol}://${host}:${port}/`)
         .add('webpack/hot/dev-server');
   } else {
-    neutrino.use(clean, { paths: [BUILD] });
+    neutrino.use(clean, { paths: [neutrino.options.output] });
     neutrino.use(progress);
     neutrino.use(minify);
     neutrino.use(copy, {
-      patterns: [{ context: SRC, from: `**/*` }],
+      patterns: [{ context: neutrino.options.source, from: `**/*` }],
       options: { ignore: ['*.js*'] }
     });
     config.output.filename('[name].[chunkhash].bundle.js');

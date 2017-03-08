@@ -1,8 +1,10 @@
 const CopyPlugin = require('copy-webpack-plugin');
 const merge = require('deepmerge');
 
-module.exports = ({ config }, options) => {
-  const opts = merge({ patterns: [], options: {} }, options);
+module.exports = ({ config }, opts) => {
+  const { patterns, options } = merge({ patterns: [], options: {} }, opts);
 
-  config.plugin('copy', CopyPlugin, opts.patterns, opts.options);
+  config
+    .plugin('copy')
+    .use(CopyPlugin, [patterns, options]);
 };

@@ -59,8 +59,8 @@ function run(command, presets) {
   process.env.NODE_ENV = environments[command];
 
   const options = pathOr({}, ['neutrino', 'options'], pkg);
-  const api = new Neutrino(options);
-  const cwd = process.cwd();
+  const config = pathOr({}, ['neutrino', 'config'], pkg);
+  const api = new Neutrino(Object.assign(options, { config }));
 
   // Grab all presets and merge them into a single webpack-chain config instance
   presets.forEach(preset => {
@@ -89,8 +89,8 @@ function run(command, presets) {
   });
 
   // Also grab any Neutrino config from package.json and merge it into the config at a higher precedence
-  if (pkg.neutrino && pkg.neutrino.config) {
-    api.config.merge(pkg.neutrino.config);
+  if (Object.keys(config).length) {
+    api.config.merge(config);
   }
 
   if (args.inspect) {

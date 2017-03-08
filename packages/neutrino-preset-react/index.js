@@ -21,13 +21,11 @@ module.exports = neutrino => {
   config.resolve.modules.add(MODULES);
   config.resolve.extensions.add('.jsx');
   config.resolveLoader.modules.add(MODULES);
-
-  config
-    .externals({
-      'react/addons': true,
-      'react/lib/ExecutionEnvironment': true,
-      'react/lib/ReactContext': 'window'
-    });
+  config.externals({
+    'react/addons': true,
+    'react/lib/ExecutionEnvironment': true,
+    'react/lib/ReactContext': 'window'
+  });
 
   if (process.env.NODE_ENV === 'development') {
     config

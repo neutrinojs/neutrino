@@ -1,15 +1,24 @@
-const path = require('path');
-const EventEmitter = require('events').EventEmitter;
+const { join } = require('path');
+const { EventEmitter } = require('events');
 const DevServer = require('webpack-dev-server');
 const webpack = require('webpack');
 const Config = require('webpack-chain');
 const ora = require('ora');
+const merge = require('deepmerge');
 
 class Neutrino extends EventEmitter {
-  constructor(options) {
+  constructor(options = {}) {
     super();
+
+    const root = options.root || process.cwd();
+    const source = options.source || join(root, 'src');
+    const output = options.output || join(root, 'build');
+    const tests = options.tests || join(root, 'test');
+    const node_modules = options.node_modules || join(root, 'node_modules');
+    const entry = options.entry || join(source, 'index.js');
+
     this.config = new Config();
-    this.options = options;
+    this.options = merge(options, { root, source, output, tests, node_modules, entry });
   }
 
   use(preset, options = {}) {

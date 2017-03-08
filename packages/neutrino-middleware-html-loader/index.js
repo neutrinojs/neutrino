@@ -1,4 +1,6 @@
 module.exports = ({ config }) => config.module
   .rule('html')
   .test(/\.html$/)
-  .loader('file', require.resolve('file-loader'), { name: '[name].[ext]' });
+  .use('file')
+    .loader(require.resolve('file-loader'))
+    .options({ name: '[name].[ext]' });

@@ -13,7 +13,9 @@ test('initialization stores options', t => {
   const options = { alpha: 'a', beta: 'b', gamma: 'c' };
   const api = new Neutrino(options);
 
-  t.deepEqual(options, api.options);
+  t.is(api.options.alpha, options.alpha);
+  t.is(api.options.beta, options.beta);
+  t.is(api.options.gamma, options.gamma);
 });
 
 test('creates an instance of webpack-chain', t => {
@@ -91,8 +93,12 @@ test('creates a Webpack config', t => {
     api.config.module
       .rule('compile')
       .test(/\.js$/)
-      .include('src')
-      .loader('babel', 'babel-loader', { alpha: 'a', beta: 'b' });
+      .include
+        .add('src')
+        .end()
+      .use('babel')
+        .loader('babel-loader')
+        .options({ alpha: 'a', beta: 'b' });
   });
 
   t.deepEqual(api.getWebpackOptions(), {

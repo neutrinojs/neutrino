@@ -7,15 +7,20 @@ module.exports = ({ config }, options) => {
   config.module
     .rule('svg')
     .test(/\.svg(\?v=\d+\.\d+\.\d+)?$/)
-    .loader('url', urlLoader, { limit, mimetype: 'application/svg+xml' });
+    .use('url')
+      .loader(urlLoader)
+      .options({ limit, mimetype: 'application/svg+xml' });
 
   config.module
     .rule('img')
     .test(/\.(png|jpg|jpeg|gif)$/)
-    .loader('url', urlLoader, { limit });
+    .use('url')
+      .loader(urlLoader)
+      .options({ limit });
 
   config.module
     .rule('ico')
     .test(/\.ico(\?v=\d+\.\d+\.\d+)?$/)
-    .loader('url', urlLoader);
+    .use('url')
+      .loader(urlLoader);
 };

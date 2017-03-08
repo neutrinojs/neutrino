@@ -13,7 +13,7 @@ module.exports = neutrino => {
 
   neutrino.on('test', ({ files }) => mocha(
     merge({ reporter: 'spec', ui: 'tdd', bail: true }, neutrino.options.mocha || {}),
-    neutrino.config.module.rule('compile').loaders.get('babel').options,
+    neutrino.config.module.rule('compile').use('babel').get('options'),
     files
   ));
 };

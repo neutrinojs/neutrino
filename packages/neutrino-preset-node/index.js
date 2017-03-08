@@ -10,20 +10,19 @@ const namedModules = require('neutrino-middleware-named-modules');
 const nodeExternals = require('webpack-node-externals');
 const { join } = require('path');
 
-const CWD = process.cwd();
-const SRC = join(CWD, 'src');
-const BUILD = join(CWD, 'build');
-const TEST = join(CWD, 'test');
-const PROJECT_MODULES = join(CWD, 'node_modules');
 const MODULES = join(__dirname, 'node_modules');
-const PKG = require(join(CWD, 'package.json'));
 
 module.exports = neutrino => {
   const { config } = neutrino;
+  let pkg = {};
+
+  try {
+    pkg = require(join(neutrino.options.root, 'package.json'));
+  } catch (ex) {}
 
   neutrino.use(namedModules);
   neutrino.use(compile, {
-    include: [SRC, TEST],
+    include: [neutrino.options.source, neutrino.options.tests],
     babel: {
       plugins: [require.resolve('babel-plugin-dynamic-import-node')],
       presets: [
@@ -46,19 +45,19 @@ module.exports = neutrino => {
       .end()
     .devtool('source-map')
     .externals([nodeExternals({ whitelist: [/^webpack/] })])
-    .context(CWD)
+    .context(neutrino.options.root)
     .entry('index')
-      .add(join(SRC, 'index.js'))
+      .add(neutrino.options.entry)
       .end()
     .output
-      .path(BUILD)
+      .path(neutrino.options.output)
       .filename('[name].js')
       .libraryTarget('commonjs2')
       .chunkFilename('[id].[hash:5]-[chunkhash:7].js')
       .end()
     .resolve
       .modules
-        .add(PROJECT_MODULES)
+        .add(neutrino.options.node_modules)
         .add(MODULES)
         .end()
       .extensions
@@ -68,21 +67,21 @@ module.exports = neutrino => {
       .end()
     .resolveLoader
       .modules
-        .add(PROJECT_MODULES)
+        .add(neutrino.options.node_modules)
         .add(MODULES);
 
-  const hasSourceMap = (PKG.dependencies && 'source-map-support' in PKG.dependencies) ||
-    (PKG.devDependencies && 'source-map-support' in PKG.devDependencies);
+  const hasSourceMap = (pkg.dependencies && 'source-map-support' in pkg.dependencies) ||
+    (pkg.devDependencies && 'source-map-support' in pkg.devDependencies);
 
   if (hasSourceMap) {
     neutrino.use(banner);
   }
 
   if (process.env.NODE_ENV !== 'development') {
-    neutrino.use(clean, { paths: [BUILD] });
+    neutrino.use(clean, { paths: [neutrino.options.output] });
     neutrino.use(progress);
     neutrino.use(copy, {
-      patterns: [{ context: SRC, from: `**/*` }],
+      patterns: [{ context: neutrino.options.source, from: `**/*` }],
       options: { ignore: ['*.js*'] }
     });
   } else {
@@ -90,7 +89,7 @@ module.exports = neutrino => {
     config.entry('index').add('webpack/hot/poll?1000');
     config.output.devtoolModuleFilenameTemplate('[absolute-resource-path]');
     neutrino.use(hot);
-    neutrino.use(startServer, join(SRC, 'index.js'));
+    neutrino.use(startServer, neutrino.options.entry);
   }
 
   if (config.module.rules.has('lint')) {

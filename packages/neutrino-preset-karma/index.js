@@ -1,7 +1,11 @@
 const { Server } = require('karma');
 const merge = require('deepmerge');
+const { join } = require('path');
 
 module.exports = neutrino => {
+  const tests = join(neutrino.options.tests, '**/*_test.js');
+  const sources = join(neutrino.options.source, '**/*.js');
+
   const defaults = {
     plugins: [
       require.resolve('karma-webpack'),
@@ -10,7 +14,7 @@ module.exports = neutrino => {
       require.resolve('karma-mocha'),
       require.resolve('karma-mocha-reporter')
     ],
-    basePath: process.cwd(),
+    basePath: neutrino.options.root,
     browsers: [process.env.CI ? 'ChromeCI' : 'Chrome'],
     customLaunchers: {
       ChromeCI: {
@@ -19,10 +23,10 @@ module.exports = neutrino => {
       }
     },
     frameworks: ['mocha'],
-    files: ['test/**/*_test.js'],
+    files: [tests],
     preprocessors: {
-      'test/**/*_test.js': ['webpack'],
-      'src/**/*.js': ['webpack']
+      [tests]: ['webpack'],
+      [sources]: ['webpack']
     },
     webpackMiddleware: { noInfo: true },
     reporters: ['mocha', 'coverage'],
@@ -52,8 +56,6 @@ module.exports = neutrino => {
       karma.files = files;
     }
 
-    return new Promise(resolve => {
-      new Server(karma, resolve).start();
-    });
+    return new Promise(resolve => new Server(karma, resolve).start());
   });
 };
