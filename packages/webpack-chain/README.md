@@ -3,6 +3,11 @@
 Use a chaining API to generate and simplify the modification of
 Webpack 2 configurations.
 
+This README corresponds to v3 of webpack-chain.
+
+[v2 docs](https://github.com/mozilla-neutrino/webpack-chain/tree/v2)
+[v1 docs](https://github.com/mozilla-neutrino/webpack-chain/tree/v1.4.3)
+
 ## Introduction
 
 Webpack's core configuration is based on creating and modifying a
