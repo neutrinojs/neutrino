@@ -1,52 +1,30 @@
-const path = require('path');
-const EventEmitter = require('events').EventEmitter;
+const { join, isAbsolute } = require('path');
+const { EventEmitter } = require('events');
 const DevServer = require('webpack-dev-server');
 const webpack = require('webpack');
 const Config = require('webpack-chain');
 const ora = require('ora');
+const merge = require('deepmerge');
 
-const cwd = process.cwd();
+const normalizePath = (path, root) => isAbsolute(path) ? path : join(root, path);
 
 class Neutrino extends EventEmitter {
-  constructor(presets = []) {
+  constructor(options = {}) {
     super();
+
+    const root = normalizePath(options.root || '', process.cwd());
+    const source = normalizePath(options.source || 'src', root);
+    const output = normalizePath(options.output || 'build', root);
+    const tests = normalizePath(options.tests || 'test', root);
+    const node_modules = normalizePath(options.node_modules || 'node_modules', root);
+    const entry = normalizePath(options.entry || 'index.js', source);
+
     this.config = new Config();
-    this.custom = {};
+    this.options = merge(options, { root, source, output, tests, node_modules, entry });
+  }
 
-    // Grab all presets and merge them into a single webpack-chain config instance
-    presets.forEach(preset => {
-      const paths = [
-        path.join(cwd, preset),
-        path.join(cwd, 'node_modules', preset),
-        preset
-      ];
-
-      for (let i = 0; i < paths.length; i += 1) {
-        try {
-          return require(paths[i])(this);
-        } catch (exception) {
-          if (/Cannot find module/.test(exception.message)) {
-            continue;
-          }
-
-          exception.message = `Neutrino was unable to load the module '${preset}'. ` +
-            `Ensure this module exports a function and is free from errors.\n${exception.message}`;
-          throw exception;
-        }
-      }
-
-      throw new Error(`Neutrino cannot find a module with the name or path '${preset}'. ` +
-        `Ensure this module can be found relative to the root of the project.`);
-    });
-
-    // Also grab any Neutrino config from package.json and merge it into the config
-    try {
-      const pkg = require(path.join(process.cwd(), 'package.json'));
-
-      if (pkg.config && pkg.config.neutrino) {
-        this.config.merge(pkg.config.neutrino);
-      }
-    } catch (ex) {}
+  use(preset, options = {}) {
+    preset(this, options);
   }
 
   handleErrors(err, stats) {
@@ -71,11 +49,7 @@ class Neutrino extends EventEmitter {
   }
 
   getWebpackOptions() {
-    if (this.__configCache) {
-      return this.__configCache;
-    }
-
-    return this.__configCache = this.config.toConfig();
+    return this.config.toConfig();
   }
 
   emitForAll(eventName, payload) {
@@ -85,26 +59,7 @@ class Neutrino extends EventEmitter {
   build(args) {
     return this
       .emitForAll('prebuild', args)
-      .then(() => new Promise((resolve, reject) => {
-        const config = this.getWebpackOptions();
-        const compiler = webpack(config);
-
-        compiler.run((err, stats) => {
-          const failed = this.handleErrors(err, stats);
-
-          if (failed) {
-            return reject();
-          }
-
-          console.log(stats.toString({
-            colors: true,
-            chunks: false,
-            children: false
-          }));
-
-          resolve();
-        });
-      }))
+      .then(() => this.builder())
       .then(() => this.emitForAll('build', args));
   }
 
@@ -115,28 +70,21 @@ class Neutrino extends EventEmitter {
         const config = this.getWebpackOptions();
 
         if (config.devServer) {
-          return this._devServer();
+          return this.devServer();
         }
 
-        if (config.target === 'node') {
-          console.log('Warning: This preset does not support watch compilation. Falling back to a one-time build.');
-          return this.build();
-        }
-
-        return new Promise(resolve => {
-          const config = this.getWebpackOptions();
-          const compiler = webpack(config);
-          const watcher = compiler.watch(config.watchOptions || {}, (err, stats) => {
-            this.handleErrors(err, stats);
-          });
-
-          process.on('SIGINT', () => watcher.close(resolve));
-        });
+        return this.watcher();
       })
       .then(() => this.emitForAll('start', args));
   }
 
-  _devServer() {
+  test(args) {
+    return this
+      .emitForAll('pretest', args)
+      .then(() => this.emitForAll('test', args));
+  }
+
+  devServer() {
     return new Promise(resolve => {
       const starting = ora('Starting development server').start();
       const config = this.getWebpackOptions();
@@ -162,10 +110,41 @@ class Neutrino extends EventEmitter {
     });
   }
 
-  test(args) {
-    return this
-      .emitForAll('pretest', args)
-      .then(() => this.emitForAll('test', args));
+  watcher() {
+    return new Promise(resolve => {
+      const building = ora('Waiting for initial build to finish').start();
+      const config = this.getWebpackOptions();
+      const compiler = webpack(config);
+      const watcher = compiler.watch(config.watchOptions || {}, (err, stats) => {
+        building.succeed('Build completed');
+        this.handleErrors(err, stats);
+      });
+
+      process.on('SIGINT', () => watcher.close(resolve));
+    });
+  }
+
+  builder() {
+   return new Promise((resolve, reject) => {
+     const config = this.getWebpackOptions();
+     const compiler = webpack(config);
+
+     compiler.run((err, stats) => {
+       const failed = this.handleErrors(err, stats);
+
+       if (failed) {
+         return reject();
+       }
+
+       console.log(stats.toString({
+         colors: true,
+         chunks: false,
+         children: false
+       }));
+
+       resolve();
+     });
+   });
   }
 }
 

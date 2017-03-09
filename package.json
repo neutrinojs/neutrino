@@ -1,6 +1,6 @@
 {
   "name": "neutrino-dev",
-  "version": "4.2.0",
+  "version": "5.0.0",
   "private": true,
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
@@ -14,18 +14,19 @@
     "deps:add": "oao add",
     "deps:remove": "oao remove",
     "deps:upgrade": "oao upgrade",
-    "deps:clean": "rm -rf packages/**/node_modules",
+    "deps:clean": "oao clean",
     "docs:build": "gitbook build && cp CNAME _book",
     "docs:deploy": "yarn docs:build && gh-pages --dist _book --remote upstream",
     "docs:serve": "gitbook serve",
     "release": "yarn release:pre && oao publish",
-    "release:pre": "oao prepublish"
+    "release:pre": "oao prepublish",
+    "test": "ava packages/*/test"
   },
   "devDependencies": {
+    "ava": "^0.18.2",
     "changelog": "^1.0.7",
     "eslint": "^3.17.1",
     "eslint-plugin-prettier": "^2.0.1",
-    "eslint-plugin-react": "^6.10.0",
     "gh-pages": "^0.12.0",
     "gitbook-cli": "^2.3.0",
     "gitbook-plugin-anchorjs": "^1.1.1",
@@ -33,7 +34,8 @@
     "gitbook-plugin-github": "^2.0.0",
     "gitbook-plugin-npmsearchlist": "^1.0.0",
     "gitbook-plugin-prism": "^2.1.0",
-    "oao": "^0.5.7",
-    "prettier": "^0.21.0"
+    "prettier": "^0.21.0",
+    "oao": "^0.7.2",
+    "webpack": "^2.2.1"
   }
 }

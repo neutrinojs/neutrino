@@ -15,7 +15,7 @@
 
 - Node.js v6.9+
 - Yarn or npm client
-- Neutrino v4, Neutrino build preset
+- Neutrino v5, Neutrino build preset
 
 ## Installation
 
@@ -58,7 +58,7 @@ testing with this approach.
 
 ## Project Layout
 
-`neutrino-preset-jest` follows the standard [project layout](/project-layout.md) specified by Neutrino. This
+`neutrino-preset-jest` follows the standard [project layout](../../project-layout.md) specified by Neutrino. This
 means that by default all project test code should live in a directory named `test` in the root of the
 project. Test files end in either `_test.js`, `.test.js`, `_test.jsx`, or `.test.jsx`.
 
@@ -88,6 +88,19 @@ let's pretend this is a Node.js project:
 {
   "scripts": {
     "test": "neutrino test --presets neutrino-preset-node neutrino-preset-jest"
+  }
+}
+```
+
+Or if you have set up Neutrino with `neutrino.presets` in your package.json:
+
+```json
+{
+  "neutrino": {
+    "presets": [
+      "neutrino-preset-node",
+      "neutrino-preset-jest"
+    ]
   }
 }
 ```
@@ -137,8 +150,7 @@ For more details on specific Jest usage, please refer to their [documentation](h
 ## Executing single tests
 
 By default this preset will execute every test file located in your test directory ending in the appropriate file
-extension.
-Use the command line [`files` parameters](/cli/README.md#neutrino-test) to execute individual tests.
+extension. Use the command line [`files` parameters](../../cli/README.md#neutrino-test) to execute individual tests.
 
 ## Watching for changes
 
@@ -148,14 +160,14 @@ Use the command line [`files` parameters](/cli/README.md#neutrino-test) to execu
 ## Coverage reporting
 
 Jest has an integrated coverage reporter, which requires no configuration. To collect test coverage information and
-generate report run:
+generate a report:
 
 ```bash
 ❯ neutrino test --coverage
 ```
 
-You can also edit your package.json file and create a separate command for generating coverage report, which can be
-very helpful during continues integration of your project:
+You can also edit your package.json file and create a separate command for generating a coverage report, which can be
+very helpful during continuous integration of your project:
 
 ```json
 {
@@ -165,12 +177,12 @@ very helpful during continues integration of your project:
 }
 ```
 
-See the [Jest's documentation](https://facebook.github.io/jest/docs/configuration.html#collectcoveragefrom-array) for
+See the [Jests documentation](https://facebook.github.io/jest/docs/configuration.html#collectcoveragefrom-array) for
 more configuration options for generating coverage reports.
 
 ## Customizing
 
-To override the test configuration, start with the documentation on [customization](/customization/README.md).
+To override the test configuration, start with the documentation on [customization](../../customization/README.md).
 `neutrino-preset-jest` creates some conventions to make overriding the configuration easier once you are ready to make
 changes.
 
@@ -183,38 +195,42 @@ Contains a single loader named `babel`.
 
 ### Simple customization
 
-By following the [customization guide](/customization/simple.md) and knowing the rule, and loader IDs above,
+By following the [customization guide](../../customization/simple.md) and knowing the rule, and loader IDs above,
 you can override and augment the build directly from package.json.
 
 Jest configuration settings can also be modified directly from package.json, but it is not required.
-`neutrino-preset-jest` will import Jest configuration from your package.json's `jest` object; the format is
-defined on the [Jest documentation site](https://facebook.github.io/jest/docs/configuration.html).
+`neutrino-preset-jest` will import Jest configuration from your package.json's `jest` object or `neutrino.options.jest`;
+the format is defined on the [Jest documentation site](https://facebook.github.io/jest/docs/configuration.html).
 
 _Example: Turn off bailing on test failures._
 
 ```json
 {
-  "jest": {
-    "bail": false
+  "neutrino": {
+    "options": {
+      "jest": {
+        "bail": false
+      }
+    }
   }
 }
 ```
 
 ### Advanced configuration
 
-By following the [customization guide](/customization/advanced.md) and knowing the rule, and loader IDs above,
+By following the [customization guide](../../customization/advanced.md) and knowing the rule, and loader IDs above,
 you can override and augment testing by creating a JS module which overrides the config. 
 
 You can also modify Jest settings by overriding with any options Jest accepts. In a standalone Jest project this is
 typically done in the package.json file, but `neutrino-preset-jest` allows advanced configuration through this
-mechanism as well. This is stored in the `neutrino.custom.jest` object, and takes the same configuration options as
+mechanism as well. This is stored in the `neutrino.options.jest` object, and takes the same configuration options as
 outlined in the [Jest documentation](https://facebook.github.io/jest/docs/configuration.html).
 
 _Example: Create a global `__DEV__` variable set to `true` in all test environments._
 
 ```js
 module.exports = neutrino => {
-  neutrino.custom.jest.globals = {
+  neutrino.options.jest.globals = {
     __DEV__: true
   };
 };
@@ -224,7 +240,7 @@ module.exports = neutrino => {
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets. Follow the
-[contributing guide](/contributing/README.md) for details.
+[contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-jest.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-jest.svg

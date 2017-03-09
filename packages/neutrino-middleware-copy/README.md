@@ -1,0 +1,73 @@
+# Neutrino Copy Middleware
+[![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url] [![Join Slack][slack-image]][slack-url]
+
+`neutrino-middleware-copy` is Neutrino middleware for copying files during building.
+
+## Requirements
+
+- Node.js v6.9+
+- Yarn or npm client
+- Neutrino v5
+
+## Installation
+
+`neutrino-middleware-copy` can be installed via the Yarn or npm clients.
+
+#### Yarn
+
+```bash
+❯ yarn add neutrino-middleware-copy
+```
+
+#### npm
+
+```bash
+❯ npm install --save neutrino-middleware-copy
+```
+
+## Usage
+
+`neutrino-middleware-copy` can be consumed from the Neutrino API, middleware, or presets. Require this package
+and plug it into Neutrino:
+
+```js
+const copy = require('neutrino-middleware-copy');
+
+// Use with default options
+neutrino.use(copy);
+
+// Usage shows the default values of this middleware:
+neutrino.use(copy, {
+  patterns: [],
+  options: {}
+});
+```
+
+The `patterns` and `options` are defined from the [CopyWebpackPlugin](https://github.com/kevlened/copy-webpack-plugin).
+See their docs for details on valid values to specify.
+
+- `patterns`: An array of patterns specifying copy operations.
+- `options`: An object specifying copy options.
+
+## Customization
+
+`neutrino-middleware-copy` creates some conventions to make overriding the configuration easier once you are ready to
+make changes.
+
+### Plugins
+
+The following is a list of plugins and their identifiers which can be overridden:
+
+- `copy`: Copy files during building.
+
+## Contributing
+
+This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
+containing all resources for developing Neutrino and its core presets. Follow the
+[contributing guide](https://neutrino.js.org/contributing) for details.
+
+[npm-image]: https://img.shields.io/npm/v/neutrino-middleware-copy.svg
+[npm-downloads]: https://img.shields.io/npm/dt/neutrino-middleware-copy.svg
+[npm-url]: https://npmjs.org/package/neutrino-middleware-copy
+[slack-image]: https://neutrino-slack.herokuapp.com/badge.svg
+[slack-url]: https://neutrino-slack.herokuapp.com/
