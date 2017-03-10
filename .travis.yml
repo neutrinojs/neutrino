@@ -35,4 +35,6 @@ cache:
 before_script:
   - yarn bootstrap
 script:
+  - yarn lint
+  - git diff-index --quiet HEAD -- || exit 1
   - yarn test

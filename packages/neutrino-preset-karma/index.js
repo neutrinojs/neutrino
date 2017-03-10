@@ -2,7 +2,7 @@ const { Server } = require('karma');
 const merge = require('deepmerge');
 const { join } = require('path');
 
-module.exports = neutrino => {
+module.exports = (neutrino) => {
   const tests = join(neutrino.options.tests, '**/*_test.js');
   const sources = join(neutrino.options.source, '**/*.js');
 
