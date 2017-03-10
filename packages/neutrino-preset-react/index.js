@@ -4,7 +4,7 @@ const { join } = require('path');
 
 const MODULES = join(__dirname, 'node_modules');
 
-module.exports = neutrino => {
+module.exports = (neutrino) => {
   const { config } = neutrino;
 
   neutrino.use(web);

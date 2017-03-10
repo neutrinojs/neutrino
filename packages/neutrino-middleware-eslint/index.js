@@ -43,13 +43,14 @@ module.exports = (neutrino, options) => {
       }, options.eslint || {}));
 
   if (options.include) {
-    rule.include.merge(options.include);
+    lint.include.merge(options.include);
   }
 
   if (options.exclude) {
-    rule.exclude.merge(options.exclude);
+    lint.exclude.merge(options.exclude);
   }
 
+  // eslint-disable-next-line no-param-reassign
   neutrino.eslintrc = () => {
     const options = clone(config.module.rule('lint').use('eslint').get('options'));
 
