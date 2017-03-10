@@ -105,7 +105,7 @@ module.exports = neutrino => {
     });
 
     config
-      .devtool('eval')
+      .devtool('source-map')
       .entry('index')
         .add(`webpack-dev-server/client?${protocol}://${host}:${port}/`)
         .add('webpack/hot/dev-server');
