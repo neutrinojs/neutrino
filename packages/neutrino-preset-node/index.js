@@ -12,13 +12,15 @@ const { join } = require('path');
 
 const MODULES = join(__dirname, 'node_modules');
 
-module.exports = neutrino => {
+module.exports = (neutrino) => {
   const { config } = neutrino;
   let pkg = {};
 
+  /* eslint-disable global-require, no-empty */
   try {
     pkg = require(join(neutrino.options.root, 'package.json'));
   } catch (ex) {}
+  /* eslint-enable global-require no-empty */
 
   neutrino.use(namedModules);
   neutrino.use(compile, {
@@ -81,7 +83,7 @@ module.exports = neutrino => {
     neutrino.use(clean, { paths: [neutrino.options.output] });
     neutrino.use(progress);
     neutrino.use(copy, {
-      patterns: [{ context: neutrino.options.source, from: `**/*` }],
+      patterns: [{ context: neutrino.options.source, from: '**/*' }],
       options: { ignore: ['*.js*'] }
     });
   } else {

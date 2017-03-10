@@ -35,4 +35,5 @@ cache:
 before_script:
   - yarn bootstrap
 script:
+  - yarn lint
   - yarn test
