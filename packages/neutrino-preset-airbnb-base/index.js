@@ -18,10 +18,7 @@ module.exports = (neutrino, options) => {
         'babel/new-cap': ['error', { newIsCap: true }],
 
         // require padding inside curly braces
-        'babel/object-curly-spacing': ['error', 'always'],
-
-        // guard against awaiting async functions inside of a loop
-        'babel/no-await-in-loop': 'error'
+        'babel/object-curly-spacing': ['error', 'always']
       }
     }
   }, options));

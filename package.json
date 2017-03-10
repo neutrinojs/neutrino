@@ -8,7 +8,7 @@
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "repository": "mozilla-neutrino/neutrino-dev",
   "scripts": {
-    "lint": "eslint packages/**/*.js --fix",
+    "lint": "eslint packages/**/*.js",
     "bootstrap": "oao bootstrap",
     "changelog": "changelog mozilla-neutrino/neutrino-dev all --markdown > CHANGELOG.md",
     "deps:add": "oao add",
@@ -24,8 +24,12 @@
   },
   "devDependencies": {
     "ava": "^0.18.2",
+    "babel-eslint": "^7.1.1",
     "changelog": "^1.0.7",
     "eslint": "^3.17.1",
+    "eslint-config-airbnb-base": "^11.1.1",
+    "eslint-plugin-babel": "^4.1.1",
+    "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-prettier": "^2.0.1",
     "gh-pages": "^0.12.0",
     "gitbook-cli": "^2.3.0",
@@ -34,8 +38,8 @@
     "gitbook-plugin-github": "^2.0.0",
     "gitbook-plugin-npmsearchlist": "^1.0.0",
     "gitbook-plugin-prism": "^2.1.0",
-    "prettier": "^0.21.0",
     "oao": "^0.7.2",
+    "prettier": "^0.21.0",
     "webpack": "^2.2.1"
   }
 }

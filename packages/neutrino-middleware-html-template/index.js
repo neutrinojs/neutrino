@@ -15,7 +15,7 @@ module.exports = ({ config }, options) => config
         useShortDoctype: true,
         keepClosingSlash: true,
         collapseWhitespace: true,
-        preserveLineBreaks: true,
+        preserveLineBreaks: true
       }
     }, options)
   ]);

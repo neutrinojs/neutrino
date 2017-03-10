@@ -18,7 +18,31 @@ const { pathOr } = require('ramda');
 
 const MODULES = join(__dirname, 'node_modules');
 
-module.exports = neutrino => {
+function devServer({ config }, options) {
+  config.devServer
+    .host(options.host)
+    .port(parseInt(options.port, 10))
+    .https(options.https)
+    .contentBase(options.contentBase)
+    .historyApiFallback(true)
+    .hot(true)
+    .stats({
+      assets: false,
+      children: false,
+      chunks: false,
+      colors: true,
+      errors: true,
+      errorDetails: true,
+      hash: false,
+      modules: false,
+      publicPath: false,
+      timings: false,
+      version: false,
+      warnings: true
+    });
+}
+
+module.exports = (neutrino) => {
   const { config } = neutrino;
 
   neutrino.use(env);
@@ -69,9 +93,9 @@ module.exports = neutrino => {
     .filename('[name].bundle.js')
     .chunkFilename('[id].[chunkhash].js');
 
-    config.resolve.modules.add(neutrino.options.node_modules).add(MODULES);
-    config.resolve.extensions.add('.js').add('.json');
-    config.resolveLoader.modules.add(neutrino.options.node_modules).add(MODULES);
+  config.resolve.modules.add(neutrino.options.node_modules).add(MODULES);
+  config.resolve.extensions.add('.js').add('.json');
+  config.resolveLoader.modules.add(neutrino.options.node_modules).add(MODULES);
 
   config.node
     .set('console', false)
@@ -92,7 +116,7 @@ module.exports = neutrino => {
   }
 
   if (process.env.NODE_ENV === 'development') {
-    const protocol = !!process.env.HTTPS ? 'https' : 'http';
+    const protocol = process.env.HTTPS ? 'https' : 'http';
     const host = process.env.HOST || pathOr('localhost', ['options', 'config', 'devServer', 'host'], neutrino);
     const port = process.env.PORT || pathOr(5000, ['options', 'config', 'devServer', 'port'], neutrino);
 
@@ -114,33 +138,9 @@ module.exports = neutrino => {
     neutrino.use(progress);
     neutrino.use(minify);
     neutrino.use(copy, {
-      patterns: [{ context: neutrino.options.source, from: `**/*` }],
+      patterns: [{ context: neutrino.options.source, from: '**/*' }],
       options: { ignore: ['*.js*'] }
     });
     config.output.filename('[name].[chunkhash].bundle.js');
   }
 };
-
-function devServer({ config }, options) {
-  config.devServer
-    .host(options.host)
-    .port(parseInt(options.port))
-    .https(options.https)
-    .contentBase(options.contentBase)
-    .historyApiFallback(true)
-    .hot(true)
-    .stats({
-      assets: false,
-      children: false,
-      chunks: false,
-      colors: true,
-      errors: true,
-      errorDetails: true,
-      hash: false,
-      modules: false,
-      publicPath: false,
-      timings: false,
-      version: false,
-      warnings: true
-    });
-}
