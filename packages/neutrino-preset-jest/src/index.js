@@ -34,39 +34,39 @@ function normalizeJestOptions(jestOptions, config, args) {
 }
 
 module.exports = neutrino => {
-  const jestOptions = merge({
-    bail: true,
-    transform: {
-      "\\.(js|jsx)$": require.resolve('./transformer')
-    },
-    roots: [neutrino.options.tests],
-    testRegex: '(_test|_spec|\\.test|\\.spec)\\.jsx?$',
-    moduleFileExtensions: ['js', 'jsx'],
-    moduleDirectories: [join(__dirname, '../node_modules')],
-    moduleNameMapper: {
-      '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': require.resolve('./file-mock'),
-      '\\.(css|less|sass)$': require.resolve('./style-mock')
-    }
-  }, neutrino.options.jest || {});
-
-  neutrino.use(loaderMerge('compile', 'babel'), {
-    env: {
-      test: {
-        retainLines: true,
-        presets: [require.resolve('babel-preset-jest')],
-        plugins: [require.resolve('babel-plugin-transform-es2015-modules-commonjs')]
-      }
-    }
-  });
-
-  if (neutrino.config.module.rules.has('lint')) {
-    neutrino.use(loaderMerge('lint', 'eslint'), {
-      plugins: ['jest'],
-      envs: ['jest']
-    });
-  }
-
   neutrino.on('test', args => {
+    const jestOptions = merge({
+      bail: true,
+      transform: {
+        "\\.(js|jsx)$": require.resolve('./transformer')
+      },
+      roots: [neutrino.options.tests],
+      testRegex: '(_test|_spec|\\.test|\\.spec)\\.jsx?$',
+      moduleFileExtensions: ['js', 'jsx'],
+      moduleDirectories: [join(__dirname, '../node_modules')],
+      moduleNameMapper: {
+        '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': require.resolve('./file-mock'),
+        '\\.(css|less|sass)$': require.resolve('./style-mock')
+      }
+    }, neutrino.options.jest || {});
+
+    neutrino.use(loaderMerge('compile', 'babel'), {
+      env: {
+        test: {
+          retainLines: true,
+          presets: [require.resolve('babel-preset-jest')],
+          plugins: [require.resolve('babel-plugin-transform-es2015-modules-commonjs')]
+        }
+      }
+    });
+
+    if (neutrino.config.module.rules.has('lint')) {
+      neutrino.use(loaderMerge('lint', 'eslint'), {
+        plugins: ['jest'],
+        envs: ['jest']
+      });
+    }
+
     const options = normalizeJestOptions(jestOptions, neutrino.config, args);
     const configFile = join(tmpdir(), 'config.json');
 
