@@ -192,6 +192,48 @@ The following is a list of plugins and their identifiers which can be overridden
 By following the [customization guide](../../customization/simple.md) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build directly from package.json.
 
+#### Compile targets
+
+This preset uses babel-preset-env to compile code targeting the last 2 browser versions of major browsers. To change
+the browser targets from package.json, specify an object at `neutrino.options.compile.targets` which contains a
+[browserlist-compatible](https://github.com/ai/browserslist) array of browser targets.
+
+_Example: Replace the Web preset browser targets with support for browsers with greater than 5% global usage:_
+
+```json
+{
+  "neutrino": {
+    "options": {
+      "compile": {
+        "targets": {
+          "browsers": [
+            "> 5%"
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+_Example: Change support to latest version instead of last 2 versions:_
+
+```json
+{
+  "neutrino": {
+    "options": {
+      "compile": {
+        "targets": {
+          "browsers": [
+            "last 1 version"
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
 #### Vendoring
 
 By defining an entry point in package.json named `vendor` you can split out external dependencies into a chunk separate
@@ -240,6 +282,62 @@ _Example: Change the application mount ID from "root" to "app":_
 
 By following the [customization guide](../../customization/advanced.md) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build by creating a JS module which overrides the config.
+
+#### Compile targets
+
+This preset uses babel-preset-env to compile code targeting the last 2 browser versions of major browsers. To change
+the browser targets from an override file, specify an object at `neutrino.options.compile.targets` which contains a
+[browserlist-compatible](https://github.com/ai/browserslist) array of browser targets.
+
+**Note: Setting these options via `neutrino.options.compile` must be done prior to loading the Web preset or they
+will not be picked up by the compile middleware. These examples show changing compile targets with options before
+loading the preset and overriding them if loaded afterwards.**
+
+_Example: Replace the Web preset browser targets with support for browsers with greater than 5% global usage:_
+
+```js
+module.exports = neutrino => {
+  // Using neutrino.options prior to loading Web preset
+  neutrino.options.compile = {
+    targets: {
+      browsers: ['> 5%']
+    }
+  };
+  
+  // Using compile options override following loading Web preset
+  neutrino.config.module
+    .rule('compile')
+    .use('babel')
+    .tap(options => {
+      options.presets[0][1].targets.browsers = ['> 5%'];
+
+      return options;
+    });
+};
+```
+
+_Example: Change support to latest version instead of last 2 versions:_
+
+```js
+module.exports = neutrino => {
+  // Using neutrino.options prior to loading Web preset
+  neutrino.options.compile = {
+    targets: {
+      browsers: ['last 1 version']
+    }
+  };
+  
+  // Using compile options override following loading Web preset
+  neutrino.config.module
+    .rule('compile')
+    .use('babel')
+    .tap(options => {
+      options.presets[0][1].targets.browsers = ['last 1 version'];
+
+      return options;
+    });
+};
+```
 
 #### Vendoring
 
