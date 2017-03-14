@@ -231,6 +231,46 @@ The following is a list of plugins and their identifiers which can be overridden
 By following the [customization guide](../../customization/simple.md) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build directly from package.json.
 
+#### Compile targets
+
+This preset uses babel-preset-env to compile code targeting the Node.js v6.9+. To change
+the Node.js target from package.json, specify an object at `neutrino.options.compile.targets` which contains a
+[babel-preset-env-compatible](https://github.com/babel/babel-preset-env#targetsnode) Node.js target.
+
+_Example: Replace the preset Node.js target with support for Node.js 4.2:_
+
+```json
+{
+  "neutrino": {
+    "options": {
+      "compile": {
+        "targets": {
+          "node": 4.2
+        }
+      }
+    }
+  }
+}
+```
+
+_Example: Change support to current Node.js version:_
+
+```json
+{
+  "neutrino": {
+    "options": {
+      "compile": {
+        "targets": {
+          "node": "current"
+        }
+      }
+    }
+  }
+}
+```
+
+#### Other customization examples
+
 _Example: Allow importing modules with an `.mjs` extension._
 
 ```json
@@ -251,6 +291,64 @@ _Example: Allow importing modules with an `.mjs` extension._
 
 By following the [customization guide](../../customization/advanced.md) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build by creating a JS module which overrides the config.
+
+#### Compile targets
+
+This preset uses babel-preset-env to compile code targeting the Node.js v6.9+. To change
+the Node.js target from package.json, specify an object at `neutrino.options.compile.targets` which contains a
+[babel-preset-env-compatible](https://github.com/babel/babel-preset-env#targetsnode) Node.js target.
+
+**Note: Setting these options via `neutrino.options.compile` must be done prior to loading the Node.js preset or they
+will not be picked up by the compile middleware. These examples show changing compile targets with options before
+loading the preset and overriding them if loaded afterwards.**
+
+_Example: Replace the preset Node.js target with support for Node.js 4.2:_
+
+```js
+module.exports = neutrino => {
+  // Using neutrino.options prior to loading Node.js preset
+  neutrino.options.compile = {
+    targets: {
+      node: 4.2
+    }
+  };
+  
+  // Using compile options override following loading Node.js preset
+  neutrino.config.module
+    .rule('compile')
+    .use('babel')
+    .tap(options => {
+      options.presets[0][1].targets.node = 4.2;
+
+      return options;
+    });
+};
+```
+
+_Example: Change support to current Node.js version:_
+
+```js
+module.exports = neutrino => {
+  // Using neutrino.options prior to loading Node.js preset
+  neutrino.options.compile = {
+    targets: {
+      node: 4.2
+    }
+  };
+  
+  // Using compile options override following loading Node.js preset
+  neutrino.config.module
+    .rule('compile')
+    .use('babel')
+    .tap(options => {
+      options.presets[0][1].targets.node = 'current';
+
+      return options;
+    });
+};
+```
+
+#### Other customization examples
 
 _Example: Allow importing modules with an `.mjs` extension._
 

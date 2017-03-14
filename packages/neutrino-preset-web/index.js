@@ -50,7 +50,7 @@ module.exports = (neutrino) => {
   neutrino.use(styleLoader);
   neutrino.use(fontLoader);
   neutrino.use(imageLoader);
-  neutrino.use(htmlTemplate);
+  neutrino.use(htmlTemplate, neutrino.options.html);
   neutrino.use(namedModules);
   neutrino.use(compileLoader, {
     include: [neutrino.options.source, neutrino.options.tests],
@@ -61,7 +61,7 @@ module.exports = (neutrino) => {
           modules: false,
           useBuiltIns: true,
           include: ['transform-regenerator'],
-          targets: {
+          targets: pathOr({
             browsers: [
               'last 2 Chrome versions',
               'last 2 Firefox versions',
@@ -70,7 +70,7 @@ module.exports = (neutrino) => {
               'last 2 Safari versions',
               'last 2 iOS versions'
             ]
-          }
+          }, ['options', 'compile', 'targets'], neutrino)
         }]
       ]
     }

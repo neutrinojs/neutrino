@@ -9,6 +9,7 @@ const hot = require('neutrino-middleware-hot');
 const namedModules = require('neutrino-middleware-named-modules');
 const nodeExternals = require('webpack-node-externals');
 const { join } = require('path');
+const { pathOr } = require('ramda');
 
 const MODULES = join(__dirname, 'node_modules');
 
@@ -30,9 +31,7 @@ module.exports = (neutrino) => {
       presets: [
         [require.resolve('babel-preset-env'), {
           modules: false,
-          targets: {
-            node: 6.9
-          }
+          targets: pathOr({ node: 6.9 }, ['options', 'compile', 'targets'], neutrino)
         }]
       ]
     }
