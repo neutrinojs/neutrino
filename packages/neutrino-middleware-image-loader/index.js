@@ -9,7 +9,7 @@ module.exports = ({ config }, options) => {
     .test(/\.svg(\?v=\d+\.\d+\.\d+)?$/)
     .use('url')
       .loader(urlLoader)
-      .options({ limit, mimetype: 'application/svg+xml' });
+      .options({ limit, mimetype: 'image/svg+xml' });
 
   config.module
     .rule('img')
