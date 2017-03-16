@@ -20,8 +20,8 @@ const args = yargs
     default: false,
     global: true
   })
-  .option('presets', {
-    description: 'A list of Neutrino presets used to configure the build',
+  .option('use', {
+    description: 'A list of Neutrino middleware used to configure the build',
     array: true,
     default: [],
     global: true
@@ -50,16 +50,16 @@ const args = yargs
 function run(command, args) {
   const environments = { build: 'production', start: 'development', test: 'test' };
   const pkg = optional(join(process.cwd(), 'package.json')) || {};
-  const pkgPresets = pathOr([], ['neutrino', 'presets'], pkg);
-  const presets = [...new Set(pkgPresets.concat(args.presets))];
+  const pkgMiddleware = pathOr([], ['neutrino', 'use'], pkg);
+  const middleware = [...new Set(pkgMiddleware.concat(args.use))];
   const options = pathOr({}, ['neutrino', 'options'], pkg);
   const config = pathOr({}, ['neutrino', 'config'], pkg);
   const api = new Neutrino(Object.assign(options, { config }));
 
   process.env.NODE_ENV = environments[command];
 
-  // Grab all presets and merge them into a single webpack-chain config instance
-  api.import(presets);
+  // Grab all middleware and merge them into a single webpack-chain config instance
+  api.import(middleware);
 
   // Also grab any Neutrino config from package.json and merge it into the config at a higher precedence
   api.use(() => api.config.merge(config));

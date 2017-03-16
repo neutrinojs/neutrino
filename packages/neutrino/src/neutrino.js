@@ -24,8 +24,8 @@ class Neutrino extends EventEmitter {
     this.options = merge(options, { root, source, output, tests, node_modules, entry });
   }
 
-  use(preset, options = {}) {
-    preset(this, options);
+  use(middleware, options = {}) {
+    middleware(this, options);
   }
 
   import(middleware) {
