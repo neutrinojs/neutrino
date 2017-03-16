@@ -64,19 +64,12 @@ function run(command, args) {
   // Also grab any Neutrino config from package.json and merge it into the config at a higher precedence
   api.use(() => api.config.merge(config));
 
-  if (args.inspect) {
-    return inspect(api.getWebpackOptions());
-  }
-
-  api[command](args)
-    .then(() => process.exit(0))
-    .catch(err => {
-      if (err) {
-        console.error(err);
-      }
-
-      process.exit(1);
-    });
+  return args.inspect ?
+    inspect(api.getWebpackOptions()) :
+    api[command](args);
 }
 
-run(args._[0], args);
+run(args._[0], args).catch((err) => {
+  console.error(err || `Error during ${args._[0]}`);
+  process.exit(1);
+});
