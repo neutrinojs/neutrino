@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const Config = require('webpack-chain');
 const ora = require('ora');
 const merge = require('deepmerge');
+const requireMiddleware = require('./requireMiddleware');
 
 const normalizePath = (path, root) => (isAbsolute(path) ? path : join(root, path));
 
@@ -25,6 +26,14 @@ class Neutrino extends EventEmitter {
 
   use(preset, options = {}) {
     preset(this, options);
+  }
+
+  import(middleware) {
+    this.require(middleware).forEach(middleware => this.use(middleware));
+  }
+
+  require(middleware) {
+    return requireMiddleware(middleware, this.options);
   }
 
   /* eslint-disable no-console */

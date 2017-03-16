@@ -63,35 +63,10 @@ function run(command, presets) {
   const api = new Neutrino(Object.assign(options, { config }));
 
   // Grab all presets and merge them into a single webpack-chain config instance
-  presets.forEach(preset => {
-    const paths = [
-      join(cwd, preset),
-      join(cwd, 'node_modules', preset),
-      preset
-    ];
-
-    for (let i = 0; i < paths.length; i += 1) {
-      try {
-        return api.use(require(paths[i]));
-      } catch (exception) {
-        if (/Cannot find module/.test(exception.message)) {
-          continue;
-        }
-
-        exception.message = `Neutrino was unable to load the module '${preset}'. ` +
-          `Ensure this module exports a function and is free from errors.\n${exception.message}`;
-        throw exception;
-      }
-    }
-
-    throw new Error(`Neutrino cannot find a module with the name or path '${preset}'. ` +
-      `Ensure this module can be found relative to the root of the project.`);
-  });
+  api.import(presets);
 
   // Also grab any Neutrino config from package.json and merge it into the config at a higher precedence
-  if (Object.keys(config).length) {
-    api.config.merge(config);
-  }
+  api.use(() => api.config.merge(config));
 
   if (args.inspect) {
     return inspect(api.getWebpackOptions());

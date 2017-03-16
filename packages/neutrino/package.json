@@ -31,5 +31,9 @@
     "webpack-chain": "^3.0.0",
     "webpack-dev-server": "^2.4.1",
     "yargs": "^6.6.0"
+  },
+  "devDependencies": {
+    "fs-extra": "^2.1.2",
+    "pify": "^2.3.0"
   }
 }

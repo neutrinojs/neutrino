@@ -86,6 +86,14 @@ test('events handle multiple promise resolutions', async t => {
   t.deepEqual(values, ['alpha', 'beta', 'gamma']);
 });
 
+test('import middleware for use', t => {
+  const api = new Neutrino({ root: __dirname });
+
+  api.import('fixtures/middleware');
+
+  t.notDeepEqual(api.getWebpackOptions(), {});
+});
+
 test('creates a Webpack config', t => {
   const api = new Neutrino();
 
