@@ -10,17 +10,9 @@ const { pathOr, pipe, partialRight } = require('ramda');
 const { join } = require('path');
 const stringify = require('javascript-stringify');
 const sort = require('deep-sort-object');
+const optional = require('optional');
 
 const inspect = pipe(sort, partialRight(stringify, [null, 2]), console.log, process.exit);
-const cwd = process.cwd();
-let pkg = {};
-
-try {
-  pkg = require(join(cwd, 'package.json'));
-} catch (ex) {}
-
-const pkgPresets = pathOr([], ['neutrino', 'presets'], pkg);
-const environments = { build: 'production', start: 'development', test: 'test' };
 const args = yargs
   .option('inspect', {
     description: 'Output a string representation of the configuration used by Neutrino and exit',
@@ -55,12 +47,16 @@ const args = yargs
   .help()
   .argv;
 
-function run(command, presets) {
-  process.env.NODE_ENV = environments[command];
-
+function run(command, args) {
+  const environments = { build: 'production', start: 'development', test: 'test' };
+  const pkg = optional(join(process.cwd(), 'package.json')) || {};
+  const pkgPresets = pathOr([], ['neutrino', 'presets'], pkg);
+  const presets = [...new Set(pkgPresets.concat(args.presets))];
   const options = pathOr({}, ['neutrino', 'options'], pkg);
   const config = pathOr({}, ['neutrino', 'config'], pkg);
   const api = new Neutrino(Object.assign(options, { config }));
+
+  process.env.NODE_ENV = environments[command];
 
   // Grab all presets and merge them into a single webpack-chain config instance
   api.import(presets);
@@ -83,4 +79,4 @@ function run(command, presets) {
     });
 }
 
-run(args._[0], [...new Set(pkgPresets.concat(args.presets))]);
+run(args._[0], args);
