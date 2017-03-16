@@ -94,6 +94,17 @@ test('import middleware for use', t => {
   t.notDeepEqual(api.getWebpackOptions(), {});
 });
 
+test('command emits events around execution', async (t) => {
+  const api = new Neutrino();
+  const events = [];
+
+  api.on('prebuild', () => events.push('alpha'));
+  api.on('build', () => events.push('gamma'));
+
+  await api.runCommand('build', {}, () => events.push('beta'));
+  t.deepEqual(events, ['alpha', 'beta', 'gamma']);
+});
+
 test('creates a Webpack config', t => {
   const api = new Neutrino();
 

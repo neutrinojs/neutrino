@@ -68,31 +68,22 @@ class Neutrino extends EventEmitter {
   }
 
   build(args) {
-    return this
-      .emitForAll('prebuild', args)
-      .then(() => this.builder())
-      .then(() => this.emitForAll('build', args));
+    return this.runCommand('build', args, () => this.builder());
   }
 
   start(args) {
-    return this
-      .emitForAll('prestart', args)
-      .then(() => {
-        const config = this.getWebpackOptions();
-
-        if (config.devServer) {
-          return this.devServer();
-        }
-
-        return this.watcher();
-      })
-      .then(() => this.emitForAll('start', args));
+    return this.runCommand('start', args, () => (this.getWebpackOptions().devServer ? this.devServer() : this.watcher()));
   }
 
   test(args) {
+    return this.runCommand('test', args);
+  }
+
+  runCommand(command, args = {}, fn) {
     return this
-      .emitForAll('pretest', args)
-      .then(() => this.emitForAll('test', args));
+      .emitForAll(`pre${command}`, args)
+      .then(fn)
+      .then(() => this.emitForAll(command, args));
   }
 
   devServer() {
