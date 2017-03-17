@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const Config = require('webpack-chain');
 const ora = require('ora');
 const merge = require('deepmerge');
+const { defaultTo } = require('ramda');
 const requireMiddleware = require('./requireMiddleware');
 
 const normalizePath = (path, root) => (isAbsolute(path) ? path : join(root, path));
@@ -80,6 +81,12 @@ class Neutrino extends EventEmitter {
   }
 
   runCommand(command, args = {}, fn) {
+    process.env.NODE_ENV = defaultTo({
+      build: 'production',
+      start: 'development',
+      test: 'test'
+    }[command], args.env);
+
     return this
       .emitForAll(`pre${command}`, args)
       .then(fn)

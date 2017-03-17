@@ -26,6 +26,11 @@ const args = yargs
     default: [],
     global: true
   })
+  .option('env', {
+    description: 'The value for the environment variable, NODE_ENV',
+    string: true,
+    global: true
+  })
   .command('start', 'Build a project in development mode')
   .command('build', 'Compile the source directory to a bundled build')
   .command('test [files..]', 'Run all suites from the test directory or provided files', {
@@ -48,15 +53,12 @@ const args = yargs
   .argv;
 
 function run(command, args) {
-  const environments = { build: 'production', start: 'development', test: 'test' };
   const pkg = optional(join(process.cwd(), 'package.json')) || {};
   const pkgMiddleware = pathOr([], ['neutrino', 'use'], pkg);
   const middleware = [...new Set(pkgMiddleware.concat(args.use))];
   const options = pathOr({}, ['neutrino', 'options'], pkg);
   const config = pathOr({}, ['neutrino', 'config'], pkg);
   const api = new Neutrino(Object.assign(options, { config }));
-
-  process.env.NODE_ENV = environments[command];
 
   // Grab all middleware and merge them into a single webpack-chain config instance
   api.import(middleware);
