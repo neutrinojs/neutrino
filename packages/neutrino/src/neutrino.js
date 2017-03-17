@@ -6,7 +6,7 @@ const Config = require('webpack-chain');
 const ora = require('ora');
 const merge = require('deepmerge');
 
-const normalizePath = (path, root) => isAbsolute(path) ? path : join(root, path);
+const normalizePath = (path, root) => (isAbsolute(path) ? path : join(root, path));
 
 class Neutrino extends EventEmitter {
   constructor(options = {}) {
@@ -16,7 +16,7 @@ class Neutrino extends EventEmitter {
     const source = normalizePath(options.source || 'src', root);
     const output = normalizePath(options.output || 'build', root);
     const tests = normalizePath(options.tests || 'test', root);
-    const node_modules = normalizePath(options.node_modules || 'node_modules', root);
+    const node_modules = normalizePath(options.node_modules || 'node_modules', root); // eslint-disable-line camelcase
     const entry = normalizePath(options.entry || 'index.js', source);
 
     this.config = new Config();
@@ -27,6 +27,7 @@ class Neutrino extends EventEmitter {
     preset(this, options);
   }
 
+  /* eslint-disable no-console */
   handleErrors(err, stats) {
     if (err) {
       console.error(err.stack || err);
@@ -47,6 +48,7 @@ class Neutrino extends EventEmitter {
 
     return false;
   }
+  /* eslint-enable no-console */
 
   getWebpackOptions() {
     return this.config.toConfig();
@@ -85,7 +87,7 @@ class Neutrino extends EventEmitter {
   }
 
   devServer() {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const starting = ora('Starting development server').start();
       const config = this.getWebpackOptions();
       const protocol = config.devServer.https ? 'https' : 'http';
@@ -111,7 +113,7 @@ class Neutrino extends EventEmitter {
   }
 
   watcher() {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const building = ora('Waiting for initial build to finish').start();
       const config = this.getWebpackOptions();
       const compiler = webpack(config);
@@ -125,26 +127,28 @@ class Neutrino extends EventEmitter {
   }
 
   builder() {
-   return new Promise((resolve, reject) => {
-     const config = this.getWebpackOptions();
-     const compiler = webpack(config);
+    return new Promise((resolve, reject) => {
+      const config = this.getWebpackOptions();
+      const compiler = webpack(config);
 
-     compiler.run((err, stats) => {
-       const failed = this.handleErrors(err, stats);
+      // eslint-disable-next-line consistent-return
+      compiler.run((err, stats) => {
+        const failed = this.handleErrors(err, stats);
 
-       if (failed) {
-         return reject();
-       }
+        if (failed) {
+          return reject();
+        }
 
-       console.log(stats.toString({
-         colors: true,
-         chunks: false,
-         children: false
-       }));
+        // eslint-disable-next-line no-console
+        console.log(stats.toString({
+          colors: true,
+          chunks: false,
+          children: false
+        }));
 
-       resolve();
-     });
-   });
+        resolve();
+      });
+    });
   }
 }
 

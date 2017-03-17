@@ -12,7 +12,7 @@ function normalizeJestOptions(jestOptions, config, args) {
 
   Object
     .keys(aliases)
-    .map(key => options.moduleNameMapper[key] = join('<rootDir>', aliases[key]));
+    .map(key => Object.assign(options.moduleNameMapper, { [key]: join('<rootDir>', aliases[key]) }));
 
   options.moduleFileExtensions = [...new Set([
     ...options.moduleFileExtensions,
@@ -33,12 +33,12 @@ function normalizeJestOptions(jestOptions, config, args) {
   return options;
 }
 
-module.exports = neutrino => {
-  neutrino.on('test', args => {
+module.exports = (neutrino) => {
+  neutrino.on('test', (args) => {
     const jestOptions = merge({
       bail: true,
       transform: {
-        "\\.(js|jsx)$": require.resolve('./transformer')
+        '\\.(js|jsx)$': require.resolve('./transformer')
       },
       roots: [neutrino.options.tests],
       testRegex: '(_test|_spec|\\.test|\\.spec)\\.jsx?$',
@@ -75,7 +75,7 @@ module.exports = neutrino => {
       const dir = options.rootDir || neutrino.options.root;
 
       writeFileSync(configFile, `${JSON.stringify(options, null, 2)}\n`);
-      runCLI(cliOptions, dir, result => result.numFailedTests || result.numFailedTestSuites ? reject() : resolve());
+      runCLI(cliOptions, dir, result => (result.numFailedTests || result.numFailedTestSuites ? reject() : resolve()));
     });
   });
 };
