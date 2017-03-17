@@ -8,7 +8,7 @@
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "repository": "mozilla-neutrino/neutrino-dev",
   "scripts": {
-    "lint": "eslint packages/**/*.js",
+    "lint": "eslint packages/*/*.js packages/*/src/**/*.js",
     "bootstrap": "oao bootstrap",
     "changelog": "changelog mozilla-neutrino/neutrino-dev all --markdown > CHANGELOG.md",
     "deps:add": "oao add",

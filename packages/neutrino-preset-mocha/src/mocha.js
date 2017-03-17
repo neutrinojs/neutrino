@@ -3,13 +3,13 @@ const toParam = require('change-case').paramCase;
 
 let proc;
 
-module.exports = (mochaOpts = {}, babelOpts = {}, files = []) => new Promise(resolve => {
+module.exports = (mochaOpts = {}, babelOpts = {}, files = []) => new Promise((resolve) => {
   if (proc) {
     proc.kill();
   }
 
   if (files.length) {
-    mochaOpts.recursive = true;
+    Object.assign(mochaOpts, { recursive: true });
   }
 
   process.env.NEUTRINO_BABEL_CONFIG = JSON.stringify(babelOpts);
