@@ -12,6 +12,7 @@ const stringify = require('javascript-stringify');
 const sort = require('deep-sort-object');
 const optional = require('optional');
 
+// eslint-disable-next-line no-console
 const inspect = pipe(sort, partialRight(stringify, [null, 2]), console.log, process.exit);
 const args = yargs
   .option('inspect', {

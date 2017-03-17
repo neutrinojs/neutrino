@@ -37,7 +37,6 @@ class Neutrino extends EventEmitter {
     return requireMiddleware(middleware, this.options);
   }
 
-  /* eslint-disable no-console */
   handleErrors(err, stats) {
     if (err) {
       console.error(err.stack || err);
@@ -58,7 +57,6 @@ class Neutrino extends EventEmitter {
 
     return false;
   }
-  /* eslint-enable no-console */
 
   getWebpackOptions() {
     return this.config.toConfig();
