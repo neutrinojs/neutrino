@@ -86,6 +86,41 @@ test('events handle multiple promise resolutions', async t => {
   t.deepEqual(values, ['alpha', 'beta', 'gamma']);
 });
 
+test('import middleware for use', t => {
+  const api = new Neutrino({ root: __dirname });
+
+  api.import('fixtures/middleware');
+
+  t.notDeepEqual(api.getWebpackOptions(), {});
+});
+
+test('command sets correct NODE_ENV', t => {
+  const api = new Neutrino();
+
+  api.runCommand('build');
+  t.is(process.env.NODE_ENV, 'production');
+
+  api.runCommand('start');
+  t.is(process.env.NODE_ENV, 'development');
+
+  api.runCommand('test');
+  t.is(process.env.NODE_ENV, 'test');
+
+  api.runCommand('build', { env: 'development' });
+  t.is(process.env.NODE_ENV, 'development');
+});
+
+test('command emits events around execution', async (t) => {
+  const api = new Neutrino();
+  const events = [];
+
+  api.on('prebuild', () => events.push('alpha'));
+  api.on('build', () => events.push('gamma'));
+
+  await api.runCommand('build', {}, () => events.push('beta'));
+  t.deepEqual(events, ['alpha', 'beta', 'gamma']);
+});
+
 test('creates a Webpack config', t => {
   const api = new Neutrino();
 

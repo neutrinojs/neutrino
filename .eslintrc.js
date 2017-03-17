@@ -39,7 +39,7 @@ api.use(airbnb, {
       }],
 
       // Allow console during development, otherwise throw an error
-      'no-console': 'warn',
+      'no-console': 'off',
 
       // Allow extra parentheses since multiline JSX being wrapped in parens is considered idiomatic
       'no-extra-parens': 'off',

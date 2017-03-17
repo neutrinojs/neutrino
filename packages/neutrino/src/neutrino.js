@@ -5,6 +5,8 @@ const webpack = require('webpack');
 const Config = require('webpack-chain');
 const ora = require('ora');
 const merge = require('deepmerge');
+const { defaultTo } = require('ramda');
+const requireMiddleware = require('./requireMiddleware');
 
 const normalizePath = (path, root) => (isAbsolute(path) ? path : join(root, path));
 
@@ -23,11 +25,18 @@ class Neutrino extends EventEmitter {
     this.options = merge(options, { root, source, output, tests, node_modules, entry });
   }
 
-  use(preset, options = {}) {
-    preset(this, options);
+  use(middleware, options = {}) {
+    middleware(this, options);
   }
 
-  /* eslint-disable no-console */
+  import(middleware) {
+    this.require(middleware).forEach(middleware => this.use(middleware));
+  }
+
+  require(middleware) {
+    return requireMiddleware(middleware, this.options);
+  }
+
   handleErrors(err, stats) {
     if (err) {
       console.error(err.stack || err);
@@ -48,7 +57,6 @@ class Neutrino extends EventEmitter {
 
     return false;
   }
-  /* eslint-enable no-console */
 
   getWebpackOptions() {
     return this.config.toConfig();
@@ -59,31 +67,28 @@ class Neutrino extends EventEmitter {
   }
 
   build(args) {
-    return this
-      .emitForAll('prebuild', args)
-      .then(() => this.builder())
-      .then(() => this.emitForAll('build', args));
+    return this.runCommand('build', args, () => this.builder());
   }
 
   start(args) {
-    return this
-      .emitForAll('prestart', args)
-      .then(() => {
-        const config = this.getWebpackOptions();
-
-        if (config.devServer) {
-          return this.devServer();
-        }
-
-        return this.watcher();
-      })
-      .then(() => this.emitForAll('start', args));
+    return this.runCommand('start', args, () => (this.getWebpackOptions().devServer ? this.devServer() : this.watcher()));
   }
 
   test(args) {
+    return this.runCommand('test', args);
+  }
+
+  runCommand(command, args = {}, fn) {
+    process.env.NODE_ENV = defaultTo({
+      build: 'production',
+      start: 'development',
+      test: 'test'
+    }[command], args.env);
+
     return this
-      .emitForAll('pretest', args)
-      .then(() => this.emitForAll('test', args));
+      .emitForAll(`pre${command}`, args)
+      .then(fn)
+      .then(() => this.emitForAll(command, args));
   }
 
   devServer() {

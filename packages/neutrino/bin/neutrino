@@ -10,17 +10,10 @@ const { pathOr, pipe, partialRight } = require('ramda');
 const { join } = require('path');
 const stringify = require('javascript-stringify');
 const sort = require('deep-sort-object');
+const optional = require('optional');
 
+// eslint-disable-next-line no-console
 const inspect = pipe(sort, partialRight(stringify, [null, 2]), console.log, process.exit);
-const cwd = process.cwd();
-let pkg = {};
-
-try {
-  pkg = require(join(cwd, 'package.json'));
-} catch (ex) {}
-
-const pkgPresets = pathOr([], ['neutrino', 'presets'], pkg);
-const environments = { build: 'production', start: 'development', test: 'test' };
 const args = yargs
   .option('inspect', {
     description: 'Output a string representation of the configuration used by Neutrino and exit',
@@ -28,10 +21,15 @@ const args = yargs
     default: false,
     global: true
   })
-  .option('presets', {
-    description: 'A list of Neutrino presets used to configure the build',
+  .option('use', {
+    description: 'A list of Neutrino middleware used to configure the build',
     array: true,
     default: [],
+    global: true
+  })
+  .option('env', {
+    description: 'The value for the environment variable, NODE_ENV',
+    string: true,
     global: true
   })
   .command('start', 'Build a project in development mode')
@@ -55,57 +53,26 @@ const args = yargs
   .help()
   .argv;
 
-function run(command, presets) {
-  process.env.NODE_ENV = environments[command];
-
+function run(command, args) {
+  const pkg = optional(join(process.cwd(), 'package.json')) || {};
+  const pkgMiddleware = pathOr([], ['neutrino', 'use'], pkg);
+  const middleware = [...new Set(pkgMiddleware.concat(args.use))];
   const options = pathOr({}, ['neutrino', 'options'], pkg);
   const config = pathOr({}, ['neutrino', 'config'], pkg);
   const api = new Neutrino(Object.assign(options, { config }));
 
-  // Grab all presets and merge them into a single webpack-chain config instance
-  presets.forEach(preset => {
-    const paths = [
-      join(cwd, preset),
-      join(cwd, 'node_modules', preset),
-      preset
-    ];
-
-    for (let i = 0; i < paths.length; i += 1) {
-      try {
-        return api.use(require(paths[i]));
-      } catch (exception) {
-        if (/Cannot find module/.test(exception.message)) {
-          continue;
-        }
-
-        exception.message = `Neutrino was unable to load the module '${preset}'. ` +
-          `Ensure this module exports a function and is free from errors.\n${exception.message}`;
-        throw exception;
-      }
-    }
-
-    throw new Error(`Neutrino cannot find a module with the name or path '${preset}'. ` +
-      `Ensure this module can be found relative to the root of the project.`);
-  });
+  // Grab all middleware and merge them into a single webpack-chain config instance
+  api.import(middleware);
 
   // Also grab any Neutrino config from package.json and merge it into the config at a higher precedence
-  if (Object.keys(config).length) {
-    api.config.merge(config);
-  }
+  api.use(() => api.config.merge(config));
 
-  if (args.inspect) {
-    return inspect(api.getWebpackOptions());
-  }
-
-  api[command](args)
-    .then(() => process.exit(0))
-    .catch(err => {
-      if (err) {
-        console.error(err);
-      }
-
-      process.exit(1);
-    });
+  return args.inspect ?
+    inspect(api.getWebpackOptions()) :
+    api[command](args);
 }
 
-run(args._[0], [...new Set(pkgPresets.concat(args.presets))]);
+run(args._[0], args).catch((err) => {
+  console.error(err || `Error during ${args._[0]}`);
+  process.exit(1);
+});
