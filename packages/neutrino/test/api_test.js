@@ -101,20 +101,22 @@ test('creates a Webpack config', t => {
         .options({ alpha: 'a', beta: 'b' });
   });
 
-  t.deepEqual(api.getWebpackOptions(), {
-    module: {
-      rules: [
-        {
-          test: /\.js$/,
-          include: ['src'],
-          use: [
-            {
-              loader: 'babel-loader',
-              options: { alpha: 'a', beta: 'b' }
-            }
-          ]
-        }
-      ]
-    }
-  });
+  api.load().then(() => {
+    t.deepEqual(api.getWebpackOptions(), {
+      module: {
+        rules: [
+          {
+            test: /\.js$/,
+            include: ['src'],
+            use: [
+              {
+                loader: 'babel-loader',
+                options: { alpha: 'a', beta: 'b' }
+              }
+            ]
+          }
+        ]
+      }
+    });    
+  })
 });

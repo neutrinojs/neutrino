@@ -88,17 +88,10 @@ function run(command, presets) {
       `Ensure this module can be found relative to the root of the project.`);
   });
 
-  // Also grab any Neutrino config from package.json and merge it into the config at a higher precedence
-  if (Object.keys(config).length) {
-    api.config.merge(config);
-  }
+  api.use(() => api.config.merge(config));
 
-  if (args.inspect) {
-    return inspect(api.getWebpackOptions());
-  }
-
-  api[command](args)
-    .then(() => process.exit(0))
+  api.load()
+    .then(() => args.inspect ?  inspect(api.getWebpackOptions()) : api[command](args))
     .catch(err => {
       if (err) {
         console.error(err);

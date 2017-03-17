@@ -21,10 +21,15 @@ class Neutrino extends EventEmitter {
 
     this.config = new Config();
     this.options = merge(options, { root, source, output, tests, node_modules, entry });
+    this.useQueue = [];
   }
 
   use(preset, options = {}) {
-    preset(this, options);
+    this.useQueue.push(() => preset(this, options));
+  }
+
+  load() {
+    return this.useQueue.reduce((result, task) => result.then(task), Promise.resolve());
   }
 
   /* eslint-disable no-console */
