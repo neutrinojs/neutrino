@@ -68,7 +68,7 @@ function run(command, args) {
   api.use(() => api.config.merge(config));
 
   return args.inspect ?
-    inspect(api.getWebpackOptions()) :
+    inspect(api.getWebpackConfig()) :
     api[command](args);
 }
 

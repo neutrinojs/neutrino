@@ -91,7 +91,7 @@ test('import middleware for use', t => {
 
   api.import('fixtures/middleware');
 
-  t.notDeepEqual(api.getWebpackOptions(), {});
+  t.notDeepEqual(api.getWebpackConfig(), {});
 });
 
 test('command sets correct NODE_ENV', t => {
@@ -136,7 +136,7 @@ test('creates a Webpack config', t => {
         .options({ alpha: 'a', beta: 'b' });
   });
 
-  t.deepEqual(api.getWebpackOptions(), {
+  t.deepEqual(api.getWebpackConfig(), {
     module: {
       rules: [
         {

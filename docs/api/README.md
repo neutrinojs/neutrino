@@ -289,14 +289,14 @@ api
   .then(() => console.log('all passed'));
 ```
 
-### `getWebpackOptions()`
+### `getWebpackConfig()`
 
 While tools like webpack-chain provide a convenient API for creating Webpack configurations, this is not a format that
-is understandable by Webpack. With `getWebpackOptions()`, the webpack-chain instance at `.config` will be converted to
+is understandable by Webpack. With `getWebpackConfig()`, the webpack-chain instance at `.config` will be converted to
 an configuration object readable directly by Webpack.
 
 ```js
-api.getWebpackOptions(); // -> { ... }
+api.getWebpackConfig(); // -> { ... }
 ```
 
 ### `emitForAll(eventName, payload)`
