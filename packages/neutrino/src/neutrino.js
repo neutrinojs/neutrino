@@ -58,7 +58,7 @@ class Neutrino extends EventEmitter {
     return false;
   }
 
-  getWebpackOptions() {
+  getWebpackConfig() {
     return this.config.toConfig();
   }
 

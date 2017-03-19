@@ -17,7 +17,7 @@ test('valid preset', t => {
   
   api.use(require('..'));
 
-  const errors = validate(api.getWebpackOptions());
+  const errors = validate(api.getWebpackConfig());
 
   t.is(errors.length, 0);
 });

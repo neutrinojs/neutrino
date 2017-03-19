@@ -10,7 +10,7 @@ to v5, be sure to check this list for tasks you may need to perform to use this 
 neutrino.config
   .plugin(name)
   .use(WebpackPlugin, ...args)
-  
+
 // Creating plugins in v5
 neutrino.config
   .plugin(name)
@@ -24,7 +24,7 @@ neutrino.config
 neutrino.config
   .plugin(name)
   .inject((Plugin, args) => new Plugin(...newArgs))
-  
+
 // Modifying plugins in v5
 neutrino.config
   .plugin(name)
@@ -42,7 +42,7 @@ neutrino.config.module
       plugins: ['object-rest-spread']
     }
   });
-  
+
 // Creating loaders in v5
 neutrino.config
   .rule('compile')
@@ -63,7 +63,7 @@ neutrino.config.module
       plugins: ['object-rest-spread']
     }
   }));
-  
+
 // Modifying loaders in v5
 neutrino.config.module
   .rule('compile')
@@ -207,7 +207,7 @@ api.use(require('neutrino-preset-node'));
 api.use(require('neutrino.preset-mocha'));
 ```
 
-- `neutrino.getWebpackOptions()` no longer caches the configuration after being called.
+- `neutrino.getWebpackOptions()` has been renamed to `neutrino.getWebpackConfig()` and no longer caches the configuration after being called.
 - Using a `node` target no longer skips the watcher for a builder, it now uses the Webpack source watcher. This means
 commands like `neutrino start && node build` is obsolete. `neutrino build && node build` would work to start a Node
 instance for production-built bundles.
