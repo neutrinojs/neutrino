@@ -38,10 +38,10 @@ path is specified, it will be resolved relative to `process.cwd()`; absolute pat
 ```js
 new Neutrino({
   // if not specified, defaults to process.cwd()
-  
+
   // relative, resolves to process.cwd() + ./website
   root: './website',
-  
+
   // absolute
   root: '/code/website'
 })
@@ -55,10 +55,10 @@ If a relative path is specified, it will be resolved relative to `options.root`;
 ```js
 new Neutrino({
   // if not specified, defaults to options.root + src
-  
+
   // relative, resolves to options.root + ./lib
   source: './lib',
-  
+
   // absolute
   source: '/code/website/lib'
 })
@@ -72,10 +72,10 @@ If a relative path is specified, it will be resolved relative to `options.root`;
 ```js
 new Neutrino({
   // if not specified, defaults to options.root + build
-  
+
   // relative, resolves to options.root + ./dist
   output: './dist',
-  
+
   // absolute
   output: '/code/website/dist'
 })
@@ -89,10 +89,10 @@ If a relative path is specified, it will be resolved relative to `options.root`;
 ```js
 new Neutrino({
   // if not specified, defaults to options.root + test
-  
+
   // relative, resolves to options.root + ./testing
   tests: './testing',
-  
+
   // absolute
   tests: '/code/website/testing'
 })
@@ -106,10 +106,10 @@ If a relative path is specified, it will be resolved relative to `options.source
 ```js
 new Neutrino({
   // if not specified, defaults to options.source + index.js
-  
+
   // relative, resolves to options.source + ./entry.js
   entry: './entry.js',
-  
+
   // absolute
   entry: '/code/website/lib/entry.js'
 })
@@ -124,10 +124,10 @@ used as-is.
 ```js
 new Neutrino({
   // if not specified, defaults to options.root + node_modules
-  
+
   // relative, resolves to options.root + ./modules
   node_modules: './modules',
-  
+
   // absolute
   node_modules: '/code/website/modules'
 })
@@ -324,54 +324,4 @@ neutrino.on('custom-event', (args, payload) => {
   console.log(payload.custom); // "payload"
 });
 
-```
-
-### `handleErrors(err, stats)`
-
-This method is used internally to create a consistent console output when errors occur in the build. It will
-log the `err` property and any errors from `stats` if applicable, and return `true` or `false` depending on if there
-_were_ errors.
-
-This method returns a Boolean.
-
-```js
-const failed = api.handleErrors(err, stats);
-
-if (failed) {
-  console.log('The build failed!');
-}
-```
-
-### `devServer()`
-
-This method is used internally to generate an instance of webpack-dev-server when using `start()`. It returns a promise
-that resolves when the process receives a `SIGINT` event to stop.
-
-```js
-api
-  .devServer()
-  .then(() => console.log('Exiting process...'));
-```
-
-### `builder()`
-
-This method is used internally to generate an instance of a Webpack compiler when using `build()`. It returns a promise
-that resolves when the Webpack build has completed, or rejects if the build fails.
-
-```js
-api
-  .builder()
-  .then(() => console.log('Exiting process...'))
-  .catch(() => console.error('Build failed!'));
-```
-
-### `watcher()`
-
-This method is used internally to generate an instance of a Webpack source watcher when using `start()`. It returns a promise
-that resolves when the process receives a `SIGINT` event to stop and the watcher has closed.
-
-```js
-api
-  .watcher()
-  .then(() => console.log('Exiting process, done watching...'));
 ```
