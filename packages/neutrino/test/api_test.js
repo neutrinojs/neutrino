@@ -124,32 +124,9 @@ test('command emits events around execution', async (t) => {
 test('creates a Webpack config', t => {
   const api = new Neutrino();
 
-  api.use(api => {
-    api.config.module
-      .rule('compile')
-      .test(/\.js$/)
-      .include
-        .add('src')
-        .end()
-      .use('babel')
-        .loader('babel-loader')
-        .options({ alpha: 'a', beta: 'b' });
-  });
+  api.use(api => api.config.module
+    .rule('compile')
+    .test(/\.js$/));
 
-  t.deepEqual(api.getWebpackConfig(), {
-    module: {
-      rules: [
-        {
-          test: /\.js$/,
-          include: ['src'],
-          use: [
-            {
-              loader: 'babel-loader',
-              options: { alpha: 'a', beta: 'b' }
-            }
-          ]
-        }
-      ]
-    }
-  });
+  t.notDeepEqual(api.getWebpackConfig(), {});
 });
