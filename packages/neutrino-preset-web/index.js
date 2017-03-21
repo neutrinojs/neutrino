@@ -93,7 +93,7 @@ module.exports = (neutrino) => {
     .filename('[name].bundle.js')
     .chunkFilename('[id].[chunkhash].js');
 
-  config.resolve.modules.add(neutrino.options.node_modules).add(MODULES);
+  config.resolve.modules.add('node_modules').add(neutrino.options.node_modules).add(MODULES);
   config.resolve.extensions.add('.js').add('.json');
   config.resolveLoader.modules.add(neutrino.options.node_modules).add(MODULES);
 

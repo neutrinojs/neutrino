@@ -58,6 +58,7 @@ module.exports = (neutrino) => {
       .end()
     .resolve
       .modules
+        .add('node_modules')
         .add(neutrino.options.node_modules)
         .add(MODULES)
         .end()
