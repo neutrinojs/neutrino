@@ -23,6 +23,4 @@ module.exports = _config => new Promise((resolve) => {
       building.start();
     });
   });
-
-  process.on('SIGINT', resolve);
 });
