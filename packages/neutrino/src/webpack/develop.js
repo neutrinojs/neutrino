@@ -5,7 +5,7 @@ const DevServer = require('webpack-dev-server');
 
 module.exports = _config => new Promise((resolve) => {
   const defaultDevServer = { host: 'localhost', port: 5000, noInfo: true };
-  const config = merge({ deverServer: defaultDevServer }, _config);
+  const config = merge({ devServer: defaultDevServer }, _config);
   const protocol = config.devServer.https ? 'https' : 'http';
   const { host, port } = config.devServer;
 
