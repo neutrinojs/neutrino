@@ -4,16 +4,14 @@
 // https://github.com/babel/babel-loader/pull/391
 process.noDeprecation = true;
 
-const Neutrino = require('../src/neutrino');
 const yargs = require('yargs');
-const { pathOr, pipe, partialRight } = require('ramda');
-const { join } = require('path');
-const stringify = require('javascript-stringify');
-const sort = require('deep-sort-object');
-const optional = require('optional');
+const { pathOr } = require('ramda');
+const build = require('./build');
+const inspect = require('./inspect');
+const start = require('./start');
+const test = require('./test');
+const { getNodeEnv, getPackageJson } = require('../src/utils');
 
-// eslint-disable-next-line no-console
-const inspect = pipe(sort, partialRight(stringify, [null, 2]), console.log, process.exit);
 const args = yargs
   .option('inspect', {
     description: 'Output a string representation of the configuration used by Neutrino and exit',
@@ -53,26 +51,28 @@ const args = yargs
   .help()
   .argv;
 
-function run(command, args) {
-  const pkg = optional(join(process.cwd(), 'package.json')) || {};
+// foldMiddleware :: Object -> Array
+const foldMiddleware = (args) => {
+  const pkg = getPackageJson();
   const pkgMiddleware = pathOr([], ['neutrino', 'use'], pkg);
-  const middleware = [...new Set(pkgMiddleware.concat(args.use))];
+
+  return [...new Set(pkgMiddleware.concat(args.use))];
+};
+
+// normalizeOptions :: Object -> Object
+const normalizeOptions = (args) => {
+  const pkg = getPackageJson();
   const options = pathOr({}, ['neutrino', 'options'], pkg);
-  const config = pathOr({}, ['neutrino', 'config'], pkg);
-  const api = new Neutrino(Object.assign(options, { config }));
+  const env = args.inspect ? getNodeEnv(args._[0], args.env) : args.env;
 
-  // Grab all middleware and merge them into a single webpack-chain config instance
-  api.import(middleware);
+  return Object.assign(options, {
+    config: pathOr({}, ['neutrino', 'config'], pkg),
+    args: Object.assign(args, { env })
+  });
+};
 
-  // Also grab any Neutrino config from package.json and merge it into the config at a higher precedence
-  api.use(() => api.config.merge(config));
+const cmd = args.inspect ? 'inspect' : args._[0];
+const middleware = foldMiddleware(args);
+const options = normalizeOptions(args);
 
-  return args.inspect ?
-    inspect(api.getWebpackConfig()) :
-    api[command](args);
-}
-
-run(args._[0], args).catch((err) => {
-  console.error(err || `Error during ${args._[0]}`);
-  process.exit(1);
-});
+({ build, inspect, start, test })[cmd](middleware, options);

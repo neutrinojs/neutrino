@@ -8,13 +8,12 @@ const htmlTemplate = require('neutrino-middleware-html-template');
 const chunk = require('neutrino-middleware-chunk');
 const hot = require('neutrino-middleware-hot');
 const copy = require('neutrino-middleware-copy');
-const progress = require('neutrino-middleware-progress');
 const clean = require('neutrino-middleware-clean');
 const minify = require('neutrino-middleware-minify');
 const loaderMerge = require('neutrino-middleware-loader-merge');
 const namedModules = require('neutrino-middleware-named-modules');
 const { join } = require('path');
-const { pathOr } = require('ramda');
+const { path, pathOr } = require('ramda');
 
 const MODULES = join(__dirname, 'node_modules');
 
@@ -45,6 +44,23 @@ function devServer({ config }, options) {
 module.exports = (neutrino) => {
   const { config } = neutrino;
 
+  if (!path(['options', 'compile', 'targets', 'browsers'], neutrino)) {
+    Object.assign(neutrino.options, {
+      compile: {
+        targets: {
+          browsers: [
+            'last 2 Chrome versions',
+            'last 2 Firefox versions',
+            'last 2 Edge versions',
+            'last 2 Opera versions',
+            'last 2 Safari versions',
+            'last 2 iOS versions'
+          ]
+        }
+      }
+    });
+  }
+
   neutrino.use(env);
   neutrino.use(htmlLoader);
   neutrino.use(styleLoader);
@@ -61,16 +77,7 @@ module.exports = (neutrino) => {
           modules: false,
           useBuiltIns: true,
           include: ['transform-regenerator'],
-          targets: pathOr({
-            browsers: [
-              'last 2 Chrome versions',
-              'last 2 Firefox versions',
-              'last 2 Edge versions',
-              'last 2 Opera versions',
-              'last 2 Safari versions',
-              'last 2 iOS versions'
-            ]
-          }, ['options', 'compile', 'targets'], neutrino)
+          targets: neutrino.options.compile.targets
         }]
       ]
     }
@@ -135,7 +142,6 @@ module.exports = (neutrino) => {
         .add('webpack/hot/dev-server');
   } else {
     neutrino.use(clean, { paths: [neutrino.options.output] });
-    neutrino.use(progress);
     neutrino.use(minify);
     neutrino.use(copy, {
       patterns: [{ context: neutrino.options.source, from: '**/*' }],

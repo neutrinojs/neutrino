@@ -1,17 +1,17 @@
 import test from 'ava';
-import Neutrino from '../src/neutrino';
+import { Neutrino } from '../src';
 
 test('initializes with no arguments', t => {
-  t.notThrows(() => new Neutrino());
+  t.notThrows(() => Neutrino());
 });
 
 test('initializes with options', t => {
-  t.notThrows(() => new Neutrino({ testing: true }));
+  t.notThrows(() => Neutrino({ testing: true }));
 });
 
 test('initialization stores options', t => {
   const options = { alpha: 'a', beta: 'b', gamma: 'c' };
-  const api = new Neutrino(options);
+  const api = Neutrino(options);
 
   t.is(api.options.alpha, options.alpha);
   t.is(api.options.beta, options.beta);
@@ -19,19 +19,19 @@ test('initialization stores options', t => {
 });
 
 test('creates an instance of webpack-chain', t => {
-  const api = new Neutrino();
+  const api = Neutrino();
 
   t.is(typeof api.config.toConfig, 'function');
 });
 
 test('middleware receives API instance', t => {
-  const api = new Neutrino();
+  const api = Neutrino();
 
   api.use(n => t.is(n, api));
 });
 
 test('middleware receives default options', t => {
-  const api = new Neutrino();
+  const api = Neutrino();
 
   api.use((api, options) => {
     t.deepEqual(options, {});
@@ -39,7 +39,7 @@ test('middleware receives default options', t => {
 });
 
 test('middleware receives options parameter', t => {
-  const api = new Neutrino();
+  const api = Neutrino();
   const defaults = { alpha: 'a', beta: 'b', gamma: 'c' };
 
   api.use((api, options) => {
@@ -48,14 +48,14 @@ test('middleware receives options parameter', t => {
 });
 
 test('triggers promisified event handlers', t => {
-  const api = new Neutrino();
+  const api = Neutrino();
 
   api.on('test', () => t.pass('test event triggered'));
   api.emitForAll('test');
 });
 
 test('events handle promise resolution', async t => {
-  const api = new Neutrino();
+  const api = Neutrino();
 
   api.on('test', () => Promise.resolve('alpha'));
 
@@ -65,7 +65,7 @@ test('events handle promise resolution', async t => {
 });
 
 test('events handle promise rejection', async t => {
-  const api = new Neutrino();
+  const api = Neutrino();
 
   api.on('test', () => Promise.reject(new Error('beta')));
 
@@ -75,7 +75,7 @@ test('events handle promise rejection', async t => {
 });
 
 test('events handle multiple promise resolutions', async t => {
-  const api = new Neutrino();
+  const api = Neutrino();
 
   api.on('test', () => Promise.resolve('alpha'));
   api.on('test', () => Promise.resolve('beta'));
@@ -86,47 +86,32 @@ test('events handle multiple promise resolutions', async t => {
   t.deepEqual(values, ['alpha', 'beta', 'gamma']);
 });
 
-test('import middleware for use', t => {
-  const api = new Neutrino({ root: __dirname });
+test('import middleware for use', async (t) => {
+  const api = Neutrino({ root: __dirname });
 
-  api.import('fixtures/middleware');
-
-  t.notDeepEqual(api.getWebpackConfig(), {});
-});
-
-test('command sets correct NODE_ENV', t => {
-  const api = new Neutrino();
-
-  api.runCommand('build');
-  t.is(process.env.NODE_ENV, 'production');
-
-  api.runCommand('start');
-  t.is(process.env.NODE_ENV, 'development');
-
-  api.runCommand('test');
-  t.is(process.env.NODE_ENV, 'test');
-
-  api.runCommand('build', { env: 'development' });
-  t.is(process.env.NODE_ENV, 'development');
+  await api.requiresAndUses(['fixtures/middleware']).promise();
+  t.notDeepEqual(api.config.toConfig(), {});
 });
 
 test('command emits events around execution', async (t) => {
-  const api = new Neutrino();
+  const api = Neutrino();
   const events = [];
 
   api.on('prebuild', () => events.push('alpha'));
-  api.on('build', () => events.push('gamma'));
+  api.on('build', () => events.push('beta'));
 
-  await api.runCommand('build', {}, () => events.push('beta'));
-  t.deepEqual(events, ['alpha', 'beta', 'gamma']);
+  await api.emitForAll('prebuild');
+  await api.emitForAll('build');
+
+  t.deepEqual(events, ['alpha', 'beta']);
 });
 
 test('creates a Webpack config', t => {
-  const api = new Neutrino();
+  const api = Neutrino();
 
   api.use(api => api.config.module
     .rule('compile')
     .test(/\.js$/));
 
-  t.notDeepEqual(api.getWebpackConfig(), {});
+  t.notDeepEqual(api.config.toConfig(), {});
 });

@@ -1,13 +1,16 @@
-const Neutrino = require('./packages/neutrino');
+const { Neutrino } = require('./packages/neutrino');
 const airbnb = require('./packages/neutrino-preset-airbnb-base');
 
-const api = new Neutrino();
+const api = Neutrino();
 
 api.use(airbnb, {
   eslint: {
     node: true,
     plugins: ['eslint-plugin-prettier'],
     rules: {
+      // Algebraic and functional types should allow capital constructors without new
+      'babel/new-cap': 'off',
+
       // Disable necessitating return after a callback
       'callback-return': 'off',
 
@@ -63,8 +66,14 @@ api.use(airbnb, {
       // Restrict usage of specified node modules
       'no-restricted-modules': 'off',
 
+      // Allow return assign
+      'no-return-assign': 'off',
+
       // Allowing shadowing variable that share the same context as the outer scope
       'no-shadow': 'off',
+
+      // It makes sense to have unused expressions to avoid imperative conditionals
+      'no-unused-expressions': 'off',
 
       // Allow use of synchronous methods (off by default)
       'no-sync': 'off',

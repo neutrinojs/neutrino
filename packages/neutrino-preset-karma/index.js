@@ -44,7 +44,7 @@ module.exports = (neutrino) => {
       {
         singleRun: !watch,
         autoWatch: watch,
-        webpack: neutrino.getWebpackConfig()
+        webpack: neutrino.config.toConfig()
       }
     ]);
 
