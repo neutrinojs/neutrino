@@ -2,7 +2,7 @@
   "name": "neutrino",
   "version": "5.0.0",
   "description": "Create and build JS applications with managed configurations",
-  "main": "src/neutrino.js",
+  "main": "src/index.js",
   "bin": {
     "neutrino": "./bin/neutrino"
   },
@@ -24,10 +24,15 @@
   "dependencies": {
     "deep-sort-object": "^1.0.1",
     "deepmerge": "^1.3.2",
+    "fluture": "^5.0.0",
+    "immutable": "^3.8.1",
+    "immutable-ext": "^1.0.8",
     "javascript-stringify": "^1.6.0",
+    "mitt": "^1.1.0",
     "optional": "^0.1.3",
     "ora": "^1.1.0",
     "ramda": "^0.23.0",
+    "ramda-fantasy": "^0.7.0",
     "webpack": "^2.2.1",
     "webpack-chain": "^3.0.0",
     "webpack-dev-server": "^2.4.1",

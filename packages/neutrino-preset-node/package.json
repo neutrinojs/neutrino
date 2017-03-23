@@ -29,7 +29,6 @@
     "neutrino-middleware-hot": "^5.0.0",
     "neutrino-middleware-loader-merge": "^5.0.0",
     "neutrino-middleware-named-modules": "^5.0.0",
-    "neutrino-middleware-progress": "^5.0.0",
     "neutrino-middleware-start-server": "^5.0.0"
   },
   "peerDependencies": {

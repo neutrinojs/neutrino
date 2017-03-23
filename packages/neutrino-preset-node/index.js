@@ -1,7 +1,6 @@
 const banner = require('neutrino-middleware-banner');
 const compile = require('neutrino-middleware-compile-loader');
 const copy = require('neutrino-middleware-copy');
-const progress = require('neutrino-middleware-progress');
 const clean = require('neutrino-middleware-clean');
 const loaderMerge = require('neutrino-middleware-loader-merge');
 const startServer = require('neutrino-middleware-start-server');
@@ -9,7 +8,7 @@ const hot = require('neutrino-middleware-hot');
 const namedModules = require('neutrino-middleware-named-modules');
 const nodeExternals = require('webpack-node-externals');
 const { join } = require('path');
-const { pathOr } = require('ramda');
+const { path } = require('ramda');
 
 const MODULES = join(__dirname, 'node_modules');
 
@@ -23,6 +22,16 @@ module.exports = (neutrino) => {
   } catch (ex) {}
   /* eslint-enable global-require no-empty */
 
+  if (!path(['options', 'compile', 'targets', 'browsers'], neutrino)) {
+    Object.assign(neutrino.options, {
+      compile: {
+        targets: {
+          node: 6.9
+        }
+      }
+    });
+  }
+
   neutrino.use(namedModules);
   neutrino.use(compile, {
     include: [neutrino.options.source, neutrino.options.tests],
@@ -31,7 +40,7 @@ module.exports = (neutrino) => {
       presets: [
         [require.resolve('babel-preset-env'), {
           modules: false,
-          targets: pathOr({ node: 6.9 }, ['options', 'compile', 'targets'], neutrino)
+          targets: neutrino.options.compile.targets
         }]
       ]
     }
@@ -81,7 +90,6 @@ module.exports = (neutrino) => {
 
   if (process.env.NODE_ENV !== 'development') {
     neutrino.use(clean, { paths: [neutrino.options.output] });
-    neutrino.use(progress);
     neutrino.use(copy, {
       patterns: [{ context: neutrino.options.source, from: '**/*' }],
       options: { ignore: ['*.js*'] }
