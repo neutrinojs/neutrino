@@ -25,7 +25,8 @@ Commands:
 
 Options:
   --inspect  Output a string representation of the configuration used by Neutrino and exit   [boolean]
-  --presets  A list of Neutrino presets used to configure the build                          [array] [default: []]
+  --use      A list of Neutrino middleware used to configure the build                       [array] [default: []]
+  --env      The value for the environment variable, NODE_ENV                                [string]
   --version  Show version number                                                             [boolean]
   --help     Show help                                                                       [boolean]
 ```
@@ -36,45 +37,45 @@ Using `--version` will output the current version of the Neutrino CLI to the con
 
 ```bash
 ❯ neutrino --version
-4.0.0
+5.0.0
 ```
 
-## `--presets`
+## `--use`
 
-The `--presets` flag can be used in conjunction with any of the top-level commands to specify a collection of
-presets to load. These can be an npm package or a relative path to a module to load as a preset.
+The `--use` flag can be used in conjunction with any of the top-level commands to specify a collection of
+middleware and presets to load. These can be an npm package or a relative path to a module to load as middleware.
 
 ```bash
-❯ neutrino start --presets neutrino-preset-react neutrino-preset-karma
+❯ neutrino start --use neutrino-preset-react neutrino-preset-karma
 ```
 
-The Neutrino CLI will still attempt to load any presets defined in the project's package.json located at
-`config.presets`. Presets passed via the CLI `--presets` will take precedence over presets defined in
-`config.presets`, meaning that options set by package.json presets can have their values overridden by
-`--presets` presets.
+The Neutrino CLI will still attempt to load any presets and middleware defined in the project's package.json located at
+`config.use`. Middleware passed via the CLI `--use` will take precedence over middleware defined in
+`config.use`, meaning that options set by package.json middleware can have their values overridden by
+`--use` middleware.
 
 ## `--inspect`
 
 The `--inspect` flag can be used to write out a stringified version of the Webpack configuration which has been
 accumulated by all middleware. When using the `--inspect` flag, the Neutrino CLI will still import all presets and
-middleware that has been supplied, but will then exit after logging the configuration to stdout. No builds, servers, or
+middleware that have been supplied, but will then exit after logging the configuration to stdout. No builds, servers, or
 watchers will be started.
 
 ```bash
-❯ neutrino start --inspect --presets neutrino-preset-react neutrino-preset-jest
+❯ neutrino start --inspect --use neutrino-preset-react neutrino-preset-jest
 ```
 
 This could also be used to help create diffs between configuration changes. Take the following command:
 
 ```bash
-❯ neutrino start --inspect --presets neutrino-preset-react neutrino-preset-jest
+❯ neutrino start --inspect --use neutrino-preset-react neutrino-preset-jest
 ```
 
 We can capture this inspection to a file, and capture the change by adding a preset override:
 
 ```bash
-❯ neutrino start --inspect --presets neutrino-preset-react neutrino-preset-jest > a.config
-❯ neutrino start --inspect --presets neutrino-preset-react neutrino-preset-jest override.js > b.config
+❯ neutrino start --inspect --use neutrino-preset-react neutrino-preset-jest > a.config
+❯ neutrino start --inspect --use neutrino-preset-react neutrino-preset-jest override.js > b.config
 ```
 
 Using `git diff a.config b.config`, we get a pretty diff of the configuration change:
@@ -97,19 +98,19 @@ index 3356802..d4d82ef 100644
 ## `neutrino start`
 
 Using the command `neutrino start` builds a project in development mode, also starting a development server or source
-watcher depending on the preset or config options used. This command sets the `NODE_ENV` environment variable to
-`development`.
+watcher depending on the middleware or configuration used. This command sets the `NODE_ENV` environment variable to
+`development` by default.
 
 ## `neutrino build`
 
 Using the command `neutrino build` builds a project in production mode, rendering static assets to the configured build
-output destination. This command sets the `NODE_ENV` environment variable to `production`.
+output destination. This command sets the `NODE_ENV` environment variable to `production` by default.
 
 ## `neutrino test`
 
-Using the command `neutrino test` passes execution onto a test runner preset. It is up to the preset being used to
-determine how source files are built or provided to tests. See your particular test preset for details. This
-command sets the `NODE_ENV` environment variable to `test`.
+Using the command `neutrino test` passes execution onto a test runner preset. It is up to the preset or middleware being
+used to determine how source files are built or provided to tests. See your particular test middleware for details. This
+command sets the `NODE_ENV` environment variable to `test` by default.
 
 Looking at the `--help` for `neutrino test`:
 
@@ -118,16 +119,18 @@ Looking at the `--help` for `neutrino test`:
 neutrino test [files..]
 
 Options:
-  --presets  A list of Neutrino presets used to configure the build    [array] [default: []]
-  --version  Show version number                                       [boolean]
-  --help     Show help                                                 [boolean]
-  --coverage Collect test coverage information and generate report     [boolean] [default: false]
-  --watch    Watch source files for changes and re-run tests           [boolean] [default: false]
+  --inspect   Output a string representation of the configuration used by Neutrino and exit  [boolean] [default: false]
+  --use      A list of Neutrino presets used to configure the build                          [array] [default: []]
+  --version  Show version number                                                             [boolean]
+  --env      The value for the environment variable, NODE_ENV                                [string]
+  --help     Show help                                                                       [boolean]
+  --coverage Collect test coverage information and generate report                           [boolean] [default: false]
+  --watch    Watch source files for changes and re-run tests                                 [boolean] [default: false]
 ```
 
 Using the command `neutrino test` will execute every test file located in your
 [testing directory](../project-layout#Testing). You may also provide to this command the specific test files you wish
-to run individually. It is important to note that when combined with the `--presets` parameter, you should use two
+to run individually. It is important to note that when combined with the `--use` parameter, you should use two
 dashes after the last preset to denote the end of the presets and the beginning of the test files.
 
 ```bash
@@ -135,16 +138,16 @@ dashes after the last preset to denote the end of the presets and the beginning 
 ```
 
 ```bash
-❯ neutrino test --presets neutrino-preset-react neutrino-preset-karma -- a_test.js b_test.js
+❯ neutrino test --use neutrino-preset-react neutrino-preset-karma -- a_test.js b_test.js
 ```
 
-You can also pass a flag `--watch` to watch source files for changes and re-run tests, if your preset supports it.
+You can also pass a flag `--watch` to watch source files for changes and re-run tests, if your middleware supports it.
 
 ```bash
 ❯ neutrino test --watch
 ```
 
-As well you can pass a flag `--coverage` to collect test coverage information and generate a report, if your preset
+As well you can pass a flag `--coverage` to collect test coverage information and generate a report, if your middleware
 supports it.
 
 ```bash

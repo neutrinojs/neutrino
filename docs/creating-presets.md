@@ -47,8 +47,8 @@ middleware interacts with and makes changes through this config, which is all av
 
 Neutrino exposes events for various stages of the build process your preset can hook into **if necessary**.
 
-- `prestart`: Triggered before creating a development bundle or launching a dev server.
-- `start`: Triggered after the development bundle has finished or the dev server has been stopped.
+- `prestart`: Triggered before creating a development bundle, launching a dev server, or a source watcher.
+- `start`: Triggered after the development bundle has been created the dev server or source watcher has started.
 - `prebuild`: Triggered before creating a production build.
 - `build`: Triggered after the production build has completed.
 - `pretest`: Triggered before invoking any test runners.

@@ -34,10 +34,10 @@ api.use(middleware, options);
 To use a concrete example, let's create middleware that adds an environment plugin:
 
 ```js
-const Neutrino = require('neutrino');
+const { Neutrino } = require('neutrino');
 const { EnvironmentPlugin } = require('webpack');
 
-const api = new Neutrino();
+const api = Neutrino();
 
 function env(neutrino, additionalVars = []) {
   neutrino.config

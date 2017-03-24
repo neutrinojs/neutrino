@@ -107,7 +107,7 @@ document that clearly in your middleware.
 `neutrino-middleware-eslint` also provides a method for getting the ESLint configuration suitable for use in an eslintrc
 file. Typically this is used for providing hints or fix solutions to the development environment, e.g. IDEs and text
 editors. Doing this requires [creating an instance of the Neutrino API](../../api/README.md) and providing the presets uses.
-If you keep this information in `neutrino.presets` in package.json, this should be relatively straightforward. By
+If you keep this information in `neutrino.use` in package.json, this should be relatively straightforward. By
 providing all the presets used to Neutrino, you can ensure all the linting options used across all presets will be
 merged together for your development environment, without the need for copying, duplication, or loss of organization and
 separation.
@@ -116,11 +116,13 @@ _Example: Create a .eslintrc.js file in the root of the project._
 
 ```js
 // .eslintrc.js
-const Neutrino = require('neutrino');
+const { Neutrino } = require('neutrino');
 const pkg = require('./package.json');
-const api = new Neutrino();
+const api = Neutrino();
 
-pkg.neutrino.presets.map(preset => neutrino.use(preset));
+pkg.neutrino.use
+  .map(require)
+  .map(api.use);
 
 module.exports = api.eslintrc();
 ```

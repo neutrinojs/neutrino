@@ -68,17 +68,17 @@ let's pretend this is a React project:
 ```json
 {
   "scripts": {
-    "test": "neutrino test --presets neutrino-preset-node neutrino-preset-karma"
+    "test": "neutrino test --use neutrino-preset-node neutrino-preset-karma"
   }
 }
 ```
 
-Or if you have set up Neutrino with `neutrino.presets` in your package.json:
+Or if you have set up Neutrino with `neutrino.use` in your package.json:
 
 ```json
 {
   "neutrino": {
-    "presets": [
+    "use": [
       "neutrino-preset-react",
       "neutrino-preset-karma"
     ]

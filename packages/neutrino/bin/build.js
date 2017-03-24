@@ -8,7 +8,7 @@ module.exports = (middleware, options) => {
     .fork((errors) => {
       spinner.fail('Building project failed');
       errors.forEach((err) => {
-        console.error(err.message || err.stack || err);
+        console.error(err.stack || err);
         err.details && console.error(err.details);
       });
       process.exit(1);
