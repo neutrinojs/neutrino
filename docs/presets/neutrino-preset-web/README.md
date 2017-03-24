@@ -70,8 +70,8 @@ Now edit your project's package.json to add commands for starting and building t
 ```json
 {
   "scripts": {
-    "start": "neutrino start --presets neutrino-preset-web",
-    "build": "neutrino build --presets neutrino-preset-web"
+    "start": "neutrino start --use neutrino-preset-web",
+    "build": "neutrino build --use neutrino-preset-web"
   }
 }
 ```

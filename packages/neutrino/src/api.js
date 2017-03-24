@@ -39,7 +39,10 @@ const Api = pipe(getOptions, (options) => {
     // register :: String command -> Future handler -> ()
     register: (command, handler) => api.commands[command] = handler,
 
-    // requireMiddleware :: (Array String middleware) -> Future Error a
+    // run :: String command -> Future Error a
+    run: command => api.commands[command](api.config.toConfig()),
+
+    // requires :: (Array String middleware) -> Future Error (List a)
     requires: middleware => List(middleware).map(pipe(
       createPaths(api.options.root),
       resolveAny,
@@ -52,7 +55,7 @@ const Api = pipe(getOptions, (options) => {
     // use :: Function middleware -> Object options -> IO ()
     use: (middleware, options = {}) => middleware(api, options),
 
-    // useRequires :: Future Error a -> Future Error a
+    // useRequires :: Future Error (List a) -> Future Error (List a)
     useRequires: requires => requires
       // For all middleware, pass it to api.use()
       .map(chain(Future.encase(api.use)))

@@ -30,7 +30,7 @@ Usage:
 
 ```bash
 # PRESET_MODULE is the name of the preset to build with, e.g. neutrino-preset-react
-neutrino start --presets PRESET_MODULE
+neutrino start --use PRESET_MODULE
 ```
 
 Putting this into your `package.json` will allow you to build your project using either
@@ -39,7 +39,7 @@ Putting this into your `package.json` will allow you to build your project using
 ```json
 {
   "scripts": {
-    "start": "neutrino start --presets neutrino-preset-react"
+    "start": "neutrino start --use neutrino-preset-react"
   }
 }
 ```
@@ -53,7 +53,7 @@ steps after your build is completed.
 
 ```bash
 # PRESET_MODULE is the name of the preset to build with, e.g. neutrino-preset-react
-neutrino build --presets PRESET_MODULE
+neutrino build --use PRESET_MODULE
 ```
 
 Putting this into your `package.json` will allow you to build your project using either
@@ -62,7 +62,7 @@ Putting this into your `package.json` will allow you to build your project using
 ```json
 {
   "scripts": {
-    "build": "neutrino build --presets neutrino-preset-react"
+    "build": "neutrino build --use neutrino-preset-react"
   }
 }
 ```
@@ -78,7 +78,7 @@ using a Neutrino-compatible preset. Neutrino currently provides three core testi
 ```bash
 # PRESET_MODULE is the name of the preset to build with, e.g. neutrino-preset-react
 # TESTING_MODULE is the name of another preset to build with, e.g. neutrino-preset-karma
-neutrino build --presets PRESET_MODULE TESTING_MODULE
+neutrino build --use PRESET_MODULE TESTING_MODULE
 ```
 
 Putting this into your `package.json` will allow you to test your project using either
@@ -87,34 +87,34 @@ Putting this into your `package.json` will allow you to test your project using 
 ```json
 {
   "scripts": {
-    "test": "neutrino test --presets neutrino-preset-react neutrino-preset-karma"
+    "test": "neutrino test --use neutrino-preset-react neutrino-preset-karma"
   }
 }
 ```
 
 Using the command `neutrino test` will execute every test file located in your
 [testing directory](./project-layout#Testing). You may also provide to this command the specific test files you wish
-to run individually. It is important to note that when combined with the `--presets` parameter, you should use two
-dashes after the last preset to denote the end of the presets and the beginning of the test files.
+to run individually. It is important to note that when combined with the `--use` parameter, you should use two
+dashes after the last middleware to denote the end of the middleware and the beginning of the test files.
 
 ```bash
-neutrino test --presets PRESET_A PRESET_B -- a_test.js b_test.js
+neutrino test --use PRESET_A PRESET_B -- a_test.js b_test.js
 ```
 
 ## Using multiple presets
 
-All Neutrino commands support the `--presets` command line parameter, but having to specify this for each script target
-can be cumbersome and verbose, especially if you have many presets. Fortunately, Neutrino also supports specifying
-presets using the `neutrino.presets` field in your project's package.json file. By omitting the `--presets` flag and
-specifying a `neutrino.presets` array, every call to a Neutrino command will look up which presets are configured in
-your package.json.
+All Neutrino commands support the `--use` command line parameter, but having to specify this for each script target
+can be cumbersome and verbose, especially if you have many middleware or presets. Fortunately, Neutrino also supports
+specifying presets using the `neutrino.use` field in your project's package.json file. By omitting the `--use`
+flag and specifying a `neutrino.use` array, every call to a Neutrino command will look up which presets are
+configured in your package.json.
 
 This is the recommended approach when using more than one preset.
 
 ```json
 {
   "neutrino": {
-    "presets": [
+    "use": [
       "neutrino-preset-react",
       "neutrino-preset-karma"
     ]

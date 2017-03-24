@@ -42,7 +42,7 @@ your project._
 ```json
 {
   "config": {
-    "presets": [
+    "use": [
       "neutrino-preset-react",
       "neutrino-preset-karma",
       "override.js"

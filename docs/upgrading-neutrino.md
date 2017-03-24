@@ -112,7 +112,7 @@ been renamed to `options`.
         "vendor": ["react"]
       }
     },
-    "presets": [
+    "use": [
       "neutrino-preset-react"
     ],
     "options": {
@@ -148,6 +148,8 @@ neutrino.config.module.rule('style')
 }
 ```
 
+- The Neutrino CLI has renamed `--presets` to `--use` to better reflect the usage of middleware and presets, and to
+make the inclusion of middleware consistent with the API at `neutrino.use()`.
 - Jest upgraded to v19, which changes the option `testPathDirs` to `roots`. Jest options set using
 package.json can now only be done at `neutrino.options.jest` (no more package.json `jest`);
 - Linting base is deprecated in favor of `neutrino-middleware-eslint`:
@@ -180,19 +182,27 @@ neutrino.custom.eslintrc();
 neutrino.eslintrc();
 ```
 
-- The Neutrino API no longer accepts preset strings in its constructor. The constructor now accepts an options object to
+- The default export of the Neutrino package is now an object with several methods, one of these being the low-level
+Neutrino API:
+
+```js
+const { Neutrino } = require('neutrino');
+```
+
+- The Neutrino API has undergone significant changes and no longer needs to be called as a constructor with `new`.
+
+- The Neutrino API no longer accepts preset strings as its argument. The function now accepts an options object to
 be set at `neutrino.options`:
 
 ```js
-const Neutrino = require('neutrino');
-const api = new Neutrino({ mocha: { reporter: 'nyan' } });
+const { Neutrino } = require('neutrino');
+const api = Neutrino({ mocha: { reporter: 'nyan' } });
 
 api.options.mocha.reporter // "nyan"
 ```
 
 - Since the Neutrino API no longer accepts preset strings in its constructor, you must now pass presets and middleware
-as code/functions to the `.use()` method. This means the API no longer does preset module resolution. This has been
-moved to the CLI.
+as code/functions to the `.use()` method.
 
 ```js
 // v4 API
@@ -200,14 +210,28 @@ const Neutrino = require('neutrino');
 const api = new Neutrino(['neutrino-preset-node', 'neutrino-preset-mocha']);
 
 // v5 API
-const Neutrino = require('neutrino');
-const api = new Neutrino();
+const { Neutrino } = require('neutrino');
+const api = Neutrino();
 
 api.use(require('neutrino-preset-node'));
-api.use(require('neutrino.preset-mocha'));
+api.use(require('neutrino-preset-mocha'));
 ```
 
-- `neutrino.getWebpackOptions()` has been renamed to `neutrino.getWebpackConfig()` and no longer caches the configuration after being called.
+This also means the API function no longer does preset module resolution. If you wish to require presets and middleware
+and have them simultaneously `use`d, use `requiresAndUses`:
+
+```js
+// v5 API
+const { Neutrino } = require('neutrino');
+const api = Neutrino();
+
+api.usesAndRequires([
+  'neutrino-preset-node',
+  'neutrino-preset-mocha'
+]);
+```
+
+- `neutrino.getWebpackOptions()` has been removed in favor of the lower level to `neutrino.config.toConfig()`.
 - Using a `node` target no longer skips the watcher for a builder, it now uses the Webpack source watcher. This means
-commands like `neutrino start && node build` is obsolete. `neutrino build && node build` would work to start a Node
+commands like `neutrino start && node build` are obsolete. `neutrino build && node build` would work to start a Node
 instance for production-built bundles.

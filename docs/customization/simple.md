@@ -18,7 +18,7 @@ specified your presets through `neutrino` as opposed to flags through `scripts`:
 ```json
 {
   "neutrino": {
-    "presets": [
+    "use": [
       "neutrino-preset-react",
       "neutrino-preset-karma"
     ]
@@ -175,7 +175,7 @@ Add a new property to `neutrino` named `config`. This will be an object where we
 ```json
 {
   "neutrino": {
-    "presets": [],
+    "use": [],
     "config": {
 
     }
