@@ -1,177 +1,225 @@
-2017-02-25
+2017-03-23
 ==========
 
-  * Fixing typo in docs
-  * Upgrading webpack-chain for loader merge bug
-  * Adding Module to preset config ([#70](https://github.com/mozilla-neutrino/neutrino-dev/issues/70))
-    Added the `.module` to the `neutrino.config.rule()` statement.
-  * Moving boilerplate blurb to FAQs ([#69](https://github.com/mozilla-neutrino/neutrino-dev/issues/69))
-  * Airbnb base v4.3.1
-  * Lint base v4.3.1
-  * Fixing neutrino.custom.eslintrc to not except ([#68](https://github.com/mozilla-neutrino/neutrino-dev/issues/68))
-  * Fixing incorrect regex usage in docs for LESS ([#67](https://github.com/mozilla-neutrino/neutrino-dev/issues/67))
+  * Updating yarn.lock files
+  * Merge pull request [#140](https://github.com/mozilla-neutrino/neutrino-dev/issues/140) from eliperelman/v5-docs-again
+    Hopefully last round of docs changes for v5
+  * Hopefully last round of docs changes
+  * Mocha dependency upgrades
+  * Merge pull request [#139](https://github.com/mozilla-neutrino/neutrino-dev/issues/139) from eliperelman/v5-deps
+    Upgrading dependencies
+  * Upgrading dependencies
+  * Merge pull request [#138](https://github.com/mozilla-neutrino/neutrino-dev/issues/138) from eliperelman/webpack-validate
+    Validate webpack configuration before running compiler
+  * Validate webpack configuration before running compiler
 
-2017-02-24
+2017-03-22
 ==========
 
-  * Web and Node preset v4.2.1
-  * Airbnb-base v4.3
-  * lint-base v4.3
-  * Bumping for babel-preset-env bug
-  * Add custom method for generating an eslintrc config ([#63](https://github.com/mozilla-neutrino/neutrino-dev/issues/63))
-  * Merge pull request [#62](https://github.com/mozilla-neutrino/neutrino-dev/issues/62) from helfi92/faq
-    Add FAQ section
-  * Move FAQ's higher up in the summary
-  * Add FAQ section
+  * Merge pull request [#137](https://github.com/mozilla-neutrino/neutrino-dev/issues/137) from eliperelman/functional
+    Functional refactor
+  * Functional refactor
 
-2017-02-23
+2017-03-20
 ==========
 
-  * Bumping jest to 4.2.1
-  * Fixing jest exception ([#57](https://github.com/mozilla-neutrino/neutrino-dev/issues/57))
-  * corrected typo in docs/contributing/development.md ([#55](https://github.com/mozilla-neutrino/neutrino-dev/issues/55))
-    corrected `satisified` to `satisfied`
-  * Changelog update
-  * v4.2 ([#54](https://github.com/mozilla-neutrino/neutrino-dev/issues/54))
-    * Dependency upgrades and minor version bump
-    * lint-base dep upgrade
-    * web preset dep upgrade
-  * add eslint-jest-plugin ([#48](https://github.com/mozilla-neutrino/neutrino-dev/issues/48))
-    * add eslint-jest-plugin
-    * also add envs
-  * Merge pull request [#53](https://github.com/mozilla-neutrino/neutrino-dev/issues/53) from helfi92/add-website
-    Add github repo link to gitbook
-  * Add github repo link to gitbook
-  * Fix typo in usage example ([#52](https://github.com/mozilla-neutrino/neutrino-dev/issues/52))
-  * Merge pull request [#51](https://github.com/mozilla-neutrino/neutrino-dev/issues/51) from helfi92/add-website
-    Add website to GitHub homepage. Fixes [#49](https://github.com/mozilla-neutrino/neutrino-dev/issues/49)
-  * Add website to GitHub homepage. Fixes [#49](https://github.com/mozilla-neutrino/neutrino-dev/issues/49)
+  * Merge pull request [#135](https://github.com/mozilla-neutrino/neutrino-dev/issues/135) from eirikurn/issue-116
+    Resolve packages from parent node_modules folders
+  * Fix resolution issues when linking neutrino
+    Some presets depend on `webpack` and `webpack-dev-server` for HMR
+    logic. This commit makes those dependencies explicit and fixes issues
+    when installing neutrino packages with `npm link`.
+  * Resolve packages from parent node_modules folders
+    A la classic NodeJS resolution and webpack default. See [#116](https://github.com/mozilla-neutrino/neutrino-dev/issues/116).
+  * Merge pull request [#132](https://github.com/mozilla-neutrino/neutrino-dev/issues/132) from jaridmargolin/master
+    Fix typo in develop function.
+  * Fix typo in develop function.
 
-2017-02-21
+2017-03-19
 ==========
 
-  * Throw exception on missing module ([#45](https://github.com/mozilla-neutrino/neutrino-dev/issues/45))
-  * v4.1.1
-  * Wrong lint base version
-  * v4.1.0
-  * Introduce lint base to make lint preset creation much easier ([#41](https://github.com/mozilla-neutrino/neutrino-dev/issues/41))
+  * Merge pull request [#127](https://github.com/mozilla-neutrino/neutrino-dev/issues/127) from jaridmargolin/neutrino-webpack
+    Neutrino webpack
 
-2017-02-20
+2017-03-18
 ==========
 
-  * Wrong URL for express-starter
-  * missing object in the example of preset ([#38](https://github.com/mozilla-neutrino/neutrino-dev/issues/38))
-    Signed-off-by: Marco Casula <mc@clickbit.net>
-  * Docs: learning resources
-  * Jest docs: Usage with React ([#37](https://github.com/mozilla-neutrino/neutrino-dev/issues/37))
-  * Changelogs ([#31](https://github.com/mozilla-neutrino/neutrino-dev/issues/31))
+  * Remove unnecessary specificity from webpack config test.
+  * Pull webpack actions out of Neutrino class.
+  * Merge pull request [#123](https://github.com/mozilla-neutrino/neutrino-dev/issues/123) from jaridmargolin/getWebpackConfig
+    Rename `getWebpackOptions` to `getWebpackConfig`.
 
-2017-02-19
+2017-03-17
 ==========
 
-  * Fix typo in preset-jest ([#34](https://github.com/mozilla-neutrino/neutrino-dev/issues/34))
-    Signed-off-by: Marco Casula <mc@clickbit.net>
-  * Add Tree-shaking to README ([#33](https://github.com/mozilla-neutrino/neutrino-dev/issues/33))
-  * copy editing ([#30](https://github.com/mozilla-neutrino/neutrino-dev/issues/30))
+  * Rename `getWebpackOptions` to `getWebpackConfig`.
 
-2017-02-18
+2017-03-16
 ==========
 
-  * Avoid no-plusplus ([#29](https://github.com/mozilla-neutrino/neutrino-dev/issues/29))
-  * Fix typo commited -> committed ([#28](https://github.com/mozilla-neutrino/neutrino-dev/issues/28))
+  * Updating yarn.lock
+  * Merge pull request [#119](https://github.com/mozilla-neutrino/neutrino-dev/issues/119) from jaridmargolin/neutrino-refactor
+    Neutrino refactor
+  * Add packages/bin/neutrino to lint files list.
+  * Set environment variable, NODE_ENV, inside of `runCommand` (also adds --env option to CLI).
+  * Add `runCommand` helper method to Neutrino.
+  * Remove concept of "presets" in favor of "middleware(s)/use".
+  * Move `run` process logic to location of call.
+  * Make run method in bin/neutrino self contained.
+  * Move require/import middleware functionality to api.
+  * Merge pull request [#120](https://github.com/mozilla-neutrino/neutrino-dev/issues/120) from eliperelman/fixing-linting
+    Fixing linting to run for all packages
+  * Fixing linting to run for all packages
 
-2017-02-16
+2017-03-14
 ==========
 
-  * v4.0.1
-  * Merge pull request [#26](https://github.com/mozilla-neutrino/neutrino-dev/issues/26) from eliperelman/react-class-methods
-    Fix: React lifecycle methods shouldn't fail eslint
-  * Fix: React lifecycle methods shouldn't fail eslint
+  * Merge pull request [#117](https://github.com/mozilla-neutrino/neutrino-dev/issues/117) from helfi92/fix-links
+    Fix link
+  * Switch to relative paths
+  * Fix link
 
-2017-02-15
+2017-03-13
 ==========
 
-  * Merge pull request [#25](https://github.com/mozilla-neutrino/neutrino-dev/issues/25) from eliperelman/slack
-    Slack badges
-  * Slack badges
-  * Tagline update
-  * Merge pull request [#24](https://github.com/mozilla-neutrino/neutrino-dev/issues/24) from eliperelman/badge-updates
-    Badge updates
-  * Badge updates
-  * v4.0.0
-  * ._.
-  * Major version
-  * v4.0.0-beta.3
-  * All bump
-  * Bump
-  * README typo
-  * v4.0.0-beta.0
-  * Attempting to force v4
-  * oao upgrade
-  * Release commands
-  * Prepublish requirements
-  * Merge pull request [#17](https://github.com/mozilla-neutrino/neutrino-dev/issues/17) from mozilla-neutrino/docs
-    Documentation
-  * Docs: final cleanup
-  * Docs: incorrect URL for airbnb
-  * Docs: Airbnb
-  * Docs: Karma, neutrino.js.org, dev commands
-  * Docs: Jest
-  * Docs: Mocha, Jest intro
-  * Docs: Web and React presets, placeholders, package READMEs
-  * Docs: license
-  * Docs: contributing and development
-  * Docs: contributing and code of conduct
-  * Docs: CLI
-  * Docs: API
-  * Docs: creating presets
-  * Documentation for customization, more placeholders
-  * Project layout, usage, testing preset placeholders
-  * Fixes errors in airbnb preset
+  * Merge pull request [#115](https://github.com/mozilla-neutrino/neutrino-dev/issues/115) from eirikurn/patch-1
+    Fix svg mime-type
+  * Fix svg mime-type
+    Browsers don't display svg from data-uri if the mimetype is `application/svg+xml` (testing with \<img> tag in Firefox and Chrome). However, `image/svg+xml` works.
+  * Merge pull request [#111](https://github.com/mozilla-neutrino/neutrino-dev/issues/111) from eliperelman/compile-targets
+    Adding option-configurable compile targets
+  * Adding option-configurable compile targets
+  * Merge pull request [#88](https://github.com/mozilla-neutrino/neutrino-dev/issues/88) from guzart/patch-1
+    Add support building react-native app
 
-2017-02-14
+2017-03-12
 ==========
 
-  * Fixes Jest not searching in node_modules of preset for deps
-  * Fixes unnecessary regenerator for Node 6.9, error in source-map-support
-  * Upgrading webpack-chain to fix externals not chaining
-  * Swapping babel-preset-babili for babili-webpack-plugin
-  * Missing BUILD in web and node
-  * Bugs with web preset missing dev server
-  * Removing exists-file from web preset
-  * Merge pull request [#22](https://github.com/mozilla-neutrino/neutrino-dev/issues/22) from eliperelman/goodbye-base-hello-airbnb
-    Removing base preset, adding Airbnb preset
-  * Removing base preset, adding Airbnb preset
+  * Add support building react-native app
+  * Merge pull request [#110](https://github.com/mozilla-neutrino/neutrino-dev/issues/110) from eliperelman/test-preset-config-on-test
+    Defer test configuration overrides until on:test
+  * Defer test configuration overrides until on:test
 
-2017-02-13
+2017-03-09
 ==========
 
-  * Merge pull request [#18](https://github.com/mozilla-neutrino/neutrino-dev/issues/18) from eliperelman/simply-configure
-    Simplify configuration
-  * Simplify configuration
+  * Merge pull request [#106](https://github.com/mozilla-neutrino/neutrino-dev/issues/106) from eliperelman/linting-round-2
+    Using neutrino to lint itself
+  * Merge pull request [#105](https://github.com/mozilla-neutrino/neutrino-dev/issues/105) from psyrendust/devtool-sourcemap
+    Should generate correct sourcemaps during dev
+  * Using neutrino to lint itself
+    Removing --fix from lint command
+  * Should generate correct sourcemaps during dev
+    The current [devtool](https://webpack.js.org/configuration/devtool/) configuration of `eval` makes it very difficult to debug your source code when running the development command `neutrino start`.
+    I did some digging and there is an issue with sourcemaps and Webpack 2. See https://github.com/webpack/webpack/issues/3165 and https://github.com/webpack/webpack/issues/4423 for more information.
+    In the meantime, it would be great if the default setting for the development command `neutrino start` would generate correct sourcemaps with a reference to the original source and allow you to set breakpoints correctly. I did some tests in OS X Chrome v56.0.2924.87 (64-bit) by trying different [devtool](https://webpack.js.org/configuration/devtool/) configurations in a custom neutrino config that extends `neutrino-preset-web`.
+    * `eval`: reports correct line in transformed code, and breakpoints work, but difficult to debug
+    * `cheap-eval-source-map`: reports incorrect line in transformed code, breakpoints can be added, but are on incorrect line and don't work
+    * `cheap-source-map`: reports incorrect line in transformed code, breakpoints work, but are on incorrect line
+    * `cheap-module-eval-source-map`: reports incorrect line in source, breakpoints can be added, but are on incorrect line and don't work
+    * `cheap-module-source-map`: reports incorrect line in source, breakpoints work, but are on incorrect line
+    * `eval-source-map`: reports correct line in source, but breakpoints don't work
+    * `source-map`: reports correct line in source, and breakpoints work
+    * `nosources-source-map`: reports correct line in source, but no source is generated
+    If you are just running `neutrino-preset-web` out of the box you should be able to debug your code easily. Making this change can cause slower rebuilds, but I'd be willing to wait a few 100ms (or whatever `--` means in time) to rebuild my code for better debugging.
+    If and when the above Webpack 2 issues are fixed, I would suggest revisiting the `devtool` option by changing it to `cheap-module-eval-source-map` or `eval-source-map` for speedier rebuilds with sourcemaps that point to source code vs transpiled code.
 
-2017-02-12
+2017-03-08
 ==========
 
-  * Merge pull request [#16](https://github.com/mozilla-neutrino/neutrino-dev/issues/16) from eliperelman/fancy-status
-    Displaying fancier build status during dev server
-  * Displaying fancier build status during dev server
-  * Merge pull request [#15](https://github.com/mozilla-neutrino/neutrino-dev/issues/15) from eliperelman/hmr-fix
-    Fixes HMR
-  * Fixes HMR
-  * Merge pull request [#10](https://github.com/mozilla-neutrino/neutrino-dev/issues/10) from mozilla-neutrino/plugin-mode
-    Pluggable event architecture mode, new test presets
-  * Pluggable event architecture mode, new test presets
-  * Merge pull request [#12](https://github.com/mozilla-neutrino/neutrino-dev/issues/12) from gasolin/master
-    add version badges
+  * Merge pull request [#102](https://github.com/mozilla-neutrino/neutrino-dev/issues/102) from aretecode/eslint
+    eslint
+  * unquote property names, rebase, remove react bits
 
-2017-02-11
+2017-03-07
 ==========
 
-  * add version badges
+  * Merge pull request [#103](https://github.com/mozilla-neutrino/neutrino-dev/issues/103) from eliperelman/readmes
+    README updates for v5
+  * README updates for v5
+  * Merge pull request [#98](https://github.com/mozilla-neutrino/neutrino-dev/issues/98) from eliperelman/v5-docs
+    v5 Docs
+  * Merge pull request [#86](https://github.com/mozilla-neutrino/neutrino-dev/issues/86) from eliperelman/v5
+    Baseline for Neutrino v5
+  * Adding rule include and exclude upgrade documentation
+  * Adding missing packages to travis cache, removing duplicate yarn install directive
+  * Typo
+  * Switching clean middleware to use options.root
+  * Updating for latest v5 changes
+  * add .eslintrc file, eslint fix script. add deps: prettier, prettier-eslint, eslint, eslint-plugin-react. use config from neutrino-preset-mozilla-rpweb
+  * Review nits
+  * Switching paths to relative
+  * Manually caching monorepo package node_modules for travis
+  * Attempting to cache packages' node_modules via wildcard
+  * Moving peerDeps of deps to devDeps
+  * Normalize API paths based on absolute or relative location
+  * Upgrading to webpack-chain v3, add more tests for full presets
 
-2017-02-07
+2017-03-06
 ==========
 
-  * Docs/logo update
-  * Merge branch 'master' of github.com:mozilla-neutrino/neutrino-dev
+  * Cleaning up unused gitignores
+  * Pointing package.json respository to tree location
+
+2017-03-05
+==========
+
+  * v5 Docs
+  * Preparing docs for v5
+  * peerDeps and invalid deps
+  * Upgrade webpack-chain to v2, add --inspect
+
+2017-03-02
+==========
+
+  * Simplify deep picking with pathOr
+  * Allow linting overrides to airbnb preset
+  * Dynamic import() for Node
+  * Adding dynamic import syntax, babel-polyfill by default, devserver port fix
+  * Fixing json extension
+  * Travis changes
+  * Adding rudimentary testing
+
+2017-03-01
+==========
+
+  * Node.js HMR, source watching, named modules for Node and Web
+  * Trying out use(loader, options)
+  * Switch packages licenses to MPL v2, add AVA to start test implementation
+  * Refining middleware concept, splitting presets into middleware packages
+  * Baseline for Neutrino v5
+  * Bumping for bugfix in webpack-chain
+  * Heading typo
+  * Why use a chaining API? ([#87](https://github.com/mozilla-neutrino/neutrino-dev/issues/87))
+
+2017-02-28
+==========
+
+  * Node preset v4.2.2
+  * Make sourcemap support optional for node libraries ([#85](https://github.com/mozilla-neutrino/neutrino-dev/issues/85))
+
+2017-02-27
+==========
+
+  * Neutrino and Jest preset v4.3.0
+  * Added coverage support to jest preset ([#76](https://github.com/mozilla-neutrino/neutrino-dev/issues/76))
+    * Added coverage support to jest preset
+    * Documented jest coverage option
+    * Added missing documentation
+  * React preset v4.2.3
+  * Web preset v4.2.3
+  * Bug in web preset devServer port detection
+  * dev-server/client host/port fix ([#83](https://github.com/mozilla-neutrino/neutrino-dev/issues/83))
+    client entry file no longer receives default host and post when the
+    user sets host and port via config
+  * Merge pull request [#78](https://github.com/mozilla-neutrino/neutrino-dev/issues/78) from helfi92/community-starter-kits
+    Add Community section for starter kits
+  * Put community contributions alongside core ones
+  * Add Community section for starter kits
+  * Add community presets page to docs ([#77](https://github.com/mozilla-neutrino/neutrino-dev/issues/77))
+
+2017-02-26
+==========
+
+  * Fixing LESS example usage
+  * React preset v4.2.2
