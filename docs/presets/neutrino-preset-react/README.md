@@ -121,6 +121,13 @@ manifest.2211d9c1970bbd3c952b.bundle.js    1.41 kB       1  [emitted]  manifest
 
 You can either serve or deploy the contents of this `build` directory as a static site.
 
+## Paths
+
+The `neutrino-preset-web` preset loads assets relative to the path of your application by setting Webpack's
+[`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath) to `./`. If you wish to load
+assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
+override `output.publicPath`. See the [Customizing](#Customizing) section below.
+
 ## Customizing
 
 To override the build configuration, start with the documentation on [customization](../../customization/README.md).
