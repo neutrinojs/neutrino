@@ -153,6 +153,13 @@ if (module.hot) {
 Using dynamic imports with `import()` will automatically create split points and hot replace those modules upon
 modification during development.
 
+## Paths
+
+By default this preset loads assets relative to the path of your application by setting Webpack's
+[`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath) to `./`. If you wish to load
+assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
+override `output.publicPath`. See the [Customizing](#Customizing) section below.
+
 ## Customizing
 
 To override the build configuration, start with the documentation on [customization](../../customization/README.md).
