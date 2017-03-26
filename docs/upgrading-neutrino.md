@@ -167,7 +167,9 @@ neutrino.config.module
 const eslint = require('neutrino-middleware-eslint');
 
 neutrino.use(eslint, {
-  rules: { /* */ }
+  eslint: {
+    rules: { /* */ }
+  }
 })
 ```
 
