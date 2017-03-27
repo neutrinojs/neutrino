@@ -1,6 +1,38 @@
+2017-03-26
+==========
+
+  * Removing extraneous construct
+  * Syncing packages to docs, adding scripts for publishing
+  * Syncing package readmes with docs
+  * Extracting webpack utils to their own file ([#147](https://github.com/mozilla-neutrino/neutrino-dev/issues/147))
+  * use correct value for package.json config ([#146](https://github.com/mozilla-neutrino/neutrino-dev/issues/146))
+    This might have been an old way to define the configuration?
+    Only works when I use `neutrino`, otherwise I get an error:
+    ```
+    WebpackOptionsValidationError: Invalid configuration object. Webpack has been initialised using a configuration object that does not match the API schema.
+    ```
+
+2017-03-25
+==========
+
+  * Rdesign Advanced Customization examples to use Neutrino v5 fashion ([#145](https://github.com/mozilla-neutrino/neutrino-dev/issues/145))
+  * Update upgrading-neutrino.md (eslint middleware) ([#144](https://github.com/mozilla-neutrino/neutrino-dev/issues/144))
+    The code explaining the usage of `neutrino-middleware-eslint` was wrong here.
+    It caused me a great headache last night, when I was migrating a pair of eslint presets.
+    Thank god [eslint middleware documentation page](https://neutrino.js.org/middleware/neutrino-middleware-eslint/) is OK and you can
+    compare and infer the correct usage.
+
+2017-03-24
+==========
+
+  * Merge pull request [#141](https://github.com/mozilla-neutrino/neutrino-dev/issues/141) from eliperelman/publicpath-docs
+    Adding documention about web publicPath
+  * Adding documention about web publicPath
+
 2017-03-23
 ==========
 
+  * Updating changelog
   * Updating yarn.lock files
   * Merge pull request [#140](https://github.com/mozilla-neutrino/neutrino-dev/issues/140) from eliperelman/v5-docs-again
     Hopefully last round of docs changes for v5
@@ -206,20 +238,3 @@
     * Added coverage support to jest preset
     * Documented jest coverage option
     * Added missing documentation
-  * React preset v4.2.3
-  * Web preset v4.2.3
-  * Bug in web preset devServer port detection
-  * dev-server/client host/port fix ([#83](https://github.com/mozilla-neutrino/neutrino-dev/issues/83))
-    client entry file no longer receives default host and post when the
-    user sets host and port via config
-  * Merge pull request [#78](https://github.com/mozilla-neutrino/neutrino-dev/issues/78) from helfi92/community-starter-kits
-    Add Community section for starter kits
-  * Put community contributions alongside core ones
-  * Add Community section for starter kits
-  * Add community presets page to docs ([#77](https://github.com/mozilla-neutrino/neutrino-dev/issues/77))
-
-2017-02-26
-==========
-
-  * Fixing LESS example usage
-  * React preset v4.2.2
