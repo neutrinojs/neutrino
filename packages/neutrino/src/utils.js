@@ -3,7 +3,6 @@ const { cond, curry, defaultTo, identity, map, memoize, of, partialRight, pipe, 
 const { List } = require('immutable-ext');
 const { isAbsolute, join } = require('path');
 const optional = require('optional');
-const webpack = require('webpack');
 
 // any :: List -> Future a b
 const any = reduce(Future.or, Future.reject('empty list'));
@@ -48,53 +47,14 @@ const toArray = cond([
   [T, of]
 ]);
 
-// webpackErrors :: (Error|Array Error err -> Object stats) -> Array Error
-const webpackErrors = (err, stats) => (err ? toArray(err) : stats.toJson().errors);
-
-// createWebpackCompiler :: Object config -> Future Error Object
-const createWebpackCompiler = config => Future.of(config).map(webpack);
-
-// createWebpackValidator :: Object config -> Future Error Object
-const createWebpackValidator = config => Future.of(config).map(webpack.validate);
-
-// createWebpackWatcher :: Object config -> Future Error Object
-const createWebpackWatcher = config => createWebpackCompiler(config)
-  .chain(compiler => Future((reject, resolve) => {
-    compiler.watch(compiler.options.watchOptions || {}, (err, stats) => {
-      const errors = webpackErrors(err, stats);
-
-      errors.length ? reject(errors) : resolve(compiler);
-    });
-  }));
-
-// validateWebpackConfig :: Object config -> Future Error Object
-const validateWebpackConfig = config => createWebpackValidator(config)
-  .chain(errors => (errors.length ?
-    Future.reject([new webpack.WebpackOptionsValidationError(errors)]) :
-    Future.of(config)));
-
-// webpackCompile :: Object config -> Future Error Object
-const webpackCompile = config => createWebpackCompiler(config)
-  .chain(compiler => Future((reject, resolve) => compiler.run((err, stats) => {
-    const errors = webpackErrors(err, stats);
-
-    errors.length ? reject(errors) : resolve(stats);
-  })));
-
 module.exports = {
   any,
   createPaths,
-  createWebpackCompiler,
-  createWebpackValidator,
-  createWebpackWatcher,
   getNodeEnv,
   getPackageJson,
   normalizePath,
   requireSafe,
   resolveAny,
   resolveSafe,
-  toArray,
-  validateWebpackConfig,
-  webpackCompile,
-  webpackErrors
+  toArray
 };

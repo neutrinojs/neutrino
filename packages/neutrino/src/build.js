@@ -1,10 +1,10 @@
 const Future = require('fluture');
-const { webpackCompile, validateWebpackConfig } = require('./utils');
+const { compile, validate } = require('./webpack');
 
 // build :: Object config -> Future (Array Error) Function
 const build = config => Future
   .of(config)
-  .chain(validateWebpackConfig)
-  .chain(webpackCompile);
+  .chain(validate)
+  .chain(compile);
 
 module.exports = build;

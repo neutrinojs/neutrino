@@ -1,10 +1,10 @@
 const Future = require('fluture');
-const { createWebpackWatcher, validateWebpackConfig } = require('./utils');
+const { watcher, validate } = require('./webpack');
 
 // watch :: Object config -> Future (Array Error) ()
 const watch = config => Future
   .of(config)
-  .chain(validateWebpackConfig)
-  .chain(createWebpackWatcher);
+  .chain(validate)
+  .chain(watcher);
 
 module.exports = watch;
