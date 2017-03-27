@@ -224,7 +224,6 @@ The following is a list of plugins and their identifiers which can be overridden
 `devDependencies` of your package.json.
 - `copy`: Copies non-JS files from `src` to `build` when using `neutrino build`.
 - `clean`: Clears the contents of `build` prior to creating a production bundle.
-- `progress`: Displays a progress bar when using `neutrino build`.
 
 ### Simple customization
 
