@@ -41,7 +41,7 @@ your project._
 
 ```json
 {
-  "config": {
+  "neutrino": {
     "use": [
       "neutrino-preset-react",
       "neutrino-preset-karma",
