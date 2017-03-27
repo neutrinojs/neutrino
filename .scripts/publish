@@ -1,0 +1,17 @@
+#! /bin/bash
+
+VERSION="$1"
+
+if [[ -z "$VERSION" ]]; then
+  echo "Missing required version parameter"
+  exit 1
+fi
+
+yarn reset-versions "$VERSION"
+
+while read d; do
+  echo -e "Publishing $d@$VERSION"
+  npm publish "packages/$d"
+done <$(dirname $0)/STANDALONE_PACKAGES
+
+$(dirname $0)/publish-dependent "$VERSION"

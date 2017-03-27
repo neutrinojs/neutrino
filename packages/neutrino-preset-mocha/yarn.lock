@@ -459,9 +459,9 @@ ms@0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.1.tgz#9cd13c03adbff25b65effde7ce864ee952017098"
 
-neutrino-middleware-loader-merge@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-loader-merge/-/neutrino-middleware-loader-merge-5.0.0.tgz#b2390f232fb3418cd4c79af9a08426372f0fdb45"
+neutrino-middleware-loader-merge@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-loader-merge/-/neutrino-middleware-loader-merge-5.0.1.tgz#cce803b986e3624795339027e8fe3f28b956ce0d"
   dependencies:
     deepmerge "^1.3.2"
 

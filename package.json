@@ -1,6 +1,6 @@
 {
   "name": "neutrino-dev",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "private": true,
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
@@ -20,6 +20,7 @@
     "docs:serve": "gitbook serve",
     "release": "yarn release:pre && oao publish",
     "release:pre": "oao prepublish",
+    "reset-versions": "oao reset-all-versions",
     "test": "ava packages/*/test"
   },
   "devDependencies": {
