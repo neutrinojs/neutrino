@@ -1,7 +1,7 @@
 const Future = require('fluture');
-const { assoc, construct, isEmpty, pathOr, pipe } = require('ramda');
+const { assoc, isEmpty, pathOr, pipe } = require('ramda');
 const webpack = require('webpack');
-const DevServer = construct(require('webpack-dev-server'));
+const DevServer = require('webpack-dev-server');
 const { toArray } = require('./utils');
 
 // errors :: (Error|Array Error err -> Object stats) -> Array Error
