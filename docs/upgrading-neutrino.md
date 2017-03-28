@@ -44,7 +44,7 @@ neutrino.config.module
   });
 
 // Creating loaders in v5
-neutrino.config
+neutrino.config.module
   .rule('compile')
   .use('babel')
     .loader('babel-loader')
