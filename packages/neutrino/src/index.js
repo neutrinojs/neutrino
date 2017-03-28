@@ -1,11 +1,11 @@
-const Api = require('./api');
+const Neutrino = require('./api');
 const { partial } = require('ramda');
 const Future = require('fluture');
 const { getNodeEnv, toArray } = require('./utils');
 
 // run :: (String command -> Array middleware -> Object options) -> Future Error a
 const run = (command, middleware, options) => {
-  const api = Api(options);
+  const api = Neutrino(options);
 
   process.env.NODE_ENV = getNodeEnv(command, api.options.args && api.options.args.env);
 
@@ -37,10 +37,12 @@ const start = partial(run, ['start']);
 const test = partial(run, ['test']);
 
 module.exports = {
-  Neutrino: Api,
+  Neutrino,
   run,
   build,
-  inspect,
   start,
-  test
+  test,
+  inspect(middleware, options = {}) {
+    return options.customInspect ? this : inspect(middleware, options);
+  }
 };
