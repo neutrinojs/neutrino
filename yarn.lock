@@ -2283,6 +2283,10 @@ graceful-fs@4.1.10, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.1.9, 
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/graceful-readlink/-/graceful-readlink-1.0.1.tgz#4cafad76bc62f02fa039b2f94e9a3dd3a391a725"
 
+graph-data-structure@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/graph-data-structure/-/graph-data-structure-0.8.0.tgz#52ca8be48359ad688ae420a3252937c4e27204ce"
+
 har-validator@~2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/har-validator/-/har-validator-2.0.6.tgz#cdcbc08188265ad119b6a5a7c8ab70eecfb5d27d"

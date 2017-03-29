@@ -1,8 +1,0 @@
-[
-  "neutrino-preset-airbnb-base",
-  "neutrino-preset-jest",
-  "neutrino-preset-mocha",
-  "neutrino-preset-node",
-  "neutrino-preset-web",
-  "neutrino-preset-react"
-]
