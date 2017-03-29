@@ -3,7 +3,7 @@
 ### Create and build modern JavaScript applications with zero initial configuration
 #### Neutrino combines the power of Webpack with the simplicity of presets.
 
-[![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url] [![Join Slack][slack-image]][slack-url]
+[![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url] [![Codacy][codacy-image]][codacy-url] [![codecov][codecov-image]][codecov-url] [![Join Slack][slack-image]][slack-url]
 
 [https://github.com/mozilla-neutrino/neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev)
 
@@ -29,3 +29,7 @@ for details on installation, getting started, usage, and customizing.
 [npm-url]: https://npmjs.org/package/neutrino
 [slack-image]: https://neutrino-slack.herokuapp.com/badge.svg
 [slack-url]: https://neutrino-slack.herokuapp.com/
+[codacy-image]: https://api.codacy.com/project/badge/Grade/8717707007704c929de39ec20b7b0542
+[codacy-url]: https://www.codacy.com/app/Neutrino/neutrino-dev?utm_source=github.com&utm_medium=referral&utm_content=mozilla-neutrino/neutrino-dev&utm_campaign=badger
+[codecov-image]: https://codecov.io/gh/mozilla-neutrino/neutrino-dev/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/mozilla-neutrino/neutrino-dev

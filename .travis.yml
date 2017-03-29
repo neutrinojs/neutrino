@@ -1,38 +1,39 @@
 language: node_js
 node_js:
 - '6.9'
-- '7.7'
+- '7'
 cache:
   yarn: true
   directories:
-    - node_modules
-    - packages/neutrino/node_modules
-    - packages/neutrino-middleware-banner/node_modules
-    - packages/neutrino-middleware-chunk/node_modules
-    - packages/neutrino-middleware-clean/node_modules
-    - packages/neutrino-middleware-compile-loader/node_modules
-    - packages/neutrino-middleware-copy/node_modules
-    - packages/neutrino-middleware-env/node_modules
-    - packages/neutrino-middleware-eslint/node_modules
-    - packages/neutrino-middleware-font-loader/node_modules
-    - packages/neutrino-middleware-hot/node_modules
-    - packages/neutrino-middleware-html-loader/node_modules
-    - packages/neutrino-middleware-html-template/node_modules
-    - packages/neutrino-middleware-image-loader/node_modules
-    - packages/neutrino-middleware-loader-merge/node_modules
-    - packages/neutrino-middleware-minify/node_modules
-    - packages/neutrino-middleware-named-modules/node_modules
-    - packages/neutrino-middleware-start-server/node_modules
-    - packages/neutrino-middleware-style-loader/node_modules
-    - packages/neutrino-preset-airbnb-base/node_modules
-    - packages/neutrino-preset-jest/node_modules
-    - packages/neutrino-preset-karma/node_modules
-    - packages/neutrino-preset-mocha/node_modules
-    - packages/neutrino-preset-node/node_modules
-    - packages/neutrino-preset-react/node_modules
-    - packages/neutrino-preset-web/node_modules
+  - node_modules
+  - packages/neutrino/node_modules
+  - packages/neutrino-middleware-banner/node_modules
+  - packages/neutrino-middleware-chunk/node_modules
+  - packages/neutrino-middleware-clean/node_modules
+  - packages/neutrino-middleware-compile-loader/node_modules
+  - packages/neutrino-middleware-copy/node_modules
+  - packages/neutrino-middleware-env/node_modules
+  - packages/neutrino-middleware-eslint/node_modules
+  - packages/neutrino-middleware-font-loader/node_modules
+  - packages/neutrino-middleware-hot/node_modules
+  - packages/neutrino-middleware-html-loader/node_modules
+  - packages/neutrino-middleware-html-template/node_modules
+  - packages/neutrino-middleware-image-loader/node_modules
+  - packages/neutrino-middleware-loader-merge/node_modules
+  - packages/neutrino-middleware-minify/node_modules
+  - packages/neutrino-middleware-named-modules/node_modules
+  - packages/neutrino-middleware-start-server/node_modules
+  - packages/neutrino-middleware-style-loader/node_modules
+  - packages/neutrino-preset-airbnb-base/node_modules
+  - packages/neutrino-preset-jest/node_modules
+  - packages/neutrino-preset-karma/node_modules
+  - packages/neutrino-preset-mocha/node_modules
+  - packages/neutrino-preset-node/node_modules
+  - packages/neutrino-preset-react/node_modules
+  - packages/neutrino-preset-web/node_modules
 before_script:
-  - yarn bootstrap
+- yarn bootstrap
 script:
-  - yarn lint
-  - yarn test
+- yarn lint
+- yarn test
+- codecov
