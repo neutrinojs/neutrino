@@ -81,4 +81,14 @@ module.exports = class extends Chainable {
         return acc;
       }, {});
   }
+
+  when(condition, trueBrancher = Function.prototype, falseBrancher = Function.prototype) {
+    if (condition) {
+      trueBrancher(this);
+    } else {
+      falseBrancher(this);
+    }
+
+    return this;
+  }
 };

@@ -95,3 +95,33 @@ test('merge with existing values', t => {
   t.is(set.merge(arr), set);
   t.deepEqual(set.values(), ['delta', 'alpha', 'beta', 'gamma']);
 });
+
+test('when true', t => {
+  const set = new ChainedSet();
+  const right = instance => {
+    t.is(instance, set);
+    instance.add('alpha');
+  };
+  const left = instance => {
+    instance.add('beta');
+  };
+
+  t.is(set.when(true, right, left), set);
+  t.true(set.has('alpha'));
+  t.false(set.has('beta'));
+});
+
+test('when false', t => {
+  const set = new ChainedSet();
+  const right = instance => {
+    instance.add('alpha');
+  };
+  const left = instance => {
+    t.is(instance, set);
+    instance.add('beta');
+  };
+
+  t.is(set.when(false, right, left), set);
+  t.false(set.has('alpha'));
+  t.true(set.has('beta'));
+});

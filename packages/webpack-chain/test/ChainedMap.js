@@ -117,3 +117,33 @@ test('merge with overriding values', t => {
   t.is(map.merge(obj), map);
   t.deepEqual(map.entries(), { a: 'alpha', b: 'beta', c: 'gamma' });
 });
+
+test('when true', t => {
+  const map = new ChainedMap();
+  const right = instance => {
+    t.is(instance, map);
+    instance.set('alpha', 'a');
+  };
+  const left = instance => {
+    instance.set('beta', 'b');
+  };
+
+  t.is(map.when(true, right, left), map);
+  t.true(map.has('alpha'));
+  t.false(map.has('beta'));
+});
+
+test('when false', t => {
+  const map = new ChainedMap();
+  const right = instance => {
+    instance.set('alpha', 'a');
+  };
+  const left = instance => {
+    t.is(instance, map);
+    instance.set('beta', 'b');
+  };
+
+  t.is(map.when(false, right, left), map);
+  t.false(map.has('alpha'));
+  t.true(map.has('beta'));
+});

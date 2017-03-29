@@ -204,6 +204,16 @@ entries()
 merge(obj)
 ```
 
+```js
+// Conditionally execute a function to continue configuration
+// condition: Boolean
+// truthyHandler: Function -> ChainedMap
+  // invoked when condition is truthy, given a single argument of the ChainedMap instance
+// falsyHandler: Function -> ChainedMap
+  // invoked when condition is falsy, given a single argument of the ChainedMap instance
+when(condition, truthyHandler, falsyHandler)
+```
+
 ## ChainedSet
 
 Another of the core API interfaces in webpack-chain is a `ChainedSet`. A `ChainedSet` operates
@@ -253,6 +263,16 @@ values()
 // Concatenates the given array to the end of the backing Set.
 // arr: Array
 merge(arr)
+```
+
+```js
+// Conditionally execute a function to continue configuration
+// condition: Boolean
+// truthyHandler: Function -> ChainedSet
+  // invoked when condition is truthy, given a single argument of the ChainedSet instance
+// falsyHandler: Function -> ChainedSet
+  // invoked when condition is falsy, given a single argument of the ChainedSet instance
+when(condition, truthyHandler, falsyHandler)
 ```
 
 ## Shorthand methods
@@ -844,4 +864,31 @@ config.merge({
     }
   }
 })
+```
+
+### Conditional configuration
+
+When working with instances of `ChainedMap` and `ChainedSet`, you can perform conditional configuration using `when`.
+You must specify an expression to `when()` which will be evaluated for truthiness or falsiness. If the expression is
+truthy, the first function argument will be invoked with an instance of the current chained instance. You can optionally
+provide a second function to be invoked when the condition is falsy, which is also given the current chained instance.
+
+```js
+// Example: Only add minify plugin during production
+config
+  .when(process.env.NODE_ENV === 'production', config => {
+    config
+      .plugin('minify')
+      .use(BabiliWebpackPlugin);
+  });
+```
+
+```js
+// Example: Only add minify plugin during production,
+// otherwise set devtool to source-map
+config
+  .when(process.env.NODE_ENV === 'production',
+    config => config.plugin('minify').use(BabiliWebpackPlugin),
+    config => config.devtool('source-map')
+  );
 ```

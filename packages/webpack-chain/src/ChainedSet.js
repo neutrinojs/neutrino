@@ -38,4 +38,14 @@ module.exports = class extends Chainable {
     this.store = new Set([...this.store, ...arr]);
     return this;
   }
+
+  when(condition, trueBrancher = Function.prototype, falseBrancher = Function.prototype) {
+    if (condition) {
+      trueBrancher(this);
+    } else {
+      falseBrancher(this);
+    }
+
+    return this;
+  }
 };
