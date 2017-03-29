@@ -21,12 +21,13 @@
     "release": "yarn release:pre && oao publish",
     "release:pre": "oao prepublish",
     "reset-versions": "oao reset-all-versions",
-    "test": "ava packages/*/test"
+    "test": "nyc --reporter lcov ava packages/*/test"
   },
   "devDependencies": {
     "ava": "^0.18.2",
     "babel-eslint": "^7.2.1",
     "changelog": "^1.0.7",
+    "codecov": "^2.1.0",
     "eslint": "^3.18.0",
     "eslint-config-airbnb-base": "^11.1.1",
     "eslint-plugin-babel": "^4.1.1",
@@ -40,6 +41,7 @@
     "gitbook-plugin-npmsearchlist": "^1.0.0",
     "gitbook-plugin-prism": "^2.2.0",
     "graph-data-structure": "^0.8.0",
+    "nyc": "^10.2.0",
     "oao": "^0.8.0",
     "prettier": "^0.22.0",
     "semver": "^5.3.0",
