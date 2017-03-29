@@ -1,17 +1,57 @@
-#! /bin/bash
+#! /usr/bin/env node
 
-VERSION="$1"
+const { join } = require('path');
+const Graph = require("graph-data-structure");
+const semver = require('semver');
+const { readdirSync } = require('fs');
+const { execSync } = require('child_process');
 
-if [[ -z "$VERSION" ]]; then
-  echo "Missing required version parameter"
-  exit 1
-fi
+const version = process.argv[2];
 
-yarn reset-versions "$VERSION"
+if (!semver.valid(version)) {
+  console.error('Missing required valid version parameter');
+  process.exit(1);
+}
 
-while read d; do
-  echo -e "Publishing $d@$VERSION"
-  npm publish "packages/$d"
-done <$(dirname $0)/STANDALONE_PACKAGES
+execSync(`yarn reset-versions ${version}`);
 
-$(dirname $0)/publish-dependent "$VERSION"
+const packagesDir = join(__dirname, '../packages');
+const packages = readdirSync(packagesDir);
+const graph = packages.reduce((graph, pkg) => {
+  graph.addNode(pkg);
+  graph.addEdge('neutrino', pkg);
+
+  Object
+    .keys(require(join(packagesDir, `${pkg}/package.json`)).dependencies)
+    .filter(dep => dep.includes('neutrino'))
+    .forEach(dep => graph.addEdge(dep, pkg));
+
+  return graph;
+}, new Graph());
+
+graph
+  .topologicalSort()
+  .forEach(p => {
+    console.log(`Publishing ${p}@${version}`);
+
+    const cwd = join(packagesDir, p);
+    const pkgJson = join(cwd, 'package.json');
+    const pkg = require(pkgJson);
+    const upgradedDeps = [];
+
+    Object
+      .keys(pkg.dependencies)
+      .forEach(dep => {
+        if (!dep.includes('neutrino-')) {
+          return;
+        }
+
+        upgradedDeps.push(dep);
+      });
+
+    if (upgradedDeps.length) {
+      execSync(`yarn upgrade ${upgradedDeps.join(' ')}`, { cwd });
+    }
+
+    execSync(`npm publish`, { cwd });
+  });
