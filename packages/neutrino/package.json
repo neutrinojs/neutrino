@@ -34,7 +34,7 @@
     "ramda": "^0.23.0",
     "ramda-fantasy": "^0.7.0",
     "webpack": "^2.3.1",
-    "webpack-chain": "^3.0.0",
+    "webpack-chain": "^3.1.0",
     "webpack-dev-server": "^2.4.2",
     "yargs": "^7.0.2"
   },
