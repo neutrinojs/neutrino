@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-node",
-  "version": "5.0.2",
+  "version": "5.1.0",
   "description": "Neutrino preset for building Node.js projects",
   "main": "index.js",
   "keywords": [
@@ -19,19 +19,19 @@
     "babel-preset-env": "^1.2.2",
     "exports-loader": "^0.6.4",
     "imports-loader": "^0.7.1",
-    "neutrino-middleware-banner": "^5.0.2",
-    "neutrino-middleware-clean": "^5.0.2",
-    "neutrino-middleware-compile-loader": "^5.0.2",
-    "neutrino-middleware-copy": "^5.0.2",
-    "neutrino-middleware-hot": "^5.0.2",
-    "neutrino-middleware-loader-merge": "^5.0.2",
-    "neutrino-middleware-named-modules": "^5.0.2",
-    "neutrino-middleware-start-server": "^5.0.2",
+    "neutrino-middleware-banner": "^5.1.0",
+    "neutrino-middleware-clean": "^5.1.0",
+    "neutrino-middleware-compile-loader": "^5.1.0",
+    "neutrino-middleware-copy": "^5.1.0",
+    "neutrino-middleware-hot": "^5.1.0",
+    "neutrino-middleware-loader-merge": "^5.1.0",
+    "neutrino-middleware-named-modules": "^5.1.0",
+    "neutrino-middleware-start-server": "^5.1.0",
     "ramda": "^0.23.0",
     "webpack": "^2.3.1",
     "webpack-node-externals": "1.5.4"
   },
   "peerDependencies": {
-    "neutrino": "^5.0.0"
+    "neutrino": "^5.1.0"
   }
 }

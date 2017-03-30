@@ -13,7 +13,7 @@ if (!semver.valid(version)) {
   process.exit(1);
 }
 
-execSync(`yarn reset-versions ${version}`);
+execSync(`yarn reset-versions ${version}`, { stdio: 'inherit' });
 
 const packagesDir = join(__dirname, '../packages');
 const packages = readdirSync(packagesDir);
@@ -37,19 +37,12 @@ graph
     const cwd = join(packagesDir, p);
     const pkgJson = join(cwd, 'package.json');
     const pkg = require(pkgJson);
-    const upgradedDeps = [];
-
-    Object
+    const upgradedDeps = Object
       .keys(pkg.dependencies)
-      .forEach(dep => {
-        if (!dep.includes('neutrino-')) {
-          return;
-        }
-
-        upgradedDeps.push(dep);
-      });
+      .filter(dep => dep.includes('neutrino-'));
 
     if (upgradedDeps.length) {
+      console.log(`yarn upgrade ${upgradedDeps.join(' ')}`);
       execSync(`yarn upgrade ${upgradedDeps.join(' ')}`, { cwd });
     }
 

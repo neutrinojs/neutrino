@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-react",
-  "version": "5.0.2",
+  "version": "5.1.1",
   "description": "Neutrino preset for building React web applications",
   "main": "index.js",
   "keywords": [
@@ -19,11 +19,11 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-react": "^6.23.0",
     "eslint-plugin-react": "^6.10.3",
-    "neutrino-middleware-loader-merge": "^5.0.2",
-    "neutrino-preset-web": "^5.0.2",
+    "neutrino-middleware-loader-merge": "^5.1.0",
+    "neutrino-preset-web": "^5.1.0",
     "react-hot-loader": "^3.0.0-beta.6"
   },
   "peerDependencies": {
-    "neutrino": "^5.0.0"
+    "neutrino": "^5.1.0"
   }
 }

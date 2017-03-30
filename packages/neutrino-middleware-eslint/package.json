@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-eslint",
-  "version": "5.0.2",
+  "version": "5.1.0",
   "description": "Neutrino middleware for linting source code using ESLint",
   "main": "index.js",
   "keywords": [
@@ -27,6 +27,6 @@
     "eslint-config-airbnb-base": "^11.1.1"
   },
   "peerDependencies": {
-    "neutrino": "^5.0.0"
+    "neutrino": "^5.1.0"
   }
 }
