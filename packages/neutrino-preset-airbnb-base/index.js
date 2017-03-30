@@ -23,10 +23,7 @@ module.exports = (neutrino, options) => {
     }
   }, options));
 
-  if (!options.include && !options.exclude) {
-    neutrino.config.module
-      .rule('lint')
-      .include
-      .add(neutrino.options.source);
-  }
+  neutrino.config.module.rule('lint')
+    .when(!options.include && !options.exclude,
+      rule => rule.include.add(neutrino.options.source));
 };

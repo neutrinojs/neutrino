@@ -13,7 +13,6 @@ const { path } = require('ramda');
 const MODULES = join(__dirname, 'node_modules');
 
 module.exports = (neutrino) => {
-  const { config } = neutrino;
   let pkg = {};
 
   /* eslint-disable global-require, no-empty */
@@ -46,8 +45,14 @@ module.exports = (neutrino) => {
     }
   });
 
-  config.performance.hints(false);
-  config
+  const hasSourceMap = (pkg.dependencies && 'source-map-support' in pkg.dependencies) ||
+    (pkg.devDependencies && 'source-map-support' in pkg.devDependencies);
+
+  neutrino.config
+    .when(hasSourceMap, () => neutrino.use(banner))
+    .performance
+      .hints(false)
+      .end()
     .target('node')
     .node
       .set('__filename', false)
@@ -79,68 +84,60 @@ module.exports = (neutrino) => {
     .resolveLoader
       .modules
         .add(neutrino.options.node_modules)
-        .add(MODULES);
+        .add(MODULES)
+        .end()
+      .end()
+    .when(process.env.NODE_ENV !== 'development', () => {
+      neutrino.use(clean, { paths: [neutrino.options.output] });
+      neutrino.use(copy, {
+        patterns: [{ context: neutrino.options.source, from: '**/*' }],
+        options: { ignore: ['*.js*'] }
+      });
+    }, (config) => {
+      config.devtool('inline-sourcemap');
+      config.entry('index').add('webpack/hot/poll?1000');
+      config.output.devtoolModuleFilenameTemplate('[absolute-resource-path]');
+      neutrino.use(hot);
+      neutrino.use(startServer, neutrino.options.entry);
+    })
+    .when(neutrino.config.module.rules.has('lint'), () => neutrino
+      .use(loaderMerge('lint', 'eslint'), {
+        envs: ['node'],
+        rules: {
+          // enforce return after a callback
+          'callback-return': 'off',
 
-  const hasSourceMap = (pkg.dependencies && 'source-map-support' in pkg.dependencies) ||
-    (pkg.devDependencies && 'source-map-support' in pkg.devDependencies);
+          // require all requires be top-level
+          // http://eslint.org/docs/rules/global-require
+          'global-require': 'error',
 
-  if (hasSourceMap) {
-    neutrino.use(banner);
-  }
+          // enforces error handling in callbacks (node environment)
+          'handle-callback-err': 'off',
 
-  if (process.env.NODE_ENV !== 'development') {
-    neutrino.use(clean, { paths: [neutrino.options.output] });
-    neutrino.use(copy, {
-      patterns: [{ context: neutrino.options.source, from: '**/*' }],
-      options: { ignore: ['*.js*'] }
-    });
-  } else {
-    config.devtool('inline-sourcemap');
-    config.entry('index').add('webpack/hot/poll?1000');
-    config.output.devtoolModuleFilenameTemplate('[absolute-resource-path]');
-    neutrino.use(hot);
-    neutrino.use(startServer, neutrino.options.entry);
-  }
+          // Allow console in Node.js
+          'no-console': 'off',
 
-  if (config.module.rules.has('lint')) {
-    neutrino.use(loaderMerge('lint', 'eslint'), {
-      envs: ['node'],
-      rules: {
-        // enforce return after a callback
-        'callback-return': 'off',
+          // disallow mixing regular variable and require declarations
+          'no-mixed-requires': ['off', false],
 
-        // require all requires be top-level
-        // http://eslint.org/docs/rules/global-require
-        'global-require': 'error',
+          // disallow use of new operator with the require function
+          'no-new-require': 'error',
 
-        // enforces error handling in callbacks (node environment)
-        'handle-callback-err': 'off',
+          // disallow string concatenation with __dirname and __filename
+          // http://eslint.org/docs/rules/no-path-concat
+          'no-path-concat': 'error',
 
-        // Allow console in Node.js
-        'no-console': 'off',
+          // disallow use of process.env
+          'no-process-env': 'off',
 
-        // disallow mixing regular variable and require declarations
-        'no-mixed-requires': ['off', false],
+          // disallow process.exit()
+          'no-process-exit': 'off',
 
-        // disallow use of new operator with the require function
-        'no-new-require': 'error',
+          // restrict usage of specified node modules
+          'no-restricted-modules': 'off',
 
-        // disallow string concatenation with __dirname and __filename
-        // http://eslint.org/docs/rules/no-path-concat
-        'no-path-concat': 'error',
-
-        // disallow use of process.env
-        'no-process-env': 'off',
-
-        // disallow process.exit()
-        'no-process-exit': 'off',
-
-        // restrict usage of specified node modules
-        'no-restricted-modules': 'off',
-
-        // disallow use of synchronous methods (off by default)
-        'no-sync': 'off'
-      }
-    });
-  }
+          // disallow use of synchronous methods (off by default)
+          'no-sync': 'off'
+        }
+      }));
 };
