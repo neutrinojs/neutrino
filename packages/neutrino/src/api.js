@@ -14,7 +14,7 @@ const getOptions = (options = {}) => {
   const root = normalizePath(process.cwd(), defaultTo('', options.root));
   const base = normalizePath(root);
   const source = base(defaultTo('src', options.source));
-  const output = base(defaultTo('build', options.build));
+  const output = base(defaultTo('build', options.output));
   const tests = base(defaultTo('test', options.tests));
   const node_modules = base(defaultTo('node_modules', options.node_modules)); // eslint-disable-line camelcase
   const entry = normalizePath(source, defaultTo('index.js', options.entry));
