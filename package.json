@@ -1,6 +1,6 @@
 {
   "name": "neutrino-dev",
-  "version": "5.1.0",
+  "version": "5.2.0",
   "private": true,
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
@@ -18,9 +18,7 @@
     "docs:build": "gitbook build && cp CNAME _book",
     "docs:deploy": "yarn docs:build && gh-pages --dist _book --remote upstream",
     "docs:serve": "gitbook serve",
-    "release": "yarn release:pre && oao publish",
-    "release:pre": "oao prepublish",
-    "reset-versions": "oao reset-all-versions",
+    "release": ".scripts/publish",
     "test": "nyc --reporter lcov ava packages/*/test"
   },
   "devDependencies": {

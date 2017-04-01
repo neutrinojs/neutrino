@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-copy",
-  "version": "5.1.0",
+  "version": "5.2.0",
   "description": "Neutrino middleware for copying files to a bundle output directory",
   "main": "index.js",
   "keywords": [

@@ -13,7 +13,7 @@ if (!semver.valid(version)) {
   process.exit(1);
 }
 
-execSync(`yarn reset-versions ${version}`, { stdio: 'inherit' });
+execSync(`oao reset-all-versions ${version}`, { stdio: 'inherit' });
 
 const packagesDir = join(__dirname, '../packages');
 const packages = readdirSync(packagesDir);
@@ -42,7 +42,7 @@ graph
       .filter(dep => dep.includes('neutrino-'));
 
     if (upgradedDeps.length) {
-      console.log(`yarn upgrade ${upgradedDeps.join(' ')}`);
+      console.log(`  yarn upgrade ${upgradedDeps.join(' ')}`);
       execSync(`yarn upgrade ${upgradedDeps.join(' ')}`, { cwd });
     }
 

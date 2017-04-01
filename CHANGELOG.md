@@ -1,6 +1,34 @@
+2017-03-31
+==========
+
+  * Allow setting karma middleware options as overridable ([#160](https://github.com/mozilla-neutrino/neutrino-dev/issues/160))
+
+2017-03-29
+==========
+
+  * neutrino v5.1.1
+  * options.output mis-named as options.build ([#159](https://github.com/mozilla-neutrino/neutrino-dev/issues/159))
+  * Releasing v5.1.0
+  * Upgrading webpack-chain to v3.1 ([#157](https://github.com/mozilla-neutrino/neutrino-dev/issues/157))
+
+2017-03-28
+==========
+
+  * Adding code coverage with Codacy support ([#156](https://github.com/mozilla-neutrino/neutrino-dev/issues/156))
+  * Use smarter publish script ([#154](https://github.com/mozilla-neutrino/neutrino-dev/issues/154))
+
+2017-03-27
+==========
+
+  * fix docs for creating loaders ([#153](https://github.com/mozilla-neutrino/neutrino-dev/issues/153))
+  * Releasing v5.0.2
+  * Allow inspecting the API default exports without erroring ([#152](https://github.com/mozilla-neutrino/neutrino-dev/issues/152))
+
 2017-03-26
 ==========
 
+  * Middleware vs. Presets? ([#149](https://github.com/mozilla-neutrino/neutrino-dev/issues/149))
+  * Changelog
   * Removing extraneous construct
   * Syncing packages to docs, adding scripts for publishing
   * Syncing package readmes with docs
@@ -211,30 +239,3 @@
   * Fixing json extension
   * Travis changes
   * Adding rudimentary testing
-
-2017-03-01
-==========
-
-  * Node.js HMR, source watching, named modules for Node and Web
-  * Trying out use(loader, options)
-  * Switch packages licenses to MPL v2, add AVA to start test implementation
-  * Refining middleware concept, splitting presets into middleware packages
-  * Baseline for Neutrino v5
-  * Bumping for bugfix in webpack-chain
-  * Heading typo
-  * Why use a chaining API? ([#87](https://github.com/mozilla-neutrino/neutrino-dev/issues/87))
-
-2017-02-28
-==========
-
-  * Node preset v4.2.2
-  * Make sourcemap support optional for node libraries ([#85](https://github.com/mozilla-neutrino/neutrino-dev/issues/85))
-
-2017-02-27
-==========
-
-  * Neutrino and Jest preset v4.3.0
-  * Added coverage support to jest preset ([#76](https://github.com/mozilla-neutrino/neutrino-dev/issues/76))
-    * Added coverage support to jest preset
-    * Documented jest coverage option
-    * Added missing documentation
