@@ -2716,124 +2716,124 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
-neutrino-middleware-chunk@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-chunk/-/neutrino-middleware-chunk-5.2.0.tgz#1abfe2cdfe51911082d2688fa8de79f0844f8b9d"
+neutrino-middleware-chunk@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-chunk/-/neutrino-middleware-chunk-5.3.0.tgz#e18bdbd19894827e74b04f129ebf61c1e0fec1de"
   dependencies:
     deepmerge "^1.3.2"
     webpack "^2.3.1"
 
-neutrino-middleware-clean@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-clean/-/neutrino-middleware-clean-5.2.0.tgz#8c146f5052d46bb82cc80b1232cdc5e10d96f5dc"
+neutrino-middleware-clean@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-clean/-/neutrino-middleware-clean-5.3.0.tgz#50e5f6338cf0a8c25cedf384c3fef55b3d224ce8"
   dependencies:
     clean-webpack-plugin "^0.1.16"
     deepmerge "^1.3.2"
 
-neutrino-middleware-compile-loader@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-compile-loader/-/neutrino-middleware-compile-loader-5.2.0.tgz#8cdb4c90e5c0ec75833dff5516882d6762bd7a29"
+neutrino-middleware-compile-loader@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-compile-loader/-/neutrino-middleware-compile-loader-5.3.0.tgz#8c91895085cc636e7ecc5736c73b930cd9311e0d"
   dependencies:
     babel-core "^6.24.0"
     babel-loader "^6.4.1"
 
-neutrino-middleware-copy@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-copy/-/neutrino-middleware-copy-5.2.0.tgz#962bd64a681bc00069c524d87c23046ac92f485f"
+neutrino-middleware-copy@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-copy/-/neutrino-middleware-copy-5.3.0.tgz#6a557fe69e80c06085a02025fdc2d92f97c58a72"
   dependencies:
     copy-webpack-plugin "^4.0.1"
     deepmerge "^1.3.2"
 
-neutrino-middleware-env@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-env/-/neutrino-middleware-env-5.2.0.tgz#5b3b4a393ba1f5953c090d7b486e8fd722a5364b"
+neutrino-middleware-env@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-env/-/neutrino-middleware-env-5.3.0.tgz#b5554ea04c5a73022f57126b278f9a3e2cf47905"
   dependencies:
     webpack "^2.3.1"
 
-neutrino-middleware-font-loader@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-font-loader/-/neutrino-middleware-font-loader-5.2.0.tgz#0706093accddc6d664b8ace07bde3b6711aceaf0"
+neutrino-middleware-font-loader@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-font-loader/-/neutrino-middleware-font-loader-5.3.0.tgz#e912e9e9a86567d2daa053371564c9a78338d8ec"
   dependencies:
     deepmerge "^1.3.2"
     file-loader "^0.10.1"
     url-loader "^0.5.8"
 
-neutrino-middleware-hot@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-hot/-/neutrino-middleware-hot-5.2.0.tgz#3280b2789536715aab15c95d80c9aab2acea4bd2"
+neutrino-middleware-hot@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-hot/-/neutrino-middleware-hot-5.3.0.tgz#5e72174afbba7f5d7e7e582fb24a6cb76914f00e"
   dependencies:
     webpack "^2.3.1"
 
-neutrino-middleware-html-loader@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-html-loader/-/neutrino-middleware-html-loader-5.2.0.tgz#bd42eb7b839aaca18856679d8a108c1d89ae86f2"
+neutrino-middleware-html-loader@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-html-loader/-/neutrino-middleware-html-loader-5.3.0.tgz#161b104aaad00487b22c140a9430f95ab7e1976f"
   dependencies:
     file-loader "^0.10.1"
 
-neutrino-middleware-html-template@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-html-template/-/neutrino-middleware-html-template-5.2.0.tgz#79a6689a81fc0e1b8807079de7d73b5e3f2cd0fe"
+neutrino-middleware-html-template@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-html-template/-/neutrino-middleware-html-template-5.3.0.tgz#95c2848f1c1db1421ea72a2d6c90da2385e52b6a"
   dependencies:
     deepmerge "^1.3.2"
     html-webpack-plugin "^2.28.0"
     html-webpack-template "^6.0.1"
 
-neutrino-middleware-image-loader@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-image-loader/-/neutrino-middleware-image-loader-5.2.0.tgz#a6f7dd1169e6b7fa972defac508bb642b5ff8acd"
+neutrino-middleware-image-loader@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-image-loader/-/neutrino-middleware-image-loader-5.3.0.tgz#d70b39cd9c0c68ca4fd3747265ce6f95103685c3"
   dependencies:
     deepmerge "^1.3.2"
     file-loader "^0.10.1"
     url-loader "^0.5.8"
 
-neutrino-middleware-loader-merge@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-loader-merge/-/neutrino-middleware-loader-merge-5.2.0.tgz#33bcc36b2bc0c2c3a30da675ae66595018491568"
+neutrino-middleware-loader-merge@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-loader-merge/-/neutrino-middleware-loader-merge-5.3.0.tgz#9b5a456d54179760729d82efb04d1ba2c7bb2987"
   dependencies:
     deepmerge "^1.3.2"
 
-neutrino-middleware-minify@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-minify/-/neutrino-middleware-minify-5.2.0.tgz#7f040272967005a30655498a6bf71540fbc74e7d"
+neutrino-middleware-minify@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-minify/-/neutrino-middleware-minify-5.3.0.tgz#cf9813b8915779d40f81a1fa2bb000b5e6ca2241"
   dependencies:
     babili-webpack-plugin "^0.0.11"
 
-neutrino-middleware-named-modules@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-named-modules/-/neutrino-middleware-named-modules-5.2.0.tgz#e2bb022027b08f9904a28cacbdea1e7c7c3c0668"
+neutrino-middleware-named-modules@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-named-modules/-/neutrino-middleware-named-modules-5.3.0.tgz#447c2b26720c52067c6ea03476d99ee72148c2db"
   dependencies:
     webpack "^2.3.1"
 
-neutrino-middleware-style-loader@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-style-loader/-/neutrino-middleware-style-loader-5.2.0.tgz#c9fcf644a527876576fbd11113841d6ec5f6c7e9"
+neutrino-middleware-style-loader@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-style-loader/-/neutrino-middleware-style-loader-5.3.0.tgz#2c927c0c0c23618d7553a1caf4c196e7a172423c"
   dependencies:
     css-loader "^0.27.3"
     style-loader "^0.16.0"
 
-neutrino-preset-web@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/neutrino-preset-web/-/neutrino-preset-web-5.2.0.tgz#b5369a6c7f19a1a4a28f8cd52b59f7fb29eaf650"
+neutrino-preset-web@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/neutrino-preset-web/-/neutrino-preset-web-5.3.0.tgz#e2bfb4140087c67908b6de4884b7f44dfbf916cb"
   dependencies:
     babel-plugin-syntax-dynamic-import "^6.18.0"
     babel-polyfill "^6.23.0"
     babel-preset-env "^1.2.2"
     exports-loader "^0.6.4"
     imports-loader "^0.7.1"
-    neutrino-middleware-chunk "^5.2.0"
-    neutrino-middleware-clean "^5.2.0"
-    neutrino-middleware-compile-loader "^5.2.0"
-    neutrino-middleware-copy "^5.2.0"
-    neutrino-middleware-env "^5.2.0"
-    neutrino-middleware-font-loader "^5.2.0"
-    neutrino-middleware-hot "^5.2.0"
-    neutrino-middleware-html-loader "^5.2.0"
-    neutrino-middleware-html-template "^5.2.0"
-    neutrino-middleware-image-loader "^5.2.0"
-    neutrino-middleware-loader-merge "^5.2.0"
-    neutrino-middleware-minify "^5.2.0"
-    neutrino-middleware-named-modules "^5.2.0"
-    neutrino-middleware-style-loader "^5.2.0"
+    neutrino-middleware-chunk "^5.3.0"
+    neutrino-middleware-clean "^5.3.0"
+    neutrino-middleware-compile-loader "^5.3.0"
+    neutrino-middleware-copy "^5.3.0"
+    neutrino-middleware-env "^5.3.0"
+    neutrino-middleware-font-loader "^5.3.0"
+    neutrino-middleware-hot "^5.3.0"
+    neutrino-middleware-html-loader "^5.3.0"
+    neutrino-middleware-html-template "^5.3.0"
+    neutrino-middleware-image-loader "^5.3.0"
+    neutrino-middleware-loader-merge "^5.3.0"
+    neutrino-middleware-minify "^5.3.0"
+    neutrino-middleware-named-modules "^5.3.0"
+    neutrino-middleware-style-loader "^5.3.0"
     ramda "^0.23.0"
     webpack "^2.3.1"
     webpack-dev-server "^2.4.1"

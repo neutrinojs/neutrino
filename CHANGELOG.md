@@ -1,6 +1,13 @@
+2017-04-02
+==========
+
+  * Update build executable to respect config stats. ([#163](https://github.com/mozilla-neutrino/neutrino-dev/issues/163))
+  * fix eslint-semi-off middleware example ([#161](https://github.com/mozilla-neutrino/neutrino-dev/issues/161))
+
 2017-03-31
 ==========
 
+  * v5.2.0
   * Allow setting karma middleware options as overridable ([#160](https://github.com/mozilla-neutrino/neutrino-dev/issues/160))
 
 2017-03-29
@@ -236,6 +243,3 @@
   * Allow linting overrides to airbnb preset
   * Dynamic import() for Node
   * Adding dynamic import syntax, babel-polyfill by default, devserver port fix
-  * Fixing json extension
-  * Travis changes
-  * Adding rudimentary testing
