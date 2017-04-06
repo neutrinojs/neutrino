@@ -1,6 +1,17 @@
+2017-04-05
+==========
+
+  * Fixing incorrect documentation for linting ([#169](https://github.com/mozilla-neutrino/neutrino-dev/issues/169))
+
+2017-04-04
+==========
+
+  * Add react router starter and blog post ([#164](https://github.com/mozilla-neutrino/neutrino-dev/issues/164))
+
 2017-04-02
 ==========
 
+  * Release v5.3.0
   * Update build executable to respect config stats. ([#163](https://github.com/mozilla-neutrino/neutrino-dev/issues/163))
   * fix eslint-semi-off middleware example ([#161](https://github.com/mozilla-neutrino/neutrino-dev/issues/161))
 
@@ -240,6 +251,3 @@
 ==========
 
   * Simplify deep picking with pathOr
-  * Allow linting overrides to airbnb preset
-  * Dynamic import() for Node
-  * Adding dynamic import syntax, babel-polyfill by default, devserver port fix
