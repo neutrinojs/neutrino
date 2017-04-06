@@ -195,8 +195,10 @@ const airbnb = require('neutrino-preset-airbnb-base');
 
 module.exports = neutrino => {
   neutrino.use(airbnb, {
-    rules: {
-      semi: 'off'
+    eslint: {
+      rules: {
+        semi: 'off'
+      }
     }
   });
 };
