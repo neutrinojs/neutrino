@@ -1,19 +1,25 @@
 # Neutrino React Components Preset
 [![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url] [![Join Slack][slack-image]][slack-url]
 
-`neutrino-preset-react-components` is a Neutrino preset that supports creating generic React components and previewing them
-without the need to embed in an application. Plays nicely with other Neutrino middleware, so you can build, test, preview,
-and publish multiple React components from a single repository.
+`neutrino-preset-react-components` is a Neutrino preset that supports creating generic React components and previewing
+them without the need to embed in an application. Plays nicely with other Neutrino middleware, so you can build, test,
+preview, and publish multiple React components from a single repository.
 
 ## Features
 
-- Zero upfront configuration necessary to start developing and building React components, only setup
-is a little boilerplate to generate the previewer application.
-- Modern Babel compilation supporting ES modules, Node.js 6.9+, async functions, and dynamic imports, and React with JSX
-- Extends from neutrino-preset-node
-  - Supports automatically-wired sourcemaps
-  - Tree-shaking to create smaller bundles
-  - Hot Module Replacement with source-watching during development
+- Extends from [neutrino-preset-react](https://neutrino.js.org/presets/neutrino-preset-react)
+- Zero upfront configuration necessary to start developing, building, and visually previewing a React component, only
+setup is a little boilerplate to generate the previewer application.
+- Modern Babel compilation adding JSX and object rest spread syntax.
+- Support for React Hot Loader
+- Write JSX in .js or .jsx files
+- Extends from [neutrino-preset-web](https://neutrino.js.org/presets/neutrino-preset-web)
+  - Modern Babel compilation supporting ES modules, last major browser versions, async functions, and dynamic imports
+  - Webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
+  - Webpack Dev Server during development
+  - Automatic creation of HTML pages, no templating necessary
+  - Hot module replacement support
+  - Production-optimized bundles with Babili minification and easy chunking
   - Easily extensible to customize your project as needed
 
 ## Requirements
@@ -58,9 +64,9 @@ If you want to have automatically wired sourcemaps added to your project, add `s
 
 ## Project Layout
 
-`neutrino-preset-react-components` follows the standard [project layout](https://neutrino.js.org/project-layout) specified by Neutrino. This
-means that by default all project source code should live in a directory named `src` in the root of the
-project. This includes JavaScript files that would be available to your compiled project.
+`neutrino-preset-react-components` follows the standard [project layout](https://neutrino.js.org/project-layout)
+specified by Neutrino. This means that by default all project source code should live in a directory named `src` in the
+root of the project. This includes JavaScript files that would be available to your compiled project.
 
 All components should be their own module within a directory named `components` inside the source directory.
 
@@ -127,8 +133,8 @@ Start the app, then open a browser to http://localhost:5000 to preview your comp
 
 ## Building
 
-`neutrino-preset-react-components` builds components to the `lib` directory by default when running `neutrino build`. Using the
-quick start example above as a reference:
+`neutrino-preset-react-components` builds components to the `lib` directory by default when running `neutrino build`.
+Using the quick start example above as a reference:
 
 ```bash
 ❯ yarn build
@@ -143,13 +149,13 @@ YourCustomComponent.js.map  4.11 kB       0  [emitted]  YourCustomComponent
 ✨  Done in 3.69s.
 ```
 
-You can then publish these components to npm. When publishing your
-project to npm, consider excluding your `src` directory by using the `files` property to whitelist `build`,
-or via `.npmignore` to blacklist `src`. These are generated as UMD named modules, with the name corresponding to the
-component file name. e.g. `src/components/Custom/index.js` maps to `Custom`, and `src/components/Custom.js` maps to `Custom`.
+You can then publish these components to npm. When publishing your project to npm, consider excluding your `src`
+directory by using the `files` property to whitelist `lib`, or via `.npmignore` to blacklist `src`. Components are
+generated as UMD named modules, with the name corresponding to the component file name. e.g.
+`src/components/Custom/index.js` maps to `Custom`, as well as `src/components/Custom.js` mapping to `Custom`.
 
-These modules are ES-compatible modules, so they can be `import`ed as expected. If you want to use them with CJS `require`, you'll
-need to use the `.default` property to access the default exports:
+These modules are ES-compatible modules, so they can be `import`ed as expected. If you want to use them with CJS
+`require`, you'll need to use the `.default` property to access the default exports:
 
 ```js
 const YourCustomComponent = require('your-custom-component').default;
@@ -243,165 +249,37 @@ render((
 
 ## Hot Module Replacement
 
-While `neutrino-preset-react-components` supports Hot Module Replacement for your app, it does require some application-specific
-changes in order to operate. Your application should define split points for which to accept modules to reload using
-`module.hot`. See the [React preset docs](https://neutrino.js.org/presets/neutrino-preset-react/#hot-module-replacement) for an example.
+While `neutrino-preset-react-components` supports Hot Module Replacement for your app, it does require some
+changes to the Previewer app in order to operate. The Previewer app should define split points for which to accept
+modules (Components) to reload using `module.hot`. See the
+[React preset docs](https://neutrino.js.org/presets/neutrino-preset-react/#hot-module-replacement) for guidance.
 
 ## Customizing
 
 To override the build configuration, start with the documentation on [customization](https://neutrino.js.org/customization).
-`neutrino-preset-react-components` creates some conventions to make overriding the configuration easier once you are ready to make
-changes.
+`neutrino-preset-react-components` only uses 1 additional plugins above the ones in use by the React and Web presets.
+See the [Web documentation customization](https://neutrino.js.org/presets/neutrino-preset-web#customizing)
+for preset-specific configuration to override.
 
-By default the Node.js preset creates an individual entry point for every component found in `src/components`.
-
-### Rules
-
-The following is a list of rules and their identifiers which can be overridden:
-
-- `compile`: Compiles JS files from the `src` directory using Babel. Contains a single loader named `babel`.
-- `style`: Allows importing CSS stylesheets from modules. Contains two loaders named `style` and `css`.
+By default this preset creates an individual entry point for every top-level component found in `src/components`.
 
 ### Plugins
 
-The following is a list of plugins and their identifiers which can be overridden:
+The following is a list of plugins and their identifiers which can be overridden (in addition to the plugins used
+by the React/Web presets):
 
 - `banner`: Injects source-map-support into the entry point of your application if detected in `dependencies` or
 `devDependencies` of your package.json.
-- `copy`: Copies non-JS files from `src` to `build` when using `neutrino build`.
-- `clean`: Clears the contents of `build` prior to creating a production bundle.
 
 ### Simple customization
 
 By following the [customization guide](https://neutrino.js.org/customization/simple) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build directly from package.json.
 
-#### Compile targets
-
-This preset uses babel-preset-env to compile code targeting the Node.js v6.9+. To change
-the Node.js target from package.json, specify an object at `neutrino.options.compile.targets` which contains a
-[babel-preset-env-compatible](https://github.com/babel/babel-preset-env#targetsnode) Node.js target.
-
-_Example: Replace the preset Node.js target with support for Node.js 4.2:_
-
-```json
-{
-  "neutrino": {
-    "options": {
-      "compile": {
-        "targets": {
-          "node": 4.2
-        }
-      }
-    }
-  }
-}
-```
-
-_Example: Change support to current Node.js version:_
-
-```json
-{
-  "neutrino": {
-    "options": {
-      "compile": {
-        "targets": {
-          "node": "current"
-        }
-      }
-    }
-  }
-}
-```
-
-#### Other customization examples
-
-_Example: Allow importing modules with an `.mjs` extension._
-
-```json
-{
-  "neutrino": {
-    "config": {
-      "resolve": {
-        "extensions": [
-          ".mjs"
-        ]
-      }
-    }
-  }
-}
-```
-
 ### Advanced configuration
 
 By following the [customization guide](https://neutrino.js.org/customization/advanced) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build by creating a JS module which overrides the config.
-
-#### Compile targets
-
-This preset uses babel-preset-env to compile code targeting the Node.js v6.9+. To change
-the Node.js target from package.json, specify an object at `neutrino.options.compile.targets` which contains a
-[babel-preset-env-compatible](https://github.com/babel/babel-preset-env#targetsnode) Node.js target.
-
-**Note: Setting these options via `neutrino.options.compile` must be done prior to loading the preset or they
-will not be picked up by the compile middleware. These examples show changing compile targets with options before
-loading the preset and overriding them if loaded afterwards.**
-
-_Example: Replace the preset Node.js target with support for Node.js 4.2:_
-
-```js
-module.exports = neutrino => {
-  // Using neutrino.options prior to loading this preset
-  neutrino.options.compile = {
-    targets: {
-      node: 4.2
-    }
-  };
-
-  // Using compile options override following loading this preset
-  neutrino.config.module
-    .rule('compile')
-    .use('babel')
-    .tap(options => {
-      options.presets[0][1].targets.node = 4.2;
-
-      return options;
-    });
-};
-```
-
-_Example: Change support to current Node.js version:_
-
-```js
-module.exports = neutrino => {
-  // Using neutrino.options prior to loading this preset
-  neutrino.options.compile = {
-    targets: {
-      node: 4.2
-    }
-  };
-
-  // Using compile options override following loading this preset
-  neutrino.config.module
-    .rule('compile')
-    .use('babel')
-    .tap(options => {
-      options.presets[0][1].targets.node = 'current';
-
-      return options;
-    });
-};
-```
-
-#### Other customization examples
-
-_Example: Allow importing modules with an `.mjs` extension._
-
-```js
-module.exports = neutrino => {
-  neutrino.config.resolve.extensions.add('.mjs');
-};
-```
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-react-components.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-react-components.svg

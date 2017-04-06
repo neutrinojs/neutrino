@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-react-components",
-  "version": "1.0.0",
+  "version": "1.0.0-beta.3",
   "main": "index.js",
   "files": [
     "lib",
@@ -8,23 +8,23 @@
     "index.js"
   ],
   "author": "Eli Perelman <eli@eliperelman.com>",
+  "repository": "eliperelman/neutrino-preset-react-components",
   "license": "MIT",
   "scripts": {
     "build": "neutrino build --use ./index.js"
   },
   "devDependencies": {
     "neutrino": "^5.3.0",
-    "neutrino-middleware-style-loader": "^5.3.0",
-    "react": "^15.4.2"
+    "neutrino-middleware-banner": "^5.3.0",
+    "neutrino-preset-react": "^5.3.0",
+    "ramda": "^0.23.0",
+    "react": "^15.4.2",
+    "webpack-node-externals": "^1.5.4"
   },
   "dependencies": {
     "@blueprintjs/core": "^1.14.0",
-    "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-preset-react": "^6.23.0",
-    "neutrino-middleware-loader-merge": "^5.3.0",
-    "neutrino-preset-node": "^5.3.0",
-    "neutrino-preset-react": "^5.3.0",
     "react-addons-css-transition-group": "^15.4.2",
-    "react-frame-component": "^1.0.2"
+    "react-frame-component": "^1.0.2",
+    "worker-loader": "^0.8.0"
   }
 }

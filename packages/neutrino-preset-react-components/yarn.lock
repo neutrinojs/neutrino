@@ -407,14 +407,6 @@ babel-plugin-check-es2015-constants@^6.22.0:
   dependencies:
     babel-runtime "^6.22.0"
 
-babel-plugin-dynamic-import-node@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/babel-plugin-dynamic-import-node/-/babel-plugin-dynamic-import-node-1.0.1.tgz#2da67305da3cc34ad81b4490620cbd40e05f8c2c"
-  dependencies:
-    babel-plugin-syntax-dynamic-import "^6.18.0"
-    babel-template "^6.23.0"
-    babel-types "^6.23.0"
-
 babel-plugin-minify-builtins@^0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/babel-plugin-minify-builtins/-/babel-plugin-minify-builtins-0.0.2.tgz#f3be6121763c0c518d5ef82067cef4b615c9498c"
@@ -1536,13 +1528,13 @@ date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
 
-debug@2.6.1:
+debug@2.6.1, debug@^2.2.0:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.1.tgz#79855090ba2c4e3115cc7d8769491d58f0491351"
   dependencies:
     ms "0.7.2"
 
-debug@2.6.3, debug@^2.1.1, debug@^2.2.0:
+debug@2.6.3, debug@^2.1.1:
   version "2.6.3"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.3.tgz#0f7eb8c30965ec08c72accfa0130c8b79984141d"
   dependencies:
@@ -2952,38 +2944,12 @@ neutrino-middleware-named-modules@^5.3.0:
   dependencies:
     webpack "^2.3.1"
 
-neutrino-middleware-start-server@^5.3.0:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-start-server/-/neutrino-middleware-start-server-5.3.0.tgz#6fa41c5a09cfe74065f4eed94f9712cc398c2a10"
-  dependencies:
-    start-server-webpack-plugin "^2.1.2"
-
 neutrino-middleware-style-loader@^5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/neutrino-middleware-style-loader/-/neutrino-middleware-style-loader-5.3.0.tgz#2c927c0c0c23618d7553a1caf4c196e7a172423c"
   dependencies:
     css-loader "^0.27.3"
     style-loader "^0.16.0"
-
-neutrino-preset-node@^5.3.0:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/neutrino-preset-node/-/neutrino-preset-node-5.3.0.tgz#383251e726d97eaa0a5f75a231162d9f3e421b1d"
-  dependencies:
-    babel-plugin-dynamic-import-node "^1.0.1"
-    babel-preset-env "^1.2.2"
-    exports-loader "^0.6.4"
-    imports-loader "^0.7.1"
-    neutrino-middleware-banner "^5.3.0"
-    neutrino-middleware-clean "^5.3.0"
-    neutrino-middleware-compile-loader "^5.3.0"
-    neutrino-middleware-copy "^5.3.0"
-    neutrino-middleware-hot "^5.3.0"
-    neutrino-middleware-loader-merge "^5.3.0"
-    neutrino-middleware-named-modules "^5.3.0"
-    neutrino-middleware-start-server "^5.3.0"
-    ramda "^0.23.0"
-    webpack "^2.3.1"
-    webpack-node-externals "1.5.4"
 
 neutrino-preset-react@^5.3.0:
   version "5.3.0"
@@ -3984,13 +3950,13 @@ right-align@^0.1.1:
   dependencies:
     align-text "^0.1.1"
 
-rimraf@2, rimraf@^2.5.1, rimraf@^2.6.1:
+rimraf@2, rimraf@^2.2.8, rimraf@^2.5.1, rimraf@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.6.1.tgz#c2338ec643df7a1b7fe5c54fa86f57428a55f33d"
   dependencies:
     glob "^7.0.5"
 
-rimraf@^2.2.8, rimraf@~2.5.1:
+rimraf@~2.5.1:
   version "2.5.4"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.5.4.tgz#96800093cbf1a0c86bd95b4625467535c29dfa04"
   dependencies:
@@ -4209,10 +4175,6 @@ sshpk@^1.7.0:
 stackframe@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/stackframe/-/stackframe-0.3.1.tgz#33aa84f1177a5548c8935533cbfeb3420975f5a4"
-
-start-server-webpack-plugin@^2.1.2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/start-server-webpack-plugin/-/start-server-webpack-plugin-2.1.2.tgz#5489bd97ec61e85e41038d0063021744d6ed98c3"
 
 "statuses@>= 1.3.1 < 2", statuses@~1.3.1:
   version "1.3.1"
@@ -4560,7 +4522,7 @@ webpack-dev-server@^2.4.1, webpack-dev-server@^2.4.2:
     webpack-dev-middleware "^1.9.0"
     yargs "^6.0.0"
 
-webpack-node-externals@1.5.4:
+webpack-node-externals@^1.5.4:
   version "1.5.4"
   resolved "https://registry.yarnpkg.com/webpack-node-externals/-/webpack-node-externals-1.5.4.tgz#ea05ba17108a23e776c35c42e7bb0e86c225be00"
 
