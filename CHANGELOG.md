@@ -1,6 +1,9 @@
 2017-04-05
 ==========
 
+  * Correct Node.js preset compile target object ([#170](https://github.com/mozilla-neutrino/neutrino-dev/issues/170))
+  * Update changelog
+  * ESLint middleware docs bug, v5.3.1
   * Fixing incorrect documentation for linting ([#169](https://github.com/mozilla-neutrino/neutrino-dev/issues/169))
 
 2017-04-04
@@ -244,10 +247,3 @@
 
   * v5 Docs
   * Preparing docs for v5
-  * peerDeps and invalid deps
-  * Upgrade webpack-chain to v2, add --inspect
-
-2017-03-02
-==========
-
-  * Simplify deep picking with pathOr
