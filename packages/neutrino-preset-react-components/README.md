@@ -89,7 +89,7 @@ render((
       <Preview component={YourCustomComponent}>
         <PreviewState name="Default" />
         <PreviewState name="State 1" someProp="alpha" />
-        <PreviewState name="State 2" otherProp="beta />
+        <PreviewState name="State 2" otherProp="beta" />
       </Preview>
     </Previewer>
   </AppContainer>
