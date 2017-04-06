@@ -15,7 +15,9 @@ class Previewer extends React.Component {
   }
 
   switchPreview(index) {
-    const preview = this.props.children[index];
+    const preview = Array.isArray(this.props.children) ?
+      this.props.children[index] :
+      this.props.children;
 
     this.setState({
       preview,
@@ -26,7 +28,9 @@ class Previewer extends React.Component {
 
   switchPreviewState(index) {
     this.setState({
-      previewState: this.state.preview.props.children[index]
+      previewState: Array.isArray(this.state.preview.props.children) ?
+        this.state.preview.props.children[index] :
+        this.state.preview.props.children
     });
   }
 

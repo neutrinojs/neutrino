@@ -155,6 +155,92 @@ need to use the `.default` property to access the default exports:
 const YourCustomComponent = require('your-custom-component').default;
 ```
 
+## Previewer Components
+
+This preset exposes 3 React components from `neutrino-preset-react-component/lib/ui` to generate a component previewer
+interface:
+
+### Previewer
+
+The `<Previewer />` component is the container for how a series of components should be rendered. It is responsible
+for rendering the navigation menu, switching between components and component states, and rendering the component
+into its own iframe.
+
+The `<Previewer />` component should be given 1 or more `<Preview />` components as children.
+
+```js
+import React from 'react';
+import { render } from 'react-dom';
+import { Previewer } from 'neutrino-preset-react-component/lib/ui';
+
+const root = document.getElementById('root');
+
+render((
+  <Previewer>
+    ...
+  </Previewer>
+), root);
+```
+
+### Preview
+
+The `<Preview />` component defines how a particular component is previewed. It accepts a `component` property which
+is the component to preview.
+
+The `<Preview />` component should be given 1 or more `<PreviewState />` components as children which will be used to
+render the specified component upon selection.
+
+```js
+import React from 'react';
+import { render } from 'react-dom';
+import { Previewer, Preview } from 'neutrino-preset-react-component/lib/ui';
+
+const root = document.getElementById('root');
+
+class Example extends React.Component {}
+
+render((
+  <Previewer>
+    <Preview component={Example}>
+      ...
+    </Preview>
+  </Previewer>
+), root);
+```
+
+### PreviewState
+
+The `<PreviewState />` component defines what props are passed to the `<Preview />`'s component when this state is
+selected. All props and children passed to this `PreviewState` will be passed as props to the component.
+
+The `<Preview />` component should be given a `name` property for displaying in the `Previewer` UI.
+
+```js
+import React from 'react';
+import { render } from 'react-dom';
+import { Previewer, Preview, PreviewState } from 'neutrino-preset-react-component/lib/ui';
+
+const root = document.getElementById('root');
+
+class Example extends React.Component {
+  render() {
+    return <h1>Hello {this.props.message || 'world'}</h1>;
+  }
+}
+
+render((
+  <Previewer>
+    <Preview component={Example}>
+      <PreviewState name="Default" />
+      <PreviewState name="With 'Internet'" message="Internet" />
+      <PreviewState name="With emphasis" message="WORLD!!!" />
+    </Preview>
+  </Previewer>
+), root);
+```
+
+![example gif](neutrino-react-components-example.gif)
+
 ## Hot Module Replacement
 
 While `neutrino-preset-react-components` supports Hot Module Replacement for your app, it does require some application-specific
