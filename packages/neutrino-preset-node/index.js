@@ -21,7 +21,7 @@ module.exports = (neutrino) => {
   } catch (ex) {}
   /* eslint-enable global-require no-empty */
 
-  if (!path(['options', 'compile', 'targets', 'browsers'], neutrino)) {
+  if (!path(['options', 'compile', 'targets', 'node'], neutrino)) {
     Object.assign(neutrino.options, {
       compile: {
         targets: {
