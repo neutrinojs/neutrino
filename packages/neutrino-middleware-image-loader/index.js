@@ -8,7 +8,7 @@ module.exports = ({ config }, options) => {
   config.module
     .rule('svg')
     .test(/\.svg(\?v=\d+\.\d+\.\d+)?$/)
-    .use('svgUrl')
+    .use('url')
       .loader(svgUrlLoader)
       .options({ limit });
 
