@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-compile-loader",
-  "version": "5.3.0",
+  "version": "5.4.0",
   "description": "Neutrino middleware for compiling JavaScript using Babel configuration",
   "main": "index.js",
   "keywords": [

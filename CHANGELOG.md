@@ -1,6 +1,14 @@
+2017-04-06
+==========
+
+  * neutrino-middleware-image-loader: Use svg-url-loader for svg rule ([#171](https://github.com/mozilla-neutrino/neutrino-dev/issues/171))
+    * Use svg-url-loader for svgs, since base64ing svgs doesn't make sense.
+    * Use 'url' name.
+
 2017-04-05
 ==========
 
+  * Node.js preset v5.3.1
   * Correct Node.js preset compile target object ([#170](https://github.com/mozilla-neutrino/neutrino-dev/issues/170))
   * Update changelog
   * ESLint middleware docs bug, v5.3.1
@@ -241,9 +249,3 @@
 
   * Cleaning up unused gitignores
   * Pointing package.json respository to tree location
-
-2017-03-05
-==========
-
-  * v5 Docs
-  * Preparing docs for v5
