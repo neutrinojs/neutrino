@@ -10,18 +10,19 @@ module.exports = ({ config }, options) => {
     .test(/\.svg(\?v=\d+\.\d+\.\d+)?$/)
     .use('url')
       .loader(svgUrlLoader)
-      .options({ limit });
+      .options(merge({ limit }, options.svg || {}));
 
   config.module
     .rule('img')
     .test(/\.(png|jpg|jpeg|gif)$/)
     .use('url')
       .loader(urlLoader)
-      .options({ limit });
+      .options(merge({ limit }, options.img || {}));
 
   config.module
     .rule('ico')
     .test(/\.ico(\?v=\d+\.\d+\.\d+)?$/)
     .use('url')
-      .loader(urlLoader);
+      .loader(urlLoader)
+      .when(options.ico, use => use.options(options.ico));
 };
