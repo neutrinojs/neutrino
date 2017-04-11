@@ -84,7 +84,7 @@ module.exports = (neutrino) => {
     .when(process.env.NODE_ENV !== 'test', () => neutrino.use(chunk))
     .target('web')
     .context(neutrino.options.root)
-	 .entry('vendor')
+    .entry('vendor')
       .add(require.resolve('./polyfills.js'))
       .end()
     .entry('index')
