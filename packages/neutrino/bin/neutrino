@@ -71,6 +71,11 @@ const normalizeOptions = (args) => {
   });
 };
 
+process.on('unhandledRejection', (err) => {
+  console.error(err);
+  process.exit(1);
+});
+
 const cmd = args.inspect ? 'inspect' : args._[0];
 const middleware = foldMiddleware(args);
 const options = normalizeOptions(args);

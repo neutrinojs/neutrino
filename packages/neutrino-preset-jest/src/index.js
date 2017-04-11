@@ -60,12 +60,11 @@ module.exports = (neutrino) => {
       }
     });
 
-    if (neutrino.config.module.rules.has('lint')) {
-      neutrino.use(loaderMerge('lint', 'eslint'), {
+    neutrino.config.when(neutrino.config.module.rules.has('lint'), () => neutrino
+      .use(loaderMerge('lint', 'eslint'), {
         plugins: ['jest'],
         envs: ['jest']
-      });
-    }
+      }));
 
     const options = normalizeJestOptions(jestOptions, neutrino.config, args);
     const configFile = join(tmpdir(), 'config.json');

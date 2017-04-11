@@ -87,17 +87,17 @@ let's pretend this is a Node.js project:
 ```json
 {
   "scripts": {
-    "test": "neutrino test --presets neutrino-preset-node neutrino-preset-jest"
+    "test": "neutrino test --use neutrino-preset-node neutrino-preset-jest"
   }
 }
 ```
 
-Or if you have set up Neutrino with `neutrino.presets` in your package.json:
+Or if you have set up Neutrino with `neutrino.use` in your package.json:
 
 ```json
 {
   "neutrino": {
-    "presets": [
+    "use": [
       "neutrino-preset-node",
       "neutrino-preset-jest"
     ]
@@ -218,7 +218,7 @@ _Example: Turn off bailing on test failures._
 
 ### Advanced configuration
 
-By following the [customization guide](https://neutrino.jg.org/customization/advanced) and knowing the rule, and loader IDs above,
+By following the [customization guide](https://neutrino.js.org/customization/advanced) and knowing the rule, and loader IDs above,
 you can override and augment testing by creating a JS module which overrides the config. 
 
 You can also modify Jest settings by overriding with any options Jest accepts. In a standalone Jest project this is

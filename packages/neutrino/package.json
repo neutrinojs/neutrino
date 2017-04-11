@@ -1,6 +1,6 @@
 {
   "name": "neutrino",
-  "version": "5.0.0",
+  "version": "5.4.0",
   "description": "Create and build JS applications with managed configurations",
   "main": "src/index.js",
   "bin": {
@@ -34,7 +34,7 @@
     "ramda": "^0.23.0",
     "ramda-fantasy": "^0.7.0",
     "webpack": "^2.3.1",
-    "webpack-chain": "^3.0.0",
+    "webpack-chain": "^3.1.0",
     "webpack-dev-server": "^2.4.2",
     "yargs": "^7.0.2"
   },

@@ -1,6 +1,95 @@
+2017-04-06
+==========
+
+  * neutrino-middleware-image-loader: Use svg-url-loader for svg rule ([#171](https://github.com/mozilla-neutrino/neutrino-dev/issues/171))
+    * Use svg-url-loader for svgs, since base64ing svgs doesn't make sense.
+    * Use 'url' name.
+
+2017-04-05
+==========
+
+  * Node.js preset v5.3.1
+  * Correct Node.js preset compile target object ([#170](https://github.com/mozilla-neutrino/neutrino-dev/issues/170))
+  * Update changelog
+  * ESLint middleware docs bug, v5.3.1
+  * Fixing incorrect documentation for linting ([#169](https://github.com/mozilla-neutrino/neutrino-dev/issues/169))
+
+2017-04-04
+==========
+
+  * Add react router starter and blog post ([#164](https://github.com/mozilla-neutrino/neutrino-dev/issues/164))
+
+2017-04-02
+==========
+
+  * Release v5.3.0
+  * Update build executable to respect config stats. ([#163](https://github.com/mozilla-neutrino/neutrino-dev/issues/163))
+  * fix eslint-semi-off middleware example ([#161](https://github.com/mozilla-neutrino/neutrino-dev/issues/161))
+
+2017-03-31
+==========
+
+  * v5.2.0
+  * Allow setting karma middleware options as overridable ([#160](https://github.com/mozilla-neutrino/neutrino-dev/issues/160))
+
+2017-03-29
+==========
+
+  * neutrino v5.1.1
+  * options.output mis-named as options.build ([#159](https://github.com/mozilla-neutrino/neutrino-dev/issues/159))
+  * Releasing v5.1.0
+  * Upgrading webpack-chain to v3.1 ([#157](https://github.com/mozilla-neutrino/neutrino-dev/issues/157))
+
+2017-03-28
+==========
+
+  * Adding code coverage with Codacy support ([#156](https://github.com/mozilla-neutrino/neutrino-dev/issues/156))
+  * Use smarter publish script ([#154](https://github.com/mozilla-neutrino/neutrino-dev/issues/154))
+
+2017-03-27
+==========
+
+  * fix docs for creating loaders ([#153](https://github.com/mozilla-neutrino/neutrino-dev/issues/153))
+  * Releasing v5.0.2
+  * Allow inspecting the API default exports without erroring ([#152](https://github.com/mozilla-neutrino/neutrino-dev/issues/152))
+
+2017-03-26
+==========
+
+  * Middleware vs. Presets? ([#149](https://github.com/mozilla-neutrino/neutrino-dev/issues/149))
+  * Changelog
+  * Removing extraneous construct
+  * Syncing packages to docs, adding scripts for publishing
+  * Syncing package readmes with docs
+  * Extracting webpack utils to their own file ([#147](https://github.com/mozilla-neutrino/neutrino-dev/issues/147))
+  * use correct value for package.json config ([#146](https://github.com/mozilla-neutrino/neutrino-dev/issues/146))
+    This might have been an old way to define the configuration?
+    Only works when I use `neutrino`, otherwise I get an error:
+    ```
+    WebpackOptionsValidationError: Invalid configuration object. Webpack has been initialised using a configuration object that does not match the API schema.
+    ```
+
+2017-03-25
+==========
+
+  * Rdesign Advanced Customization examples to use Neutrino v5 fashion ([#145](https://github.com/mozilla-neutrino/neutrino-dev/issues/145))
+  * Update upgrading-neutrino.md (eslint middleware) ([#144](https://github.com/mozilla-neutrino/neutrino-dev/issues/144))
+    The code explaining the usage of `neutrino-middleware-eslint` was wrong here.
+    It caused me a great headache last night, when I was migrating a pair of eslint presets.
+    Thank god [eslint middleware documentation page](https://neutrino.js.org/middleware/neutrino-middleware-eslint/) is OK and you can
+    compare and infer the correct usage.
+
+2017-03-24
+==========
+
+  * Merge pull request [#141](https://github.com/mozilla-neutrino/neutrino-dev/issues/141) from eliperelman/publicpath-docs
+    Adding documention about web publicPath
+  * Adding documention about web publicPath
+
 2017-03-23
 ==========
 
+  * Updating changelog
   * Updating yarn.lock files
   * Merge pull request [#140](https://github.com/mozilla-neutrino/neutrino-dev/issues/140) from eliperelman/v5-docs-again
     Hopefully last round of docs changes for v5
@@ -160,66 +249,3 @@
 
   * Cleaning up unused gitignores
   * Pointing package.json respository to tree location
-
-2017-03-05
-==========
-
-  * v5 Docs
-  * Preparing docs for v5
-  * peerDeps and invalid deps
-  * Upgrade webpack-chain to v2, add --inspect
-
-2017-03-02
-==========
-
-  * Simplify deep picking with pathOr
-  * Allow linting overrides to airbnb preset
-  * Dynamic import() for Node
-  * Adding dynamic import syntax, babel-polyfill by default, devserver port fix
-  * Fixing json extension
-  * Travis changes
-  * Adding rudimentary testing
-
-2017-03-01
-==========
-
-  * Node.js HMR, source watching, named modules for Node and Web
-  * Trying out use(loader, options)
-  * Switch packages licenses to MPL v2, add AVA to start test implementation
-  * Refining middleware concept, splitting presets into middleware packages
-  * Baseline for Neutrino v5
-  * Bumping for bugfix in webpack-chain
-  * Heading typo
-  * Why use a chaining API? ([#87](https://github.com/mozilla-neutrino/neutrino-dev/issues/87))
-
-2017-02-28
-==========
-
-  * Node preset v4.2.2
-  * Make sourcemap support optional for node libraries ([#85](https://github.com/mozilla-neutrino/neutrino-dev/issues/85))
-
-2017-02-27
-==========
-
-  * Neutrino and Jest preset v4.3.0
-  * Added coverage support to jest preset ([#76](https://github.com/mozilla-neutrino/neutrino-dev/issues/76))
-    * Added coverage support to jest preset
-    * Documented jest coverage option
-    * Added missing documentation
-  * React preset v4.2.3
-  * Web preset v4.2.3
-  * Bug in web preset devServer port detection
-  * dev-server/client host/port fix ([#83](https://github.com/mozilla-neutrino/neutrino-dev/issues/83))
-    client entry file no longer receives default host and post when the
-    user sets host and port via config
-  * Merge pull request [#78](https://github.com/mozilla-neutrino/neutrino-dev/issues/78) from helfi92/community-starter-kits
-    Add Community section for starter kits
-  * Put community contributions alongside core ones
-  * Add Community section for starter kits
-  * Add community presets page to docs ([#77](https://github.com/mozilla-neutrino/neutrino-dev/issues/77))
-
-2017-02-26
-==========
-
-  * Fixing LESS example usage
-  * React preset v4.2.2

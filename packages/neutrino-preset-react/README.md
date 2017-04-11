@@ -9,7 +9,7 @@
 - Modern Babel compilation adding JSX and object rest spread syntax.
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
-- Extends from [neutrino-preset-web](https://npmjs.org/package/neutrino-preset-web)
+- Extends from [neutrino-preset-web](https://neutrino.js.org/presets/neutrino-preset-web)
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
   - Webpack loaders for importing HTML, CSS, images, icons, and fonts
   - Webpack Dev Server during development
@@ -75,8 +75,8 @@ Now edit your project's package.json to add commands for starting and building t
 ```json
 {
   "scripts": {
-    "start": "neutrino start --presets neutrino-preset-react",
-    "build": "neutrino build --presets neutrino-preset-react"
+    "start": "neutrino start --use neutrino-preset-react",
+    "build": "neutrino build --use neutrino-preset-react"
   }
 }
 ```
@@ -121,11 +121,18 @@ manifest.2211d9c1970bbd3c952b.bundle.js    1.41 kB       1  [emitted]  manifest
 
 You can either serve or deploy the contents of this `build` directory as a static site.
 
+## Paths
+
+The `neutrino-preset-web` preset loads assets relative to the path of your application by setting Webpack's
+[`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath) to `./`. If you wish to load
+assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
+override `output.publicPath`. See the [Customizing](#Customizing) section below.
+
 ## Customizing
 
 To override the build configuration, start with the documentation on [customization](https://neutrino.js.org/customization).
 `neutrino-preset-react` does not use any additional named rules, loaders, or plugins that aren't already in use by the
-Web preset. See the [Web documentation customization](../neutrino-preset-web#customizing)
+Web preset. See the [Web documentation customization](https://neutrino.js.org/presets/neutrino-preset-web#customizing)
 for preset-specific configuration to override.
 
 ### Simple customization
@@ -181,7 +188,7 @@ manifest.29ee4d0db8f2534cc643.bundle.js    1.44 kB       2  [emitted]  manifest
 #### HTML files
 
 If you wish to override how HTML files are created for your React app, refer to the [relevant section on
-neutrino-preset-web](https://neutrino.js.org/neutrino-preset-web#html-files).
+neutrino-preset-web](https://neutrino.js.org/presets/neutrino-preset-web#html-files).
 
 _Example: Change the application mount ID from "root" to "app":_
 

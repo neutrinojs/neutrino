@@ -2,57 +2,14 @@ const merge = require('deepmerge');
 const clone = require('lodash.clonedeep');
 const { join } = require('path');
 
-const IF_NOT_DEV = process.env.NODE_ENV !== 'development';
 const MODULES = join(__dirname, 'node_modules');
 
 module.exports = (neutrino, options) => {
-  const { config } = neutrino;
-  const lint = config.module.rule('lint');
-
-  config.resolve.modules.add(MODULES);
-  config.resolveLoader.modules.add(MODULES);
-
-  lint
-    .test(options.test || /\.(js|jsx)$/)
-    .pre()
-    .use('eslint')
-      .loader(require.resolve('eslint-loader'))
-      .options(merge({
-        failOnError: IF_NOT_DEV,
-        emitWarning: IF_NOT_DEV,
-        emitError: IF_NOT_DEV,
-        cwd: neutrino.options.root,
-        useEslintrc: false,
-        root: true,
-        plugins: ['babel'],
-        baseConfig: {},
-        envs: ['es6'],
-        parser: 'babel-eslint',
-        parserOptions: {
-          ecmaVersion: 2017,
-          sourceType: 'module',
-          ecmaFeatures: {
-            objectLiteralDuplicateProperties: false,
-            generators: true,
-            impliedStrict: true
-          }
-        },
-        settings: {},
-        globals: ['process'],
-        rules: {}
-      }, options.eslint || {}));
-
-  if (options.include) {
-    lint.include.merge(options.include);
-  }
-
-  if (options.exclude) {
-    lint.exclude.merge(options.exclude);
-  }
+  const isNotDev = process.env.NODE_ENV !== 'development';
 
   // eslint-disable-next-line no-param-reassign
   neutrino.eslintrc = () => {
-    const options = clone(config.module.rule('lint').use('eslint').get('options'));
+    const options = clone(neutrino.config.module.rule('lint').use('eslint').get('options'));
 
     options.extends = options.baseConfig.extends;
     options.useEslintrc = true;
@@ -62,4 +19,48 @@ module.exports = (neutrino, options) => {
 
     return options;
   };
+
+  neutrino.config
+    .resolve
+      .modules
+        .add(MODULES)
+        .end()
+      .end()
+    .resolveLoader
+      .modules
+        .add(MODULES)
+        .end()
+      .end()
+    .module
+      .rule('lint')
+        .test(options.test || /\.(js|jsx)$/)
+        .pre()
+        .when(options.include, rule => rule.include.merge(options.include))
+        .when(options.exclude, rule => rule.exclude.merge(options.exclude))
+        .use('eslint')
+          .loader(require.resolve('eslint-loader'))
+          .options(merge({
+            failOnError: isNotDev,
+            emitWarning: isNotDev,
+            emitError: isNotDev,
+            cwd: neutrino.options.root,
+            useEslintrc: false,
+            root: true,
+            plugins: ['babel'],
+            baseConfig: {},
+            envs: ['es6'],
+            parser: 'babel-eslint',
+            parserOptions: {
+              ecmaVersion: 2017,
+              sourceType: 'module',
+              ecmaFeatures: {
+                objectLiteralDuplicateProperties: false,
+                generators: true,
+                impliedStrict: true
+              }
+            },
+            settings: {},
+            globals: ['process'],
+            rules: {}
+          }, options.eslint || {}));
 };

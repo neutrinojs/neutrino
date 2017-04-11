@@ -1,4 +1,5 @@
 const { build } = require('../src');
+const { defaultTo } = require('ramda');
 const ora = require('ora');
 
 module.exports = (middleware, options) => {
@@ -14,10 +15,13 @@ module.exports = (middleware, options) => {
       process.exit(1);
     }, (stats) => {
       spinner.succeed('Building project completed');
-      console.log(stats.toString({
+
+      const options = defaultTo({
         colors: true,
         chunks: false,
         children: false
-      }));
+      }, stats.compilation.compiler.options.stats);
+
+      console.log(stats.toString(options));
     });
 };

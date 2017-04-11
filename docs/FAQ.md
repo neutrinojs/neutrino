@@ -67,3 +67,12 @@ object that corresponds with this "schema". Typically this would involve transfo
 entities requiring a name into an object which maps the name to the entity.
 
 In short, you must transform your Webpack configuration in order to merge it into the Neutrino configuration cleanly.
+
+### What is the difference between middleware and presets?
+
+The term "presets" are a hold-over from Neutrino pre-v5. Presets **are** middleware, the difference in reality is in
+name only. To keep the term "presets" relevant, we typically want to use it when referring to major project types:
+React projects, Node.js projects, composite middleware (conglomeration of many middleware), etc.
+
+The takeaway: most middleware can just be middleware, and use the term preset for major project types or
+composite middleware.
