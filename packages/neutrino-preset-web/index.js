@@ -74,7 +74,6 @@ module.exports = (neutrino) => {
         [require.resolve('babel-preset-env'), {
           modules: false,
           useBuiltIns: true,
-          include: ['transform-regenerator'],
           targets: neutrino.options.compile.targets
         }]
       ]
