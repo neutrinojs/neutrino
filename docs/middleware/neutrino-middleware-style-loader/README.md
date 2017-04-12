@@ -33,8 +33,18 @@ and plug it into Neutrino:
 ```js
 const styles = require('neutrino-middleware-style-loader');
 
+// Use with default options
 neutrino.use(styles);
+
+// Usage showing default options
+neutrino.use(styles, {
+  style: {},
+  css: {}
+});
 ```
+
+- `style`: Set options for the style-loader used when loading CSS files.
+- `css`: Set options for the css-loader used when loading CSS files.
 
 ## Customization
 

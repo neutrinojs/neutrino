@@ -33,8 +33,16 @@ and plug it into Neutrino:
 ```js
 const html = require('neutrino-middleware-html-loader');
 
+// Use with default options
 neutrino.use(html);
+
+// Usage showing default options
+neutrino.use(html, {
+  name: '[name].[ext]'
+});
 ```
+
+The options object passed to this middleware will be passed as options to the file-loader used to load HTML files.
 
 ## Customization
 

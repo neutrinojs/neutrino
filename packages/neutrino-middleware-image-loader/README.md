@@ -38,11 +38,17 @@ neutrino.use(images);
 
 // Usage showing default options
 neutrino.use(images, {
-  limit: 8192
+  limit: 8192,
+  svg: {},
+  img: {},
+  ico: {}
 });
 ```
 
 - `limit`: Return a Data URL if the file is smaller than a byte limit.
+- `svg`: Set options for the svg-url-loader used when loading svg files.
+- `img`: Set options for the url-loader used when loading png, jpeg, and gif files.
+- `ico`: Set options for the url-loader used when loading ico files.
 
 ## Customization
 

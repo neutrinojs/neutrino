@@ -372,6 +372,17 @@ module.exports = neutrino => {
 };
 ```
 
+#### Polyfills
+
+Neutrino automatically includes babel-polyfill in a `polyfill` bundle which includes the necessary polyfills needed
+based on your compile targets. To remove the inclusion of babel-polyfill, you will need to remove this entrypoint:
+
+```js
+module.exports = neutrino => {
+  neutrino.config.entryPoints.delete('polyfill');
+};
+```
+
 ## Contributing
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo

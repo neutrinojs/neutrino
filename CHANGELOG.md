@@ -1,6 +1,20 @@
+2017-04-11
+==========
+
+  * Set devServer.publicPath to use output.publicPath ([#177](https://github.com/mozilla-neutrino/neutrino-dev/issues/177))
+  * Adding getters and setters for path options, options for middleware ([#176](https://github.com/mozilla-neutrino/neutrino-dev/issues/176))
+  * Polyfills ([#173](https://github.com/mozilla-neutrino/neutrino-dev/issues/173))
+    * Rdesign Advanced Customization examples to use Neutrino v5 fashion
+    * Fix polyfills set to match only supported platforms
+    * Remove 'tranform-regenerator' because according to the babel preset debug log it is already included
+    * Fix indentation
+    * Add VSCode local settings to the ignore list
+    * Separate chunk for polyfills
+
 2017-04-06
 ==========
 
+  * Releasing v5.4.0
   * neutrino-middleware-image-loader: Use svg-url-loader for svg rule ([#171](https://github.com/mozilla-neutrino/neutrino-dev/issues/171))
     * Use svg-url-loader for svgs, since base64ing svgs doesn't make sense.
     * Use 'url' name.
@@ -241,11 +255,3 @@
   * Manually caching monorepo package node_modules for travis
   * Attempting to cache packages' node_modules via wildcard
   * Moving peerDeps of deps to devDeps
-  * Normalize API paths based on absolute or relative location
-  * Upgrading to webpack-chain v3, add more tests for full presets
-
-2017-03-06
-==========
-
-  * Cleaning up unused gitignores
-  * Pointing package.json respository to tree location

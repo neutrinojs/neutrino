@@ -25,7 +25,6 @@ function devServer({ config }, options) {
     .contentBase(options.contentBase)
     .historyApiFallback(true)
     .hot(true)
-    .publicPath(config.output.get('publicPath'))
     .stats({
       assets: false,
       children: false,
@@ -82,7 +81,9 @@ module.exports = (neutrino) => {
   });
 
   neutrino.config
-    .when(process.env.NODE_ENV !== 'test', () => neutrino.use(chunk))
+    .when(process.env.NODE_ENV !== 'test', () => neutrino.use(chunk, {
+      names: ['polyfill']
+    }))
     .target('web')
     .context(neutrino.options.root)
     .entry('polyfill')

@@ -34,7 +34,7 @@ test('valid preset development', t => {
   t.is(errors.length, 0);
 });
 
-test('devServer publicPath', t => {
+test.skip('devServer publicPath', t => {
   const api = Neutrino();
 
   api.use(require('..'));

@@ -35,8 +35,18 @@ and plug it into Neutrino:
 ```js
 const minify = require('neutrino-middleware-minify');
 
+// Use with default options
 neutrino.use(minify);
+
+// Usage showing overriding minification options
+neutrino.use(minify, {
+  babili: {},
+  overrides: {}
+});
 ```
+
+The `babili` and `overrides` properties map to the options defined by
+[babili-webpack-plugin](https://www.npmjs.com/package/babili-webpack-plugin#options).
 
 ## Customization
 
