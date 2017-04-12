@@ -25,6 +25,7 @@ function devServer({ config }, options) {
     .contentBase(options.contentBase)
     .historyApiFallback(true)
     .hot(true)
+    .publicPath('/')
     .stats({
       assets: false,
       children: false,
