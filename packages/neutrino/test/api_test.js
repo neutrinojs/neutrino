@@ -1,5 +1,6 @@
 import test from 'ava';
 import { Neutrino } from '../src';
+import { join } from 'path';
 
 test('initializes with no arguments', t => {
   t.notThrows(() => Neutrino());
@@ -16,6 +17,78 @@ test('initialization stores options', t => {
   t.is(api.options.alpha, options.alpha);
   t.is(api.options.beta, options.beta);
   t.is(api.options.gamma, options.gamma);
+});
+
+test('options.root', t => {
+  const api = Neutrino();
+
+  t.is(api.options.root, process.cwd());
+  api.options.root = './alpha';
+  t.is(api.options.root, join(process.cwd(), 'alpha'));
+  api.options.root = '/alpha';
+  t.is(api.options.root, '/alpha');
+});
+
+test('options.source', t => {
+  const api = Neutrino();
+
+  t.is(api.options.source, join(process.cwd(), 'src'));
+  api.options.source = './alpha';
+  t.is(api.options.source, join(process.cwd(), 'alpha'));
+  api.options.root = '/beta';
+  t.is(api.options.source, join('/beta', 'alpha'));
+  api.options.source = '/alpha';
+  t.is(api.options.source, '/alpha');
+});
+
+test('options.output', t => {
+  const api = Neutrino();
+
+  t.is(api.options.output, join(process.cwd(), 'build'));
+  api.options.output = './alpha';
+  t.is(api.options.output, join(process.cwd(), 'alpha'));
+  api.options.root = '/beta';
+  t.is(api.options.output, join('/beta', 'alpha'));
+  api.options.output = '/alpha';
+  t.is(api.options.output, '/alpha');
+});
+
+test('options.tests', t => {
+  const api = Neutrino();
+
+  t.is(api.options.tests, join(process.cwd(), 'test'));
+  api.options.tests = './alpha';
+  t.is(api.options.tests, join(process.cwd(), 'alpha'));
+  api.options.root = '/beta';
+  t.is(api.options.tests, join('/beta', 'alpha'));
+  api.options.tests = '/alpha';
+  t.is(api.options.tests, '/alpha');
+});
+
+test('options.node_modules', t => {
+  const api = Neutrino();
+
+  t.is(api.options.node_modules, join(process.cwd(), 'node_modules'));
+  api.options.node_modules = './alpha';
+  t.is(api.options.node_modules, join(process.cwd(), 'alpha'));
+  api.options.root = '/beta';
+  t.is(api.options.node_modules, join('/beta', 'alpha'));
+  api.options.node_modules = '/alpha';
+  t.is(api.options.node_modules, '/alpha');
+});
+
+test('options.entry', t => {
+  const api = Neutrino();
+
+  t.is(api.options.entry, join(process.cwd(), 'src/index.js'));
+  api.options.entry = './alpha.js';
+  t.is(api.options.entry, join(process.cwd(), 'src/alpha.js'));
+  api.options.source = 'beta';
+  t.is(api.options.entry, join(process.cwd(), 'beta/alpha.js'));
+  api.options.root = '/gamma';
+  t.is(api.options.entry, join('/gamma', 'beta/alpha.js'));
+  api.options.entry = '/alpha.js';
+  t.is(api.options.entry, '/alpha.js');
 });
 
 test('creates an instance of webpack-chain', t => {

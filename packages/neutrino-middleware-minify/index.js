@@ -1,3 +1,6 @@
 const BabiliPlugin = require('babili-webpack-plugin');
 
-module.exports = ({ config }) => config.plugin('minify').use(BabiliPlugin);
+module.exports = ({ config }, options) => config
+  .plugin('minify')
+  .use(BabiliPlugin)
+  .when(options, plugin => plugin.tap(() => [options]));
