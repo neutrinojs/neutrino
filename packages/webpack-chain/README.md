@@ -664,11 +664,16 @@ config.devServer
   .noInfo(noInfo)
   .overlay(overlay)
   .port(port)
+  .progress(progress)
   .proxy(proxy)
+  .public(public)
+  .publicPath(publicPath)
   .quiet(quiet)
   .setup(setup)
+  .staticOptions(staticOptions)
   .stats(stats)
   .watchContentBase(watchContentBase)
+  .watchOptions(watchOptions)
 ```
 
 #### Config module

@@ -159,7 +159,7 @@ test('validate with values', t => {
       .add('src/index.js')
       .end()
     .output
-      .path('build')
+      .path('/build')
       .end()
     .node
       .set('__dirname', 'mock')

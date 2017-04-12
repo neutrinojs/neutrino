@@ -19,11 +19,16 @@ module.exports = class extends ChainedMap {
       'noInfo',
       'overlay',
       'port',
+      'progress',
+      'public',
+      'publicPath',
       'proxy',
       'quiet',
       'setup',
+      'staticOptions',
       'stats',
-      'watchContentBase'
+      'watchContentBase',
+      'watchOptions'
     ]);
   }
 };
