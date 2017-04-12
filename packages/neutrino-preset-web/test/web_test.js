@@ -12,7 +12,8 @@ test('uses preset', t => {
   t.notThrows(() => api.use(require('..')));
 });
 
-test('valid preset', t => {
+test('valid preset production', t => {
+  process.env.NODE_ENV = 'production';
   const api = Neutrino();
 
   api.use(require('..'));
@@ -20,4 +21,25 @@ test('valid preset', t => {
   const errors = validate(api.config.toConfig());
 
   t.is(errors.length, 0);
+});
+
+test('valid preset development', t => {
+  process.env.NODE_ENV = 'development';
+  const api = Neutrino();
+
+  api.use(require('..'));
+
+  const errors = validate(api.config.toConfig());
+
+  t.is(errors.length, 0);
+});
+
+test('devServer publicPath', t => {
+  const api = Neutrino();
+
+  api.use(require('..'));
+
+  const config = api.config.toConfig();
+
+  t.is(config.output.publicPath, config.devServer.publicPath);
 });
