@@ -67,14 +67,13 @@ module.exports = (neutrino) => {
   neutrino.use(htmlTemplate, neutrino.options.html);
   neutrino.use(namedModules);
   neutrino.use(compileLoader, {
-    include: [neutrino.options.source, neutrino.options.tests],
+    include: [neutrino.options.source, neutrino.options.tests, require.resolve('./polyfills.js')],
     babel: {
       plugins: [require.resolve('babel-plugin-syntax-dynamic-import')],
       presets: [
         [require.resolve('babel-preset-env'), {
           modules: false,
           useBuiltIns: true,
-          include: ['transform-regenerator'],
           targets: neutrino.options.compile.targets
         }]
       ]
@@ -85,8 +84,10 @@ module.exports = (neutrino) => {
     .when(process.env.NODE_ENV !== 'test', () => neutrino.use(chunk))
     .target('web')
     .context(neutrino.options.root)
+    .entry('polyfill')
+      .add(require.resolve('./polyfills.js'))
+      .end()
     .entry('index')
-      .add(require.resolve('babel-polyfill'))
       .add(neutrino.options.entry)
       .end()
     .output
