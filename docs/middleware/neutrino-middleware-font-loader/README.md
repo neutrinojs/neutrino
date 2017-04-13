@@ -38,11 +38,17 @@ neutrino.use(fonts);
 
 // Usage showing default options
 neutrino.use(fonts, {
-  limit: '10000'
+  limit: '10000',
+  woff: {},
+  ttf: {},
+  eot: {}
 });
 ```
 
 - `limit`: Return a Data URL if the file is smaller than a byte limit.
+- `woff`: Set options for the url-loader used when loading woff files.
+- `tff`: Set options for the url-loader used when loading ttf files.
+- `eot`: Set options for the file-loader used when loading eot files.
 
 ## Customization
 

@@ -46,7 +46,25 @@ const neutrino = Neutrino(options);
 
 ## API options
 
-The Neutrino function can accept an object for setting a number of useful options:
+The Neutrino function can accept an object for setting a number of useful options.
+
+### Path options
+
+The path options mentioned afterwards are generated using JavaScript object getters and setters, meaning their
+assignment and access will produce a computed value each time. For example, the value set for `options.source` may not
+be the same as the value retrieved, as they will be path-normalized to absolute paths:
+
+```js
+api.options.source = 'lib';
+console.log(api.options.source); //   /project/lib
+```
+
+```js
+api.options.entry = 'app.js';
+console.log(api.options.entry); //   /project/src/app.js
+api.options.source = 'lib';
+console.log(api.options.entry); //   /project/lib/app.js
+```
 
 ### `options.root`
 

@@ -11,15 +11,65 @@ const start = require('./start');
 const test = require('./test');
 
 const getOptions = (options = {}) => {
-  const root = normalizePath(process.cwd(), defaultTo('', options.root));
-  const base = normalizePath(root);
-  const source = base(defaultTo('src', options.source));
-  const output = base(defaultTo('build', options.output));
-  const tests = base(defaultTo('test', options.tests));
-  const node_modules = base(defaultTo('node_modules', options.node_modules)); // eslint-disable-line camelcase
-  const entry = normalizePath(source, defaultTo('index.js', options.entry));
+  let root = defaultTo('', options.root);
+  let source = defaultTo('src', options.source);
+  let output = defaultTo('build', options.output);
+  let tests = defaultTo('test', options.tests);
+  let node_modules = defaultTo('node_modules', options.node_modules); // eslint-disable-line camelcase
+  let entry = defaultTo('index.js', options.entry);
 
-  return merge(options, { root, source, output, tests, node_modules, entry });
+  Object.defineProperties(options, {
+    root: {
+      get() {
+        return normalizePath(process.cwd(), root);
+      },
+      set(value) {
+        root = defaultTo('', value);
+      }
+    },
+    source: {
+      get() {
+        return normalizePath(this.root, source);
+      },
+      set(value) {
+        source = defaultTo('src', value);
+      }
+    },
+    output: {
+      get() {
+        return normalizePath(this.root, output);
+      },
+      set(value) {
+        output = defaultTo('build', value);
+      }
+    },
+    tests: {
+      get() {
+        return normalizePath(this.root, tests);
+      },
+      set(value) {
+        tests = defaultTo('test', value);
+      }
+    },
+    node_modules: {
+      get() {
+        return normalizePath(this.root, node_modules);
+      },
+      set(value) {
+        node_modules = defaultTo('node_modules', value); // eslint-disable-line camelcase
+      }
+    },
+    entry: {
+      get() {
+        return normalizePath(this.source, entry);
+      },
+      set(value) {
+        entry = defaultTo('index.js', value);
+      }
+    }
+  });
+
+  return options;
 };
 
 // Api :: () -> Object

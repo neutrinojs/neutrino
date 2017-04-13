@@ -10,18 +10,19 @@ module.exports = ({ config }, options) => {
     .test(/\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/)
     .use('url')
       .loader(urlLoader)
-      .options({ limit, mimetype: 'application/font-woff' });
+      .options(merge({ limit, mimetype: 'application/font-woff' }, options.woff || {}));
 
   config.module
     .rule('ttf')
     .test(/\.ttf(\?v=\d+\.\d+\.\d+)?$/)
     .use('url')
       .loader(urlLoader)
-      .options({ limit, mimetype: 'application/octet-stream' });
+      .options(merge({ limit, mimetype: 'application/octet-stream' }, options.ttf || {}));
 
   config.module
     .rule('eot')
     .test(/\.eot(\?v=\d+\.\d+\.\d+)?$/)
     .use('file')
-      .loader(fileLoader);
+      .loader(fileLoader)
+      .when(options.eot, use => use.options(options.eot));
 };

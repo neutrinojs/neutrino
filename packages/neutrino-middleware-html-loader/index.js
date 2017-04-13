@@ -1,6 +1,8 @@
-module.exports = ({ config }) => config.module
+const merge = require('deepmerge');
+
+module.exports = ({ config }, options) => config.module
   .rule('html')
   .test(/\.html$/)
   .use('file')
     .loader(require.resolve('file-loader'))
-    .options({ name: '[name].[ext]' });
+    .options(merge({ name: '[name].[ext]' }, options));
