@@ -99,8 +99,11 @@ module.exports = (neutrino) => {
       .chunkFilename('[id].[chunkhash].js')
       .end()
     .resolve
+    .alias
+        // TIP: make sure 2 version of "core-js" always match in package.json and babel-polyfill/package.json
+        .set('core-js', join(require.resolve('core-js'), '..'))
+        .end()
       .modules
-        .add(join(require.resolve('babel-polyfill'), '..', '..', 'node_modules'))
         .add('node_modules')
         .add(neutrino.options.node_modules)
         .add(MODULES)
