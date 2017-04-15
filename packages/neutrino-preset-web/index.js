@@ -12,7 +12,7 @@ const clean = require('neutrino-middleware-clean');
 const minify = require('neutrino-middleware-minify');
 const loaderMerge = require('neutrino-middleware-loader-merge');
 const namedModules = require('neutrino-middleware-named-modules');
-const { join } = require('path');
+const { join, dirname } = require('path');
 const { path, pathOr } = require('ramda');
 
 const MODULES = join(__dirname, 'node_modules');
@@ -99,6 +99,10 @@ module.exports = (neutrino) => {
       .chunkFilename('[id].[chunkhash].js')
       .end()
     .resolve
+      .alias
+        // Make sure 2 versions of "core-js" always match in package.json and babel-polyfill/package.json
+        .set('core-js', dirname(require.resolve('core-js')))
+        .end()
       .modules
         .add('node_modules')
         .add(neutrino.options.node_modules)
