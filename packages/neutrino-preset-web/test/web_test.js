@@ -33,13 +33,3 @@ test('valid preset development', t => {
 
   t.is(errors.length, 0);
 });
-
-test.skip('devServer publicPath', t => {
-  const api = Neutrino();
-
-  api.use(require('..'));
-
-  const config = api.config.toConfig();
-
-  t.is(config.output.publicPath, config.devServer.publicPath);
-});
