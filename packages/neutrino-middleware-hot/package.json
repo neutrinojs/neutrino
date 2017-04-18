@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-hot",
-  "version": "5.5.1",
+  "version": "5.6.0",
   "description": "Neutrino middleware for plugging hot module replacement",
   "main": "index.js",
   "keywords": [

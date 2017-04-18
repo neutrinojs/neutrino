@@ -1,6 +1,25 @@
+2017-04-17
+==========
+
+  * Merge branch 'master' of github.com:mozilla-neutrino/neutrino-dev
+  * Refactoring minify plugin options
+
+2017-04-14
+==========
+
+  * Setting devServer publicPath to / ([#179](https://github.com/mozilla-neutrino/neutrino-dev/issues/179))
+  * Consider case when 'core-js' is located in 'babel-polyfill' root ([#181](https://github.com/mozilla-neutrino/neutrino-dev/issues/181))
+    * Rdesign Advanced Customization examples to use Neutrino v5 fashion
+    * Fix cases when there are several 'core-js' instances in the project
+    * Add 'core-js' alias and lock 'babel-polyfill' version
+    * Spaces instead of tabs
+    * Use `dirname` instead of `join`
+    * Correct hierarchy indentation
+
 2017-04-11
 ==========
 
+  * v5.5.0 -> v5.5.1
   * Set devServer.publicPath to use output.publicPath ([#177](https://github.com/mozilla-neutrino/neutrino-dev/issues/177))
   * Adding getters and setters for path options, options for middleware ([#176](https://github.com/mozilla-neutrino/neutrino-dev/issues/176))
   * Polyfills ([#173](https://github.com/mozilla-neutrino/neutrino-dev/issues/173))
@@ -250,8 +269,3 @@
   * Switching clean middleware to use options.root
   * Updating for latest v5 changes
   * add .eslintrc file, eslint fix script. add deps: prettier, prettier-eslint, eslint, eslint-plugin-react. use config from neutrino-preset-mozilla-rpweb
-  * Review nits
-  * Switching paths to relative
-  * Manually caching monorepo package node_modules for travis
-  * Attempting to cache packages' node_modules via wildcard
-  * Moving peerDeps of deps to devDeps
