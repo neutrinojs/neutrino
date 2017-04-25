@@ -33,7 +33,7 @@
     "ora": "^1.2.0",
     "ramda": "^0.23.0",
     "ramda-fantasy": "^0.7.0",
-    "webpack": "^2.3.1",
+    "webpack": "^2.4.1",
     "webpack-chain": "^3.2.0",
     "webpack-dev-server": "^2.4.2",
     "yargs": "^7.0.2"

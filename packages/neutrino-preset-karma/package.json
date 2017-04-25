@@ -23,7 +23,7 @@
     "karma-webpack": "^2.0.3",
     "mocha": "^3.2.0",
     "mocha-coverage-reporter": "^0.0.1",
-    "webpack": "^2.3.1",
+    "webpack": "^2.4.1",
     "webpack-dev-middleware": "^1.10.1"
   },
   "peerDependencies": {

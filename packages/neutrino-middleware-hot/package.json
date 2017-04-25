@@ -17,7 +17,7 @@
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
-    "webpack": "^2.3.1"
+    "webpack": "^2.4.1"
   },
   "peerDependencies": {
     "neutrino": "^5.0.0"

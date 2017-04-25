@@ -19,6 +19,9 @@
     "babel-preset-env": "^1.2.2",
     "exports-loader": "^0.6.4",
     "imports-loader": "^0.7.1",
+    "ramda": "^0.23.0",
+    "webpack": "^2.4.1",
+    "webpack-node-externals": "1.5.4",
     "neutrino-middleware-banner": "^5.6.0",
     "neutrino-middleware-clean": "^5.6.0",
     "neutrino-middleware-compile-loader": "^5.6.0",
@@ -26,10 +29,7 @@
     "neutrino-middleware-hot": "^5.6.0",
     "neutrino-middleware-loader-merge": "^5.6.0",
     "neutrino-middleware-named-modules": "^5.6.0",
-    "neutrino-middleware-start-server": "^5.6.0",
-    "ramda": "^0.23.0",
-    "webpack": "^2.3.1",
-    "webpack-node-externals": "1.5.4"
+    "neutrino-middleware-start-server": "^5.6.0"
   },
   "peerDependencies": {
     "neutrino": "^5.1.0"
