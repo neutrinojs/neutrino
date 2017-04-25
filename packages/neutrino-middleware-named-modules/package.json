@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-named-modules",
-  "version": "5.6.0",
+  "version": "5.7.0",
   "description": "Neutrino middleware for adding named modules for better module names",
   "main": "index.js",
   "keywords": [

@@ -1,6 +1,20 @@
+2017-04-24
+==========
+
+  * Simplify error logging. ([#148](https://github.com/mozilla-neutrino/neutrino-dev/issues/148))
+    * Bump webpack version to "^2.4.1"
+    * Simplify error logging
+
+2017-04-23
+==========
+
+  * Fixing typo in karma docs
+  * Fix typo in preset name ([#190](https://github.com/mozilla-neutrino/neutrino-dev/issues/190))
+
 2017-04-17
 ==========
 
+  * Release v5.6.0
   * Merge branch 'master' of github.com:mozilla-neutrino/neutrino-dev
   * Refactoring minify plugin options
 
@@ -265,7 +279,3 @@
     Baseline for Neutrino v5
   * Adding rule include and exclude upgrade documentation
   * Adding missing packages to travis cache, removing duplicate yarn install directive
-  * Typo
-  * Switching clean middleware to use options.root
-  * Updating for latest v5 changes
-  * add .eslintrc file, eslint fix script. add deps: prettier, prettier-eslint, eslint, eslint-plugin-react. use config from neutrino-preset-mozilla-rpweb
