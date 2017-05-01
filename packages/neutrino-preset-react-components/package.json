@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-react-components",
-  "version": "1.0.0-beta.6",
+  "version": "1.0.0",
   "main": "index.js",
   "files": [
     "lib",
@@ -19,7 +19,6 @@
   },
   "dependencies": {
     "@blueprintjs/core": "^1.16.0",
-    "@kadira/storybook-ui": "^3.11.0",
     "neutrino-middleware-banner": "^5.6.0",
     "neutrino-preset-react": "^5.6.0",
     "normalize.css": "^6.0.0",
