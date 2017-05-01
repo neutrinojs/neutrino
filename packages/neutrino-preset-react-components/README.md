@@ -8,18 +8,17 @@ preview, and publish multiple React components from a single repository.
 ## Features
 
 - Extends from [neutrino-preset-react](https://neutrino.js.org/presets/neutrino-preset-react)
-- Zero upfront configuration necessary to start developing, building, and visually previewing a React component, only
-setup is a little boilerplate to generate the previewer application.
+- Zero upfront configuration necessary to start developing, building, and visually previewing a React component.
+Minimal code is needed to generate stories previewer.
 - Modern Babel compilation adding JSX and object rest spread syntax.
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
+- Support for importing web worker with `.worker.js` file extensions
 - Extends from [neutrino-preset-web](https://neutrino.js.org/presets/neutrino-preset-web)
-  - Modern Babel compilation supporting ES modules, last major browser versions, async functions, and dynamic imports
+  - Modern Babel compilation supporting ES modules, **latest** major browser versions, async functions, and dynamic imports
   - Webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
   - Webpack Dev Server during development
-  - Automatic creation of HTML pages, no templating necessary
   - Hot module replacement support
-  - Production-optimized bundles with Babili minification and easy chunking
   - Easily extensible to customize your project as needed
 
 ## Requirements
@@ -27,6 +26,7 @@ setup is a little boilerplate to generate the previewer application.
 - Node.js v6.9+
 - Yarn or npm client
 - Neutrino v5
+- React, ReactDOM, and React Addons CSS Transition Group (peer dependency)
 
 ## Installation
 
@@ -38,14 +38,14 @@ for actual component development.
 
 ```bash
 ❯ yarn add --dev neutrino neutrino-preset-react-components
-❯ yarn add react react-dom
+❯ yarn add react react-dom react-addons-css-transition-group
 ```
 
 #### npm
 
 ```bash
 ❯ npm install --save-dev neutrino neutrino-preset-react-components
-❯ npm install --save react react-dom
+❯ npm install --save react react-dom react-addons-css-transition-group
 ```
 
 If you want to have automatically wired sourcemaps added to your project, add `source-map-support`:
@@ -73,36 +73,34 @@ All components should be their own module within a directory named `components` 
 ## Quickstart
 
 After installing Neutrino and this preset, add a new directory named `src` in the root of the project, with
-a single JS file named `app.js` in it.
+a single JS file named `stories.js` in it.
 
 ```bash
-❯ mkdir src && touch src/app.js
+❯ mkdir src && touch src/stories.js
 ```
 
-Edit your `src/app.js` file with the following:
+Edit your `src/stories.js` file with the following:
 
 ```js
 import React from 'react';
 import { render } from 'react-dom';
-import { Previewer, Preview, PreviewState } from 'neutrino-preset-react-component/lib/ui';
+import { Stories, Story, Props } from 'neutrino-preset-react-components/lib';
 import YourCustomComponent from './components/YourCustomComponent';
 
 const root = document.getElementById('root');
 
 render((
-  <AppContainer>
-    <Previewer>
-      <Preview component={YourCustomComponent}>
-        <PreviewState name="Default" />
-        <PreviewState name="State 1" someProp="alpha" />
-        <PreviewState name="State 2" otherProp="beta" />
-      </Preview>
-    </Previewer>
-  </AppContainer>
+  <Stories>
+    <Story component={YourCustomComponent}>
+      <Props name="Default" />
+      <Props name="State A" someProp="alpha" />
+      <Props name="State B w/ children">Child!</Props>
+    </Story>
+  </Stories>
 ), root);
 ```
 
-Now edit your project's package.json to add commands for starting and building the application.
+Now edit your project's package.json to add commands for starting the preview app, or building the components.
 
 ```json
 {
@@ -163,68 +161,68 @@ const YourCustomComponent = require('your-custom-component').default;
 
 ## Previewer Components
 
-This preset exposes 3 React components from `neutrino-preset-react-component/lib/ui` to generate a component previewer
+This preset exposes 3 React components from `neutrino-preset-react-component/lib` to generate a component previewer
 interface:
 
-### Previewer
+### Stories
 
-The `<Previewer />` component is the container for how a series of components should be rendered. It is responsible
-for rendering the navigation menu, switching between components and component states, and rendering the component
-into its own iframe.
+The `<Stories />` component is the container for how a series of components should be rendered. It is responsible
+for rendering the navigation menu, switching between components and component states, and rendering the selected
+component.
 
-The `<Previewer />` component should be given 1 or more `<Preview />` components as children.
+The `<Stories />` component should be given 1 or more `<Story />` components as children.
 
 ```js
 import React from 'react';
 import { render } from 'react-dom';
-import { Previewer } from 'neutrino-preset-react-component/lib/ui';
+import { Stories } from 'neutrino-preset-react-component/lib';
 
 const root = document.getElementById('root');
 
 render((
-  <Previewer>
+  <Stories>
     ...
-  </Previewer>
+  </Stories>
 ), root);
 ```
 
-### Preview
+### Story
 
-The `<Preview />` component defines how a particular component is previewed. It accepts a `component` property which
+The `<Story />` component defines how a particular component is previewed. It accepts a `component` property which
 is the component to preview.
 
-The `<Preview />` component should be given 1 or more `<PreviewState />` components as children which will be used to
+The `<Story />` component should be given 1 or more `<Props />` components as children which will be used to
 render the specified component upon selection.
 
 ```js
 import React from 'react';
 import { render } from 'react-dom';
-import { Previewer, Preview } from 'neutrino-preset-react-component/lib/ui';
+import { Stories, Story } from 'neutrino-preset-react-component/lib';
 
 const root = document.getElementById('root');
 
 class Example extends React.Component {}
 
 render((
-  <Previewer>
-    <Preview component={Example}>
+  <Stories>
+    <Story component={Example}>
       ...
-    </Preview>
-  </Previewer>
+    </Story>
+  </Stories>
 ), root);
 ```
 
-### PreviewState
+### Props
 
-The `<PreviewState />` component defines what props are passed to the `<Preview />`'s component when this state is
-selected. All props and children passed to this `PreviewState` will be passed as props to the component.
+The `<Props />` component defines what props are passed to the `<Story />`'s component when this story is
+selected. All props and children passed to this `Props` will be passed as props to the component.
 
-The `<Preview />` component should be given a `name` property for displaying in the `Previewer` UI.
+The `<Props />` component should be given a `name` property for displaying in the `Stories` UI.
 
 ```js
 import React from 'react';
 import { render } from 'react-dom';
-import { Previewer, Preview, PreviewState } from 'neutrino-preset-react-component/lib/ui';
+import { Stories, Story, Props } from 'neutrino-preset-react-component/lib';
 
 const root = document.getElementById('root');
 
@@ -235,13 +233,13 @@ class Example extends React.Component {
 }
 
 render((
-  <Previewer>
-    <Preview component={Example}>
-      <PreviewState name="Default" />
-      <PreviewState name="With 'Internet'" message="Internet" />
-      <PreviewState name="With emphasis" message="WORLD!!!" />
-    </Preview>
-  </Previewer>
+  <Stories>
+    <Story component={Example}>
+      <Props name="Default" />
+      <Props name="With 'Internet'" message="Internet" />
+      <Props name="With emphasis" message="WORLD!!!" />
+    </Story>
+  </Stories>
 ), root);
 ```
 
@@ -250,18 +248,26 @@ render((
 ## Hot Module Replacement
 
 While `neutrino-preset-react-components` supports Hot Module Replacement for your app, it does require some
-changes to the Previewer app in order to operate. The Previewer app should define split points for which to accept
+changes to the preview app in order to operate. The preview app should define split points for which to accept
 modules (Components) to reload using `module.hot`. See the
 [React preset docs](https://neutrino.js.org/presets/neutrino-preset-react/#hot-module-replacement) for guidance.
 
 ## Customizing
 
 To override the build configuration, start with the documentation on [customization](https://neutrino.js.org/customization).
-`neutrino-preset-react-components` only uses 1 additional plugins above the ones in use by the React and Web presets.
+`neutrino-preset-react-components` uses a few rules and plugins in addition to the ones in use by the React and Web presets.
 See the [Web documentation customization](https://neutrino.js.org/presets/neutrino-preset-web#customizing)
 for preset-specific configuration to override.
 
 By default this preset creates an individual entry point for every top-level component found in `src/components`.
+
+### Rules
+
+The following is a list of rules and their identifiers which can be overridden, in addition to the ones from the Web preset:
+
+- `worker`: Automatically imports files with the extension `.worker.js` as Web Workers.
+- `style`: Allows importing CSS stylesheets from modules. Contains two loaders named `style` and `css`. Allows using CSS modules from project CSS files.
+- `plain-style`: Allows importing CSS stylesheets from modules. Contains two loaders named `style` and `css`. Used for importing CSS files from node_modules; has CSS modules disabled.
 
 ### Plugins
 
