@@ -137,12 +137,11 @@ Neutrino({
 
 ### `options.entry`
 
-Set the main entry point for the application. If the option is not set, Neutrino defaults it to `index.js`.
-If a relative path is specified, it will be resolved relative to `options.source`; absolute paths will be used as-is.
+Set the main entry point for the application. If the option is not set, Neutrino defaults it to `index.*` - the extension is resolved by Webpack. The main file by default is not required to be in JavaScript format. If a relative path is specified, it will be resolved relative to `options.source`; absolute paths will be used as-is.
 
 ```js
 Neutrino({
-  // if not specified, defaults to options.source + index.js
+  // if not specified, defaults to options.source + index
 
   // relative, resolves to options.source + ./entry.js
   entry: './entry.js',
