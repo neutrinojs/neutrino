@@ -7,11 +7,7 @@ module.exports = (middleware, options) => {
   return start(middleware, options)
     .fork((errors) => {
       spinner.fail('Building project failed');
-      errors.forEach((err) => {
-        console.error(err.stack || err);
-        err.details && console.error(err.details);
-      });
-
+      errors.forEach(err => console.error(err));
       process.exit(1);
     }, (compiler) => { // eslint-disable-line consistent-return
       if (!compiler.options.devServer) {

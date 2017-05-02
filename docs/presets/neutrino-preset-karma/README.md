@@ -68,7 +68,7 @@ let's pretend this is a React project:
 ```json
 {
   "scripts": {
-    "test": "neutrino test --use neutrino-preset-node neutrino-preset-karma"
+    "test": "neutrino test --use neutrino-preset-react neutrino-preset-karma"
   }
 }
 ```
