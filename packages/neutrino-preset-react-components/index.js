@@ -44,11 +44,10 @@ const prod = neutrino => {
     .plugins
       .delete('html')
       .delete('chunk')
-      .delete('minify')
       .end()
     .devtool('source-map')
     .performance
-      .hints(false)
+      .hints(true)
       .end()
     .externals([nodeExternals()])
     .output
@@ -105,4 +104,6 @@ module.exports = neutrino => {
     .test(/\.worker\.js$/)
     .use('worker')
     .loader(require.resolve('worker-loader'));
+
+  neutrino.config.node.set('Buffer', false);
 };
