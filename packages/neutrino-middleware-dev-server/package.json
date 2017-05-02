@@ -1,0 +1,29 @@
+{
+  "name": "neutrino-middleware-dev-server",
+  "version": "5.6.0",
+  "description": "Neutrino middleware for starting a dev server with Hot Module Replacement",
+  "main": "index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-middleware",
+    "webpack",
+    "dev",
+    "server",
+    "hmr",
+    "hot module replacement"
+  ],
+  "author": "Constantine Genchevsky <const.gen@gmail.com>",
+  "license": "MPL-2.0",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/neutrino-middleware-dev-server",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "dependencies": {
+    "neutrino-middleware-hot": "^5.6.0",
+    "webpack-dev-server": "~2.4.5",
+    "ramda": "~0.23.0",
+    "opn": "~5.0.0"
+  },
+  "peerDependencies": {
+    "neutrino": "^5.0.0"
+  }
+}

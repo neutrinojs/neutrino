@@ -27,7 +27,6 @@
     "neutrino-middleware-copy": "^5.6.0",
     "neutrino-middleware-env": "^5.6.0",
     "neutrino-middleware-font-loader": "^5.6.0",
-    "neutrino-middleware-hot": "^5.6.0",
     "neutrino-middleware-html-loader": "^5.6.0",
     "neutrino-middleware-html-template": "^5.6.0",
     "neutrino-middleware-image-loader": "^5.6.0",
@@ -35,9 +34,9 @@
     "neutrino-middleware-minify": "^5.6.0",
     "neutrino-middleware-named-modules": "^5.6.0",
     "neutrino-middleware-style-loader": "^5.6.0",
+    "neutrino-middleware-dev-server": "^5.6.0",
     "ramda": "^0.23.0",
     "webpack": "^2.3.1",
-    "webpack-dev-server": "^2.4.1",
     "worker-loader": "^0.8.0"
   },
   "peerDependencies": {

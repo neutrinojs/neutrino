@@ -12,35 +12,11 @@ const clean = require('neutrino-middleware-clean');
 const minify = require('neutrino-middleware-minify');
 const loaderMerge = require('neutrino-middleware-loader-merge');
 const namedModules = require('neutrino-middleware-named-modules');
+const devServer = require('neutrino-middleware-dev-server');
 const { join, dirname } = require('path');
 const { path, pathOr } = require('ramda');
 
 const MODULES = join(__dirname, 'node_modules');
-
-function devServer({ config }, options) {
-  config.devServer
-    .host(options.host)
-    .port(parseInt(options.port, 10))
-    .https(options.https)
-    .contentBase(options.contentBase)
-    .historyApiFallback(true)
-    .hot(true)
-    .publicPath('/')
-    .stats({
-      assets: false,
-      children: false,
-      chunks: false,
-      colors: true,
-      errors: true,
-      errorDetails: true,
-      hash: false,
-      modules: false,
-      publicPath: false,
-      timings: false,
-      version: false,
-      warnings: true
-    });
-}
 
 module.exports = (neutrino) => {
   if (!path(['options', 'compile', 'targets', 'browsers'], neutrino)) {
@@ -137,23 +113,9 @@ module.exports = (neutrino) => {
         envs: ['browser', 'commonjs']
       }))
     .when(process.env.NODE_ENV === 'development', (config) => {
-      const protocol = process.env.HTTPS ? 'https' : 'http';
-      const host = process.env.HOST || pathOr('localhost', ['options', 'config', 'devServer', 'host'], neutrino);
-      const port = process.env.PORT || pathOr(5000, ['options', 'config', 'devServer', 'port'], neutrino);
-
       neutrino.use(hot);
-      neutrino.use(devServer, {
-        host,
-        port,
-        https: pathOr(protocol === 'https', ['options', 'config', 'devServer', 'https'], neutrino),
-        contentBase: neutrino.options.source
-      });
-
-      config
-        .devtool('source-map')
-        .entry('index')
-        .add(`webpack-dev-server/client?${protocol}://${host}:${port}/`)
-        .add('webpack/hot/dev-server');
+      neutrino.use(devServer, { host: 'localhost' });
+      config.devtool('source-map');
     }, (config) => {
       neutrino.use(clean, { paths: [neutrino.options.output] });
       neutrino.use(minify);
