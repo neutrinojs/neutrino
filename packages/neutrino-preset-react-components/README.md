@@ -7,7 +7,7 @@ preview, and publish multiple React components from a single repository.
 
 ## Features
 
-- Extends from [neutrino-preset-react](https://neutrino.js.org/presets/neutrino-preset-react)
+- Extends partially from [neutrino-preset-react](https://neutrino.js.org/presets/neutrino-preset-react)
 - Zero upfront configuration necessary to start developing, building, and visually previewing a React component.
 Minimal code is needed to generate stories previewer.
 - Modern Babel compilation adding JSX and object rest spread syntax.
@@ -20,6 +20,9 @@ Minimal code is needed to generate stories previewer.
   - Webpack Dev Server during development
   - Hot module replacement support
   - Easily extensible to customize your project as needed
+
+**Important! The Neutrino Web and React presets include babel-polyfill by default, but this preset does not. If you need
+polyfills in your library code, consider importing babel-polyfill, core-js, or other alternative.**
 
 ## Requirements
 

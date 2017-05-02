@@ -14,6 +14,7 @@ const dev = neutrino => {
     title: 'React Preview'
   };
   neutrino.use(react);
+  neutrino.config.entryPoints.delete('polyfill');
 };
 
 // During production, we create the React component as a library
@@ -43,7 +44,6 @@ const prod = neutrino => {
       .end()
     .plugins
       .delete('html')
-      .delete('chunk')
       .end()
     .devtool('source-map')
     .performance
@@ -104,6 +104,9 @@ module.exports = neutrino => {
     .test(/\.worker\.js$/)
     .use('worker')
     .loader(require.resolve('worker-loader'));
+
+  neutrino.config.plugins
+    .when(process.env.NODE_ENV !== 'test', plugins => plugins.delete('chunk'));
 
   neutrino.config.node.set('Buffer', false);
 };
