@@ -1,6 +1,20 @@
+2017-05-01
+==========
+
+  * Feature/universal entry ([#195](https://github.com/mozilla-neutrino/neutrino-dev/issues/195))
+    * Remove file extension
+    * Update docs
+    * Update the deafult 'entry' test
+
+2017-04-27
+==========
+
+  * Indent to clarify context change ([#191](https://github.com/mozilla-neutrino/neutrino-dev/issues/191))
+
 2017-04-24
 ==========
 
+  * Release v5.7.0
   * Simplify error logging. ([#148](https://github.com/mozilla-neutrino/neutrino-dev/issues/148))
     * Bump webpack version to "^2.4.1"
     * Simplify error logging
@@ -275,7 +289,3 @@
   * README updates for v5
   * Merge pull request [#98](https://github.com/mozilla-neutrino/neutrino-dev/issues/98) from eliperelman/v5-docs
     v5 Docs
-  * Merge pull request [#86](https://github.com/mozilla-neutrino/neutrino-dev/issues/86) from eliperelman/v5
-    Baseline for Neutrino v5
-  * Adding rule include and exclude upgrade documentation
-  * Adding missing packages to travis cache, removing duplicate yarn install directive

@@ -19,9 +19,13 @@ acorn-dynamic-import@^2.0.0:
   dependencies:
     acorn "^4.0.3"
 
-acorn@^4.0.3, acorn@^4.0.4:
+acorn@^4.0.3:
   version "4.0.11"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-4.0.11.tgz#edcda3bd937e7556410d42ed5860f67399c794c0"
+
+acorn@^5.0.0:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.0.3.tgz#c460df08491463f028ccb82eab3730bf01087b3d"
 
 ajv-keywords@^1.1.1:
   version "1.5.1"
@@ -1489,13 +1493,13 @@ date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
 
-debug@2.6.1, debug@^2.1.1, debug@^2.2.0:
+debug@2.6.1, debug@^2.2.0:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.1.tgz#79855090ba2c4e3115cc7d8769491d58f0491351"
   dependencies:
     ms "0.7.2"
 
-debug@2.6.3:
+debug@2.6.3, debug@^2.1.1:
   version "2.6.3"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.3.tgz#0f7eb8c30965ec08c72accfa0130c8b79984141d"
   dependencies:
@@ -2480,7 +2484,7 @@ json3@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/json3/-/json3-3.3.2.tgz#3c0434743df93e2f5c42aee7b19bcb483575f4e1"
 
-json5@^0.5.0:
+json5@^0.5.0, json5@^0.5.1:
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/json5/-/json5-0.5.1.tgz#1eade7acc012034ad84e2396767ead9fa5495821"
 
@@ -2545,18 +2549,9 @@ loader-runner@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/loader-runner/-/loader-runner-2.3.0.tgz#f482aea82d543e07921700d5a46ef26fdac6b8a2"
 
-loader-utils@0.2.16:
+loader-utils@0.2.16, loader-utils@^0.2.15, loader-utils@^0.2.16, loader-utils@~0.2.5:
   version "0.2.16"
   resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-0.2.16.tgz#f08632066ed8282835dff88dfb52704765adee6d"
-  dependencies:
-    big.js "^3.1.3"
-    emojis-list "^2.0.0"
-    json5 "^0.5.0"
-    object-assign "^4.0.1"
-
-loader-utils@^0.2.15, loader-utils@^0.2.16, loader-utils@~0.2.5:
-  version "0.2.17"
-  resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-0.2.17.tgz#f86e6374d43205a6e6c60e9196f17c0299bfb348"
   dependencies:
     big.js "^3.1.3"
     emojis-list "^2.0.0"
@@ -2731,106 +2726,106 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
-neutrino-middleware-chunk@^5.6.0:
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-chunk/-/neutrino-middleware-chunk-5.6.0.tgz#53757c33aff2a5570364d8148bcb521c697b7e82"
+neutrino-middleware-chunk@^5.8.0:
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-chunk/-/neutrino-middleware-chunk-5.8.0.tgz#27389cc01cc6b2e703d5e3bc9aabfe3a19af5bd5"
   dependencies:
     deepmerge "^1.3.2"
-    webpack "^2.3.1"
+    webpack "^2.4.1"
 
-neutrino-middleware-clean@^5.6.0:
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-clean/-/neutrino-middleware-clean-5.6.0.tgz#0e340b651aa130a6e90f22b7b6c98aeb6cf9424e"
+neutrino-middleware-clean@^5.8.0:
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-clean/-/neutrino-middleware-clean-5.8.0.tgz#41fe1fe464739e98b5f2896cbf0f041a5969bcbd"
   dependencies:
     clean-webpack-plugin "^0.1.16"
     deepmerge "^1.3.2"
 
-neutrino-middleware-compile-loader@^5.6.0:
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-compile-loader/-/neutrino-middleware-compile-loader-5.6.0.tgz#b9b7a5eeb149a1821a5fad405ce7ff9c7fed1884"
+neutrino-middleware-compile-loader@^5.8.0:
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-compile-loader/-/neutrino-middleware-compile-loader-5.8.0.tgz#f283db313d7facc07cd3a4c57a88279dd85b4cc6"
   dependencies:
     babel-core "^6.24.0"
     babel-loader "^6.4.1"
 
-neutrino-middleware-copy@^5.6.0:
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-copy/-/neutrino-middleware-copy-5.6.0.tgz#8632d7c710f2867d26c8ccd289e401bb45f7b29a"
+neutrino-middleware-copy@^5.8.0:
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-copy/-/neutrino-middleware-copy-5.8.0.tgz#06afaa04d06dbcf428fc3acfe3bbe7b4fae4bf34"
   dependencies:
     copy-webpack-plugin "^4.0.1"
     deepmerge "^1.3.2"
 
-neutrino-middleware-env@^5.6.0:
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-env/-/neutrino-middleware-env-5.6.0.tgz#fc112e77cbbde338066f199f7292343a9f3909c6"
+neutrino-middleware-env@^5.8.0:
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-env/-/neutrino-middleware-env-5.8.0.tgz#cf1efda0e3448422786e0dd27bea1a3d08adece4"
   dependencies:
-    webpack "^2.3.1"
+    webpack "^2.4.1"
 
-neutrino-middleware-font-loader@^5.6.0:
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-font-loader/-/neutrino-middleware-font-loader-5.6.0.tgz#dc2b7132bc4cabfd58e334985003bdd0c61ecc61"
+neutrino-middleware-font-loader@^5.8.0:
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-font-loader/-/neutrino-middleware-font-loader-5.8.0.tgz#0890ffae1e1bb5f22ab67fe50a9aae7ab690c03e"
   dependencies:
     deepmerge "^1.3.2"
     file-loader "^0.10.1"
     url-loader "^0.5.8"
 
-neutrino-middleware-hot@^5.6.0:
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-hot/-/neutrino-middleware-hot-5.6.0.tgz#498eda895f932776bfe5af690e0f7ec9dfde5bf6"
+neutrino-middleware-hot@^5.8.0:
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-hot/-/neutrino-middleware-hot-5.8.0.tgz#dab9a45d6ed29a4db818a4f47af1deaeb4684154"
   dependencies:
-    webpack "^2.3.1"
+    webpack "^2.4.1"
 
-neutrino-middleware-html-loader@^5.6.0:
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-html-loader/-/neutrino-middleware-html-loader-5.6.0.tgz#dbe7aa6a09c89c675a64b902101f0734b2ca28b6"
+neutrino-middleware-html-loader@^5.8.0:
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-html-loader/-/neutrino-middleware-html-loader-5.8.0.tgz#bc56dad29baec77743eaa7a231c6347c9e07eb53"
   dependencies:
     deepmerge "^1.3.2"
     file-loader "^0.10.1"
 
-neutrino-middleware-html-template@^5.6.0:
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-html-template/-/neutrino-middleware-html-template-5.6.0.tgz#ff59b5a77f0f9238d87378d1426a6abdbe2631d3"
+neutrino-middleware-html-template@^5.8.0:
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-html-template/-/neutrino-middleware-html-template-5.8.0.tgz#60d694da48703cc24ade378b190d6e7598ae1371"
   dependencies:
     deepmerge "^1.3.2"
     html-webpack-plugin "^2.28.0"
     html-webpack-template "^6.0.1"
 
-neutrino-middleware-image-loader@^5.6.0:
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-image-loader/-/neutrino-middleware-image-loader-5.6.0.tgz#3bd44271e11c1beee0b6b6bd78e7f373e90cc054"
+neutrino-middleware-image-loader@^5.8.0:
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-image-loader/-/neutrino-middleware-image-loader-5.8.0.tgz#0f3a65e7673b385ad2a8e61220e824a0683893a7"
   dependencies:
     deepmerge "^1.3.2"
     file-loader "^0.10.1"
     svg-url-loader "^2.0.2"
     url-loader "^0.5.8"
 
-neutrino-middleware-loader-merge@^5.6.0, neutrino-middleware-loader-merge@^5.7.0:
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-loader-merge/-/neutrino-middleware-loader-merge-5.7.0.tgz#9ac111b205ffedcd0eee826779575ab520df8ff0"
+neutrino-middleware-loader-merge@^5.8.0:
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-loader-merge/-/neutrino-middleware-loader-merge-5.8.0.tgz#5754c929d893efc0aa187048397e8409d60cc204"
   dependencies:
     deepmerge "^1.3.2"
 
-neutrino-middleware-minify@^5.6.0:
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-minify/-/neutrino-middleware-minify-5.6.0.tgz#8da9f94f6c194e7390b501c4e870de2a2827fb78"
+neutrino-middleware-minify@^5.8.0:
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-minify/-/neutrino-middleware-minify-5.8.0.tgz#826acca70c958bdb59fd496545cc7e4718b14474"
   dependencies:
     babili-webpack-plugin "^0.0.11"
 
-neutrino-middleware-named-modules@^5.6.0:
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-named-modules/-/neutrino-middleware-named-modules-5.6.0.tgz#5a1fd329c50b9f325434a4c0cc743aa51450157a"
+neutrino-middleware-named-modules@^5.8.0:
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-named-modules/-/neutrino-middleware-named-modules-5.8.0.tgz#1c4f48438576a929990c4228661174b4c7bbc9a4"
   dependencies:
-    webpack "^2.3.1"
+    webpack "^2.4.1"
 
-neutrino-middleware-style-loader@^5.6.0:
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-style-loader/-/neutrino-middleware-style-loader-5.6.0.tgz#e73a393e0c732dc177728d98e88bcb624c8855f0"
+neutrino-middleware-style-loader@^5.8.0:
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-style-loader/-/neutrino-middleware-style-loader-5.8.0.tgz#dfedb0f0b1fb1a7f58928a0c7975ec4ddec08ec5"
   dependencies:
     css-loader "^0.27.3"
     style-loader "^0.16.0"
 
-neutrino-preset-web@^5.6.0:
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/neutrino-preset-web/-/neutrino-preset-web-5.6.0.tgz#9bf76ec539432fa47d8e8aa471a282923b4dca8f"
+neutrino-preset-web@^5.8.0:
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/neutrino-preset-web/-/neutrino-preset-web-5.8.0.tgz#f38f35c0185ba376b09bc1b0d25c4b77a6575657"
   dependencies:
     babel-plugin-syntax-dynamic-import "^6.18.0"
     babel-polyfill "6.23.0"
@@ -2838,22 +2833,22 @@ neutrino-preset-web@^5.6.0:
     core-js "^2.4.0"
     exports-loader "^0.6.4"
     imports-loader "^0.7.1"
-    neutrino-middleware-chunk "^5.6.0"
-    neutrino-middleware-clean "^5.6.0"
-    neutrino-middleware-compile-loader "^5.6.0"
-    neutrino-middleware-copy "^5.6.0"
-    neutrino-middleware-env "^5.6.0"
-    neutrino-middleware-font-loader "^5.6.0"
-    neutrino-middleware-hot "^5.6.0"
-    neutrino-middleware-html-loader "^5.6.0"
-    neutrino-middleware-html-template "^5.6.0"
-    neutrino-middleware-image-loader "^5.6.0"
-    neutrino-middleware-loader-merge "^5.6.0"
-    neutrino-middleware-minify "^5.6.0"
-    neutrino-middleware-named-modules "^5.6.0"
-    neutrino-middleware-style-loader "^5.6.0"
+    neutrino-middleware-chunk "^5.8.0"
+    neutrino-middleware-clean "^5.8.0"
+    neutrino-middleware-compile-loader "^5.8.0"
+    neutrino-middleware-copy "^5.8.0"
+    neutrino-middleware-env "^5.8.0"
+    neutrino-middleware-font-loader "^5.8.0"
+    neutrino-middleware-hot "^5.8.0"
+    neutrino-middleware-html-loader "^5.8.0"
+    neutrino-middleware-html-template "^5.8.0"
+    neutrino-middleware-image-loader "^5.8.0"
+    neutrino-middleware-loader-merge "^5.8.0"
+    neutrino-middleware-minify "^5.8.0"
+    neutrino-middleware-named-modules "^5.8.0"
+    neutrino-middleware-style-loader "^5.8.0"
     ramda "^0.23.0"
-    webpack "^2.3.1"
+    webpack "^2.4.1"
     webpack-dev-server "^2.4.1"
     worker-loader "^0.8.0"
 
@@ -3717,13 +3712,13 @@ right-align@^0.1.1:
   dependencies:
     align-text "^0.1.1"
 
-rimraf@2, rimraf@^2.5.1, rimraf@^2.6.1:
+rimraf@2, rimraf@^2.2.8, rimraf@^2.5.1, rimraf@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.6.1.tgz#c2338ec643df7a1b7fe5c54fa86f57428a55f33d"
   dependencies:
     glob "^7.0.5"
 
-rimraf@^2.2.8, rimraf@~2.5.1:
+rimraf@~2.5.1:
   version "2.5.4"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.5.4.tgz#96800093cbf1a0c86bd95b4625467535c29dfa04"
   dependencies:
@@ -3856,7 +3851,7 @@ source-list-map@^0.1.7, source-list-map@~0.1.7:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-0.1.8.tgz#c550b2ab5427f6b3f21f5afead88c4f5587b2106"
 
-source-list-map@^1.1.0:
+source-list-map@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-1.1.1.tgz#1a33ac210ca144d1e561f906ebccab5669ff4cb4"
 
@@ -4275,18 +4270,18 @@ webpack-sources@^0.1.4:
     source-list-map "~0.1.7"
     source-map "~0.5.3"
 
-webpack-sources@^0.2.0:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-0.2.2.tgz#708714db9cc8152b9f8674e4acb119efecdb23fa"
+webpack-sources@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-0.2.3.tgz#17c62bfaf13c707f9d02c479e0dcdde8380697fb"
   dependencies:
-    source-list-map "^1.1.0"
+    source-list-map "^1.1.1"
     source-map "~0.5.3"
 
-webpack@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-2.3.1.tgz#55bce8baffe7c1f9dc3029adc048643b448318a8"
+webpack@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-2.4.1.tgz#15a91dbe34966d8a4b99c7d656efd92a2e5a6f6a"
   dependencies:
-    acorn "^4.0.4"
+    acorn "^5.0.0"
     acorn-dynamic-import "^2.0.0"
     ajv "^4.7.0"
     ajv-keywords "^1.1.1"
@@ -4294,6 +4289,7 @@ webpack@^2.3.1:
     enhanced-resolve "^3.0.0"
     interpret "^1.0.0"
     json-loader "^0.5.4"
+    json5 "^0.5.1"
     loader-runner "^2.3.0"
     loader-utils "^0.2.16"
     memory-fs "~0.4.1"
@@ -4304,7 +4300,7 @@ webpack@^2.3.1:
     tapable "~0.2.5"
     uglify-js "^2.8.5"
     watchpack "^1.3.1"
-    webpack-sources "^0.2.0"
+    webpack-sources "^0.2.3"
     yargs "^6.0.0"
 
 websocket-driver@>=0.5.1:

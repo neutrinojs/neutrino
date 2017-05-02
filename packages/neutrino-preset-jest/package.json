@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-jest",
-  "version": "5.7.0",
+  "version": "5.8.0",
   "description": "Neutrino preset for testing Neutrino projects with Jest",
   "main": "src/index.js",
   "keywords": [
@@ -22,7 +22,7 @@
     "jest": "^19.0.2",
     "jest-cli": "^19.0.2",
     "lodash.clonedeep": "^4.5.0",
-    "neutrino-middleware-loader-merge": "^5.7.0"
+    "neutrino-middleware-loader-merge": "^5.8.0"
   },
   "peerDependencies": {
     "neutrino": "^5.1.0"
