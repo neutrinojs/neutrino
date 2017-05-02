@@ -246,8 +246,8 @@ First, install `react-hot-loader` as a dependency, this **must** be React Hot Lo
 
 ---
 
-- From your `index` entry point (defaults to `src/index.js` from `neutrino.options.entry`), import an `AppContainer`
-from `react-hot-loader`.
+- From your `index` entry point (defaults to `src/index.*` from `neutrino.options.entry`), import an `AppContainer`
+from `react-hot-loader`. The main file may be named `index.js` or `index.jsx`. The extension is resolved by Webpack.
 - Wrap your top-level React component in the `AppContainer`.
 - Perform the application render in a reusable function for initial load and subsequent reloads.
 - Add the `hot` acceptance to call this function.
