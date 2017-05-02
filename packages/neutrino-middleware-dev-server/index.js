@@ -4,6 +4,17 @@ const open = require('opn');
 const dns = require('dns');
 const os = require('os');
 
+const platformHostName = os.hostname();
+const whenIPReady = new Promise((done, failed) => {
+  dns.lookup(platformHostName, (err, ip) => {
+    if (err) {
+      failed(err);
+    } else {
+      done(ip);
+    }
+  });
+});
+
 module.exports = (neutrino, options = {}) => {
   neutrino.use(hot);
 
@@ -13,6 +24,7 @@ module.exports = (neutrino, options = {}) => {
   const host = process.env.HOST || server.host || options.host || '0.0.0.0';
   const port = process.env.PORT || server.port || options.port || 5000;
   const https = (protocol === 'https') || server.https || options.https;
+  const openInBrowser = (server.open === undefined) ? true : server.open;
 
   config.devServer
     .host(String(host))
@@ -43,4 +55,17 @@ module.exports = (neutrino, options = {}) => {
   config.entry('index')
     .add(`${require.resolve('webpack-dev-server/client')}?${protocol}://${host}:${port}/`)
     .add(require.resolve('webpack/hot/dev-server'));
+
+  if (openInBrowser) {
+    neutrino.on('start', () => {
+      const serverHost = config.devServer.get('host');
+      const serverPort = config.devServer.get('port');
+      const serverProtocol = config.devServer.get('https') ? 'https' : 'http';
+      if (serverHost === '0.0.0.0') {
+        whenIPReady.then(ip => `${serverProtocol}://${ip}:${serverPort}`).then(open);
+      } else {
+        open(`${serverProtocol}://${serverHost}:${serverPort}`);
+      }
+    });
+  }
 };
