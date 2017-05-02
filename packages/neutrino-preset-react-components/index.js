@@ -109,4 +109,23 @@ module.exports = neutrino => {
     .when(process.env.NODE_ENV !== 'test', plugins => plugins.delete('chunk'));
 
   neutrino.config.node.set('Buffer', false);
+
+  const compile = neutrino.config.module.rule('compile');
+  const includes = compile.include.values().filter(include => !include.includes('polyfills.js'));
+
+  compile
+    .include
+      .clear()
+      .merge(includes)
+      .end()
+    .use('babel')
+      .tap(options => {
+        const presetEnvOptions = options.presets[0][1];
+
+        presetEnvOptions.useBuiltIns = false;
+        presetEnvOptions.exclude = ['transform-regenerator', 'transform-async-to-generator'];
+        options.plugins.push([require.resolve('fast-async'), { spec: true }]);
+
+        return options;
+      });
 };
