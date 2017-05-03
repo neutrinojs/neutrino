@@ -50,8 +50,10 @@ export class Stories extends React.Component {
     };
   }
 
-  selectStory({ Component, states }) {
-    this.setState({ Component, props: states.values().next().value });
+  selectStory({ kind }) {
+    const { Component, states } = this.state.components.get(kind);
+
+    this.setState({ Component, props: states.values().next().value, kind });
   }
 
   selectProps(props) {
