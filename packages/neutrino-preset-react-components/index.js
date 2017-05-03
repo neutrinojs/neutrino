@@ -105,8 +105,8 @@ module.exports = neutrino => {
     .use('worker')
     .loader(require.resolve('worker-loader'));
 
-  neutrino.config.plugins
-    .when(process.env.NODE_ENV !== 'test', plugins => plugins.delete('chunk'));
+  neutrino.config
+    .when(process.env.NODE_ENV !== 'test', config => config.plugins.delete('chunk'));
 
   neutrino.config.node.set('Buffer', false);
 
@@ -120,12 +120,22 @@ module.exports = neutrino => {
       .end()
     .use('babel')
       .tap(options => {
-        const presetEnvOptions = options.presets[0][1];
+        const { presets } = options;
+        const [presetEntry, ...remainingPresets] = presets;
+        const [presetEnv, envOptions] = presetEntry;
 
-        presetEnvOptions.useBuiltIns = false;
-        presetEnvOptions.exclude = ['transform-regenerator', 'transform-async-to-generator'];
-        options.plugins.push([require.resolve('fast-async'), { spec: true }]);
-
-        return options;
+        return Object.assign({}, options, {
+          plugins: [[require.resolve('fast-async'), { spec: true }], ...options.plugins],
+          presets: [
+            [
+              presetEnv,
+              Object.assign({}, envOptions, {
+                useBuiltIns: false,
+                exclude: [...(envOptions.exclude || []), 'transform-regenerator', 'transform-async-to-generator']
+              })
+            ],
+            ...remainingPresets
+          ]
+        });
       });
 };
