@@ -1,19 +1,6 @@
 const ramda = require('ramda');
 const hot = require('neutrino-middleware-hot');
 const opn = require('opn');
-const dns = require('dns');
-const os = require('os');
-
-const platformHostName = os.hostname();
-const whenIPReady = new Promise((done, failed) => {
-  dns.lookup(platformHostName, (err, ip) => {
-    if (err) {
-      failed(err);
-    } else {
-      done(ip);
-    }
-  });
-});
 
 module.exports = (neutrino, options = {}) => {
   neutrino.use(hot);
@@ -75,14 +62,8 @@ module.exports = (neutrino, options = {}) => {
 
   if (openInBrowser) {
     neutrino.on('start', () => {
-      const serverHost = config.devServer.get('host');
-      const serverPort = config.devServer.get('port');
-      const serverProtocol = config.devServer.get('https') ? 'https' : 'http';
-      if (serverHost === '0.0.0.0') {
-        whenIPReady.then(ip => `${serverProtocol}://${ip}:${serverPort}`).then(opn);
-      } else {
-        opn(`${serverProtocol}://${serverHost}:${serverPort}`);
-      }
+      const endHost = serverPublic ? publicHost : host;
+      opn(`${protocol}://${endHost}:${port}`);
     });
   }
 };
