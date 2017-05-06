@@ -19,7 +19,7 @@ module.exports = (neutrino, options = {}) => {
   neutrino.use(hot);
 
   const config = neutrino.config;
-  const server = ramda.pathOr({}, ['options', 'config', 'devServer'], neutrino);
+  const server = ramda.pathOr({}, ['options', 'server'], neutrino);
   const protocol = process.env.HTTPS ? 'https' : 'http';
   const host = process.env.HOST || server.host || options.host || '0.0.0.0';
   const port = process.env.PORT || server.port || options.port || 5000;
