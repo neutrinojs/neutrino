@@ -14,6 +14,8 @@ const whenIPReady = new Promise((done, failed) => {
   });
 });
 
+whenIPReady.then(ip => process.env.HOST = process.env.HOST || ip);
+
 module.exports = (middleware, options) => {
   const spinner = ora('Building project').start();
 

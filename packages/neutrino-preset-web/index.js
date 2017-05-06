@@ -114,7 +114,7 @@ module.exports = (neutrino) => {
       }))
     .when(process.env.NODE_ENV === 'development', (config) => {
       neutrino.use(hot);
-      neutrino.use(devServer, { host: 'localhost' });
+      neutrino.use(devServer);
       config.devtool('source-map');
     }, (config) => {
       neutrino.use(clean, { paths: [neutrino.options.output] });
