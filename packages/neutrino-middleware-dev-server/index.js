@@ -1,6 +1,6 @@
 const ramda = require('ramda');
 const hot = require('neutrino-middleware-hot');
-const open = require('opn');
+const opn = require('opn');
 const dns = require('dns');
 const os = require('os');
 
@@ -24,7 +24,13 @@ module.exports = (neutrino, options = {}) => {
   const host = process.env.HOST || server.host || options.host || '0.0.0.0';
   const port = process.env.PORT || server.port || options.port || 5000;
   const https = (protocol === 'https') || server.https || options.https;
-  const openInBrowser = (server.open === undefined) ? true : server.open;
+  let openInBrowser = false;
+
+  if (server.open !== undefined) {
+    openInBrowser = Boolean(server.open);
+  } else if (options.open !== undefined) {
+    openInBrowser = Boolean(options.open);
+  }
 
   config.devServer
     .host(String(host))
@@ -33,9 +39,7 @@ module.exports = (neutrino, options = {}) => {
     .contentBase(neutrino.options.source)
     .historyApiFallback(true)
     .hot(true)
-    .headers({
-      host
-    })
+    .headers({ host })
     .publicPath('/')
     .stats({
       assets: false,
@@ -62,9 +66,9 @@ module.exports = (neutrino, options = {}) => {
       const serverPort = config.devServer.get('port');
       const serverProtocol = config.devServer.get('https') ? 'https' : 'http';
       if (serverHost === '0.0.0.0') {
-        whenIPReady.then(ip => `${serverProtocol}://${ip}:${serverPort}`).then(open);
+        whenIPReady.then(ip => `${serverProtocol}://${ip}:${serverPort}`).then(opn);
       } else {
-        open(`${serverProtocol}://${serverHost}:${serverPort}`);
+        opn(`${serverProtocol}://${serverHost}:${serverPort}`);
       }
     });
   }
