@@ -166,10 +166,7 @@ To override the build configuration, start with the documentation on [customizat
 `neutrino-preset-web` creates some conventions to make overriding the configuration easier once you are ready to make
 changes.
 
-By default the Web preset creates a single **main** `index` entry point to your application, and this maps to the
-`index.js` file in the `src` directory. This value is provided by `neutrino.options.entry`.
-This means that the Web preset is optimized toward the use case of single-page applications over multi-page
-applications.
+By default the Web preset creates a single **main** `index` entry point to your application, and this maps to the `index.*` file in the `src` directory. The extension is resolved by Webpack. This value is provided by `neutrino.options.entry`. This means that the Web preset is optimized toward the use case of single-page applications over multi-page applications.
 
 ### Rules
 

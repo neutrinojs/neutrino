@@ -80,7 +80,7 @@ test('options.node_modules', t => {
 test('options.entry', t => {
   const api = Neutrino();
 
-  t.is(api.options.entry, join(process.cwd(), 'src/index.js'));
+  t.is(api.options.entry, join(process.cwd(), 'src/index'));
   api.options.entry = './alpha.js';
   t.is(api.options.entry, join(process.cwd(), 'src/alpha.js'));
   api.options.source = 'beta';
