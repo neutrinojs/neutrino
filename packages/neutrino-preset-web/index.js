@@ -124,7 +124,7 @@ module.exports = (neutrino) => {
       .set('console', false)
       .set('global', true)
       .set('process', true)
-      .set('Buffer', true)
+      .set('Buffer', false)
       .set('__filename', 'mock')
       .set('__dirname', 'mock')
       .set('setImmediate', true)
