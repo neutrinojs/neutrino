@@ -25,7 +25,7 @@ module.exports = (neutrino) => {
     Object.assign(neutrino.options, {
       compile: {
         targets: {
-          node: 6.9
+          node: 6.10
         }
       }
     });
@@ -35,11 +35,13 @@ module.exports = (neutrino) => {
   neutrino.use(compile, {
     include: [neutrino.options.source, neutrino.options.tests],
     babel: {
-      plugins: [require.resolve('babel-plugin-dynamic-import-node')],
+      plugins: [[require.resolve('fast-async'), { spec: true }], require.resolve('babel-plugin-dynamic-import-node')],
       presets: [
         [require.resolve('babel-preset-env'), {
           modules: false,
-          targets: neutrino.options.compile.targets
+          useBuiltIns: false,
+          targets: neutrino.options.compile.targets,
+          exclude: ['transform-regenerator', 'transform-async-to-generator']
         }]
       ]
     }
