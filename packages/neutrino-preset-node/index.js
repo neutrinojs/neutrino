@@ -25,7 +25,7 @@ module.exports = (neutrino) => {
     Object.assign(neutrino.options, {
       compile: {
         targets: {
-          node: 6.10
+          node: '6.10'
         }
       }
     });

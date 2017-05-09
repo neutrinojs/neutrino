@@ -1142,7 +1142,7 @@ extsprintf@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.0.2.tgz#e1080e0658e300b06294990cc70e1502235fd550"
 
-fast-async@6.2.2:
+fast-async@^6.2.2:
   version "6.2.2"
   resolved "https://registry.yarnpkg.com/fast-async/-/fast-async-6.2.2.tgz#dcbbaaacc92209d9179110f1aa5fb72d8174b0b4"
   dependencies:
