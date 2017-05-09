@@ -76,7 +76,6 @@ module.exports = (neutrino) => {
       presets: [
         [require.resolve('babel-preset-env'), {
           modules: false,
-          useBuiltIns: false,
           targets: neutrino.options.compile.targets,
           exclude: ['transform-regenerator', 'transform-async-to-generator']
         }]
