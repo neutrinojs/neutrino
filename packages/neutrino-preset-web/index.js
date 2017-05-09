@@ -67,15 +67,18 @@ module.exports = (neutrino) => {
   neutrino.use(imageLoader);
   neutrino.use(htmlTemplate, neutrino.options.html);
   neutrino.use(namedModules);
+
+  // add babel-preset-env with fast async, & dynamic import support
   neutrino.use(compileLoader, {
     include: [neutrino.options.source, neutrino.options.tests, require.resolve('./polyfills.js')],
     babel: {
-      plugins: [require.resolve('babel-plugin-syntax-dynamic-import')],
+      plugins: [[require.resolve('fast-async'), { spec: true }], require.resolve('babel-plugin-syntax-dynamic-import')],
       presets: [
         [require.resolve('babel-preset-env'), {
           modules: false,
-          useBuiltIns: true,
-          targets: neutrino.options.compile.targets
+          useBuiltIns: false,
+          targets: neutrino.options.compile.targets,
+          exclude: ['transform-regenerator', 'transform-async-to-generator']
         }]
       ]
     }
