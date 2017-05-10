@@ -72,7 +72,10 @@ module.exports = (neutrino) => {
   neutrino.use(compileLoader, {
     include: [neutrino.options.source, neutrino.options.tests, require.resolve('./polyfills.js')],
     babel: {
-      plugins: [[require.resolve('fast-async'), { spec: true }], require.resolve('babel-plugin-syntax-dynamic-import')],
+      plugins: [
+        [require.resolve('fast-async'), { spec: true }],
+        require.resolve('babel-plugin-syntax-dynamic-import')
+      ],
       presets: [
         [require.resolve('babel-preset-env'), {
           modules: false,
