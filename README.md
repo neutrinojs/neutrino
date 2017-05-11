@@ -24,6 +24,15 @@ cover.
 See the [Neutrino docs](https://neutrino.js.org/)
 for details on installation, getting started, usage, and customizing.
 
+### Contributing
+
+Thank you for wanting to help out with Neutrino! We are very happy that you want to contribute, and have put together
+this guide to help you get started. We want to do our best to help you make successful contributions and be part of our
+community.
+
+- [Contributing to Neutrino](https://neutrino.js.org/contributing/)
+- [Participation Guidelines](https://neutrino.js.org/contributing/code-of-conduct.html)
+
 [npm-image]: https://img.shields.io/npm/v/neutrino.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino.svg
 [npm-url]: https://npmjs.org/package/neutrino
