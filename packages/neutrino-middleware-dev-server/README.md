@@ -49,7 +49,7 @@ By default this middleware will start a development server with the hot reload s
 
 It is recommended to call this middlware only in development mode when `process.env.NODE_ENV === 'development'`. More imformation about usage of Neutrino middlwares can be found in the [documentation](https://neutrino.js.org/middleware).
 
-## Customization
+## Configuration
 
 `neutrino-middleware-dev-server` optionally accepts an object with several options to override the default behavior.
 
@@ -57,6 +57,28 @@ It is recommended to call this middlware only in development mode when `process.
 * `https`: Optional boolean value that swithches hosting to HTTPS protocol with fake certificate. Default is `false`.
 * `port`:  Optional naumber value of the custom port. Default is `5000`.
 * `open`:  Optional boolean value to open the project in the new tab of the default browser. Default is `false`.
+
+## Customization
+
+`neutrino-middleware-dev-server` creates some conventions to make overriding the configuration easier for the end consumer that setups his project. All parameters are optional and can be configured in the *package.json*:
+
+```json
+{
+  ...
+  "neutrino": {
+    "use": [...],
+    "options": {
+      "server": {
+        "public": true,
+        "open": true,
+        "https": true,
+        "port": 4000
+      }
+    }
+  },
+  ...
+}
+```
 
 ## Contributing
 
