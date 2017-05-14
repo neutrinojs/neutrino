@@ -31,34 +31,35 @@ module.exports = (neutrino, options = {}) => {
     openInBrowser = Boolean(options.open);
   }
 
-  config.devServer
-    .host(String(host))
-    .port(Number(port))
-    .https(Boolean(https))
-    .contentBase(neutrino.options.source)
-    .historyApiFallback(true)
-    .hot(true)
-    .headers({ host: publicHost })
-    .public(publicHost)
-    .publicPath('/')
-    .stats({
-      assets: false,
-      children: false,
-      chunks: false,
-      colors: true,
-      errors: true,
-      errorDetails: true,
-      hash: false,
-      modules: false,
-      publicPath: false,
-      timings: false,
-      version: false,
-      warnings: true
-    });
-
-  config.entry('index')
-    .add(`${require.resolve('webpack-dev-server/client')}?${protocol}://${host}:${port}/`)
-    .add(require.resolve('webpack/hot/dev-server'));
+  config
+    .devServer
+      .host(String(host))
+      .port(Number(port))
+      .https(Boolean(https))
+      .contentBase(neutrino.options.source)
+      .historyApiFallback(true)
+      .hot(true)
+      .headers({ host: publicHost })
+      .public(publicHost)
+      .publicPath('/')
+      .stats({
+        assets: false,
+        children: false,
+        chunks: false,
+        colors: true,
+        errors: true,
+        errorDetails: true,
+        hash: false,
+        modules: false,
+        publicPath: false,
+        timings: false,
+        version: false,
+        warnings: true
+      })
+      .end()
+    .entry('index')
+      .prepend(require.resolve('webpack/hot/dev-server'))
+      .prepend(`${require.resolve('webpack-dev-server/client')}?${protocol}://${host}:${port}`);
 
   if (openInBrowser) {
     neutrino.on('start', () => {
