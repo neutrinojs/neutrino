@@ -127,6 +127,19 @@ pkg.neutrino.use
 module.exports = api.eslintrc();
 ```
 
+Projects authors may also face the problem when their code editor lints all files in the project and highlights errors in all of them. It ignores Neutrino `include` and `exclude` options. This is because editors use CLI to call ESLint instead of Neutrino infrastructure.
+
+Unfortunatly ESlint doesn't provide possibility to configure ignored paths from `.neutrino.js` to exclude them from linting. Projects authors should define this manually in their project root directory in `.eslintignore` file.
+
+*.eslintignore:*
+
+```
+/build
+/*.*
+```
+
+This paths exactly will exclude built files and any files in the root directory (e.g. custom Neutrino configuration) but `src` and `test` folders will be still checked. `/node_modules` are ignored by default in ESLint. More information can be found in the [ESLint user guide](http://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories)
+
 ## Contributing
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
