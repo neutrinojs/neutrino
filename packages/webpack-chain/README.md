@@ -682,6 +682,17 @@ config.devServer
 config.module : ChainedMap
 ```
 
+#### Config module noParse
+
+```js
+config.module.noParse : ChainedSet
+
+config.module.noParse
+  .add(value)
+  .prepend(value)
+  .clear()
+```
+
 #### Config module rules: shorthand methods
 
 ```js
@@ -848,6 +859,7 @@ config.merge({
   module: {
     [key]: value,
     
+    noParse: [...values],
     rule: {
       [name]: {
         [key]: value,
