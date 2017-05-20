@@ -133,7 +133,6 @@ module.exports = (neutrino) => {
       .end()
     .when(neutrino.config.module.rules.has('lint'), () => neutrino
       .use(loaderMerge('lint', 'eslint'), {
-        globals: ['Buffer'],
         envs: ['browser', 'commonjs']
       }))
     .when(process.env.NODE_ENV === 'development', (config) => {
