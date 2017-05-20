@@ -42,7 +42,6 @@ module.exports = (neutrino) => {
   neutrino.use(imageLoader);
   neutrino.use(htmlTemplate, neutrino.options.html);
   neutrino.use(namedModules);
-  neutrino.use(devServer);
   neutrino.use(compileLoader, {
     include: [neutrino.options.source, neutrino.options.tests, require.resolve('./polyfills.js')],
     babel: {
@@ -114,6 +113,7 @@ module.exports = (neutrino) => {
       }))
     .when(process.env.NODE_ENV === 'development', (config) => {
       config.devtool('source-map');
+      neutrino.use(devServer);
     }, (config) => {
       neutrino.use(clean, { paths: [neutrino.options.output] });
       neutrino.use(minify);
