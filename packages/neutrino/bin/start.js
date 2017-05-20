@@ -9,18 +9,19 @@ const whenIpReady = Future.node((done) => {
   lookup(host, done);
 });
 
-whenIpReady.then(ip => process.env.HOST = process.env.HOST || ip);
-
 module.exports = (middleware, options) => {
   const spinner = ora('Building project').start();
 
-  return whenIpReady.then(ip => start(middleware, options).fork(
+  return whenIpReady
+    .chain(ip => Future.of(process.env.HOST = process.env.HOST || ip))
+    .chain(ip => Future.both(Future.of(ip), start(middleware, options)))
+    .fork(
       (errors) => {
         spinner.fail('Building project failed');
         errors.forEach(err => console.error(err));
         process.exit(1);
       },
-      (compiler) => {
+      ([ip, compiler]) => {
         if (!compiler.options.devServer) {
           return spinner.succeed('Build completed');
         }
@@ -45,5 +46,5 @@ module.exports = (middleware, options) => {
         });
         return undefined;
       }
-    ));
+    );
 };

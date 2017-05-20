@@ -54,7 +54,8 @@ module.exports = (neutrino, options = {}) => {
         warnings: true
       })
       .when(openInBrowser, devServer => neutrino.on('start', () => {
-        const protocol = devServer.get('protocol');
+        const https = devServer.get('https');
+        const protocol = https ? 'https' : 'http';
         const host = devServer.get('host');
         const port = devServer.get('port');
         const endHost = (host === '0.0.0.0') ? publicHost : host;
