@@ -55,15 +55,15 @@ module.exports = (neutrino, options = {}) => {
         version: false,
         warnings: true
       })
+      .when(openInBrowser, devServer => neutrino.on('start', () => {
+        const protocol = devServer.get('protocol');
+        const host = devServer.get('host');
+        const port = devServer.get('port');
+        const endHost = (host === '0.0.0.0') ? publicHost : host;
+        opn(`${protocol}://${endHost}:${port}`);
+      }))
       .end()
     .entry('index')
       .prepend(require.resolve('webpack/hot/dev-server'))
       .prepend(`${require.resolve('webpack-dev-server/client')}?${protocol}://${host}:${port}`);
-
-  if (openInBrowser) {
-    neutrino.on('start', () => {
-      const endHost = serverPublic ? publicHost : host;
-      opn(`${protocol}://${endHost}:${port}`);
-    });
-  }
 };
