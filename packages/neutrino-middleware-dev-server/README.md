@@ -7,7 +7,7 @@
 
 - Node.js v6.9+
 - Yarn or npm client
-- Neutrino v5
+- Neutrino v6
 
 ## Installation
 
@@ -45,28 +45,27 @@ neutrino.use(devServer, {
 });
 ```
 
-By default this middleware will start a development server with the hot reload support on `http://localhost:5000`. To enable Hot Module Replacement read the documentation of your framework of choise or documentation of corresponding Neutrino preset or middlware.
+By default this middleware will start a development server with hot reload support on `http://localhost:5000`. To enable Hot Module Replacement, read a documentation of corresponding Neutrino preset or middleware.
 
-It is recommended to call this middlware only in development mode when `process.env.NODE_ENV === 'development'`. More imformation about usage of Neutrino middlwares can be found in the [documentation](https://neutrino.js.org/middleware).
+It is recommended to call this middleware only in development mode when `process.env.NODE_ENV === 'development'`. More information about usage of Neutrino middleware can be found in the [documentation](https://neutrino.js.org/middleware).
 
 ## Configuration
 
 `neutrino-middleware-dev-server` optionally accepts an object with several options to override the default behavior.
 
-* `public`: Optional boolean value that makes the server accessible in local network using current machine local IP. Default is `false`.
-* `https`: Optional boolean value that swithches hosting to HTTPS protocol with fake certificate. Default is `false`.
-* `port`:  Optional naumber value of the custom port. Default is `5000`.
-* `open`:  Optional boolean value to open the project in the new tab of the default browser. Default is `false`.
+* `public`: Optional Boolean value that makes the server accessible in local network using current machine local IP. Default is `false`.
+* `https`: Optional Boolean value that switches hosting to HTTPS protocol with self-signed certificate. Default is `false`.
+* `port`:  Optional Number value of the custom port. Default is `5000`.
+* `open`:  Optional Boolean value to open the project in the new tab of the default browser. Default is `false`.
 
 ## Customization
 
-`neutrino-middleware-dev-server` creates some conventions to make overriding the configuration easier for the end consumer that setups his project. All parameters are optional and can be configured in the *package.json*:
+`neutrino-middleware-dev-server` creates some conventions to make overriding the configuration easier for the end consumer that setups their project. All parameters are optional and can be configured in the *package.json*:
 
 ```json
 {
-  ...
   "neutrino": {
-    "use": [...],
+    "use": ["..."],
     "options": {
       "server": {
         "public": true,
@@ -76,7 +75,6 @@ It is recommended to call this middlware only in development mode when `process.
       }
     }
   },
-  ...
 }
 ```
 
