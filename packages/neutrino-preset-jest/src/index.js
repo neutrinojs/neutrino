@@ -34,6 +34,18 @@ function normalizeJestOptions(jestOptions, config, args) {
 }
 
 module.exports = (neutrino) => {
+  neutrino.config.when(neutrino.config.module.rules.has('lint'), () => neutrino
+    .use(loaderMerge('lint', 'eslint'), {
+      plugins: ['jest'],
+      envs: ['jest/globals'],
+      rules: {
+        'jest/no-disabled-tests': 'warn',
+        'jest/no-focused-tests': 'warn',
+        'jest/no-identical-title': 'error',
+        'jest/valid-expect': 'error'
+      }
+    }));
+
   neutrino.on('test', (args) => {
     const jestOptions = merge({
       bail: true,
@@ -59,12 +71,6 @@ module.exports = (neutrino) => {
         }
       }
     });
-
-    neutrino.config.when(neutrino.config.module.rules.has('lint'), () => neutrino
-      .use(loaderMerge('lint', 'eslint'), {
-        plugins: ['jest'],
-        envs: ['jest']
-      }));
 
     const options = normalizeJestOptions(jestOptions, neutrino.config, args);
     const configFile = join(tmpdir(), 'config.json');
