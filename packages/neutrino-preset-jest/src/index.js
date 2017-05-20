@@ -58,7 +58,7 @@ module.exports = (neutrino) => {
       moduleDirectories: [join(__dirname, '../node_modules')],
       moduleNameMapper: {
         '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': require.resolve('./file-mock'),
-        '\\.(css|less|sass)$': require.resolve('./style-mock')
+        '\\.(css|less|sass|scss)$': require.resolve('./style-mock')
       }
     }, neutrino.options.jest || {});
 
