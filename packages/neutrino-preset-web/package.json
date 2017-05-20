@@ -35,6 +35,7 @@
     "neutrino-middleware-named-modules": "^5.8.0",
     "neutrino-middleware-style-loader": "^5.8.0",
     "neutrino-middleware-dev-server": "^5.8.0",
+    "neutrino-middleware-hot": "^5.8.0",
     "ramda": "^0.23.0",
     "webpack": "^2.4.1",
     "worker-loader": "^0.8.0"

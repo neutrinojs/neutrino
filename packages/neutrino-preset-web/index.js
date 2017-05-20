@@ -11,6 +11,7 @@ const clean = require('neutrino-middleware-clean');
 const minify = require('neutrino-middleware-minify');
 const loaderMerge = require('neutrino-middleware-loader-merge');
 const namedModules = require('neutrino-middleware-named-modules');
+const hot = require('neutrino-middleware-hot');
 const devServer = require('neutrino-middleware-dev-server');
 const { join, dirname } = require('path');
 const { path } = require('ramda');
@@ -113,6 +114,7 @@ module.exports = (neutrino) => {
       }))
     .when(process.env.NODE_ENV === 'development', (config) => {
       config.devtool('source-map');
+      neutrino.use(hot);
       neutrino.use(devServer);
     }, (config) => {
       neutrino.use(clean, { paths: [neutrino.options.output] });

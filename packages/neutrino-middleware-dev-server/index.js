@@ -1,5 +1,4 @@
 const { pathOr } = require('ramda');
-const hot = require('neutrino-middleware-hot');
 const opn = require('opn');
 
 module.exports = (neutrino, options = {}) => {
@@ -29,7 +28,6 @@ module.exports = (neutrino, options = {}) => {
     openInBrowser = Boolean(options.open);
   }
 
-  neutrino.use(hot);
   config
     .devServer
       .host(String(host))
