@@ -78,7 +78,7 @@ using a Neutrino-compatible preset. Neutrino currently provides three core testi
 ```bash
 # PRESET_MODULE is the name of the preset to build with, e.g. neutrino-preset-react
 # TESTING_MODULE is the name of another preset to build with, e.g. neutrino-preset-karma
-neutrino build --use PRESET_MODULE TESTING_MODULE
+neutrino test --use PRESET_MODULE TESTING_MODULE
 ```
 
 Putting this into your `package.json` will allow you to test your project using either
