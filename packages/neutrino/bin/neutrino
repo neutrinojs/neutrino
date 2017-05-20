@@ -30,6 +30,12 @@ const args = yargs
     string: true,
     global: true
   })
+  .option('debug', {
+    description: 'Run in debug mode',
+    boolean: true,
+    default: false,
+    global: true
+  })
   .command('start', 'Build a project in development mode')
   .command('build', 'Compile the source directory to a bundled build')
   .command('test [files..]', 'Run all suites from the test directory or provided files', {
@@ -64,10 +70,12 @@ const normalizeOptions = (args) => {
   const pkg = getPackageJson();
   const options = pathOr({}, ['neutrino', 'options'], pkg);
   const env = args.inspect ? getNodeEnv(args._[0], args.env) : args.env;
+  const debug = args.debug ? args.debug : options.debug;
 
   return Object.assign(options, {
     config: pathOr({}, ['neutrino', 'config'], pkg),
-    args: Object.assign(args, { env })
+    args: Object.assign(args, { env }),
+    debug
   });
 };
 

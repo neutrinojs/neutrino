@@ -17,6 +17,7 @@ const getOptions = (options = {}) => {
   let tests = defaultTo('test', options.tests);
   let node_modules = defaultTo('node_modules', options.node_modules); // eslint-disable-line camelcase
   let entry = defaultTo('index', options.entry);
+  let debug = defaultTo(false, options.debug);
 
   Object.defineProperties(options, {
     root: {
@@ -65,6 +66,14 @@ const getOptions = (options = {}) => {
       },
       set(value) {
         entry = defaultTo('index', value);
+      }
+    },
+    debug: {
+      get() {
+        return normalizePath(this.source, debug);
+      },
+      set(value) {
+        debug = defaultTo('index', value);
       }
     }
   });
