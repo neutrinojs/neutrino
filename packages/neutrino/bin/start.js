@@ -1,29 +1,23 @@
 const { start } = require('../src');
 const ora = require('ora');
-const dns = require('dns');
-const os = require('os');
+const { lookup } = require('dns');
+const { hostname } = require('os');
+const Future = require('fluture');
 
-const platformHostName = os.hostname();
-const whenIPReady = new Promise((done, failed) => {
-  dns.lookup(platformHostName, (err, ip) => {
-    if (err) {
-      failed(err);
-    } else {
-      done(ip);
-    }
-  });
+const whenIpReady = Future.node((done) => {
+  const host = hostname();
+  lookup(host, done);
 });
 
-whenIPReady.then(ip => process.env.HOST = process.env.HOST || ip);
+whenIpReady.then(ip => process.env.HOST = process.env.HOST || ip);
 
 module.exports = (middleware, options) => {
   const spinner = ora('Building project').start();
 
-  return whenIPReady.then(ip => start(middleware, options).fork(
+  return whenIpReady.then(ip => start(middleware, options).fork(
       (errors) => {
         spinner.fail('Building project failed');
         errors.forEach(err => console.error(err));
-
         process.exit(1);
       },
       (compiler) => {
@@ -40,9 +34,7 @@ module.exports = (middleware, options) => {
           host = ip;
         }
 
-        spinner.succeed(
-          `Development server running on: ${protocol}://${host}:${port}`
-        );
+        spinner.succeed(`Development server running on: ${protocol}://${host}:${port}`);
 
         const building = ora('Waiting for initial build to finish').start();
 
