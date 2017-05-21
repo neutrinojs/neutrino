@@ -68,12 +68,16 @@ module.exports = (neutrino) => {
   neutrino.use(htmlTemplate, neutrino.options.html);
   neutrino.use(namedModules);
 
+  // turn string into regex for fast-async
+  // e.g., /user/src/index.js (match: true) /user/src/eh.js (match: false)
+  const entryPattern = neutrino.options.entry.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&');
+
   // add babel-preset-env with fast async, & dynamic import support
   neutrino.use(compileLoader, {
     include: [neutrino.options.source, neutrino.options.tests, require.resolve('./polyfills.js')],
     babel: {
       plugins: [
-        [require.resolve('fast-async'), { spec: true }],
+        [require.resolve('fast-async'), { runtimePattern: entryPattern }],
         require.resolve('babel-plugin-syntax-dynamic-import')
       ],
       presets: [
