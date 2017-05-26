@@ -1,3 +1,8 @@
 const StartServerPlugin = require('start-server-webpack-plugin');
 
-module.exports = ({ config }, options) => config.plugin('start-server').use(StartServerPlugin, [options.name]);
+module.exports = (neutrino, options) => neutrino.config
+  .plugin('start-server')
+  .use(StartServerPlugin, [{
+    name: options.name,
+    nodeArgs: neutrino.options.debug ? ['--inspect'] : []
+  }]);
