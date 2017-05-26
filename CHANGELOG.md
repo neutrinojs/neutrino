@@ -1,6 +1,26 @@
+2017-05-25
+==========
+
+  * Docs for --debug
+  * add option for node debugging ([#215](https://github.com/mozilla-neutrino/neutrino-dev/issues/215))
+    * add neutrino.options.debug via --debug flag
+    * use start server with inspect conditionally
+    * improve codestyle for node debug option
+
+2017-05-18
+==========
+
+  * Fix error in test usage example ([#209](https://github.com/mozilla-neutrino/neutrino-dev/issues/209))
+
+2017-05-09
+==========
+
+  * README update
+
 2017-05-01
 ==========
 
+  * Releasing v5.8.0
   * Feature/universal entry ([#195](https://github.com/mozilla-neutrino/neutrino-dev/issues/195))
     * Remove file extension
     * Update docs
@@ -273,19 +293,3 @@
     * `nosources-source-map`: reports correct line in source, but no source is generated
     If you are just running `neutrino-preset-web` out of the box you should be able to debug your code easily. Making this change can cause slower rebuilds, but I'd be willing to wait a few 100ms (or whatever `--` means in time) to rebuild my code for better debugging.
     If and when the above Webpack 2 issues are fixed, I would suggest revisiting the `devtool` option by changing it to `cheap-module-eval-source-map` or `eval-source-map` for speedier rebuilds with sourcemaps that point to source code vs transpiled code.
-
-2017-03-08
-==========
-
-  * Merge pull request [#102](https://github.com/mozilla-neutrino/neutrino-dev/issues/102) from aretecode/eslint
-    eslint
-  * unquote property names, rebase, remove react bits
-
-2017-03-07
-==========
-
-  * Merge pull request [#103](https://github.com/mozilla-neutrino/neutrino-dev/issues/103) from eliperelman/readmes
-    README updates for v5
-  * README updates for v5
-  * Merge pull request [#98](https://github.com/mozilla-neutrino/neutrino-dev/issues/98) from eliperelman/v5-docs
-    v5 Docs

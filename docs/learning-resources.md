@@ -13,6 +13,8 @@ community, file an issue or submit a pull request.
 
 ## Screencasts & Videos
 
+* [Bootstrap a Zero Configuration React App with Neutrino](https://egghead.io/lessons/react-bootstrap-a-zero-configuration-react-app-with-neutrino) by [@markshust](https://twitter.com/markshust)
+
 ## Starter Kit Repositories
 
 * [mozilla-neutrino/node-starter](https://github.com/mozilla-neutrino/node-starter)
