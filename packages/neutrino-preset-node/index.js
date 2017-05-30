@@ -31,11 +31,16 @@ module.exports = (neutrino) => {
     });
   }
 
+  neutrino.config.entry('index').prepend(require.resolve('nodent-runtime'));
+
   neutrino.use(namedModules);
   neutrino.use(compile, {
     include: [neutrino.options.source, neutrino.options.tests],
     babel: {
-      plugins: [[require.resolve('fast-async'), { spec: true }], require.resolve('babel-plugin-dynamic-import-node')],
+      plugins: [
+        [require.resolve('fast-async'), { useRuntimeModule: true }],
+        require.resolve('babel-plugin-dynamic-import-node')
+      ],
       presets: [
         [require.resolve('babel-preset-env'), {
           modules: false,
