@@ -68,8 +68,6 @@ module.exports = (neutrino) => {
   neutrino.use(htmlTemplate, neutrino.options.html);
   neutrino.use(namedModules);
 
-  neutrino.config.entry('index').prepend(require.resolve('nodent-runtime'));
-
   neutrino.use(compileLoader, {
     include: [neutrino.options.source, neutrino.options.tests, require.resolve('./polyfills.js')],
     babel: {
@@ -98,6 +96,7 @@ module.exports = (neutrino) => {
       .add(require.resolve('./polyfills.js'))
       .end()
     .entry('index')
+      .add(require.resolve('nodent-runtime'))
       .add(neutrino.options.entry)
       .end()
     .output

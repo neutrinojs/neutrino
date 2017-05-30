@@ -31,8 +31,6 @@ module.exports = (neutrino) => {
     });
   }
 
-  neutrino.config.entry('index').prepend(require.resolve('nodent-runtime'));
-
   neutrino.use(namedModules);
   neutrino.use(compile, {
     include: [neutrino.options.source, neutrino.options.tests],
@@ -69,6 +67,7 @@ module.exports = (neutrino) => {
     .externals([nodeExternals({ whitelist: [/^webpack/] })])
     .context(neutrino.options.root)
     .entry('index')
+      .add(require.resolve('nodent-runtime'))
       .add(neutrino.options.entry)
       .end()
     .output
