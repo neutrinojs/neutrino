@@ -1,6 +1,5 @@
 const loaderMerge = require('neutrino-middleware-loader-merge');
 const web = require('neutrino-preset-web');
-const merge = require('deepmerge');
 const { join } = require('path');
 
 const MODULES = join(__dirname, 'node_modules');
@@ -12,7 +11,10 @@ module.exports = (neutrino) => {
     plugins: [require.resolve('babel-plugin-transform-object-rest-spread')],
     env: {
       development: {
-        plugins: [require.resolve('react-hot-loader/babel')]
+        plugins: [
+          require.resolve('react-hot-loader/babel'),
+          require.resolve('babel-plugin-transform-es2015-classes')
+        ]
       }
     }
   });
@@ -40,17 +42,6 @@ module.exports = (neutrino) => {
       'react/lib/ReactContext': 'window'
     })
     .when(process.env.NODE_ENV === 'development', config => config
-      .module
-        .rule('compile')
-          .use('babel')
-          .tap((options) => {
-            const presets = options.presets;
-            presets[0][1] = merge(presets[0][1], { include: ['transform-es2015-classes'] });
-            return options;
-          })
-          .end()
-        .end()
-      .end()
       .entry('index')
         .prepend(require.resolve('react-hot-loader/patch')))
     .when(neutrino.config.module.rules.has('lint'), () => neutrino
