@@ -53,6 +53,8 @@ Neutrino exposes events for various stages of the build process your preset can 
 - `build`: Triggered after the production build has completed.
 - `pretest`: Triggered before invoking any test runners.
 - `test`: Triggered when test runners can start, or after they have all completed.
+- `prerun`: Triggered before creating a development bundle, production build, and before invoking any test runners.
+- `run`: Triggered after the development bundle, production build, and the test runners have completed.
 
 _Example: Log to the console when a build finishes._
 
