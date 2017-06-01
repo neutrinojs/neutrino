@@ -85,6 +85,7 @@ module.exports = (neutrino, opts = {}) => {
       .entry('index')
         .add(require.resolve('nodent-runtime')))
     .entry('index')
+      .add(require.resolve('nodent-runtime'))
       .add(neutrino.options.entry)
       .end()
     .output
