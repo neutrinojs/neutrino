@@ -56,6 +56,11 @@ The following is a list of plugins and their identifiers which can be overridden
 
 - `start-server`: Start a Node.js for a configured entry point or specified file.
 
+### Debugging
+
+You can start the Node.js server in `inspect` mode to debug the process by setting `neutrino.options.debug` to `true`.
+This can be done from the [API](../../api#optionsdebug) or the [CLI using `--debug`](../../cli#-debug).
+
 ## Contributing
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo

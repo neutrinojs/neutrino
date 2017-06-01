@@ -67,15 +67,20 @@ module.exports = (neutrino) => {
   neutrino.use(imageLoader);
   neutrino.use(htmlTemplate, neutrino.options.html);
   neutrino.use(namedModules);
+
   neutrino.use(compileLoader, {
     include: [neutrino.options.source, neutrino.options.tests, require.resolve('./polyfills.js')],
     babel: {
-      plugins: [require.resolve('babel-plugin-syntax-dynamic-import')],
+      plugins: [
+        [require.resolve('fast-async'), { useRuntimeModule: true }],
+        require.resolve('babel-plugin-syntax-dynamic-import')
+      ],
       presets: [
         [require.resolve('babel-preset-env'), {
           modules: false,
           useBuiltIns: true,
-          targets: neutrino.options.compile.targets
+          targets: neutrino.options.compile.targets,
+          exclude: ['transform-regenerator', 'transform-async-to-generator']
         }]
       ]
     }
@@ -91,6 +96,7 @@ module.exports = (neutrino) => {
       .add(require.resolve('./polyfills.js'))
       .end()
     .entry('index')
+      .add(require.resolve('nodent-runtime'))
       .add(neutrino.options.entry)
       .end()
     .output
@@ -133,7 +139,6 @@ module.exports = (neutrino) => {
       .end()
     .when(neutrino.config.module.rules.has('lint'), () => neutrino
       .use(loaderMerge('lint', 'eslint'), {
-        globals: ['Buffer'],
         envs: ['browser', 'commonjs']
       }))
     .when(process.env.NODE_ENV === 'development', (config) => {

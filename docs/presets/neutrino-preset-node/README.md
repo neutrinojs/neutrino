@@ -194,6 +194,11 @@ createServer((req, res) => {
 Using dynamic imports with `import()` will automatically create split points and hot replace those modules upon
 modification during development.
 
+## Debugging
+
+You can start the Node.js server in `inspect` mode to debug the process by setting `neutrino.options.debug` to `true`.
+This can be done from the [API](../../api#optionsdebug) or the [CLI using `--debug`](../../cli#-debug).
+
 ## Customizing
 
 To override the build configuration, start with the documentation on [customization](../../customization/README.md).
