@@ -7,7 +7,7 @@
 
 - Node.js v6.9+
 - Yarn or npm client
-- Neutrino v5
+- Neutrino v6
 
 ## Installation
 
@@ -53,7 +53,7 @@ ready to make changes.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-- `html`: Allows importing HTML files from modules. Contains a single loader named `file`.
+- `html`: Allows importing HTML files from modules. Contains a single loader named `html`.
 
 ## Contributing
 
