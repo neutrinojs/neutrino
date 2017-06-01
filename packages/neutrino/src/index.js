@@ -6,7 +6,6 @@ const { getNodeEnv, toArray } = require('./utils');
 // run :: (String command -> Array middleware -> Object options) -> Future Error a
 const run = (command, middleware, options) => {
   const api = Neutrino(options);
-  const genericEvent = 'run';
 
   process.env.NODE_ENV = getNodeEnv(command, api.options.args && api.options.args.env);
 
@@ -17,7 +16,7 @@ const run = (command, middleware, options) => {
     // Trigger all pre-events for the current command
     .chain(() => Future.fromPromise2(api.emitForAll, `pre${command}`, api.options.args))
     // Trigger generic pre-event
-    .chain(() => Future.fromPromise2(api.emitForAll, `pre${genericEvent}`, api.options.args))
+    .chain(() => Future.fromPromise2(api.emitForAll, 'prerun', api.options.args))
     // Execute the command
     .chain(() => api.run(command))
     // Trigger all post-command events, resolving with the value of the command execution
@@ -26,7 +25,7 @@ const run = (command, middleware, options) => {
       .chain(() => Future.of(value)))
     // Trigger generic post-event, resolving with the value of the command execution
     .chain(value => Future
-      .fromPromise2(api.emitForAll, genericEvent, api.options.args)
+      .fromPromise2(api.emitForAll, 'run', api.options.args)
       .chain(() => Future.of(value)))
     .mapRej(toArray);
 };
