@@ -169,6 +169,14 @@ Neutrino({
 })
 ```
 
+## Other options
+
+### `options.debug`
+
+Informs interested middleware that they should be in a state of debugging. This doesn't currently make Neutrino itself
+behave any differently, rather it can be used to inform middleware to behave differently, by outputting console
+information, inspecting processes, or changing configuration helpful for debugging.
+
 ## Loading middleware
 
 Using the Neutrino API you can load [middleware](../middleware/README.md) and presets (which are also just middleware)

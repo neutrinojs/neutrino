@@ -27,6 +27,7 @@ Options:
   --inspect  Output a string representation of the configuration used by Neutrino and exit   [boolean]
   --use      A list of Neutrino middleware used to configure the build                       [array] [default: []]
   --env      The value for the environment variable, NODE_ENV                                [string]
+  --debug    Run in debug mode                                                               [boolean] [default: false]
   --version  Show version number                                                             [boolean]
   --help     Show help                                                                       [boolean]
 ```
@@ -95,6 +96,12 @@ index 3356802..d4d82ef 100644
    },
 ```
 
+## --debug
+
+Informs interested middleware that they should be in a state of debugging. This doesn't currently make Neutrino itself
+behave any differently, rather it can be used to inform middleware to behave differently, by outputting console
+information, inspecting processes, or changing configuration helpful for debugging.
+
 ## `neutrino start`
 
 Using the command `neutrino start` builds a project in development mode, also starting a development server or source
@@ -123,6 +130,7 @@ Options:
   --use      A list of Neutrino presets used to configure the build                          [array] [default: []]
   --version  Show version number                                                             [boolean]
   --env      The value for the environment variable, NODE_ENV                                [string]
+  --debug    Run in debug mode                                                               [boolean] [default: false]
   --help     Show help                                                                       [boolean]
   --coverage Collect test coverage information and generate report                           [boolean] [default: false]
   --watch    Watch source files for changes and re-run tests                                 [boolean] [default: false]
