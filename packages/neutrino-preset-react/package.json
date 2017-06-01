@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-react",
-  "version": "5.9.0",
+  "version": "5.9.1",
   "description": "Neutrino preset for building React web applications",
   "main": "index.js",
   "keywords": [
@@ -17,7 +17,8 @@
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-preset-react": "^6.23.0",
+    "babel-plugin-transform-es2015-classes": "^6.24.1",
+    "babel-preset-react": "^6.24.0",
     "eslint-plugin-react": "^6.10.3",
     "neutrino-middleware-loader-merge": "^5.9.0",
     "neutrino-preset-web": "^5.9.0",
