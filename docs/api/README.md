@@ -430,8 +430,8 @@ The lower-level `run` function takes three arguments:
 - An array of module strings which will be required and used as middleware
 - An object of options that should be specified to the Neutrino API
 
-Prior to starting this process, Neutrino will trigger and wait for `pre{command}` events to
-finish. After it is complete, Neutrino will trigger and wait for `{command}` events to finish.
+Prior to starting this process, Neutrino will trigger and wait for `pre{command}` and `prerun` events to
+finish. After it is complete, Neutrino will trigger and wait for `{command}` and `run` events to finish.
 
 ```js
 const { run } = require('neutrino');
