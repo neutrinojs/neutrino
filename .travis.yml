@@ -1,7 +1,8 @@
 language: node_js
 node_js:
-- '6.9'
+- '6.10'
 - '7'
+- '8'
 cache:
   yarn: true
   directories:
@@ -15,6 +16,7 @@ cache:
   - packages/neutrino-middleware-env/node_modules
   - packages/neutrino-middleware-eslint/node_modules
   - packages/neutrino-middleware-font-loader/node_modules
+  - packages/neutrino-middleware-hashed-module-ids/node_modules
   - packages/neutrino-middleware-hot/node_modules
   - packages/neutrino-middleware-html-loader/node_modules
   - packages/neutrino-middleware-html-template/node_modules
@@ -36,4 +38,3 @@ before_script:
 script:
 - yarn lint
 - yarn test
-- codecov
