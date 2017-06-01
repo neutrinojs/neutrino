@@ -15,11 +15,17 @@ const run = (command, middleware, options) => {
     .map(() => api.config.merge(options.config))
     // Trigger all pre-events for the current command
     .chain(() => Future.fromPromise2(api.emitForAll, `pre${command}`, api.options.args))
+    // Trigger generic pre-event
+    .chain(() => Future.fromPromise2(api.emitForAll, 'prerun', api.options.args))
     // Execute the command
     .chain(() => api.run(command))
     // Trigger all post-command events, resolving with the value of the command execution
     .chain(value => Future
       .fromPromise2(api.emitForAll, command, api.options.args)
+      .chain(() => Future.of(value)))
+    // Trigger generic post-event, resolving with the value of the command execution
+    .chain(value => Future
+      .fromPromise2(api.emitForAll, 'run', api.options.args)
       .chain(() => Future.of(value)))
     .mapRej(toArray);
 };
