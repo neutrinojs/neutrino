@@ -1,6 +1,20 @@
+2017-05-31
+==========
+
+  * Use string version of specifying target ([#217](https://github.com/mozilla-neutrino/neutrino-dev/issues/217))
+    I get the following, very annoying, warning when building. This change fixes it.
+    ```
+    Warning, the following targets are using a decimal version:
+    node: 6.9
+    We recommend using a string for minor/patch versions to avoid numbers like 6.10
+    getting parsed as 6.1, which can lead to unexpected behavior.
+    ```
+
 2017-05-25
 ==========
 
+  * Releasing v5.9.0
+  * Use absolute paths in package readme
   * Docs for --debug
   * add option for node debugging ([#215](https://github.com/mozilla-neutrino/neutrino-dev/issues/215))
     * add neutrino.options.debug via --debug flag
@@ -275,21 +289,3 @@
 
   * Merge pull request [#106](https://github.com/mozilla-neutrino/neutrino-dev/issues/106) from eliperelman/linting-round-2
     Using neutrino to lint itself
-  * Merge pull request [#105](https://github.com/mozilla-neutrino/neutrino-dev/issues/105) from psyrendust/devtool-sourcemap
-    Should generate correct sourcemaps during dev
-  * Using neutrino to lint itself
-    Removing --fix from lint command
-  * Should generate correct sourcemaps during dev
-    The current [devtool](https://webpack.js.org/configuration/devtool/) configuration of `eval` makes it very difficult to debug your source code when running the development command `neutrino start`.
-    I did some digging and there is an issue with sourcemaps and Webpack 2. See https://github.com/webpack/webpack/issues/3165 and https://github.com/webpack/webpack/issues/4423 for more information.
-    In the meantime, it would be great if the default setting for the development command `neutrino start` would generate correct sourcemaps with a reference to the original source and allow you to set breakpoints correctly. I did some tests in OS X Chrome v56.0.2924.87 (64-bit) by trying different [devtool](https://webpack.js.org/configuration/devtool/) configurations in a custom neutrino config that extends `neutrino-preset-web`.
-    * `eval`: reports correct line in transformed code, and breakpoints work, but difficult to debug
-    * `cheap-eval-source-map`: reports incorrect line in transformed code, breakpoints can be added, but are on incorrect line and don't work
-    * `cheap-source-map`: reports incorrect line in transformed code, breakpoints work, but are on incorrect line
-    * `cheap-module-eval-source-map`: reports incorrect line in source, breakpoints can be added, but are on incorrect line and don't work
-    * `cheap-module-source-map`: reports incorrect line in source, breakpoints work, but are on incorrect line
-    * `eval-source-map`: reports correct line in source, but breakpoints don't work
-    * `source-map`: reports correct line in source, and breakpoints work
-    * `nosources-source-map`: reports correct line in source, but no source is generated
-    If you are just running `neutrino-preset-web` out of the box you should be able to debug your code easily. Making this change can cause slower rebuilds, but I'd be willing to wait a few 100ms (or whatever `--` means in time) to rebuild my code for better debugging.
-    If and when the above Webpack 2 issues are fixed, I would suggest revisiting the `devtool` option by changing it to `cheap-module-eval-source-map` or `eval-source-map` for speedier rebuilds with sourcemaps that point to source code vs transpiled code.
