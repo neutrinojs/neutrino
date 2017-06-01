@@ -11,7 +11,10 @@ module.exports = (neutrino) => {
     plugins: [require.resolve('babel-plugin-transform-object-rest-spread')],
     env: {
       development: {
-        plugins: [require.resolve('react-hot-loader/babel')]
+        plugins: [
+          require.resolve('react-hot-loader/babel'),
+          require.resolve('babel-plugin-transform-es2015-classes')
+        ]
       }
     }
   });
@@ -40,7 +43,7 @@ module.exports = (neutrino) => {
     })
     .when(process.env.NODE_ENV === 'development', config => config
       .entry('index')
-      .prepend(require.resolve('react-hot-loader/patch')))
+        .prepend(require.resolve('react-hot-loader/patch')))
     .when(neutrino.config.module.rules.has('lint'), () => neutrino
       .use(loaderMerge('lint', 'eslint'), {
         plugins: ['react'],
