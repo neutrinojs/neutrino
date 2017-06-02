@@ -188,6 +188,31 @@ Populate this object with configuration overrides. This is not a Webpack configu
 object based on [webpack-chain](https://github.com/mozilla-neutrino/webpack-chain). A schematic of what this structure
 looks like is located on the [webpack-chain docs](https://github.com/mozilla-neutrino/webpack-chain#merging-config).
 
+## Overriding environment-specific configuration
+
+Add a new property to `neutrino` named `env`. Populate this object with environments to target. For each environment
+object, add a new property named `config`. This will be an object where we can provide configuration data.
+
+_Example: Overriding the `production` configuration:_
+
+```js
+{
+  "neutrino": {
+    "env": {
+      "production": {
+        "config": {
+          // e.g. edit minify plugin options
+        }
+      }
+    }
+  }
+}
+```
+
+Populate the `config` object with configuration overrides. This is not a Webpack configuration, but rather a Neutrino-compatible
+object based on [webpack-chain](https://github.com/mozilla-neutrino/webpack-chain). A schematic of what this structure
+looks like is located on the [webpack-chain docs](https://github.com/mozilla-neutrino/webpack-chain#merging-config).
+
 ## Usage
 
 ### Entries
