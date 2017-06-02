@@ -13,7 +13,7 @@ const run = (command, middleware, options) => {
   return api.requiresAndUses(middleware)
     // Grab any config overrides and merge it into the config at a higher precedence
     .map(() => api.config.merge(options.config))
-    // Grab any environment-specific configuration overrides
+    // Grab any environment-specific configuration overrides and merge it into the config at a higher precedence
     .map(() => api.config.merge(pathOr({}, [process.env.NODE_ENV, 'config'], options.env)))
     // Trigger all pre-events for the current command
     .chain(() => Future.fromPromise2(api.emitForAll, `pre${command}`, api.options.args))
