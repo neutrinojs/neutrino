@@ -2,7 +2,7 @@ const HtmlPlugin = require('html-webpack-plugin');
 const template = require('html-webpack-template');
 const merge = require('deepmerge');
 
-module.exports = ({ config }, options) => config
+module.exports = ({ config }, options = {}) => config
   .plugin('html')
   .use(HtmlPlugin, [
     merge({

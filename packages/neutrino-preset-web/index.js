@@ -4,80 +4,86 @@ const fontLoader = require('neutrino-middleware-font-loader');
 const imageLoader = require('neutrino-middleware-image-loader');
 const compileLoader = require('neutrino-middleware-compile-loader');
 const env = require('neutrino-middleware-env');
+const hot = require('neutrino-middleware-hot');
 const htmlTemplate = require('neutrino-middleware-html-template');
 const chunk = require('neutrino-middleware-chunk');
 const copy = require('neutrino-middleware-copy');
 const clean = require('neutrino-middleware-clean');
 const minify = require('neutrino-middleware-minify');
 const loaderMerge = require('neutrino-middleware-loader-merge');
-const namedModules = require('neutrino-middleware-named-modules');
-const hot = require('neutrino-middleware-hot');
 const devServer = require('neutrino-middleware-dev-server');
-const hashedModuleIds = require('neutrino-middleware-hashed-module-ids');
-
 const { join, dirname } = require('path');
-const { path, pathOr } = require('ramda');
-const InlineManifestPlugin = require('inline-manifest-webpack-plugin');
+const merge = require('deepmerge');
+const ScriptExtHtmlPlugin = require('script-ext-html-webpack-plugin');
 
 const MODULES = join(__dirname, 'node_modules');
 
-module.exports = (neutrino) => {
-  if (!path(['options', 'compile', 'targets', 'browsers'], neutrino)) {
-    Object.assign(neutrino.options, {
-      compile: {
-        targets: {
-          browsers: [
-            'last 2 Chrome versions',
-            'last 2 Firefox versions',
-            'last 2 Edge versions',
-            'last 2 Opera versions',
-            'last 2 Safari versions',
-            'last 2 iOS versions'
-          ]
-        }
-      }
-    });
-  }
+module.exports = (neutrino, opts = {}) => {
+  const options = merge({
+    hot: true,
+    html: {},
+    devServer: {
+      hot: opts.hot !== false
+    },
+    polyfills: {
+      async: true,
+      babel: true
+    },
+    babel: {
+      plugins: [
+        !opts.polyfills || opts.polyfills.async !== false ?
+          [require.resolve('fast-async'), { useRuntimeModule: true }] :
+          {},
+        require.resolve('babel-plugin-syntax-dynamic-import')
+      ],
+      presets: [
+        [require.resolve('babel-preset-env'), merge({
+          targets: {
+            browsers: [
+              'last 2 Chrome versions',
+              'last 2 Firefox versions',
+              'last 2 Edge versions',
+              'last 2 Opera versions',
+              'last 2 Safari versions',
+              'last 2 iOS versions'
+            ]
+          },
+          modules: false,
+          useBuiltIns: true,
+          exclude: !opts.polyfills || opts.polyfills.async !== false ?
+            ['transform-regenerator', 'transform-async-to-generator'] :
+            []
+        }, opts.presetEnv || {})]
+      ]
+    }
+  }, opts);
 
   neutrino.use(env);
   neutrino.use(htmlLoader);
   neutrino.use(styleLoader);
   neutrino.use(fontLoader);
   neutrino.use(imageLoader);
-  neutrino.use(htmlTemplate, Object.assign({
-    inlineManifestWebpackName: 'webpackManifest'
-  }, neutrino.options.html));
-  neutrino.use(namedModules);
+  neutrino.use(htmlTemplate, options.html);
   neutrino.use(compileLoader, {
-    include: [neutrino.options.source, neutrino.options.tests, require.resolve('./polyfills.js')],
-    babel: {
-      plugins: [
-        [require.resolve('fast-async'), { useRuntimeModule: true }],
-        require.resolve('babel-plugin-syntax-dynamic-import')
-      ],
-      presets: [
-        [require.resolve('babel-preset-env'), {
-          modules: false,
-          useBuiltIns: true,
-          targets: neutrino.options.compile.targets,
-          exclude: ['transform-regenerator', 'transform-async-to-generator']
-        }]
-      ]
-    }
+    include: [
+      neutrino.options.source,
+      neutrino.options.tests,
+      ...(options.polyfills.babel ? [require.resolve('./polyfills.js')] : [])
+    ],
+    babel: options.babel
   });
 
   neutrino.config
-    .when(process.env.NODE_ENV !== 'test', () => neutrino.use(chunk, {
-      commons: { names: ['polyfill'] },
-      manifest: { inlineManifest: true }
-    }))
+    .when(process.env.NODE_ENV !== 'test', () => neutrino.use(chunk))
     .target('web')
     .context(neutrino.options.root)
-    .entry('polyfill')
-      .add(require.resolve('./polyfills.js'))
-      .end()
+    .when(options.polyfills.babel, config => config
+      .entry('polyfill')
+        .add(require.resolve('./polyfills.js')))
+    .when(options.polyfills.async, config => config
+      .entry('index')
+        .add(require.resolve('nodent-runtime')))
     .entry('index')
-      .add(require.resolve('nodent-runtime'))
       .add(neutrino.options.entry)
       .end()
     .output
@@ -118,33 +124,20 @@ module.exports = (neutrino) => {
       .set('fs', 'empty')
       .set('tls', 'empty')
       .end()
-    .plugin('inline-manifest')
-      .use(InlineManifestPlugin, [{ name: 'webpackManifest' }])
+    .plugin('script-ext')
+      .use(ScriptExtHtmlPlugin, [{ defaultAttribute: 'defer' }])
       .end()
     .when(neutrino.config.module.rules.has('lint'), () => neutrino
       .use(loaderMerge('lint', 'eslint'), {
         envs: ['browser', 'commonjs']
       }))
     .when(process.env.NODE_ENV === 'development', (config) => {
-      const server = pathOr({}, ['options', 'server'], neutrino);
-      const protocol = process.env.HTTPS ? 'https' : 'http';
-      const https = (protocol === 'https') || server.https;
-      const port = process.env.PORT || server.port;
-      const serverPublic = server.public !== undefined ? Boolean(server.public) : false;
-      const open = server.open !== undefined ? Boolean(server.open) : false;
-      const contentBase = neutrino.options.source;
+      neutrino.use(devServer, options.devServer);
 
-      config.devtool('source-map');
-      neutrino.use(hot);
-      neutrino.use(devServer, {
-        port,
-        https,
-        open,
-        public: serverPublic,
-        contentBase
-      });
+      config
+        .devtool('source-map')
+        .when(options.hot, () => neutrino.use(hot));
     }, (config) => {
-      neutrino.use(hashedModuleIds);
       neutrino.use(clean, { paths: [neutrino.options.output] });
       neutrino.use(minify);
       neutrino.use(copy, {

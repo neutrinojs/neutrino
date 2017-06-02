@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-minify",
-  "version": "5.9.0",
+  "version": "6.0.0",
   "description": "Neutrino middleware for minifying source code",
   "main": "index.js",
   "keywords": [
@@ -19,6 +19,6 @@
     "babili-webpack-plugin": "^0.0.11"
   },
   "peerDependencies": {
-    "neutrino": "^5.0.0"
+    "neutrino": "^6.0.0"
   }
 }

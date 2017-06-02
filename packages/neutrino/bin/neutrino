@@ -5,12 +5,12 @@
 process.noDeprecation = true;
 
 const yargs = require('yargs');
-const { pathOr } = require('ramda');
+const { cond, equals } = require('ramda');
+const exists = require('file-exists');
 const build = require('./build');
 const inspect = require('./inspect');
 const start = require('./start');
 const test = require('./test');
-const { getNodeEnv, getPackageJson } = require('../src/utils');
 
 const args = yargs
   .option('inspect', {
@@ -25,9 +25,9 @@ const args = yargs
     default: [],
     global: true
   })
-  .option('env', {
-    description: 'The value for the environment variable, NODE_ENV',
-    string: true,
+  .option('options', {
+    description: 'Set Neutrino options and environment variables, e.g. --options.env.NODE_ENV production',
+    default: {},
     global: true
   })
   .option('debug', {
@@ -57,35 +57,22 @@ const args = yargs
   .help()
   .argv;
 
-// foldMiddleware :: Object -> Array
-const foldMiddleware = (args) => {
-  const pkg = getPackageJson();
-  const pkgMiddleware = pathOr([], ['neutrino', 'use'], pkg);
-
-  return [...new Set(pkgMiddleware.concat(args.use))];
-};
-
-// normalizeOptions :: Object -> Object
-const normalizeOptions = (args) => {
-  const pkg = getPackageJson();
-  const options = pathOr({}, ['neutrino', 'options'], pkg);
-  const env = args.inspect ? getNodeEnv(args._[0], args.env) : args.env;
-
-  return Object.assign(options, {
-    config: pathOr({}, ['neutrino', 'config'], pkg),
-    env: pathOr({}, ['neutrino', 'env'], pkg),
-    args: Object.assign(args, { env }),
-    debug: args.debug || options.debug
-  });
-};
+const rc = '.neutrinorc.js';
+const cmd = args.inspect ? 'inspect' : args._[0];
+const middleware = [...new Set([
+  ...(exists.sync(rc, { root: process.cwd() }) ? [rc] : []),
+  ...args.use
+])];
 
 process.on('unhandledRejection', (err) => {
+  console.error('');
   console.error(err);
   process.exit(1);
 });
 
-const cmd = args.inspect ? 'inspect' : args._[0];
-const middleware = foldMiddleware(args);
-const options = normalizeOptions(args);
-
-({ build, inspect, start, test })[cmd](middleware, options);
+cond([
+  [equals('build'), () => build(middleware, args)],
+  [equals('start'), () => start(middleware, args)],
+  [equals('test'), () => test(middleware, args)],
+  [equals('inspect'), () => inspect(middleware, args)]
+])(cmd);
