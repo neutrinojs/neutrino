@@ -19,7 +19,7 @@
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
     "webpack-dev-server": "^2.4.5",
-    "ramda": "^0.23.0",
+    "ramda": "^0.24.1",
     "opn": "^5.0.0"
   },
   "peerDependencies": {
