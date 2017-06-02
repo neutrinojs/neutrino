@@ -73,6 +73,7 @@ const normalizeOptions = (args) => {
 
   return Object.assign(options, {
     config: pathOr({}, ['neutrino', 'config'], pkg),
+    env: pathOr({}, ['neutrino', 'env'], pkg),
     args: Object.assign(args, { env }),
     debug: args.debug || options.debug
   });
