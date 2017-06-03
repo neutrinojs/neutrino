@@ -1,0 +1,28 @@
+{
+  "name": "neutrino-middleware-hashed-module-ids",
+  "version": "6.0.0",
+  "description": "Neutrino middleware for hashing module IDs to improve Webpack caching",
+  "main": "index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-middleware",
+    "hash",
+    "hashed",
+    "module",
+    "ids",
+    "webpack",
+    "cache",
+    "caching"
+  ],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MPL-2.0",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/neutrino-middleware-hashed-module-ids",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "dependencies": {
+    "webpack": "^2.6.1"
+  },
+  "peerDependencies": {
+    "neutrino": "^6.0.0"
+  }
+}
