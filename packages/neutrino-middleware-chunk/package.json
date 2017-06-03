@@ -14,8 +14,10 @@
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
+    "chunk-manifest-webpack-plugin": "^1.1.0",
     "deepmerge": "^1.3.2",
-    "webpack": "^2.4.1"
+    "webpack": "^2.4.1",
+    "webpack-chunk-hash": "^0.4.0"
   },
   "peerDependencies": {
     "neutrino": "^5.0.0"
