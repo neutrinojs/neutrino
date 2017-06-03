@@ -13,8 +13,11 @@ const loaderMerge = require('neutrino-middleware-loader-merge');
 const namedModules = require('neutrino-middleware-named-modules');
 const hot = require('neutrino-middleware-hot');
 const devServer = require('neutrino-middleware-dev-server');
+const hashedModuleIds = require('neutrino-middleware-hashed-module-ids');
+
 const { join, dirname } = require('path');
 const { path, pathOr } = require('ramda');
+const InlineManifestPlugin = require('inline-manifest-webpack-plugin');
 
 const MODULES = join(__dirname, 'node_modules');
 
@@ -41,9 +44,10 @@ module.exports = (neutrino) => {
   neutrino.use(styleLoader);
   neutrino.use(fontLoader);
   neutrino.use(imageLoader);
-  neutrino.use(htmlTemplate, neutrino.options.html);
+  neutrino.use(htmlTemplate, Object.assign({
+    inlineManifestWebpackName: 'webpackManifest'
+  }, neutrino.options.html));
   neutrino.use(namedModules);
-
   neutrino.use(compileLoader, {
     include: [neutrino.options.source, neutrino.options.tests, require.resolve('./polyfills.js')],
     babel: {
@@ -64,7 +68,8 @@ module.exports = (neutrino) => {
 
   neutrino.config
     .when(process.env.NODE_ENV !== 'test', () => neutrino.use(chunk, {
-      names: ['polyfill']
+      commons: { names: ['polyfill'] },
+      manifest: { inlineManifest: true }
     }))
     .target('web')
     .context(neutrino.options.root)
@@ -78,8 +83,8 @@ module.exports = (neutrino) => {
     .output
       .path(neutrino.options.output)
       .publicPath('./')
-      .filename('[name].bundle.js')
-      .chunkFilename('[id].[chunkhash].js')
+      .filename('[name].js')
+      .chunkFilename('[name].[chunkhash].js')
       .end()
     .resolve
       .alias
@@ -113,9 +118,11 @@ module.exports = (neutrino) => {
       .set('fs', 'empty')
       .set('tls', 'empty')
       .end()
+    .plugin('inline-manifest')
+      .use(InlineManifestPlugin, [{ name: 'webpackManifest' }])
+      .end()
     .when(neutrino.config.module.rules.has('lint'), () => neutrino
       .use(loaderMerge('lint', 'eslint'), {
-        globals: ['Buffer'],
         envs: ['browser', 'commonjs']
       }))
     .when(process.env.NODE_ENV === 'development', (config) => {
@@ -137,12 +144,13 @@ module.exports = (neutrino) => {
         contentBase
       });
     }, (config) => {
+      neutrino.use(hashedModuleIds);
       neutrino.use(clean, { paths: [neutrino.options.output] });
       neutrino.use(minify);
       neutrino.use(copy, {
         patterns: [{ context: neutrino.options.source, from: '**/*' }],
         options: { ignore: ['*.js*'] }
       });
-      config.output.filename('[name].[chunkhash].bundle.js');
+      config.output.filename('[name].[chunkhash].js');
     });
 };
