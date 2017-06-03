@@ -6,43 +6,20 @@ const compileLoader = require('neutrino-middleware-compile-loader');
 const env = require('neutrino-middleware-env');
 const htmlTemplate = require('neutrino-middleware-html-template');
 const chunk = require('neutrino-middleware-chunk');
-const hot = require('neutrino-middleware-hot');
 const copy = require('neutrino-middleware-copy');
 const clean = require('neutrino-middleware-clean');
 const minify = require('neutrino-middleware-minify');
 const loaderMerge = require('neutrino-middleware-loader-merge');
 const namedModules = require('neutrino-middleware-named-modules');
+const hot = require('neutrino-middleware-hot');
+const devServer = require('neutrino-middleware-dev-server');
 const hashedModuleIds = require('neutrino-middleware-hashed-module-ids');
+
 const { join, dirname } = require('path');
 const { path, pathOr } = require('ramda');
 const InlineManifestPlugin = require('inline-manifest-webpack-plugin');
 
 const MODULES = join(__dirname, 'node_modules');
-
-function devServer({ config }, options) {
-  config.devServer
-    .host(options.host)
-    .port(parseInt(options.port, 10))
-    .https(options.https)
-    .contentBase(options.contentBase)
-    .historyApiFallback(true)
-    .hot(true)
-    .publicPath('/')
-    .stats({
-      assets: false,
-      children: false,
-      chunks: false,
-      colors: true,
-      errors: true,
-      errorDetails: true,
-      hash: false,
-      modules: false,
-      publicPath: false,
-      timings: false,
-      version: false,
-      warnings: true
-    });
-}
 
 module.exports = (neutrino) => {
   if (!path(['options', 'compile', 'targets', 'browsers'], neutrino)) {
@@ -149,23 +126,23 @@ module.exports = (neutrino) => {
         envs: ['browser', 'commonjs']
       }))
     .when(process.env.NODE_ENV === 'development', (config) => {
+      const server = pathOr({}, ['options', 'server'], neutrino);
       const protocol = process.env.HTTPS ? 'https' : 'http';
-      const host = process.env.HOST || pathOr('localhost', ['options', 'config', 'devServer', 'host'], neutrino);
-      const port = process.env.PORT || pathOr(5000, ['options', 'config', 'devServer', 'port'], neutrino);
+      const https = (protocol === 'https') || server.https;
+      const port = process.env.PORT || server.port;
+      const serverPublic = server.public !== undefined ? Boolean(server.public) : false;
+      const open = server.open !== undefined ? Boolean(server.open) : false;
+      const contentBase = neutrino.options.source;
 
+      config.devtool('source-map');
       neutrino.use(hot);
       neutrino.use(devServer, {
-        host,
         port,
-        https: pathOr(protocol === 'https', ['options', 'config', 'devServer', 'https'], neutrino),
-        contentBase: neutrino.options.source
+        https,
+        open,
+        public: serverPublic,
+        contentBase
       });
-
-      config
-        .devtool('source-map')
-        .entry('index')
-          .add(`webpack-dev-server/client?${protocol}://${host}:${port}/`)
-          .add('webpack/hot/dev-server');
     }, (config) => {
       neutrino.use(hashedModuleIds);
       neutrino.use(clean, { paths: [neutrino.options.output] });
