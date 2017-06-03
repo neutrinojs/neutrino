@@ -6,6 +6,7 @@ const api = Neutrino();
 api.use(airbnb, {
   eslint: {
     node: true,
+    envs: ['browser', 'commonjs', 'node'],
     plugins: ['eslint-plugin-prettier'],
     rules: {
       // Algebraic and functional types should allow capital constructors without new

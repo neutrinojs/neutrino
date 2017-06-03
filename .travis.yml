@@ -25,6 +25,7 @@ cache:
   - packages/neutrino-middleware-loader-merge/node_modules
   - packages/neutrino-middleware-minify/node_modules
   - packages/neutrino-middleware-named-modules/node_modules
+  - packages/neutrino-middleware-pwa/node_modules
   - packages/neutrino-middleware-start-server/node_modules
   - packages/neutrino-middleware-style-loader/node_modules
   - packages/neutrino-preset-airbnb-base/node_modules
