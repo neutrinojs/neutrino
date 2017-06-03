@@ -1,6 +1,11 @@
 const { Neutrino, start } = require('../src');
 const merge = require('deepmerge');
 const ora = require('ora');
+const { lookup } = require('dns');
+const { hostname } = require('os');
+const Future = require('fluture');
+
+const whenIpReady = Future.node(done => lookup(hostname(), done));
 
 module.exports = (middleware, args) => {
   const spinner = ora('Building project').start();
