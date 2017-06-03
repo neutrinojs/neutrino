@@ -14,7 +14,7 @@ const namedModules = require('neutrino-middleware-named-modules');
 const hot = require('neutrino-middleware-hot');
 const devServer = require('neutrino-middleware-dev-server');
 const { join, dirname } = require('path');
-const { path } = require('ramda');
+const { path, pathOr } = require('ramda');
 
 const MODULES = join(__dirname, 'node_modules');
 
@@ -119,9 +119,23 @@ module.exports = (neutrino) => {
         envs: ['browser', 'commonjs']
       }))
     .when(process.env.NODE_ENV === 'development', (config) => {
+      const server = pathOr({}, ['options', 'server'], neutrino);
+      const protocol = process.env.HTTPS ? 'https' : 'http';
+      const https = (protocol === 'https') || server.https;
+      const port = process.env.PORT || server.port;
+      const serverPublic = server.public !== undefined ? Boolean(server.public) : false;
+      const open = server.open !== undefined ? Boolean(server.open) : false;
+      const contentBase = neutrino.options.source;
+
       config.devtool('source-map');
       neutrino.use(hot);
-      neutrino.use(devServer);
+      neutrino.use(devServer, {
+        port,
+        https,
+        open,
+        public: serverPublic,
+        contentBase
+      });
     }, (config) => {
       neutrino.use(clean, { paths: [neutrino.options.output] });
       neutrino.use(minify);

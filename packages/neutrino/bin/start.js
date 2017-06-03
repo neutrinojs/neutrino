@@ -4,10 +4,7 @@ const { lookup } = require('dns');
 const { hostname } = require('os');
 const Future = require('fluture');
 
-const whenIpReady = Future.node((done) => {
-  const host = hostname();
-  lookup(host, done);
-});
+const whenIpReady = Future.node(done => lookup(hostname(), done));
 
 module.exports = (middleware, options) => {
   const spinner = ora('Building project').start();
@@ -21,19 +18,15 @@ module.exports = (middleware, options) => {
         errors.forEach(err => console.error(err));
         process.exit(1);
       },
-      ([ip, compiler]) => {
+      ([ip, compiler]) => { // eslint-disable-line consistent-return
         if (!compiler.options.devServer) {
           return spinner.succeed('Build completed');
         }
 
         const { devServer } = compiler.options;
         const protocol = devServer.https ? 'https' : 'http';
-        const { port } = devServer;
-        let { host } = devServer;
-
-        if (host === '0.0.0.0') {
-          host = ip;
-        }
+        const port = devServer.port;
+        const host = devServer.host === '0.0.0.0' ? ip : devServer.host;
 
         spinner.succeed(`Development server running on: ${protocol}://${host}:${port}`);
 
@@ -44,7 +37,6 @@ module.exports = (middleware, options) => {
           building.text = 'Source changed, re-compiling';
           building.start();
         });
-        return undefined;
       }
     );
 };

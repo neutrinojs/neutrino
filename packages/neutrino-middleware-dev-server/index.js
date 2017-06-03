@@ -1,39 +1,22 @@
-const { pathOr } = require('ramda');
 const opn = require('opn');
 
 module.exports = (neutrino, options = {}) => {
   const { config } = neutrino;
-  const server = pathOr({}, ['options', 'server'], neutrino);
-  const protocol = process.env.HTTPS ? 'https' : 'http';
   const publicHost = process.env.HOST;
-  const port = process.env.PORT || server.port || options.port || 5000;
-  const https = (protocol === 'https') || server.https || options.https;
-  let openInBrowser = false;
-  let serverPublic = false;
-  let host = 'localhost';
-
-  if (server.public !== undefined) {
-    serverPublic = Boolean(server.public);
-  } else if (options.public !== undefined) {
-    serverPublic = Boolean(options.public);
-  }
-
-  if (serverPublic) {
-    host = '0.0.0.0';
-  }
-
-  if (server.open !== undefined) {
-    openInBrowser = Boolean(server.open);
-  } else if (options.open !== undefined) {
-    openInBrowser = Boolean(options.open);
-  }
+  const https = options.https;
+  const protocol = https ? 'https' : 'http';
+  const port = options.port || 5000;
+  const serverPublic = options.public !== undefined ? Boolean(options.public) : false;
+  const host = serverPublic ? '0.0.0.0' : 'localhost';
+  const openInBrowser = options.open !== undefined ? Boolean(options.open) : false;
+  const contentBase = options.contentBase || neutrino.options.source;
 
   config
     .devServer
-      .host(String(host))
+      .host(host)
       .port(Number(port))
       .https(Boolean(https))
-      .contentBase(neutrino.options.source)
+      .contentBase(contentBase)
       .historyApiFallback(true)
       .hot(true)
       .headers({ host: publicHost })
@@ -58,7 +41,8 @@ module.exports = (neutrino, options = {}) => {
         const protocol = https ? 'https' : 'http';
         const host = devServer.get('host');
         const port = devServer.get('port');
-        const endHost = (host === '0.0.0.0') ? publicHost : host;
+        const endHost = host === '0.0.0.0' ? publicHost : host;
+
         opn(`${protocol}://${endHost}:${port}`);
       }))
       .end()
