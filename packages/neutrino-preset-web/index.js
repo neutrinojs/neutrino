@@ -140,6 +140,7 @@ module.exports = (neutrino, opts = {}) => {
         .devtool('source-map')
         .when(options.hot, () => neutrino.use(hot));
     }, (config) => {
+      neutrino.use(hashedModuleIds);
       neutrino.use(clean, { paths: [neutrino.options.output] });
       neutrino.use(minify);
       neutrino.use(copy, {
