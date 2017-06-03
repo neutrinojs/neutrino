@@ -253,7 +253,7 @@ module.exports = api.eslintrc();
 
 Projects may face a problem when their editor or IDE lints all files and highlights errors that were normally excluded from source, i.e. Neutrino's `include` and `exclude` options. This is because the ESLint CLI does not have a way to specify included and excluded files from configuration. If you still wish to use ESLint's CLI for linting, consider setting [CLI flags](http://eslint.org/docs/user-guide/command-line-interface#options) or using an [eslintignore](http://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories) to choose which files to include or exclude from linting.
 
-Unfortunately ESlint doesn't provide possibility to configure ignored paths from `.neutrino.js` to exclude them from linting. Projects authors should define this manually in their project root directory in `.eslintignore` file.
+Unfortunately ESlint doesn't provide possibility to configure ignored paths from Neutrino configuration to exclude them from linting. Projects authors should define this manually in their project root directory in `.eslintignore` file.
 
 *.eslintignore:*
 
