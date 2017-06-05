@@ -26,7 +26,7 @@ module.exports = (neutrino, opts = {}) => {
 
   neutrino.use(web, options);
 
-  neutrino.config
+  config
     .resolve
       .modules.add(MODULES).end()
       .extensions.add('.jsx').end()

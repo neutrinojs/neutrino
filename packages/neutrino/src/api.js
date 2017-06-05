@@ -60,7 +60,6 @@ const Api = pipe(getOptions, (options) => {
   const api = merge(mitt(listeners), {
     listeners,
     options,
-    commands: {},
     config: new Config(),
 
     // emitForAll :: String -> payload -> Promise

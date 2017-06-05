@@ -1,6 +1,5 @@
 const { runCLI } = require('jest-cli');
-const { writeFileSync } = require('fs');
-const { join, isAbsolute } = require('path');
+const { omit } = require('ramda');
 const merge = require('deepmerge');
 const loaderMerge = require('neutrino-middleware-loader-merge');
 const { join } = require('path');
@@ -25,14 +24,17 @@ function normalizeJestOptions(opts, neutrino, args) {
   const aliases = neutrino.config.resolve.alias.entries() || {};
   const moduleNames = Object
     .keys(aliases)
-    .map(key => Object.assign(
-      options.moduleNameMapper,
-      { [`${key}(.*)`]: `${getFinalPath(aliases[key])}$1` }
-    ));
-
-  options.moduleFileExtensions = [...new Set([
-    ...options.moduleFileExtensions,
-    ...config.resolve.extensions.values().map(e => e.replace('.', ''))
+    .reduce((mapper, key) => Object.assign(mapper, {
+      [`${key}(.*)`]: `${getFinalPath(aliases[key])}$1`
+    }), {});
+  const moduleNameMapper = merge({
+    [mediaNames]: require.resolve('./file-mock'),
+    [styleNames]: require.resolve('./style-mock')
+  }, moduleNames);
+  const moduleDirectories = [...new Set([
+    join(__dirname, '../node_modules'),
+    ...(opts.moduleDirectories || []),
+    ...neutrino.config.resolve.modules.values()
   ])];
   const moduleFileExtensions = [...new Set([
     'js',

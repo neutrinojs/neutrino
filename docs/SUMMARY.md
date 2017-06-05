@@ -23,7 +23,6 @@
   * [env](./middleware/neutrino-middleware-env/README.md)
   * [eslint](./middleware/neutrino-middleware-eslint/README.md)
   * [font-loader](./middleware/neutrino-middleware-font-loader/README.md)
-  * [hashed-module-ids](./middleware/neutrino-middleware-hashed-module-ids/README.md)
   * [hot](./middleware/neutrino-middleware-hot/README.md)
   * [html-loader](./middleware/neutrino-middleware-html-loader/README.md)
   * [html-template](./middleware/neutrino-middleware-html-template/README.md)

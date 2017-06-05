@@ -35,7 +35,6 @@
     "neutrino-middleware-dev-server": "^5.9.0",
     "neutrino-middleware-env": "^5.9.0",
     "neutrino-middleware-font-loader": "^5.9.0",
-    "neutrino-middleware-hashed-module-ids": "^6.0.0",
     "neutrino-middleware-hot": "^5.9.0",
     "neutrino-middleware-html-loader": "^5.9.0",
     "neutrino-middleware-html-template": "^5.9.0",
