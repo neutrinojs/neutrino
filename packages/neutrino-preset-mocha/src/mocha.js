@@ -8,10 +8,6 @@ module.exports = (mochaOpts = {}, babelOpts = {}, files = []) => new Promise((re
     proc.kill();
   }
 
-  if (files.length) {
-    Object.assign(mochaOpts, { recursive: true });
-  }
-
   process.env.NEUTRINO_BABEL_CONFIG = JSON.stringify(babelOpts);
 
   const argv = Object

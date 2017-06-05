@@ -1,6 +1,6 @@
 const merge = require('deepmerge');
 
-module.exports = ({ config }, options) => config.module
+module.exports = ({ config }, options = {}) => config.module
   .rule('html')
   .test(/\.html$/)
   .use('html')

@@ -13,8 +13,7 @@ test('uses preset', t => {
 });
 
 test('valid preset production', t => {
-  process.env.NODE_ENV = 'production';
-  const api = Neutrino();
+  const api = Neutrino({ env: { NODE_ENV: 'production' } });
   
   api.use(require('..'));
 
@@ -24,8 +23,7 @@ test('valid preset production', t => {
 });
 
 test('valid preset development', t => {
-  process.env.NODE_ENV = 'development';
-  const api = Neutrino();
+  const api = Neutrino({ 'env': { NODE_ENV: 'development' } });
 
   api.use(require('..'));
 

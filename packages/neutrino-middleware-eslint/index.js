@@ -4,9 +4,8 @@ const { join } = require('path');
 
 const MODULES = join(__dirname, 'node_modules');
 
-module.exports = (neutrino, options) => {
-  const env = options.env || process.env.NODE_ENV || 'development';
-  const isNotDev = env !== 'development';
+module.exports = (neutrino, options = {}) => {
+  const isNotDev = process.env.NODE_ENV !== 'development';
 
   // eslint-disable-next-line no-param-reassign
   neutrino.eslintrc = () => {

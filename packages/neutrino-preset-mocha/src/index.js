@@ -1,9 +1,16 @@
 const mocha = require('./mocha');
 const merge = require('deepmerge');
+const { omit } = require('ramda');
 const loaderMerge = require('neutrino-middleware-loader-merge');
 
-module.exports = (neutrino) => {
+module.exports = (neutrino, opts = {}) => {
   neutrino.on('test', ({ files }) => {
+    const options = merge.all([
+      { reporter: 'spec', ui: 'tdd', bail: true },
+      opts,
+      files.length ? { recursive: true } : {}
+    ]);
+
     neutrino.use(loaderMerge('compile', 'babel'), {
       env: {
         test: {
@@ -12,10 +19,14 @@ module.exports = (neutrino) => {
       }
     });
 
-    return mocha(
-      merge({ reporter: 'spec', ui: 'tdd', bail: true }, neutrino.options.mocha || {}),
-      neutrino.config.module.rule('compile').use('babel').get('options'),
-      files
+    const babelOptions = omit(
+      ['cacheDirectory'],
+      neutrino.config.module
+        .rule('compile')
+        .use('babel')
+        .get('options')
     );
+
+    return mocha(options, babelOptions, files);
   });
 };
