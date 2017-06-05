@@ -5,8 +5,11 @@ const mitt = require('mitt');
 const { cond, defaultTo, is, map, omit, pipe, prop } = require('ramda');
 const { createPaths, normalizePath, toArray } = require('./utils');
 
-// getRoot :: Object -> a
+// getRoot :: Object -> String
 const getRoot = prop('root');
+
+// getSource :: Object -> String
+const getSource = prop('source');
 
 // [PATH_PROP_NAME, DEFAULT_VALUE, GET_NORMALIZE_BASE]
 const pathOptions = [
@@ -15,7 +18,8 @@ const pathOptions = [
   ['output', 'build', getRoot],
   ['tests', 'test', getRoot],
   ['node_modules', 'node_modules', getRoot],
-  ['entry', 'index', prop('source')]
+  ['static', 'static', getSource],
+  ['entry', 'index', getSource]
 ];
 
 // getOptions :: Object? -> IO Object
