@@ -1,10 +1,14 @@
 const { runCLI } = require('jest-cli');
-const { writeFileSync } = require('fs');
-const { join, isAbsolute } = require('path');
+const { omit } = require('ramda');
 const merge = require('deepmerge');
-const { tmpdir } = require('os');
-const clone = require('lodash.clonedeep');
 const loaderMerge = require('neutrino-middleware-loader-merge');
+const { isAbsolute, join } = require('path');
+const { tmpdir } = require('os');
+const { writeFileSync } = require('fs');
+
+const mediaNames = '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$';
+const styleNames = '\\.(css|less|sass|scss)$';
+const jsNames = '\\.(js|jsx)$';
 
 function getFinalPath(path) {
   if (isAbsolute(path)) {
@@ -16,37 +20,48 @@ function getFinalPath(path) {
     join('<rootDir>', 'node_modules', path);
 }
 
-function normalizeJestOptions(jestOptions, config, args) {
-  const options = clone(jestOptions);
-  const aliases = config.resolve.alias.entries() || {};
-
-  Object
+function normalizeJestOptions(opts, neutrino, args) {
+  const aliases = neutrino.config.resolve.alias.entries() || {};
+  const moduleNames = Object
     .keys(aliases)
-    .map(key => Object.assign(
-      options.moduleNameMapper,
-      { [`${key}(.*)`]: `${getFinalPath(aliases[key])}$1` }
-    ));
-
-  options.moduleFileExtensions = [...new Set([
-    ...options.moduleFileExtensions,
-    ...config.resolve.extensions.values().map(e => e.replace('.', ''))
+    .reduce((mapper, key) => Object.assign(mapper, {
+      [`${key}(.*)`]: `${getFinalPath(aliases[key])}$1`
+    }), {});
+  const moduleNameMapper = merge({
+    [mediaNames]: require.resolve('./file-mock'),
+    [styleNames]: require.resolve('./style-mock')
+  }, moduleNames);
+  const moduleDirectories = [...new Set([
+    join(__dirname, '../node_modules'),
+    ...(opts.moduleDirectories || []),
+    ...neutrino.config.resolve.modules.values()
   ])];
-  options.moduleDirectories = [...new Set([
-    ...options.moduleDirectories,
-    ...config.resolve.modules.values()
+  const moduleFileExtensions = [...new Set([
+    'js',
+    'jsx',
+    ...(opts.moduleFileExtensions || []),
+    ...neutrino.config.resolve.extensions.values().map(e => e.replace('.', ''))
   ])];
-  options.globals = Object.assign({
-    BABEL_OPTIONS: config.module.rule('compile').use('babel').get('options')
-  }, options.globals);
 
-  if (args.files.length) {
-    options.testRegex = args.files.join('|').replace('.', '\\.');
-  }
-
-  return options;
+  return merge.all([
+    {
+      moduleDirectories,
+      moduleFileExtensions,
+      moduleNameMapper,
+      bail: true,
+      roots: [neutrino.options.tests],
+      testRegex: '(_test|_spec|\\.test|\\.spec)\\.jsx?$',
+      transform: { [jsNames]: require.resolve('./transformer') },
+      globals: {
+        BABEL_OPTIONS: omit(['cacheDirectory'], neutrino.config.module.rule('compile').use('babel').get('options'))
+      }
+    },
+    opts,
+    args.files.length ? { testRegex: args.files.join('|').replace('.', '\\.') } : {}
+  ]);
 }
 
-module.exports = (neutrino) => {
+module.exports = (neutrino, opts = {}) => {
   neutrino.config.when(neutrino.config.module.rules.has('lint'), () => neutrino
     .use(loaderMerge('lint', 'eslint'), {
       plugins: ['jest'],
@@ -60,21 +75,6 @@ module.exports = (neutrino) => {
     }));
 
   neutrino.on('test', (args) => {
-    const jestOptions = merge({
-      bail: true,
-      transform: {
-        '\\.(js|jsx)$': require.resolve('./transformer')
-      },
-      roots: [neutrino.options.tests],
-      testRegex: '(_test|_spec|\\.test|\\.spec)\\.jsx?$',
-      moduleFileExtensions: ['js', 'jsx'],
-      moduleDirectories: [join(__dirname, '../node_modules')],
-      moduleNameMapper: {
-        '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': require.resolve('./file-mock'),
-        '\\.(css|less|sass|scss)$': require.resolve('./style-mock')
-      }
-    }, neutrino.options.jest || {});
-
     neutrino.use(loaderMerge('compile', 'babel'), {
       env: {
         test: {
@@ -85,7 +85,7 @@ module.exports = (neutrino) => {
       }
     });
 
-    const options = normalizeJestOptions(jestOptions, neutrino.config, args);
+    const options = normalizeJestOptions(opts, neutrino, args);
     const configFile = join(tmpdir(), 'config.json');
 
     return new Promise((resolve, reject) => {

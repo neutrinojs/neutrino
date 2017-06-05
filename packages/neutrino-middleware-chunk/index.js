@@ -1,21 +1,22 @@
-const { CommonsChunkPlugin } = require('webpack').optimize;
-const ChunkHashPlugin = require('webpack-chunk-hash');
-const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
-const merge = require('deepmerge');
+const { optimize, NamedChunksPlugin, NamedModulesPlugin } = require('webpack');
+const NameAllModulesPlugin = require('name-all-modules-plugin');
+const { relative } = require('path');
 
-module.exports = ({ config }, options) => config
-  .plugin('chunk')
-    .use(CommonsChunkPlugin, [
-      merge({ minChunks: Infinity, names: ['vendor', 'manifest'] }, options.commons || {})
+module.exports = ({ config }) => config
+  .plugin('named-modules')
+    .use(NamedModulesPlugin).end()
+  .plugin('named-chunks')
+    .use(NamedChunksPlugin, [
+      chunk => chunk.name || chunk.modules
+        .map(({ context, request }) => relative(context, request))
+        .join('_')
     ])
     .end()
-  .plugin('chunk-hash')
-    .use(ChunkHashPlugin)
+  .plugin('vendor-chunk')
+    .use(optimize.CommonsChunkPlugin, [{ minChunks: Infinity, name: 'vendor' }])
     .end()
-  .plugin('chunk-manifest')
-    .use(ChunkManifestPlugin, [
-      merge({
-        filename: 'chunk-manifest.json',
-        manifestVariable: 'webpackManifest'
-      }, options.manifest || {})
-    ]);
+  .plugin('manifest-chunk')
+    .use(optimize.CommonsChunkPlugin, [{ name: 'manifest' }])
+    .end()
+  .plugin('name-all')
+    .use(NameAllModulesPlugin);

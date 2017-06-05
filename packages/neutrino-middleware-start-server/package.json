@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-start-server",
-  "version": "5.9.0",
+  "version": "6.0.0",
   "description": "Neutrino middleware for starting a server after a build",
   "main": "index.js",
   "keywords": [
@@ -18,6 +18,6 @@
     "start-server-webpack-plugin": "^2.2.0"
   },
   "peerDependencies": {
-    "neutrino": "^5.0.0"
+    "neutrino": "^6.0.0"
   }
 }
