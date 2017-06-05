@@ -12,7 +12,7 @@ const clean = require('neutrino-middleware-clean');
 const minify = require('neutrino-middleware-minify');
 const loaderMerge = require('neutrino-middleware-loader-merge');
 const devServer = require('neutrino-middleware-dev-server');
-const { join, dirname } = require('path');
+const { join, dirname, basename } = require('path');
 const merge = require('deepmerge');
 const ScriptExtHtmlPlugin = require('script-ext-html-webpack-plugin');
 
@@ -70,6 +70,7 @@ module.exports = (neutrino, opts = {}) => {
       neutrino.options.tests,
       ...(options.polyfills.babel ? [require.resolve('./polyfills.js')] : [])
     ],
+    exclude: [neutrino.options.static],
     babel: options.babel
   });
 
@@ -141,8 +142,11 @@ module.exports = (neutrino, opts = {}) => {
       neutrino.use(clean, { paths: [neutrino.options.output] });
       neutrino.use(minify);
       neutrino.use(copy, {
-        patterns: [{ context: neutrino.options.source, from: '**/*' }],
-        options: { ignore: ['*.js*'] }
+        patterns: [{
+          context: neutrino.options.static,
+          from: '**/*',
+          to: basename(neutrino.options.static)
+        }]
       });
       config.output.filename('[name].[chunkhash].js');
     });
