@@ -17,7 +17,6 @@ module.exports = (neutrino, opts = {}) => {
         development: {
           plugins: [
             opts.hot !== false ? require.resolve('react-hot-loader/babel') : {},
-            require.resolve('babel-plugin-transform-class-properties'),
             require.resolve('babel-plugin-transform-es2015-classes')
           ]
         }
@@ -27,7 +26,7 @@ module.exports = (neutrino, opts = {}) => {
 
   neutrino.use(web, options);
 
-  config
+  neutrino.config
     .resolve
       .modules.add(MODULES).end()
       .extensions.add('.jsx').end()
