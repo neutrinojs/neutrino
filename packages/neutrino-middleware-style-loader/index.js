@@ -1,4 +1,4 @@
-module.exports = ({ config }, options) => config.module
+module.exports = ({ config }, options = {}) => config.module
   .rule('style')
     .test(/\.css$/)
       .use('style')

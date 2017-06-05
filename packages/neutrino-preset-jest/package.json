@@ -22,6 +22,7 @@
     "jest": "^19.0.2",
     "jest-cli": "^19.0.2",
     "lodash.clonedeep": "^4.5.0",
+    "ramda": "^0.24.1",
     "neutrino-middleware-loader-merge": "^6.0.0"
   },
   "peerDependencies": {

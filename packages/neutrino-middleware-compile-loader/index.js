@@ -1,6 +1,6 @@
 const merge = require('deepmerge');
 
-module.exports = ({ config }, options) => config.module
+module.exports = ({ config }, options = {}) => config.module
   .rule('compile')
     .test(options.test || /\.jsx?$/)
     .when(options.include, rule => rule.include.merge(options.include))

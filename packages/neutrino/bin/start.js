@@ -1,42 +1,39 @@
-const { start } = require('../src');
+const { Neutrino, start } = require('../src');
+const merge = require('deepmerge');
 const ora = require('ora');
-const { lookup } = require('dns');
-const { hostname } = require('os');
-const Future = require('fluture');
 
-const whenIpReady = Future.node(done => lookup(hostname(), done));
-
-module.exports = (middleware, options) => {
+module.exports = (middleware, args) => {
   const spinner = ora('Building project').start();
+  const options = merge({
+    args,
+    debug: args.debug,
+    env: {
+      NODE_ENV: 'development'
+    }
+  }, args.options);
+  const api = Neutrino(options);
 
-  return whenIpReady
-    .chain(ip => Future.of(process.env.HOST = process.env.HOST || ip))
-    .chain(ip => Future.both(Future.of(ip), start(middleware, options)))
-    .fork(
-      (errors) => {
-        spinner.fail('Building project failed');
-        errors.forEach(err => console.error(err));
-        process.exit(1);
-      },
-      ([ip, compiler]) => { // eslint-disable-line consistent-return
-        if (!compiler.options.devServer) {
-          return spinner.succeed('Build completed');
-        }
-
+  return api
+    .run('start', middleware, start)
+    .fork((errors) => {
+      spinner.fail('Building project failed');
+      errors.forEach(err => console.error(err));
+      process.exit(1);
+    }, (compiler) => {
+      if (!compiler.options.devServer) {
+        spinner.succeed('Build completed');
+      } else {
         const { devServer } = compiler.options;
-        const protocol = devServer.https ? 'https' : 'http';
-        const port = devServer.port;
-        const host = devServer.host === '0.0.0.0' ? ip : devServer.host;
+        const url = `${devServer.https ? 'https' : 'http'}://${devServer.public}:${devServer.port}`;
+        const building = ora('Waiting for initial build to finish');
 
-        spinner.succeed(`Development server running on: ${protocol}://${host}:${port}`);
-
-        const building = ora('Waiting for initial build to finish').start();
-
+        spinner.succeed(`Development server running on: ${url}`);
+        building.start();
         compiler.plugin('done', () => building.succeed('Build completed'));
         compiler.plugin('compile', () => {
           building.text = 'Source changed, re-compiling';
           building.start();
         });
       }
-    );
+    });
 };
