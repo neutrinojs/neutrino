@@ -61,6 +61,7 @@ module.exports = (neutrino, opts = {}) => {
 
   neutrino.use(compile, {
     include: [neutrino.options.source, neutrino.options.tests],
+    exclude: [neutrino.options.static],
     babel: options.babel
   });
 
@@ -107,8 +108,11 @@ module.exports = (neutrino, opts = {}) => {
     .when(neutrino.options.env.NODE_ENV !== 'development', () => {
       neutrino.use(clean, { paths: [neutrino.options.output] });
       neutrino.use(copy, {
-        patterns: [{ context: neutrino.options.source, from: '**/*' }],
-        options: { ignore: ['*.js*'] }
+        patterns: [{
+          context: neutrino.options.static,
+          from: '**/*',
+          to: basename(neutrino.options.static)
+        }]
       });
     }, (config) => {
       neutrino.use(startServer, {

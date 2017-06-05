@@ -5,17 +5,18 @@ const merge = require('deepmerge');
 const MODULES = join(__dirname, 'node_modules');
 
 module.exports = (neutrino, opts = {}) => {
-  const { config } = neutrino;
   const options = merge({
     hot: true,
     babel: {
       presets: [require.resolve('babel-preset-react')],
-      plugins: [require.resolve('babel-plugin-transform-object-rest-spread')],
+      plugins: [
+        require.resolve('babel-plugin-transform-class-properties'),
+        require.resolve('babel-plugin-transform-object-rest-spread')
+      ],
       env: {
         development: {
           plugins: [
             opts.hot !== false ? require.resolve('react-hot-loader/babel') : {},
-            require.resolve('babel-plugin-transform-class-properties'),
             require.resolve('babel-plugin-transform-es2015-classes')
           ]
         }
@@ -25,7 +26,7 @@ module.exports = (neutrino, opts = {}) => {
 
   neutrino.use(web, options);
 
-  config
+  neutrino.config
     .resolve
       .modules.add(MODULES).end()
       .extensions.add('.jsx').end()
