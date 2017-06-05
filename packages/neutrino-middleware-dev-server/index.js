@@ -49,12 +49,9 @@ module.exports = (neutrino, opts = {}) => {
       }
     },
     opts,
-    {
-      host,
-      public: publicHost,
-      port: neutrino.options.port,
-      https: neutrino.options.https
-    }
+    { host, public: publicHost },
+    neutrino.options.port ? { port: neutrino.options.port } : {},
+    neutrino.options.https ? { https: neutrino.options.https } : {}
   ]);
   const protocol = options.https ? 'https' : 'http';
   const url = `${protocol}://${publicHost}:${options.port}`;
