@@ -407,12 +407,12 @@ concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
 
-concurrify@^0.1.0:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/concurrify/-/concurrify-0.1.1.tgz#ae8ae2cd5bded30aee315b3bd5322ae4de38ee85"
+concurrify@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/concurrify/-/concurrify-1.0.0.tgz#2b190441681c22d9c8362237bb2191606fa70c43"
   dependencies:
-    sanctuary-type-classes "^3.0.0"
-    sanctuary-type-identifiers "^1.0.0"
+    sanctuary-type-classes "^5.1.0"
+    sanctuary-type-identifiers "^2.0.0"
 
 connect-history-api-fallback@^1.3.0:
   version "1.3.0"
@@ -537,6 +537,10 @@ delayed-stream@~1.0.0:
 delegates@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/delegates/-/delegates-1.0.0.tgz#84c6e159b81904fdca59a0ef44cd870d31250f9a"
+
+denque@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/denque/-/denque-1.1.1.tgz#10229c2b88eec1bd15ff82c5fde356e7beb6db9e"
 
 depd@~1.1.0:
   version "1.1.0"
@@ -749,14 +753,15 @@ find-up@^1.0.0:
     path-exists "^2.0.0"
     pinkie-promise "^2.0.0"
 
-fluture@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/fluture/-/fluture-5.0.0.tgz#5abd07756a12edc54907b7a6d40e61e717cd9b0f"
+fluture@^6.2.1:
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/fluture/-/fluture-6.2.1.tgz#702e197261e4c95d8a2f291846f21ef9de6c4715"
   dependencies:
-    concurrify "^0.1.0"
+    concurrify "^1.0.0"
+    denque "^1.1.1"
     inspect-f "^1.2.0"
-    sanctuary-type-classes "^3.0.0"
-    sanctuary-type-identifiers "^1.0.0"
+    sanctuary-type-classes "^6.0.0"
+    sanctuary-type-identifiers "^2.0.0"
 
 for-in@^0.1.5:
   version "0.1.6"
@@ -1838,15 +1843,25 @@ ripemd160@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/ripemd160/-/ripemd160-1.0.1.tgz#93a4bbd4942bc574b69a8fa57c71de10ecca7d6e"
 
-sanctuary-type-classes@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/sanctuary-type-classes/-/sanctuary-type-classes-3.0.1.tgz#65163f8e1dfdfdc05cf842b83b608fff921cda15"
+sanctuary-type-classes@^5.1.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/sanctuary-type-classes/-/sanctuary-type-classes-5.2.0.tgz#8534606f5556bef83ec9ab5c2ffef8e2842acd0f"
   dependencies:
     sanctuary-type-identifiers "1.0.x"
 
-sanctuary-type-identifiers@1.0.x, sanctuary-type-identifiers@^1.0.0:
+sanctuary-type-classes@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/sanctuary-type-classes/-/sanctuary-type-classes-6.0.0.tgz#1db3f8c1247de018471e978fe4956a03eb62f464"
+  dependencies:
+    sanctuary-type-identifiers "1.0.x"
+
+sanctuary-type-identifiers@1.0.x:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/sanctuary-type-identifiers/-/sanctuary-type-identifiers-1.0.0.tgz#e8f359f006cb5e624cfb8464603fc114608bde9f"
+
+sanctuary-type-identifiers@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/sanctuary-type-identifiers/-/sanctuary-type-identifiers-2.0.1.tgz#fc524cf6dd92cebfcbb0dd9509eff193159a20ed"
 
 select-hose@^2.0.0:
   version "2.0.0"
@@ -2125,9 +2140,9 @@ type-is@~1.6.14:
     media-typer "0.3.0"
     mime-types "~2.1.13"
 
-uglify-js@^2.8.5:
-  version "2.8.15"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.8.15.tgz#835dd4cd5872554756e6874508d0d0561704d94d"
+uglify-js@^2.8.27:
+  version "2.8.28"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.8.28.tgz#e335032df9bb20dcb918f164589d5af47f38834a"
   dependencies:
     source-map "~0.5.1"
     yargs "~3.10.0"
@@ -2226,24 +2241,24 @@ wbuf@^1.1.0, wbuf@^1.4.0:
   dependencies:
     minimalistic-assert "^1.0.0"
 
-webpack-chain@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/webpack-chain/-/webpack-chain-3.2.0.tgz#110d88291d6157b8cad02be1689c4b1e53bce8f6"
+webpack-chain@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/webpack-chain/-/webpack-chain-3.3.0.tgz#b3a2e86e32fae1c534d6e01ec7dc187dcc50843a"
   dependencies:
     deepmerge "^1.3.2"
 
-webpack-dev-middleware@^1.9.0:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/webpack-dev-middleware/-/webpack-dev-middleware-1.10.0.tgz#7d5be2651e692fddfafd8aaed177c16ff51f0eb8"
+webpack-dev-middleware@^1.10.2:
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/webpack-dev-middleware/-/webpack-dev-middleware-1.10.2.tgz#2e252ce1dfb020dbda1ccb37df26f30ab014dbd1"
   dependencies:
     memory-fs "~0.4.1"
     mime "^1.3.4"
     path-is-absolute "^1.0.0"
     range-parser "^1.0.3"
 
-webpack-dev-server@^2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/webpack-dev-server/-/webpack-dev-server-2.4.2.tgz#cf595d6b40878452b6d2ad7229056b686f8a16be"
+webpack-dev-server@^2.4.5:
+  version "2.4.5"
+  resolved "https://registry.yarnpkg.com/webpack-dev-server/-/webpack-dev-server-2.4.5.tgz#31384ce81136be1080b4b4cde0eb9b90e54ee6cf"
   dependencies:
     ansi-html "0.0.7"
     chokidar "^1.6.0"
@@ -2260,7 +2275,7 @@ webpack-dev-server@^2.4.2:
     spdy "^3.4.1"
     strip-ansi "^3.0.0"
     supports-color "^3.1.1"
-    webpack-dev-middleware "^1.9.0"
+    webpack-dev-middleware "^1.10.2"
     yargs "^6.0.0"
 
 webpack-sources@^0.2.3:
@@ -2270,9 +2285,9 @@ webpack-sources@^0.2.3:
     source-list-map "^1.1.1"
     source-map "~0.5.3"
 
-webpack@^2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-2.4.1.tgz#15a91dbe34966d8a4b99c7d656efd92a2e5a6f6a"
+webpack@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-2.6.1.tgz#2e0457f0abb1ac5df3ab106c69c672f236785f07"
   dependencies:
     acorn "^5.0.0"
     acorn-dynamic-import "^2.0.0"
@@ -2291,7 +2306,7 @@ webpack@^2.4.1:
     source-map "^0.5.3"
     supports-color "^3.1.0"
     tapable "~0.2.5"
-    uglify-js "^2.8.5"
+    uglify-js "^2.8.27"
     watchpack "^1.3.1"
     webpack-sources "^0.2.3"
     yargs "^6.0.0"

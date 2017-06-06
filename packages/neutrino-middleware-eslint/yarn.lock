@@ -197,6 +197,13 @@ concat-stream@^1.5.2:
     readable-stream "^2.2.2"
     typedarray "^0.0.6"
 
+concurrify@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/concurrify/-/concurrify-1.0.0.tgz#2b190441681c22d9c8362237bb2191606fa70c43"
+  dependencies:
+    sanctuary-type-classes "^5.1.0"
+    sanctuary-type-identifiers "^2.0.0"
+
 contains-path@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/contains-path/-/contains-path-0.1.0.tgz#fe8cf184ff6670b6baef01a9d4861a5cbec4120a"
@@ -246,6 +253,10 @@ del@^2.0.2:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
     rimraf "^2.2.8"
+
+denque@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/denque/-/denque-1.1.1.tgz#10229c2b88eec1bd15ff82c5fde356e7beb6db9e"
 
 doctrine@1.5.0:
   version "1.5.0"
@@ -520,6 +531,16 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     write "^0.2.1"
 
+fluture@^6.2.1:
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/fluture/-/fluture-6.2.1.tgz#702e197261e4c95d8a2f291846f21ef9de6c4715"
+  dependencies:
+    concurrify "^1.0.0"
+    denque "^1.1.1"
+    inspect-f "^1.2.0"
+    sanctuary-type-classes "^6.0.0"
+    sanctuary-type-identifiers "^2.0.0"
+
 fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
@@ -620,6 +641,10 @@ inquirer@^0.12.0:
     string-width "^1.0.1"
     strip-ansi "^3.0.0"
     through "^2.3.6"
+
+inspect-f@^1.2.0:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/inspect-f/-/inspect-f-1.2.1.tgz#117573b5df57a509de6fe401131d426bac1592b5"
 
 interpret@^1.0.0:
   version "1.0.1"
@@ -1017,6 +1042,26 @@ run-async@^0.1.0:
 rx-lite@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-3.1.2.tgz#19ce502ca572665f3b647b10939f97fd1615f102"
+
+sanctuary-type-classes@^5.1.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/sanctuary-type-classes/-/sanctuary-type-classes-5.2.0.tgz#8534606f5556bef83ec9ab5c2ffef8e2842acd0f"
+  dependencies:
+    sanctuary-type-identifiers "1.0.x"
+
+sanctuary-type-classes@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/sanctuary-type-classes/-/sanctuary-type-classes-6.0.0.tgz#1db3f8c1247de018471e978fe4956a03eb62f464"
+  dependencies:
+    sanctuary-type-identifiers "1.0.x"
+
+sanctuary-type-identifiers@1.0.x:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/sanctuary-type-identifiers/-/sanctuary-type-identifiers-1.0.0.tgz#e8f359f006cb5e624cfb8464603fc114608bde9f"
+
+sanctuary-type-identifiers@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/sanctuary-type-identifiers/-/sanctuary-type-identifiers-2.0.1.tgz#fc524cf6dd92cebfcbb0dd9509eff193159a20ed"
 
 "semver@2 || 3 || 4 || 5":
   version "5.3.0"
