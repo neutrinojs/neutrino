@@ -1,24 +1,45 @@
 const merge = require('deepmerge');
-const clone = require('lodash.clonedeep');
-const { join } = require('path');
+const { basename, join } = require('path');
+const Future = require('fluture');
+const { CLIEngine } = require('eslint');
 
 const MODULES = join(__dirname, 'node_modules');
 
-module.exports = (neutrino, options = {}) => {
+module.exports = (neutrino, opts = {}) => {
   const isNotDev = process.env.NODE_ENV !== 'development';
+  const options = merge.all([
+    opts,
+    !opts.include && !opts.exclude ? { include: [neutrino.options.source], exclude: [neutrino.options.static] } : {}
+  ]);
 
-  // eslint-disable-next-line no-param-reassign
-  neutrino.eslintrc = () => {
-    const options = clone(neutrino.config.module.rule('lint').use('eslint').get('options'));
+  neutrino.register('lint', () => {
+    const { fix = false } = neutrino.options.args;
+    const ignorePattern = (options.exclude || [])
+      .map(exclude => join(
+        basename(neutrino.options.source),
+        basename(exclude),
+        '**/*'
+      ));
+    const eslintConfig = merge(
+      neutrino.config.module.rule('lint').use('eslint').get('options'),
+      { ignorePattern, fix }
+    );
 
-    options.extends = options.baseConfig.extends;
-    options.useEslintrc = true;
-    options.env = options.envs.reduce((env, key) => Object.assign(env, { [key]: true }), {});
-    options.globals = options.globals.reduce((globals, key) => Object.assign(globals, { [key]: true }), {});
-    ['envs', 'baseConfig', 'failOnError', 'emitWarning', 'emitError'].map(method => delete options[method]);
+    return Future
+      .of(eslintConfig)
+      .map(options => new CLIEngine(options))
+      .chain(cli => Future.both(Future.of(cli.executeOnFiles(options.include)), Future.of(cli.getFormatter())))
+      .map(([report, formatter]) => {
+        fix && CLIEngine.outputFixes(report);
+        return [report, formatter];
+      })
+      .chain(([report, formatter]) => {
+        const errors = CLIEngine.getErrorResults(report.results);
+        const formatted = formatter(report.results);
 
-    return options;
-  };
+        return errors.length ? Future.reject(formatted) : Future.of(formatted);
+      });
+  });
 
   neutrino.config
     .resolve

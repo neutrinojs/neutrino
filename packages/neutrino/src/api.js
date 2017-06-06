@@ -58,11 +58,15 @@ const Api = pipe(getOptions, (options) => {
   const api = merge(mitt(listeners), {
     listeners,
     options,
+    commands: {},
     config: new Config(),
 
     // emitForAll :: String -> payload -> Promise
     emitForAll: (eventName, payload) => Promise
       .all((api.listeners[eventName] || []).map(f => f(payload))),
+
+    // register :: String commandName -> Function handler -> ()
+    register: (commandName, handler) => (api.commands[commandName] = handler),
 
     // require :: String moduleId -> a
     require: (moduleId) => {
@@ -133,18 +137,22 @@ const Api = pipe(getOptions, (options) => {
       // Require and use all middleware
       .try(() => map(api.use, middleware))
       // Trigger all pre-events for the current command
-      .chain(() => Future.fromPromise2(api.emitForAll, `pre${name}`, api.options.args))
+      .chain(() => Future.encaseP2(api.emitForAll, `pre${name}`, api.options.args))
       // Trigger generic pre-event
-      .chain(() => Future.fromPromise2(api.emitForAll, 'prerun', api.options.args))
+      .chain(() => Future.encaseP2(api.emitForAll, 'prerun', api.options.args))
       // Execute the command
-      .chain(() => handler(api.config.toConfig()))
+      .chain(() => {
+        const result = handler(api.config.toConfig());
+
+        return Future.isFuture(result) ? result : Future.tryP(() => Promise.resolve().then(() => result));
+      })
       // Trigger all post-command events, resolving with the value of the command execution
       .chain(value => Future
-        .fromPromise2(api.emitForAll, name, api.options.args)
+        .encaseP2(api.emitForAll, name, api.options.args)
         .chain(() => Future.of(value)))
       // Trigger generic post-event, resolving with the value of the command execution
       .chain(value => Future
-        .fromPromise2(api.emitForAll, 'run', api.options.args)
+        .encaseP2(api.emitForAll, 'run', api.options.args)
         .chain(() => Future.of(value)))
       .mapRej(toArray)
   });
