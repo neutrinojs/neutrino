@@ -1,5 +1,4 @@
 const { Neutrino } = require('../src');
-// const { defaultTo } = require('ramda');
 const merge = require('deepmerge');
 const ora = require('ora');
 
