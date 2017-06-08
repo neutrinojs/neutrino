@@ -5,6 +5,8 @@ const mitt = require('mitt');
 const { cond, defaultTo, is, map, omit, pipe, prop } = require('ramda');
 const { createPaths, normalizePath, toArray } = require('./utils');
 
+const rc = '.neutrinorc.js';
+
 // getRoot :: Object -> String
 const getRoot = prop('root');
 
@@ -133,22 +135,31 @@ const Api = pipe(getOptions, (options) => {
       }]
     ])(middleware),
 
-    run: (name, middleware, handler) => Future
+    // call :: String commandName -> Array middleware -> IO a
+    call: (commandName, middleware = [rc]) => {
+      map(api.use, middleware);
+      return api.commands[commandName](api.config.toConfig(), api);
+    },
+
+    // run :: String eventName -> Array middleware -> Function a -> Future
+    run: (eventName, middleware = [rc], handler) => Future
       // Require and use all middleware
       .try(() => map(api.use, middleware))
       // Trigger all pre-events for the current command
-      .chain(() => Future.encaseP2(api.emitForAll, `pre${name}`, api.options.args))
+      .chain(() => Future.encaseP2(api.emitForAll, `pre${eventName}`, api.options.args))
       // Trigger generic pre-event
       .chain(() => Future.encaseP2(api.emitForAll, 'prerun', api.options.args))
       // Execute the command
       .chain(() => {
-        const result = handler(api.config.toConfig());
+        const result = handler(api.config.toConfig(), api);
 
-        return Future.isFuture(result) ? result : Future.tryP(() => Promise.resolve().then(() => result));
+        return Future.isFuture(result) ?
+          result :
+          Future.tryP(() => Promise.resolve().then(() => result));
       })
       // Trigger all post-command events, resolving with the value of the command execution
       .chain(value => Future
-        .encaseP2(api.emitForAll, name, api.options.args)
+        .encaseP2(api.emitForAll, eventName, api.options.args)
         .chain(() => Future.of(value)))
       // Trigger generic post-event, resolving with the value of the command execution
       .chain(value => Future
