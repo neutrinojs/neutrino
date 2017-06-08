@@ -10,13 +10,16 @@ module.exports = (neutrino, opts = {}) => {
     babel: {
       presets: [require.resolve('babel-preset-react')],
       plugins: [
-        require.resolve('babel-plugin-transform-class-properties'),
-        require.resolve('babel-plugin-transform-object-rest-spread')
+        require.resolve('babel-plugin-transform-object-rest-spread'),
+        process.env.NODE_ENV !== 'development' ?
+          [require.resolve('babel-plugin-transform-class-properties'), { spec: true }] :
+          {}
       ],
       env: {
         development: {
           plugins: [
             opts.hot !== false ? require.resolve('react-hot-loader/babel') : {},
+            [require.resolve('babel-plugin-transform-class-properties'), { spec: true }],
             require.resolve('babel-plugin-transform-es2015-classes')
           ]
         }
