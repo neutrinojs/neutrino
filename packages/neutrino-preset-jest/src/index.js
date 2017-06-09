@@ -6,13 +6,25 @@ const { tmpdir } = require('os');
 const clone = require('lodash.clonedeep');
 const loaderMerge = require('neutrino-middleware-loader-merge');
 
+function getFinalPath(path) {
+  if (path[0] === '/') {
+    return path;
+  }
+  if (path[0] === '.') {
+    return join('<rootDir>', path);
+  }
+  return join('<rootDir>', 'node_modules', path);
+}
+
 function normalizeJestOptions(jestOptions, config, args) {
   const options = clone(jestOptions);
   const aliases = config.resolve.alias.entries() || {};
-
   Object
     .keys(aliases)
-    .map(key => Object.assign(options.moduleNameMapper, { [key]: join('<rootDir>', aliases[key]) }));
+    .map((key) => {
+      const finalPath = getFinalPath(aliases[key]);
+      return Object.assign(options.moduleNameMapper, { [`${key}(.*)`]: `${finalPath}$1` });
+    });
 
   options.moduleFileExtensions = [...new Set([
     ...options.moduleFileExtensions,
