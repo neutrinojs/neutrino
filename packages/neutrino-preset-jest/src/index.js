@@ -53,7 +53,13 @@ function normalizeJestOptions(opts, neutrino, args) {
       testRegex: '(_test|_spec|\\.test|\\.spec)\\.jsx?$',
       transform: { [jsNames]: require.resolve('./transformer') },
       globals: {
-        BABEL_OPTIONS: omit(['cacheDirectory'], neutrino.config.module.rule('compile').use('babel').get('options'))
+        BABEL_OPTIONS: omit(
+          ['cacheDirectory'],
+          neutrino.config.module
+            .rule('compile')
+            .use('babel')
+            .get('options')
+        )
       }
     },
     opts,
