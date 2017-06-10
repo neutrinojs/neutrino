@@ -1,18 +1,29 @@
 const { runCLI } = require('jest-cli');
 const { writeFileSync } = require('fs');
-const { join } = require('path');
+const { join, isAbsolute } = require('path');
 const merge = require('deepmerge');
 const { tmpdir } = require('os');
 const clone = require('lodash.clonedeep');
 const loaderMerge = require('neutrino-middleware-loader-merge');
 
+function getFinalPath(path) {
+  if (isAbsolute(path)) {
+    return path;
+  }
+  return path.startsWith('.') ?
+    join('<rootDir>', path) :
+    join('<rootDir>', 'node_modules', path);
+}
+
 function normalizeJestOptions(jestOptions, config, args) {
   const options = clone(jestOptions);
   const aliases = config.resolve.alias.entries() || {};
-
   Object
     .keys(aliases)
-    .map(key => Object.assign(options.moduleNameMapper, { [key]: join('<rootDir>', aliases[key]) }));
+    .map(key => Object.assign(
+      options.moduleNameMapper,
+      { [`${key}(.*)`]: `${getFinalPath(aliases[key])}$1` }
+    ));
 
   options.moduleFileExtensions = [...new Set([
     ...options.moduleFileExtensions,
