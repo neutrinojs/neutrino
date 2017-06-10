@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-jest",
-  "version": "5.9.0",
+  "version": "5.9.1",
   "description": "Neutrino preset for testing Neutrino projects with Jest",
   "main": "src/index.js",
   "keywords": [

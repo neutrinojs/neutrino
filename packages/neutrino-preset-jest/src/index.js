@@ -10,6 +10,7 @@ function getFinalPath(path) {
   if (isAbsolute(path)) {
     return path;
   }
+
   return path.startsWith('.') ?
     join('<rootDir>', path) :
     join('<rootDir>', 'node_modules', path);
@@ -18,6 +19,7 @@ function getFinalPath(path) {
 function normalizeJestOptions(jestOptions, config, args) {
   const options = clone(jestOptions);
   const aliases = config.resolve.alias.entries() || {};
+
   Object
     .keys(aliases)
     .map(key => Object.assign(
