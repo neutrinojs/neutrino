@@ -5,14 +5,17 @@ module.exports = (middleware, args) => {
   const options = merge({
     args,
     debug: args.debug,
+    quiet: args.quiet,
     env: {
       NODE_ENV: 'test'
     }
   }, args.options);
   const api = Neutrino(options);
 
+  api.register('test', test);
+
   return api
-    .run('test', middleware, test)
+    .run('test', middleware)
     .fork((err) => {
       console.error(err);
       process.exit(1);

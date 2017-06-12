@@ -4,24 +4,32 @@ const ora = require('ora');
 
 module.exports = (middleware, args) => {
   const commandName = args._[0];
-  const spinner = ora(`Running ${commandName}`).start();
+  const spinner = args.quiet ? null : ora(`Running ${commandName}`).start();
   const options = merge({
     args,
     debug: args.debug,
+    quiet: args.quiet,
     env: {
       NODE_ENV: 'production'
     }
   }, args.options);
   const api = Neutrino(options);
 
+  api.register(`${commandName}-cli`, (config, api) => api.commands[commandName](config, api));
+
   return api
-    .run(commandName, middleware, config => api.commands[commandName](config))
+    .run(`${commandName}-cli`, middleware)
     .fork((errors) => {
-      spinner.fail(`Running ${commandName} failed`);
-      errors.forEach(err => console.error(err));
+      if (!args.quiet) {
+        spinner.fail(`Running ${commandName} failed`);
+        errors.forEach(err => console.error(err));
+      }
+
       process.exit(1);
     }, (output) => {
-      spinner.succeed(`Running ${commandName} completed`);
-      console.log(output);
+      if (!args.quiet) {
+        spinner.succeed(`Running ${commandName} completed`);
+        console.log(output);
+      }
     });
 };
