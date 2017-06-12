@@ -13,10 +13,14 @@ module.exports = ({ config }) => config
     ])
     .end()
   .plugin('vendor-chunk')
-    .use(optimize.CommonsChunkPlugin, [{ minChunks: Infinity, name: 'vendor' }])
+    .use(optimize.CommonsChunkPlugin, [{
+      name: 'vendor',
+      minChunks: Infinity
+      // minChunks: module => module.context && module.context.includes('node_modules')
+    }])
     .end()
-  .plugin('manifest-chunk')
-    .use(optimize.CommonsChunkPlugin, [{ name: 'manifest' }])
+  .plugin('runtime-chunk')
+    .use(optimize.CommonsChunkPlugin, [{ name: 'runtime' }])
     .end()
   .plugin('name-all')
     .use(NameAllModulesPlugin);

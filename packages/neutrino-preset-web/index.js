@@ -38,6 +38,7 @@ module.exports = (neutrino, opts = {}) => {
       ],
       presets: [
         [require.resolve('babel-preset-env'), merge({
+          debug: neutrino.options.debug,
           targets: {
             browsers: [
               'last 2 Chrome versions',

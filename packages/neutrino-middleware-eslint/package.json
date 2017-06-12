@@ -21,7 +21,7 @@
     "eslint-loader": "^1.7.1",
     "eslint-plugin-babel": "^4.1.1",
     "eslint-plugin-import": "^2.3.0",
-    "fluture": "^6.2.1",
+    "fluture": "^6.2.6",
     "lodash.clonedeep": "^4.5.0",
     "ramda": "^0.24.1"
   },
