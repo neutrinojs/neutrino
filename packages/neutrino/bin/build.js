@@ -1,5 +1,4 @@
 const { Neutrino, build } = require('../src');
-const { defaultTo } = require('ramda');
 const merge = require('deepmerge');
 const ora = require('ora');
 
@@ -22,10 +21,11 @@ module.exports = (middleware, args) => {
       process.exit(1);
     }, (stats) => {
       spinner.succeed('Building project completed');
-      console.log(stats.toString(defaultTo({
+      console.log(stats.toString(merge({
+        modules: false,
         colors: true,
         chunks: false,
         children: false
-      }, stats.compilation.compiler.options.stats)));
+      }, stats.compilation.compiler.options.stats || {})));
     });
 };

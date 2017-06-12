@@ -1,4 +1,4 @@
-const { runCLI } = require('jest-cli');
+const jest = require('jest-cli');
 const { omit } = require('ramda');
 const merge = require('deepmerge');
 const loaderMerge = require('neutrino-middleware-loader-merge');
@@ -85,15 +85,17 @@ module.exports = (neutrino, opts = {}) => {
       }
     });
 
-    const options = normalizeJestOptions(opts, neutrino, args);
-    const configFile = join(tmpdir(), 'config.json');
-
     return new Promise((resolve, reject) => {
+      const configFile = join(tmpdir(), 'config.json');
+      const options = normalizeJestOptions(opts, neutrino, args);
       const cliOptions = { config: configFile, coverage: args.coverage, watch: args.watch };
-      const dir = options.rootDir || neutrino.options.root;
 
       writeFileSync(configFile, `${JSON.stringify(options, null, 2)}\n`);
-      runCLI(cliOptions, dir, result => (result.numFailedTests || result.numFailedTestSuites ? reject() : resolve()));
+
+      jest.runCLI(cliOptions, [configFile], result =>
+        (result.numFailedTests || result.numFailedTestSuites ?
+          reject() :
+          resolve()));
     });
   });
 };

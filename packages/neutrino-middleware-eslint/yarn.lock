@@ -535,9 +535,9 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     write "^0.2.1"
 
-fluture@^6.2.1:
-  version "6.2.1"
-  resolved "https://registry.yarnpkg.com/fluture/-/fluture-6.2.1.tgz#702e197261e4c95d8a2f291846f21ef9de6c4715"
+fluture@^6.2.6:
+  version "6.2.6"
+  resolved "https://registry.yarnpkg.com/fluture/-/fluture-6.2.6.tgz#9b289cc35daae9d9148cae4f1e846a2b747c1ef2"
   dependencies:
     concurrify "^1.0.0"
     denque "^1.1.1"

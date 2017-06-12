@@ -30,13 +30,13 @@ test.after.always(async () => {
 test('requires middleware relative to root', t => {
   const api = Neutrino();
 
-  api.use('middleware');
+  t.notThrows(() => api.use('middleware'));
 });
 
 test('requires middleware from root/node_modules', t => {
   const api = Neutrino();
 
-  api.use('alpha');
+  t.notThrows(() => api.use('alpha'));
 });
 
 test('forks with error middleware contains error', (t) => {
