@@ -148,6 +148,7 @@ const api = Neutrino();
 
 module.exports = api.call('eslintrc');
 ```
+
 _Example: Create a .eslintrc.js file in the root of the project, using specified middleware._
 
 ```js
@@ -156,7 +157,11 @@ const { Neutrino } = require('neutrino');
 const api = Neutrino();
 
 module.exports = api.call('eslintrc', [
-  ['neutrino-middleware-eslint', { rules: { semi: 'off' } }],
+  ['neutrino-middleware-eslint', {
+    eslint: {
+      rules: { semi: 'off' }
+    }
+  }],
   'neutrino-preset-react'
 ]);
 ```
@@ -171,12 +176,12 @@ setting [CLI flags](http://eslint.org/docs/user-guide/command-line-interface#opt
 [eslintignore](http://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories) to choose which files to
 include or exclude from linting.
 
-Unfortunately ESlint doesn't provide possibility to configure ignored paths from Neutrino configuration to exclude them
-from linting. Projects authors should define this manually in their project root directory in `.eslintignore` file. This
+Unfortunately ESLint does not provide the possibility to configure ignored paths from Neutrino configuration and exclude them
+from linting. Projects authors should define this manually in their project root directory in a `.eslintignore` file. This
 is one of the main reasons to prefer using the `lint` CLI command with this middleware, as it avoids a lot of manual
 configuration and boilerplate.
 
-*.eslintignore:*
+`.eslintignore` file:
 
 ```
 /build
@@ -184,7 +189,7 @@ configuration and boilerplate.
 ```
 
 ESLint will exclude built files and any files in the root directory (e.g. custom Neutrino configuration) but `src` and
-`test` folders will be still checked. `/node_modules` are ignored by default in ESLint. More information can be found
+`test` folders will be still checked. `node_modules` are ignored by default in ESLint. More information can be found
 in the [ESLint user guide](http://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories).
 
 ## Contributing
