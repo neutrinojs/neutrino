@@ -30,7 +30,8 @@ const getOptions = (opts = {}) => {
     env: {
       NODE_ENV: 'development'
     },
-    debug: false
+    debug: false,
+    quiet: false
   }, opts);
 
   Object
@@ -85,7 +86,7 @@ const Api = pipe(getOptions, (options) => {
       return require(path); // eslint-disable-line
     },
 
-    // use :: Function middleware -> Object options -> IO ()
+    // use :: a middleware -> Object options -> IO ()
     use: (middleware, options) => cond([
       // If middleware is a function, invoke it with the provided options
       [is(Function), () => middleware(api, options)],
@@ -141,17 +142,17 @@ const Api = pipe(getOptions, (options) => {
       return api.commands[commandName](api.config.toConfig(), api);
     },
 
-    // run :: String eventName -> Array middleware -> Function a -> Future
-    run: (eventName, middleware = [rc], handler) => Future
+    // run :: String commandName -> Array middleware -> Future
+    run: (commandName, middleware = [rc]) => Future
       // Require and use all middleware
       .try(() => map(api.use, middleware))
       // Trigger all pre-events for the current command
-      .chain(() => Future.encaseP2(api.emitForAll, `pre${eventName}`, api.options.args))
+      .chain(() => Future.encaseP2(api.emitForAll, `pre${commandName}`, api.options.args))
       // Trigger generic pre-event
       .chain(() => Future.encaseP2(api.emitForAll, 'prerun', api.options.args))
       // Execute the command
       .chain(() => {
-        const result = handler(api.config.toConfig(), api);
+        const result = api.commands[commandName](api.config.toConfig(), api);
 
         return Future.isFuture(result) ?
           result :
@@ -159,7 +160,7 @@ const Api = pipe(getOptions, (options) => {
       })
       // Trigger all post-command events, resolving with the value of the command execution
       .chain(value => Future
-        .encaseP2(api.emitForAll, eventName, api.options.args)
+        .encaseP2(api.emitForAll, commandName, api.options.args)
         .chain(() => Future.of(value)))
       // Trigger generic post-event, resolving with the value of the command execution
       .chain(value => Future
