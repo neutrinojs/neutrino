@@ -225,10 +225,14 @@ The following is a list of rules and their identifiers which can be overridden:
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-- `banner`: Injects source-map-support into the entry point of your application if detected in `dependencies` or
-`devDependencies` of your package.json.
-- `copy`: Copies non-JS files from `src` to `build` when using `neutrino build`.
-- `clean`: Clears the contents of `build` prior to creating a production bundle.
+_Note: Some plugins are only available in certain environments. To override them, they should be modified conditionally._
+
+| Name     | Description                                                                                                                                  | Environments                |
+| ----     | -----------                                                                                                                                  | ------------                |
+| `banner` | Injects source-map-support into the entry point of your application if detected in `dependencies` or `devDependencies` of your package.json. | all                         |
+| `copy`   | Copies non-JS files from `src` to `build` when using `neutrino build`.                                                                       | `production`, `test`        |
+| `clean`  | Clears the contents of `build` prior to creating a production bundle.                                                                        | `production`, `test`        |
+| `hot`    | Enables Hot Module Replacement.                                                                                                              | `development`               |
 
 ### Simple customization
 

@@ -190,7 +190,7 @@ _Note: Some plugins are only available in certain environments. To override them
 | `env`    | Injects the value of `NODE_ENV` into the application as `process.env.NODE_ENV`.                | all                         |
 | `html`   | Creates HTML files when building. Has various options that can be configured via package.json. | all                         |
 | `chunk`  | Defines chunks for `manifest` and `vendor` entry points. Can be configured via package.json.   | `development`, `production` |
-| `hot`    | Enables hot module reloading.                                                                  | `development`               |
+| `hot`    | Enables Hot Module Replacement.                                                                | `development`               |
 | `copy`   | Copies non-JS files from `src` to `build` when using `neutrino build`.                         | `production`, `test`        |
 | `clean`  | Clears the contents of `build` prior to creating a production bundle.                          | `production`, `test`        |
 | `minify` | Minifies the source code.                                                                      | `production`, `test`        |
