@@ -225,7 +225,7 @@ here, please refer to its documentation for all ways you can modify a config ins
 ### Conditional configuration
 
 Some plugins and rules are only available in certain environments. For example, the Web preset only exposes a minify
-plugin during production, leading to issues when trying to modify its settings, but blows up during development.
+plugin during production, leading to issues when trying to modify its settings, but throws an exception during development.
 
 _Example: Access the entries object of the `minify` plugin when using the Web preset._
 
