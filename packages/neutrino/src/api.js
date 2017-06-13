@@ -113,15 +113,17 @@ const Api = pipe(getOptions, (options) => {
               const envValue = api.options.env[key];
               const env = middleware.env[key][envValue];
 
-              if (env && env.options) {
-                api.options = getOptions(merge(api.options, env.options));
+              if (!env) {
+                return null;
               }
 
-              if (env) {
-                return omit(['options'], env);
+              if (!is(Object, env) || !env.options) {
+                return env;
               }
 
-              return null;
+              api.options = getOptions(merge(api.options, env.options));
+
+              return omit(['options'], env);
             });
 
           if (middleware.use) {

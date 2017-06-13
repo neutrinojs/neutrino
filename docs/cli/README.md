@@ -181,6 +181,24 @@ supports it.
 ❯ neutrino test --coverage
 ```
 
+## Custom commands
+
+Middleware has the ability to register named commands with Neutrino. These registered commands are also available to
+invoke from the CLI provided the middleware registering the command has been loaded when it is time for the CLI to
+invoke the command.
+
+```js
+// custom.js
+module.exports = (neutrino) => {
+  neutrino.register('hello', () => 'HELLO WORLD!');
+};
+```
+
+```bash
+❯ neutrino hello --use custom.js
+HELLO WORLD!
+```
+
 ## Exit codes
 
 When the CLI creates an instance of Neutrino, it waits for all commands to either resolve or reject their registered

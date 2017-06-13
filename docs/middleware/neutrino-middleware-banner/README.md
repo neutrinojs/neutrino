@@ -5,9 +5,9 @@
 
 ## Requirements
 
-- Node.js v6.9+
+- Node.js v6.10+
 - Yarn or npm client
-- Neutrino v5
+- Neutrino v6
 
 ## Installation
 
@@ -31,6 +31,7 @@
 and plug it into Neutrino:
 
 ```js
+// Using function middleware format:
 const banner = require('neutrino-middleware-banner');
 
 // Use with default options
@@ -47,6 +48,30 @@ neutrino.use(banner, {
 });
 ```
 
+```js
+// Using object or array middleware format:
+const banner = require('neutrino-middleware-banner');
+
+// Use with default options
+module.exports = {
+  use: ['neutrino-middleware-banner']
+};
+
+// Also accepts options for Webpack's BannerPlugin
+// https://webpack.js.org/plugins/banner-plugin/
+
+// Usage shows the default values of this middleware:
+module.exports = {
+  use: [
+    ['neutrino-middleware-banner', {
+      banner: `require('source-map-support').install();`,
+      raw: true,
+      entryOnly: true
+    }]
+  ]
+};
+```
+
 ## Customization
 
 `neutrino-middleware-banner` creates some conventions to make overriding the configuration easier once you are ready to
@@ -56,12 +81,14 @@ make changes.
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-- `banner`: Injects string content into application source code.
+| Name | Description | Environments |
+| ---- | ----------- | ------------ |
+| `banner` | Injects string content into application source code. | all |
 
 ## Contributing
 
-This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
-containing all resources for developing Neutrino and its core presets. Follow the
+This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-middleware-banner.svg

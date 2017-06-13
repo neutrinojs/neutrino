@@ -6,9 +6,9 @@ a named rule and named loader in a Neutrino configuration.
 
 ## Requirements
 
-- Node.js v6.9+
+- Node.js v6.10+
 - Yarn or npm client
-- Neutrino v5
+- Neutrino v6
 
 ## Installation
 
@@ -32,6 +32,7 @@ a named rule and named loader in a Neutrino configuration.
 and plug it into Neutrino:
 
 ```js
+// Using function middleware format
 const loaderMerge = require('neutrino-middleware-loader-merge');
 
 neutrino.use(loaderMerge('compile', 'babel'), {
@@ -48,7 +49,8 @@ neutrino.config.module
 ```
 
 This middleware is a factory intended to be invoked with a rule name and a loader name for which to extend the options.
-Upon invoking, it will return a middleware function to be provided to Neutrino's `use()` method.
+Upon invoking, it will return a middleware function to be provided to Neutrino's `use()` method. This middleware is
+only useful to the function middleware format.
 
 ```js
 const middleware = loaderMerge(ruleName, loaderName);
@@ -60,12 +62,12 @@ neutrino.use(middleware, options);
 ## Customization
 
 `neutrino-middleware-loader-merge` does not create any of its own conventions; it is only middleware
-for extending the options for a rule loader which has create its own conventions.
+for extending the options for a rule loader which has created its own conventions.
 
 ## Contributing
 
-This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
-containing all resources for developing Neutrino and its core presets. Follow the
+This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-middleware-loader-merge.svg

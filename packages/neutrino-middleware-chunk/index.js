@@ -16,7 +16,6 @@ module.exports = ({ config }) => config
     .use(optimize.CommonsChunkPlugin, [{
       name: 'vendor',
       minChunks: Infinity
-      // minChunks: module => module.context && module.context.includes('node_modules')
     }])
     .end()
   .plugin('runtime-chunk')
