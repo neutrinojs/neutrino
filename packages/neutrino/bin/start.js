@@ -5,23 +5,33 @@ const ora = require('ora');
 const whenIpReady = Future.node(done => lookup(hostname(), done));
 
 module.exports = (middleware, args) => {
-  const spinner = ora('Building project').start();
+  const spinner = args.quiet ? null : ora('Building project').start();
   const options = merge({
     args,
     debug: args.debug,
+    quiet: args.quiet,
     env: {
       NODE_ENV: 'development'
     }
   }, args.options);
   const api = Neutrino(options);
 
+  api.register('start', start);
+
   return api
-    .run('start', middleware, start)
+    .run('start', middleware)
     .fork((errors) => {
-      spinner.fail('Building project failed');
-      errors.forEach(err => console.error(err));
+      if (!args.quiet) {
+        spinner.fail('Building project failed');
+        errors.forEach(err => console.error(err));
+      }
+
       process.exit(1);
     }, (compiler) => {
+      if (args.quiet) {
+        return;
+      }
+
       if (!compiler.options.devServer) {
         spinner.succeed('Build completed');
       } else {

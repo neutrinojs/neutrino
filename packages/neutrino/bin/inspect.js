@@ -12,16 +12,22 @@ module.exports = (middleware, args) => {
   const options = merge({
     args,
     debug: args.debug,
+    quiet: args.quiet,
     env: {
       NODE_ENV: defaultTo('development', envs[args._[0]])
     }
   }, args.options);
   const api = Neutrino(options);
 
+  api.register('inspect', inspect);
+
   return api
-    .run('inspect', middleware, inspect)
+    .run('inspect', middleware)
     .fork((err) => {
-      console.error(err);
+      if (!args.quiet) {
+        console.error(err);
+      }
+
       process.exit(1);
     }, console.log);
 };

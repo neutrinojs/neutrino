@@ -31,6 +31,12 @@ const args = yargs
     default: {},
     global: true
   })
+  .option('quiet', {
+    description: 'Disable console output of CLI commands',
+    boolean: true,
+    default: false,
+    global: true
+  })
   .option('debug', {
     description: 'Run in debug mode',
     boolean: true,
@@ -66,8 +72,11 @@ const middleware = [...new Set([
 ])];
 
 process.on('unhandledRejection', (err) => {
-  console.error('');
-  console.error(err);
+  if (!args.quiet) {
+    console.error('');
+    console.error(err);
+  }
+
   process.exit(1);
 });
 
