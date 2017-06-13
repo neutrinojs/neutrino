@@ -1,13 +1,13 @@
 # Usage
 
 Neutrino is a command-line tool that wraps Webpack in order to support building JavaScript projects
-based on shared configuration presets. You can use Neutrino within your project, preferably using
+based on shared configuration presets and middleware. You can use Neutrino within your project, preferably using
 scripts defined in your project's `package.json`.
 
 ## Setup
 
 After completing the [installation](./installation.md) of Neutrino and your Neutrino preset, you will
-want to define some scripts in your project's `package.json` in order to simply build your project.
+want to define some scripts in your project's `package.json` in order to more simply build your project.
 In a typical project:
 
 - `scripts.start` would be the command you wish to run during development
@@ -21,7 +21,7 @@ for your project.
 ## Building for development
 
 Neutrino provides the command `neutrino start` for creating a bundle during development. Using
-`neutrino start` sets the Node.js environment to `development` using the `NODE_ENV` environment variable,
+`neutrino start` by default sets the Node.js environment to `development` using the `NODE_ENV` environment variable,
 which is available in your project source code. Depending on the presets you are using, `neutrino start`
 may also spin up a development server with Hot Module Replacement (HMR) capabilities.
 Check the documentation of your preset for details.
@@ -47,7 +47,7 @@ Putting this into your `package.json` will allow you to build your project using
 ## Building for production
 
 Neutrino provides the command `neutrino build` for creating a bundle for production deployment.
-Using `neutrino build` sets the Node.js environment to `production` using the `NODE_ENV` environment variable,
+Using `neutrino build` by default sets the Node.js environment to `production` using the `NODE_ENV` environment variable,
 which is available in your project source code. See the documentation for your preset for details regarding additional
 steps after your build is completed.
 
@@ -70,14 +70,14 @@ Putting this into your `package.json` will allow you to build your project using
 ## Building and running tests
 
 Neutrino provides the command `neutrino test` for invoking a set of tests included in your project.
-Using `neutrino test` sets the Node.js environment variable to `test` using the `NODE_ENV` environment
+Using `neutrino test` by default sets the Node.js environment variable to `test` using the `NODE_ENV` environment
 variable, which is available in your project source code. How your source code is built and consumed from tests
-is determined by the presets you are using. Running suites that are built the same as source files is encouraged by
-using a Neutrino-compatible preset. Neutrino currently provides three core testing presets: Karma, Jest, and Mocha.
+is determined by the middleware you are using. Running suites that are built the same as source files is encouraged by
+using Neutrino-compatible middleware. Neutrino currently provides three core testing presets: Karma, Jest, and Mocha.
 
 ```bash
 # PRESET_MODULE is the name of the preset to build with, e.g. neutrino-preset-react
-# TESTING_MODULE is the name of another preset to build with, e.g. neutrino-preset-karma
+# TESTING_MODULE is the name of another middleware to build with, e.g. neutrino-preset-karma
 neutrino test --use PRESET_MODULE TESTING_MODULE
 ```
 
@@ -105,24 +105,29 @@ neutrino test --use PRESET_A PRESET_B -- a_test.js b_test.js
 
 All Neutrino commands support the `--use` command line parameter, but having to specify this for each script target
 can be cumbersome and verbose, especially if you have many middleware or presets. Fortunately, Neutrino also supports
-specifying presets using the `neutrino.use` field in your project's package.json file. By omitting the `--use`
-flag and specifying a `neutrino.use` array, every call to a Neutrino command will look up which presets are
-configured in your package.json.
+specifying presets using the `use` property in a `.neutrinorc.js` file. By omitting the `--use`
+flag and specifying a `use` array, every call to a Neutrino command will look up which middleware
+are configured in your in `.neutrinorc.js`.
 
-This is the recommended approach when using more than one preset.
+This is the recommended approach when using more than one preset/middleware.
 
-```json
+```js
+// package.json
 {
-  "neutrino": {
-    "use": [
-      "neutrino-preset-react",
-      "neutrino-preset-karma"
-    ]
-  },
   "scripts": {
     "start": "neutrino start",
     "build": "neutrino build",
     "test": "neutrino test"
   }
+}
+```
+
+```js
+// .neutrinorc.js
+module.exports = {
+  use: [
+    'neutrino-preset-react',
+    'neutrino-preset-karma'
+  ]
 }
 ```

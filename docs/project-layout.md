@@ -1,9 +1,10 @@
 # Project Layout
 
 Out of the box, Neutrino presets expect a project to have a particular structure to make the
-development process for new projects as quick as possible. This is broken up into three directories:
+development process for new projects as quick as possible. This is broken up into four directories:
 
 - Source code
+- Static assets
 - Build assets
 - Testing
 
@@ -14,18 +15,25 @@ desired by overriding the preset's configuration or using a different preset. Se
 ## Source Code
 
 By default, Neutrino presets expect all project source code to live in a directory named `src` in the
-root of the project. This includes JavaScript files, CSS stylesheets, images, and any other assets
+root of the project. This includes compiled and imported JavaScript files, CSS stylesheets, images, and any other assets
 that would be available to your compiled project.
 
 When running your project or creating a build bundle, a preset will look for this `src` directory for
 the entry point(s) to your application and use this as the relative location for finding other assets
 necessary for creating your builds.
 
+## Static Assets
+
+If you have CSS stylesheets, images, non-compiled/-imported JavaScript files, or any other static assets you
+would like copied to your build directory, a preset will look for these within a `src/static` directory by default. Use
+this for assets that are not imported from application code, but can be referenced by their relative URL or via built
+code.
+
 ## Build Assets
 
 When creating a build bundle, a preset will put the compiled assets, including any generated
 JavaScript files, into a directory named `build` by default. Typically your Neutrino preset will copy
-any non-JavaScript files from the source directory over to the build directory, allowing you to maintain
+any files from the static directory over to the build directory, allowing you to maintain
 the same relative path structure for static assets as is used for the source files.
 
 Normally most projects will exclude checking in this build directory to source control.

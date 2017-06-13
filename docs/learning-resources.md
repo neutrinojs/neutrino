@@ -6,14 +6,22 @@ community, file an issue or submit a pull request.
 
 ## Blog Posts & Tutorials
 
+#### v5
+
+* [Code Splitting for React Router with Webpack and HMR](https://medium.com/@hassanhelfi/code-splitting-for-react-router-with-webpack-and-hmr-bb509968e86f) by [@hassanhelfi](https://twitter.com/hassanhelfi)
+
+#### v4
+
 * [Modern JavaScript Apps with Neutrino](https://davidwalsh.name/neutrino) by [@eliperelman](https://twitter.com/eliperelman)
 * [Using Neutrino to jump-start modern JavaScript development](https://hacks.mozilla.org/2017/02/using-neutrino-for-modern-javascript-development/) by [@eliperelman](https://twitter.com/eliperelman)
 * [Custom Neutrino Linting](https://davidwalsh.name/neutrino-linting) by [@davidwalshblog](https://twitter.com/davidwalshblog)
-* [Code Splitting for React Router with Webpack and HMR](https://medium.com/@hassanhelfi/code-splitting-for-react-router-with-webpack-and-hmr-bb509968e86f) by [@hassanhelfi](https://twitter.com/hassanhelfi)
 
 ## Screencasts & Videos
 
+#### v5
+
 * [Bootstrap a Zero Configuration React App with Neutrino](https://egghead.io/lessons/react-bootstrap-a-zero-configuration-react-app-with-neutrino) by [@markshust](https://twitter.com/markshust)
+* [Empower and Simplify JavaScript Development](https://www.youtube.com/watch?v=fz5jMdmKmRI) by [@eliperelman](https://twitter.com/eliperelman) at [@nebraskajs](http://nebraskajs.com)
 
 ## Starter Kit Repositories
 
