@@ -1,6 +1,49 @@
+2017-06-12
+==========
+
+  * Document conditional configuration ([#250](https://github.com/mozilla-neutrino/neutrino-dev/issues/250))
+    * Document conditional configuration
+    * Switch 'blows up' to 'throws an exception'
+    * Document the Web preset w.r.t conditional configs
+    * Document the Node preset w.r.t conditional changes
+    In addition, I added an entry for `hot` to the list of plugins.
+  * Switch Travis runs from Ubuntu Precise to Trusty ([#249](https://github.com/mozilla-neutrino/neutrino-dev/issues/249))
+    See:
+    https://docs.travis-ci.com/user/trusty-ci-environment/
+    This also fixes the warning about not using a C++11 compiler:
+    https://docs.travis-ci.com/user/languages/javascript-with-nodejs#Node.js-v4-(or-io.js-v3)-compiler-requirements
+    Note this intentionally isn't switching to their container based
+    infra, since whilst it has faster boot times, these jobs still take
+    longer at the moment, due to the lower CPU/RAM allowances. If [#248](https://github.com/mozilla-neutrino/neutrino-dev/issues/248)
+    manages to improve the overall runtime this may be worth revisiting.
+
+2017-06-11
+==========
+
+  * Test against Node.js 8 on Travis ([#246](https://github.com/mozilla-neutrino/neutrino-dev/issues/246))
+
+2017-06-09
+==========
+
+  * Releasing Jest preset v5.9.1
+  * Hotfix/neutrino preset jest/relative alias handling ([#243](https://github.com/mozilla-neutrino/neutrino-dev/issues/243))
+    * Check whether path is relative, and add wildcard suffix to catch nested path resolutions
+    * lint errors
+    * use path.isAbsolute and string.startsWith
+
+2017-06-02
+==========
+
+  * Add description how to ignore files in an IDE lint ([#205](https://github.com/mozilla-neutrino/neutrino-dev/issues/205))
+    * Add description how to ignore files in an IDE lint
+    * Rewrite ESLint ignore documentation
+    * Duplicate ESLint ignore reference in docs
+    * Change Neutrino configuration naming
+
 2017-05-31
 ==========
 
+  * Releasing node preset v5.9.1
   * Use string version of specifying target ([#217](https://github.com/mozilla-neutrino/neutrino-dev/issues/217))
     I get the following, very annoying, warning when building. This change fixes it.
     ```
@@ -270,22 +313,3 @@
     Fix svg mime-type
   * Fix svg mime-type
     Browsers don't display svg from data-uri if the mimetype is `application/svg+xml` (testing with \<img> tag in Firefox and Chrome). However, `image/svg+xml` works.
-  * Merge pull request [#111](https://github.com/mozilla-neutrino/neutrino-dev/issues/111) from eliperelman/compile-targets
-    Adding option-configurable compile targets
-  * Adding option-configurable compile targets
-  * Merge pull request [#88](https://github.com/mozilla-neutrino/neutrino-dev/issues/88) from guzart/patch-1
-    Add support building react-native app
-
-2017-03-12
-==========
-
-  * Add support building react-native app
-  * Merge pull request [#110](https://github.com/mozilla-neutrino/neutrino-dev/issues/110) from eliperelman/test-preset-config-on-test
-    Defer test configuration overrides until on:test
-  * Defer test configuration overrides until on:test
-
-2017-03-09
-==========
-
-  * Merge pull request [#106](https://github.com/mozilla-neutrino/neutrino-dev/issues/106) from eliperelman/linting-round-2
-    Using neutrino to lint itself
