@@ -2,9 +2,13 @@ const jest = require('jest-cli');
 const { omit } = require('ramda');
 const merge = require('deepmerge');
 const loaderMerge = require('neutrino-middleware-loader-merge');
-const { join } = require('path');
+const { isAbsolute, join } = require('path');
 const { tmpdir } = require('os');
 const { writeFileSync } = require('fs');
+
+const mediaNames = '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$';
+const styleNames = '\\.(css|less|sass|scss)$';
+const jsNames = '\\.(js|jsx)$';
 
 function getFinalPath(path) {
   if (isAbsolute(path)) {
@@ -15,10 +19,6 @@ function getFinalPath(path) {
     join('<rootDir>', path) :
     join('<rootDir>', 'node_modules', path);
 }
-
-function normalizeJestOptions(jestOptions, config, args) {
-  const options = clone(jestOptions);
-  const aliases = config.resolve.alias.entries() || {};
 
 function normalizeJestOptions(opts, neutrino, args) {
   const aliases = neutrino.config.resolve.alias.entries() || {};
@@ -53,7 +53,13 @@ function normalizeJestOptions(opts, neutrino, args) {
       testRegex: '(_test|_spec|\\.test|\\.spec)\\.jsx?$',
       transform: { [jsNames]: require.resolve('./transformer') },
       globals: {
-        BABEL_OPTIONS: omit(['cacheDirectory'], neutrino.config.module.rule('compile').use('babel').get('options'))
+        BABEL_OPTIONS: omit(
+          ['cacheDirectory'],
+          neutrino.config.module
+            .rule('compile')
+            .use('babel')
+            .get('options')
+        )
       }
     },
     opts,

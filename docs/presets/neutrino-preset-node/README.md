@@ -295,12 +295,13 @@ The following is a list of plugins and their identifiers which can be overridden
 
 _Note: Some plugins are only available in certain environments. To override them, they should be modified conditionally._
 
-| Name     | Description                                                                                                                                  | Environments                |
-| ----     | -----------                                                                                                                                  | ------------                |
-| `banner` | Injects source-map-support into the entry point of your application if detected in `dependencies` or `devDependencies` of your package.json. | all                         |
-| `copy`   | Copies non-JS files from `src` to `build` when using `neutrino build`.                                                                       | `production`, `test`        |
-| `clean`  | Clears the contents of `build` prior to creating a production bundle.                                                                        | `production`, `test`        |
-| `hot`    | Enables Hot Module Replacement.                                                                                                              | `development`               |
+| Name | Description | Environments |
+| ---- | ----------- | ------------ |
+| `banner` | Injects source-map-support into the entry point of your application if detected in `dependencies` or `devDependencies` of your package.json. | Only when `source-map-support` is installed |
+| `copy` | Copies all files from `src/static` to `build` when using `neutrino build`. | all but `development` |
+| `clean` | Clears the contents of `build` prior to creating a production bundle. | all but `development` |
+| `start-server` | Start a Node.js for a configured entry point or specified file. | `development` |
+| `hot` | Enables hot module replacement. | `development` |
 
 ### Override configuration
 
