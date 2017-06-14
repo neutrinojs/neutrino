@@ -320,3 +320,17 @@ Remember, middleware can also have their own custom options for making some chan
 interacting with the Neutrino API; see your respective middleware for details. Again, rather than reiterate the
 documentation for [webpack-chain](https://github.com/mozilla-neutrino/webpack-chain) here, please refer to its
 documentation for all ways you can modify a config instance to solve your use cases.
+
+### Conditional configuration
+
+Some plugins and rules are only available in certain environments. For example, the Web preset only exposes a minify
+plugin during production, leading to issues when trying to modify its settings, but throws an exception during
+development.
+
+_Example: Remove all arguments to the `minify` plugin when using the Web preset._
+
+```js
+config.when(process.env.NODE_ENV === 'production', config => {
+  config.plugin('minify').tap(args => []);
+});
+```
