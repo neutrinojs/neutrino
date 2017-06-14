@@ -24,7 +24,7 @@
     "mocha": "^3.4.2",
     "mocha-coverage-reporter": "^0.0.1",
     "ramda": "^0.24.1",
-    "webpack": "^2.6.1",
+    "webpack": "^3.0.0-rc.2",
     "webpack-dev-middleware": "^1.10.2"
   },
   "peerDependencies": {
