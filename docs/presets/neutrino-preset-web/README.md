@@ -183,12 +183,17 @@ The following is a list of rules and their identifiers which can be overridden:
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-- `env`: Injects the value of `NODE_ENV` into the application as `process.env.NODE_ENV`.
-- `html`: Creates HTML files when building. Has various options that can be configured via package.json.
-- `chunk`: Defines chunks for `manifest` and `vendor` entry points. Can be configured via package.json.
-- `hot`: Enables hot module reloading.
-- `copy`: Copies non-JS files from `src` to `build` when using `neutrino build`.
-- `clean`: Clears the contents of `build` prior to creating a production bundle.
+_Note: Some plugins are only available in certain environments. To override them, they should be modified conditionally._
+
+| Name     | Description                                                                                    | Environments                |
+| ----     | -----------                                                                                    | ------------                |
+| `env`    | Injects the value of `NODE_ENV` into the application as `process.env.NODE_ENV`.                | all                         |
+| `html`   | Creates HTML files when building. Has various options that can be configured via package.json. | all                         |
+| `chunk`  | Defines chunks for `manifest` and `vendor` entry points. Can be configured via package.json.   | `development`, `production` |
+| `hot`    | Enables Hot Module Replacement.                                                                | `development`               |
+| `copy`   | Copies non-JS files from `src` to `build` when using `neutrino build`.                         | `production`, `test`        |
+| `clean`  | Clears the contents of `build` prior to creating a production bundle.                          | `production`, `test`        |
+| `minify` | Minifies the source code.                                                                      | `production`, `test`        |
 
 ### Simple customization
 
