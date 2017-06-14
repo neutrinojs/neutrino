@@ -84,7 +84,7 @@ module.exports = (neutrino, opts = {}) => {
         .add(require.resolve('./polyfills.js')))
     .when(options.polyfills.async, config => config
       .entry('index')
-        .add(require.resolve('nodent-runtime')))
+        .add(require.resolve('./async.js')))
     .entry('index')
       .add(neutrino.options.entry)
       .end()

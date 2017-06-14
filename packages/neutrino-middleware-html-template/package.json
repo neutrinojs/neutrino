@@ -20,7 +20,7 @@
     "html-webpack-template": "^6.0.1"
   },
   "devDependencies": {
-    "webpack": "^2.6.1"
+    "webpack": "^3.0.0-rc.2"
   },
   "peerDependencies": {
     "neutrino": "^6.0.0"
