@@ -7,9 +7,9 @@ added during production builds.
 
 ## Requirements
 
-- Node.js v6.9+
+- Node.js v6.10+
 - Yarn or npm client
-- Neutrino v5
+- Neutrino v6
 
 ## Installation
 
@@ -33,6 +33,7 @@ added during production builds.
 and plug it into Neutrino:
 
 ```js
+// Using function middleware format
 const minify = require('neutrino-middleware-minify');
 
 // Use with default options
@@ -43,6 +44,25 @@ neutrino.use(minify, {
   babili: {},
   overrides: {}
 });
+```
+
+```js
+// Using object or array middleware format
+
+// Use with default options
+module.exports = {
+  use: ['neutrino-middleware-minify']
+};
+
+// Usage showing overriding minification options
+module.exports = {
+  use: [
+    ['neutrino-middleware-minify', {
+      babili: {},
+      overrides: {}
+    }]
+  ]
+};
 ```
 
 The `babili` and `overrides` properties map to the options defined by
@@ -57,12 +77,14 @@ make changes.
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-- `minify`: Minifies source code using `BabiliWebpackPlugin`.
+| Name | Description | Environments |
+| ---- | ----------- | ------------ |
+| `minify` | Minifies source code using `BabiliWebpackPlugin`. | all |
 
 ## Contributing
 
-This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
-containing all resources for developing Neutrino and its core presets. Follow the
+This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-middleware-minify.svg

@@ -5,9 +5,9 @@
 
 ## Requirements
 
-- Node.js v6.9+
+- Node.js v6.10+
 - Yarn or npm client
-- Neutrino v5
+- Neutrino v6
 
 ## Installation
 
@@ -31,6 +31,7 @@
 and plug it into Neutrino:
 
 ```js
+// Using function middleware format
 const copy = require('neutrino-middleware-copy');
 
 // Use with default options
@@ -41,6 +42,25 @@ neutrino.use(copy, {
   patterns: [],
   options: {}
 });
+```
+
+```js
+// Using object or array middleware format
+
+// Use with default options
+module.exports = {
+  use: ['neutrino-middleware-copy']
+};
+
+// Usage shows the default values of this middleware:
+module.exports = {
+  use: [
+    ['neutrino-middleware-copy', {
+      patterns: [],
+      options: {}
+    }]
+  ]
+};
 ```
 
 The `patterns` and `options` are defined from the [CopyWebpackPlugin](https://github.com/kevlened/copy-webpack-plugin).
@@ -58,12 +78,14 @@ make changes.
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-- `copy`: Copy files during building.
+| Name | Description | Environments |
+| ---- | ----------- | ------------ |
+| `copy` |  Copy files during building. | all |
 
 ## Contributing
 
-This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
-containing all resources for developing Neutrino and its core presets. Follow the
+This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-middleware-copy.svg
