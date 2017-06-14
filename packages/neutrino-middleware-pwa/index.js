@@ -1,7 +1,7 @@
 const OfflinePlugin = require('offline-plugin');
 const merge = require('deepmerge');
 
-module.exports = (neutrino, options) => neutrino.config
+module.exports = (neutrino, options = {}) => neutrino.config
   .entry('index')
     .add(require.resolve('./pwa'))
     .end()
