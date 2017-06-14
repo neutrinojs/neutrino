@@ -55,7 +55,7 @@ linting **before** your build preset. For example, if you are building your proj
 }
 ```
 
-Or if you are using a `.neutrinorc.js`:
+Or if you are using a `.neutrinorc.js`, add this preset to your use array instead of `--use` flags:
 
 ```js
 module.exports = {

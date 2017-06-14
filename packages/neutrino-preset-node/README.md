@@ -92,7 +92,7 @@ Now edit your project's package.json to add commands for starting and building t
 }
 ```
 
-If you are using `.neutrinorc.js`:
+If you are using `.neutrinorc.js`, add this preset to your use array instead of `--use` flags:
 
 ```js
 module.exports = {

@@ -92,7 +92,7 @@ let's pretend this is a Node.js project:
 }
 ```
 
-Or if you are using `.neutrinorc.js`:
+Or if you are using `.neutrinorc.js`, add this preset to your use array instead of `--use` flags:
 
 ```js
 module.exports = {
