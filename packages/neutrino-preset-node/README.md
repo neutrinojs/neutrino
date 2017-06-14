@@ -224,7 +224,7 @@ module.exports = {
       hot: true,
 
       polyfills: {
-        // Enabled fast-async polyfill. Set to false to disable
+        // Enables fast-async polyfill. Set to false to disable
         async: true
       },
 

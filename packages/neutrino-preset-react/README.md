@@ -148,17 +148,22 @@ You can provide custom options and have them merged with this preset's default o
 preset builds. You can modify React preset settings from `.neutrinorc.js` by overriding with an options object. Use
 an array pair instead of a string to supply these options in `.neutrinorc.js`.
 
-The following shows how you can pass an options object to the Node.js preset and override its options. See the
+The following shows how you can pass an options object to the React preset and override its options. See the
 [Web documentation](https://neutrino.js.org/presets/neutrino-preset-web#presetoptions) for specific options you can override with this object.
 
 ```js
 module.exports = {
   use: [
-    ['neutrino-preset-node', {
+    ['neutrino-preset-react', {
       /* preset options */
-      
+
       // Example: disable Hot Module Replacement
-      hot: false
+      hot: false,
+
+      // Example: change the page title
+      html: {
+        title: 'Epic React App'
+      }
     }]
   ]
 };
