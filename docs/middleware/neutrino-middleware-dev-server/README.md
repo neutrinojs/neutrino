@@ -116,7 +116,7 @@ By default this middleware will start a development server with Hot Module Repla
 preset or middleware.
 
 It is recommended to call this middleware only in development mode when `process.env.NODE_ENV === 'development'`.
-More information about usage of Neutrino middleware can be found in the [documentation](https://neutrino.js.org/middleware).
+More information about usage of Neutrino middleware can be found in the [documentation](../../middleware/README.md).
 
 ## Middleware options
 
@@ -131,7 +131,7 @@ may also specify the following options:
 
 This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](https://neutrino.js.org/contributing) for details.
+[contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-middleware-dev-server.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-middleware-dev-server.svg

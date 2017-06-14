@@ -6,9 +6,9 @@ entry-points.
 
 ## Requirements
 
-- Node.js v6.9+
+- Node.js v6.10+
 - Yarn or npm client
-- Neutrino v5
+- Neutrino v6
 
 ## Installation
 
@@ -32,6 +32,7 @@ entry-points.
 and plug it into Neutrino:
 
 ```js
+// Using function middleware format
 const template = require('neutrino-middleware-html-template');
 
 // Usage shows default values
@@ -49,6 +50,44 @@ neutrino.use(template, {
     preserveLineBreaks: true
   }
 });
+
+// Most commonly, you will want to override the initial page title:
+neutrino.use(template, {
+  title: 'React Application'
+});
+```
+
+```js
+// Using object or array middleware format
+
+// Usage shows default values
+// Accepts options specified by HtmlWebpackTemplate
+// https://github.com/jaketrent/html-webpack-template
+module.exports = {
+  use: [
+    ['neutrino-middleware-html-template', {
+      inject: false,
+      appMountId: 'root',
+      xhtml: true,
+      mobile: true,
+      minify: {
+        useShortDoctype: true,
+        keepClosingSlash: true,
+        collapseWhitespace: true,
+        preserveLineBreaks: true
+      }
+    }]
+  ]
+};
+
+// Most commonly, you will want to override the initial page title:
+module.exports = {
+  use: [
+    ['neutrino-middleware-html-template', {
+      title: 'React Application'
+    }]
+  ]
+};
 ```
 
 ## Customization
@@ -60,12 +99,14 @@ make changes.
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-- `html`: Automatically generates HTML files for configured entry-points.
+| Name | Description | Environments |
+| ---- | ----------- | ------------ |
+| `html` | Automatically generates HTML files for configured entry-points. | all |
 
 ## Contributing
 
-This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
-containing all resources for developing Neutrino and its core presets. Follow the
+This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-middleware-html-template.svg

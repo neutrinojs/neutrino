@@ -5,7 +5,7 @@
 
 ## Requirements
 
-- Node.js v6.9+
+- Node.js v6.10+
 - Yarn or npm client
 - Neutrino v6
 
@@ -31,6 +31,7 @@
 and plug it into Neutrino:
 
 ```js
+// Using function middleware format
 const html = require('neutrino-middleware-html-loader');
 
 // Use with default options
@@ -42,7 +43,25 @@ neutrino.use(html, {
 });
 ```
 
-The options object passed to this middleware will be passed as options to the file-loader used to load HTML files.
+```js
+// Using object or array middleware format
+
+// Use with default options
+module.exports = {
+  use: ['neutrino-middleware-html-loader']
+};
+
+// Usage showing default options
+module.exports = {
+  use: [
+    ['neutrino-middleware-html-loader', {
+      name: '[name].[ext]'
+    }]
+  ]
+};
+```
+
+The options object passed to this middleware will be passed as options to the html-loader used to load HTML files.
 
 ## Customization
 
@@ -53,12 +72,14 @@ ready to make changes.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-- `html`: Allows importing HTML files from modules. Contains a single loader named `html`.
+| Name | Description | Environments |
+| ---- | ----------- | ------------ |
+| `html` | Allows importing HTML files from modules. Contains a single loader named `html`. | all |
 
 ## Contributing
 
-This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
-containing all resources for developing Neutrino and its core presets. Follow the
+This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](https://neutrino.js.org/contributing) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-middleware-html-loader.svg

@@ -5,9 +5,9 @@
 
 ## Requirements
 
-- Node.js v6.9+
+- Node.js v6.10+
 - Yarn or npm client
-- Neutrino v5
+- Neutrino v6
 
 ## Installation
 
@@ -31,10 +31,40 @@
 and plug it into Neutrino:
 
 ```js
+// Using function middleware format
 const styles = require('neutrino-middleware-style-loader');
 
+// Use with default options
 neutrino.use(styles);
+
+// Usage showing default options
+neutrino.use(styles, {
+  style: {},
+  css: {}
+});
 ```
+
+```js
+// Using object or array middleware format
+
+// Use with default options
+module.exports = {
+  use: ['neutrino-middleware-style-loader']
+};
+
+// Usage showing default options
+module.exports = {
+  use: [
+    ['neutrino-middleware-style-loader', {
+      style: {},
+      css: {}
+    }]
+  ]
+};
+```
+
+- `style`: Set options for the style-loader used when loading CSS files.
+- `css`: Set options for the css-loader used when loading CSS files.
 
 ## Customization
 
@@ -45,13 +75,14 @@ ready to make changes.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-- `css`: Allows importing CSS stylesheets from modules. Contains two loaders named `style` and `css` which use
-`style-loader` and `css-loader`, respectively.
+| Name | Description | Environments |
+| ---- | ----------- | ------------ |
+| `css` | Allows importing CSS stylesheets from modules. Contains two loaders named `style` and `css` which use `style-loader` and `css-loader`, respectively. | all |
 
 ## Contributing
 
-This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
-containing all resources for developing Neutrino and its core presets. Follow the
+This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](https://neutrino.js.org/contributing) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-middleware-style-loader.svg

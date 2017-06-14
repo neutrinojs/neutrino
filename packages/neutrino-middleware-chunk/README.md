@@ -5,9 +5,9 @@
 
 ## Requirements
 
-- Node.js v6.9+
+- Node.js v6.10+
 - Yarn or npm client
-- Neutrino v5
+- Neutrino v6
 
 ## Installation
 
@@ -31,19 +31,18 @@
 and plug it into Neutrino:
 
 ```js
+// Using function middleware format
 const chunk = require('neutrino-middleware-chunk');
 
-// Use with default options
 neutrino.use(chunk);
+```
 
-// Also accepts options for Webpack's CommonsChunkPlugin
-// https://webpack.js.org/plugins/commons-chunk-plugin/
+```js
+// Using object or array middleware format
 
-// Usage shows the default values of this middleware:
-neutrino.use(chunk, {
-  minChunks: Infinity,
-  names: ['vendor', 'manifest']
-});
+module.exports = {
+  use: ['neutrino-middleware-chunk']
+};
 ```
 
 ## Customization
@@ -55,13 +54,18 @@ make changes.
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-- `chunk`: Creates a separate file (known as a chunk), consisting of common modules shared between multiple entry
-points.
+| Name | Description | Environments |
+| ---- | ----------- | ------------ |
+| `named-modules` | Enables named modules for improved debugging and console output. | all |
+| `named-chunks` | Enables named chunks for improved debugging and console output. | all |
+| `vendor-chunk` | Creates a separate file/chunk consisting of common modules shared between multiple entry points. | all |
+| `runtime-chunk` | Creates a separate file/chunk consisting of the Webpack manifest-specific code. | all |
+| `name-all` | Names all remaining modules that do not get named via `named-modules`. | all |
 
 ## Contributing
 
-This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
-containing all resources for developing Neutrino and its core presets. Follow the
+This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](https://neutrino.js.org/contributing) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-middleware-chunk.svg

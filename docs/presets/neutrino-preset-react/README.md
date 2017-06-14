@@ -20,9 +20,9 @@
 
 ## Requirements
 
-- Node.js v6.9+
+- Node.js v6.10+
 - Yarn or npm client
-- Neutrino v5
+- Neutrino v6
 
 ## Installation
 
@@ -49,7 +49,7 @@ React development.
 `neutrino-preset-react` follows the standard [project layout](../../project-layout.md) specified by Neutrino. This
 means that by default all project source code should live in a directory named `src` in the root of the
 project. This includes JavaScript files, CSS stylesheets, images, and any other assets that would be available
-to your compiled project.
+to import your compiled project.
 
 ## Quickstart
 
@@ -81,6 +81,14 @@ Now edit your project's package.json to add commands for starting and building t
 }
 ```
 
+If you are using `.neutrinorc.js`, add this preset to your use array instead of `--use` flags:
+
+```js
+module.exports = {
+  use: ['neutrino-preset-react']
+};
+```
+
 Start the app, then open a browser to the address in the console:
 
 #### Yarn
@@ -106,20 +114,26 @@ the quick start example above as a reference:
 
 ```bash
 ❯ yarn build
-clean-webpack-plugin: /react/build has been removed.
-Build completed in 6.692s
 
-Hash: 7a83f769b15f88b80727
-Version: webpack 2.2.1
-Time: 6695ms
-                                  Asset       Size  Chunks             Chunk Names
-   index.b615ea9e95317f530317.bundle.js     143 kB    0, 1  [emitted]  index
-manifest.2211d9c1970bbd3c952b.bundle.js    1.41 kB       1  [emitted]  manifest
-                             index.html  779 bytes          [emitted]
-✨  Done in 8.32s.
+✔ Building project completed
+Hash: b26ff013b5a2d5f7b824
+Version: webpack 2.6.1
+Time: 9773ms
+                           Asset       Size    Chunks             Chunk Names
+   index.dfbad882ab3d86bfd747.js     181 kB     index  [emitted]  index
+polyfill.57dabda41992eba7552f.js    69.2 kB  polyfill  [emitted]  polyfill
+ runtime.3d9f9d2453f192a2b10f.js    1.51 kB   runtime  [emitted]  runtime
+                      index.html  846 bytes            [emitted]
+✨  Done in 14.62s.
 ```
 
 You can either serve or deploy the contents of this `build` directory as a static site.
+
+## Static assets
+
+If you wish to copy files to the build directory that are not imported from application code, you can place
+them in a directory within `src` called `static`. All files in this directory will be copied from `src/static`
+to `build/static`.
 
 ## Paths
 
@@ -128,6 +142,33 @@ The `neutrino-preset-web` preset loads assets relative to the path of your appli
 assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
 override `output.publicPath`. See the [Customizing](#Customizing) section below.
 
+## Preset options
+
+You can provide custom options and have them merged with this preset's default options to easily affect how this
+preset builds. You can modify React preset settings from `.neutrinorc.js` by overriding with an options object. Use
+an array pair instead of a string to supply these options in `.neutrinorc.js`.
+
+The following shows how you can pass an options object to the React preset and override its options. See the
+[Web documentation](../neutrino-preset-web#presetoptions) for specific options you can override with this object.
+
+```js
+module.exports = {
+  use: [
+    ['neutrino-preset-react', {
+      /* preset options */
+      
+      // Example: disable Hot Module Replacement
+      hot: false,
+      
+      // Example: change the page title
+      html: {
+        title: 'Epic React App'
+      }
+    }]
+  ]
+};
+```
+
 ## Customizing
 
 To override the build configuration, start with the documentation on [customization](../../customization/README.md).
@@ -135,79 +176,11 @@ To override the build configuration, start with the documentation on [customizat
 Web preset. See the [Web documentation customization](../neutrino-preset-web#customizing)
 for preset-specific configuration to override.
 
-### Simple customization
-
-By following the [customization guide](../../customization/simple.md) and knowing the rule, loader, and plugin IDs above,
-you can override and augment the build directly from package.json.
-
-#### Vendoring
-
-By defining an entry point in package.json named `vendor` you can split out external dependencies into a chunk separate
-from your application code. When working with a React application, it is recommended to start out by splitting off
-React and React DOM into the `vendor` chunk.
-
-_Example: Put React and React DOM into a separate "vendor" chunk:_
-
-```json
-{
-  "neutrino": {
-    "config": {
-      "entry": {
-        "vendor": [
-          "react",
-          "react-dom"
-        ]
-      }
-    }
-  },
-  "dependencies": {
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2"
-  }
-}
-```
-
-Running the build again, you can contrast the bundles generated here with the one generated in the quick start:
-
-```bash
-❯ yarn build
-clean-webpack-plugin: /react/build has been removed.
-Build completed in 6.726s
-
-Hash: 0468e662989da55bdc5e
-Version: webpack 2.2.1
-Time: 6730ms
-                                  Asset       Size  Chunks             Chunk Names
-  vendor.0b3c06ba6b2494d683ee.bundle.js     142 kB    0, 2  [emitted]  vendor
-   index.d264625fd405d81cb995.bundle.js  276 bytes    1, 2  [emitted]  index
-manifest.29ee4d0db8f2534cc643.bundle.js    1.44 kB       2  [emitted]  manifest
-                             index.html  866 bytes          [emitted]
-✨  Done in 8.21s.
-```
-
-#### HTML files
-
-If you wish to override how HTML files are created for your React app, refer to the [relevant section on
-neutrino-preset-web](../neutrino-preset-web/README.md#html-files).
-
-_Example: Change the application mount ID from "root" to "app":_
-
-```json
-{
-  "neutrino": {
-    "options": {
-      "html": {
-        "appMountId": "app"
-      }
-    }
-  }
-}
-```
-
 ### Advanced configuration
 
 By following the [customization guide](../../customization/advanced.md) and knowing the rule, loader, and plugin IDs from
-neutrino-preset-web, you can override and augment the build by creating a JS module which overrides the config.
+`neutrino-preset-web`, you can override and augment the build by providing a function to your `.neutrinorc.js` use
+array. You can also make these changes from the Neutrino API in custom middleware.
 
 #### Vendoring
 
@@ -217,11 +190,14 @@ from your application code.
 _Example: Put React and React DOM into a separate "vendor" chunk:_
 
 ```js
-module.exports = neutrino => {
-  neutrino.config
-    .entry('vendor')
-      .add('react')
-      .add('react-dom');
+module.exports = {
+  use: [
+    'neutrino-preset-react',
+    (neutrino) => neutrino.config
+      .entry('vendor')
+        .add('react')
+        .add('react-dom')
+  ]
 };
 ```
 
@@ -276,7 +252,7 @@ load();
 ## Contributing
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
-containing all resources for developing Neutrino and its core presets. Follow the
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-react.svg

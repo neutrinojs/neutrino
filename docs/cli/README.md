@@ -2,13 +2,11 @@
 
 Using the command-line interface is the preferred and simplest way of interacting with Neutrino.
 
-When using the Neutrino CLI, you provide a list of presets for the API to attempt to load and merge configurations for.
-Each preset will attempt to be loaded from the current working directory's `node_modules`, nested within, by name, or
-relative file path. If it cannot be found, an exception will be thrown.
-
-In addition to any provided presets, Neutrino will also attempt to load configuration data from the package.json
-residing in the current working directory. If this package.json contains an object at `neutrino.config`, this data
-will be merged with the Neutrino configuration after all presets and middleware have been loaded.
+When using the Neutrino CLI, you can provide a list of middleware for the API to attempt to load and merge
+configurations. Each middleware will attempt to be loaded from the current working directory's `node_modules`, nested
+within, by name, or relative file path. If it cannot be found, an exception will be thrown. In addition to any provided
+middleware, Neutrino will attempt to load a `.neutrinorc.js` file as middleware from the current working directory if
+it exists.
 
 Let's take a look at the CLI usage.
 
@@ -24,12 +22,13 @@ Commands:
   test [files..]  Run all suites from the test directory or provided files
 
 Options:
-  --inspect  Output a string representation of the configuration used by Neutrino and exit   [boolean]
-  --use      A list of Neutrino middleware used to configure the build                       [array] [default: []]
-  --env      The value for the environment variable, NODE_ENV                                [string]
-  --debug    Run in debug mode                                                               [boolean] [default: false]
-  --version  Show version number                                                             [boolean]
-  --help     Show help                                                                       [boolean]
+  --inspect  Output a string representation of the configuration used by Neutrino and exit           [boolean] [default: false]
+  --use      A list of Neutrino middleware used to configure the build                               [array] [default: []]
+  --options  Set Neutrino options and environment variables, e.g. --options.env.NODE_ENV production  [default: {}]
+  --quiet    Disable console output of CLI commands                                                  [boolean] [default: false]
+  --debug    Run in debug mode                                                                       [boolean] [default: false]
+  --version  Show version number                                                                     [boolean]
+  --help     Show help                                                                               [boolean]
 ```
 
 ## `--version`
@@ -38,7 +37,7 @@ Using `--version` will output the current version of the Neutrino CLI to the con
 
 ```bash
 ❯ neutrino --version
-5.0.0
+6.0.0
 ```
 
 ## `--use`
@@ -50,10 +49,9 @@ middleware and presets to load. These can be an npm package or a relative path t
 ❯ neutrino start --use neutrino-preset-react neutrino-preset-karma
 ```
 
-The Neutrino CLI will still attempt to load any presets and middleware defined in the project's package.json located at
-`config.use`. Middleware passed via the CLI `--use` will take precedence over middleware defined in
-`config.use`, meaning that options set by package.json middleware can have their values overridden by
-`--use` middleware.
+The Neutrino CLI will still attempt to load any presets and middleware defined in the project's `.neutrinorc.js` file.
+Middleware passed via the CLI `--use` will take precedence over middleware defined in `.neutrinorc.js`, meaning that
+options set by `.neutrinorc.js` middleware can have their values overridden by `--use` middleware.
 
 ## `--inspect`
 
@@ -98,9 +96,29 @@ index 3356802..d4d82ef 100644
 
 ## --debug
 
-Informs interested middleware that they should be in a state of debugging. This doesn't currently make Neutrino itself
-behave any differently, rather it can be used to inform middleware to behave differently, by outputting console
+Informs interested middleware that they should be in a state of debugging. This does not currently make Neutrino itself
+behave any differently; rather it can be used to inform middleware to behave differently, by outputting console
 information, inspecting processes, or changing configuration helpful for debugging.
+
+## --quiet
+
+Prevents the CLI from outputting any console output. Neutrino middleware should also respect this flag when possible,
+but is not a guarantee.
+
+## --options
+
+Used to override Neutrino options and environments from the command line. This would typically be used for specifying
+one-off option changes that may not be appropriate to encapsulate in `.neutrinorc.js`. The `--options` flag is
+formatted as "dotted-object" syntax, meaning it should be used as `--options.<option> [value]`. This can also be used
+to toggle Boolean options to `true` by providing no value. Some examples:
+
+```bash
+❯ neutrino start --options.host 192.168.1.10 --options.port 3000
+
+❯ neutrino build --options.env.NODE_ENV development --options.env.CUSTOM_ENV_VAR customValue
+
+❯ neutrino start --options.https
+```
 
 ## `neutrino start`
 
@@ -126,14 +144,15 @@ Looking at the `--help` for `neutrino test`:
 neutrino test [files..]
 
 Options:
-  --inspect   Output a string representation of the configuration used by Neutrino and exit  [boolean] [default: false]
-  --use      A list of Neutrino presets used to configure the build                          [array] [default: []]
-  --version  Show version number                                                             [boolean]
-  --env      The value for the environment variable, NODE_ENV                                [string]
-  --debug    Run in debug mode                                                               [boolean] [default: false]
-  --help     Show help                                                                       [boolean]
-  --coverage Collect test coverage information and generate report                           [boolean] [default: false]
-  --watch    Watch source files for changes and re-run tests                                 [boolean] [default: false]
+  --inspect   Output a string representation of the configuration used by Neutrino and exit           [boolean] [default: false]
+  --use       A list of Neutrino middleware used to configure the build                               [array] [default: []]
+  --options   Set Neutrino options and environment variables, e.g. --options.env.NODE_ENV production  [default: {}]
+  --quiet     Disable console output of CLI commands                                                  [boolean] [default: false]
+  --debug     Run in debug mode                                                                       [boolean] [default: false]
+  --version   Show version number                                                                     [boolean]
+  --help      Show help                                                                               [boolean]
+  --coverage  Collect test coverage information and generate report                                   [boolean] [default: false]
+  --watch     Watch source files for changes and re-run tests                                         [boolean] [default: false]
 ```
 
 Using the command `neutrino test` will execute every test file located in your
@@ -155,16 +174,34 @@ You can also pass a flag `--watch` to watch source files for changes and re-run 
 ❯ neutrino test --watch
 ```
 
-As well you can pass a flag `--coverage` to collect test coverage information and generate a report, if your middleware
+As well, you can pass a flag `--coverage` to collect test coverage information and generate a report, if your middleware
 supports it.
 
 ```bash
 ❯ neutrino test --coverage
 ```
 
+## Custom commands
+
+Middleware has the ability to register named commands with Neutrino. These registered commands are also available to
+invoke from the CLI provided the middleware registering the command has been loaded when it is time for the CLI to
+invoke the command.
+
+```js
+// custom.js
+module.exports = (neutrino) => {
+  neutrino.register('hello', () => 'HELLO WORLD!');
+};
+```
+
+```bash
+❯ neutrino hello --use custom.js
+HELLO WORLD!
+```
+
 ## Exit codes
 
-When the CLI creates an instance of Neutrino, it waits for all commands to either resolve or reject their Promise.
-If the command succeeded, the CLI will exit with code `0`. If there was an error, the CLI will log the error
+When the CLI creates an instance of Neutrino, it waits for all commands to either resolve or reject their registered
+command. If the command succeeded, the CLI will exit with code `0`. If there were errors, the CLI will log the errors
 to the console and exit with code `1`. This makes it easier to use Neutrino commands for status reasons, such
 as failing a pull request on continuous integration if any tests fail or if there are linter errors.
