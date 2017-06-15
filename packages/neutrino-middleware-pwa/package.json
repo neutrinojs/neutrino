@@ -1,0 +1,27 @@
+{
+  "name": "neutrino-middleware-pwa",
+  "version": "6.0.0",
+  "description": "Neutrino middleware for augmenting a Neutrino web application with Progressive Web Application capabilities",
+  "main": "index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-middleware",
+    "pwa",
+    "progressive",
+    "sw",
+    "service worker",
+    "offline"
+  ],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MPL-2.0",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/neutrino-middleware-pwa",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "dependencies": {
+    "deepmerge": "^1.3.2",
+    "offline-plugin": "^4.8.1"
+  },
+  "peerDependencies": {
+    "neutrino": "^6.0.0"
+  }
+}

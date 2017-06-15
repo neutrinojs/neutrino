@@ -5,9 +5,9 @@
 
 ## Requirements
 
-- Node.js v6.9+
+- Node.js v6.10+
 - Yarn or npm client
-- Neutrino v5
+- Neutrino v6
 
 ## Installation
 
@@ -31,6 +31,7 @@
 and plug it into Neutrino:
 
 ```js
+// Using function middleware format
 const fonts = require('neutrino-middleware-font-loader');
 
 // Use with default options
@@ -43,6 +44,27 @@ neutrino.use(fonts, {
   ttf: {},
   eot: {}
 });
+```
+
+```js
+// Using object or array middleware format
+
+// Use with default options
+module.exports = {
+  use: ['neutrino-middleware-font-loader']
+};
+
+// Usage showing default options
+module.exports = {
+  use: [
+    ['neutrino-middleware-font-loader', {
+      limit: '10000',
+      woff: {},
+      ttf: {},
+      eot: {}
+    }]
+  ]
+};
 ```
 
 - `limit`: Return a Data URL if the file is smaller than a byte limit.
@@ -59,14 +81,16 @@ ready to make changes.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-- `woff`: Allows importing WOFF font files from modules. Contains a single loader named `url`.
-- `ttf`: Allows importing TTF font files from modules. Contains a single loader named `url`.
-- `eot`: Allows importing EOT font files from modules. Contains a single loader named `file`.
+| Name | Description | Environments |
+| ---- | ----------- | ------------ |
+| `woff` | Allows importing WOFF font files from modules. Contains a single loader named `url`. | all |
+| `ttf` | Allows importing TTF font files from modules. Contains a single loader named `url`. | all |
+| `eot` | Allows importing EOT font files from modules. Contains a single loader named `file`. | all |
 
 ## Contributing
 
-This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
-containing all resources for developing Neutrino and its core presets. Follow the
+This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-middleware-font-loader.svg

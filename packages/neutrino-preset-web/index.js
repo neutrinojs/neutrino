@@ -4,100 +4,92 @@ const fontLoader = require('neutrino-middleware-font-loader');
 const imageLoader = require('neutrino-middleware-image-loader');
 const compileLoader = require('neutrino-middleware-compile-loader');
 const env = require('neutrino-middleware-env');
+const hot = require('neutrino-middleware-hot');
 const htmlTemplate = require('neutrino-middleware-html-template');
 const chunk = require('neutrino-middleware-chunk');
-const hot = require('neutrino-middleware-hot');
 const copy = require('neutrino-middleware-copy');
 const clean = require('neutrino-middleware-clean');
 const minify = require('neutrino-middleware-minify');
 const loaderMerge = require('neutrino-middleware-loader-merge');
-const namedModules = require('neutrino-middleware-named-modules');
-const { join, dirname } = require('path');
-const { path, pathOr } = require('ramda');
+const devServer = require('neutrino-middleware-dev-server');
+const { join, dirname, basename } = require('path');
+const merge = require('deepmerge');
+const ScriptExtHtmlPlugin = require('script-ext-html-webpack-plugin');
 
 const MODULES = join(__dirname, 'node_modules');
 
-function devServer({ config }, options) {
-  config.devServer
-    .host(options.host)
-    .port(parseInt(options.port, 10))
-    .https(options.https)
-    .contentBase(options.contentBase)
-    .historyApiFallback(true)
-    .hot(true)
-    .publicPath('/')
-    .stats({
-      assets: false,
-      children: false,
-      chunks: false,
-      colors: true,
-      errors: true,
-      errorDetails: true,
-      hash: false,
-      modules: false,
-      publicPath: false,
-      timings: false,
-      version: false,
-      warnings: true
-    });
-}
-
-module.exports = (neutrino) => {
-  if (!path(['options', 'compile', 'targets', 'browsers'], neutrino)) {
-    Object.assign(neutrino.options, {
-      compile: {
-        targets: {
-          browsers: [
-            'last 2 Chrome versions',
-            'last 2 Firefox versions',
-            'last 2 Edge versions',
-            'last 2 Opera versions',
-            'last 2 Safari versions',
-            'last 2 iOS versions'
-          ]
-        }
-      }
-    });
-  }
+module.exports = (neutrino, opts = {}) => {
+  const options = merge({
+    hot: true,
+    html: {},
+    devServer: {
+      hot: opts.hot !== false
+    },
+    polyfills: {
+      async: true,
+      babel: true
+    },
+    babel: {
+      plugins: [
+        !opts.polyfills || opts.polyfills.async !== false ?
+          [require.resolve('fast-async'), { spec: true }] :
+          {},
+        require.resolve('babel-plugin-syntax-dynamic-import')
+      ],
+      presets: [
+        [require.resolve('babel-preset-env'), merge({
+          debug: neutrino.options.debug,
+          targets: {
+            browsers: [
+              'last 2 Chrome versions',
+              'last 2 Firefox versions',
+              'last 2 Edge versions',
+              'last 2 Opera versions',
+              'last 2 Safari versions',
+              'last 2 iOS versions'
+            ]
+          },
+          modules: false,
+          useBuiltIns: true,
+          exclude: !opts.polyfills || opts.polyfills.async !== false ?
+            ['transform-regenerator', 'transform-async-to-generator'] :
+            []
+        }, opts.presetEnv || {})]
+      ]
+    }
+  }, opts);
 
   neutrino.use(env);
   neutrino.use(htmlLoader);
   neutrino.use(styleLoader);
   neutrino.use(fontLoader);
   neutrino.use(imageLoader);
-  neutrino.use(htmlTemplate, neutrino.options.html);
-  neutrino.use(namedModules);
+  neutrino.use(htmlTemplate, options.html);
   neutrino.use(compileLoader, {
-    include: [neutrino.options.source, neutrino.options.tests, require.resolve('./polyfills.js')],
-    babel: {
-      plugins: [require.resolve('babel-plugin-syntax-dynamic-import')],
-      presets: [
-        [require.resolve('babel-preset-env'), {
-          modules: false,
-          useBuiltIns: true,
-          targets: neutrino.options.compile.targets
-        }]
-      ]
-    }
+    include: [
+      neutrino.options.source,
+      neutrino.options.tests,
+      ...(options.polyfills.babel ? [require.resolve('./polyfills.js')] : [])
+    ],
+    exclude: [neutrino.options.static],
+    babel: options.babel
   });
 
   neutrino.config
-    .when(process.env.NODE_ENV !== 'test', () => neutrino.use(chunk, {
-      names: ['polyfill']
-    }))
+    .when(process.env.NODE_ENV !== 'test', () => neutrino.use(chunk))
     .target('web')
     .context(neutrino.options.root)
-    .entry('polyfill')
-      .add(require.resolve('./polyfills.js'))
-      .end()
+    .when(options.polyfills.babel, config => config
+      .entry('polyfill')
+        .add(require.resolve('./polyfills.js')))
     .entry('index')
       .add(neutrino.options.entry)
       .end()
     .output
       .path(neutrino.options.output)
       .publicPath('./')
-      .filename('[name].bundle.js')
-      .chunkFilename('[id].[chunkhash].js')
+      .filename('[name].js')
+      .chunkFilename('[name].[chunkhash].js')
       .end()
     .resolve
       .alias
@@ -124,43 +116,36 @@ module.exports = (neutrino) => {
       .set('console', false)
       .set('global', true)
       .set('process', true)
-      .set('Buffer', true)
+      .set('Buffer', false)
       .set('__filename', 'mock')
       .set('__dirname', 'mock')
       .set('setImmediate', true)
       .set('fs', 'empty')
       .set('tls', 'empty')
       .end()
+    .plugin('script-ext')
+      .use(ScriptExtHtmlPlugin, [{ defaultAttribute: 'defer' }])
+      .end()
     .when(neutrino.config.module.rules.has('lint'), () => neutrino
       .use(loaderMerge('lint', 'eslint'), {
-        globals: ['Buffer'],
         envs: ['browser', 'commonjs']
       }))
     .when(process.env.NODE_ENV === 'development', (config) => {
-      const protocol = process.env.HTTPS ? 'https' : 'http';
-      const host = process.env.HOST || pathOr('localhost', ['options', 'config', 'devServer', 'host'], neutrino);
-      const port = process.env.PORT || pathOr(5000, ['options', 'config', 'devServer', 'port'], neutrino);
-
-      neutrino.use(hot);
-      neutrino.use(devServer, {
-        host,
-        port,
-        https: pathOr(protocol === 'https', ['options', 'config', 'devServer', 'https'], neutrino),
-        contentBase: neutrino.options.source
-      });
+      neutrino.use(devServer, options.devServer);
 
       config
         .devtool('source-map')
-        .entry('index')
-          .add(`webpack-dev-server/client?${protocol}://${host}:${port}/`)
-          .add('webpack/hot/dev-server');
+        .when(options.hot, () => neutrino.use(hot));
     }, (config) => {
       neutrino.use(clean, { paths: [neutrino.options.output] });
       neutrino.use(minify);
       neutrino.use(copy, {
-        patterns: [{ context: neutrino.options.source, from: '**/*' }],
-        options: { ignore: ['*.js*'] }
+        patterns: [{
+          context: neutrino.options.static,
+          from: '**/*',
+          to: basename(neutrino.options.static)
+        }]
       });
-      config.output.filename('[name].[chunkhash].bundle.js');
+      config.output.filename('[name].[chunkhash].js');
     });
 };

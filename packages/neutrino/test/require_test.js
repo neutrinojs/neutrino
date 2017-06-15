@@ -30,23 +30,23 @@ test.after.always(async () => {
 test('requires middleware relative to root', t => {
   const api = Neutrino();
 
-  api.requiresAndUses(['middleware']).value(v => t.is(v, 'root'));
+  t.notThrows(() => api.use('middleware'));
 });
 
 test('requires middleware from root/node_modules', t => {
   const api = Neutrino();
 
-  api.requiresAndUses(['alpha']).value(v => t.is(v, 'alpha'));
+  t.notThrows(() => api.use('alpha'));
 });
 
-test('forks with error middleware contains error', async (t) => {
+test('forks with error middleware contains error', (t) => {
   const api = Neutrino();
 
-  await t.throws(api.requiresAndUses(['errorMiddleware']).promise());
+  t.throws(() => api.use('errorMiddleware'));
 });
 
-test('throws if middleware cannot be found', async (t) => {
+test('throws if middleware cannot be found', (t) => {
   const api = Neutrino();
 
-  await t.throws(api.requiresAndUses(['nonExistent']).promise());
+  t.throws(() => api.use('nonExistent'));
 });

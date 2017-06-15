@@ -6,7 +6,7 @@
 ## Features
 
 - Zero upfront configuration necessary to start developing and building a Node.js project
-- Modern Babel compilation supporting ES modules, Node.js 6.9+, async functions, and dynamic imports
+- Modern Babel compilation supporting ES modules, Node.js 6.10+, async functions, and dynamic imports
 - Supports automatically-wired sourcemaps
 - Tree-shaking to create smaller bundles
 - Hot Module Replacement with source-watching during development
@@ -15,9 +15,9 @@
 
 ## Requirements
 
-- Node.js v6.9+
+- Node.js v6.10+
 - Yarn or npm client
-- Neutrino v5
+- Neutrino v6
 
 ## Installation
 
@@ -92,6 +92,14 @@ Now edit your project's package.json to add commands for starting and building t
 }
 ```
 
+If you are using `.neutrinorc.js`, add this preset to your use array instead of `--use` flags:
+
+```js
+module.exports = {
+  use: ['neutrino-preset-node']
+};
+```
+
 Start the app, then either open a browser to http://localhost:3000 or use curl from another terminal window:
 
 #### Yarn
@@ -129,7 +137,7 @@ clean-webpack-plugin: /node/build has been removed.
 Build completed in 0.419s
 
 Hash: 89e4fb250fc535920ba4
-Version: webpack 2.2.1
+Version: webpack 2.6.1
 Time: 424ms
        Asset     Size  Chunks             Chunk Names
     index.js  4.29 kB       0  [emitted]  index
@@ -199,6 +207,64 @@ modification during development.
 You can start the Node.js server in `inspect` mode to debug the process by setting `neutrino.options.debug` to `true`.
 This can be done from the [API](../../api#optionsdebug) or the [CLI using `--debug`](../../cli#-debug).
 
+## Preset options
+
+You can provide custom options and have them merged with this preset's default options to easily affect how this
+preset builds. You can modify Node.js preset settings from `.neutrinorc.js` by overriding with an options object. Use
+an array pair instead of a string to supply these options in `.neutrinorc.js`.
+
+The following shows how you can pass an options object to the Node.js preset and override its options, showing the
+defaults:
+
+```js
+module.exports = {
+  use: [
+    ['neutrino-preset-node', {
+      // Enables Hot Module Replacement. Set to false to disable
+      hot: true,
+
+      polyfills: {
+        // Enables fast-async polyfill. Set to false to disable
+        async: true
+      },
+
+      // Add additional Babel plugins, presets, or env options
+      babel: {
+        // Override options for babel-preset-env, showing defaults:
+        presetEnv: {
+          targets: {
+            node: '6.10',
+            modules: false,
+            useBuiltIns: true,
+            // These are excluded when using polyfills.async. Disabling the async polyfill
+            // will remove these from the exclusion list
+            exclude: ['transform-regenerator', 'transform-async-to-generator']
+          }
+        }
+      }
+    }]
+  ]
+};
+```
+
+_Example: Override the Node.js Babel compilation target to Node.js v8:_
+
+```js
+module.exports = {
+  use: [
+    ['neutrino-preset-node', {
+      babel: {
+        presetEnv: {
+          targets: {
+            node: '6.10'
+          }
+        }
+      }
+    }]
+  ]
+};
+```
+
 ## Customizing
 
 To override the build configuration, start with the documentation on [customization](../../customization/README.md).
@@ -206,7 +272,7 @@ To override the build configuration, start with the documentation on [customizat
 changes.
 
 By default the Node.js preset creates a single **main** `index` entry point to your application, and this maps to the
-`index.js` file in the `src` directory. This means that the Node.js preset is optimized toward a main entry to your app.
+`index.*` file in the `src` directory. This means that the Node.js preset is optimized toward a main entry to your app.
 Code not imported in the hierarchy of the `index` entry will not be output to the bundle. To overcome this you
 must either define more entry points, or import the code path somewhere along the `index` hierarchy.
 
@@ -219,7 +285,9 @@ package.json. No extra work is required to make this work.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-- `compile`: Compiles JS files from the `src` directory using Babel. Contains a single loader named `babel`.
+| Name | Description | Environments |
+| ---- | ----------- | ------------ |
+| `compile` | Compiles JS files from the `src` directory using Babel. Contains a single loader named `babel` | all |
 
 ### Plugins
 
@@ -227,149 +295,35 @@ The following is a list of plugins and their identifiers which can be overridden
 
 _Note: Some plugins are only available in certain environments. To override them, they should be modified conditionally._
 
-| Name     | Description                                                                                                                                  | Environments                |
-| ----     | -----------                                                                                                                                  | ------------                |
-| `banner` | Injects source-map-support into the entry point of your application if detected in `dependencies` or `devDependencies` of your package.json. | all                         |
-| `copy`   | Copies non-JS files from `src` to `build` when using `neutrino build`.                                                                       | `production`, `test`        |
-| `clean`  | Clears the contents of `build` prior to creating a production bundle.                                                                        | `production`, `test`        |
-| `hot`    | Enables Hot Module Replacement.                                                                                                              | `development`               |
+| Name | Description | Environments |
+| ---- | ----------- | ------------ |
+| `banner` | Injects source-map-support into the entry point of your application if detected in `dependencies` or `devDependencies` of your package.json. | Only when `source-map-support` is installed |
+| `copy` | Copies all files from `src/static` to `build` when using `neutrino build`. | all but `development` |
+| `clean` | Clears the contents of `build` prior to creating a production bundle. | all but `development` |
+| `start-server` | Start a Node.js for a configured entry point or specified file. | `development` |
+| `hot` | Enables hot module replacement. | `development` |
 
-### Simple customization
+### Override configuration
 
-By following the [customization guide](../../customization/simple.md) and knowing the rule, loader, and plugin IDs above,
-you can override and augment the build directly from package.json.
+By following the [customization guide](../../customization) and knowing the rule, loader, and plugin IDs above,
+you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also
+make these changes from the Neutrino API in custom middleware.
 
-#### Compile targets
-
-This preset uses babel-preset-env to compile code targeting the Node.js v6.9+. To change
-the Node.js target from package.json, specify an object at `neutrino.options.compile.targets` which contains a
-[babel-preset-env-compatible](https://github.com/babel/babel-preset-env#targetsnode) Node.js target.
-
-_Example: Replace the preset Node.js target with support for Node.js 4.2:_
-
-```json
-{
-  "neutrino": {
-    "options": {
-      "compile": {
-        "targets": {
-          "node": 4.2
-        }
-      }
-    }
-  }
-}
-```
-
-_Example: Change support to current Node.js version:_
-
-```json
-{
-  "neutrino": {
-    "options": {
-      "compile": {
-        "targets": {
-          "node": "current"
-        }
-      }
-    }
-  }
-}
-```
-
-#### Other customization examples
-
-_Example: Allow importing modules with an `.mjs` extension._
-
-```json
-{
-  "neutrino": {
-    "config": {
-      "resolve": {
-        "extensions": [
-          ".mjs"
-        ]
-      }
-    }
-  }
-}
-```
-
-### Advanced configuration
-
-By following the [customization guide](../../customization/advanced.md) and knowing the rule, loader, and plugin IDs above,
-you can override and augment the build by creating a JS module which overrides the config.
-
-#### Compile targets
-
-This preset uses babel-preset-env to compile code targeting the Node.js v6.9+. To change
-the Node.js target from package.json, specify an object at `neutrino.options.compile.targets` which contains a
-[babel-preset-env-compatible](https://github.com/babel/babel-preset-env#targetsnode) Node.js target.
-
-**Note: Setting these options via `neutrino.options.compile` must be done prior to loading the Node.js preset or they
-will not be picked up by the compile middleware. These examples show changing compile targets with options before
-loading the preset and overriding them if loaded afterwards.**
-
-_Example: Replace the preset Node.js target with support for Node.js 4.2:_
+_Example: Allow importing modules with a `.mjs` extension._
 
 ```js
-module.exports = neutrino => {
-  // Using neutrino.options prior to loading Node.js preset
-  neutrino.options.compile = {
-    targets: {
-      node: 4.2
-    }
-  };
-  
-  // Using compile options override following loading Node.js preset
-  neutrino.config.module
-    .rule('compile')
-    .use('babel')
-    .tap(options => {
-      options.presets[0][1].targets.node = 4.2;
-
-      return options;
-    });
-};
-```
-
-_Example: Change support to current Node.js version:_
-
-```js
-module.exports = neutrino => {
-  // Using neutrino.options prior to loading Node.js preset
-  neutrino.options.compile = {
-    targets: {
-      node: 4.2
-    }
-  };
-  
-  // Using compile options override following loading Node.js preset
-  neutrino.config.module
-    .rule('compile')
-    .use('babel')
-    .tap(options => {
-      options.presets[0][1].targets.node = 'current';
-
-      return options;
-    });
-};
-```
-
-#### Other customization examples
-
-_Example: Allow importing modules with an `.mjs` extension._
-
-```js
-module.exports = neutrino => {
-  neutrino.config.resolve.extensions.add('.mjs');
+module.exports = {
+  use: [
+    'neutrino-preset-node',
+    (neutrino) => neutrino.config.resolve.extensions.add('.mjs')
+  ]
 };
 ```
 
 ## Contributing
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
-containing all resources for developing Neutrino and its core presets. Follow the
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-node.svg

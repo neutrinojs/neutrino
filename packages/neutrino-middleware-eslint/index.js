@@ -1,24 +1,34 @@
+const Future = require('fluture');
 const merge = require('deepmerge');
 const clone = require('lodash.clonedeep');
-const { join } = require('path');
+const { CLIEngine } = require('eslint');
+const { assoc, curry, evolve, keys, omit, pipe, prop, reduce } = require('ramda');
+const { basename, join } = require('path');
 
 const MODULES = join(__dirname, 'node_modules');
+const getEslintOptions = config => config.module.rule('lint').use('eslint').get('options');
+const renameKeys = curry((definition, obj) =>
+  reduce((acc, key) => assoc(definition[key] || key, obj[key], acc), {}, keys(obj)));
+const reduceToTrueKeys = reduce((acc, key) => assoc(key, true, acc), {});
+const getEslintRcConfig = pipe(
+  getEslintOptions,
+  clone,
+  assoc('useEslintrc', true),
+  omit(['failOnError', 'emitWarning', 'emitError']),
+  renameKeys({ envs: 'env', baseConfig: 'extends' }),
+  evolve({
+    extends: prop('extends'),
+    globals: reduceToTrueKeys,
+    env: reduceToTrueKeys
+  })
+);
 
-module.exports = (neutrino, options) => {
+module.exports = (neutrino, opts = {}) => {
   const isNotDev = process.env.NODE_ENV !== 'development';
-
-  // eslint-disable-next-line no-param-reassign
-  neutrino.eslintrc = () => {
-    const options = clone(neutrino.config.module.rule('lint').use('eslint').get('options'));
-
-    options.extends = options.baseConfig.extends;
-    options.useEslintrc = true;
-    options.env = options.envs.reduce((env, key) => Object.assign(env, { [key]: true }), {});
-    options.globals = options.globals.reduce((globals, key) => Object.assign(globals, { [key]: true }), {});
-    ['envs', 'baseConfig', 'failOnError', 'emitWarning', 'emitError'].map(method => delete options[method]);
-
-    return options;
-  };
+  const options = merge.all([
+    opts,
+    !opts.include && !opts.exclude ? { include: [neutrino.options.source], exclude: [neutrino.options.static] } : {}
+  ]);
 
   neutrino.config
     .resolve
@@ -63,4 +73,31 @@ module.exports = (neutrino, options) => {
             globals: ['process'],
             rules: {}
           }, options.eslint || {}));
+
+  neutrino.register('eslintrc', () => getEslintRcConfig(neutrino.config));
+  neutrino.register('lint', () => {
+    const { fix = false } = neutrino.options.args;
+    const ignorePattern = (options.exclude || [])
+      .map(exclude => join(
+        basename(neutrino.options.source),
+        basename(exclude),
+        '**/*'
+      ));
+    const eslintConfig = merge(getEslintOptions(neutrino.config), { ignorePattern, fix });
+
+    return Future
+      .of(eslintConfig)
+      .map(options => new CLIEngine(options))
+      .chain(cli => Future.both(Future.of(cli.executeOnFiles(options.include)), Future.of(cli.getFormatter())))
+      .map(([report, formatter]) => {
+        fix && CLIEngine.outputFixes(report);
+        return [report, formatter];
+      })
+      .chain(([report, formatter]) => {
+        const errors = CLIEngine.getErrorResults(report.results);
+        const formatted = formatter(report.results);
+
+        return errors.length ? Future.reject(formatted) : Future.of(formatted);
+      });
+  });
 };

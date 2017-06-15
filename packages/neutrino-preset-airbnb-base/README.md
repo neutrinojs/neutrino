@@ -13,9 +13,9 @@ config, following the [Airbnb styleguide](https://github.com/airbnb/javascript).
 
 ## Requirements
 
-- Node.js v6.9+
+- Node.js v6.10+
 - Yarn or npm client
-- Neutrino v5, Neutrino build preset
+- Neutrino v6, Neutrino build preset
 
 ## Installation
 
@@ -55,22 +55,20 @@ linting **before** your build preset. For example, if you are building your proj
 }
 ```
 
-Or if you have set up Neutrino with `neutrino.use` in your package.json:
+Or if you are using a `.neutrinorc.js`, add this preset to your use array instead of `--use` flags:
 
-```json
-{
-  "neutrino": {
-    "use": [
-      "neutrino-preset-airbnb-base",
-      "neutrino-preset-web"
-    ]
-  }
-}
+```js
+module.exports = {
+  use: [
+    'neutrino-preset-airbnb-base',
+    'neutrino-preset-web'
+  ]
+};
 ```
 
 Start the app, then check your console for any linting errors. If everything is successful, you should see no errors in
 the console. ESLint errors visible during development are reported, but will still continue to build and serve your
-project.
+project. ESLint errors during build will not build the project, and will cause the command to fail.
 
 #### Yarn
 
@@ -112,8 +110,8 @@ ERROR in ./src/index.js
 ## Building
 
 `neutrino-preset-airbnb-base` will cause errors to **fail your build** when creating a bundle via `neutrino build`. If
-you want to ease introduction of this linting preset to your project, consider only adding it to your preset list for
-`neutrino start` until all linting errors have been resolved.
+you want to ease introduction of this linting preset to your project, consider only adding it to your use list for
+`neutrino start` or `development` environment until all linting errors have been resolved.
 
 ```bash
 ❯ yarn build
@@ -133,6 +131,46 @@ Build completed in 1.287s
 error Command failed with exit code 1.
 ```
 
+_Example: ease linting into project by only adding when `NODE_ENV=development`, e.g. `neutrino start`:_
+
+```js
+module.exports = {
+  use: [
+    'neutrino-preset-web'
+  ],
+  env: {
+    NODE_ENV: {
+      development: {
+        use: ['neutrino-preset-airbnb-base']
+      }
+    }
+  }
+};
+```
+
+## Middleware options
+
+This preset uses the same middleware options as [neutrino-middleware-eslint](https://neutrino.js.org/middleware/neutrino-middleware-eslint).
+If you wish to customize what is included, excluded, or any ESLint options, you can provide an options object with the
+middleware and this will be merged with our internal defaults for this preset. Use an array pair instead of a string
+to supply these options.
+
+_Example: Turn off semicolons from being required as defined by the Airbnb rules._
+
+```js
+module.exports = {
+  use: [
+    ['neutrino-preset-airbnb-base', {
+      eslint: {
+        rules: {
+          semi: 'off'
+        }
+      }
+    }]
+  ]
+}
+```
+
 ## Customizing
 
 To override the build configuration, start with the documentation on [customization](https://neutrino.js.org/customization).
@@ -143,131 +181,135 @@ make changes.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-- `lint`: Lints JS and JSX files from the `src` directory using ESLint. Contains a single loader named `eslint`. This is
-inherited from `neutrino-middleware-eslint`.
+| Name | Description | Environments |
+| ---- | ----------- | ------------ |
+| `lint` | Lints JS and JSX files from the `src` directory using ESLint. Contains a single loader named `eslint`. This is inherited from `neutrino-middleware-eslint`. | all |
 
-### Simple customization
+### Information
 
-By following the [customization guide](https://neutrino.js.org/customization/simple) and knowing the rule and loader IDs above,
-you can override and augment the linting configuration directly from package.json. _Note: Using the simple customization
-approach for linting changes can be quite verbose. Consider using advanced configuration below if this bothers you._
+If you want your preset or middleware to also extend from another **ESLint configuration or preset** that you have made
+a dependency, you must use `baseConfig.extends` rather than just `extends`. This is a limitation of ESLint, not this
+middleware.
 
-_Example: Turn off semicolons from being required as defined by the Airbnb rules._
+### Override configuration
 
-```json
-{
-  "neutrino": {
-    "config": {
-      "module": {
-        "rule": {
-          "lint": {
-            "use": {
-              "eslint": {
-                "options": {
-                  "rules": {
-                    "semi": "off"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-```
+By following the [customization guide](https://neutrino.js.org/customization) and knowing the rule and loader IDs above,
+you can also override or augment the build by providing a function to your `.neutrinorc.js` use array. You can also
+make this change from the Neutrino API when using the `use` method.
 
-Again, using simple customization for linting can be verbose. Consider using advanced customization if it suits your
-project.
-
-### Advanced configuration
-
-By following the [customization guide](https://neutrino.js.org/customization/advanced) and knowing the rule and loader IDs above,
-you can override and augment the build by creating a JS module which overrides the config. This preset is also
-Neutrino middleware, making it easy to compose and extend the configuration.
-
-_Example: Turn off semicolons from being required as defined by the Airbnb rules._
+_Example: Turn off semicolons from being required as defined by the Airbnb rules from `.neutrinorc.js` using a function and the API:_
 
 ```js
-// If using as middleware, remove from middleware and .use it from your override:
-const airbnb = require('neutrino-preset-airbnb-base');
-
-module.exports = neutrino => {
-  neutrino.use(airbnb, {
-    eslint: {
-      rules: {
-        semi: 'off'
-      }
-    }
-  });
-};
-```
-
-```js
-// If using as a preset from the CLI or configured in package.json,
-// override its configuration directly:
-const merge = require('deepmerge');
-
-module.exports = neutrino => {
-  neutrino.config.module
-    .rule('lint')
+module.exports = {
+  use: [
+    'neutrino-preset-airbnb-base',
+    (neutrino) => neutrino.config.module
+      .rule('lint')
       .use('eslint')
-        .tap(options => merge(options, {
-          rules: {
-            semi: 'off'
-          }
-        }));
+      .tap(options => Object.assign({}, options, {
+        rules: {
+          semi: 'off'
+        }
+      }))
+  ]
 };
+```
+
+## eslint CLI
+
+_This is the recommended way to perform a one-off lint in a Neutrino project, and is inherited from neutrino-middleware-eslint._
+
+You can also have Neutrino invoke ESLint for you if you wish to perform a one-time lint. This avoids needing to install
+ESLint manually, creating a `.eslintrc.js` file, or having to manage includes and ignores. As long as the ESLint
+middleware is loaded, you have access to a command to run ESLint from the command line.
+
+This middleware registers a command named `lint` which programmatically calls ESLint and prints the results to
+the console.
+
+```bash
+❯ neutrino lint
+```
+
+```bash
+❯ neutrino lint --fix
 ```
 
 ## eslintrc Config
 
-`neutrino-lint-airbnb-base` also provides a method for getting the ESLint configuration suitable for use in an eslintrc
-file. Typically this is used for providing hints or fix solutions to the development environment, e.g. IDEs and text
-editors. Doing this requires [creating an instance of the Neutrino API](https://neutrino.js.org/api) and providing the presets uses.
-If you keep this information in `neutrino.use` in package.json, this should be relatively straightforward. By
-providing all the presets used to Neutrino, you can ensure all the linting options used across all those preset will be
-merged together for your development environment, without the need for copying, duplication, or loss of organization and
-separation. This is inherited from `neutrino-middleware-eslint`.
+If you cannot or do not wish to use Neutrino to execute one-off linting, you can still use ESLint manually.
 
-_Example: Create a .eslintrc.js file in the root of the project._
+`neutrino-middleware-eslint`, from which this preset inherits, also provides a method for getting the ESLint
+configuration suitable for use in an eslintrc file. Typically this is used for providing hints or fix solutions to the
+development environment, e.g. IDEs and text editors. Doing this requires
+[creating an instance of the Neutrino API](https://neutrino.js.org/api) and providing the middleware it uses. If you keep all
+this information in a `.neutrinorc.js`, this should be relatively straightforward. By providing all the middleware used
+to Neutrino, you can ensure all the linting options used across all middleware will be merged together for your
+development environment, without the need for copying, duplication, or loss of organization and separation.
+
+This middleware registers another command named `eslintrc` which returns an ESLint configuration object suitable for
+consumption by the ESLint CLI. Use the Neutrino API's `call` method to invoke this command:
+
+_Example: Create a .eslintrc.js file in the root of the project, using `.neutrinorc.js` middleware._
+
+```js
+// .eslintrc.js
+
+// If you do not specify any middleware to call(),
+// it will use the local .neutrinorc.js file
+
+const { Neutrino } = require('neutrino');
+const api = Neutrino();
+
+module.exports = api.call('eslintrc');
+```
+
+_Example: Create a .eslintrc.js file in the root of the project, using specified middleware._
 
 ```js
 // .eslintrc.js
 const { Neutrino } = require('neutrino');
-const pkg = require('./package.json');
 const api = Neutrino();
 
-// If the Airbnb preset is not included in pkg.neutrino.use,
-// use it manually:
-api.use(require('neutrino-preset-airbnb-base'));
-
-// Add the rest of the presets:
-pkg.neutrino.use
-  .map(require)
-  .map(api.use);
-
-module.exports = api.eslintrc();
+module.exports = api.call('eslintrc', [
+  ['neutrino-preset-airbnb-base', {
+    eslint: {
+      rules: { semi: 'off' }
+    }
+  }],
+  'neutrino-preset-react'
+]);
 ```
 
-Projects may face a problem when their editor or IDE lints all files and highlights errors that were normally excluded from source, i.e. Neutrino's `include` and `exclude` options. This is because the ESLint CLI does not have a way to specify included and excluded files from configuration. If you still wish to use ESLint's CLI for linting, consider setting [CLI flags](http://eslint.org/docs/user-guide/command-line-interface#options) or using an [eslintignore](http://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories) to choose which files to include or exclude from linting.
+If you are able, only use a `.eslintrc.js` file for editor hints, and use the Neutrino `lint` command for one-off linting
+or fixes.
 
-Unfortunately ESlint doesn't provide possibility to configure ignored paths from Neutrino configuration to exclude them from linting. Projects authors should define this manually in their project root directory in `.eslintignore` file.
+Projects may face a problem when their editor or IDE lints all files and highlights errors that were normally excluded
+from source, i.e. Neutrino's `include` and `exclude` options. This is because the ESLint CLI does not have a way to
+specify included and excluded files from configuration. If you still wish to use ESLint's CLI for linting, consider
+setting [CLI flags](http://eslint.org/docs/user-guide/command-line-interface#options) or using an
+[eslintignore](http://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories) to choose which files to
+include or exclude from linting.
 
-*.eslintignore:*
+Unfortunately ESLint does not provide the possibility to configure ignored paths from Neutrino configuration and exclude them
+from linting. Projects authors should define this manually in their project root directory in a `.eslintignore` file. This
+is one of the main reasons to prefer using the `lint` CLI command with this middleware, as it avoids a lot of manual
+configuration and boilerplate.
+
+`.eslintignore` file:
 
 ```
 /build
 /*.*
 ```
 
-This paths exactly will exclude built files and any files in the root directory (e.g. custom Neutrino configuration) but `src` and `test` folders will be still checked. `/node_modules` are ignored by default in ESLint. More information can be found in the [ESLint user guide](http://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories)
+ESLint will exclude built files and any files in the root directory (e.g. custom Neutrino configuration) but `src` and
+`test` folders will be still checked. `node_modules` are ignored by default in ESLint. More information can be found
+in the [ESLint user guide](http://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories).
 
 ## Contributing
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
-containing all resources for developing Neutrino and its core presets. Follow the
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](https://neutrino.js.org/contributing) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-airbnb-base.svg

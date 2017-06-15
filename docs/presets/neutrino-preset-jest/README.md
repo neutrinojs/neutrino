@@ -13,9 +13,9 @@
 
 ## Requirements
 
-- Node.js v6.9+
+- Node.js v6.10+
 - Yarn or npm client
-- Neutrino v5, Neutrino build preset
+- Neutrino v6, Neutrino build preset
 
 ## Installation
 
@@ -76,7 +76,7 @@ Edit your `test/simple_test.js` file with the following:
 ```js
 describe('simple', () => {
   it('should be sane', () => {
-    expect(!false).toBe(true);
+    expect(false).not.toBe(true);
   });
 });
 ```
@@ -92,17 +92,15 @@ let's pretend this is a Node.js project:
 }
 ```
 
-Or if you have set up Neutrino with `neutrino.use` in your package.json:
+Or if you are using `.neutrinorc.js`, add this preset to your use array instead of `--use` flags:
 
-```json
-{
-  "neutrino": {
-    "use": [
-      "neutrino-preset-node",
-      "neutrino-preset-jest"
-    ]
-  }
-}
+```js
+module.exports = {
+  use: [
+    'neutrino-preset-node',
+    'neutrino-preset-jest'
+  ]
+};
 ```
 
 Run the tests, and view the results in your console:
@@ -167,7 +165,7 @@ generate a report:
 ```
 
 You can also edit your package.json file and create a separate command for generating a coverage report, which can be
-very helpful during continuous integration of your project:
+helpful during continuous integration of your project:
 
 ```json
 {
@@ -177,8 +175,27 @@ very helpful during continuous integration of your project:
 }
 ```
 
-See the [Jests documentation](https://facebook.github.io/jest/docs/configuration.html#collectcoveragefrom-array) for
+See the [Jest documentation](https://facebook.github.io/jest/docs/configuration.html#collectcoveragefrom-array) for
 more configuration options for generating coverage reports.
+
+## Preset options
+
+You can provide custom options and have them merged with this preset's default options, which are subsequently passed
+to Jest. You can modify Jest settings from `.neutrinorc.js` by overriding with any options Jest accepts. In a standalone
+Jest project this is typically done in the package.json file, but `neutrino-preset-jest` allows configuration through
+this mechanism as well. This accepts the same configuration options as outlined in the
+[Jest documentation](https://facebook.github.io/jest/docs/configuration.html). Use an array pair instead of a string
+to supply these options.
+
+_Example: Turn off bailing on test failures._
+
+```js
+module.exports = {
+  use: [
+    ['neutrino-preset-jest', { bail: false }]
+  ]
+};
+```
 
 ## Customizing
 
@@ -190,56 +207,49 @@ changes.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-- `compile`: Compiles JS files from the `test` directory using adopted Babel settings from other build presets.
-Contains a single loader named `babel`.
+| Name | Description | Environments |
+| ---- | ----------- | ------------ |
+| `compile` | Compiles JS files from the `test` directory using adopted Babel settings from other build presets. Contains a single loader named `babel`. | all |
 
-### Simple customization
+### Override configuration
 
-By following the [customization guide](../../customization/simple.md) and knowing the rule, and loader IDs above,
-you can override and augment the build directly from package.json.
+By following the [customization guide](../../customization) and knowing the rule, and loader IDs above,
+you can override and augment testing by providing a function to your `.neutrinorc.js` use array. You can also
+make this change from the Neutrino API when using the `use` method.
 
-Jest configuration settings can also be modified directly from package.json, but it is not required.
-`neutrino-preset-jest` will import Jest configuration from your package.json's `jest` object or `neutrino.options.jest`;
-the format is defined on the [Jest documentation site](https://facebook.github.io/jest/docs/configuration.html).
+In a standalone Jest project this is typically done in the package.json file, but `neutrino-preset-jest` allows
+configuration through this mechanism as well. This accepts the same configuration options as outlined in the
+[Jest documentation](https://facebook.github.io/jest/docs/configuration.html). Use an array pair instead of a string
+to supply these options.
 
-_Example: Turn off bailing on test failures._
-
-```json
-{
-  "neutrino": {
-    "options": {
-      "jest": {
-        "bail": false
-      }
-    }
-  }
-}
-```
-
-### Advanced configuration
-
-By following the [customization guide](../../customization/advanced.md) and knowing the rule, and loader IDs above,
-you can override and augment testing by creating a JS module which overrides the config. 
-
-You can also modify Jest settings by overriding with any options Jest accepts. In a standalone Jest project this is
-typically done in the package.json file, but `neutrino-preset-jest` allows advanced configuration through this
-mechanism as well. This is stored in the `neutrino.options.jest` object, and takes the same configuration options as
-outlined in the [Jest documentation](https://facebook.github.io/jest/docs/configuration.html).
-
-_Example: Create a global `__DEV__` variable set to `true` in all test environments._
+_Example: Add a custom Babel plugin when testing:_
 
 ```js
-module.exports = neutrino => {
-  neutrino.options.jest.globals = {
-    __DEV__: true
-  };
+module.exports = {
+  use: [
+    'neutrino-preset-jest'
+  ],
+  env: {
+    NODE_ENV: {
+      test: (neutrino) => neutrino.config.module
+        .rule('compile')
+        .use('babel')
+        .tap(options => merge(options, {
+          env: {
+            test: {
+              plugins: ['custom-babel-plugin']
+            }
+          }
+        }))
+    }
+  }
 };
 ```
 
 ## Contributing
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
-containing all resources for developing Neutrino and its core presets. Follow the
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-jest.svg

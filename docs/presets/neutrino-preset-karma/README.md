@@ -13,9 +13,9 @@
 
 ## Requirements
 
-- Node.js v6.9+
+- Node.js v6.10+
 - Yarn or npm client
-- Neutrino v5, Neutrino build preset
+- Neutrino v6, Neutrino build preset
 
 ## Installation
 
@@ -73,16 +73,14 @@ let's pretend this is a React project:
 }
 ```
 
-Or if you have set up Neutrino with `neutrino.use` in your package.json:
+Or if you are using `.neutrinorc.js`, add this preset to your use array instead of `--use` flags:
 
-```json
-{
-  "neutrino": {
-    "use": [
-      "neutrino-preset-react",
-      "neutrino-preset-karma"
-    ]
-  }
+```js
+module.exports = {
+  use: [
+    'neutrino-preset-react',
+    'neutrino-preset-karma'
+  ]
 }
 ```
 
@@ -94,7 +92,7 @@ Run the tests, and view the results in your console:
 ❯ yarn test
 
 START:
-16 02 2017 10:36:34.713:INFO [karma]: Karma v1.4.1 server started at http://0.0.0.0:9876/
+16 02 2017 10:36:34.713:INFO [karma]: Karma v1.7.0 server started at http://0.0.0.0:9876/
 16 02 2017 10:36:34.715:INFO [launcher]: Launching browser Chrome with unlimited concurrency
 16 02 2017 10:36:34.731:INFO [launcher]: Starting browser Chrome
 16 02 2017 10:36:35.655:INFO [Chrome 56.0.2924 (Mac OS X 10.12.3)]: Connected on socket MkTbqJLpAAa2HFaeAAAA with id 21326158
@@ -114,7 +112,7 @@ SUMMARY:
 ❯ npm test
 
 START:
-16 02 2017 10:38:12.865:INFO [karma]: Karma v1.4.1 server started at http://0.0.0.0:9876/
+16 02 2017 10:38:12.865:INFO [karma]: Karma v1.7.0 server started at http://0.0.0.0:9876/
 16 02 2017 10:38:12.867:INFO [launcher]: Launching browser Chrome with unlimited concurrency
 16 02 2017 10:38:12.879:INFO [launcher]: Starting browser Chrome
 16 02 2017 10:38:13.688:INFO [Chrome 56.0.2924 (Mac OS X 10.12.3)]: Connected on socket svRGoxU0etKTKQWhAAAA with id 68456725
@@ -161,56 +159,43 @@ before_install:
   - sh -e /etc/init.d/xvfb start
 ```
 
-## Customizing
+## Preset options
 
-To override the test configuration, start with the documentation on [customization](../../customization/README.md).
-`neutrino-preset-karma` creates some conventions to make overriding the configuration easier once you are ready to make
-changes.
-
-### Simple customization
-
-By following the [customization guide](../../customization/simple.md) you can override and augment the test configuration
-directly from package.json. `neutrino-preset-karma` will import Karma configuration from your package.json's
-`neutrino.options.karma` object if defined. The format is defined on the
-[Karma documentation site](http://karma-runner.github.io/1.0/config/configuration-file.html).
+You can provide custom options and have them merged with this preset's default options, which are subsequently passed
+to Karma. You can modify Karma settings from `.neutrinorc.js` by overriding with any options Karma accepts. In a standalone
+Karma project this is typically done in a `karma.conf.js` or similar file, but `neutrino-preset-karma` allows
+configuration through `.neutrinorc.js` as well. This accepts the same configuration options as outlined in the
+[Karma documentation](https://karma-runner.github.io/1.0/config/configuration-file.html). Use an array pair instead of
+a string to supply these options.
 
 _Example: Change the duration Karma waits for a browser to reconnect (in ms)._
 
 ```js
-{
-  "neutrino": {
-    "options": {
-      "karma": {
-        "browserDisconnectTimeout": 5000
-      }
-    }
-  }
-}
+module.exports = {
+  use: [
+    ['neutrino-preset-karma', { browserDisconnectTimeout: 5000 }]
+  ]
+};
 ```
 
-### Advanced configuration
-
-By following the [customization guide](../../customization/advanced.md) you can override and augment testing by creating a
-JS module which overrides the config. 
-
-You can also modify Karma settings by overriding with any options Karma accepts. In a standalone Karma project this is
-typically done in a `karma.conf.js` file, but `neutrino-preset-karma` unifies advanced configuration through a preset
-override module. When needing to make changes to Karma-specific settings, this is stored in the `neutrino.options.karma`
-object, and takes the same configuration options as outlined in the
-[Karma documentation](https://karma-runner.github.io/1.0/config/configuration-file.html).
-
-_Example: Change the duration Karma waits for a browser to reconnect (in ms)._
+If you wish to completely override the Karma configuration instead of it being merged, set the `override` property to
+`true` in the preset options:
 
 ```js
-module.exports = neutrino => {
-  neutrino.options.karma.browserDisconnectTimeout = 5000;
+module.exports = {
+  use: [
+    ['neutrino-preset-karma', {
+      override: true,
+      /* specify all other Karma configuration options */
+    }]
+  ]
 };
 ```
 
 ## Contributing
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
-containing all resources for developing Neutrino and its core presets. Follow the
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-karma.svg

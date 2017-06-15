@@ -6,9 +6,9 @@ source code at `process.env`. Always injects `process.env.NODE_ENV`, unless over
 
 ## Requirements
 
-- Node.js v6.9+
+- Node.js v6.10+
 - Yarn or npm client
-- Neutrino v5
+- Neutrino v6
 
 ## Installation
 
@@ -32,6 +32,7 @@ source code at `process.env`. Always injects `process.env.NODE_ENV`, unless over
 and plug it into Neutrino:
 
 ```js
+// Using function middleware format
 const env = require('neutrino-middleware-env');
 
 // Use with default options
@@ -39,6 +40,22 @@ neutrino.use(env);
 
 // Usage with additional environment variables
 neutrino.use(env, ['SECRET_KEY']);
+```
+
+```js
+// Using object or array middleware format
+
+// Use with default options
+module.exports = {
+  use: ['neutrino-middleware-env']
+};
+
+// Usage with additional environment variables
+module.exports = {
+  use: [
+    ['neutrino-middleware-env', ['SECRET_KEY']]
+  ]
+};
 ```
 
 This middleware optionally accepts an array of environment variables to additionally inject into source code.
@@ -52,12 +69,14 @@ make changes.
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-- `env`: Inject environment variables into source code at `process.env`.
+| Name | Description | Environments |
+| ---- | ----------- | ------------ |
+| `env` | Inject environment variables into source code at `process.env`. | all |
 
 ## Contributing
 
-This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
-containing all resources for developing Neutrino and its core presets. Follow the
+This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](https://neutrino.js.org/contributing) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-middleware-env.svg

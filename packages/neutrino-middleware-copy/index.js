@@ -1,7 +1,7 @@
 const CopyPlugin = require('copy-webpack-plugin');
 const merge = require('deepmerge');
 
-module.exports = ({ config }, opts) => {
+module.exports = ({ config }, opts = {}) => {
   const { patterns, options } = merge({ patterns: [], options: {} }, opts);
 
   config

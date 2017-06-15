@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-style-loader",
-  "version": "5.9.0",
+  "version": "6.0.0",
   "description": "Neutrino middleware for importing and loading stylesheets from modules",
   "main": "index.js",
   "keywords": [
@@ -16,10 +16,10 @@
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
-    "css-loader": "^0.27.3",
-    "style-loader": "^0.16.0"
+    "css-loader": "^0.28.4",
+    "style-loader": "^0.18.2"
   },
   "peerDependencies": {
-    "neutrino": "^5.0.0"
+    "neutrino": "^6.0.0"
   }
 }

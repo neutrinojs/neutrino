@@ -6,9 +6,9 @@ completion of a build.
 
 ## Requirements
 
-- Node.js v6.9+
+- Node.js v6.10+
 - Yarn or npm client
-- Neutrino v5
+- Neutrino v6
 
 ## Installation
 
@@ -32,6 +32,7 @@ completion of a build.
 and plug it into Neutrino:
 
 ```js
+// Using function middleware format
 const server = require('neutrino-middleware-start-server');
 
 // Use with default options, starting the server
@@ -42,24 +43,51 @@ neutrino.use(server);
 neutrino.use(server, { name: 'custom.js' });
 ```
 
+```js
+// Using object or array middleware format
+
+// Use with default options, starting the server
+// for the main entry point, neutrino.options.entry
+module.exports = {
+  use: ['neutrino-middleware-start-server']
+};
+
+// Usage with custom server file to start
+module.exports = {
+  use: [
+    ['neutrino-middleware-start-server', {
+      name: 'custom.js'
+    }]
+  ]
+};
+```
+
 By default this middleware will start a server with the single entry point configured in Neutrino.
 This middleware optionally accepts an object with a `name` property for a path to a module which to start the server.
 
 ## Customization
 
-`neutrino-middleware-start-server` creates some conventions to make overriding the configuration easier once you are ready to
-make changes.
+`neutrino-middleware-start-server` creates some conventions to make overriding the configuration easier once you are
+ready to make changes.
 
 ### Plugins
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-- `start-server`: Start a Node.js for a configured entry point or specified file.
+| Name | Description | Environments |
+| ---- | ----------- | ------------ |
+| `start-server` | Start a Node.js for a configured entry point or specified file. | all |
+
+### Debugging
+
+You can start the Node.js server in `inspect` mode to debug the process by setting `neutrino.options.debug` to `true`.
+This can be done from the [API](https://neutrino.js.org/api#optionsdebug) or the
+[CLI using `--debug`](https://neutrino.js.org/cli#-debug).
 
 ## Contributing
 
-This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
-containing all resources for developing Neutrino and its core presets. Follow the
+This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](https://neutrino.js.org/contributing) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-middleware-start-server.svg

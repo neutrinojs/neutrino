@@ -11,9 +11,9 @@
 
 ## Requirements
 
-- Node.js v6.9+
+- Node.js v6.10+
 - Yarn or npm client
-- Neutrino v5, Neutrino build preset
+- Neutrino v6, Neutrino build preset
 
 ## Installation
 
@@ -71,17 +71,15 @@ let's pretend this is a Node.js project:
 }
 ```
 
-Or if you have set up Neutrino with `neutrino.use` in your package.json:
+Or if you are using `.neutrinorc.js`, add this preset to your use array instead of `--use` flags:
 
-```json
-{
-  "neutrino": {
-    "use": [
-      "neutrino-preset-node",
-      "neutrino-preset-mocha"
-    ]
-  }
-}
+```js
+module.exports = {
+  use: [
+    'neutrino-preset-node',
+    'neutrino-preset-mocha'
+  ]
+};
 ```
 
 Run the tests, and view the results in your console:
@@ -125,67 +123,22 @@ For more details on specific Mocha usage, please refer to their [documentation](
 By default this preset will execute every test file located in your test directory ending in `_test.js`.
 Use the command line [`files` parameters](../../cli/README.md#neutrino-test) to execute individual tests.
 
-## Customizing
+## Preset options
 
-To override the test configuration, start with the documentation on [customization](../../customization/README.md).
-`neutrino-preset-mocha` creates some conventions to make overriding the configuration easier once you are ready to make
-changes.
-
-### Rules
-
-The following is a list of rules and their identifiers which can be overridden:
-
-- `compile`: Compiles JS files from the `test` directory using Babel. Contains a single loader named `babel`. Adopts
-Babel configuration from other presets that have been loaded.
-
-### Simple customization
-
-By following the [customization guide](../../customization/simple.md) you can override and augment the test configuration
-directly from package.json. `neutrino-preset-mocha` will import Mocha configuration from your package.json's
-`neutrino.options.mocha` object if defined. The format is defined on the
-[Mocha documentation site](https://mochajs.org/#usage), with command-line flags mapping to camel-cased options
-in `neutrino.options.mocha`.
+You can provide custom options and have them merged with this preset's default options, which are subsequently passed
+to Mocha. You can modify Mocha settings from `.neutrinorc.js` by overriding with any options Mocha accepts. In a standalone
+Mocha project this is typically done from a `mocha.opts` file, but `neutrino-preset-mocha` allows configuration through
+`.neutrinorc.js`. This accepts the same options specified by Mocha defined on the
+[Mocha documentation site](https://mochajs.org/#usage), with command-line flags mapping to camel-cased options.
+Use an array pair instead of a string to supply these options in `.neutrinorc.js`.
 
 _Example: Switch the test reporter from the default `spec` to `nyan`:_
 
 ```js
-{
-  "neutrino": {
-    "options": {
-      "mocha": {
-        "reporter": "nyan"
-      }
-    }
-  }
-}
-```
-
-```bash
-❯ yarn test
-
- 1   -__,------,
- 0   -__|  /\_/\
- 0   -_~|_( ^ .^)
-     -_ ""  ""
-
-  1 passing (362ms)
-
-✨  Done in 3.28s.
-```
-
-### Advanced configuration
-
-By following the [customization guide](../../customization/advanced.md) and knowing the rule, and loader IDs above,
-you can override and augment testing by creating a JS module which overrides the config.
-
-You can modify Mocha settings by overriding the preset with any options Mocha accepts. This is stored in the
-`neutrino.custom.mocha` object.
-
-_Example: Switch the test reporter from the default `spec` to `nyan`:_
-
-```js
-module.exports = neutrino => {
-  neutrino.options.mocha.reporter = 'nyan';
+module.exports = {
+  use: [
+    ['neutrino-preset-mocha', { reporter: 'nyan' }]
+  ]
 };
 ```
 
@@ -202,10 +155,59 @@ module.exports = neutrino => {
 ✨  Done in 3.28s.
 ```
 
+## Customizing
+
+To override the test configuration, start with the documentation on [customization](../../customization/README.md).
+`neutrino-preset-mocha` creates some conventions to make overriding the configuration easier once you are ready to make
+changes.
+
+### Rules
+
+The following is a list of rules and their identifiers which can be overridden:
+
+| Name | Description | Environments |
+| ---- | ----------- | ------------ |
+| `compile` | Compiles JS files from the `test` directory using adopted Babel settings from other build presets. Contains a single loader named `babel`. | all |
+
+### Override configuration
+
+By following the [customization guide](../../customization) and knowing the rule, and loader IDs above,
+you can override and augment testing by providing a function to your `.neutrinorc.js` use array. You can also
+make this change from the Neutrino API when using the `use` method.
+
+In a standalone Mocha project this is typically done in a `mocha.opts` file, but `neutrino-preset-mocha` allows
+configuration through `.neutrinorc.js`. This accepts the same options specified by Mocha defined on the
+[Mocha documentation site](https://mochajs.org/#usage), with command-line flags mapping to camel-cased options. Use an
+array pair instead of a string to supply these options.
+
+_Example: Add a custom Babel plugin when testing:_
+
+```js
+module.exports = {
+  use: [
+    'neutrino-preset-mocha'
+  ],
+  env: {
+    NODE_ENV: {
+      test: (neutrino) => neutrino.config.module
+        .rule('compile')
+        .use('babel')
+        .tap(options => merge(options, {
+          env: {
+            test: {
+              plugins: ['custom-babel-plugin']
+            }
+          }
+        }))
+    }
+  }
+};
+```
+
 ## Contributing
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
-containing all resources for developing Neutrino and its core presets. Follow the
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-mocha.svg

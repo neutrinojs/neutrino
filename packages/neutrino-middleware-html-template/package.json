@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-html-template",
-  "version": "5.9.0",
+  "version": "6.0.0",
   "description": "Neutrino middleware for automatic HTML file generation from metadata",
   "main": "index.js",
   "keywords": [
@@ -20,9 +20,9 @@
     "html-webpack-template": "^6.0.1"
   },
   "devDependencies": {
-    "webpack": "^2.4.1"
+    "webpack": "^2.6.1"
   },
   "peerDependencies": {
-    "neutrino": "^5.0.0"
+    "neutrino": "^6.0.0"
   }
 }

@@ -6,9 +6,9 @@
 
 ## Requirements
 
-- Node.js v6.9+
+- Node.js v6.10+
 - Yarn or npm client
-- Neutrino v5
+- Neutrino v6
 
 ## Installation
 
@@ -32,9 +32,17 @@
 and plug it into Neutrino:
 
 ```js
+// Using function middleware format
 const hot = require('neutrino-middleware-hot');
 
 neutrino.use(hot);
+```
+
+```js
+// Using object or array middleware format
+module.exports = {
+  use: ['neutrino-middleware-hot']
+};
 ```
 
 ## Customization
@@ -46,12 +54,14 @@ make changes.
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-- `hot`: Enables hot module replacement.
+| Name | Description | Environments |
+| ---- | ----------- | ------------ |
+| `hot` | Enables hot module replacement. | all |
 
 ## Contributing
 
-This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
-containing all resources for developing Neutrino and its core presets. Follow the
+This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-middleware-hot.svg

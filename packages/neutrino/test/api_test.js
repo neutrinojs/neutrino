@@ -77,6 +77,20 @@ test('options.node_modules', t => {
   t.is(api.options.node_modules, '/alpha');
 });
 
+test('options.static', t => {
+  const api = Neutrino();
+
+  t.is(api.options.static, join(process.cwd(), 'src/static'));
+  api.options.static = './alpha';
+  t.is(api.options.static, join(process.cwd(), 'src/alpha'));
+  api.options.source = 'beta';
+  t.is(api.options.static, join(process.cwd(), 'beta/alpha'));
+  api.options.root = '/gamma';
+  t.is(api.options.static, join('/gamma', 'beta/alpha'));
+  api.options.static = '/alpha';
+  t.is(api.options.static, '/alpha');
+});
+
 test('options.entry', t => {
   const api = Neutrino();
 
@@ -103,11 +117,11 @@ test('middleware receives API instance', t => {
   api.use(n => t.is(n, api));
 });
 
-test('middleware receives default options', t => {
+test('middleware receives no default options', t => {
   const api = Neutrino();
 
   api.use((api, options) => {
-    t.deepEqual(options, {});
+    t.is(options, undefined);
   });
 });
 
@@ -162,7 +176,7 @@ test('events handle multiple promise resolutions', async t => {
 test('import middleware for use', async (t) => {
   const api = Neutrino({ root: __dirname });
 
-  await api.requiresAndUses(['fixtures/middleware']).promise();
+  api.use(['fixtures/middleware']);
   t.notDeepEqual(api.config.toConfig(), {});
 });
 
@@ -177,6 +191,15 @@ test('command emits events around execution', async (t) => {
   await api.emitForAll('build');
 
   t.deepEqual(events, ['alpha', 'beta']);
+});
+
+test('sets environment variables from options', t => {
+  Neutrino({
+    env: { NODE_ENV: 'production', ALPHA: 'beta' }
+  });
+
+  t.is(process.env.NODE_ENV, 'production');
+  t.is(process.env.ALPHA, 'beta');
 });
 
 test('creates a Webpack config', t => {
