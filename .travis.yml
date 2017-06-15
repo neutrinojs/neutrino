@@ -12,4 +12,3 @@ before_script:
 script:
 - yarn lint
 - yarn test
-- test -n "$(git status --porcelain)"
