@@ -40,7 +40,7 @@ module.exports = (neutrino, opts = {}) => {
     babel: {
       plugins: [
         !opts.polyfills || opts.polyfills.async !== false ?
-          [require.resolve('fast-async'), { useRuntimeModule: true }] :
+          [require.resolve('fast-async'), { spec: true }] :
           {},
         require.resolve('babel-plugin-dynamic-import-node')
       ],
@@ -79,7 +79,6 @@ module.exports = (neutrino, opts = {}) => {
     .externals([nodeExternals({ whitelist: [/^webpack/] })])
     .context(neutrino.options.root)
     .entry('index')
-      .when(options.polyfills.async, entry => entry.add(require.resolve('nodent-runtime')))
       .add(neutrino.options.entry)
       .end()
     .output

@@ -32,7 +32,7 @@ module.exports = (neutrino, opts = {}) => {
     babel: {
       plugins: [
         !opts.polyfills || opts.polyfills.async !== false ?
-          [require.resolve('fast-async'), { useRuntimeModule: true }] :
+          [require.resolve('fast-async'), { spec: true }] :
           {},
         require.resolve('babel-plugin-syntax-dynamic-import')
       ],
@@ -82,9 +82,6 @@ module.exports = (neutrino, opts = {}) => {
     .when(options.polyfills.babel, config => config
       .entry('polyfill')
         .add(require.resolve('./polyfills.js')))
-    .when(options.polyfills.async, config => config
-      .entry('index')
-        .add(require.resolve('nodent-runtime')))
     .entry('index')
       .add(neutrino.options.entry)
       .end()
