@@ -1,6 +1,342 @@
+2017-06-14
+==========
+
+  * Yarn lockfile updates
+  * v6 ([#254](https://github.com/mozilla-neutrino/neutrino-dev/issues/254))
+    * Buffer: true; -> Buffer: false ([#201](https://github.com/mozilla-neutrino/neutrino-dev/issues/201))
+    remove not-needed polyfill
+    * Buffer: true; -> Buffer: false ([#201](https://github.com/mozilla-neutrino/neutrino-dev/issues/201))
+    remove not-needed polyfill
+    * V6 dev fast async ([#202](https://github.com/mozilla-neutrino/neutrino-dev/issues/202))
+    * 🗼babel fast async to preset-web
+    * 🗼babel fast async to preset-node
+    * 📦🐈 yarn lock file for preset-node
+    * 📦⬆  fast-async semver dep  ⌨️⚒ node v -> string
+    * ❎ remove `builtIns: false`
+    * 🙃 flip builtIn: true
+    * 👕 formatting
+    * 💍 fast-async runtimePattern from  📌 entry point
+    * 📌 add as entry point instead of regex
+    * 🔙💍 update async for node
+    * merge after bootstrap again
+    * 🚚📌 move entry points to beginning
+    * Bugfix/eslint jest rules ([#212](https://github.com/mozilla-neutrino/neutrino-dev/issues/212))
+    * Fix ESLint Jest analyze
+    * Add SCSS extension to the mocking list
+    * Upgrade eslint jest plugin
+    * Mark focused test as errors
+    * Remove `Buffer` global rule from Web preset for v6
+    * Upgrade the package version to v6
+    * Upgrade dependencies to v6
+    * Switching HTML loader middleware to html-loader ([#219](https://github.com/mozilla-neutrino/neutrino-dev/issues/219))
+    * Adding cacheDirectory to compile-loader ([#221](https://github.com/mozilla-neutrino/neutrino-dev/issues/221))
+    * Replace events with generic event 'run'
+    closes [#166](https://github.com/mozilla-neutrino/neutrino-dev/issues/166)
+    * Add additional event run and prerun
+    * Inline prerun and run names
+    * Bugfix/react set state ([#213](https://github.com/mozilla-neutrino/neutrino-dev/issues/213))
+    * Fix `setState()` exception in React
+    * Upgrade React preset package version to v6
+    * Rollback versions
+    * Redesign react babel config
+    * Update dependencies to v5
+    * Update lock file
+    * Add missing dependency
+    * Update docs to include the additional run and prerun events ([#224](https://github.com/mozilla-neutrino/neutrino-dev/issues/224))
+    * Adding default environment to eslint middleware ([#225](https://github.com/mozilla-neutrino/neutrino-dev/issues/225))
+    * Updating Node.js version for Travis CI and removing codecov ([#226](https://github.com/mozilla-neutrino/neutrino-dev/issues/226))
+    * Allow environment-specific configuration overrides ([#230](https://github.com/mozilla-neutrino/neutrino-dev/issues/230))
+    * Allow environment-specific config override
+    * Refine comment
+    * Add docs for environment-specific configuration ([#231](https://github.com/mozilla-neutrino/neutrino-dev/issues/231))
+    * PWA middleware ([#227](https://github.com/mozilla-neutrino/neutrino-dev/issues/227))
+    * Caching based on hashed and inline manifest ([#223](https://github.com/mozilla-neutrino/neutrino-dev/issues/223))
+    * Feature/dev server ip ([#204](https://github.com/mozilla-neutrino/neutrino-dev/issues/204))
+    * Detect if dev server is public and log the local network IP in the terminal
+    * Extract Dev server to a separate middleware
+    * Add 'open' option to autostart a default browser
+    * Upgrade version
+    * Declare dependencies for the dev server middlware
+    * Update Webpack Dev Server dependency
+    * Correctly handle 'open' option
+    * Change the server custom configuration scheme
+    * Use 'public' option instead of 'host' for the Dev Server
+    * Simplify open browser URL address detection
+    * Exclude hot reload functionality from the web preset
+    * Finish Dev Server documentatoin
+    * Add customization documentation
+    * Let dev server middleware to decide when to initialize
+    * Fix typos in Docs
+    * Make dev server middleware environment independent again
+    * Fix versions dependencies
+    * Redesign opennning of a browser so that server parameters may be redefined later
+    * Move Hot middleware back to Web preset
+    * Use Future instead of Promise
+    * Fix bugs after refactoring
+    * Upgrade dependencies
+    * Split settings between the middleware and the preset
+    * Fixing missing comma and duplicate package.json entry
+    * Move from package.json configuration to .neutrinorc.js ([#233](https://github.com/mozilla-neutrino/neutrino-dev/issues/233))
+    * Fixing missing port and https in dev-server
+    * Adding transform-class-properties as default babel plugin for react preset ([#234](https://github.com/mozilla-neutrino/neutrino-dev/issues/234))
+    * Switching to static directory for non-compiled/copyable assets ([#235](https://github.com/mozilla-neutrino/neutrino-dev/issues/235))
+    * Custom commands 😍 ([#236](https://github.com/mozilla-neutrino/neutrino-dev/issues/236))
+    * Add api.call for direct use and command execution ([#238](https://github.com/mozilla-neutrino/neutrino-dev/issues/238))
+    * Buffer: true; -> Buffer: false ([#201](https://github.com/mozilla-neutrino/neutrino-dev/issues/201))
+    remove not-needed polyfill
+    * V6 dev fast async ([#202](https://github.com/mozilla-neutrino/neutrino-dev/issues/202))
+    * 🗼babel fast async to preset-web
+    * 🗼babel fast async to preset-node
+    * 📦🐈 yarn lock file for preset-node
+    * 📦⬆  fast-async semver dep  ⌨️⚒ node v -> string
+    * ❎ remove `builtIns: false`
+    * 🙃 flip builtIn: true
+    * 👕 formatting
+    * 💍 fast-async runtimePattern from  📌 entry point
+    * 📌 add as entry point instead of regex
+    * 🔙💍 update async for node
+    * merge after bootstrap again
+    * 🚚📌 move entry points to beginning
+    * Bugfix/eslint jest rules ([#212](https://github.com/mozilla-neutrino/neutrino-dev/issues/212))
+    * Fix ESLint Jest analyze
+    * Add SCSS extension to the mocking list
+    * Upgrade eslint jest plugin
+    * Mark focused test as errors
+    * Remove `Buffer` global rule from Web preset for v6
+    * Upgrade the package version to v6
+    * Upgrade dependencies to v6
+    * Switching HTML loader middleware to html-loader ([#219](https://github.com/mozilla-neutrino/neutrino-dev/issues/219))
+    * Adding cacheDirectory to compile-loader ([#221](https://github.com/mozilla-neutrino/neutrino-dev/issues/221))
+    * Replace events with generic event 'run'
+    closes [#166](https://github.com/mozilla-neutrino/neutrino-dev/issues/166)
+    * Add additional event run and prerun
+    * Inline prerun and run names
+    * Adding default environment to eslint middleware ([#225](https://github.com/mozilla-neutrino/neutrino-dev/issues/225))
+    * Updating Node.js version for Travis CI and removing codecov ([#226](https://github.com/mozilla-neutrino/neutrino-dev/issues/226))
+    * Update docs to include the additional run and prerun events ([#224](https://github.com/mozilla-neutrino/neutrino-dev/issues/224))
+    * Bugfix/react set state ([#213](https://github.com/mozilla-neutrino/neutrino-dev/issues/213))
+    * Fix `setState()` exception in React
+    * Upgrade React preset package version to v6
+    * Rollback versions
+    * Redesign react babel config
+    * Update dependencies to v5
+    * Update lock file
+    * Add missing dependency
+    * Allow environment-specific configuration overrides ([#230](https://github.com/mozilla-neutrino/neutrino-dev/issues/230))
+    * Allow environment-specific config override
+    * Refine comment
+    * Add docs for environment-specific configuration ([#231](https://github.com/mozilla-neutrino/neutrino-dev/issues/231))
+    * PWA middleware ([#227](https://github.com/mozilla-neutrino/neutrino-dev/issues/227))
+    * Caching based on hashed and inline manifest ([#223](https://github.com/mozilla-neutrino/neutrino-dev/issues/223))
+    * Feature/dev server ip ([#204](https://github.com/mozilla-neutrino/neutrino-dev/issues/204))
+    * Detect if dev server is public and log the local network IP in the terminal
+    * Extract Dev server to a separate middleware
+    * Add 'open' option to autostart a default browser
+    * Upgrade version
+    * Declare dependencies for the dev server middlware
+    * Update Webpack Dev Server dependency
+    * Correctly handle 'open' option
+    * Change the server custom configuration scheme
+    * Use 'public' option instead of 'host' for the Dev Server
+    * Simplify open browser URL address detection
+    * Exclude hot reload functionality from the web preset
+    * Finish Dev Server documentatoin
+    * Add customization documentation
+    * Let dev server middleware to decide when to initialize
+    * Fix typos in Docs
+    * Make dev server middleware environment independent again
+    * Fix versions dependencies
+    * Redesign opennning of a browser so that server parameters may be redefined later
+    * Move Hot middleware back to Web preset
+    * Use Future instead of Promise
+    * Fix bugs after refactoring
+    * Upgrade dependencies
+    * Split settings between the middleware and the preset
+    * Fixing missing comma and duplicate package.json entry
+    * Move from package.json configuration to .neutrinorc.js ([#233](https://github.com/mozilla-neutrino/neutrino-dev/issues/233))
+    * Fixing missing port and https in dev-server
+    * Adding transform-class-properties as default babel plugin for react preset ([#234](https://github.com/mozilla-neutrino/neutrino-dev/issues/234))
+    * Switching to static directory for non-compiled/copyable assets ([#235](https://github.com/mozilla-neutrino/neutrino-dev/issues/235))
+    * Custom commands 😍 ([#236](https://github.com/mozilla-neutrino/neutrino-dev/issues/236))
+    * Add api.call for direct use and command execution ([#238](https://github.com/mozilla-neutrino/neutrino-dev/issues/238))
+    * Updating yarn.lock
+    * Upgrading outdated dependencies ([#240](https://github.com/mozilla-neutrino/neutrino-dev/issues/240))
+    * Upgrading v6 dependencies, part 2 ([#245](https://github.com/mozilla-neutrino/neutrino-dev/issues/245))
+    * CLI: register before run; CLI: add --quiet; API: run registered command ([#247](https://github.com/mozilla-neutrino/neutrino-dev/issues/247))
+    * v6 documentation changes ([#252](https://github.com/mozilla-neutrino/neutrino-dev/issues/252))
+    * v6 documentation changes
+    * Updating middleware documentation for v6 changes
+    * v6 customization docs
+    * v6 docs for Jest and Airbnb presets
+    * Karma preset v6 documentation updates
+    * Mocha preset documentation updates
+    * Node.js preset v6 docs updates
+    * React preset v6 docs updates
+    * v6 docs for Web preset and dev middleware
+    * Conditional config overrides
+    * Remove travis cache ([#253](https://github.com/mozilla-neutrino/neutrino-dev/issues/253))
+    * Adding rudimentary tests to all packages ([#256](https://github.com/mozilla-neutrino/neutrino-dev/issues/256))
+    * Buffer: true; -> Buffer: false ([#201](https://github.com/mozilla-neutrino/neutrino-dev/issues/201))
+    remove not-needed polyfill
+    * V6 dev fast async ([#202](https://github.com/mozilla-neutrino/neutrino-dev/issues/202))
+    * 🗼babel fast async to preset-web
+    * 🗼babel fast async to preset-node
+    * 📦🐈 yarn lock file for preset-node
+    * 📦⬆  fast-async semver dep  ⌨️⚒ node v -> string
+    * ❎ remove `builtIns: false`
+    * 🙃 flip builtIn: true
+    * 👕 formatting
+    * 💍 fast-async runtimePattern from  📌 entry point
+    * 📌 add as entry point instead of regex
+    * 🔙💍 update async for node
+    * merge after bootstrap again
+    * 🚚📌 move entry points to beginning
+    * Switching HTML loader middleware to html-loader ([#219](https://github.com/mozilla-neutrino/neutrino-dev/issues/219))
+    * Adding cacheDirectory to compile-loader ([#221](https://github.com/mozilla-neutrino/neutrino-dev/issues/221))
+    * Replace events with generic event 'run'
+    closes [#166](https://github.com/mozilla-neutrino/neutrino-dev/issues/166)
+    * Add additional event run and prerun
+    * Inline prerun and run names
+    * Adding default environment to eslint middleware ([#225](https://github.com/mozilla-neutrino/neutrino-dev/issues/225))
+    * Updating Node.js version for Travis CI and removing codecov ([#226](https://github.com/mozilla-neutrino/neutrino-dev/issues/226))
+    * Update docs to include the additional run and prerun events ([#224](https://github.com/mozilla-neutrino/neutrino-dev/issues/224))
+    * Bugfix/eslint jest rules ([#212](https://github.com/mozilla-neutrino/neutrino-dev/issues/212))
+    * Fix ESLint Jest analyze
+    * Add SCSS extension to the mocking list
+    * Upgrade eslint jest plugin
+    * Mark focused test as errors
+    * Remove `Buffer` global rule from Web preset for v6
+    * Upgrade the package version to v6
+    * Upgrade dependencies to v6
+    * Bugfix/react set state ([#213](https://github.com/mozilla-neutrino/neutrino-dev/issues/213))
+    * Fix `setState()` exception in React
+    * Upgrade React preset package version to v6
+    * Rollback versions
+    * Redesign react babel config
+    * Update dependencies to v5
+    * Update lock file
+    * Add missing dependency
+    * Allow environment-specific configuration overrides ([#230](https://github.com/mozilla-neutrino/neutrino-dev/issues/230))
+    * Allow environment-specific config override
+    * Refine comment
+    * Add docs for environment-specific configuration ([#231](https://github.com/mozilla-neutrino/neutrino-dev/issues/231))
+    * PWA middleware ([#227](https://github.com/mozilla-neutrino/neutrino-dev/issues/227))
+    * V6 dev fast async ([#202](https://github.com/mozilla-neutrino/neutrino-dev/issues/202))
+    * 🗼babel fast async to preset-web
+    * 🗼babel fast async to preset-node
+    * 📦🐈 yarn lock file for preset-node
+    * 📦⬆  fast-async semver dep  ⌨️⚒ node v -> string
+    * ❎ remove `builtIns: false`
+    * 🙃 flip builtIn: true
+    * 👕 formatting
+    * 💍 fast-async runtimePattern from  📌 entry point
+    * 📌 add as entry point instead of regex
+    * 🔙💍 update async for node
+    * merge after bootstrap again
+    * 🚚📌 move entry points to beginning
+    * Bugfix/eslint jest rules ([#212](https://github.com/mozilla-neutrino/neutrino-dev/issues/212))
+    * Fix ESLint Jest analyze
+    * Add SCSS extension to the mocking list
+    * Upgrade eslint jest plugin
+    * Mark focused test as errors
+    * Remove `Buffer` global rule from Web preset for v6
+    * Upgrade the package version to v6
+    * Upgrade dependencies to v6
+    * Caching based on hashed and inline manifest ([#223](https://github.com/mozilla-neutrino/neutrino-dev/issues/223))
+    * Feature/dev server ip ([#204](https://github.com/mozilla-neutrino/neutrino-dev/issues/204))
+    * Detect if dev server is public and log the local network IP in the terminal
+    * Extract Dev server to a separate middleware
+    * Add 'open' option to autostart a default browser
+    * Upgrade version
+    * Declare dependencies for the dev server middlware
+    * Update Webpack Dev Server dependency
+    * Correctly handle 'open' option
+    * Change the server custom configuration scheme
+    * Use 'public' option instead of 'host' for the Dev Server
+    * Simplify open browser URL address detection
+    * Exclude hot reload functionality from the web preset
+    * Finish Dev Server documentatoin
+    * Add customization documentation
+    * Let dev server middleware to decide when to initialize
+    * Fix typos in Docs
+    * Make dev server middleware environment independent again
+    * Fix versions dependencies
+    * Redesign opennning of a browser so that server parameters may be redefined later
+    * Move Hot middleware back to Web preset
+    * Use Future instead of Promise
+    * Fix bugs after refactoring
+    * Upgrade dependencies
+    * Split settings between the middleware and the preset
+    * Fixing missing comma and duplicate package.json entry
+    * Move from package.json configuration to .neutrinorc.js ([#233](https://github.com/mozilla-neutrino/neutrino-dev/issues/233))
+    * Fixing missing port and https in dev-server
+    * Adding transform-class-properties as default babel plugin for react preset ([#234](https://github.com/mozilla-neutrino/neutrino-dev/issues/234))
+    * Switching to static directory for non-compiled/copyable assets ([#235](https://github.com/mozilla-neutrino/neutrino-dev/issues/235))
+    * Custom commands 😍 ([#236](https://github.com/mozilla-neutrino/neutrino-dev/issues/236))
+    * Add api.call for direct use and command execution ([#238](https://github.com/mozilla-neutrino/neutrino-dev/issues/238))
+    * Adding default environment to eslint middleware ([#225](https://github.com/mozilla-neutrino/neutrino-dev/issues/225))
+    * Bugfix/react set state ([#213](https://github.com/mozilla-neutrino/neutrino-dev/issues/213))
+    * Fix `setState()` exception in React
+    * Upgrade React preset package version to v6
+    * Rollback versions
+    * Redesign react babel config
+    * Update dependencies to v5
+    * Update lock file
+    * Add missing dependency
+    * PWA middleware ([#227](https://github.com/mozilla-neutrino/neutrino-dev/issues/227))
+    * Caching based on hashed and inline manifest ([#223](https://github.com/mozilla-neutrino/neutrino-dev/issues/223))
+    * Feature/dev server ip ([#204](https://github.com/mozilla-neutrino/neutrino-dev/issues/204))
+    * Detect if dev server is public and log the local network IP in the terminal
+    * Extract Dev server to a separate middleware
+    * Add 'open' option to autostart a default browser
+    * Upgrade version
+    * Declare dependencies for the dev server middlware
+    * Update Webpack Dev Server dependency
+    * Correctly handle 'open' option
+    * Change the server custom configuration scheme
+    * Use 'public' option instead of 'host' for the Dev Server
+    * Simplify open browser URL address detection
+    * Exclude hot reload functionality from the web preset
+    * Finish Dev Server documentatoin
+    * Add customization documentation
+    * Let dev server middleware to decide when to initialize
+    * Fix typos in Docs
+    * Make dev server middleware environment independent again
+    * Fix versions dependencies
+    * Redesign opennning of a browser so that server parameters may be redefined later
+    * Move Hot middleware back to Web preset
+    * Use Future instead of Promise
+    * Fix bugs after refactoring
+    * Upgrade dependencies
+    * Split settings between the middleware and the preset
+    * Fixing missing comma and duplicate package.json entry
+    * Move from package.json configuration to .neutrinorc.js ([#233](https://github.com/mozilla-neutrino/neutrino-dev/issues/233))
+    * Adding transform-class-properties as default babel plugin for react preset ([#234](https://github.com/mozilla-neutrino/neutrino-dev/issues/234))
+    * Switching to static directory for non-compiled/copyable assets ([#235](https://github.com/mozilla-neutrino/neutrino-dev/issues/235))
+    * Custom commands 😍 ([#236](https://github.com/mozilla-neutrino/neutrino-dev/issues/236))
+    * Upgrading outdated dependencies ([#240](https://github.com/mozilla-neutrino/neutrino-dev/issues/240))
+    * Upgrading v6 dependencies, part 2 ([#245](https://github.com/mozilla-neutrino/neutrino-dev/issues/245))
+    * CLI: register before run; CLI: add --quiet; API: run registered command ([#247](https://github.com/mozilla-neutrino/neutrino-dev/issues/247))
+    * v6 documentation changes ([#252](https://github.com/mozilla-neutrino/neutrino-dev/issues/252))
+    * v6 documentation changes
+    * Updating middleware documentation for v6 changes
+    * v6 customization docs
+    * v6 docs for Jest and Airbnb presets
+    * Karma preset v6 documentation updates
+    * Mocha preset documentation updates
+    * Node.js preset v6 docs updates
+    * React preset v6 docs updates
+    * v6 docs for Web preset and dev middleware
+    * Conditional config overrides
+    * Remove travis cache ([#253](https://github.com/mozilla-neutrino/neutrino-dev/issues/253))
+    * Adding rudimentary tests to all packages ([#256](https://github.com/mozilla-neutrino/neutrino-dev/issues/256))
+    * Switch fast-async to spec mode ([#258](https://github.com/mozilla-neutrino/neutrino-dev/issues/258))
+    * Fail CI if git status is unclean
+
 2017-06-12
 ==========
 
+  * Changelog
   * Document conditional configuration ([#250](https://github.com/mozilla-neutrino/neutrino-dev/issues/250))
     * Document conditional configuration
     * Switch 'blows up' to 'throws an exception'
@@ -304,12 +640,3 @@
   * Merge pull request [#117](https://github.com/mozilla-neutrino/neutrino-dev/issues/117) from helfi92/fix-links
     Fix link
   * Switch to relative paths
-  * Fix link
-
-2017-03-13
-==========
-
-  * Merge pull request [#115](https://github.com/mozilla-neutrino/neutrino-dev/issues/115) from eirikurn/patch-1
-    Fix svg mime-type
-  * Fix svg mime-type
-    Browsers don't display svg from data-uri if the mimetype is `application/svg+xml` (testing with \<img> tag in Firefox and Chrome). However, `image/svg+xml` works.
