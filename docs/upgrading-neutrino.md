@@ -5,7 +5,7 @@ to v6, be sure to check this list for tasks you may need to perform to use this 
 
 - **BREAKING CHANGE** Neutrino overrides and configuration is no longer done from package.json, but can automatically
 be picked up in a `.neutrinorc.js` file. If you want to leave your configuration in package.json until
-you migrate completely to the RC file, but the following contents in your `.neutrinorc.js` file:
+you migrate completely to the RC file, put the following contents in your `.neutrinorc.js` file:
 
 ```js
 const pkg = require('./package.json');
