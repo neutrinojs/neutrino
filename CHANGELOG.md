@@ -1,6 +1,16 @@
+2017-06-15
+==========
+
+  * Fixing issues in babel merging and dynamic named chunks ([#264](https://github.com/mozilla-neutrino/neutrino-dev/issues/264))
+  * Correct typo ([#261](https://github.com/mozilla-neutrino/neutrino-dev/issues/261))
+  * Removing frozen-lockfile...again
+  * Updating oao, yarn.lock files, travis installation
+
 2017-06-14
 ==========
 
+  * Disabling git status checks for now
+  * Releasing v6.0.0
   * Yarn lockfile updates
   * v6 ([#254](https://github.com/mozilla-neutrino/neutrino-dev/issues/254))
     * Buffer: true; -> Buffer: false ([#201](https://github.com/mozilla-neutrino/neutrino-dev/issues/201))
@@ -628,15 +638,3 @@
   * Add `runCommand` helper method to Neutrino.
   * Remove concept of "presets" in favor of "middleware(s)/use".
   * Move `run` process logic to location of call.
-  * Make run method in bin/neutrino self contained.
-  * Move require/import middleware functionality to api.
-  * Merge pull request [#120](https://github.com/mozilla-neutrino/neutrino-dev/issues/120) from eliperelman/fixing-linting
-    Fixing linting to run for all packages
-  * Fixing linting to run for all packages
-
-2017-03-14
-==========
-
-  * Merge pull request [#117](https://github.com/mozilla-neutrino/neutrino-dev/issues/117) from helfi92/fix-links
-    Fix link
-  * Switch to relative paths
