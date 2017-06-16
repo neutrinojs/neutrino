@@ -11,7 +11,7 @@
 - Write JSX in .js or .jsx files
 - Extends from [neutrino-preset-web](../neutrino-preset-web/README.md)
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
-  - Webpack loaders for importing HTML, CSS, images, icons, and fonts
+  - Webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
   - Webpack Dev Server during development
   - Automatic creation of HTML pages, no templating necessary
   - Hot module replacement support
@@ -156,13 +156,30 @@ module.exports = {
   use: [
     ['neutrino-preset-react', {
       /* preset options */
-      
+
       // Example: disable Hot Module Replacement
       hot: false,
-      
+
       // Example: change the page title
       html: {
         title: 'Epic React App'
+      },
+
+      // Add additional Babel plugins, presets, or env options
+      babel: {
+        // Override options for babel-preset-env
+        presets: [
+          ['babel-preset-env', {
+            // Passing in targets to babel-preset-env will replace them
+            // instead of merging them
+            targets: {
+              browsers: [
+                'last 1 Chrome versions',
+                'last 1 Firefox versions'
+              ]
+            }
+          }]
+        ]
       }
     }]
   ]

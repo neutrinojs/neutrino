@@ -9,7 +9,7 @@
   "repository": "mozilla-neutrino/neutrino-dev",
   "scripts": {
     "lint": "packages/neutrino/bin/neutrino lint",
-    "bootstrap": "oao bootstrap",
+    "bootstrap": "oao bootstrap --no-parallel",
     "changelog": "changelog mozilla-neutrino/neutrino-dev all --markdown > CHANGELOG.md",
     "deps:add": "oao add",
     "deps:remove": "oao remove",

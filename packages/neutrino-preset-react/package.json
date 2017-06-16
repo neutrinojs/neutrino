@@ -21,9 +21,10 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-react": "^6.24.0",
     "deepmerge": "^1.3.2",
+    "react-hot-loader": "3.0.0-beta.7",
+    "neutrino-middleware-compile-loader": "^6.0.1",
     "neutrino-middleware-loader-merge": "^6.0.1",
-    "neutrino-preset-web": "^6.0.1",
-    "react-hot-loader": "3.0.0-beta.7"
+    "neutrino-preset-web": "^6.0.1"
   },
   "peerDependencies": {
     "neutrino": "^6.0.0"

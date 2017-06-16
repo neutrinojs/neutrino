@@ -24,6 +24,10 @@
     "fast-async": "^6.2.2",
     "imports-loader": "^0.7.1",
     "inline-manifest-webpack-plugin": "^3.0.1",
+    "script-ext-html-webpack-plugin": "^1.8.1",
+    "webpack": "^2.6.1",
+    "webpack-dev-server": "^2.4.1",
+    "worker-loader": "^0.8.0",
     "neutrino-middleware-chunk": "^6.0.1",
     "neutrino-middleware-clean": "^6.0.1",
     "neutrino-middleware-compile-loader": "^6.0.1",
@@ -37,11 +41,7 @@
     "neutrino-middleware-image-loader": "^6.0.1",
     "neutrino-middleware-loader-merge": "^6.0.1",
     "neutrino-middleware-minify": "^6.0.1",
-    "neutrino-middleware-style-loader": "^6.0.1",
-    "script-ext-html-webpack-plugin": "^1.8.1",
-    "webpack": "^2.6.1",
-    "webpack-dev-server": "^2.4.1",
-    "worker-loader": "^0.8.0"
+    "neutrino-middleware-style-loader": "^6.0.1"
   },
   "peerDependencies": {
     "neutrino": "^6.0.0"

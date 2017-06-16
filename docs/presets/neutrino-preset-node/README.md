@@ -253,12 +253,18 @@ _Example: Override the Node.js Babel compilation target to Node.js v8:_
 module.exports = {
   use: [
     ['neutrino-preset-node', {
+      // Add additional Babel plugins, presets, or env options
       babel: {
-        presetEnv: {
-          targets: {
-            node: '6.10'
-          }
-        }
+        // Override options for babel-preset-env
+        presets: [
+          ['babel-preset-env', {
+            // Passing in targets to babel-preset-env will replace them
+            // instead of merging them
+            targets: {
+              node: '8.0'
+            }
+          }]
+        ]
       }
     }]
   ]

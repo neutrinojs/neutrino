@@ -29,35 +29,41 @@ module.exports = (neutrino, opts = {}) => {
       async: true,
       babel: true
     },
-    babel: {
+    babel: {}
+  }, opts);
+
+  Object.assign(options, {
+    babel: compileLoader.merge({
       plugins: [
-        !opts.polyfills || opts.polyfills.async !== false ?
-          [require.resolve('fast-async'), { spec: true }] :
-          {},
+        ...(options.polyfills.async ? [[require.resolve('fast-async'), { spec: true }]] : []),
         require.resolve('babel-plugin-syntax-dynamic-import')
       ],
       presets: [
-        [require.resolve('babel-preset-env'), merge({
+        [require.resolve('babel-preset-env'), {
           debug: neutrino.options.debug,
-          targets: {
-            browsers: [
-              'last 2 Chrome versions',
-              'last 2 Firefox versions',
-              'last 2 Edge versions',
-              'last 2 Opera versions',
-              'last 2 Safari versions',
-              'last 2 iOS versions'
-            ]
-          },
           modules: false,
           useBuiltIns: true,
-          exclude: !opts.polyfills || opts.polyfills.async !== false ?
-            ['transform-regenerator', 'transform-async-to-generator'] :
-            []
-        }, opts.presetEnv || {})]
+          exclude: options.polyfills.async ? ['transform-regenerator', 'transform-async-to-generator'] : [],
+          targets: {
+            browsers: []
+          }
+        }]
       ]
-    }
-  }, opts);
+    }, options.babel)
+  });
+
+  const presetEnvOptions = options.babel.presets[0][1];
+
+  if (!presetEnvOptions.targets.browsers.length) {
+    presetEnvOptions.targets.browsers.push(
+      'last 2 Chrome versions',
+      'last 2 Firefox versions',
+      'last 2 Edge versions',
+      'last 2 Opera versions',
+      'last 2 Safari versions',
+      'last 2 iOS versions'
+    );
+  }
 
   neutrino.use(env);
   neutrino.use(htmlLoader);
@@ -125,6 +131,14 @@ module.exports = (neutrino, opts = {}) => {
       .end()
     .plugin('script-ext')
       .use(ScriptExtHtmlPlugin, [{ defaultAttribute: 'defer' }])
+      .end()
+    .module
+      .rule('worker')
+        .test(/\.worker\.js$/)
+        .use('worker')
+          .loader(require.resolve('worker-loader'))
+          .end()
+        .end()
       .end()
     .when(neutrino.config.module.rules.has('lint'), () => neutrino
       .use(loaderMerge('lint', 'eslint'), {
