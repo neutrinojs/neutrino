@@ -41,7 +41,7 @@
     "gitbook-plugin-prism": "^2.2.0",
     "graph-data-structure": "^0.8.0",
     "nyc": "^11.0.2",
-    "oao": "^0.8.2",
+    "oao": "0.8.4",
     "prettier": "^1.4.4",
     "semver": "^5.3.0",
     "webpack": "^2.6.1"
