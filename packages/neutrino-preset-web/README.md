@@ -7,7 +7,7 @@
 
 - Zero upfront configuration necessary to start developing and building a web app
 - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
-- Webpack loaders for importing HTML, CSS, images, icons, and fonts
+- Webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
 - Webpack Dev Server during development
 - Automatic creation of HTML pages, no templating necessary
 - Hot Module Replacement support
@@ -157,7 +157,7 @@ module.exports = {
         // Enables babel-polyfill. Set to false to disable
         babel: true
       },
-      
+
       // Change options related to generating the HTML document
       // See neutrino-middleware-html-template for the defaults
       // used by the Web preset
@@ -173,24 +173,19 @@ module.exports = {
 
       // Add additional Babel plugins, presets, or env options
       babel: {
-        // Override options for babel-preset-env, showing defaults:
-        presetEnv: {
-          targets: {
-            browsers: [
-              'last 2 Chrome versions',
-              'last 2 Firefox versions',
-              'last 2 Edge versions',
-              'last 2 Opera versions',
-              'last 2 Safari versions',
-              'last 2 iOS versions'
-            ],
-            modules: false,
-            useBuiltIns: true,
-            // These are excluded when using polyfills.async. Disabling the async polyfill
-            // will remove these from the exclusion list
-            exclude: ['transform-regenerator', 'transform-async-to-generator']
-          }
-        }
+        // Override options for babel-preset-env
+        presets: [
+          ['babel-preset-env', {
+            // Passing in targets to babel-preset-env will replace them
+            // instead of merging them
+            targets: {
+              browsers: [
+                'last 1 Chrome versions',
+                'last 1 Firefox versions'
+              ]
+            }
+          }]
+        ]
       }
     }]
   ]
@@ -277,6 +272,7 @@ The following is a list of rules and their identifiers which can be overridden:
 | `img`, `svg`, `ico` | Allows import image files from modules. Each contains a single loader named `url`. From `neutrino-middleware-image-loader`. | all |
 | `woff`, `ttf` | Allows importing WOFF and TTF font files from modules. Each contains a single loader named `url`. From `neutrino-middleware-font-loader`. | all |
 | `eot` | Allows importing EOT font files from modules. Contains a single loader named `file`. From `neutrino-middleware-font-loader`. | all |
+| `worker` | Allows importing Web Workers automatically with `.worker.js` extensions. Contains a single loader named `worker`. | all |
 
 ### Plugins
 

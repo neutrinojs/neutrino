@@ -36,33 +36,27 @@ module.exports = (neutrino, opts = {}) => {
     hot: true,
     polyfills: {
       async: true
-    },
-    babel: {
-      plugins: [
-        !opts.polyfills || opts.polyfills.async !== false ?
-          [require.resolve('fast-async'), { spec: true }] :
-          {},
-        require.resolve('babel-plugin-dynamic-import-node')
-      ],
-      presets: [
-        [require.resolve('babel-preset-env'), merge({
-          targets: {
-            node: '6.10'
-          },
-          modules: false,
-          useBuiltIns: true,
-          exclude: !opts.polyfills || opts.polyfills.async !== false ?
-            ['transform-regenerator', 'transform-async-to-generator'] :
-            []
-        }, opts.presetEnv || {})]
-      ]
     }
   }, opts);
 
   neutrino.use(compile, {
     include: [neutrino.options.source, neutrino.options.tests],
     exclude: [neutrino.options.static],
-    babel: options.babel
+    babel: compile.merge({
+      plugins: [
+        ...(options.polyfills.async ? [[require.resolve('fast-async'), { spec: true }]] : []),
+        require.resolve('babel-plugin-dynamic-import-node')
+      ],
+      presets: [
+        [require.resolve('babel-preset-env'), {
+          debug: neutrino.options.debug,
+          targets: { node: '6.10' },
+          modules: false,
+          useBuiltIns: true,
+          exclude: options.polyfills.async ? ['transform-regenerator', 'transform-async-to-generator'] : []
+        }]
+      ]
+    }, options.babel)
   });
 
   neutrino.config
