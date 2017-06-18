@@ -128,7 +128,7 @@ For a more verbose example version without `.neutrinorc.js`:
 
 ```js
 const { Neutrino } = require('neutrino');
-const neutrino = Neutrino();
+const api = Neutrino();
 
 module.exports = api.call('eslintrc', ['neutrino-preset-airbnb-base', 'neutrino-preset-react']);
 ```
