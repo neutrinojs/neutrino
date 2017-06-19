@@ -58,6 +58,9 @@ module.exports = (neutrino, tap) => {
       karma.files = files;
     }
 
-    return new Promise(resolve => new Server(karma, resolve).start());
+    return new Promise((resolve, reject) => new Server(
+      karma,
+      exitCode => (exitCode !== 0 ? reject() : resolve())
+    ).start());
   });
 };
