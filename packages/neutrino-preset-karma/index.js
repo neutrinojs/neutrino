@@ -39,12 +39,12 @@ module.exports = (neutrino, opts = {}) => {
     }
   };
 
-  neutrino.on('test', ({ files, watch }) => new Promise(resolve =>
+  neutrino.on('test', ({ files, watch }) => new Promise((resolve, reject) =>
     new Server(merge.all([
       opts.override ? opts : merge(defaults, opts),
       { singleRun: !watch, autoWatch: watch, webpack: omit(['plugins'], neutrino.config.toConfig()) },
       files && files.length ? { files } : {}
-    ]), resolve)
+    ]), exitCode => (exitCode !== 0 ? reject() : resolve()))
     .start()
   ));
 };
