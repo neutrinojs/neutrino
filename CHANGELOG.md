@@ -1,6 +1,17 @@
+2017-06-18
+==========
+
+  * Reject test runners when non-zero exit code ([#269](https://github.com/mozilla-neutrino/neutrino-dev/issues/269))
+
+2017-06-16
+==========
+
+  * Correct typo ([#266](https://github.com/mozilla-neutrino/neutrino-dev/issues/266))
+
 2017-06-15
 ==========
 
+  * Releasing v6.0.2
   * Fixing issues in babel merging and dynamic named chunks ([#264](https://github.com/mozilla-neutrino/neutrino-dev/issues/264))
   * Correct typo ([#261](https://github.com/mozilla-neutrino/neutrino-dev/issues/261))
   * Removing frozen-lockfile...again
@@ -635,6 +646,3 @@
     Neutrino refactor
   * Add packages/bin/neutrino to lint files list.
   * Set environment variable, NODE_ENV, inside of `runCommand` (also adds --env option to CLI).
-  * Add `runCommand` helper method to Neutrino.
-  * Remove concept of "presets" in favor of "middleware(s)/use".
-  * Move `run` process logic to location of call.
