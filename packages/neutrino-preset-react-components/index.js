@@ -2,140 +2,104 @@ const react = require('neutrino-preset-react');
 const banner = require('neutrino-middleware-banner');
 const { join, basename } = require('path');
 const { readdirSync } = require('fs');
-const { path } = require('ramda');
 const nodeExternals = require('webpack-node-externals');
 
 const MODULES = join(__dirname, 'node_modules');
 
-// During development, we start a storyboard application
-const dev = neutrino => {
-  neutrino.options.entry = 'stories.js';
-  neutrino.options.html = {
-    title: 'React Preview'
+module.exports = (neutrino, options = {}) => {
+  const reactOptions = {
+    polyfills: {
+      babel: process.env.NODE_ENV === 'development'
+    },
+    html: {
+      title: 'React Preview'
+    },
+    babel: {
+      presets: [
+        ['babel-preset-env', {
+          targets: {
+            browsers: [
+              'last 1 Chrome versions',
+              'last 1 Firefox versions',
+              'last 1 Edge versions',
+              'last 1 Safari versions',
+              'last 1 iOS versions'
+            ]
+          }
+        }]
+      ]
+    }
   };
-  neutrino.use(react);
-  neutrino.config.entryPoints.delete('polyfill');
-};
 
-// During production, we create the React component as a library
-const prod = neutrino => {
-  let pkg = {};
-
-  try {
-    pkg = require(join(neutrino.options.root, 'package.json'));
-  } catch (ex) {}
-
-  neutrino.options.components = join(neutrino.options.source, neutrino.options.components || 'components');
-
-  if (neutrino.options.output.endsWith('build')) {
-    neutrino.options.output = 'lib';
-  }
-
-  const hasSourceMap = (pkg.dependencies && 'source-map-support' in pkg.dependencies) ||
-    (pkg.devDependencies && 'source-map-support' in pkg.devDependencies);
-
-  neutrino.use(react);
-
-  neutrino.config
-    .when(hasSourceMap, () => neutrino.use(banner))
-    .entryPoints
-      .delete('index')
-      .delete('polyfill')
-      .end()
-    .plugins
-      .delete('html')
-      .end()
-    .devtool('source-map')
-    .performance
-      .hints(true)
-      .end()
-    .externals([nodeExternals()])
-    .output
-      .filename('[name].js')
-      .library('[name]')
-      .libraryTarget('umd')
-      .umdNamedDefine(true);
-
-  readdirSync(neutrino.options.components)
-    .map(component => neutrino.config
-        .entry(basename(component, '.js'))
-        .add(join(neutrino.options.components, component)));
-};
-
-module.exports = neutrino => {
-  if (!path(['options', 'compile', 'targets', 'browsers'], neutrino)) {
-    Object.assign(neutrino.options, {
-      compile: {
-        targets: {
-          browsers: [
-            'last 1 Chrome versions',
-            'last 1 Firefox versions',
-            'last 1 Edge versions',
-            'last 1 Safari versions',
-            'last 1 iOS versions'
-          ]
-        }
-      }
-    });
-  }
   neutrino.config.resolve.modules.add(MODULES);
   neutrino.config.resolveLoader.modules.add(MODULES);
-  neutrino.use(process.env.NODE_ENV === 'development' ? dev : prod);
+
+  neutrino.config.when(process.env.NODE_ENV === 'development',
+    config => {
+      neutrino.options.entry = 'stories';
+      neutrino.use(react, reactOptions);
+    },
+    config => {
+      const components = join(neutrino.options.source, options.components || 'components');
+
+      neutrino.options.output = neutrino.options.output.endsWith('build') ?
+        'lib' :
+        neutrino.options.output;
+
+      try {
+        const pkg = require(join(neutrino.options.root, 'package.json'));
+        const hasSourceMap = (pkg.dependencies && 'source-map-support' in pkg.dependencies) ||
+          (pkg.devDependencies && 'source-map-support' in pkg.devDependencies);
+
+        hasSourceMap && neutrino.use(banner);
+      } catch (ex) {}
+
+      neutrino.use(react, reactOptions);
+
+      neutrino.config
+        .devtool('source-map')
+        .entryPoints.delete('index').end()
+        .plugins.delete('html').end()
+        .performance.hints(true).end()
+        .externals([nodeExternals()])
+        .output
+          .filename('[name].js')
+          .library('[name]')
+          .libraryTarget('umd')
+          .umdNamedDefine(true);
+
+      readdirSync(components)
+        .map(component => neutrino.config
+          .entry(basename(component, '.js'))
+            .add(join(components, component)));
+    })
+
   neutrino.config.module
     .rule('plain-style')
       .test(/\.css$/)
       .include
-        .add(/node_modules/).end()
+        .add(neutrino.options.node_modules).end()
       .use('style')
         .loader(require.resolve('style-loader'))
         .end()
       .use('css')
-          .loader(require.resolve('css-loader'));
+        .loader(require.resolve('css-loader'))
+        .options({ modules: false });
 
   neutrino.config.module
     .rule('style')
       .exclude
-        .add(/node_modules/).end()
+        .add(neutrino.options.node_modules).end()
       .use('css')
         .options({ modules: true });
 
-  neutrino.config.module
-    .rule('worker')
-    .test(/\.worker\.js$/)
-    .use('worker')
-    .loader(require.resolve('worker-loader'));
-
-  neutrino.config
-    .when(process.env.NODE_ENV !== 'test', config => config.plugins.delete('chunk'));
-
-  neutrino.config.node.set('Buffer', false);
-
-  const compile = neutrino.config.module.rule('compile');
-  const includes = compile.include.values().filter(include => !include.includes('polyfills.js'));
-
-  compile
-    .include
-      .clear()
-      .merge(includes)
-      .end()
-    .use('babel')
-      .tap(options => {
-        const { presets } = options;
-        const [presetEntry, ...remainingPresets] = presets;
-        const [presetEnv, envOptions] = presetEntry;
-
-        return Object.assign({}, options, {
-          plugins: [[require.resolve('fast-async'), { spec: true }], ...options.plugins],
-          presets: [
-            [
-              presetEnv,
-              Object.assign({}, envOptions, {
-                useBuiltIns: false,
-                exclude: [...(envOptions.exclude || []), 'transform-regenerator', 'transform-async-to-generator']
-              })
-            ],
-            ...remainingPresets
-          ]
-        });
-      });
+  neutrino.config.when(neutrino.config.plugins.has('runtime-chunk'),
+    config => {
+      config.plugins
+        .delete('runtime-chunk')
+        .delete('vendor-chunk')
+        .delete('named-modules')
+        .delete('named-chunks')
+        .delete('name-all');
+    });
 };

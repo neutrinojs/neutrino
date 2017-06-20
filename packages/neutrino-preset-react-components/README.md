@@ -1,5 +1,7 @@
 # Neutrino React Components Preset
-[![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url] [![Join Slack][slack-image]][slack-url]
+[![NPM version][npm-image]][npm-url]
+[![NPM downloads][npm-downloads]][npm-url]
+[![Join Slack][slack-image]][slack-url]
 
 `neutrino-preset-react-components` is a Neutrino preset that supports creating generic React components and previewing
 them without the need to embed in an application. Plays nicely with other Neutrino middleware, so you can build, test,
@@ -13,7 +15,7 @@ Minimal code is needed to generate stories previewer.
 - Modern Babel compilation adding JSX and object rest spread syntax.
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
-- Support for importing web worker with `.worker.js` file extensions
+- Support for importing web workers with `.worker.js` file extensions
 - Extends from [neutrino-preset-web](https://neutrino.js.org/presets/neutrino-preset-web)
   - Modern Babel compilation supporting ES modules, **latest** major browser versions, async functions, and dynamic imports
   - Webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
@@ -26,15 +28,15 @@ polyfills in your library code, consider importing babel-polyfill, core-js, or o
 
 ## Requirements
 
-- Node.js v6.9+
+- Node.js v6.10+
 - Yarn or npm client
-- Neutrino v5
-- React, ReactDOM, and React Addons CSS Transition Group (peer dependency)
+- Neutrino v6
+- React, React DOM, and React Addons CSS Transition Group
 
 ## Installation
 
 `neutrino-preset-react-components` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `neutrino-preset-react-components` are development dependencies. You will also need React and ReactDOM
+`neutrino` and `neutrino-preset-react-components` are development dependencies. You will also need React and React DOM
 for actual component development.
 
 #### Yarn
@@ -114,6 +116,14 @@ Now edit your project's package.json to add commands for starting the preview ap
 }
 ```
 
+If you are using `.neutrinorc.js`, add this preset to your use array instead of `--use` flags:
+
+```js
+module.exports = {
+  use: ['neutrino-preset-react-components']
+};
+```
+
 Start the app, then open a browser to http://localhost:5000 to preview your components:
 
 #### Yarn
@@ -142,7 +152,7 @@ Using the quick start example above as a reference:
 
 ✔ Building project completed
 Hash: 453804a130a959d313a1
-Version: webpack 2.3.3
+Version: webpack 2.6.1
 Time: 350ms
                      Asset     Size  Chunks             Chunk Names
     YourCustomComponent.js  4.12 kB       0  [emitted]  YourCustomComponent
@@ -161,6 +171,8 @@ These modules are ES-compatible modules, so they can be `import`ed as expected. 
 ```js
 const YourCustomComponent = require('your-custom-component').default;
 ```
+
+By default this preset creates an individual entry point for every top-level component found in `src/components`.
 
 ## Previewer Components
 
@@ -268,27 +280,37 @@ By default this preset creates an individual entry point for every top-level com
 
 The following is a list of rules and their identifiers which can be overridden, in addition to the ones from the Web preset:
 
-- `worker`: Automatically imports files with the extension `.worker.js` as Web Workers.
-- `style`: Allows importing CSS stylesheets from modules. Contains two loaders named `style` and `css`. Allows using CSS modules from project CSS files.
-- `plain-style`: Allows importing CSS stylesheets from modules. Contains two loaders named `style` and `css`. Used for importing CSS files from node_modules; has CSS modules disabled.
+| Name | Description | Environments |
+| ---- | ----------- | ------------ |
+| `style` | Allows importing CSS stylesheets from modules. Contains two loaders named `style` and `css`. Allows using CSS modules from project CSS files. | all |
+| `plain-style` | Allows importing CSS stylesheets from modules. Contains two loaders named `style` and `css`. Used for importing CSS files from node_modules; has CSS modules disabled. | all |
 
 ### Plugins
 
 The following is a list of plugins and their identifiers which can be overridden (in addition to the plugins used
 by the React/Web presets):
 
-- `banner`: Injects source-map-support into the entry point of your application if detected in `dependencies` or
-`devDependencies` of your package.json.
+_Note: Some plugins are only available in certain environments. To override them, they should be modified conditionally._
 
-### Simple customization
+| Name | Description | Environments |
+| ---- | ----------- | ------------ |
+| `banner` | Injects source-map-support into the entry point of your application if detected in `dependencies` or `devDependencies` of your package.json. | all but `development` |
 
-By following the [customization guide](https://neutrino.js.org/customization/simple) and knowing the rule, loader, and plugin IDs above,
-you can override and augment the build directly from package.json.
+By following the [customization guide](https://neutrino.js.org/customization) and knowing the rule, loader, and plugin IDs above,
+you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also
+make these changes from the Neutrino API in custom middleware.
 
-### Advanced configuration
+_Example: Change the name of the components directory:_
 
-By following the [customization guide](https://neutrino.js.org/customization/advanced) and knowing the rule, loader, and plugin IDs above,
-you can override and augment the build by creating a JS module which overrides the config.
+```js
+module.exports = {
+  use: [
+    ['neutrino-preset-react-components', {
+      components: 'react-stuff' // now you can put your components in src/react-stuff/
+    }]
+  ]
+}
+```
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-react-components.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-react-components.svg
