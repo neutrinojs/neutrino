@@ -3,7 +3,12 @@
 ### Create and build modern JavaScript applications with zero initial configuration
 #### Neutrino combines the power of Webpack with the simplicity of presets.
 
-[![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url] [![Codacy][codacy-image]][codacy-url] [![codecov][codecov-image]][codecov-url] [![Join Slack][slack-image]][slack-url]
+[![NPM version][npm-image]][npm-url]
+[![NPM downloads][npm-downloads]][npm-url]
+[![Build Status][travis-image]][travis-url]
+[![Codacy][codacy-image]][codacy-url]
+[![codecov][codecov-image]][codecov-url]
+[![Join Slack][slack-image]][slack-url]
 
 [https://github.com/mozilla-neutrino/neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev)
 
@@ -36,6 +41,8 @@ community.
 [npm-image]: https://img.shields.io/npm/v/neutrino.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino.svg
 [npm-url]: https://npmjs.org/package/neutrino
+[travis-image]: https://travis-ci.org/mozilla-neutrino/neutrino-dev.svg?branch=master
+[travis-url]: https://travis-ci.org/mozilla-neutrino/neutrino-dev
 [slack-image]: https://neutrino-slack.herokuapp.com/badge.svg
 [slack-url]: https://neutrino-slack.herokuapp.com/
 [codacy-image]: https://api.codacy.com/project/badge/Grade/8717707007704c929de39ec20b7b0542
