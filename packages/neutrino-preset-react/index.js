@@ -1,5 +1,6 @@
 const web = require('neutrino-preset-web');
 const compileLoader = require('neutrino-middleware-compile-loader');
+const loaderMerge = require('neutrino-middleware-loader-merge');
 const { join } = require('path');
 const merge = require('deepmerge');
 
@@ -33,6 +34,12 @@ module.exports = (neutrino, opts = {}) => {
   });
 
   neutrino.use(web, options);
+
+  neutrino.config.when(neutrino.config.module.rules.has('lint'), () => {
+    neutrino.use(loaderMerge('lint', 'eslint'), {
+      plugins: ['react']
+    });
+  });
 
   neutrino.config
     .resolve
