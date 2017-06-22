@@ -1,3 +1,9 @@
+2017-06-21
+==========
+
+  * Hashing entire un-named chunk instead of individual modules ([#278](https://github.com/mozilla-neutrino/neutrino-dev/issues/278))
+  * Release v6.0.4
+
 2017-06-20
 ==========
 
@@ -644,13 +650,3 @@
   * Pull webpack actions out of Neutrino class.
   * Merge pull request [#123](https://github.com/mozilla-neutrino/neutrino-dev/issues/123) from jaridmargolin/getWebpackConfig
     Rename `getWebpackOptions` to `getWebpackConfig`.
-
-2017-03-17
-==========
-
-  * Rename `getWebpackOptions` to `getWebpackConfig`.
-
-2017-03-16
-==========
-
-  * Updating yarn.lock
