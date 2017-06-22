@@ -9,9 +9,12 @@ module.exports = ({ config }) => config
   .plugin('named-modules')
     .use(NamedModulesPlugin).end()
   .plugin('named-chunks')
-    .use(NamedChunksPlugin, [chunk => chunk.name || chunk.modules
-      .map(({ context = '', request = '' }) => hash(relative(context, request)))
-      .join('_')])
+    .use(NamedChunksPlugin, [
+      chunk => (
+        chunk.name ||
+        hash(chunk.modules.map(({ context = '', request = '' }) => relative(context, request)).join('_'))
+      )
+    ])
     .end()
   .plugin('vendor-chunk')
     .use(optimize.CommonsChunkPlugin, [{
