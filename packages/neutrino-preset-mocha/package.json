@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-mocha",
-  "version": "6.0.3",
+  "version": "6.0.4",
   "description": "Neutrino preset for testing Neutrino projects with Mocha",
   "main": "src/index.js",
   "keywords": [

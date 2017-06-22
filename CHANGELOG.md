@@ -1,6 +1,18 @@
+2017-06-20
+==========
+
+  * Adding ESLint support back to React ([#275](https://github.com/mozilla-neutrino/neutrino-dev/issues/275))
+
+2017-06-19
+==========
+
+  * Add Travis badge to README ([#270](https://github.com/mozilla-neutrino/neutrino-dev/issues/270))
+    Also improves mark-up readability (has no effect on display layout).
+
 2017-06-18
 ==========
 
+  * Release v6.0.3
   * Reject test runners when non-zero exit code ([#269](https://github.com/mozilla-neutrino/neutrino-dev/issues/269))
 
 2017-06-16
@@ -642,7 +654,3 @@
 ==========
 
   * Updating yarn.lock
-  * Merge pull request [#119](https://github.com/mozilla-neutrino/neutrino-dev/issues/119) from jaridmargolin/neutrino-refactor
-    Neutrino refactor
-  * Add packages/bin/neutrino to lint files list.
-  * Set environment variable, NODE_ENV, inside of `runCommand` (also adds --env option to CLI).
