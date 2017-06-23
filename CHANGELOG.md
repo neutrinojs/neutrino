@@ -1,6 +1,17 @@
+2017-06-22
+==========
+
+  * Ensure test cases are not run 2x in watch mode. ([#280](https://github.com/mozilla-neutrino/neutrino-dev/issues/280))
+  * Karma coverage ([#282](https://github.com/mozilla-neutrino/neutrino-dev/issues/282))
+    * Add missing semi-colon in neutrino-preset-karma.
+    * Wrap preset-karma loaderMerge call in conditional which only runs when `compile` rule exists.
+  * Fix broken link ([#281](https://github.com/mozilla-neutrino/neutrino-dev/issues/281))
+  * Add `babel-plugin-istanbul` to ensure accurate coverage is reported. ([#279](https://github.com/mozilla-neutrino/neutrino-dev/issues/279))
+
 2017-06-21
 ==========
 
+  * Release v6.0.5
   * Hashing entire un-named chunk instead of individual modules ([#278](https://github.com/mozilla-neutrino/neutrino-dev/issues/278))
   * Release v6.0.4
 
@@ -635,18 +646,3 @@
     A la classic NodeJS resolution and webpack default. See [#116](https://github.com/mozilla-neutrino/neutrino-dev/issues/116).
   * Merge pull request [#132](https://github.com/mozilla-neutrino/neutrino-dev/issues/132) from jaridmargolin/master
     Fix typo in develop function.
-  * Fix typo in develop function.
-
-2017-03-19
-==========
-
-  * Merge pull request [#127](https://github.com/mozilla-neutrino/neutrino-dev/issues/127) from jaridmargolin/neutrino-webpack
-    Neutrino webpack
-
-2017-03-18
-==========
-
-  * Remove unnecessary specificity from webpack config test.
-  * Pull webpack actions out of Neutrino class.
-  * Merge pull request [#123](https://github.com/mozilla-neutrino/neutrino-dev/issues/123) from jaridmargolin/getWebpackConfig
-    Rename `getWebpackOptions` to `getWebpackConfig`.

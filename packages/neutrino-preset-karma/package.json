@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-karma",
-  "version": "6.0.5",
+  "version": "6.1.0",
   "description": "Neutrino preset for testing Neutrino projects with Karma",
   "main": "index.js",
   "keywords": [
@@ -24,7 +24,7 @@
     "karma-webpack": "^2.0.3",
     "mocha": "^3.4.2",
     "mocha-coverage-reporter": "^0.0.1",
-    "neutrino-middleware-loader-merge": "^6.0.5",
+    "neutrino-middleware-loader-merge": "^6.1.0",
     "ramda": "^0.24.1",
     "webpack": "^2.6.1",
     "webpack-dev-middleware": "^1.10.2"

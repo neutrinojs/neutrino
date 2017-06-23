@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-style-loader",
-  "version": "6.0.5",
+  "version": "6.1.0",
   "description": "Neutrino middleware for importing and loading stylesheets from modules",
   "main": "index.js",
   "keywords": [
