@@ -40,13 +40,15 @@ module.exports = (neutrino, opts = {}) => {
     }
   };
 
-  neutrino.use(loaderMerge('compile', 'babel'), {
-    env: {
-      test: {
-        plugins: [require.resolve('babel-plugin-istanbul')]
+  if (neutrino.config.module.rules.has('compile')) {
+    neutrino.use(loaderMerge('compile', 'babel'), {
+      env: {
+        test: {
+          plugins: [require.resolve('babel-plugin-istanbul')]
+        }
       }
-    }
-  });
+    });
+  }
 
   neutrino.on('test', ({ files, watch }) => new Promise((resolve, reject) =>
     new Server(merge.all([
