@@ -149,7 +149,7 @@ preset builds. You can modify React preset settings from `.neutrinorc.js` by ove
 an array pair instead of a string to supply these options in `.neutrinorc.js`.
 
 The following shows how you can pass an options object to the React preset and override its options. See the
-[Web documentation](../neutrino-preset-web#presetoptions) for specific options you can override with this object.
+[Web documentation](../neutrino-preset-web#preset-options) for specific options you can override with this object.
 
 ```js
 module.exports = {
