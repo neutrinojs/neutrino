@@ -2,7 +2,7 @@ const { Server } = require('karma');
 const merge = require('deepmerge');
 const { join } = require('path');
 const { omit } = require('ramda');
-const loaderMerge = require('neutrino-middleware-loader-merge')
+const loaderMerge = require('neutrino-middleware-loader-merge');
 
 module.exports = (neutrino, opts = {}) => {
   const tests = join(neutrino.options.tests, '**/*_test.js');
@@ -40,13 +40,15 @@ module.exports = (neutrino, opts = {}) => {
     }
   };
 
-  neutrino.use(loaderMerge('compile', 'babel'), {
-    env: {
-      test: {
-        plugins: [require.resolve('babel-plugin-istanbul')]
+  if (neutrino.config.module.rules.has('compile')) {
+    neutrino.use(loaderMerge('compile', 'babel'), {
+      env: {
+        test: {
+          plugins: [require.resolve('babel-plugin-istanbul')]
+        }
       }
-    }
-  });
+    });
+  }
 
   neutrino.on('test', ({ files, watch }) => new Promise((resolve, reject) =>
     new Server(merge.all([
