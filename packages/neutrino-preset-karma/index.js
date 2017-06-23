@@ -24,7 +24,12 @@ module.exports = (neutrino, opts = {}) => {
       }
     },
     frameworks: ['mocha'],
-    files: [tests],
+    files: [{
+      pattern: tests,
+      watched: false,
+      included: true,
+      served: true
+    }],
     preprocessors: {
       [tests]: ['webpack'],
       [sources]: ['webpack']
