@@ -12,7 +12,7 @@ module.exports = ({ config }) => config
     .use(NamedChunksPlugin, [
       chunk => (
         chunk.name ||
-        hash(chunk.modules.map(({ context = '', request = '' }) => relative(context, request)).join('_'))
+        hash(chunk.modules.map(({ context, request }) => relative(context || '', request || '')).join('_'))
       )
     ])
     .end()
