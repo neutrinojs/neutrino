@@ -55,6 +55,29 @@ const getOptions = (opts = {}) => {
   return options;
 };
 
+/* eslint-disable no-param-reassign */
+const mergeOptions = (options, newOptions) => {
+  const paths = pathOptions.map(([path]) => path);
+
+  Object
+    .keys(newOptions)
+    .forEach((key) => {
+      if (paths.includes(key)) {
+        options[key] = newOptions[key];
+        return;
+      }
+
+      if (!options[key]) {
+        options[key] = newOptions[key];
+      } else {
+        options[key] = merge(options[key], newOptions[key]);
+      }
+    });
+
+  return options;
+};
+/* eslint-enable no-param-reassign */
+
 // Api :: Object? -> Object
 const Api = pipe(getOptions, (options) => {
   const listeners = {};
@@ -104,7 +127,7 @@ const Api = pipe(getOptions, (options) => {
       // options
       [is(Object), () => {
         if (middleware.options) {
-          api.options = getOptions(merge(api.options, middleware.options));
+          api.options = mergeOptions(api.options, middleware.options);
         }
 
         if (middleware.env) {
@@ -122,7 +145,7 @@ const Api = pipe(getOptions, (options) => {
                 return env;
               }
 
-              api.options = getOptions(merge(api.options, env.options));
+              api.options = mergeOptions(api.options, env.options);
 
               return omit(['options'], env);
             });
