@@ -1,6 +1,24 @@
+2017-06-28
+==========
+
+  * Add an .npmignore to all packages ([#291](https://github.com/mozilla-neutrino/neutrino-dev/issues/291))
+    Excluding the test directory and `yarn.lock` reduces the package
+    size significantly (for example 85-90% reduction in both compressed
+    and uncompressed size of neutrino-preset-web), plus reduces the
+    noise when consumers need to grep their local `node_modules`.
+    An `.npmignore` has been used instead of the `files` directive in
+    `package.json` since the latter can cause breakage that isn't shown
+    in CI if the directory layout changes (which is likely given the
+    Neutrino packages have a mixture of using the `src` directory and
+    not, depending on how many files they include). `.npmignore` was
+    used instead of `.yarnignore` since npm doesn't support the latter
+    whereas yarn supports both.
+
 2017-06-22
 ==========
 
+  * Prevent null chunks from preventing naming ([#284](https://github.com/mozilla-neutrino/neutrino-dev/issues/284))
+  * Release v6.1.0
   * Ensure test cases are not run 2x in watch mode. ([#280](https://github.com/mozilla-neutrino/neutrino-dev/issues/280))
   * Karma coverage ([#282](https://github.com/mozilla-neutrino/neutrino-dev/issues/282))
     * Add missing semi-colon in neutrino-preset-karma.
@@ -638,11 +656,3 @@
 
   * Merge pull request [#135](https://github.com/mozilla-neutrino/neutrino-dev/issues/135) from eirikurn/issue-116
     Resolve packages from parent node_modules folders
-  * Fix resolution issues when linking neutrino
-    Some presets depend on `webpack` and `webpack-dev-server` for HMR
-    logic. This commit makes those dependencies explicit and fixes issues
-    when installing neutrino packages with `npm link`.
-  * Resolve packages from parent node_modules folders
-    A la classic NodeJS resolution and webpack default. See [#116](https://github.com/mozilla-neutrino/neutrino-dev/issues/116).
-  * Merge pull request [#132](https://github.com/mozilla-neutrino/neutrino-dev/issues/132) from jaridmargolin/master
-    Fix typo in develop function.

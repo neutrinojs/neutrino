@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-pwa",
-  "version": "6.1.0",
+  "version": "6.1.2",
   "description": "Neutrino middleware for augmenting a Neutrino web application with Progressive Web Application capabilities",
   "main": "index.js",
   "keywords": [

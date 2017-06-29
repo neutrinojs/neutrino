@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-start-server",
-  "version": "6.1.0",
+  "version": "6.1.2",
   "description": "Neutrino middleware for starting a server after a build",
   "main": "index.js",
   "keywords": [

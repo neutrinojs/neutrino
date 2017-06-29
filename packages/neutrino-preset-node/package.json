@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-node",
-  "version": "6.1.0",
+  "version": "6.1.2",
   "description": "Neutrino preset for building Node.js projects",
   "main": "index.js",
   "keywords": [
@@ -21,13 +21,13 @@
     "exports-loader": "^0.6.4",
     "fast-async": "^6.2.2",
     "imports-loader": "^0.7.1",
-    "neutrino-middleware-banner": "^6.1.0",
-    "neutrino-middleware-clean": "^6.1.0",
-    "neutrino-middleware-compile-loader": "^6.1.0",
-    "neutrino-middleware-copy": "^6.1.0",
-    "neutrino-middleware-hot": "^6.1.0",
-    "neutrino-middleware-loader-merge": "^6.1.0",
-    "neutrino-middleware-start-server": "^6.1.0",
+    "neutrino-middleware-banner": "^6.1.2",
+    "neutrino-middleware-clean": "^6.1.2",
+    "neutrino-middleware-compile-loader": "^6.1.2",
+    "neutrino-middleware-copy": "^6.1.2",
+    "neutrino-middleware-hot": "^6.1.2",
+    "neutrino-middleware-loader-merge": "^6.1.2",
+    "neutrino-middleware-start-server": "^6.1.2",
     "ramda": "^0.24.1",
     "webpack": "^2.6.1",
     "webpack-node-externals": "^1.6.0"
