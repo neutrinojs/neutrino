@@ -1851,9 +1851,9 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
-neutrino-middleware-loader-merge@^6.1.2:
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-loader-merge/-/neutrino-middleware-loader-merge-6.1.2.tgz#273fe689e17ae67b1b78b087e7493db96a792294"
+neutrino-middleware-loader-merge@^6.1.4:
+  version "6.1.4"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-loader-merge/-/neutrino-middleware-loader-merge-6.1.4.tgz#1d153c02ee43c45d008ab99bd9a59813465ff979"
   dependencies:
     deepmerge "^1.3.2"
 
