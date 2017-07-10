@@ -94,8 +94,12 @@ module.exports = (neutrino, opts = {}) => {
     return new Promise((resolve, reject) => {
       const configFile = join(tmpdir(), 'config.json');
       const options = normalizeJestOptions(opts, neutrino, args);
-      const cliOptions = { config: configFile, coverage: args.coverage, watch: args.watch };
+      const cliOptions = merge(
+        omit(['inspect', 'quiet', '_', 'version', 'help', 'use', 'options', '$0', 'files'], args),
+        { config: configFile, coverage: args.coverage, watch: args.watch }
+      );
 
+      cliOptions.findRelatedFiles = cliOptions.findRelatedFiles.split(' ');
       writeFileSync(configFile, `${JSON.stringify(options, null, 2)}\n`);
 
       jest.runCLI(cliOptions, [configFile], result =>
