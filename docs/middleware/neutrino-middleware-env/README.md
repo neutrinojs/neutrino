@@ -2,7 +2,8 @@
 [![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url] [![Join Slack][slack-image]][slack-url]
 
 `neutrino-middleware-env` is Neutrino middleware for injecting environment variable definitions into
-source code at `process.env`. Always injects `process.env.NODE_ENV`, unless overridden.
+source code at `process.env`. You can use this to make a custom environment variable (e.g. an API server backend to
+use) available inside your project. Always injects `process.env.NODE_ENV`, unless overridden.
 
 ## Requirements
 
