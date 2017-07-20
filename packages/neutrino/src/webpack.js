@@ -25,8 +25,13 @@ const compile = pipe(
 // devServer :: Object config -> Future Error Object
 const devServer = pipe(
   compiler,
-  Future.map(compiler => assoc('compiler', compiler, new DevServer(compiler, compiler.options.devServer)))
+  Future.map(compiler => {
+    const server = new DevServer(compiler, compiler.options.devServer);
+    server.compiler = compiler;
+    return server;
+  })
 );
+
 
 // serve :: Object config -> Future Error Object
 const serve = pipe(
