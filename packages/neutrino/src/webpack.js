@@ -1,5 +1,5 @@
 const Future = require('fluture');
-const { assoc, isEmpty, pathOr, pipe } = require('ramda');
+const { isEmpty, pathOr, pipe } = require('ramda');
 const webpack = require('webpack');
 const DevServer = require('webpack-dev-server');
 const { toArray } = require('./utils');
