@@ -66,6 +66,7 @@ module.exports = class extends ChainedMap {
       devServer: this.devServer.entries(),
       module: this.module.toConfig(),
       plugins: this.plugins.values().map(plugin => plugin.toConfig()),
+      performance: this.performance.entries(),
       entry: Object
         .keys(entryPoints)
         .reduce((acc, key) => Object.assign(acc, { [key]: entryPoints[key].values() }), {})
@@ -84,6 +85,7 @@ module.exports = class extends ChainedMap {
           case 'resolve':
           case 'resolveLoader':
           case 'devServer':
+          case 'performance':
           case 'module': {
             return this[key].merge(value);
           }
