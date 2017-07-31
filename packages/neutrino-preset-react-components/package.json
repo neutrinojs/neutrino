@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-react-components",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "main": "index.js",
   "files": [
     "lib",
@@ -14,13 +14,13 @@
     "build": "neutrino build --use ./index.js"
   },
   "devDependencies": {
-    "neutrino": "^6.0.3",
+    "neutrino": "^6.1.4",
     "react": "^15.6.1"
   },
   "dependencies": {
-    "@blueprintjs/core": "^1.20.0",
-    "neutrino-middleware-banner": "^6.0.3",
-    "neutrino-preset-react": "^6.0.3",
+    "@blueprintjs/core": "^1.24.0",
+    "neutrino-middleware-banner": "^6.1.4",
+    "neutrino-preset-react": "^6.1.4",
     "normalize.css": "^7.0.0",
     "prop-types": "^15.5.10",
     "webpack-node-externals": "^1.6.0"

@@ -15,6 +15,7 @@ module.exports = (neutrino, options = {}) => {
       title: 'React Preview'
     },
     babel: {
+      plugins: [require.resolve('babel-plugin-transform-es2015-classes')],
       presets: [
         ['babel-preset-env', {
           targets: {
@@ -39,7 +40,7 @@ module.exports = (neutrino, options = {}) => {
       neutrino.options.entry = 'stories';
       neutrino.use(react, reactOptions);
     },
-    config => {
+    () => {
       const components = join(neutrino.options.source, options.components || 'components');
 
       neutrino.options.output = neutrino.options.output.endsWith('build') ?
@@ -72,7 +73,7 @@ module.exports = (neutrino, options = {}) => {
         .map(component => neutrino.config
           .entry(basename(component, '.js'))
             .add(join(components, component)));
-    })
+    });
 
   neutrino.config.module
     .rule('plain-style')
