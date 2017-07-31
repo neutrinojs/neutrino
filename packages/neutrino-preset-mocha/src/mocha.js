@@ -20,7 +20,7 @@ module.exports = (mochaOpts = {}, babelOpts = {}, files = []) => new Promise((re
         [...argv, `--${toParam(key)}`, value];
     }, ['--require', require.resolve('./register')]);
 
-  proc = spawn(require.resolve('mocha/bin/mocha'), [...argv, ...files], {
+  proc = spawn(process.execPath, [require.resolve('mocha/bin/mocha'), ...argv, ...files], {
     cwd: process.cwd(),
     env: process.env,
     stdio: 'inherit'
