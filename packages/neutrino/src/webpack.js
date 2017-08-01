@@ -1,5 +1,5 @@
 const Future = require('fluture');
-const { assoc, isEmpty, pathOr, pipe } = require('ramda');
+const { isEmpty, pathOr, pipe } = require('ramda');
 const webpack = require('webpack');
 const DevServer = require('webpack-dev-server');
 const { toArray } = require('./utils');
@@ -25,7 +25,7 @@ const compile = pipe(
 // devServer :: Object config -> Future Error Object
 const devServer = pipe(
   compiler,
-  Future.map(compiler => assoc('compiler', compiler, new DevServer(compiler, compiler.options.devServer)))
+  Future.map(compiler => Object.assign(new DevServer(compiler, compiler.options.devServer), { compiler }))
 );
 
 // serve :: Object config -> Future Error Object
