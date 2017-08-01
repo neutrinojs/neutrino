@@ -1,6 +1,29 @@
+2017-07-31
+==========
+
+  * Fix hot reload ([#304](https://github.com/mozilla-neutrino/neutrino-dev/issues/304))
+    * Fix dev server live reload
+    * Remove unused variable
+    * Fix lint error
+    * Simplify code
+
+2017-07-30
+==========
+
+  * Make it more clear what the env plugin can be used for ([#295](https://github.com/mozilla-neutrino/neutrino-dev/issues/295))
+  * [windows] fix spawn [..]\mocha ENOENT error ([#298](https://github.com/mozilla-neutrino/neutrino-dev/issues/298))
+
+2017-07-02
+==========
+
+  * Fixing broken middleware links
+
 2017-06-28
 ==========
 
+  * Release v6.1.4
+  * Correctly override path options for custom options ([#293](https://github.com/mozilla-neutrino/neutrino-dev/issues/293))
+  * Release v6.1.2
   * Add an .npmignore to all packages ([#291](https://github.com/mozilla-neutrino/neutrino-dev/issues/291))
     Excluding the test directory and `yarn.lock` reduces the package
     size significantly (for example 85-90% reduction in both compressed
@@ -637,22 +660,3 @@
     Hopefully last round of docs changes for v5
   * Hopefully last round of docs changes
   * Mocha dependency upgrades
-  * Merge pull request [#139](https://github.com/mozilla-neutrino/neutrino-dev/issues/139) from eliperelman/v5-deps
-    Upgrading dependencies
-  * Upgrading dependencies
-  * Merge pull request [#138](https://github.com/mozilla-neutrino/neutrino-dev/issues/138) from eliperelman/webpack-validate
-    Validate webpack configuration before running compiler
-  * Validate webpack configuration before running compiler
-
-2017-03-22
-==========
-
-  * Merge pull request [#137](https://github.com/mozilla-neutrino/neutrino-dev/issues/137) from eliperelman/functional
-    Functional refactor
-  * Functional refactor
-
-2017-03-20
-==========
-
-  * Merge pull request [#135](https://github.com/mozilla-neutrino/neutrino-dev/issues/135) from eirikurn/issue-116
-    Resolve packages from parent node_modules folders
