@@ -1,13 +1,16 @@
 # webpack-chain
 
 Use a chaining API to generate and simplify the modification of
-Webpack 2 configurations.
+Webpack 2 and 3 configurations.
 
-This README corresponds to v3 of webpack-chain.
+This documentation corresponds to v4 of webpack-chain.
 
-[v2 docs](https://github.com/mozilla-neutrino/webpack-chain/tree/v2)
+* [v3 docs](https://github.com/mozilla-neutrino/webpack-chain/tree/v3)
+* [v2 docs](https://github.com/mozilla-neutrino/webpack-chain/tree/v2)
+* [v1 docs](https://github.com/mozilla-neutrino/webpack-chain/tree/v1.4.3)
 
-[v1 docs](https://github.com/mozilla-neutrino/webpack-chain/tree/v1.4.3)
+_Note: while webpack-chain is utilized extensively in Neutrino, this package is completely
+standalone and can be used by any project._
 
 ## Introduction
 
@@ -24,14 +27,10 @@ standardize how to modify a configuration across projects.
 
 This is easier explained through the examples following.
 
-## Contributing
-
-We welcome any contributor. Just fork and clone, make changes, and send a pull request.
-
 ## Installation
 
 `webpack-chain` requires Node.js v6.9 and higher. `webpack-chain` also
-only creates configuration objects designed for use in Webpack 2.
+only creates configuration objects designed for use in Webpack 2 and 3.
 
 You may install this package using either Yarn or npm (choose one):
 
@@ -682,15 +681,13 @@ config.devServer
 config.module : ChainedMap
 ```
 
-#### Config module noParse
+#### Config module: shorthand methods
 
 ```js
-config.module.noParse : ChainedSet
+config.module : ChainedMap
 
-config.module.noParse
-  .add(value)
-  .prepend(value)
-  .clear()
+config.module
+  .noParse(noParse)
 ```
 
 #### Config module rules: shorthand methods
@@ -859,7 +856,6 @@ config.merge({
   module: {
     [key]: value,
     
-    noParse: [...values],
     rule: {
       [name]: {
         [key]: value,

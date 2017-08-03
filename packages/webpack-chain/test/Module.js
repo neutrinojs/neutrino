@@ -34,16 +34,7 @@ test('toConfig with values', t => {
   const module = new Module();
 
   module.rule('compile').test(/\.js$/);
-  module.noParse.add(/.min.js/);
+  module.noParse(/.min.js/);
 
-  t.deepEqual(module.toConfig(), { rules: [{ test: /\.js$/ }], noParse: [/.min.js/]});
+  t.deepEqual(module.toConfig(), { rules: [{ test: /\.js$/ }], noParse: /.min.js/ });
 });
-
-test('noParse', t => {
-  const module = new Module();
-  const instance = module.noParse.add(/.min.js/).end();
-
-  t.is(instance, module);
-  t.deepEqual(module.noParse.values()[0], /.min.js/);
-});
-

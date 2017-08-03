@@ -1,12 +1,11 @@
 const ChainedMap = require('./ChainedMap');
-const ChainedSet = require('./ChainedSet');
 const Rule = require('./Rule');
 
 module.exports = class extends ChainedMap {
   constructor(parent) {
     super(parent);
     this.rules = new ChainedMap(this);
-    this.noParse = new ChainedSet(this);
+    this.extend(['noParse']);
   }
 
   rule(name) {
@@ -19,8 +18,7 @@ module.exports = class extends ChainedMap {
 
   toConfig() {
     return this.clean(Object.assign(this.entries() || {}, {
-      rules: this.rules.values().map(r => r.toConfig()),
-      noParse: this.noParse.values()
+      rules: this.rules.values().map(r => r.toConfig())
     }));
   }
 
@@ -35,10 +33,6 @@ module.exports = class extends ChainedMap {
             return Object
               .keys(value)
               .forEach(name => this.rule(name).merge(value[name]));
-          }
-
-          case 'noParse': {
-            return this.noParse.merge(value);
           }
 
           default: {
