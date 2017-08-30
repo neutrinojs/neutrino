@@ -17,7 +17,10 @@ module.exports = (middleware, args) => {
   return api
     .run('test', middleware)
     .fork((err) => {
-      console.error(err);
+      if (err) {
+        Array.isArray(err) ? err.map(err => console.error(err)) : console.error(err);
+      }
+
       process.exit(1);
     }, () => {
       // Some test runners do not cleanly exit after resolving their promise.
