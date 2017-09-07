@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-html-loader",
-  "version": "6.1.6",
+  "version": "6.1.8",
   "description": "Neutrino middleware for importing and loading HTML files from modules",
   "main": "index.js",
   "keywords": [

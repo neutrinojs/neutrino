@@ -1,6 +1,22 @@
+2017-09-06
+==========
+
+  * Fixes [#311](https://github.com/mozilla-neutrino/neutrino-dev/issues/311) ([#312](https://github.com/mozilla-neutrino/neutrino-dev/issues/312))
+
+2017-08-30
+==========
+
+  * Release 6.1.6
+
+2017-08-29
+==========
+
+  * Handle list of errors from test command ([#310](https://github.com/mozilla-neutrino/neutrino-dev/issues/310))
+
 2017-07-31
 ==========
 
+  * Release 6.1.5
   * Fix hot reload ([#304](https://github.com/mozilla-neutrino/neutrino-dev/issues/304))
     * Fix dev server live reload
     * Remove unused variable
@@ -655,8 +671,3 @@
 ==========
 
   * Updating changelog
-  * Updating yarn.lock files
-  * Merge pull request [#140](https://github.com/mozilla-neutrino/neutrino-dev/issues/140) from eliperelman/v5-docs-again
-    Hopefully last round of docs changes for v5
-  * Hopefully last round of docs changes
-  * Mocha dependency upgrades
