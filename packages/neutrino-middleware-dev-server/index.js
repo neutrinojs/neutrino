@@ -60,7 +60,7 @@ module.exports = (neutrino, opts = {}) => {
     .devServer
       .merge(options)
       .end()
-    .when(options.open, () => neutrino.on('start', () => open(url)))
+    .when(options.open, () => neutrino.on('start', () => open(url, { wait: false })))
     .entry('index')
       .when(options.hot, entry => entry.prepend(require.resolve('webpack/hot/dev-server')))
       .prepend(`${require.resolve('webpack-dev-server/client')}?${url}`);
