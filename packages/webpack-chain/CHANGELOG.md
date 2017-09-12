@@ -1,6 +1,14 @@
+2017-09-11
+==========
+
+  * Merge pull request [#36](https://github.com/mozilla-neutrino/webpack-chain/issues/36) from eliperelman/rule-oneof
+    Updating rule definition shortcuts, adding oneOf
+  * Updating rule definition shortcuts, adding oneOf
+
 2017-08-02
 ==========
 
+  * Release v4.0.0
   * Merge pull request [#32](https://github.com/mozilla-neutrino/webpack-chain/issues/32) from eliperelman/noparse-shorthand
     Switch noParse to getter/setter to allow webpack v3 function argument
   * Switch noParse to getter/setter to allow webpack v3 function argument
