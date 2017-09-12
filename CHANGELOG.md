@@ -1,6 +1,18 @@
+2017-09-11
+==========
+
+  * feat: Allow passing any Jest CLI options to neutrino-jest test task ([#313](https://github.com/mozilla-neutrino/neutrino-dev/issues/313))
+    * feat: Allow passing any Jest CLI options to neutrino-jest test task
+    Closes [#287](https://github.com/mozilla-neutrino/neutrino-dev/issues/287)
+    * docs: Update docs for Jest presets
+  * chore: Add lint-staged and husky ([#314](https://github.com/mozilla-neutrino/neutrino-dev/issues/314))
+    Add lint-staged with an auto-fix configuration for all JS files.
+    See https://github.com/okonet/lint-staged
+
 2017-09-06
 ==========
 
+  * Release 6.1.8
   * Fixes [#311](https://github.com/mozilla-neutrino/neutrino-dev/issues/311) ([#312](https://github.com/mozilla-neutrino/neutrino-dev/issues/312))
 
 2017-08-30
@@ -659,15 +671,3 @@
     It caused me a great headache last night, when I was migrating a pair of eslint presets.
     Thank god [eslint middleware documentation page](https://neutrino.js.org/middleware/neutrino-middleware-eslint/) is OK and you can
     compare and infer the correct usage.
-
-2017-03-24
-==========
-
-  * Merge pull request [#141](https://github.com/mozilla-neutrino/neutrino-dev/issues/141) from eliperelman/publicpath-docs
-    Adding documention about web publicPath
-  * Adding documention about web publicPath
-
-2017-03-23
-==========
-
-  * Updating changelog

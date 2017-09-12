@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-eslint",
-  "version": "6.1.8",
+  "version": "6.2.0",
   "description": "Neutrino middleware for linting source code using ESLint",
   "main": "index.js",
   "keywords": [
