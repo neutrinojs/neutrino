@@ -175,8 +175,29 @@ helpful during continuous integration of your project:
 }
 ```
 
-See the [Jest documentation](https://facebook.github.io/jest/docs/configuration.html#collectcoveragefrom-array) for
-more configuration options for generating coverage reports.
+## Additional options
+
+You can pass any additional option Jest accepts. See the [Jest documentation](https://facebook.github.io/jest/docs/configuration.html#collectcoveragefrom-array) for more configuration options.
+
+For example, if you want to run tests on the precommit hook with [lint-staged](https://github.com/okonet/lint-staged)  you can run:
+
+```bash
+npx mrm lintstaged
+```
+
+and update the configuration in your `package.json` to:
+
+```json
+{
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "neutrino test --findRelatedTests"
+      "git add"
+    ]
+  }
+}
+```
 
 ## Preset options
 

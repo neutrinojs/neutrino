@@ -1,4 +1,6 @@
+const yargs = require('yargs');
 const jest = require('jest-cli');
+const jestOptions = require('jest-cli/build/cli/args').options;
 const { omit } = require('ramda');
 const merge = require('deepmerge');
 const loaderMerge = require('neutrino-middleware-loader-merge');
@@ -20,7 +22,7 @@ function getFinalPath(path) {
     join('<rootDir>', 'node_modules', path);
 }
 
-function normalizeJestOptions(opts, neutrino, args) {
+function normalizeJestOptions(opts, neutrino) {
   const aliases = neutrino.config.resolve.alias.entries() || {};
   const moduleNames = Object
     .keys(aliases)
@@ -62,8 +64,7 @@ function normalizeJestOptions(opts, neutrino, args) {
         )
       }
     },
-    opts,
-    args.files.length ? { testRegex: args.files.join('|').replace('.', '\\.') } : {}
+    opts
   ]);
 }
 
@@ -92,13 +93,26 @@ module.exports = (neutrino, opts = {}) => {
     });
 
     return new Promise((resolve, reject) => {
+      // We need to parse argv separately in order to identify files
+      // and jest-related options since root neutrino does not know about
+      // jest options and will provide wrong/incomplete `args.files`
+      const jestArgs = yargs
+        .command('test [files..]', 'Run tests', jestOptions)
+        .argv;
       const configFile = join(tmpdir(), 'config.json');
-      const options = normalizeJestOptions(opts, neutrino, args);
-      const cliOptions = { config: configFile, coverage: args.coverage, watch: args.watch };
+      const options = normalizeJestOptions(opts, neutrino);
+      const cliOptions = Object.assign(jestArgs,
+        {
+          // Jest is looking for Array of files in `argv._`. Providing them
+          _: jestArgs.files,
+          config: configFile,
+          coverage: args.coverage,
+          watch: args.watch
+        });
 
       writeFileSync(configFile, `${JSON.stringify(options, null, 2)}\n`);
 
-      jest.runCLI(cliOptions, [configFile], result =>
+      jest.runCLI(cliOptions, options.roots, result =>
         (result.numFailedTests || result.numFailedTestSuites ?
           reject() :
           resolve()));
