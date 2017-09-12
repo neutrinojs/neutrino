@@ -739,6 +739,31 @@ config.module
       .tap(options => merge(options, { plugins: ['babel-plugin-syntax-object-rest-spread'] }));
 ```
 
+#### Config module rules oneOfs (conditional rules):
+
+```js
+config.module.rules{}.oneOfs : ChainedMap<Rule>
+
+config.module
+  .rule(name)
+    .oneOf(name)
+    
+// Example
+
+config.module
+  .rule('css')
+    .oneOf('inline')
+      .resourceQuery(/inline/)
+      .use('url')
+        .loader('url-loader')
+        .end()
+      .end()
+    .oneOf('external')
+      .resourceQuery(/external/)
+      .use('file')
+        .loader('file-loader')
+```
+
 ---
 
 ### Merging Config
@@ -861,11 +886,18 @@ config.merge({
         [key]: value,
         
         enforce,
-        test,
+        issuer,
         parser,
+        resource,
+        resourceQuery,
+        test,
         
         include: [...paths],
         exclude: [...paths],
+        
+        oneOf: {
+          [name]: Rule
+        },
         
         use: {
           [name]: {

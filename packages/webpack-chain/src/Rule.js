@@ -2,13 +2,14 @@ const ChainedMap = require('./ChainedMap');
 const ChainedSet = require('./ChainedSet');
 const Use = require('./Use');
 
-module.exports = class extends ChainedMap {
+module.exports = class Rule extends ChainedMap {
   constructor(parent) {
     super(parent);
     this.uses = new ChainedMap(this);
     this.include = new ChainedSet(this);
     this.exclude = new ChainedSet(this);
-    this.extend(['parser', 'test', 'enforce']);
+    this.oneOfs = new ChainedMap(this);
+    this.extend(['parser', 'test', 'enforce', 'issuer', 'resource', 'resourceQuery']);
   }
 
   use(name) {
@@ -17,6 +18,14 @@ module.exports = class extends ChainedMap {
     }
 
     return this.uses.get(name);
+  }
+
+  oneOf(name) {
+    if (!this.oneOfs.has(name)) {
+      this.oneOfs.set(name, new Rule(this));
+    }
+
+    return this.oneOfs.get(name);
   }
 
   pre() {
@@ -31,6 +40,7 @@ module.exports = class extends ChainedMap {
     return this.clean(Object.assign(this.entries() || {}, {
       include: this.include.values(),
       exclude: this.exclude.values(),
+      oneOf: this.oneOfs.values().map(r => r.toConfig()),
       use: this.uses.values().map(use => use.toConfig())
     }));
   }
@@ -51,6 +61,12 @@ module.exports = class extends ChainedMap {
             return Object
               .keys(value)
               .forEach(name => this.use(name).merge(value[name]));
+          }
+
+          case 'oneOf': {
+            return Object
+              .keys(value)
+              .forEach(name => this.oneOf(name).merge(value[name]))
           }
 
           case 'test': {

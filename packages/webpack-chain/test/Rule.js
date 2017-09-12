@@ -28,6 +28,14 @@ test('use', t => {
   t.true(rule.uses.has('babel'));
 });
 
+test('oneOf', t => {
+  const rule = new Rule();
+  const instance = rule.oneOf('babel').end();
+
+  t.is(instance, rule);
+  t.true(rule.oneOfs.has('babel'));
+});
+
 test('pre', t => {
   const rule = new Rule();
   const instance = rule.pre();
@@ -78,13 +86,24 @@ test('toConfig with values', t => {
     .test(/\.js$/)
     .use('babel')
       .loader('babel-loader')
-      .options({ presets: ['alpha'] });
+      .options({ presets: ['alpha'] })
+      .end()
+    .oneOf('inline')
+      .resourceQuery(/inline/)
+      .use('url')
+        .loader('url-loader');
 
   t.deepEqual(rule.toConfig(), {
     test: /\.js$/,
     enforce: 'pre',
     include: ['alpha', 'beta'],
     exclude: ['alpha', 'beta'],
+    oneOf: [{
+      resourceQuery: /inline/,
+      use: [{
+        loader: 'url-loader'
+      }]
+    }],
     use: [{
       loader: 'babel-loader',
       options: {
@@ -101,6 +120,16 @@ test('merge empty', t => {
     test: /\.js$/,
     include: ['alpha', 'beta'],
     exclude: ['alpha', 'beta'],
+    oneOf: {
+      inline: {
+        resourceQuery: /inline/,
+        use: {
+          url: {
+            loader: 'url-loader'
+          }
+        }
+      }
+    },
     use: {
       babel: {
         loader: 'babel-loader',
@@ -118,6 +147,12 @@ test('merge empty', t => {
     test: /\.js$/,
     include: ['alpha', 'beta'],
     exclude: ['alpha', 'beta'],
+    oneOf: [{
+      resourceQuery: /inline/,
+      use: [{
+        loader: 'url-loader'
+      }]
+    }],
     use: [{
       loader: 'babel-loader',
       options: {
@@ -143,6 +178,16 @@ test('merge with values', t => {
     enforce: 'pre',
     include: ['alpha', 'beta'],
     exclude: ['alpha', 'beta'],
+    oneOf: {
+      inline: {
+        resourceQuery: /inline/,
+        use: {
+          url: {
+            loader: 'url-loader'
+          }
+        }
+      }
+    },
     use: {
       babel: {
         options: {
@@ -157,6 +202,12 @@ test('merge with values', t => {
     enforce: 'pre',
     include: ['gamma', 'delta', 'alpha', 'beta'],
     exclude: ['alpha', 'beta'],
+    oneOf: [{
+      resourceQuery: /inline/,
+      use: [{
+        loader: 'url-loader'
+      }]
+    }],
     use: [{
       loader: 'babel-loader',
       options: {
