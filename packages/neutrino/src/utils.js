@@ -1,4 +1,6 @@
-const { cond, curry, identity, of, T } = require('ramda');
+const {
+  cond, curry, identity, of, T
+} = require('ramda');
 const { List } = require('immutable-ext');
 const { isAbsolute, join } = require('path');
 

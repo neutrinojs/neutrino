@@ -16,7 +16,7 @@
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
-    "css-loader": "^0.28.4",
+    "css-loader": "^0.28.7",
     "style-loader": "^0.18.2"
   },
   "peerDependencies": {

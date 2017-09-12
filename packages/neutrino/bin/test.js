@@ -18,7 +18,7 @@ module.exports = (middleware, args) => {
     .run('test', middleware)
     .fork((err) => {
       if (err) {
-        Array.isArray(err) ? err.map(err => console.error(err)) : console.error(err);
+        Array.isArray(err) ? err.forEach(err => err && console.error(err)) : console.error(err);
       }
 
       process.exit(1);

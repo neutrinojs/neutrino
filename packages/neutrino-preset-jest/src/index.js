@@ -101,14 +101,16 @@ module.exports = (neutrino, opts = {}) => {
         .argv;
       const configFile = join(tmpdir(), 'config.json');
       const options = normalizeJestOptions(opts, neutrino);
-      const cliOptions = Object.assign(jestArgs,
+      const cliOptions = Object.assign(
+        jestArgs,
         {
           // Jest is looking for Array of files in `argv._`. Providing them
           _: jestArgs.files,
           config: configFile,
           coverage: args.coverage,
           watch: args.watch
-        });
+        }
+      );
 
       writeFileSync(configFile, `${JSON.stringify(options, null, 2)}\n`);
 

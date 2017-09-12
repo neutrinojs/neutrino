@@ -27,6 +27,30 @@ module.exports = {
           'handle-callback-err': 'off',
           // Allow dynamic requires
           'import/no-dynamic-require': 'off',
+          // Keep all the original Airbnb indentation rules except MemberExpression,
+          // which messes up our pretty chaining indentations
+          indent: ['error', 2, {
+            SwitchCase: 1,
+            VariableDeclarator: 1,
+            outerIIFEBody: 1,
+            MemberExpression: 'off',
+            FunctionDeclaration: {
+              parameters: 1,
+              body: 1
+            },
+            FunctionExpression: {
+              parameters: 1,
+              body: 1
+            },
+            CallExpression: {
+              arguments: 1
+            },
+            ArrayExpression: 1,
+            ObjectExpression: 1,
+            ImportDeclaration: 1,
+            flatTernaryExpressions: false,
+            ignoredNodes: ['JSXElement *']
+          }],
           // Specify the maximum length of a line in your program
           // JSX can get lengthy, so this helps alleviate that a bit
           // http://eslint.org/docs/rules/max-len

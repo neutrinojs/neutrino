@@ -5,9 +5,13 @@ const clean = require('neutrino-middleware-clean');
 const startServer = require('neutrino-middleware-start-server');
 const hot = require('neutrino-middleware-hot');
 const nodeExternals = require('webpack-node-externals');
-const { basename, join, parse, format } = require('path');
+const {
+  basename, join, parse, format
+} = require('path');
 const merge = require('deepmerge');
-const { omit, partialRight, pathOr, pipe } = require('ramda');
+const {
+  omit, partialRight, pathOr, pipe
+} = require('ramda');
 
 const MODULES = join(__dirname, 'node_modules');
 const getPackageJson = (root) => {
@@ -27,6 +31,7 @@ const getOutputForEntry = pipe(
 
 module.exports = (neutrino, opts = {}) => {
   const pkg = getPackageJson(neutrino.options.root);
+  const staticDir = join(neutrino.options.source, 'static');
   const sourceMap = pathOr(
     pathOr(false, ['dependencies', 'source-map-support'], pkg),
     ['devDependencies', 'source-map-support'],
@@ -41,7 +46,7 @@ module.exports = (neutrino, opts = {}) => {
 
   neutrino.use(compile, {
     include: [neutrino.options.source, neutrino.options.tests],
-    exclude: [neutrino.options.static],
+    exclude: [staticDir],
     babel: compile.merge({
       plugins: [
         ...(options.polyfills.async ? [[require.resolve('fast-async'), { spec: true }]] : []),
@@ -102,9 +107,9 @@ module.exports = (neutrino, opts = {}) => {
       neutrino.use(clean, { paths: [neutrino.options.output] });
       neutrino.use(copy, {
         patterns: [{
-          context: neutrino.options.static,
+          context: staticDir,
           from: '**/*',
-          to: basename(neutrino.options.static)
+          to: basename(staticDir)
         }]
       });
     }, (config) => {

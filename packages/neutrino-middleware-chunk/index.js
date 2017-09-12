@@ -7,7 +7,8 @@ const hash = value => createHash('md5').update(value).digest('hex');
 
 module.exports = ({ config }) => config
   .plugin('named-modules')
-    .use(NamedModulesPlugin).end()
+    .use(NamedModulesPlugin)
+    .end()
   .plugin('named-chunks')
     .use(NamedChunksPlugin, [
       chunk => (

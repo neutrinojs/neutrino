@@ -2,7 +2,9 @@ const Future = require('fluture');
 const merge = require('deepmerge');
 const clone = require('lodash.clonedeep');
 const { CLIEngine } = require('eslint');
-const { assoc, curry, evolve, keys, omit, pipe, prop, reduce } = require('ramda');
+const {
+  assoc, curry, evolve, keys, omit, pipe, prop, reduce
+} = require('ramda');
 const { basename, join } = require('path');
 
 const MODULES = join(__dirname, 'node_modules');

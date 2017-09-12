@@ -2,7 +2,9 @@ const Config = require('webpack-chain');
 const merge = require('deepmerge');
 const Future = require('fluture');
 const mitt = require('mitt');
-const { cond, defaultTo, is, map, omit, pipe, prop } = require('ramda');
+const {
+  cond, defaultTo, is, map, omit, pipe, prop
+} = require('ramda');
 const { createPaths, normalizePath, toArray } = require('./utils');
 
 const rc = '.neutrinorc.js';

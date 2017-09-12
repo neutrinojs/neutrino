@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 const { join } = require('path');
-const Graph = require("graph-data-structure");
+const Graph = require('graph-data-structure');
 const semver = require('semver');
 const { readdirSync } = require('fs');
 const { execSync } = require('child_process');

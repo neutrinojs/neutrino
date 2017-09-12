@@ -61,6 +61,5 @@ module.exports = (neutrino, opts = {}) => {
       { singleRun: !watch, autoWatch: watch, webpack: omit(['plugins'], neutrino.config.toConfig()) },
       files && files.length ? { files } : {}
     ]), exitCode => (exitCode !== 0 ? reject() : resolve()))
-    .start()
-  ));
+      .start()));
 };

@@ -71,6 +71,15 @@ const middleware = [...new Set([
   ...args.use
 ])];
 
+if (!middleware.length) {
+  throw new Error('No middleware was found. Specify middleware with --use or create a .neutrinorc.js file.');
+}
+
+// Merge CLI config options as last piece of middleware, e.g. options.config.devServer.port 4000
+if (args.options) {
+  middleware.push(({ config }) => config.merge(args.options.config));
+}
+
 process.on('unhandledRejection', (err) => {
   if (!args.quiet) {
     console.error('');

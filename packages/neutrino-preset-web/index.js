@@ -52,6 +52,7 @@ module.exports = (neutrino, opts = {}) => {
     }, options.babel)
   });
 
+  const staticDir = join(neutrino.options.source, 'static');
   const presetEnvOptions = options.babel.presets[0][1];
 
   if (!presetEnvOptions.targets.browsers.length) {
@@ -77,7 +78,7 @@ module.exports = (neutrino, opts = {}) => {
       neutrino.options.tests,
       ...(options.polyfills.babel ? [require.resolve('./polyfills.js')] : [])
     ],
-    exclude: [neutrino.options.static],
+    exclude: [staticDir],
     babel: options.babel
   });
 
@@ -155,9 +156,9 @@ module.exports = (neutrino, opts = {}) => {
       neutrino.use(minify);
       neutrino.use(copy, {
         patterns: [{
-          context: neutrino.options.static,
+          context: staticDir,
           from: '**/*',
-          to: basename(neutrino.options.static)
+          to: basename(staticDir)
         }]
       });
       config.output.filename('[name].[chunkhash].js');
