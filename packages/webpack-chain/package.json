@@ -1,6 +1,6 @@
 {
   "name": "webpack-chain",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "main": "src/Config.js",
   "repository": "mozilla-neutrino/webpack-chain",
   "keywords": [
