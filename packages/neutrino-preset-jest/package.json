@@ -22,7 +22,8 @@
     "jest-cli": "^20.0.4",
     "lodash.clonedeep": "^4.5.0",
     "neutrino-middleware-loader-merge": "^6.1.8",
-    "ramda": "^0.24.1"
+    "ramda": "^0.24.1",
+    "yargs": "^8.0.2"
   },
   "peerDependencies": {
     "neutrino": "^6.0.0"
