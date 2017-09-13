@@ -21,6 +21,6 @@ module.exports = (neutrino, opts = {}) => {
       }
     },
     opts,
-    !opts.include && !opts.exclude ? { include: [neutrino.options.source], exclude: [neutrino.options.static] } : {}
+    !opts.include && !opts.exclude ? { include: [neutrino.options.source] } : {}
   ]));
 };

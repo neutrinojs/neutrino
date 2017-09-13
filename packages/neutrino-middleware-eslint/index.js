@@ -29,7 +29,7 @@ module.exports = (neutrino, opts = {}) => {
   const isNotDev = process.env.NODE_ENV !== 'development';
   const options = merge.all([
     opts,
-    !opts.include && !opts.exclude ? { include: [neutrino.options.source], exclude: [neutrino.options.static] } : {}
+    !opts.include && !opts.exclude ? { include: [neutrino.options.source] } : {}
   ]);
 
   neutrino.config
