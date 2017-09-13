@@ -1,6 +1,17 @@
+2017-09-12
+==========
+
+  * 4.2.0
+  * Updating README with shorthands
+  * Merge pull request [#37](https://github.com/mozilla-neutrino/webpack-chain/issues/37) from eliperelman/resolve-module-shorthands
+    Add new shorthands from resolve and output
+  * Add new shorthands from resolve and output
+
 2017-09-11
 ==========
 
+  * changelog
+  * 4.1.0
   * Merge pull request [#36](https://github.com/mozilla-neutrino/webpack-chain/issues/36) from eliperelman/rule-oneof
     Updating rule definition shortcuts, adding oneOf
   * Updating rule definition shortcuts, adding oneOf
