@@ -23,7 +23,7 @@
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v6
+- Neutrino v7
 
 ## Installation
 
@@ -118,7 +118,7 @@ the quick start example above as a reference:
 
 ✔ Building project completed
 Hash: b26ff013b5a2d5f7b824
-Version: webpack 2.6.1
+Version: webpack 3.5.6
 Time: 9773ms
                            Asset       Size    Chunks             Chunk Names
    index.dfbad882ab3d86bfd747.js     181 kB     index  [emitted]  index
@@ -134,7 +134,8 @@ You can either serve or deploy the contents of this `build` directory as a stati
 
 If you wish to copy files to the build directory that are not imported from application code, you can place
 them in a directory within `src` called `static`. All files in this directory will be copied from `src/static`
-to `build/static`.
+to `build/static`. To change this behavior, specify your own patterns with
+[neutrino-middleware-copy](../../middleware/neutrino-middleware-copy/README.md).
 
 ## Paths
 

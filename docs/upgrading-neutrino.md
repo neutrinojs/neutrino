@@ -1,7 +1,20 @@
-# Upgrading from Neutrino v5 to v6
+# Upgrading from Neutrino v6 to v7
 
-Neutrino v6 introduces a number of changes, with some of them being breaking changes. To upgrade from Neutrino v5
-to v6, be sure to check this list for tasks you may need to perform to use this latest version:
+Neutrino v7 introduces some changes, most of which are from major version bumps of dependent packages.
+To upgrade from Neutrino v6 to v7, be sure to check this list for tasks you may need to perform to use
+this latest version:
+
+- **BREAKING CHANGE** webpack-chain upgraded to v4. The breakage from this upgrade is the `.noParse` method
+which is now a plain shortcut method, allowing you to set any value.
+- **BREAKING CHANGE** Webpack upgraded to v3. While most users should need no changes for this upgrade, be
+aware that it may still be possible for something to change during this upgrade.
+- **BREAKING CHANGE** The image loader middleware no longer uses svg-url-loader for SVGs and its `use` has
+been renamed from `url` to `file`.
+- **BREAKING CHANGE** ESLint has been upgraded to v4, which may bring linting configuration
+changes.
+- **BREAKING CHANGE** The Neutrino `static` option has been removed. The Web, React, and Node.js presets will
+still copy files from a `src/static` directory if it exists, but you can override your own
+copying directives using the `neutrino-middleware-copy` middleware. 
 
 - **BREAKING CHANGE** Neutrino overrides and configuration is no longer done from package.json, but can automatically
 be picked up in a `.neutrinorc.js` file. If you want to leave your configuration in package.json until

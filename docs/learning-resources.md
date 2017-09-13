@@ -6,6 +6,10 @@ community, file an issue or submit a pull request.
 
 ## Blog Posts & Tutorials
 
+#### v6, v7
+
+* [Neutrino - Create modern JavaScript applications with minimal configuration - Interview with Eli Perelman](https://survivejs.com/blog/neutrino-interview/) by [@survivejs](https://twitter.com/survivejs)
+
 #### v5
 
 * [Code Splitting for React Router with Webpack and HMR](https://medium.com/@hassanhelfi/code-splitting-for-react-router-with-webpack-and-hmr-bb509968e86f) by [@hassanhelfi](https://twitter.com/hassanhelfi)

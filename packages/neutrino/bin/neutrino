@@ -27,7 +27,7 @@ const args = yargs
     global: true
   })
   .option('options', {
-    description: 'Set Neutrino options and environment variables, e.g. --options.env.NODE_ENV production',
+    description: 'Set Neutrino options, config, and environment variables, e.g. --options.env.NODE_ENV production',
     default: {},
     global: true
   })

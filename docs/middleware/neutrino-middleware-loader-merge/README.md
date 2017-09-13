@@ -8,7 +8,7 @@ a named rule and named loader in a Neutrino configuration.
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v6
+- Neutrino v7
 
 ## Installation
 

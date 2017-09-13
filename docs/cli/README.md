@@ -22,13 +22,13 @@ Commands:
   test [files..]  Run all suites from the test directory or provided files
 
 Options:
-  --inspect  Output a string representation of the configuration used by Neutrino and exit           [boolean] [default: false]
-  --use      A list of Neutrino middleware used to configure the build                               [array] [default: []]
-  --options  Set Neutrino options and environment variables, e.g. --options.env.NODE_ENV production  [default: {}]
-  --quiet    Disable console output of CLI commands                                                  [boolean] [default: false]
-  --debug    Run in debug mode                                                                       [boolean] [default: false]
-  --version  Show version number                                                                     [boolean]
-  --help     Show help                                                                               [boolean]
+  --inspect  Output a string representation of the configuration used by Neutrino and exit                    [boolean] [default: false]
+  --use      A list of Neutrino middleware used to configure the build                                        [array] [default: []]
+  --options  Set Neutrino options, config, and environment variables, e.g. --options.env.NODE_ENV production  [default: {}]
+  --quiet    Disable console output of CLI commands                                                           [boolean] [default: false]
+  --debug    Run in debug mode                                                                                [boolean] [default: false]
+  --version  Show version number                                                                              [boolean]
+  --help     Show help                                                                                        [boolean]
 ```
 
 ## `--version`
@@ -37,7 +37,7 @@ Using `--version` will output the current version of the Neutrino CLI to the con
 
 ```bash
 ❯ neutrino --version
-6.0.0
+7.0.0
 ```
 
 ## `--use`
@@ -107,8 +107,8 @@ but is not a guarantee.
 
 ## --options
 
-Used to override Neutrino options and environments from the command line. This would typically be used for specifying
-one-off option changes that may not be appropriate to encapsulate in `.neutrinorc.js`. The `--options` flag is
+Used to override Neutrino options, configuration, and environments from the command line. This would typically be used
+for specifying one-off changes that may not be appropriate to encapsulate in `.neutrinorc.js`. The `--options` flag is
 formatted as "dotted-object" syntax, meaning it should be used as `--options.<option> [value]`. This can also be used
 to toggle Boolean options to `true` by providing no value. Some examples:
 
@@ -117,7 +117,13 @@ to toggle Boolean options to `true` by providing no value. Some examples:
 
 ❯ neutrino build --options.env.NODE_ENV development --options.env.CUSTOM_ENV_VAR customValue
 
+# Sets options.https to true
 ❯ neutrino start --options.https
+
+❯ neutrino start --options.config.devtool eval
+
+# Sets config.node.Buffer to true
+❯ neutrino start --options.config.node.Buffer
 ```
 
 ## `neutrino start`
@@ -144,15 +150,15 @@ Looking at the `--help` for `neutrino test`:
 neutrino test [files..]
 
 Options:
-  --inspect   Output a string representation of the configuration used by Neutrino and exit           [boolean] [default: false]
-  --use       A list of Neutrino middleware used to configure the build                               [array] [default: []]
-  --options   Set Neutrino options and environment variables, e.g. --options.env.NODE_ENV production  [default: {}]
-  --quiet     Disable console output of CLI commands                                                  [boolean] [default: false]
-  --debug     Run in debug mode                                                                       [boolean] [default: false]
-  --version   Show version number                                                                     [boolean]
-  --help      Show help                                                                               [boolean]
-  --coverage  Collect test coverage information and generate report                                   [boolean] [default: false]
-  --watch     Watch source files for changes and re-run tests                                         [boolean] [default: false]
+  --inspect   Output a string representation of the configuration used by Neutrino and exit                    [boolean] [default: false]
+  --use       A list of Neutrino middleware used to configure the build                                        [array] [default: []]
+  --options   Set Neutrino options, config, and environment variables, e.g. --options.env.NODE_ENV production  [default: {}]
+  --quiet     Disable console output of CLI commands                                                           [boolean] [default: false]
+  --debug     Run in debug mode                                                                                [boolean] [default: false]
+  --version   Show version number                                                                              [boolean]
+  --help      Show help                                                                                        [boolean]
+  --coverage  Collect test coverage information and generate report                                            [boolean] [default: false]
+  --watch     Watch source files for changes and re-run tests                                                  [boolean] [default: false]
 ```
 
 Using the command `neutrino test` will execute every test file located in your

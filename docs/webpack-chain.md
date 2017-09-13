@@ -5,12 +5,8 @@ Webpack 2 and 3 configurations.
 
 This documentation corresponds to v4 of webpack-chain.
 
-* [v3 docs](https://github.com/mozilla-neutrino/webpack-chain/tree/v3)
-* [v2 docs](https://github.com/mozilla-neutrino/webpack-chain/tree/v2)
-* [v1 docs](https://github.com/mozilla-neutrino/webpack-chain/tree/v1.4.3)
-
-_Note: while webpack-chain is utilized extensively in Neutrino, this package is completely
-standalone and can be used by any project._
+_Note: while webpack-chain is utilized extensively in Neutrino, the package is completely
+standalone and can be used by any project. See the webpack-chain repo for standalone documentation._
 
 ## Introduction
 
@@ -27,118 +23,86 @@ standardize how to modify a configuration across projects.
 
 This is easier explained through the examples following.
 
-## Installation
-
-`webpack-chain` requires Node.js v6.9 and higher. `webpack-chain` also
-only creates configuration objects designed for use in Webpack 2 and 3.
-
-You may install this package using either Yarn or npm (choose one):
-
-**Yarn**
-
-```bash
-yarn add --dev webpack-chain
-```
-
-**npm**
-
-```bash
-npm install --save-dev webpack-chain
-```
-
 ## Getting Started
 
-Once you have `webpack-chain` installed, you can start creating a
-Webpack configuration. For this guide, our example base configuration will
-be `webpack.config.js` in the root of our project directory.
+In the Neutrino API, the `config` property is an instance of webpack-chain. For this guide,
+our example base configuration will be `.neutrinorc.js` in the root of our project directory.
+This can utilize either the [Object format](./middleware/README.md#object-format) or
+[Function format](./middleware/README.md#function-format) to access the Neutrino API:
 
 ```js
-// Require the webpack-chain module. This module exports a single
-// constructor function for creating a configuration API.
-const Config = require('webpack-chain');
+// .neutrinorc.js
 
-// Instantiate the configuration with a new API
-const config = new Config();
+// Object format
+module.exports = {
+  use: [
+    (neutrino) => {
+      // access the Neutrino API
+    }
+  ]
+};
 
-// Make configuration changes using the chain API.
-// Every API call tracks a change to the stored configuration.
-
-// Interact with entry points
-config
-  .entry('index')
-    .add('src/index.js')
-    .end()
-  // Modify output settings
-  .output
-    .path('dist')
-    .filename('[name].bundle.js');
-
-// Create named rules which can be modified later
-config.module
-  .rule('lint')
-    .test(/\.js$/)
-    .pre()
-    .include
-      .add('src')
-      .end()
-    // Even create named uses (loaders) for later modification
-    .use('eslint')
-      .loader('eslint-loader')
-      .options({
-        rules: {
-          semi: 'off'
-        }
-      });
-
-config.module
-  .rule('compile')
-    .test(/\.js$/)
-    .include
-      .add('src')
-      .add('test')
-      .end()
-    .use('babel')
-      .loader('babel-loader')
-      .options({
-        presets: [
-          ['babel-preset-es2015', { modules: false }]
-        ]
-      });
-
-// Create named plugins, too!
-config.plugin('clean')
-  .use(CleanPlugin, [['dist'], { root: '/dir' }]);
-
-// Export the completed configuration object to be consumed by webpack
-module.exports = config.toConfig();
+// Function format
+module.exports = (neutrino) => {
+  // access the Neutrino API
+};
 ```
 
-Having shared configurations is also simple. Just export the configuration
-and call `.toConfig()` prior to passing to Webpack.
+**In our examples we will utilize the Function format for sake of space.**
 
 ```js
-// webpack.core.js
-const Config = require('webpack-chain');
-const config = new Config();
+// Make configuration changes using the chaining API.
+// Every API call tracks a change to the stored configuration.
+module.exports = (neutrino) => {
+  neutrino.config
+    // Interact with entry points
+    .entry('index')
+      .add('src/index.js')
+      .end()
 
-// Make configuration shared across targets
-// ...
+    // Modify output settings
+    .output
+      .path('dist')
+      .filename('[name].bundle.js');
 
-module.exports = config;
+  // Create named rules which can be modified later or
+  // in other middleware/presets
+  neutrino.config.module
+    .rule('lint')
+      .test(/\.js$/)
+      .pre()
+      .include
+        .add('src')
+        .end()
+      // Even create named uses (loaders)
+      .use('eslint')
+        .loader('eslint-loader')
+        .options({
+          rules: {
+            semi: 'off'
+          }
+        });
 
-// webpack.dev.js
-const config = require('./webpack.core');
-
-// Dev-specific configuration
-// ...
-module.exports = config.toConfig();
-
-// webpack.prod.js
-const config = require('./webpack.core');
-
-// Production-specific configuration
-// ...
-module.exports = config.toConfig();
+  neutrino.config.module
+    .rule('compile')
+      .test(/\.js$/)
+      .include
+        .add('src')
+        .add('test')
+        .end()
+      .use('babel')
+        .loader('babel-loader')
+        .options({
+          presets: [
+            ['babel-preset-es2015', { modules: false }]
+          ]
+        });
+  
+  // Create named plugins too!
+  neutrino.config
+    .plugin('clean')
+      .use(CleanPlugin, [['dist'], { root: '/dir' }]);
+};
 ```
 
 ## ChainedMap
@@ -293,17 +257,9 @@ allowing you to continue to chain.
 
 ### Config
 
-Create a new configuration object.
-
-```js
-const Config = require('webpack-chain');
-
-const config = new Config();
-```
-
-Moving to deeper points in the API will change the context of what you
+Moving to deeper points in the configuration API will change the context of what you
 are modifying. You can move back to the higher context by either referencing
-the top-level `config` again, or by calling `.end()` to move up one level.
+the top-level `neutrino.config` again, or by calling `.end()` to move up one level.
 If you are familiar with jQuery, `.end()` works similarly. All API calls
 will return the API instance at the current context unless otherwise
 specified. This is so you may chain API calls continuously if desired.
@@ -319,7 +275,7 @@ Config : ChainedMap
 #### Config shorthand methods
 
 ```js
-config
+neutrino.config
   .amd(amd)
   .bail(bail)
   .cache(cache)
@@ -341,35 +297,35 @@ config
 
 ```js
 // Backed at config.entryPoints : ChainedMap
-config.entry(name) : ChainedSet
+neutrino.config.entry(name) : ChainedSet
 
-config
+neutrino.config
   .entry(name)
     .add(value)
     .add(value)
 
-config
+neutrino.config
   .entry(name)
   .clear()
 
 // Using low-level config.entryPoints:
 
-config.entryPoints
+neutrino.config.entryPoints
   .get(name)
     .add(value)
     .add(value)
 
-config.entryPoints
+neutrino.config.entryPoints
   .get(name)
-  .clear()
+    .clear()
 ```
 
 #### Config output: shorthand methods
 
 ```js
-config.output : ChainedMap
+neutrino.config.output : ChainedMap
 
-config.output
+neutrino.config.output
   .chunkFilename(chunkFilename)
   .crossOriginLoading(crossOriginLoading)
   .filename(filename)
@@ -398,9 +354,9 @@ config.output
 #### Config resolve: shorthand methods
 
 ```js
-config.resolve : ChainedMap
+neutrino.config.resolve : ChainedMap
 
-config.resolve
+neutrino.config.resolve
   .enforceExtension(enforceExtension)
   .enforceModuleExtension(enforceModuleExtension)
   .unsafeCache(unsafeCache)
@@ -411,9 +367,9 @@ config.resolve
 #### Config resolve alias
 
 ```js
-config.resolve.alias : ChainedMap
+neutrino.config.resolve.alias : ChainedMap
 
-config.resolve.alias
+neutrino.config.resolve.alias
   .set(key, value)
   .set(key, value)
   .delete(key)
@@ -423,9 +379,9 @@ config.resolve.alias
 #### Config resolve modules
 
 ```js
-config.resolve.modules : ChainedSet
+neutrino.config.resolve.modules : ChainedSet
 
-config.resolve.modules
+neutrino.config.resolve.modules
   .add(value)
   .prepend(value)
   .clear()
@@ -434,9 +390,9 @@ config.resolve.modules
 #### Config resolve aliasFields
 
 ```js
-config.resolve.aliasFields : ChainedSet
+neutrino.config.resolve.aliasFields : ChainedSet
 
-config.resolve.aliasFields
+neutrino.config.resolve.aliasFields
   .add(value)
   .prepend(value)
   .clear()
@@ -445,9 +401,9 @@ config.resolve.aliasFields
 #### Config resolve descriptionFields
 
 ```js
-config.resolve.descriptionFields : ChainedSet
+neutrino.config.resolve.descriptionFields : ChainedSet
 
-config.resolve.descriptionFields
+neutrino.config.resolve.descriptionFields
   .add(value)
   .prepend(value)
   .clear()
@@ -456,9 +412,9 @@ config.resolve.descriptionFields
 #### Config resolve extensions
 
 ```js
-config.resolve.extensions : ChainedSet
+neutrino.config.resolve.extensions : ChainedSet
 
-config.resolve.extensions
+neutrino.config.resolve.extensions
   .add(value)
   .prepend(value)
   .clear()
@@ -467,9 +423,9 @@ config.resolve.extensions
 #### Config resolve mainFields
 
 ```js
-config.resolve.mainFields : ChainedSet
+neutrino.config.resolve.mainFields : ChainedSet
 
-config.resolve.mainFields
+neutrino.config.resolve.mainFields
   .add(value)
   .prepend(value)
   .clear()
@@ -478,9 +434,9 @@ config.resolve.mainFields
 #### Config resolve mainFiles
 
 ```js
-config.resolve.mainFiles : ChainedSet
+neutrino.config.resolve.mainFiles : ChainedSet
 
-config.resolve.mainFiles
+neutrino.config.resolve.mainFiles
   .add(value)
   .prepend(value)
   .clear()
@@ -489,15 +445,15 @@ config.resolve.mainFiles
 #### Config resolveLoader
 
 ```js
-config.resolveLoader : ChainedMap
+neutrino.config.resolveLoader : ChainedMap
 ```
 
 #### Config resolveLoader extensions
 
 ```js
-config.resolveLoader.extensions : ChainedSet
+neutrino.config.resolveLoader.extensions : ChainedSet
 
-config.resolveLoader.extensions
+neutrino.config.resolveLoader.extensions
   .add(value)
   .prepend(value)
   .clear()
@@ -506,9 +462,9 @@ config.resolveLoader.extensions
 #### Config resolveLoader modules
 
 ```js
-config.resolveLoader.modules : ChainedSet
+neutrino.config.resolveLoader.modules : ChainedSet
 
-config.resolveLoader.modules
+neutrino.config.resolveLoader.modules
   .add(value)
   .prepend(value)
   .clear()
@@ -517,9 +473,9 @@ config.resolveLoader.modules
 #### Config resolveLoader moduleExtensions
 
 ```js
-config.resolveLoader.moduleExtensions : ChainedSet
+neutrino.config.resolveLoader.moduleExtensions : ChainedSet
 
-config.resolveLoader.moduleExtensions
+neutrino.config.resolveLoader.moduleExtensions
   .add(value)
   .prepend(value)
   .clear()
@@ -528,9 +484,9 @@ config.resolveLoader.moduleExtensions
 #### Config resolveLoader packageMains
 
 ```js
-config.resolveLoader.packageMains : ChainedSet
+neutrino.config.resolveLoader.packageMains : ChainedSet
 
-config.resolveLoader.packageMains
+neutrino.config.resolveLoader.packageMains
   .add(value)
   .prepend(value)
   .clear()
@@ -539,9 +495,9 @@ config.resolveLoader.packageMains
 #### Config performance: shorthand methods
 
 ```js
-config.performance : ChainedMap
+neutrino.config.performance : ChainedMap
 
-config.performance
+neutrino.config.performance
   .hints(hints)
   .maxEntrypointSize(maxEntrypointSize)
   .maxAssetSize(maxAssetSize)
@@ -552,7 +508,7 @@ config.performance
 
 ```js
 // Backed at config.plugins
-config.plugin(name) : ChainedMap
+neutrino.config.plugin(name) : ChainedMap
 ```
 
 #### Config plugins: adding
@@ -560,16 +516,16 @@ config.plugin(name) : ChainedMap
 _NOTE: Do not use `new` to create the plugin, as this will be done for you._
 
 ```js
-config
+neutrino.config
   .plugin(name)
   .use(WebpackPlugin, args)
 
 // Examples
-config
+neutrino.config
   .plugin('hot')
   .use(webpack.HotModuleReplacementPlugin);
 
-config
+neutrino.config
   .plugin('env')
   .use(webpack.EnvironmentPlugin, ['NODE_ENV']);
 ```
@@ -577,12 +533,12 @@ config
 #### Config plugins: modify arguments
 
 ```js
-config
+neutrino.config
   .plugin(name)
   .tap(args => newArgs)
 
 // Example
-config
+neutrino.config
   .plugin('env')
   .tap(args => [...args, 'SECRET_KEY']);
 ```
@@ -590,7 +546,7 @@ config
 #### Config plugins: modify instantiation
 
 ```js
-config
+neutrino.config
   .plugin(name)
   .init((Plugin, args) => new Plugin(...args));
 ```
@@ -599,7 +555,7 @@ config
 
 ```js
 // Backed at config.plugins
-config.resolve.plugin(name) : ChainedMap
+neutrino.config.resolve.plugin(name) : ChainedMap
 ```
 
 #### Config resolve plugins: adding
@@ -607,7 +563,7 @@ config.resolve.plugin(name) : ChainedMap
 _NOTE: Do not use `new` to create the plugin, as this will be done for you._
 
 ```js
-config.resolve
+neutrino.config.resolve
   .plugin(name)
   .use(WebpackPlugin, args)
 ```
@@ -615,7 +571,7 @@ config.resolve
 #### Config plugins: modify arguments
 
 ```js
-config.resolve
+neutrino.config.resolve
   .plugin(name)
   .tap(args => newArgs)
 ```
@@ -623,7 +579,7 @@ config.resolve
 #### Config plugins: modify instantiation
 
 ```js
-config.resolve
+neutrino.config.resolve
   .plugin(name)
   .init((Plugin, args) => new Plugin(...args))
 ```
@@ -631,7 +587,7 @@ config.resolve
 #### Config node
 
 ```js
-config.node : ChainedMap
+neutrino.config.node : ChainedMap
 
 config.node
   .set('__dirname', 'mock')
@@ -641,13 +597,13 @@ config.node
 #### Config devServer
 
 ```js
-config.devServer : ChainedMap
+neutrino.config.devServer : ChainedMap
 ```
 
 #### Config devServer: shorthand methods
 
 ```js
-config.devServer
+neutrino.config.devServer
   .clientLogLevel(clientLogLevel)
   .compress(compress)
   .contentBase(contentBase)
@@ -678,24 +634,24 @@ config.devServer
 #### Config module
 
 ```js
-config.module : ChainedMap
+neutrino.config.module : ChainedMap
 ```
 
 #### Config module: shorthand methods
 
 ```js
-config.module : ChainedMap
+neutrino.config.module : ChainedMap
 
-config.module
+neutrino.config.module
   .noParse(noParse)
 ```
 
 #### Config module rules: shorthand methods
 
 ```js
-config.module.rules : ChainedMap
+neutrino.config.module.rules : ChainedMap
 
-config.module
+neutrino.config.module
   .rule(name)
     .test(test)
     .pre()
@@ -706,9 +662,9 @@ config.module
 #### Config module rules uses (loaders): creating
 
 ```js
-config.module.rules{}.uses : ChainedMap
+neutrino.config.module.rules{}.uses : ChainedMap
 
-config.module
+neutrino.config.module
   .rule(name)
     .use(name)
       .loader(loader)
@@ -716,7 +672,7 @@ config.module
 
 // Example
 
-config.module
+neutrino.config.module
   .rule('compile')
     .use('babel')
       .loader('babel-loader')
@@ -726,14 +682,14 @@ config.module
 #### Config module rules uses (loaders): modifying options
 
 ```js
-config.module
+neutrino.config.module
   .rule(name)
     .use(name)
       .tap(options => newOptions)
 
 // Example
 
-config.module
+neutrino.config.module
   .rule('compile')
     .use('babel')
       .tap(options => merge(options, { plugins: ['babel-plugin-syntax-object-rest-spread'] }));
@@ -742,15 +698,15 @@ config.module
 #### Config module rules oneOfs (conditional rules):
 
 ```js
-config.module.rules{}.oneOfs : ChainedMap<Rule>
+neutrino.config.module.rules{}.oneOfs : ChainedMap<Rule>
 
-config.module
+neutrino.config.module
   .rule(name)
     .oneOf(name)
 
 // Example
 
-config.module
+neutrino.config.module
   .rule('css')
     .oneOf('inline')
       .resourceQuery(/inline/)
@@ -774,13 +730,13 @@ object, but you may transform a Webpack configuration object before providing it
 to match its layout.
 
 ```js
-config.merge({ devtool: 'source-map' });
+neutrino.config.merge({ devtool: 'source-map' });
 
-config.get('devtool') // "source-map"
+neutrino.config.get('devtool') // "source-map"
 ```
 
 ```js
-config.merge({
+neutrino.config.merge({
   [key]: value,
 
   amd,
@@ -920,7 +876,7 @@ provide a second function to be invoked when the condition is falsy, which is al
 
 ```js
 // Example: Only add minify plugin during production
-config
+neutrino.config
   .when(process.env.NODE_ENV === 'production', config => {
     config
       .plugin('minify')
@@ -931,7 +887,7 @@ config
 ```js
 // Example: Only add minify plugin during production,
 // otherwise set devtool to source-map
-config
+neutrino.config
   .when(process.env.NODE_ENV === 'production',
     config => config.plugin('minify').use(BabiliWebpackPlugin),
     config => config.devtool('source-map')

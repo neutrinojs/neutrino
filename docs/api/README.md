@@ -153,24 +153,6 @@ Neutrino({
 })
 ```
 
-### `options.static`
-
-Designate a directory within `source` for containing static/non-compiled assets. If the option is not set, Neutrino
-defaults it to `static`. If a relative path is specified, it will be resolved relative to `options.source`; absolute
-paths will be used as-is (not recommended).
-
-```js
-Neutrino({
-  // if not specified, defaults to options.source + static
-
-  // relative, resolves to options.source + public
-  static: 'public',
-
-  // absolute
-  static: '/code/website/src/public'
-})
-```
-
 ### `options.node_modules`
 
 Set the directory which contains the Node.js modules of the project. If the option is not set, Neutrino defaults it to

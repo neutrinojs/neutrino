@@ -17,7 +17,7 @@
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v6
+- Neutrino v7
 
 ## Installation
 
@@ -133,11 +133,12 @@ quick start example above as a reference:
 
 ```bash
 ❯ yarn build
+
 clean-webpack-plugin: /node/build has been removed.
 Build completed in 0.419s
 
 Hash: 89e4fb250fc535920ba4
-Version: webpack 2.6.1
+Version: webpack 3.5.6
 Time: 424ms
        Asset     Size  Chunks             Chunk Names
     index.js  4.29 kB       0  [emitted]  index

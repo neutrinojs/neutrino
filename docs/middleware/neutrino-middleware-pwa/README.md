@@ -8,7 +8,7 @@ Application capabilities. This middleware is usually only added during productio
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v6
+- Neutrino v7
 
 ## Installation
 
