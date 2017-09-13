@@ -374,6 +374,7 @@ config.output
   .crossOriginLoading(crossOriginLoading)
   .filename(filename)
   .library(library)
+  .libraryExport(libraryExport)
   .libraryTarget(libraryTarget)
   .devtoolFallbackModuleFilenameTemplate(devtoolFallbackModuleFilenameTemplate)
   .devtoolLineToLine(devtoolLineToLine)
@@ -401,11 +402,12 @@ config.output
 config.resolve : ChainedMap
 
 config.resolve
+  .cachePredicate(cachePredicate)
+  .cacheWithContext(cacheWithContext)
   .enforceExtension(enforceExtension)
   .enforceModuleExtension(enforceModuleExtension)
   .unsafeCache(unsafeCache)
   .symlinks(symlinks)
-  .cachePredicate(cachePredicate)
 ```
 
 #### Config resolve alias
