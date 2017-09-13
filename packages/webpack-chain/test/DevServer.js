@@ -8,6 +8,14 @@ test('is Chainable', t => {
   t.is(devServer.end(), parent);
 });
 
+test('sets allowed hosts', t => {
+  const devServer = new DevServer();
+  const instance = devServer.allowedHosts.add('https://github.com').end();
+
+  t.is(instance, devServer);
+  t.deepEqual(devServer.toConfig(), { allowedHosts: ['https://github.com'] });
+});
+
 test('shorthand methods', t => {
   const devServer = new DevServer();
   const obj = {};

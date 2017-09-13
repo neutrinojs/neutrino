@@ -13,6 +13,7 @@ test('sets methods', t => {
   const instance = resolveLoader.modules.add('src').end();
 
   t.is(instance, resolveLoader);
+  t.deepEqual(resolveLoader.toConfig(), { modules: ['src'] });
 });
 
 test('toConfig empty', t => {

@@ -327,6 +327,7 @@ config
   .context(context)
   .externals(externals)
   .loader(loader)
+  .parallelism(parallelism)
   .profile(profile)
   .recordsPath(recordsPath)
   .recordsInputPath(recordsInputPath)
@@ -370,15 +371,14 @@ config.entryPoints
 config.output : ChainedMap
 
 config.output
+  .auxiliaryComment(auxiliaryComment)
   .chunkFilename(chunkFilename)
+  .chunkLoadTimeout(chunkLoadTimeout)
   .crossOriginLoading(crossOriginLoading)
-  .filename(filename)
-  .library(library)
-  .libraryExport(libraryExport)
-  .libraryTarget(libraryTarget)
   .devtoolFallbackModuleFilenameTemplate(devtoolFallbackModuleFilenameTemplate)
   .devtoolLineToLine(devtoolLineToLine)
   .devtoolModuleFilenameTemplate(devtoolModuleFilenameTemplate)
+  .filename(filename)
   .hashFunction(hashFunction)
   .hashDigest(hashDigest)
   .hashDigestLength(hashDigestLength)
@@ -387,6 +387,9 @@ config.output
   .hotUpdateFunction(hotUpdateFunction)
   .hotUpdateMainFilename(hotUpdateMainFilename)
   .jsonpFunction(jsonpFunction)
+  .library(library)
+  .libraryExport(libraryExport)
+  .libraryTarget(libraryTarget)
   .path(path)
   .pathinfo(pathinfo)
   .publicPath(publicPath)
@@ -646,13 +649,27 @@ config.node
 config.devServer : ChainedMap
 ```
 
+#### Config devServer allowedHosts
+
+```js
+config.devServer.allowedHosts : ChainedSet
+
+config.devServer.allowedHosts
+  .add(value)
+  .prepend(value)
+  .clear()
+```
+
 #### Config devServer: shorthand methods
 
 ```js
 config.devServer
+  .bonjour(bonjour)
   .clientLogLevel(clientLogLevel)
+  .color(color)
   .compress(compress)
   .contentBase(contentBase)
+  .disableHostCheck(disableHostCheck)
   .filename(filename)
   .headers(headers)
   .historyApiFallback(historyApiFallback)
@@ -661,9 +678,14 @@ config.devServer
   .hotOnly(hotOnly)
   .https(https)
   .inline(inline)
+  .info(info)
   .lazy(lazy)
   .noInfo(noInfo)
+  .open(open)
+  .openPage(openPage)
   .overlay(overlay)
+  .pfx(pfx)
+  .pfxPassphrase(pfsPassphrase)
   .port(port)
   .progress(progress)
   .proxy(proxy)
@@ -671,8 +693,11 @@ config.devServer
   .publicPath(publicPath)
   .quiet(quiet)
   .setup(setup)
+  .socket(socket)
   .staticOptions(staticOptions)
   .stats(stats)
+  .stdin(stdin)
+  .useLocalIp(useLocalIp)
   .watchContentBase(watchContentBase)
   .watchOptions(watchOptions)
 ```
