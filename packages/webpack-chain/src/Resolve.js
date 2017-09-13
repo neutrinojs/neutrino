@@ -15,11 +15,12 @@ module.exports = class extends ChainedMap {
     this.modules = new ChainedSet(this);
     this.plugins = new ChainedMap(this);
     this.extend([
+      'cachePredicate',
+      'cacheWithContext',
       'enforceExtension',
       'enforceModuleExtension',
       'unsafeCache',
-      'symlinks',
-      'cachePredicate'
+      'symlinks'
     ]);
   }
 

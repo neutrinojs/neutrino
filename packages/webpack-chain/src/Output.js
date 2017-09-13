@@ -8,6 +8,7 @@ module.exports = class extends ChainedMap {
       'crossOriginLoading',
       'filename',
       'library',
+      'libraryExport',
       'libraryTarget',
       'devtoolFallbackModuleFilenameTemplate',
       'devtoolLineToLine',
