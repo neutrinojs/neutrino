@@ -1,6 +1,10 @@
 2017-09-12
 ==========
 
+  * Merge pull request [#38](https://github.com/mozilla-neutrino/webpack-chain/issues/38) from eliperelman/update-shorthands-devserver-config-output
+    Update API for base config, dev server, and output
+  * Update API for base config, dev server, and output
+  * Update changelog
   * 4.2.0
   * Updating README with shorthands
   * Merge pull request [#37](https://github.com/mozilla-neutrino/webpack-chain/issues/37) from eliperelman/resolve-module-shorthands
