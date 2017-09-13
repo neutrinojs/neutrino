@@ -283,6 +283,7 @@ neutrino.config
   .context(context)
   .externals(externals)
   .loader(loader)
+  .parallelism(parallelism)
   .profile(profile)
   .recordsPath(recordsPath)
   .recordsInputPath(recordsInputPath)
@@ -326,14 +327,14 @@ neutrino.config.entryPoints
 neutrino.config.output : ChainedMap
 
 neutrino.config.output
+  .auxiliaryComment(auxiliaryComment)
   .chunkFilename(chunkFilename)
+  .chunkLoadTimeout(chunkLoadTimeout)
   .crossOriginLoading(crossOriginLoading)
-  .filename(filename)
-  .library(library)
-  .libraryTarget(libraryTarget)
   .devtoolFallbackModuleFilenameTemplate(devtoolFallbackModuleFilenameTemplate)
   .devtoolLineToLine(devtoolLineToLine)
   .devtoolModuleFilenameTemplate(devtoolModuleFilenameTemplate)
+  .filename(filename)
   .hashFunction(hashFunction)
   .hashDigest(hashDigest)
   .hashDigestLength(hashDigestLength)
@@ -342,6 +343,9 @@ neutrino.config.output
   .hotUpdateFunction(hotUpdateFunction)
   .hotUpdateMainFilename(hotUpdateMainFilename)
   .jsonpFunction(jsonpFunction)
+  .library(library)
+  .libraryExport(libraryExport)
+  .libraryTarget(libraryTarget)
   .path(path)
   .pathinfo(pathinfo)
   .publicPath(publicPath)
@@ -357,11 +361,12 @@ neutrino.config.output
 neutrino.config.resolve : ChainedMap
 
 neutrino.config.resolve
+  .cachePredicate(cachePredicate)
+  .cacheWithContext(cacheWithContext)
   .enforceExtension(enforceExtension)
   .enforceModuleExtension(enforceModuleExtension)
   .unsafeCache(unsafeCache)
   .symlinks(symlinks)
-  .cachePredicate(cachePredicate)
 ```
 
 #### Config resolve alias
@@ -600,13 +605,27 @@ config.node
 neutrino.config.devServer : ChainedMap
 ```
 
+#### Config devServer allowedHosts
+
+```js
+neutrino.config.devServer.allowedHosts : ChainedSet
+
+neutrino.config.devServer.allowedHosts
+  .add(value)
+  .prepend(value)
+  .clear()
+```
+
 #### Config devServer: shorthand methods
 
 ```js
 neutrino.config.devServer
+  .bonjour(bonjour)
   .clientLogLevel(clientLogLevel)
+  .color(color)
   .compress(compress)
   .contentBase(contentBase)
+  .disableHostCheck(disableHostCheck)
   .filename(filename)
   .headers(headers)
   .historyApiFallback(historyApiFallback)
@@ -615,9 +634,14 @@ neutrino.config.devServer
   .hotOnly(hotOnly)
   .https(https)
   .inline(inline)
+  .info(info)
   .lazy(lazy)
   .noInfo(noInfo)
+  .open(open)
+  .openPage(openPage)
   .overlay(overlay)
+  .pfx(pfx)
+  .pfxPassphrase(pfsPassphrase)
   .port(port)
   .progress(progress)
   .proxy(proxy)
@@ -625,8 +649,11 @@ neutrino.config.devServer
   .publicPath(publicPath)
   .quiet(quiet)
   .setup(setup)
+  .socket(socket)
   .staticOptions(staticOptions)
   .stats(stats)
+  .stdin(stdin)
+  .useLocalIp(useLocalIp)
   .watchContentBase(watchContentBase)
   .watchOptions(watchOptions)
 ```
