@@ -70,8 +70,8 @@ make changes.
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-| Name | Description | Environments |
-| ---- | ----------- | ------------ |
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
 | `env` | Inject environment variables into source code at `process.env`. | all |
 
 ## Contributing

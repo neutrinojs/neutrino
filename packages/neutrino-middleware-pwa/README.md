@@ -107,8 +107,8 @@ make changes.
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-| Name | Description | Environments |
-| ---- | ----------- | ------------ |
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
 | `pwa` | Creates an `OfflinePlugin` with options for setting up caching via Service Worker. | all |
 
 ## Contributing

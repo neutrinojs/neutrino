@@ -103,18 +103,20 @@ module.exports = (neutrino, opts = {}) => {
         .add(MODULES)
         .end()
       .end()
-    .when(neutrino.options.env.NODE_ENV === 'development', (config) => {
+    .when(neutrino.options.command === 'start', (config) => {
       neutrino.use(startServer, {
         name: getOutputForEntry(neutrino.options.entry)
       });
-      config.devtool('inline-sourcemap');
-      config.output.devtoolModuleFilenameTemplate('[absolute-resource-path]');
       config.when(options.hot, () => {
         neutrino.use(hot);
         config.entry('index').add('webpack/hot/poll?1000');
       });
     })
-    .when(neutrino.options.env.NODE_ENV === 'production' || neutrino.options.env.NODE_ENV === 'test', () => {
+    .when(neutrino.options.env.NODE_ENV === 'development', (config) => {
+      config.devtool('inline-sourcemap');
+      config.output.devtoolModuleFilenameTemplate('[absolute-resource-path]');
+    })
+    .when(neutrino.options.command === 'build', () => {
       neutrino.use(clean, { paths: [neutrino.options.output] });
       neutrino.use(copy, {
         patterns: [{

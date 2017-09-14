@@ -81,8 +81,8 @@ ready to make changes.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-| Name | Description | Environments |
-| ---- | ----------- | ------------ |
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
 | `img` | Allows importing JPEG, PNG, and GIF files from modules. Contains a single loader named `url`. | all |
 | `svg` | Allows importing SVG files from modules. Contains a single loader named `file`. | all |
 | `ico` | Allows importing ICO files from modules. Contains a single loader named `url`. | all |

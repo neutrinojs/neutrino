@@ -99,8 +99,8 @@ make changes.
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-| Name | Description | Environments |
-| ---- | ----------- | ------------ |
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
 | `html` | Automatically generates HTML files for configured entry-points. | all |
 
 ## Contributing

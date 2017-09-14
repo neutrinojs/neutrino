@@ -9,12 +9,14 @@ const envs = {
 };
 
 module.exports = (middleware, args) => {
+  const commandName = args._[0];
   const options = merge({
     args,
+    command: commandName,
     debug: args.debug,
     quiet: args.quiet,
     env: {
-      NODE_ENV: defaultTo('development', envs[args._[0]])
+      NODE_ENV: defaultTo('development', envs[commandName])
     }
   }, args.options);
   const api = Neutrino(options);

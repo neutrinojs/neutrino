@@ -26,7 +26,7 @@ const getEslintRcConfig = pipe(
 );
 
 module.exports = (neutrino, opts = {}) => {
-  const isNotDev = process.env.NODE_ENV !== 'development';
+  const failBuild = process.env.NODE_ENV !== 'development' || neutrino.options.command !== 'start';
   const options = merge.all([
     opts,
     !opts.include && !opts.exclude ? { include: [neutrino.options.source] } : {}
@@ -52,9 +52,9 @@ module.exports = (neutrino, opts = {}) => {
         .use('eslint')
           .loader(require.resolve('eslint-loader'))
           .options(merge({
-            failOnError: isNotDev,
-            emitWarning: isNotDev,
-            emitError: isNotDev,
+            failOnError: failBuild,
+            emitWarning: failBuild,
+            emitError: failBuild,
             cwd: neutrino.options.root,
             useEslintrc: false,
             root: true,

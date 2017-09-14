@@ -7,6 +7,7 @@ module.exports = (middleware, args) => {
   const spinner = args.quiet ? null : ora(`Running ${commandName}`).start();
   const options = merge({
     args,
+    command: commandName,
     debug: args.debug,
     quiet: args.quiet,
     env: {

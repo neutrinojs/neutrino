@@ -83,7 +83,6 @@ module.exports = (neutrino, opts = {}) => {
   });
 
   neutrino.config
-    .when(process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'development', () => neutrino.use(chunk))
     .target('web')
     .context(neutrino.options.root)
     .when(options.polyfills.babel, config => config
@@ -145,16 +144,17 @@ module.exports = (neutrino, opts = {}) => {
       .use(loaderMerge('lint', 'eslint'), {
         envs: ['browser', 'commonjs']
       }))
-    .when(process.env.NODE_ENV === 'development', (config) => {
+    .when(process.env.NODE_ENV === 'development', config => config.devtool('source-map'))
+    .when(neutrino.options.command === 'start', (config) => {
       neutrino.use(devServer, options.devServer);
-
-      config
-        .devtool('source-map')
-        .when(options.hot, () => neutrino.use(hot));
+      config.when(options.hot, () => neutrino.use(hot));
     })
-    .when(process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'test', (config) => {
-      neutrino.use(clean, { paths: [neutrino.options.output] });
+    .when(process.env.NODE_ENV === 'production', () => {
+      neutrino.use(chunk);
       neutrino.use(minify);
+    })
+    .when(neutrino.options.command === 'build', (config) => {
+      neutrino.use(clean, { paths: [neutrino.options.output] });
       neutrino.use(copy, {
         patterns: [{
           context: staticDir,

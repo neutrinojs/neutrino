@@ -118,8 +118,8 @@ ready to make changes.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-| Name | Description | Environments |
-| ---- | ----------- | ------------ |
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
 | `compile` | Compiles JS and JSX files from the `src` directory using Babel. Contains a single loader named `babel`. | all |
 
 ## Contributing
