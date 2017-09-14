@@ -83,7 +83,7 @@ module.exports = (neutrino, opts = {}) => {
   });
 
   neutrino.config
-    .when(process.env.NODE_ENV !== 'test', () => neutrino.use(chunk))
+    .when(process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'development', () => neutrino.use(chunk))
     .target('web')
     .context(neutrino.options.root)
     .when(options.polyfills.babel, config => config
@@ -151,7 +151,8 @@ module.exports = (neutrino, opts = {}) => {
       config
         .devtool('source-map')
         .when(options.hot, () => neutrino.use(hot));
-    }, (config) => {
+    })
+    .when(process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'test', (config) => {
       neutrino.use(clean, { paths: [neutrino.options.output] });
       neutrino.use(minify);
       neutrino.use(copy, {

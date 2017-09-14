@@ -285,15 +285,15 @@ _Note: Some plugins are only available in certain environments. To override them
 | ---- | ----------- | ------------ |
 | `env` | Inject environment variables into source code at `process.env`, defaults to only inject `NODE_ENV`. From `neutrino-middleware-env`. | all |
 | `html` | Automatically generates HTML files for configured entry-points. From `neutrino-middleware-html-template` | all |
-| `named-modules` | Enables named modules for improved debugging and console output. From `neutrino-middleware-chunk`. | all but `test` |
-| `named-chunks` | Enables named chunks for improved debugging and console output. From `neutrino-middleware-chunk`. | all but `test` |
-| `vendor-chunk` | Creates a separate file/chunk consisting of common modules shared between multiple entry points. From `neutrino-middleware-chunk`. | all but `test` |
-| `runtime-chunk` | Creates a separate file/chunk consisting of the Webpack manifest-specific code. From `neutrino-middleware-chunk`. | all but `test` |
-| `name-all` | Names all remaining modules that do not get named via `named-modules`. From `neutrino-middleware-chunk`. | all but `test` |
+| `named-modules` | Enables named modules for improved debugging and console output. From `neutrino-middleware-chunk`. | `development`, `production` |
+| `named-chunks` | Enables named chunks for improved debugging and console output. From `neutrino-middleware-chunk`. | `development`, `production` |
+| `vendor-chunk` | Creates a separate file/chunk consisting of common modules shared between multiple entry points. From `neutrino-middleware-chunk`. | `development`, `production` |
+| `runtime-chunk` | Creates a separate file/chunk consisting of the Webpack manifest-specific code. From `neutrino-middleware-chunk`. | `development`, `production` |
+| `name-all` | Names all remaining modules that do not get named via `named-modules`. From `neutrino-middleware-chunk`. | `development`, `production` |
 | `hot` | Enables Hot Module Replacement. From `neutrino-middleware-hot`. | `development` |
-| `copy` | Copies files during build, defaults from `src/static` to `build/static`. From `neutrino-middleware-copy` | all but `development` |
-| `clean` | Removes the `build` directory prior to building. From `neutrino-middleware-clean`. | all but `development` |
-| `minify` | Minifies source code using `BabiliWebpackPlugin`. From `neutrino-middleware-minify`. | all but `development` |
+| `copy` | Copies files during build, defaults from `src/static` to `build/static`. From `neutrino-middleware-copy` | `test`, `production` |
+| `clean` | Removes the `build` directory prior to building. From `neutrino-middleware-clean`. | `test`, `production` |
+| `minify` | Minifies source code using `BabiliWebpackPlugin`. From `neutrino-middleware-minify`. | `test`, `production` |
 
 ### Override configuration
 

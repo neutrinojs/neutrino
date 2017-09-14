@@ -103,16 +103,7 @@ module.exports = (neutrino, opts = {}) => {
         .add(MODULES)
         .end()
       .end()
-    .when(neutrino.options.env.NODE_ENV !== 'development', () => {
-      neutrino.use(clean, { paths: [neutrino.options.output] });
-      neutrino.use(copy, {
-        patterns: [{
-          context: staticDir,
-          from: '**/*',
-          to: basename(staticDir)
-        }]
-      });
-    }, (config) => {
+    .when(neutrino.options.env.NODE_ENV === 'development', (config) => {
       neutrino.use(startServer, {
         name: getOutputForEntry(neutrino.options.entry)
       });
@@ -121,6 +112,16 @@ module.exports = (neutrino, opts = {}) => {
       config.when(options.hot, () => {
         neutrino.use(hot);
         config.entry('index').add('webpack/hot/poll?1000');
+      });
+    })
+    .when(neutrino.options.env.NODE_ENV === 'production' || neutrino.options.env.NODE_ENV === 'test', () => {
+      neutrino.use(clean, { paths: [neutrino.options.output] });
+      neutrino.use(copy, {
+        patterns: [{
+          context: staticDir,
+          from: '**/*',
+          to: basename(staticDir)
+        }]
       });
     });
 };
