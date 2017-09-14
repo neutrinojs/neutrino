@@ -17,8 +17,8 @@
   "dependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
-    "deepmerge": "^1.5.1",
-    "ramda": "^0.24.1"
+    "babel-merge": "^1.1.0",
+    "deepmerge": "^1.5.1"
   },
   "devDependencies": {
     "webpack": "^3.5.6"
