@@ -12,7 +12,7 @@
 - Automatic creation of HTML pages, no templating necessary
 - Hot Module Replacement support
 - Tree-shaking to create smaller bundles
-- Production-optimized bundles with Babili minification and easy chunking
+- Production-optimized bundles with Babili minification, easy chunking, and scope-hoisted modules for faster execution
 - Easily extensible to customize your project as needed
 
 ## Requirements
@@ -294,6 +294,7 @@ _Note: Some plugins are only available in certain environments. To override them
 | `copy` | Copies files during build, defaults from `src/static` to `build/static`. From `neutrino-middleware-copy` | `build` command |
 | `clean` | Removes the `build` directory prior to building. From `neutrino-middleware-clean`. | `build` command |
 | `minify` | Minifies source code using `BabiliWebpackPlugin`. From `neutrino-middleware-minify`. | `NODE_ENV production` |
+| `module-concat` | Concatenate the scope of all your modules into one closure and allow for your code to have a faster execution time in the browser. | `NODE_ENV production` |
 
 ### Override configuration
 

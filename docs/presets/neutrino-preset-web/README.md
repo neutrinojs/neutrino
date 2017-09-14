@@ -265,8 +265,8 @@ applications over multi-page applications.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-| Name | Description | Environments |
-| ---- | ----------- | ------------ |
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
 | `compile` | Compiles JS files from the `src` directory using Babel. Contains a single loader named `babel`. From `neutrino-middleware-compile-loader`. | all |
 | `html` | Allows importing HTML files from modules. Contains a single loader named `file`. From `neutrino-middleware-html-loader`. | all |
 | `style` | Allows importing CSS stylesheets from modules. Contains two loaders named `style` and `css`. From `neutrino-middleware-style-loader`. | all |
@@ -281,21 +281,22 @@ The following is a list of plugins and their identifiers which can be overridden
 
 _Note: Some plugins are only available in certain environments. To override them, they should be modified conditionally._
 
+### Override configuration
+
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
 | `env` | Inject environment variables into source code at `process.env`, defaults to only inject `NODE_ENV`. From `neutrino-middleware-env`. | all |
 | `html` | Automatically generates HTML files for configured entry-points. From `neutrino-middleware-html-template` | all |
-| `named-modules` | Enables named modules for improved debugging and console output. From `neutrino-middleware-chunk`. | `development`, `production` |
-| `named-chunks` | Enables named chunks for improved debugging and console output. From `neutrino-middleware-chunk`. | `development`, `production` |
-| `vendor-chunk` | Creates a separate file/chunk consisting of common modules shared between multiple entry points. From `neutrino-middleware-chunk`. | `development`, `production` |
-| `runtime-chunk` | Creates a separate file/chunk consisting of the Webpack manifest-specific code. From `neutrino-middleware-chunk`. | `development`, `production` |
-| `name-all` | Names all remaining modules that do not get named via `named-modules`. From `neutrino-middleware-chunk`. | `development`, `production` |
-| `hot` | Enables Hot Module Replacement. From `neutrino-middleware-hot`. | `development` |
-| `copy` | Copies files during build, defaults from `src/static` to `build/static`. From `neutrino-middleware-copy` | `test`, `production` |
-| `clean` | Removes the `build` directory prior to building. From `neutrino-middleware-clean`. | `test`, `production` |
-| `minify` | Minifies source code using `BabiliWebpackPlugin`. From `neutrino-middleware-minify`. | `test`, `production` |
-
-### Override configuration
+| `named-modules` | Enables named modules for improved debugging and console output. From `neutrino-middleware-chunk`. | `NODE_ENV production` |
+| `named-chunks` | Enables named chunks for improved debugging and console output. From `neutrino-middleware-chunk`. | `NODE_ENV production` |
+| `vendor-chunk` | Creates a separate file/chunk consisting of common modules shared between multiple entry points. From `neutrino-middleware-chunk`. | `NODE_ENV production` |
+| `runtime-chunk` | Creates a separate file/chunk consisting of the Webpack manifest-specific code. From `neutrino-middleware-chunk`. | `NODE_ENV production` |
+| `name-all` | Names all remaining modules that do not get named via `named-modules`. From `neutrino-middleware-chunk`. | `NODE_ENV production` |
+| `hot` | Enables Hot Module Replacement. From `neutrino-middleware-hot`. | `start` command |
+| `copy` | Copies files during build, defaults from `src/static` to `build/static`. From `neutrino-middleware-copy` | `build` command |
+| `clean` | Removes the `build` directory prior to building. From `neutrino-middleware-clean`. | `build` command |
+| `minify` | Minifies source code using `BabiliWebpackPlugin`. From `neutrino-middleware-minify`. | `NODE_ENV production` |
+| `module-concat` | Concatenate the scope of all your modules into one closure and allow for your code to have a faster execution time in the browser. | `NODE_ENV production` |
 
 By following the [customization guide](../../customization) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also

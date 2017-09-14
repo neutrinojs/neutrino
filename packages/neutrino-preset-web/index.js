@@ -15,6 +15,7 @@ const devServer = require('neutrino-middleware-dev-server');
 const { join, dirname, basename } = require('path');
 const merge = require('deepmerge');
 const ScriptExtHtmlPlugin = require('script-ext-html-webpack-plugin');
+const { optimize } = require('webpack');
 
 const MODULES = join(__dirname, 'node_modules');
 
@@ -152,6 +153,8 @@ module.exports = (neutrino, opts = {}) => {
     .when(process.env.NODE_ENV === 'production', () => {
       neutrino.use(chunk);
       neutrino.use(minify);
+      neutrino.config.plugin('module-concat')
+        .use(optimize.ModuleConcatenationPlugin);
     })
     .when(neutrino.options.command === 'build', (config) => {
       neutrino.use(clean, { paths: [neutrino.options.output] });

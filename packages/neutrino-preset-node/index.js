@@ -5,6 +5,7 @@ const clean = require('neutrino-middleware-clean');
 const startServer = require('neutrino-middleware-start-server');
 const hot = require('neutrino-middleware-hot');
 const nodeExternals = require('webpack-node-externals');
+const { optimize } = require('webpack');
 const {
   basename, join, parse, format
 } = require('path');
@@ -115,6 +116,9 @@ module.exports = (neutrino, opts = {}) => {
     .when(neutrino.options.env.NODE_ENV === 'development', (config) => {
       config.devtool('inline-sourcemap');
       config.output.devtoolModuleFilenameTemplate('[absolute-resource-path]');
+    })
+    .when(neutrino.options.env.NODE_ENV === 'production', (config) => {
+      config.plugin('module-concat').use(optimize.ModuleConcatenationPlugin);
     })
     .when(neutrino.options.command === 'build', () => {
       neutrino.use(clean, { paths: [neutrino.options.output] });

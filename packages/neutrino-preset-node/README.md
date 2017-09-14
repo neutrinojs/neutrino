@@ -291,8 +291,8 @@ package.json. No extra work is required to make this work.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-| Name | Description | Environments |
-| ---- | ----------- | ------------ |
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
 | `compile` | Compiles JS files from the `src` directory using Babel. Contains a single loader named `babel` | all |
 
 ### Plugins
@@ -306,6 +306,7 @@ The following is a list of plugins and their identifiers which can be overridden
 | `clean` | Clears the contents of `build` prior to creating a production bundle. | `build` command |
 | `start-server` | Start a Node.js for a configured entry point or specified file. | `start` command |
 | `hot` | Enables Hot Module Replacement. | `start` command |
+| `module-concat` | Concatenate the scope of all your modules into one closure and allow for your code to have a faster execution time in the browser. | `NODE_ENV production` |
 
 ### Override configuration
 
