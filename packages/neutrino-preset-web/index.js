@@ -12,7 +12,7 @@ const clean = require('neutrino-middleware-clean');
 const minify = require('neutrino-middleware-minify');
 const loaderMerge = require('neutrino-middleware-loader-merge');
 const devServer = require('neutrino-middleware-dev-server');
-const { join, dirname, basename } = require('path');
+const { join, basename } = require('path');
 const merge = require('deepmerge');
 const ScriptExtHtmlPlugin = require('script-ext-html-webpack-plugin');
 const { optimize } = require('webpack');
@@ -27,8 +27,7 @@ module.exports = (neutrino, opts = {}) => {
       hot: opts.hot !== false
     },
     polyfills: {
-      async: true,
-      babel: true
+      async: true
     },
     babel: {}
   }, opts);
@@ -76,8 +75,7 @@ module.exports = (neutrino, opts = {}) => {
   neutrino.use(compileLoader, {
     include: [
       neutrino.options.source,
-      neutrino.options.tests,
-      ...(options.polyfills.babel ? [require.resolve('./polyfills.js')] : [])
+      neutrino.options.tests
     ],
     exclude: [staticDir],
     babel: options.babel
@@ -86,9 +84,6 @@ module.exports = (neutrino, opts = {}) => {
   neutrino.config
     .target('web')
     .context(neutrino.options.root)
-    .when(options.polyfills.babel, config => config
-      .entry('polyfill')
-        .add(require.resolve('./polyfills.js')))
     .entry('index')
       .add(neutrino.options.entry)
       .end()
@@ -99,10 +94,6 @@ module.exports = (neutrino, opts = {}) => {
       .chunkFilename('[name].[chunkhash].js')
       .end()
     .resolve
-      .alias
-        // Make sure 2 versions of "core-js" always match in package.json and babel-polyfill/package.json
-        .set('core-js', dirname(require.resolve('core-js')))
-        .end()
       .modules
         .add('node_modules')
         .add(neutrino.options.node_modules)
