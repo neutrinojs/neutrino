@@ -33,7 +33,7 @@ Using `require`:
 ```js
 const { Neutrino } = require('neutrino');
 
-const neutrino = Neutrino(options);
+const api = Neutrino(options);
 ```
 
 Using ES imports:
@@ -41,7 +41,7 @@ Using ES imports:
 ```js
 import { Neutrino } from 'neutrino';
 
-const neutrino = Neutrino(options);
+const api = Neutrino(options);
 ```
 
 ## API options
