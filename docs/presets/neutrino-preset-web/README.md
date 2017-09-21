@@ -280,8 +280,6 @@ The following is a list of plugins and their identifiers which can be overridden
 
 _Note: Some plugins are only available in certain environments. To override them, they should be modified conditionally._
 
-### Override configuration
-
 | Name | Description | Environments |
 | ---- | ----------- | ------------ |
 | `env` | Inject environment variables into source code at `process.env`, defaults to only inject `NODE_ENV`. From `neutrino-middleware-env`. | all |
@@ -295,6 +293,8 @@ _Note: Some plugins are only available in certain environments. To override them
 | `copy` | Copies files during build, defaults from `src/static` to `build/static`. From `neutrino-middleware-copy` | all but `development` |
 | `clean` | Removes the `build` directory prior to building. From `neutrino-middleware-clean`. | all but `development` |
 | `minify` | Minifies source code using `BabiliWebpackPlugin`. From `neutrino-middleware-minify`. | all but `development` |
+
+### Override configuration
 
 By following the [customization guide](../../customization) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also

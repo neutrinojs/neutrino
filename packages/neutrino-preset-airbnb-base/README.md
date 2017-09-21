@@ -168,7 +168,7 @@ module.exports = {
       }
     }]
   ]
-}
+};
 ```
 
 ## Customizing

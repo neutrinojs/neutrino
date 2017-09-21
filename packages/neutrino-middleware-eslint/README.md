@@ -148,6 +148,7 @@ const api = Neutrino();
 
 module.exports = api.call('eslintrc');
 ```
+
 _Example: Create a .eslintrc.js file in the root of the project, using specified middleware._
 
 ```js
