@@ -307,7 +307,7 @@ _Note: Some plugins are only available in certain environments. To override them
 | `copy` | Copies all files from `src/static` to `build` when using `neutrino build`. | all but `development` |
 | `clean` | Clears the contents of `build` prior to creating a production bundle. | all but `development` |
 | `start-server` | Start a Node.js for a configured entry point or specified file. | `development` |
-| `hot` | Enables hot module replacement. | `development` |
+| `hot` | Enables Hot Module Replacement. | `development` |
 
 ### Override configuration
 

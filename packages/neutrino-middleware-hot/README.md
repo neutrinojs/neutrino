@@ -56,7 +56,7 @@ The following is a list of plugins and their identifiers which can be overridden
 
 | Name | Description | Environments |
 | ---- | ----------- | ------------ |
-| `hot` | Enables hot module replacement. | all |
+| `hot` | Enables Hot Module Replacement. | all |
 
 ## Contributing
 

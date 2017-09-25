@@ -267,7 +267,7 @@ The following is a list of rules and their identifiers which can be overridden:
 | Name | Description | Environments |
 | ---- | ----------- | ------------ |
 | `compile` | Compiles JS files from the `src` directory using Babel. Contains a single loader named `babel`. From `neutrino-middleware-compile-loader`. | all |
-| `html` | Allows importing HTML files from modules. Contains a single loader named `file`. From `neutrino-middleware-html-loader`. | all |
+| `html` | Allows importing HTML files from modules. Contains a single loader named `html`. From `neutrino-middleware-html-loader`. | all |
 | `style` | Allows importing CSS stylesheets from modules. Contains two loaders named `style` and `css`. From `neutrino-middleware-style-loader`. | all |
 | `img`, `svg`, `ico` | Allows import image files from modules. Each contains a single loader named `url`. From `neutrino-middleware-image-loader`. | all |
 | `woff`, `ttf` | Allows importing WOFF and TTF font files from modules. Each contains a single loader named `url`. From `neutrino-middleware-font-loader`. | all |
@@ -279,8 +279,6 @@ The following is a list of rules and their identifiers which can be overridden:
 The following is a list of plugins and their identifiers which can be overridden:
 
 _Note: Some plugins are only available in certain environments. To override them, they should be modified conditionally._
-
-### Override configuration
 
 | Name | Description | Environments |
 | ---- | ----------- | ------------ |
@@ -295,6 +293,8 @@ _Note: Some plugins are only available in certain environments. To override them
 | `copy` | Copies files during build, defaults from `src/static` to `build/static`. From `neutrino-middleware-copy` | all but `development` |
 | `clean` | Removes the `build` directory prior to building. From `neutrino-middleware-clean`. | all but `development` |
 | `minify` | Minifies source code using `BabiliWebpackPlugin`. From `neutrino-middleware-minify`. | all but `development` |
+
+### Override configuration
 
 By following the [customization guide](../../customization) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also

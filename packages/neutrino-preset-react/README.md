@@ -11,10 +11,11 @@
 - Write JSX in .js or .jsx files
 - Extends from [neutrino-preset-web](https://neutrino.js.org/presets/neutrino-preset-web)
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
-  - Webpack loaders for importing HTML, CSS, images, icons, and fonts
+  - Webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
   - Webpack Dev Server during development
   - Automatic creation of HTML pages, no templating necessary
-  - Hot module replacement support
+  - Hot Module Replacement support
+  - Tree-shaking to create smaller bundles
   - Production-optimized bundles with Babili minification and easy chunking
   - Easily extensible to customize your project as needed
 
