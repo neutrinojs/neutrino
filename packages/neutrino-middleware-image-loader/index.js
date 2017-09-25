@@ -8,9 +8,38 @@ module.exports = ({ config }, options = {}) => {
   config.module
     .rule('svg')
     .test(/\.svg(\?v=\d+\.\d+\.\d+)?$/)
-    .use('url')
-      .loader(svgUrlLoader)
-      .options(merge({ limit }, options.svg || {}));
+    // .oneOf('style')
+    //   .set('issuer', /\.(css|less|sass|scss)$/)
+    //   .use('url')
+    //     .loader(svgUrlLoader)
+    //     .options(merge({ limit }, options.svg || {}))
+    //     .tap(opts => merge(opts, { noquotes: false }))
+    //     .end()
+    //   .end()
+    // .oneOf('text')
+    //   .use('url')
+    //     .loader(svgUrlLoader)
+    //     .options(merge({ limit }, options.svg || {}))
+    //     .tap(opts => merge(opts, { noquotes: true }))
+    .set('oneOf', [
+      {
+        issuer: /\.(css|less|sass|scss)$/,
+        use: [
+          {
+            loader: svgUrlLoader,
+            options: merge({ limit, noquotes: false }, options.svg || {})
+          }
+        ]
+      },
+      {
+        use: [
+          {
+            loader: svgUrlLoader,
+            options: merge({ limit, noquotes: true }, options.svg || {})
+          }
+        ]
+      }
+    ]);
 
   config.module
     .rule('img')
