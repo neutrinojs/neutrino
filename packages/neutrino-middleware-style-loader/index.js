@@ -1,10 +1,10 @@
 module.exports = ({ config }, options = {}) => config.module
-  .rule('style')
+  .rule(options.ruleId || 'style')
     .test(/\.css$/)
-      .use('style')
+      .use(options.styleUseId || 'style')
         .loader(require.resolve('style-loader'))
         .when(options.style, use => use.options(options.style))
         .end()
-      .use('css')
+      .use(options.cssUseId || 'css')
         .loader(require.resolve('css-loader'))
         .when(options.css, use => use.options(options.css));

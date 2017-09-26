@@ -5,6 +5,6 @@ module.exports = (neutrino, options = {}) => {
   const { paths, root } = merge({ paths: [], root: neutrino.options.root }, options);
 
   neutrino.config
-    .plugin('clean')
+    .plugin(options.pluginId || 'clean')
     .use(CleanPlugin, [paths, { root, verbose: false }]);
 };

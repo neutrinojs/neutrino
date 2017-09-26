@@ -21,6 +21,7 @@ const MODULES = join(__dirname, 'node_modules');
 
 module.exports = (neutrino, opts = {}) => {
   const options = merge({
+    env: [],
     hot: true,
     html: {},
     devServer: {
@@ -66,7 +67,7 @@ module.exports = (neutrino, opts = {}) => {
     );
   }
 
-  neutrino.use(env);
+  neutrino.use(env, options.env);
   neutrino.use(htmlLoader);
   neutrino.use(styleLoader);
   neutrino.use(fontLoader);
