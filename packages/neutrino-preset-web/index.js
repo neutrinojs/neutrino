@@ -111,13 +111,7 @@ module.exports = (neutrino, opts = {}) => {
         .end()
       .end()
     .node
-      .set('console', false)
-      .set('global', true)
-      .set('process', true)
       .set('Buffer', false)
-      .set('__filename', 'mock')
-      .set('__dirname', 'mock')
-      .set('setImmediate', true)
       .set('fs', 'empty')
       .set('tls', 'empty')
       .end()
