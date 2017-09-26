@@ -20,3 +20,6 @@ different values for the `NODE_ENV` environment variable. These are now controll
 certain `NODE_ENV` values like `production` or `development`, or when using certain commands like
 `start` or `build`. Look at the documentation for your specific presets to determine what environments or
 commands are used for certain configuration changes.
+- **BREAKING CHANGE** The minify plugin has switched to using the BabelMinifyWebpackPlugin, so the middleware
+options have been renamed from `babili` to `minify` and from `overrides` to `plugin`,
+e.g. `neutrino.use(minify, { minify: {}, plugin: {} })` or `['neutrino-middleware-minify', { minify: {}, plugin: {} }]`.
