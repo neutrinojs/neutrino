@@ -22,11 +22,12 @@ Commands:
   test [files..]  Run all suites from the test directory or provided files
 
 Options:
-  --inspect  Output a string representation of the configuration used by Neutrino and exit                    [boolean] [default: false]
+  --inspect  Output a string representation of the configuration used by webpack and exit                     [boolean] [default: false]
   --use      A list of Neutrino middleware used to configure the build                                        [array] [default: []]
   --options  Set Neutrino options, config, and environment variables, e.g. --options.env.NODE_ENV production  [default: {}]
   --quiet    Disable console output of CLI commands                                                           [boolean] [default: false]
   --debug    Run in debug mode                                                                                [boolean] [default: false]
+  --require  Preload a module prior to loading Neutrino; can be used multiple times                           [array] [default: []]
   --version  Show version number                                                                              [boolean]
   --help     Show help                                                                                        [boolean]
 ```
@@ -92,6 +93,24 @@ index 3356802..d4d82ef 100644
        '/node/src/index.js'
      ]
    },
+```
+
+## --require
+
+Require one or more modules prior to invoking any Neutrino commands. These can be an npm package or a relative path to
+a module to require. If you export a function, Neutrino will execute this function for you. If you export a Promise, or
+if you export a function that returns a Promise, Neutrino will wait for it to resolve before invoking any commands.
+Using `--require` with multiple Promise-using modules will make Neutrino await all the Promises in parallel prior to
+running a command.
+
+The `--require` flag can be especially useful if you need to perform work before running Neutrino each time.
+
+```bash
+❯ neutrino start --require load-env.js
+
+❯ neutrino build --require scripts/load-env scripts/fetch-remote-data
+
+❯ neutrino build --require scripts/load-env --require scripts/fetch-remote-data
 ```
 
 ## --debug
