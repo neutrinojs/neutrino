@@ -198,6 +198,12 @@ Neutrino({
 process.env.NODE_ENV // "production"
 ```
 
+### `options.command`
+
+The currently running CLI command, e.g. `build`, `start`, `lint`, etc. This value is typically
+set by the CLI when instantiating the API, but can also be set manually. This value is used by some
+middleware to determine when to augment the configuration with certain functionality.
+
 ## Neutrino API
 
 When creating a Neutrino instance, you have the option of providing an object which can be passed as options to
