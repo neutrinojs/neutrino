@@ -1,6 +1,33 @@
 2017-09-27
 ==========
 
+  * Upgrading Webpack to v3, merge config as middleware ([#315](https://github.com/mozilla-neutrino/neutrino-dev/issues/315))
+    * Upgrading Webpack to v3, merge config as middleware
+    * Documentation updates
+    * Removing remaining uses of options.static
+    * Document Neutrino event mechanisms
+    * Lock yarn to oao-compatible version
+    * Updating webpack-chain and other external depenencies
+    * Switch babel merging out for babel-merge package
+    * Adding docs for babel configuration merging for compile loader
+    * Be explicit about letting certain build features run in certain environments
+    * Updating plugin environments and command execution
+    * Module concatenation plugin
+    * Removing babel-polyfill as a default entry
+    * Switch to BabelMinifyWebpackPlugin
+    * Remove default webpack node options
+    * Docs about minify breaking change
+    * Allow middleware to be reused by allowing option for usage IDs
+    * Add feature for --require
+    * Run env middleware against process.env as well as api.options.env
+    * Upgrading dependencies again
+    * Remove configured externals in react preset for React 16
+    * Document options.command
+    * Switching svg loader from file to url
+    * Update webpack-chain docs from @emorley
+    * Revert svg loader breaking change docs
+    * Post-rebase yarn.lock updates
+  * Release v6.2.1
   * Make the lint command check .jsx files too ([#333](https://github.com/mozilla-neutrino/neutrino-dev/issues/333))
     Previously the `neutrino lint` command would only check `.js` files,
     which was inconsistent with the build/start commands, since they use
@@ -681,5 +708,3 @@
   * Middleware vs. Presets? ([#149](https://github.com/mozilla-neutrino/neutrino-dev/issues/149))
   * Changelog
   * Removing extraneous construct
-  * Syncing packages to docs, adding scripts for publishing
-  * Syncing package readmes with docs
