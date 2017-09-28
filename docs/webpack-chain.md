@@ -556,10 +556,16 @@ neutrino.config
   .init((Plugin, args) => new Plugin(...args));
 ```
 
+#### Config plugins: removing
+ 
+```js
+config.plugins.delete(name)
+```
+
 #### Config resolve plugins
 
 ```js
-// Backed at config.plugins
+// Backed at config.resolve.plugins
 neutrino.config.resolve.plugin(name) : ChainedMap
 ```
 
@@ -573,7 +579,7 @@ neutrino.config.resolve
   .use(WebpackPlugin, args)
 ```
 
-#### Config plugins: modify arguments
+#### Config resolve plugins: modify arguments
 
 ```js
 neutrino.config.resolve
@@ -581,12 +587,18 @@ neutrino.config.resolve
   .tap(args => newArgs)
 ```
 
-#### Config plugins: modify instantiation
+#### Config resolve plugins: modify instantiation
 
 ```js
 neutrino.config.resolve
   .plugin(name)
   .init((Plugin, args) => new Plugin(...args))
+```
+
+#### Config resolve plugins: removing
+ 
+```js
+config.resolve.plugins.delete(name)
 ```
 
 #### Config node
