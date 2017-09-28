@@ -8,8 +8,6 @@ this latest version:
 which is now a plain shortcut method, allowing you to set any value.
 - **BREAKING CHANGE** Webpack upgraded to v3. While most users should need no changes for this upgrade, be
 aware that it may still be possible for something to change during this upgrade.
-- **BREAKING CHANGE** The image loader middleware no longer uses svg-url-loader for SVGs and its `use` has
-been renamed from `url` to `file`.
 - **BREAKING CHANGE** ESLint has been upgraded to v4, which may bring linting configuration
 changes.
 - **BREAKING CHANGE** The Neutrino `static` option has been removed. The Web, React, and Node.js presets will
