@@ -14,8 +14,8 @@
   "license": "MPL-2.0",
   "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/neutrino-preset-karma",
   "dependencies": {
-    "babel-plugin-istanbul": "^4.1.4",
-    "deepmerge": "^1.5.1",
+    "babel-plugin-istanbul": "^4.1.5",
+    "deepmerge": "^1.5.2",
     "karma": "^1.7.1",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.1",
@@ -25,7 +25,7 @@
     "mocha": "^3.5.3",
     "mocha-coverage-reporter": "^0.0.1",
     "ramda": "^0.24.1",
-    "webpack": "^3.5.6",
+    "webpack": "^3.6.0",
     "webpack-dev-middleware": "^1.12.0",
     "neutrino-middleware-loader-merge": "^6.2.1"
   },

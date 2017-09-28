@@ -25,14 +25,14 @@
   },
   "devDependencies": {
     "ava": "^0.22.0",
-    "babel-eslint": "^8.0.0",
+    "babel-eslint": "^8.0.1",
     "changelog": "^1.4.0",
     "codecov": "^2.3.0",
-    "eslint": "^4.6.1",
-    "eslint-config-airbnb-base": "^12.0.0",
+    "eslint": "^4.7.2",
+    "eslint-config-airbnb-base": "^12.0.1",
     "eslint-plugin-babel": "^4.1.2",
     "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-prettier": "^2.2.0",
+    "eslint-plugin-prettier": "^2.3.1",
     "gh-pages": "^1.0.0",
     "gitbook-cli": "^2.3.2",
     "gitbook-plugin-anchorjs": "^1.1.1",
@@ -42,12 +42,12 @@
     "gitbook-plugin-prism": "^2.3.0",
     "graph-data-structure": "^1.0.0",
     "husky": "^0.14.3",
-    "lint-staged": "^4.1.3",
+    "lint-staged": "^4.2.3",
     "nyc": "^11.2.1",
     "oao": "^0.10.1",
-    "prettier": "^1.6.1",
+    "prettier": "^1.7.2",
     "semver": "^5.4.1",
-    "webpack": "^3.5.6"
+    "webpack": "^3.6.0"
   },
   "lint-staged": {
     "*.js": [

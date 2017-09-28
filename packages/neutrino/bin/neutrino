@@ -70,8 +70,6 @@ const args = yargs
   .command('*')
   .demandCommand(1, 'You must specify a command for Neutrino to run.\nUSAGE:  neutrino <command>')
   .recommendCommands()
-  .version()
-  .help()
   .argv;
 
 const rc = '.neutrinorc.js';
