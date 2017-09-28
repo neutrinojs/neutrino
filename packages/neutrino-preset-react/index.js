@@ -48,11 +48,6 @@ module.exports = (neutrino, opts = {}) => {
       .alias.set('react-native', 'react-native-web').end()
       .end()
     .resolveLoader.modules.add(MODULES).end().end()
-    .externals({
-      'react/addons': true,
-      'react/lib/ExecutionEnvironment': true,
-      'react/lib/ReactContext': 'window'
-    })
     .when(process.env.NODE_ENV === 'development' && options.hot, config => config
       .entry('index')
         .prepend(require.resolve('react-hot-loader/patch')));
