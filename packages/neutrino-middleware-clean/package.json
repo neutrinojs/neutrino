@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-clean",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "description": "Neutrino middleware for cleaning bundle output directories",
   "main": "index.js",
   "keywords": [

@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-font-loader",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "description": "Neutrino middleware for importing and loading font files from modules",
   "main": "index.js",
   "keywords": [

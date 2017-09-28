@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-minify",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "description": "Neutrino middleware for minifying source code",
   "main": "index.js",
   "keywords": [

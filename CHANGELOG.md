@@ -1,6 +1,35 @@
+2017-09-27
+==========
+
+  * Make the lint command check .jsx files too ([#333](https://github.com/mozilla-neutrino/neutrino-dev/issues/333))
+    Previously the `neutrino lint` command would only check `.js` files,
+    which was inconsistent with the build/start commands, since they use
+    `eslint-loader` and so instead use the `test` regex of `/\.(js|jsx)$/`.
+    Fixes [#332](https://github.com/mozilla-neutrino/neutrino-dev/issues/332).
+
+2017-09-24
+==========
+
+  * Misc documentation fixes ([#325](https://github.com/mozilla-neutrino/neutrino-dev/issues/325))
+    * Docs: Sync the READMEs in docs/ and packages/
+    Since the content had drifted out of sync.
+    * Docs: Use consistent case for Hot Module Replacement
+    * Docs: Sync the react and web preset feature lists
+    * Docs: Correct the loader name for the 'html' rule
+    Since the loader name was changed from `file` to `html` in [#219](https://github.com/mozilla-neutrino/neutrino-dev/issues/219).
+    * Docs: Correct the rule name for neutrino-middleware-style-loader
+    Since it was changed from `css` to `style` in [#86](https://github.com/mozilla-neutrino/neutrino-dev/issues/86).
+
+2017-09-13
+==========
+
+  * Small API docs change to avoid confusion. ([#317](https://github.com/mozilla-neutrino/neutrino-dev/issues/317))
+    The API is first assigned to `neutrino`, but the rest of the doc uses `api`, which was seeming to come from nowhere.
+
 2017-09-11
 ==========
 
+  * Release v6.2.0
   * feat: Allow passing any Jest CLI options to neutrino-jest test task ([#313](https://github.com/mozilla-neutrino/neutrino-dev/issues/313))
     * feat: Allow passing any Jest CLI options to neutrino-jest test task
     Closes [#287](https://github.com/mozilla-neutrino/neutrino-dev/issues/287)
@@ -654,20 +683,3 @@
   * Removing extraneous construct
   * Syncing packages to docs, adding scripts for publishing
   * Syncing package readmes with docs
-  * Extracting webpack utils to their own file ([#147](https://github.com/mozilla-neutrino/neutrino-dev/issues/147))
-  * use correct value for package.json config ([#146](https://github.com/mozilla-neutrino/neutrino-dev/issues/146))
-    This might have been an old way to define the configuration?
-    Only works when I use `neutrino`, otherwise I get an error:
-    ```
-    WebpackOptionsValidationError: Invalid configuration object. Webpack has been initialised using a configuration object that does not match the API schema.
-    ```
-
-2017-03-25
-==========
-
-  * Rdesign Advanced Customization examples to use Neutrino v5 fashion ([#145](https://github.com/mozilla-neutrino/neutrino-dev/issues/145))
-  * Update upgrading-neutrino.md (eslint middleware) ([#144](https://github.com/mozilla-neutrino/neutrino-dev/issues/144))
-    The code explaining the usage of `neutrino-middleware-eslint` was wrong here.
-    It caused me a great headache last night, when I was migrating a pair of eslint presets.
-    Thank god [eslint middleware documentation page](https://neutrino.js.org/middleware/neutrino-middleware-eslint/) is OK and you can
-    compare and infer the correct usage.

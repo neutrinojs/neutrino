@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-env",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "description": "Neutrino middleware for injecting environment variables into source code",
   "main": "index.js",
   "keywords": [
