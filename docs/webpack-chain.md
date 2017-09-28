@@ -1,9 +1,9 @@
-# webpack-chain
+# webpack-chain: Neutrino configuration API
 
 Use a chaining API to generate and simplify the modification of
 Webpack 2 and 3 configurations.
 
-This documentation corresponds to v4 of webpack-chain.
+This documentation corresponds to v4 of webpack-chain, which Neutrino utilizes.
 
 _Note: while webpack-chain is utilized extensively in Neutrino, the package is completely
 standalone and can be used by any project. See the webpack-chain repo for standalone documentation._
@@ -107,7 +107,7 @@ module.exports = (neutrino) => {
 
 ## ChainedMap
 
-One of the core API interfaces in webpack-chain is a `ChainedMap`. A `ChainedMap` operates
+One of the core API interfaces in Neutrino configuration is a `ChainedMap`. A `ChainedMap` operates
 similar to a JavaScript Map, with some conveniences for chaining and generating configuration.
 If a property is marked as being a `ChainedMap`, it will have an API and methods as described below:
 
@@ -179,7 +179,7 @@ when(condition, truthyHandler, falsyHandler)
 
 ## ChainedSet
 
-Another of the core API interfaces in webpack-chain is a `ChainedSet`. A `ChainedSet` operates
+Another of the core API interfaces in Neutrino configuration is a `ChainedSet`. A `ChainedSet` operates
 similar to a JavaScript Set, with some conveniences for chaining and generating configuration.
 If a property is marked as being a `ChainedSet`, it will have an API and methods as described below:
 
@@ -246,10 +246,10 @@ For example, `devServer.hot` is a shorthand method, so it can be used as:
 
 ```js
 // A shorthand method for setting a value on a ChainedMap
-devServer.hot(true);
+neutrino.config.devServer.hot(true);
 
 // This would be equivalent to:
-devServer.set('hot', true);
+neutrino.config.devServer.set('hot', true);
 ```
 
 A shorthand method is chainable, so calling it will return the original instance,
@@ -559,7 +559,7 @@ neutrino.config
 #### Config plugins: removing
  
 ```js
-config.plugins.delete(name)
+neutrino.config.plugins.delete(name)
 ```
 
 #### Config resolve plugins
@@ -598,7 +598,7 @@ neutrino.config.resolve
 #### Config resolve plugins: removing
  
 ```js
-config.resolve.plugins.delete(name)
+neutrino.config.resolve.plugins.delete(name)
 ```
 
 #### Config node
@@ -606,7 +606,7 @@ config.resolve.plugins.delete(name)
 ```js
 neutrino.config.node : ChainedMap
 
-config.node
+neutrino.config.node
   .set('__dirname', 'mock')
   .set('__filename', 'mock');
 ```
@@ -763,9 +763,9 @@ neutrino.config.module
 
 ### Merging Config
 
-webpack-chain supports merging in an object to the configuration instance which matches a layout
-similar to how the webpack-chain schema is laid out. Note that this is not a Webpack configuration
-object, but you may transform a Webpack configuration object before providing it to webpack-chain
+Neutrino config supports merging in an object to the configuration instance which matches a layout
+similar to how the configuration schema is laid out. Note that this is not a Webpack configuration
+object, but you may transform a Webpack configuration object before providing it to Neutrino configuration
 to match its layout.
 
 ```js
@@ -775,6 +775,10 @@ neutrino.config.get('devtool') // "source-map"
 ```
 
 ```js
+// Neutrino configuration "schematic"
+// Merging an object into Neutrino configuration
+// should have any properties you set follow this
+// "schematic" format.
 neutrino.config.merge({
   [key]: value,
 
