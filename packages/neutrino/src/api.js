@@ -124,7 +124,7 @@ const Api = pipe(getOptions, (options) => {
           const envMiddleware = Object
             .keys(middleware.env)
             .map((key) => {
-              const envValue = api.options.env[key];
+              const envValue = api.options.env[key] || process.env[key];
               const env = middleware.env[key][envValue];
 
               if (!env) {
