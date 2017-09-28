@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-hot",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "description": "Neutrino middleware for plugging Hot Module Replacement",
   "main": "index.js",
   "keywords": [
@@ -20,6 +20,6 @@
     "webpack": "^3.6.0"
   },
   "peerDependencies": {
-    "neutrino": "^6.0.0"
+    "neutrino": "^7.0.0"
   }
 }

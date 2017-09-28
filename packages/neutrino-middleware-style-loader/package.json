@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-style-loader",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "description": "Neutrino middleware for importing and loading stylesheets from modules",
   "main": "index.js",
   "keywords": [
@@ -20,6 +20,6 @@
     "style-loader": "^0.18.2"
   },
   "peerDependencies": {
-    "neutrino": "^6.0.0"
+    "neutrino": "^7.0.0"
   }
 }

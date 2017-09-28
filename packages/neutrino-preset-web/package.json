@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-web",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "description": "Neutrino preset for building generic web applications",
   "main": "index.js",
   "keywords": [
@@ -24,26 +24,26 @@
     "fast-async": "^6.3.0",
     "imports-loader": "^0.7.1",
     "inline-manifest-webpack-plugin": "^3.0.1",
-    "neutrino-middleware-chunk": "^7.0.0",
-    "neutrino-middleware-clean": "^7.0.0",
-    "neutrino-middleware-compile-loader": "^7.0.0",
-    "neutrino-middleware-copy": "^7.0.0",
-    "neutrino-middleware-dev-server": "^7.0.0",
-    "neutrino-middleware-env": "^7.0.0",
-    "neutrino-middleware-font-loader": "^7.0.0",
-    "neutrino-middleware-hot": "^7.0.0",
-    "neutrino-middleware-html-loader": "^7.0.0",
-    "neutrino-middleware-html-template": "^7.0.0",
-    "neutrino-middleware-image-loader": "^7.0.0",
-    "neutrino-middleware-loader-merge": "^7.0.0",
-    "neutrino-middleware-minify": "^7.0.0",
-    "neutrino-middleware-style-loader": "^7.0.0",
+    "neutrino-middleware-chunk": "^7.0.1",
+    "neutrino-middleware-clean": "^7.0.1",
+    "neutrino-middleware-compile-loader": "^7.0.1",
+    "neutrino-middleware-copy": "^7.0.1",
+    "neutrino-middleware-dev-server": "^7.0.1",
+    "neutrino-middleware-env": "^7.0.1",
+    "neutrino-middleware-font-loader": "^7.0.1",
+    "neutrino-middleware-hot": "^7.0.1",
+    "neutrino-middleware-html-loader": "^7.0.1",
+    "neutrino-middleware-html-template": "^7.0.1",
+    "neutrino-middleware-image-loader": "^7.0.1",
+    "neutrino-middleware-loader-merge": "^7.0.1",
+    "neutrino-middleware-minify": "^7.0.1",
+    "neutrino-middleware-style-loader": "^7.0.1",
     "script-ext-html-webpack-plugin": "^1.8.5",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.9.1",
     "worker-loader": "^1.0.0"
   },
   "peerDependencies": {
-    "neutrino": "^6.0.0"
+    "neutrino": "^7.0.0"
   }
 }

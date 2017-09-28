@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-copy",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "description": "Neutrino middleware for copying files to a bundle output directory",
   "main": "index.js",
   "keywords": [
@@ -19,6 +19,6 @@
     "deepmerge": "^1.5.2"
   },
   "peerDependencies": {
-    "neutrino": "^6.0.0"
+    "neutrino": "^7.0.0"
   }
 }

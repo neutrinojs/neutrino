@@ -827,9 +827,9 @@ natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
 
-neutrino-middleware-eslint@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-eslint/-/neutrino-middleware-eslint-7.0.0.tgz#4f0359c8dc024284e95ac1a0ddf47935cb4216a2"
+neutrino-middleware-eslint@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-eslint/-/neutrino-middleware-eslint-7.0.1.tgz#2e4230d364d7c5d7b417a1aca5596d7fc11988c8"
   dependencies:
     babel-eslint "^8.0.1"
     deepmerge "^1.5.2"

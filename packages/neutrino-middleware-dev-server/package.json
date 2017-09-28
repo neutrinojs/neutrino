@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-dev-server",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "description": "Neutrino middleware for starting a webpack-dev-server",
   "main": "index.js",
   "keywords": [
@@ -24,6 +24,6 @@
     "webpack-dev-server": "^2.9.1"
   },
   "peerDependencies": {
-    "neutrino": "^6.0.0"
+    "neutrino": "^7.0.0"
   }
 }

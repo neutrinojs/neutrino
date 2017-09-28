@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-node",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "description": "Neutrino preset for building Node.js projects",
   "main": "index.js",
   "keywords": [
@@ -21,18 +21,18 @@
     "exports-loader": "^0.6.4",
     "fast-async": "^6.3.0",
     "imports-loader": "^0.7.1",
-    "neutrino-middleware-banner": "^7.0.0",
-    "neutrino-middleware-clean": "^7.0.0",
-    "neutrino-middleware-compile-loader": "^7.0.0",
-    "neutrino-middleware-copy": "^7.0.0",
-    "neutrino-middleware-hot": "^7.0.0",
-    "neutrino-middleware-loader-merge": "^7.0.0",
-    "neutrino-middleware-start-server": "^7.0.0",
+    "neutrino-middleware-banner": "^7.0.1",
+    "neutrino-middleware-clean": "^7.0.1",
+    "neutrino-middleware-compile-loader": "^7.0.1",
+    "neutrino-middleware-copy": "^7.0.1",
+    "neutrino-middleware-hot": "^7.0.1",
+    "neutrino-middleware-loader-merge": "^7.0.1",
+    "neutrino-middleware-start-server": "^7.0.1",
     "ramda": "^0.24.1",
     "webpack": "^3.6.0",
     "webpack-node-externals": "^1.6.0"
   },
   "peerDependencies": {
-    "neutrino": "^6.0.0"
+    "neutrino": "^7.0.0"
   }
 }

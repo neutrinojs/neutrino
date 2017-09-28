@@ -1631,9 +1631,9 @@ natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
 
-neutrino-middleware-loader-merge@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-loader-merge/-/neutrino-middleware-loader-merge-7.0.0.tgz#e8ea21a068134d37743783e02984e192bda8a4d6"
+neutrino-middleware-loader-merge@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-loader-merge/-/neutrino-middleware-loader-merge-7.0.1.tgz#e5917b4b9bb85dde3deabfa93c1d7f2329469fca"
   dependencies:
     deepmerge "^1.5.2"
 

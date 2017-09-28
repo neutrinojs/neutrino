@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-image-loader",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "description": "Neutrino middleware for importing and loading image files from modules",
   "main": "index.js",
   "keywords": [
@@ -19,6 +19,6 @@
     "url-loader": "^0.5.8"
   },
   "peerDependencies": {
-    "neutrino": "^6.0.0"
+    "neutrino": "^7.0.0"
   }
 }
