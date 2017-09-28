@@ -23,7 +23,7 @@
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v6
+- Neutrino v7
 
 ## Installation
 
@@ -134,7 +134,8 @@ You can either serve or deploy the contents of this `build` directory as a stati
 
 If you wish to copy files to the build directory that are not imported from application code, you can place
 them in a directory within `src` called `static`. All files in this directory will be copied from `src/static`
-to `build/static`.
+to `build/static`. To change this behavior, specify your own patterns with
+[neutrino-middleware-copy](../../middleware/neutrino-middleware-copy/README.md).
 
 ## Paths
 

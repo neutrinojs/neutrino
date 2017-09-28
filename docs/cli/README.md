@@ -22,13 +22,14 @@ Commands:
   test [files..]  Run all suites from the test directory or provided files
 
 Options:
-  --inspect  Output a string representation of the configuration used by Neutrino and exit           [boolean] [default: false]
-  --use      A list of Neutrino middleware used to configure the build                               [array] [default: []]
-  --options  Set Neutrino options and environment variables, e.g. --options.env.NODE_ENV production  [default: {}]
-  --quiet    Disable console output of CLI commands                                                  [boolean] [default: false]
-  --debug    Run in debug mode                                                                       [boolean] [default: false]
-  --version  Show version number                                                                     [boolean]
-  --help     Show help                                                                               [boolean]
+  --inspect  Output a string representation of the configuration used by webpack and exit                     [boolean] [default: false]
+  --use      A list of Neutrino middleware used to configure the build                                        [array] [default: []]
+  --options  Set Neutrino options, config, and environment variables, e.g. --options.env.NODE_ENV production  [default: {}]
+  --quiet    Disable console output of CLI commands                                                           [boolean] [default: false]
+  --debug    Run in debug mode                                                                                [boolean] [default: false]
+  --require  Preload a module prior to loading Neutrino; can be used multiple times                           [array] [default: []]
+  --version  Show version number                                                                              [boolean]
+  --help     Show help                                                                                        [boolean]
 ```
 
 ## `--version`
@@ -37,7 +38,7 @@ Using `--version` will output the current version of the Neutrino CLI to the con
 
 ```bash
 ❯ neutrino --version
-6.0.0
+7.0.0
 ```
 
 ## `--use`
@@ -94,6 +95,24 @@ index 3356802..d4d82ef 100644
    },
 ```
 
+## --require
+
+Require one or more modules prior to invoking any Neutrino commands. These can be an npm package or a relative path to
+a module to require. If you export a function, Neutrino will execute this function for you. If you export a Promise, or
+if you export a function that returns a Promise, Neutrino will wait for it to resolve before invoking any commands.
+Using `--require` with multiple Promise-using modules will make Neutrino await all the Promises in parallel prior to
+running a command.
+
+The `--require` flag can be especially useful if you need to perform work before running Neutrino each time.
+
+```bash
+❯ neutrino start --require load-env.js
+
+❯ neutrino build --require scripts/load-env scripts/fetch-remote-data
+
+❯ neutrino build --require scripts/load-env --require scripts/fetch-remote-data
+```
+
 ## --debug
 
 Informs interested middleware that they should be in a state of debugging. This does not currently make Neutrino itself
@@ -107,8 +126,8 @@ but is not a guarantee.
 
 ## --options
 
-Used to override Neutrino options and environments from the command line. This would typically be used for specifying
-one-off option changes that may not be appropriate to encapsulate in `.neutrinorc.js`. The `--options` flag is
+Used to override Neutrino options, configuration, and environments from the command line. This would typically be used
+for specifying one-off changes that may not be appropriate to encapsulate in `.neutrinorc.js`. The `--options` flag is
 formatted as "dotted-object" syntax, meaning it should be used as `--options.<option> [value]`. This can also be used
 to toggle Boolean options to `true` by providing no value. Some examples:
 
@@ -117,7 +136,13 @@ to toggle Boolean options to `true` by providing no value. Some examples:
 
 ❯ neutrino build --options.env.NODE_ENV development --options.env.CUSTOM_ENV_VAR customValue
 
+# Sets options.https to true
 ❯ neutrino start --options.https
+
+❯ neutrino start --options.config.devtool eval
+
+# Sets config.node.Buffer to true
+❯ neutrino start --options.config.node.Buffer
 ```
 
 ## `neutrino start`
@@ -144,15 +169,15 @@ Looking at the `--help` for `neutrino test`:
 neutrino test [files..]
 
 Options:
-  --inspect   Output a string representation of the configuration used by Neutrino and exit           [boolean] [default: false]
-  --use       A list of Neutrino middleware used to configure the build                               [array] [default: []]
-  --options   Set Neutrino options and environment variables, e.g. --options.env.NODE_ENV production  [default: {}]
-  --quiet     Disable console output of CLI commands                                                  [boolean] [default: false]
-  --debug     Run in debug mode                                                                       [boolean] [default: false]
-  --version   Show version number                                                                     [boolean]
-  --help      Show help                                                                               [boolean]
-  --coverage  Collect test coverage information and generate report                                   [boolean] [default: false]
-  --watch     Watch source files for changes and re-run tests                                         [boolean] [default: false]
+  --inspect   Output a string representation of the configuration used by Neutrino and exit                    [boolean] [default: false]
+  --use       A list of Neutrino middleware used to configure the build                                        [array] [default: []]
+  --options   Set Neutrino options, config, and environment variables, e.g. --options.env.NODE_ENV production  [default: {}]
+  --quiet     Disable console output of CLI commands                                                           [boolean] [default: false]
+  --debug     Run in debug mode                                                                                [boolean] [default: false]
+  --version   Show version number                                                                              [boolean]
+  --help      Show help                                                                                        [boolean]
+  --coverage  Collect test coverage information and generate report                                            [boolean] [default: false]
+  --watch     Watch source files for changes and re-run tests                                                  [boolean] [default: false]
 ```
 
 Using the command `neutrino test` will execute every test file located in your

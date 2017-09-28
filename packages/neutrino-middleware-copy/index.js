@@ -5,6 +5,6 @@ module.exports = ({ config }, opts = {}) => {
   const { patterns, options } = merge({ patterns: [], options: {} }, opts);
 
   config
-    .plugin('copy')
+    .plugin(options.pluginId || 'copy')
     .use(CopyPlugin, [patterns, options]);
 };

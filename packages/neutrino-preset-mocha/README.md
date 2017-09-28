@@ -13,7 +13,7 @@
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v6, Neutrino build preset
+- Neutrino v7, Neutrino build preset
 
 ## Installation
 
@@ -165,8 +165,8 @@ changes.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-| Name | Description | Environments |
-| ---- | ----------- | ------------ |
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
 | `compile` | Compiles JS files from the `test` directory using adopted Babel settings from other build presets. Contains a single loader named `babel`. | all |
 
 ### Override configuration

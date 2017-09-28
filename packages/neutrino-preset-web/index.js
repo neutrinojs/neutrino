@@ -12,22 +12,23 @@ const clean = require('neutrino-middleware-clean');
 const minify = require('neutrino-middleware-minify');
 const loaderMerge = require('neutrino-middleware-loader-merge');
 const devServer = require('neutrino-middleware-dev-server');
-const { join, dirname, basename } = require('path');
+const { join, basename } = require('path');
 const merge = require('deepmerge');
 const ScriptExtHtmlPlugin = require('script-ext-html-webpack-plugin');
+const { optimize } = require('webpack');
 
 const MODULES = join(__dirname, 'node_modules');
 
 module.exports = (neutrino, opts = {}) => {
   const options = merge({
+    env: [],
     hot: true,
     html: {},
     devServer: {
       hot: opts.hot !== false
     },
     polyfills: {
-      async: true,
-      babel: true
+      async: true
     },
     babel: {}
   }, opts);
@@ -52,6 +53,7 @@ module.exports = (neutrino, opts = {}) => {
     }, options.babel)
   });
 
+  const staticDir = join(neutrino.options.source, 'static');
   const presetEnvOptions = options.babel.presets[0][1];
 
   if (!presetEnvOptions.targets.browsers.length) {
@@ -65,7 +67,7 @@ module.exports = (neutrino, opts = {}) => {
     );
   }
 
-  neutrino.use(env);
+  neutrino.use(env, options.env);
   neutrino.use(htmlLoader);
   neutrino.use(styleLoader);
   neutrino.use(fontLoader);
@@ -74,20 +76,15 @@ module.exports = (neutrino, opts = {}) => {
   neutrino.use(compileLoader, {
     include: [
       neutrino.options.source,
-      neutrino.options.tests,
-      ...(options.polyfills.babel ? [require.resolve('./polyfills.js')] : [])
+      neutrino.options.tests
     ],
-    exclude: [neutrino.options.static],
+    exclude: [staticDir],
     babel: options.babel
   });
 
   neutrino.config
-    .when(process.env.NODE_ENV !== 'test', () => neutrino.use(chunk))
     .target('web')
     .context(neutrino.options.root)
-    .when(options.polyfills.babel, config => config
-      .entry('polyfill')
-        .add(require.resolve('./polyfills.js')))
     .entry('index')
       .add(neutrino.options.entry)
       .end()
@@ -98,10 +95,6 @@ module.exports = (neutrino, opts = {}) => {
       .chunkFilename('[name].[chunkhash].js')
       .end()
     .resolve
-      .alias
-        // Make sure 2 versions of "core-js" always match in package.json and babel-polyfill/package.json
-        .set('core-js', dirname(require.resolve('core-js')))
-        .end()
       .modules
         .add('node_modules')
         .add(neutrino.options.node_modules)
@@ -119,13 +112,7 @@ module.exports = (neutrino, opts = {}) => {
         .end()
       .end()
     .node
-      .set('console', false)
-      .set('global', true)
-      .set('process', true)
       .set('Buffer', false)
-      .set('__filename', 'mock')
-      .set('__dirname', 'mock')
-      .set('setImmediate', true)
       .set('fs', 'empty')
       .set('tls', 'empty')
       .end()
@@ -144,20 +131,24 @@ module.exports = (neutrino, opts = {}) => {
       .use(loaderMerge('lint', 'eslint'), {
         envs: ['browser', 'commonjs']
       }))
-    .when(process.env.NODE_ENV === 'development', (config) => {
+    .when(process.env.NODE_ENV === 'development', config => config.devtool('source-map'))
+    .when(neutrino.options.command === 'start', (config) => {
       neutrino.use(devServer, options.devServer);
-
-      config
-        .devtool('source-map')
-        .when(options.hot, () => neutrino.use(hot));
-    }, (config) => {
-      neutrino.use(clean, { paths: [neutrino.options.output] });
+      config.when(options.hot, () => neutrino.use(hot));
+    })
+    .when(process.env.NODE_ENV === 'production', () => {
+      neutrino.use(chunk);
       neutrino.use(minify);
+      neutrino.config.plugin('module-concat')
+        .use(optimize.ModuleConcatenationPlugin);
+    })
+    .when(neutrino.options.command === 'build', (config) => {
+      neutrino.use(clean, { paths: [neutrino.options.output] });
       neutrino.use(copy, {
         patterns: [{
-          context: neutrino.options.static,
+          context: staticDir,
           from: '**/*',
-          to: basename(neutrino.options.static)
+          to: basename(staticDir)
         }]
       });
       config.output.filename('[name].[chunkhash].js');

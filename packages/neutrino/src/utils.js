@@ -1,12 +1,14 @@
-const { cond, curry, identity, of, T } = require('ramda');
+const {
+  cond, curry, identity, of, T
+} = require('ramda');
 const { List } = require('immutable-ext');
 const { isAbsolute, join } = require('path');
 
 // createPaths :: (String -> String) -> List String
-const createPaths = curry((base, middleware) => List.of(
-  join(base, middleware),
-  join(base, 'node_modules', middleware),
-  middleware
+const createPaths = curry((root, moduleId) => List.of(
+  join(root, moduleId),
+  join(root, 'node_modules', moduleId),
+  moduleId
 ));
 
 // normalize :: String base -> String path -> String
@@ -18,8 +20,24 @@ const toArray = cond([
   [T, of]
 ]);
 
+// req :: String moduleId -> a
+const req = (moduleId, root) => {
+  const paths = createPaths(root, moduleId);
+  const path = paths.find((path) => {
+    try {
+      require.resolve(path);
+      return true;
+    } catch (err) {
+      return path === paths.last();
+    }
+  });
+
+  return require(path); // eslint-disable-line
+};
+
 module.exports = {
   createPaths,
   normalizePath,
-  toArray
+  toArray,
+  req
 };

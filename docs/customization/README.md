@@ -109,21 +109,6 @@ module.exports = {
 };
 ```
 
-### `options.static`
-
-Designate a directory within `source` for containing static/non-compiled assets. If the option is not set, Neutrino
-defaults it to `static`. If a relative path is specified, it will be resolved relative to `options.source`; absolute
-paths will be used as-is (not recommended).
-
-```js
-module.exports = {
-  options: {
-    // Override to relative directory, resolves to options.source + public
-    static: 'public'
-  }
-};
-```
-
 ### `options.entry`
 
 Set the main entry point for the application. If the option is not set, Neutrino defaults it to `index.*` - the
@@ -317,9 +302,9 @@ module.exports = {
 ```
 
 Remember, middleware can also have their own custom options for making some changes easier without having to resort to
-interacting with the Neutrino API; see your respective middleware for details. Again, rather than reiterate the
-documentation for [webpack-chain](https://github.com/mozilla-neutrino/webpack-chain) here, please refer to its
-documentation for all ways you can modify a config instance to solve your use cases.
+interacting with the Neutrino API; see your respective middleware for details. See the [documentation on the
+configuration API using webpack-chain](../webpack-chain.md) for all ways you can modify a config instance to solve
+your use cases.
 
 ### Conditional configuration
 

@@ -17,7 +17,7 @@
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v6
+- Neutrino v7
 
 ## Installation
 
@@ -133,11 +133,12 @@ quick start example above as a reference:
 
 ```bash
 ❯ yarn build
+
 clean-webpack-plugin: /node/build has been removed.
 Build completed in 0.419s
 
 Hash: 89e4fb250fc535920ba4
-Version: webpack 2.6.1
+Version: webpack 3.5.6
 Time: 424ms
        Asset     Size  Chunks             Chunk Names
     index.js  4.29 kB       0  [emitted]  index
@@ -291,8 +292,8 @@ package.json. No extra work is required to make this work.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-| Name | Description | Environments |
-| ---- | ----------- | ------------ |
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
 | `compile` | Compiles JS files from the `src` directory using Babel. Contains a single loader named `babel` | all |
 
 ### Plugins
@@ -301,13 +302,14 @@ The following is a list of plugins and their identifiers which can be overridden
 
 _Note: Some plugins are only available in certain environments. To override them, they should be modified conditionally._
 
-| Name | Description | Environments |
-| ---- | ----------- | ------------ |
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
 | `banner` | Injects source-map-support into the entry point of your application if detected in `dependencies` or `devDependencies` of your package.json. | Only when `source-map-support` is installed |
-| `copy` | Copies all files from `src/static` to `build` when using `neutrino build`. | all but `development` |
-| `clean` | Clears the contents of `build` prior to creating a production bundle. | all but `development` |
-| `start-server` | Start a Node.js for a configured entry point or specified file. | `development` |
-| `hot` | Enables Hot Module Replacement. | `development` |
+| `copy` | Copies all files from `src/static` to `build` when using `neutrino build`. | `build` command |
+| `clean` | Clears the contents of `build` prior to creating a production bundle. | `build` command |
+| `start-server` | Start a Node.js for a configured entry point or specified file. | `start` command |
+| `hot` | Enables Hot Module Replacement. | `start` command |
+| `module-concat` | Concatenate the scope of all your modules into one closure and allow for your code to have a faster execution time in the browser. | `NODE_ENV production` |
 
 ### Override configuration
 

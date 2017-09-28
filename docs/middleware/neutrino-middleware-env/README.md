@@ -9,7 +9,7 @@ use) available inside your project. Always injects `process.env.NODE_ENV`, unles
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v6
+- Neutrino v7
 
 ## Installation
 
@@ -70,8 +70,8 @@ make changes.
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-| Name | Description | Environments |
-| ---- | ----------- | ------------ |
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
 | `env` | Inject environment variables into source code at `process.env`. | all |
 
 ## Contributing

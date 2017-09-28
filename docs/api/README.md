@@ -153,24 +153,6 @@ Neutrino({
 })
 ```
 
-### `options.static`
-
-Designate a directory within `source` for containing static/non-compiled assets. If the option is not set, Neutrino
-defaults it to `static`. If a relative path is specified, it will be resolved relative to `options.source`; absolute
-paths will be used as-is (not recommended).
-
-```js
-Neutrino({
-  // if not specified, defaults to options.source + static
-
-  // relative, resolves to options.source + public
-  static: 'public',
-
-  // absolute
-  static: '/code/website/src/public'
-})
-```
-
 ### `options.node_modules`
 
 Set the directory which contains the Node.js modules of the project. If the option is not set, Neutrino defaults it to
@@ -215,6 +197,12 @@ Neutrino({
 
 process.env.NODE_ENV // "production"
 ```
+
+### `options.command`
+
+The currently running CLI command, e.g. `build`, `start`, `lint`, etc. This value is typically
+set by the CLI when instantiating the API, but can also be set manually. This value is used by some
+middleware to determine when to augment the configuration with certain functionality.
 
 ## Neutrino API
 
@@ -287,11 +275,46 @@ neutrino.use({
 Any `options` passed to a middleware _object format_ will be set on the Neutrino API instance prior to consuming any
 middleware in the `use` array.
 
+## Events
+
+### `on(eventName, handler)`
+
+Add a `handler` function to a Neutrino instance that listens to events named `eventName`. If the event handler
+is going to be used with `emitForAll`, ensure the `handler` returns a Promise. Use the `*` event name to
+execute the handler for all events. Note that `*` events are triggered after named events.
+
+```js
+api.on('custom-event', () => {
+  // ...
+});
+```
+
+### `off(eventName, handler)`
+
+Remove a `handler` function from listening to a particular `eventName`, including `*` events.
+
+```js
+const handler = () => /* ... */;
+
+api.on('custom-event', handler);
+
+api.off('custom-event', handler);
+```
+
+### `emit(eventName, payload)`
+
+Invoke all handlers for the given `eventName`. Note that `*` handlers are executed after named events. You may
+also pass an optional `payload` value to be passed as an argument to the associated event handler function.
+
+```js
+api.emit('custom-event', { /* payload */ });
+```
+
 ### `emitForAll(eventName, payload)`
 
-Trigger a Promise-dependent event. For example, calling `emitForAll('build')` will trigger an event named build, and
-each event handler can return a Promise denoting when it is finished. When all events have finished, this call will
-resolve.
+Invoke all handlers for the given `eventName`, meant for usage with Promise-dependent events. For example, calling
+`emitForAll('build')` will trigger an event named build, and each event handler can return a Promise denoting when it
+is finished. When all events have finished, this call will resolve.
 
 This method returns a Promise which resolves when all event handlers have also resolved.
 
@@ -308,7 +331,7 @@ api.emitForAll('custom-event', { custom: 'payload' });
 
 // ...
 
-neutrino.on('custom-event', (args, payload) => {
+api.on('custom-event', (args, payload) => {
   console.log(payload.custom); // "payload"
 });
 ```

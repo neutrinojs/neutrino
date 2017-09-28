@@ -8,7 +8,7 @@ Application capabilities. This middleware is usually only added during productio
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v6
+- Neutrino v7
 
 ## Installation
 
@@ -107,8 +107,8 @@ make changes.
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-| Name | Description | Environments |
-| ---- | ----------- | ------------ |
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
 | `pwa` | Creates an `OfflinePlugin` with options for setting up caching via Service Worker. | all |
 
 ## Contributing

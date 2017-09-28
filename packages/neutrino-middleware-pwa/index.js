@@ -5,7 +5,7 @@ module.exports = (neutrino, options = {}) => neutrino.config
   .entry('index')
     .add(require.resolve('./pwa'))
     .end()
-  .plugin('pwa')
+  .plugin(options.pluginId || 'pwa')
     .use(OfflinePlugin, [
       merge({
         ServiceWorker: {

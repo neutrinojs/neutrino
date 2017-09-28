@@ -15,7 +15,7 @@
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v6, Neutrino build preset
+- Neutrino v7, Neutrino build preset
 
 ## Installation
 
@@ -109,6 +109,7 @@ Run the tests, and view the results in your console:
 
 ```bash
 ❯ yarn test
+
  PASS  test/simple_test.js
   simple
     ✓ should be sane (2ms)
@@ -177,9 +178,12 @@ helpful during continuous integration of your project:
 
 ## Additional options
 
-You can pass any additional option Jest accepts. See the [Jest documentation](https://facebook.github.io/jest/docs/configuration.html#collectcoveragefrom-array) for more configuration options.
+You can pass any additional option Jest accepts. See the
+[Jest documentation](https://facebook.github.io/jest/docs/configuration.html#collectcoveragefrom-array) for more
+configuration options.
 
-For example, if you want to run tests on the precommit hook with [lint-staged](https://github.com/okonet/lint-staged)  you can run:
+For example, if you want to run tests on the precommit hook with [lint-staged](https://github.com/okonet/lint-staged),
+you can run:
 
 ```bash
 npx mrm lintstaged
@@ -191,8 +195,8 @@ and update the configuration in your `package.json` to:
 {
   "lint-staged": {
     "*.js": [
-      "eslint --fix",
-      "neutrino test --findRelatedTests"
+      "neutrino lint --fix",
+      "neutrino test --findRelatedTests",
       "git add"
     ]
   }
@@ -228,8 +232,8 @@ changes.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-| Name | Description | Environments |
-| ---- | ----------- | ------------ |
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
 | `compile` | Compiles JS files from the `test` directory using adopted Babel settings from other build presets. Contains a single loader named `babel`. | all |
 
 ### Override configuration

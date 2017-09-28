@@ -22,13 +22,6 @@ When running your project or creating a build bundle, a preset will look for thi
 the entry point(s) to your application and use this as the relative location for finding other assets
 necessary for creating your builds.
 
-## Static Assets
-
-If you have CSS stylesheets, images, non-compiled/-imported JavaScript files, or any other static assets you
-would like copied to your build directory, a preset will look for these within a `src/static` directory by default. Use
-this for assets that are not imported from application code, but can be referenced by their relative URL or via built
-code.
-
 ## Build Assets
 
 When creating a build bundle, a preset will put the compiled assets, including any generated

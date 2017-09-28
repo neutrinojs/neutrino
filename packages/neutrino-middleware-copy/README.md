@@ -7,7 +7,7 @@
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v6
+- Neutrino v7
 
 ## Installation
 
@@ -78,8 +78,8 @@ make changes.
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-| Name | Description | Environments |
-| ---- | ----------- | ------------ |
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
 | `copy` |  Copy files during building. | all |
 
 ## Contributing

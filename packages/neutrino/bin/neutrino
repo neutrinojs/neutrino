@@ -5,17 +5,21 @@
 process.noDeprecation = true;
 
 const yargs = require('yargs');
-const { cond, equals, T } = require('ramda');
+const {
+  cond, equals, map, T
+} = require('ramda');
 const exists = require('file-exists');
 const build = require('./build');
 const inspect = require('./inspect');
 const start = require('./start');
 const test = require('./test');
 const execute = require('./execute');
+const { req } = require('../src/utils');
 
+const cwd = process.cwd();
 const args = yargs
   .option('inspect', {
-    description: 'Output a string representation of the configuration used by Neutrino and exit',
+    description: 'Output a string representation of the configuration used by webpack and exit',
     boolean: true,
     default: false,
     global: true
@@ -27,7 +31,7 @@ const args = yargs
     global: true
   })
   .option('options', {
-    description: 'Set Neutrino options and environment variables, e.g. --options.env.NODE_ENV production',
+    description: 'Set Neutrino options, config, and environment variables, e.g. --options.env.NODE_ENV production',
     default: {},
     global: true
   })
@@ -41,6 +45,12 @@ const args = yargs
     description: 'Run in debug mode',
     boolean: true,
     default: false,
+    global: true
+  })
+  .option('require', {
+    description: 'Preload a module prior to loading Neutrino; can be used multiple times',
+    array: true,
+    default: [],
     global: true
   })
   .command('start', 'Build a project in development mode')
@@ -60,8 +70,6 @@ const args = yargs
   .command('*')
   .demandCommand(1, 'You must specify a command for Neutrino to run.\nUSAGE:  neutrino <command>')
   .recommendCommands()
-  .version()
-  .help()
   .argv;
 
 const rc = '.neutrinorc.js';
@@ -70,6 +78,15 @@ const middleware = [...new Set([
   ...(exists.sync(rc, { root: process.cwd() }) ? [rc] : []),
   ...args.use
 ])];
+
+if (!middleware.length) {
+  throw new Error('No middleware was found. Specify middleware with --use or create a .neutrinorc.js file.');
+}
+
+// Merge CLI config options as last piece of middleware, e.g. options.config.devServer.port 4000
+if (args.options) {
+  middleware.push(({ config }) => config.merge(args.options.config));
+}
 
 process.on('unhandledRejection', (err) => {
   if (!args.quiet) {
@@ -80,10 +97,18 @@ process.on('unhandledRejection', (err) => {
   process.exit(1);
 });
 
-cond([
-  [equals('build'), () => build(middleware, args)],
-  [equals('start'), () => start(middleware, args)],
-  [equals('test'), () => test(middleware, args)],
-  [equals('inspect'), () => inspect(middleware, args)],
-  [T, () => execute(middleware, args)]
-])(cmd);
+const promises = map((moduleId) => {
+  const module = req(moduleId, cwd);
+
+  return typeof module === 'function' ? module() : module;
+}, args.require);
+
+Promise
+  .all(promises)
+  .then(() => cond([
+    [equals('build'), () => build(middleware, args)],
+    [equals('start'), () => start(middleware, args)],
+    [equals('test'), () => test(middleware, args)],
+    [equals('inspect'), () => inspect(middleware, args)],
+    [T, () => execute(middleware, args)]
+  ])(cmd));

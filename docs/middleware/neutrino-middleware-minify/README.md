@@ -2,14 +2,14 @@
 [![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url] [![Join Slack][slack-image]][slack-url]
 
 `neutrino-middleware-minify` is Neutrino middleware for minifying source code using
-[`BabiliWebpackPlugin`](https://www.npmjs.com/package/babili-webpack-plugin). This middleware is usually only
+[`BabelMinifyWebpackPlugin`](https://www.npmjs.com/package/babel-minify-webpack-plugin). This middleware is usually only
 added during production builds.
 
 ## Requirements
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v6
+- Neutrino v7
 
 ## Installation
 
@@ -41,8 +41,8 @@ neutrino.use(minify);
 
 // Usage showing overriding minification options
 neutrino.use(minify, {
-  babili: {},
-  overrides: {}
+  minify: {},
+  plugin: {}
 });
 ```
 
@@ -58,15 +58,15 @@ module.exports = {
 module.exports = {
   use: [
     ['neutrino-middleware-minify', {
-      babili: {},
-      overrides: {}
+      minify: {},
+      plugin: {}
     }]
   ]
 };
 ```
 
-The `babili` and `overrides` properties map to the options defined by
-[babili-webpack-plugin](https://www.npmjs.com/package/babili-webpack-plugin#options).
+The `minify` and `plugin` properties map to the options defined by
+[babel-minify-webpack-plugin](https://www.npmjs.com/package/babel-minify-webpack-plugin#options).
 
 ## Customization
 
@@ -77,9 +77,9 @@ make changes.
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-| Name | Description | Environments |
-| ---- | ----------- | ------------ |
-| `minify` | Minifies source code using `BabiliWebpackPlugin`. | all |
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
+| `minify` | Minifies source code using `BabelMinifyWebpackPlugin` | all |
 
 ## Contributing
 

@@ -8,7 +8,7 @@ completion of a build.
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v6
+- Neutrino v7
 
 ## Installation
 
@@ -74,8 +74,8 @@ ready to make changes.
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-| Name | Description | Environments |
-| ---- | ----------- | ------------ |
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
 | `start-server` | Start a Node.js for a configured entry point or specified file. | all |
 
 ### Debugging

@@ -1,5 +1,5 @@
-const spawn = require('child_process').spawn;
-const toParam = require('change-case').paramCase;
+const { spawn } = require('child_process');
+const { paramCase } = require('change-case');
 
 let proc;
 
@@ -16,8 +16,8 @@ module.exports = (mochaOpts = {}, babelOpts = {}, files = []) => new Promise((re
       const value = mochaOpts[key];
 
       return value === true ?
-        [...argv, `--${toParam(key)}`] :
-        [...argv, `--${toParam(key)}`, value];
+        [...argv, `--${paramCase(key)}`] :
+        [...argv, `--${paramCase(key)}`, value];
     }, ['--require', require.resolve('./register')]);
 
   proc = spawn(process.execPath, [require.resolve('mocha/bin/mocha'), ...argv, ...files], {

@@ -7,7 +7,7 @@
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v6
+- Neutrino v7
 
 ## Installation
 
@@ -54,8 +54,8 @@ make changes.
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-| Name | Description | Environments |
-| ---- | ----------- | ------------ |
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
 | `named-modules` | Enables named modules for improved debugging and console output. | all |
 | `named-chunks` | Enables named chunks for improved debugging and console output. | all |
 | `vendor-chunk` | Creates a separate file/chunk consisting of common modules shared between multiple entry points. | all |

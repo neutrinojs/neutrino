@@ -15,7 +15,7 @@ config, following the [Airbnb styleguide](https://github.com/airbnb/javascript).
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v6, Neutrino build preset
+- Neutrino v7, Neutrino build preset
 
 ## Installation
 
@@ -181,8 +181,8 @@ make changes.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-| Name | Description | Environments |
-| ---- | ----------- | ------------ |
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
 | `lint` | Lints JS and JSX files from the `src` directory using ESLint. Contains a single loader named `eslint`. This is inherited from `neutrino-middleware-eslint`. | all |
 
 ### Information

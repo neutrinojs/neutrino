@@ -7,7 +7,7 @@
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v6
+- Neutrino v7
 
 ## Installation
 
@@ -40,9 +40,6 @@ neutrino.use(eslint, {
   include: [], /* Should specify either include or exclude */
   exclude: [], /* Should specify either include or exclude */
   eslint: {
-    failOnError: process.env.NODE_ENV !== 'development',
-    emitWarning: process.env.NODE_ENV !== 'development',
-    emitError: process.env.NODE_ENV !== 'development',
     cwd: neutrino.options.root,
     useEslintrc: false,
     root: true,
@@ -81,8 +78,8 @@ make changes.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-| Name | Description | Environments |
-| ---- | ----------- | ------------ |
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
 | `lint` | By default, lints JS and JSX files from included directories using ESLint. Contains a single loader named `eslint`. | all |
 
 ## Information

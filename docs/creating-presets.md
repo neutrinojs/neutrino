@@ -167,8 +167,8 @@ const middleware = (neutrino, options) => {
 
 module.exports = {
   options: {
-    entry: 'application.js',
-    static: 'public'
+    source: 'lib',
+    entry: 'application.js'
   },
   use: [middleware]
 }
@@ -281,28 +281,6 @@ module.exports = {
     entry: 'entry.js',
     // absolute
     entry: '/code/website/src/entry.js'
-  }
-};
-```
-
-### `options.static`
-
-Designate a directory within `source` for containing static/non-compiled assets. If the option is not set, Neutrino
-defaults it to `static`. If a relative path is specified, it will be resolved relative to `options.source`; absolute
-paths will be used as-is (not recommended).
-
-```js
-module.exports = neutrino => {
-  // if not specified, defaults to options.source + static
-  neutrino.options.static;
-};
-
-module.exports = {
-  options: {
-    // relative, resolves to options.source + public
-    static: 'public',
-    // absolute
-    static: '/code/website/src/public'
   }
 };
 ```

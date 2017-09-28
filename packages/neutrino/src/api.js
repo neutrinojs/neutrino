@@ -2,8 +2,10 @@ const Config = require('webpack-chain');
 const merge = require('deepmerge');
 const Future = require('fluture');
 const mitt = require('mitt');
-const { cond, defaultTo, is, map, omit, pipe, prop } = require('ramda');
-const { createPaths, normalizePath, toArray } = require('./utils');
+const {
+  cond, defaultTo, is, map, omit, pipe, prop
+} = require('ramda');
+const { normalizePath, toArray, req } = require('./utils');
 
 const rc = '.neutrinorc.js';
 
@@ -95,19 +97,7 @@ const Api = pipe(getOptions, (options) => {
     register: (commandName, handler) => (api.commands[commandName] = handler),
 
     // require :: String moduleId -> a
-    require: (moduleId) => {
-      const paths = createPaths(api.options.root, moduleId);
-      const path = paths.find((path) => {
-        try {
-          require.resolve(path);
-          return true;
-        } catch (err) {
-          return path === paths.last();
-        }
-      });
-
-      return require(path); // eslint-disable-line
-    },
+    require: (moduleId, root = api.options.root) => req(moduleId, root),
 
     // use :: a middleware -> Object options -> IO ()
     use: (middleware, options) => cond([
@@ -116,7 +106,7 @@ const Api = pipe(getOptions, (options) => {
 
       // If middleware is a string, it's a module to require. Require it, then run the results back
       // through .use() with the provided options
-      [is(String), () => api.use(api.require(middleware), options)],
+      [is(String), () => api.use(api.require(middleware, api.options.root), options)],
 
       // If middleware is an array, it's a pair of some other middleware type and options
       [is(Array), () => api.use(...middleware)],
@@ -134,7 +124,7 @@ const Api = pipe(getOptions, (options) => {
           const envMiddleware = Object
             .keys(middleware.env)
             .map((key) => {
-              const envValue = api.options.env[key];
+              const envValue = api.options.env[key] || process.env[key];
               const env = middleware.env[key][envValue];
 
               if (!env) {

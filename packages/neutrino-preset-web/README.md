@@ -12,14 +12,14 @@
 - Automatic creation of HTML pages, no templating necessary
 - Hot Module Replacement support
 - Tree-shaking to create smaller bundles
-- Production-optimized bundles with Babili minification and easy chunking
+- Production-optimized bundles with Babili minification, easy chunking, and scope-hoisted modules for faster execution
 - Easily extensible to customize your project as needed
 
 ## Requirements
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v6
+- Neutrino v7
 
 ## Installation
 
@@ -127,7 +127,8 @@ You can either serve or deploy the contents of this `build` directory as a stati
 
 If you wish to copy files to the build directory that are not imported from application code, you can place
 them in a directory within `src` called `static`. All files in this directory will be copied from `src/static`
-to `build/static`.
+to `build/static`. To change this behavior, specify your own patterns with
+[neutrino-middleware-copy](../../middleware/neutrino-middleware-copy/README.md).
 
 ## Paths
 
@@ -264,8 +265,8 @@ applications over multi-page applications.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-| Name | Description | Environments |
-| ---- | ----------- | ------------ |
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
 | `compile` | Compiles JS files from the `src` directory using Babel. Contains a single loader named `babel`. From `neutrino-middleware-compile-loader`. | all |
 | `html` | Allows importing HTML files from modules. Contains a single loader named `html`. From `neutrino-middleware-html-loader`. | all |
 | `style` | Allows importing CSS stylesheets from modules. Contains two loaders named `style` and `css`. From `neutrino-middleware-style-loader`. | all |
@@ -280,19 +281,20 @@ The following is a list of plugins and their identifiers which can be overridden
 
 _Note: Some plugins are only available in certain environments. To override them, they should be modified conditionally._
 
-| Name | Description | Environments |
-| ---- | ----------- | ------------ |
+| Name | Description | Environments or Commands |
+| --- | --- | --- |
 | `env` | Inject environment variables into source code at `process.env`, defaults to only inject `NODE_ENV`. From `neutrino-middleware-env`. | all |
 | `html` | Automatically generates HTML files for configured entry-points. From `neutrino-middleware-html-template` | all |
-| `named-modules` | Enables named modules for improved debugging and console output. From `neutrino-middleware-chunk`. | all but `test` |
-| `named-chunks` | Enables named chunks for improved debugging and console output. From `neutrino-middleware-chunk`. | all but `test` |
-| `vendor-chunk` | Creates a separate file/chunk consisting of common modules shared between multiple entry points. From `neutrino-middleware-chunk`. | all but `test` |
-| `runtime-chunk` | Creates a separate file/chunk consisting of the Webpack manifest-specific code. From `neutrino-middleware-chunk`. | all but `test` |
-| `name-all` | Names all remaining modules that do not get named via `named-modules`. From `neutrino-middleware-chunk`. | all but `test` |
-| `hot` | Enables Hot Module Replacement. From `neutrino-middleware-hot`. | `development` |
-| `copy` | Copies files during build, defaults from `src/static` to `build/static`. From `neutrino-middleware-copy` | all but `development` |
-| `clean` | Removes the `build` directory prior to building. From `neutrino-middleware-clean`. | all but `development` |
-| `minify` | Minifies source code using `BabiliWebpackPlugin`. From `neutrino-middleware-minify`. | all but `development` |
+| `named-modules` | Enables named modules for improved debugging and console output. From `neutrino-middleware-chunk`. | `NODE_ENV production` |
+| `named-chunks` | Enables named chunks for improved debugging and console output. From `neutrino-middleware-chunk`. | `NODE_ENV production` |
+| `vendor-chunk` | Creates a separate file/chunk consisting of common modules shared between multiple entry points. From `neutrino-middleware-chunk`. | `NODE_ENV production` |
+| `runtime-chunk` | Creates a separate file/chunk consisting of the Webpack manifest-specific code. From `neutrino-middleware-chunk`. | `NODE_ENV production` |
+| `name-all` | Names all remaining modules that do not get named via `named-modules`. From `neutrino-middleware-chunk`. | `NODE_ENV production` |
+| `hot` | Enables Hot Module Replacement. From `neutrino-middleware-hot`. | `start` command |
+| `copy` | Copies files during build, defaults from `src/static` to `build/static`. From `neutrino-middleware-copy` | `build` command |
+| `clean` | Removes the `build` directory prior to building. From `neutrino-middleware-clean`. | `build` command |
+| `minify` | Minifies source code using `BabiliWebpackPlugin`. From `neutrino-middleware-minify`. | `NODE_ENV production` |
+| `module-concat` | Concatenate the scope of all your modules into one closure and allow for your code to have a faster execution time in the browser. | `NODE_ENV production` |
 
 ### Override configuration
 

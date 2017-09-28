@@ -77,20 +77,6 @@ test('options.node_modules', t => {
   t.is(api.options.node_modules, '/alpha');
 });
 
-test('options.static', t => {
-  const api = Neutrino();
-
-  t.is(api.options.static, join(process.cwd(), 'src/static'));
-  api.options.static = './alpha';
-  t.is(api.options.static, join(process.cwd(), 'src/alpha'));
-  api.options.source = 'beta';
-  t.is(api.options.static, join(process.cwd(), 'beta/alpha'));
-  api.options.root = '/gamma';
-  t.is(api.options.static, join('/gamma', 'beta/alpha'));
-  api.options.static = '/alpha';
-  t.is(api.options.static, '/alpha');
-});
-
 test('options.entry', t => {
   const api = Neutrino();
 

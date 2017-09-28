@@ -7,7 +7,7 @@
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v6
+- Neutrino v7
 
 ## Installation
 
@@ -63,6 +63,52 @@ module.exports = {
 - `babel` is a [Babel configuration object](https://babeljs.io/docs/usage/api/#options), consumed by babel-loader. Use
 this to set properties such as `presets`, `plugins`, and `env`.
 
+## Merging Babel Configuration
+
+This package also exposes a function for merging Babel configurations. This comes from
+the [babel-merge](https://www.npmjs.com/package/babel-merge) package.
+
+```js
+const { merge } = require('neutrino-middleware-compile-loader');
+
+const together = merge(
+  {
+    presets: [
+      ['babel-preset-env', {
+        targets: {
+          browsers: ['latest 1 Chrome']
+        }
+      }]
+    ]
+  },
+  {
+    presets: [
+      ['babel-preset-env', {
+        targets: {
+          browsers: ['latest 1 Firefox']
+        }
+      }]
+    ]
+  }
+);
+
+console.log(together);
+
+// Logs:
+{
+  presets: [
+    ['babel-preset-env', {
+      targets: {
+        browsers: [
+          'latest 1 Chrome',
+          'latest 1 Firefox'
+        ]
+      }
+    }]
+  ]
+}
+```
+
 ## Customization
 
 `neutrino-middleware-compile-loader` creates some conventions to make overriding the configuration easier once you are
@@ -72,8 +118,8 @@ ready to make changes.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-| Name | Description | Environments |
-| ---- | ----------- | ------------ |
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
 | `compile` | Compiles JS and JSX files from the `src` directory using Babel. Contains a single loader named `babel`. | all |
 
 ## Contributing

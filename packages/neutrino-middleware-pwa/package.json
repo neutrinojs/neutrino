@@ -18,8 +18,8 @@
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
-    "deepmerge": "^1.3.2",
-    "offline-plugin": "^4.8.1"
+    "deepmerge": "^1.5.2",
+    "offline-plugin": "^4.8.4"
   },
   "peerDependencies": {
     "neutrino": "^6.0.0"

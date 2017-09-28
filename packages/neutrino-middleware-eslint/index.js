@@ -2,7 +2,9 @@ const Future = require('fluture');
 const merge = require('deepmerge');
 const clone = require('lodash.clonedeep');
 const { CLIEngine } = require('eslint');
-const { assoc, curry, evolve, keys, omit, pipe, prop, reduce } = require('ramda');
+const {
+  assoc, curry, evolve, keys, omit, pipe, prop, reduce
+} = require('ramda');
 const { basename, join } = require('path');
 
 const MODULES = join(__dirname, 'node_modules');
@@ -24,10 +26,10 @@ const getEslintRcConfig = pipe(
 );
 
 module.exports = (neutrino, opts = {}) => {
-  const isNotDev = process.env.NODE_ENV !== 'development';
+  const failBuild = process.env.NODE_ENV !== 'development' || neutrino.options.command !== 'start';
   const options = merge.all([
     opts,
-    !opts.include && !opts.exclude ? { include: [neutrino.options.source], exclude: [neutrino.options.static] } : {}
+    !opts.include && !opts.exclude ? { include: [neutrino.options.source] } : {}
   ]);
 
   neutrino.config
@@ -50,9 +52,9 @@ module.exports = (neutrino, opts = {}) => {
         .use('eslint')
           .loader(require.resolve('eslint-loader'))
           .options(merge({
-            failOnError: isNotDev,
-            emitWarning: isNotDev,
-            emitError: isNotDev,
+            failOnError: failBuild,
+            emitWarning: failBuild,
+            emitError: failBuild,
             cwd: neutrino.options.root,
             useEslintrc: false,
             root: true,
