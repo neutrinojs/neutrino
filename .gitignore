@@ -26,6 +26,9 @@ coverage
 # Dependency directories
 node_modules
 
+# But allow node_modules for test fixtures
+!packages/neutrino/test/fixtures/test-module/node_modules
+
 # Optional npm cache directory
 .npm
 

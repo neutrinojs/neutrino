@@ -1,30 +1,12 @@
 import { join } from 'path';
-import { outputFile as fsOutputFile, remove as fsRemove } from 'fs-extra';
-import pify from 'pify';
 import test from 'ava';
 import { Neutrino } from '../src';
 
 const cwd = process.cwd();
-const outputFile = pify(fsOutputFile);
-const remove = pify(fsRemove);
-const rootPath = join(__dirname, 'test-module');
-const rootMiddlewarePath = join(rootPath, 'middleware.js');
-const errorMiddlewarePath = join(rootPath, 'errorMiddleware.js');
-const modulePath = join(rootPath, 'node_modules', 'alpha');
-const moduleMiddlewarePath = join(modulePath, 'index.js');
+const testModulePath = join(__dirname, 'fixtures', 'test-module');
 
-test.before(async () => {
-  await Promise.all([
-    outputFile(rootMiddlewarePath, 'module.exports = () => "root"'),
-    outputFile(errorMiddlewarePath, '[;'),
-    outputFile(moduleMiddlewarePath, 'module.exports = () => "alpha"')
-  ]);
-  process.chdir(rootPath);
-});
-
-test.after.always(async () => {
-  await remove(rootPath);
-  process.chdir(cwd);
+test.before(t => {
+  process.chdir(testModulePath);
 });
 
 test('requires middleware relative to root', t => {
