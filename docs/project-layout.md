@@ -26,7 +26,7 @@ necessary for creating your builds.
 
 When creating a build bundle, a preset will put the compiled assets, including any generated
 JavaScript files, into a directory named `build` by default. Typically your Neutrino preset will copy
-any files from the static directory over to the build directory, allowing you to maintain
+any files from the `static` directory over to the build directory, allowing you to maintain
 the same relative path structure for static assets as is used for the source files.
 
 Normally most projects will exclude checking in this build directory to source control.
