@@ -92,10 +92,10 @@ Run the tests, and view the results in your console:
 ❯ yarn test
 
 START:
-16 02 2017 10:36:34.713:INFO [karma]: Karma v1.7.0 server started at http://0.0.0.0:9876/
+16 02 2017 10:36:34.713:INFO [karma]: Karma v1.7.1 server started at http://0.0.0.0:9876/
 16 02 2017 10:36:34.715:INFO [launcher]: Launching browser Chrome with unlimited concurrency
 16 02 2017 10:36:34.731:INFO [launcher]: Starting browser Chrome
-16 02 2017 10:36:35.655:INFO [Chrome 56.0.2924 (Mac OS X 10.12.3)]: Connected on socket MkTbqJLpAAa2HFaeAAAA with id 21326158
+16 02 2017 10:36:35.655:INFO [Chrome 60 (Mac OS X 10.12.3)]: Connected on socket MkTbqJLpAAa2HFaeAAAA with id 21326158
   simple
     ✔ should be sane
 
@@ -112,10 +112,10 @@ SUMMARY:
 ❯ npm test
 
 START:
-16 02 2017 10:38:12.865:INFO [karma]: Karma v1.7.0 server started at http://0.0.0.0:9876/
+16 02 2017 10:38:12.865:INFO [karma]: Karma v1.7.1 server started at http://0.0.0.0:9876/
 16 02 2017 10:38:12.867:INFO [launcher]: Launching browser Chrome with unlimited concurrency
 16 02 2017 10:38:12.879:INFO [launcher]: Starting browser Chrome
-16 02 2017 10:38:13.688:INFO [Chrome 56.0.2924 (Mac OS X 10.12.3)]: Connected on socket svRGoxU0etKTKQWhAAAA with id 68456725
+16 02 2017 10:38:13.688:INFO [Chrome 60 (Mac OS X 10.12.3)]: Connected on socket svRGoxU0etKTKQWhAAAA with id 68456725
   simple
     ✔ should be sane
 
@@ -154,9 +154,9 @@ To do this in Travis-CI, you will need to add the following to your `.travis.yml
 
 ```yaml
 before_install:
-  - export CHROME_BIN=chromium-browser
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
+- export CHROME_BIN=chromium-browser
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
 ```
 
 ## Preset options

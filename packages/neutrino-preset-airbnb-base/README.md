@@ -74,6 +74,7 @@ project. ESLint errors during build will not build the project, and will cause t
 
 ```bash
 ❯ yarn start
+
 ✔ Development server running on: http://localhost:5000
 ✔ Build completed
 
@@ -115,6 +116,7 @@ you want to ease introduction of this linting preset to your project, consider o
 
 ```bash
 ❯ yarn build
+
 clean-webpack-plugin: /web/build has been removed.
 Build completed in 1.287s
 

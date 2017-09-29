@@ -112,7 +112,7 @@ quick start example above as a reference:
 
 ✔ Building project completed
 Hash: 2e1191cdf700df46370d
-Version: webpack 2.6.1
+Version: webpack 3.5.6
 Time: 4145ms
                            Asset       Size    Chunks             Chunk Names
    index.523b6da56c6363aaf056.js    10.1 kB     index  [emitted]  index
@@ -281,7 +281,7 @@ The following is a list of plugins and their identifiers which can be overridden
 
 _Note: Some plugins are only available in certain environments. To override them, they should be modified conditionally._
 
-| Name | Description | Environments or Commands |
+| Name | Description | Environments and Commands |
 | --- | --- | --- |
 | `env` | Inject environment variables into source code at `process.env`, defaults to only inject `NODE_ENV`. From `neutrino-middleware-env`. | all |
 | `html` | Automatically generates HTML files for configured entry-points. From `neutrino-middleware-html-template` | all |

@@ -133,11 +133,12 @@ quick start example above as a reference:
 
 ```bash
 ❯ yarn build
+
 clean-webpack-plugin: /node/build has been removed.
 Build completed in 0.419s
 
 Hash: 89e4fb250fc535920ba4
-Version: webpack 2.6.1
+Version: webpack 3.5.6
 Time: 424ms
        Asset     Size  Chunks             Chunk Names
     index.js  4.29 kB       0  [emitted]  index
@@ -298,6 +299,8 @@ The following is a list of rules and their identifiers which can be overridden:
 ### Plugins
 
 The following is a list of plugins and their identifiers which can be overridden:
+
+_Note: Some plugins are only available in certain environments. To override them, they should be modified conditionally._
 
 | Name | Description | Environments and Commands |
 | --- | --- | --- |

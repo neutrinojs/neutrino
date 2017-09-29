@@ -109,6 +109,7 @@ Run the tests, and view the results in your console:
 
 ```bash
 ❯ yarn test
+
  PASS  test/simple_test.js
   simple
     ✓ should be sane (2ms)
@@ -177,9 +178,12 @@ helpful during continuous integration of your project:
 
 ## Additional options
 
-You can pass any additional option Jest accepts. See the [Jest documentation](https://facebook.github.io/jest/docs/configuration.html#collectcoveragefrom-array) for more configuration options.
+You can pass any additional option Jest accepts. See the
+[Jest documentation](https://facebook.github.io/jest/docs/configuration.html#collectcoveragefrom-array) for more
+configuration options.
 
-For example, if you want to run tests on the precommit hook with [lint-staged](https://github.com/okonet/lint-staged)  you can run:
+For example, if you want to run tests on the precommit hook with [lint-staged](https://github.com/okonet/lint-staged),
+you can run:
 
 ```bash
 npx mrm lintstaged
@@ -191,8 +195,8 @@ and update the configuration in your `package.json` to:
 {
   "lint-staged": {
     "*.js": [
-      "eslint --fix",
-      "neutrino test --findRelatedTests"
+      "neutrino lint --fix",
+      "neutrino test --findRelatedTests",
       "git add"
     ]
   }

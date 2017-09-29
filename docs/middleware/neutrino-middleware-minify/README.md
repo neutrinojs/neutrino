@@ -79,7 +79,7 @@ The following is a list of plugins and their identifiers which can be overridden
 
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
-| `minify` | Minifies source code using `BabelMinifyWebpackPlugin` | all |
+| `minify` | Minifies source code using `BabelMinifyWebpackPlugin`. | all |
 
 ## Contributing
 
