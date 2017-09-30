@@ -16,7 +16,7 @@
   - Automatic creation of HTML pages, no templating necessary
   - Hot Module Replacement support
   - Tree-shaking to create smaller bundles
-  - Production-optimized bundles with Babili minification and easy chunking
+  - Production-optimized bundles with Babili minification, easy chunking, and scope-hoisted modules for faster execution
   - Easily extensible to customize your project as needed
 
 ## Requirements
@@ -272,7 +272,7 @@ load();
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](../../contributing/README.md) for details.
+[contributing guide](https://neutrino.js.org/contributing) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-react.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-react.svg

@@ -44,9 +44,11 @@ externally.
 ## Support
 
 Neutrino team members and contributors are here to help you! Should you need assistance or have questions in using
-Neutrino or its core presets, please consider asking on Stack Overflow or other channel rather than filing issues. We
-would prefer to keep our GitHub issues clear for bugs, feature requests, discussions, and relevant information related
-to its development.
+Neutrino or its core presets, please consider asking on our Slack channel, Stack Overflow, or other channel rather than
+filing issues. We would prefer to keep our GitHub issues clear for bugs, feature requests, discussions, and
+relevant information related to its development.
+
+[Join our Slack channel!](https://neutrino-slack.herokuapp.com/)
 
 ## Guidelines
 

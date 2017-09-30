@@ -16,7 +16,7 @@
   - Automatic creation of HTML pages, no templating necessary
   - Hot Module Replacement support
   - Tree-shaking to create smaller bundles
-  - Production-optimized bundles with Babili minification and easy chunking
+  - Production-optimized bundles with Babili minification, easy chunking, and scope-hoisted modules for faster execution
   - Easily extensible to customize your project as needed
 
 ## Requirements
@@ -118,7 +118,7 @@ the quick start example above as a reference:
 
 ✔ Building project completed
 Hash: b26ff013b5a2d5f7b824
-Version: webpack 2.6.1
+Version: webpack 3.5.6
 Time: 9773ms
                            Asset       Size    Chunks             Chunk Names
    index.dfbad882ab3d86bfd747.js     181 kB     index  [emitted]  index
@@ -151,7 +151,7 @@ preset builds. You can modify React preset settings from `.neutrinorc.js` by ove
 an array pair instead of a string to supply these options in `.neutrinorc.js`.
 
 The following shows how you can pass an options object to the React preset and override its options. See the
-[Web documentation](https://neutrino.js.org/presets/neutrino-preset-web#presetoptions) for specific options you can override with this object.
+[Web documentation](https://neutrino.js.org/presets/neutrino-preset-web#preset-options) for specific options you can override with this object.
 
 ```js
 module.exports = {

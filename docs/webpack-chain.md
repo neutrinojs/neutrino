@@ -97,7 +97,7 @@ module.exports = (neutrino) => {
             ['babel-preset-es2015', { modules: false }]
           ]
         });
-  
+
   // Create named plugins too!
   neutrino.config
     .plugin('clean')
@@ -557,7 +557,7 @@ neutrino.config
 ```
 
 #### Config plugins: removing
- 
+
 ```js
 neutrino.config.plugins.delete(name)
 ```
@@ -596,7 +596,7 @@ neutrino.config.resolve
 ```
 
 #### Config resolve plugins: removing
- 
+
 ```js
 neutrino.config.resolve.plugins.delete(name)
 ```
