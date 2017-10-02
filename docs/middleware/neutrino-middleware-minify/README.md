@@ -66,7 +66,7 @@ module.exports = {
 ```
 
 The `minify` and `plugin` properties map to the options defined by
-[babel-minify-webpack-plugin](https://www.npmjs.com/package/babel-minify-webpack-plugin#options).
+[babel-minify-webpack-plugin](https://github.com/webpack-contrib/babel-minify-webpack-plugin#options).
 
 ## Customization
 
