@@ -2,6 +2,7 @@ module.exports = {
   use: [
     ['./packages/neutrino-preset-airbnb-base', {
       include: [
+        '.*.js',
         'packages/*/*.js',
         'packages/*/src/**/*.js',
         'packages/neutrino/bin/*'
