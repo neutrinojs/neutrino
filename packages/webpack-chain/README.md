@@ -63,11 +63,12 @@ const config = new Config();
 // Make configuration changes using the chain API.
 // Every API call tracks a change to the stored configuration.
 
-// Interact with entry points
 config
+  // Interact with entry points
   .entry('index')
     .add('src/index.js')
     .end()
+
   // Modify output settings
   .output
     .path('dist')
@@ -81,7 +82,7 @@ config.module
     .include
       .add('src')
       .end()
-    // Even create named uses (loaders) for later modification
+    // Even create named uses (loaders)
     .use('eslint')
       .loader('eslint-loader')
       .options({
@@ -105,9 +106,10 @@ config.module
         ]
       });
 
-// Create named plugins, too!
-config.plugin('clean')
-  .use(CleanPlugin, [['dist'], { root: '/dir' }]);
+// Create named plugins too!
+config
+  .plugin('clean')
+    .use(CleanPlugin, [['dist'], { root: '/dir' }]);
 
 // Export the completed configuration object to be consumed by webpack
 module.exports = config.toConfig();
@@ -190,14 +192,14 @@ values()
 ```js
 // Returns an object of all the entries in the backing Map
 // where the key is the object property, and the value
-// corresponding to the key. Will return `undefined` if the backing 
+// corresponding to the key. Will return `undefined` if the backing
 // Map is empty.
 // returns: Object, undefined if empty
 entries()
 ````
 
 ```js
-// Provide an object which maps its properties and values 
+// Provide an object which maps its properties and values
 // into the backing Map as keys and values.
 // obj: Object
 merge(obj)
@@ -352,17 +354,17 @@ config
 config
   .entry(name)
   .clear()
-  
+
 // Using low-level config.entryPoints:
- 
+
 config.entryPoints
   .get(name)
     .add(value)
     .add(value)
-    
+
 config.entryPoints
   .get(name)
-  .clear()
+    .clear()
 ```
 
 #### Config output: shorthand methods
@@ -752,7 +754,7 @@ config.module
     .use(name)
       .loader(loader)
       .options(options)
-    
+
 // Example
 
 config.module
@@ -786,7 +788,7 @@ config.module.rules{}.oneOfs : ChainedMap<Rule>
 config.module
   .rule(name)
     .oneOf(name)
-    
+
 // Example
 
 config.module
@@ -821,7 +823,7 @@ config.get('devtool') // "source-map"
 ```js
 config.merge({
   [key]: value,
-  
+
   amd,
   bail,
   cache,
@@ -837,21 +839,21 @@ config.merge({
   target,
   watch,
   watchOptions,
-  
+
   entry: {
     [name]: [...values]
   },
-  
+
   plugin: {
     [name]: {
       plugin: WebpackPlugin,
       args: [...args]
     }
   },
-  
+
   devServer: {
     [key]: value,
-    
+
     clientLogLevel,
     compress,
     contentBase,
@@ -873,23 +875,23 @@ config.merge({
     stats,
     watchContentBase
   },
-  
+
   node: {
     [key]: value
   },
-  
+
   performance: {
     [key]: value,
-    
+
     hints,
     maxEntrypointSize,
     maxAssetSize,
     assetFilter
   },
-  
+
   resolve: {
     [key]: value,
-    
+
     alias: {
       [key]: value
     },
@@ -899,7 +901,7 @@ config.merge({
     mainFields: [...values],
     mainFiles: [...values],
     modules: [...values],
-    
+
     plugin: {
       [name]: {
         plugin: WebpackPlugin,
@@ -907,37 +909,37 @@ config.merge({
       }
     }
   },
-  
+
   resolveLoader: {
     [key]: value,
-    
+
     extensions: [...values],
     modules: [...values],
     moduleExtensions: [...values],
     packageMains: [...values]
   },
-  
+
   module: {
     [key]: value,
-    
+
     rule: {
       [name]: {
         [key]: value,
-        
+
         enforce,
         issuer,
         parser,
         resource,
         resourceQuery,
         test,
-        
+
         include: [...paths],
         exclude: [...paths],
-        
+
         oneOf: {
           [name]: Rule
         },
-        
+
         use: {
           [name]: {
             loader: LoaderString,
