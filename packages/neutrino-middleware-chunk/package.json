@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-chunk",
-  "version": "7.0.1",
+  "version": "7.0.2",
   "description": "Neutrino middleware for chunking bundle assets",
   "main": "index.js",
   "keywords": [

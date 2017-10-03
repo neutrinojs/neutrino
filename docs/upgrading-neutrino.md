@@ -8,6 +8,8 @@ this latest version:
 which is now a plain shortcut method, allowing you to set any value.
 - **BREAKING CHANGE** Webpack upgraded to v3. While most users should need no changes for this upgrade, be
 aware that it may still be possible for something to change during this upgrade.
+- **BREAKING CHANGE** The Web and React presets no longer include babel-polyfill by default, and have removed
+the `polyfill.babel` option. If you need babel-polyfill in your app, please import it.
 - **BREAKING CHANGE** ESLint has been upgraded to v4, which may bring linting configuration
 changes.
 - **BREAKING CHANGE** The Neutrino `static` option has been removed. The Web, React, and Node.js presets will

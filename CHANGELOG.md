@@ -1,6 +1,71 @@
+2017-10-02
+==========
+
+  * Remove unused dependencies ([#339](https://github.com/mozilla-neutrino/neutrino-dev/issues/339))
+    * Move preset-airbnb-base dependencies out of middleware-eslint
+    The `eslint-config-airbnb-base` and `eslint-plugin-import` packages
+    are not used by `neutrino-middleware-eslint` itself, but instead by
+    `neutrino-preset-airbnb-base`.
+    * Remove unused dependencies
+    Of note:
+    * `webpack-dev-middleware` can be removed from the karma preset,
+    since it's only used by `karma-webpack` which already has it as a
+    dependency.
+    * `webpack-dev-server` can be removed from the web preset since it's
+    a leftover from when `neutrino-middleware-dev-server` was created.
+    * the web preset's `core-js` and `babel-polyfill` dependencies are
+    leftover from [#315](https://github.com/mozilla-neutrino/neutrino-dev/issues/315).
+    Everything else was manually determined to be unused via correlating
+    the package list against greps of the source, plus checking that the
+    package wasn't a peer dependency of another listed package.
+    * Regenerate yarn lockfiles
+
+2017-10-01
+==========
+
+  * Fix link to babel-minify-webpack-plugin options ([#340](https://github.com/mozilla-neutrino/neutrino-dev/issues/340))
+    Addresses:
+    https://github.com/mozilla-neutrino/neutrino-dev/pull/315#discussion_r141777719
+  * Lint the JS config files in the root of the repo ([#338](https://github.com/mozilla-neutrino/neutrino-dev/issues/338))
+    Previously the `.neutrinorc.js` and `.eslintrc.js` files were not
+    being included in the eslint run.
+
+2017-09-29
+==========
+
+  * Simplify require_test.js, making it pass on Windows ([#337](https://github.com/mozilla-neutrino/neutrino-dev/issues/337))
+    Previously the test would consistently fail on Windows due to it
+    attempting to remove the `test-modules` directory before the `chdir()`
+    call to reset the working directory. Subsequent runs would additionally
+    hit ava test discovery errors due to it seeing the leftover
+    `test-modules` directory as a test rather than a fixture.
+    Whilst these issues could be fixed by inverting the cleanup order, it
+    makes more sense to commit the `test-module` files to the repo rather
+    than generate them on the fly. They have been moved under the `fixtures`
+    directory to avoid the above ava errors.
+    The test cleanup `chdir(cwd)` step has also been removed, since ava runs
+    each test file in a new process, meaning no tests will run after it
+    anyway.
+    Fixes [#336](https://github.com/mozilla-neutrino/neutrino-dev/issues/336).
+  * Misc documentation fixes - part 2 ([#335](https://github.com/mozilla-neutrino/neutrino-dev/issues/335))
+    * Docs: Stop using a relative URL for the docs contributing links
+    Since unlike links pointing at eg API docs, the contributing links
+    don't need to stay in sync with the version being browsed. Using
+    the same link on both the `packages/` and `docs/` locations reduces
+    the diffs considerable when trying to keep the files in sync.
+    * Docs: Sync CONTRIBUTING.md with docs/contributing/README.md
+    * Docs: Clarify that the static directory is named `static`
+    * Docs: Remove trailing whitespace from webpack-chain.md
+    * Docs: Restore changes from [#325](https://github.com/mozilla-neutrino/neutrino-dev/issues/325) lost after merge conflicts
+    * Docs: Sync the READMEs in docs/ and packages/
+    * Docs: Sync the react and web preset feature lists
+
 2017-09-27
 ==========
 
+  * Configuration docs nits
+  * Release v7.0.1
+  * Release v7.0.0
   * Upgrading Webpack to v3, merge config as middleware ([#315](https://github.com/mozilla-neutrino/neutrino-dev/issues/315))
     * Upgrading Webpack to v3, merge config as middleware
     * Documentation updates
@@ -688,23 +753,3 @@
   * options.output mis-named as options.build ([#159](https://github.com/mozilla-neutrino/neutrino-dev/issues/159))
   * Releasing v5.1.0
   * Upgrading webpack-chain to v3.1 ([#157](https://github.com/mozilla-neutrino/neutrino-dev/issues/157))
-
-2017-03-28
-==========
-
-  * Adding code coverage with Codacy support ([#156](https://github.com/mozilla-neutrino/neutrino-dev/issues/156))
-  * Use smarter publish script ([#154](https://github.com/mozilla-neutrino/neutrino-dev/issues/154))
-
-2017-03-27
-==========
-
-  * fix docs for creating loaders ([#153](https://github.com/mozilla-neutrino/neutrino-dev/issues/153))
-  * Releasing v5.0.2
-  * Allow inspecting the API default exports without erroring ([#152](https://github.com/mozilla-neutrino/neutrino-dev/issues/152))
-
-2017-03-26
-==========
-
-  * Middleware vs. Presets? ([#149](https://github.com/mozilla-neutrino/neutrino-dev/issues/149))
-  * Changelog
-  * Removing extraneous construct
