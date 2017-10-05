@@ -22,25 +22,13 @@ module.exports = class extends ChainedMap {
     }));
   }
 
-  merge(obj) {
-    Object
-      .keys(obj)
-      .forEach(key => {
-        const value = obj[key];
+  merge(obj, omit = []) {
+    if (!omit.includes('rule') && 'rule' in obj) {
+      Object
+        .keys(obj.rule)
+        .forEach(name => this.rule(name).merge(obj.rule[name]));
+    }
 
-        switch (key) {
-          case 'rule': {
-            return Object
-              .keys(value)
-              .forEach(name => this.rule(name).merge(value[name]));
-          }
-
-          default: {
-            this.set(key, value);
-          }
-        }
-      });
-
-    return this;
+    return super.merge(obj, ['rule']);
   }
 };

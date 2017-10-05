@@ -20,30 +20,20 @@ module.exports = class extends ChainedMap {
     }, this.entries() || {}));
   }
 
-  merge(obj) {
-    Object
-      .keys(obj)
-      .forEach(key => {
-        const value = obj[key];
+  merge(obj, omit = []) {
+    const omissions = [
+      'extensions',
+      'modules',
+      'moduleExtensions',
+      'packageMains'
+    ];
 
-        switch (key) {
-          case 'extensions':
-          case 'modules':
-          case 'moduleExtensions':
-          case 'packageMains': {
-            return this[key].merge(value);
-          }
+    omissions.forEach(key => {
+      if (!omit.includes(key) && key in obj) {
+        this[key].merge(obj[key]);
+      }
+    });
 
-          default: {
-            if (this.has(key)) {
-              this.set(key, merge(this.get(key), value));
-            } else {
-              this.set(key, value);
-            }
-          }
-        }
-      });
-
-    return this;
+    return super.merge(obj, [...omit, ...omissions]);
   }
 };

@@ -64,3 +64,21 @@ test('merge with values', t => {
     moduleExtensions: ['-loader', '-fake']
   });
 });
+
+test('merge with omit', t => {
+  const resolveLoader = new ResolveLoader();
+
+  resolveLoader
+    .modules.add('src').end()
+    .moduleExtensions.add('-loader');
+
+  resolveLoader.merge({
+    modules: ['dist'],
+    moduleExtensions: ['-fake']
+  }, ['moduleExtensions']);
+
+  t.deepEqual(resolveLoader.toConfig(), {
+    modules: ['src', 'dist'],
+    moduleExtensions: ['-loader']
+  });
+});

@@ -19,16 +19,16 @@ module.exports = class extends ChainedMap {
     return this;
   }
 
-  merge(obj) {
-    if (obj.plugin) {
+  merge(obj, omit = []) {
+    if ('plugin' in obj) {
       this.set('plugin', obj.plugin);
     }
 
-    if (obj.args) {
+    if ('args' in obj) {
       this.set('args', obj.args);
     }
 
-    return this;
+    return super.merge(obj, [...omit, 'args', 'plugin'])
   }
 
   toConfig() {

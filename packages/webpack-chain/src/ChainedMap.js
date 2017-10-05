@@ -1,3 +1,4 @@
+const merge = require('deepmerge');
 const Chainable = require('./Chainable');
 
 module.exports = class extends Chainable {
@@ -53,8 +54,23 @@ module.exports = class extends Chainable {
     return this;
   }
 
-  merge(obj) {
-    Object.keys(obj).forEach(key => this.set(key, obj[key]));
+  merge(obj, omit = []) {
+    Object
+      .keys(obj)
+      .forEach(key => {
+        if (omit.includes(key)) {
+          return;
+        }
+
+        const value = obj[key];
+
+        if ((!Array.isArray(value) && typeof value !== 'object') || value === null || !this.has(key)) {
+          this.set(key, value);
+        } else {
+          this.set(key, merge(this.get(key), value));
+        }
+      });
+
     return this;
   }
 

@@ -201,8 +201,11 @@ entries()
 ```js
 // Provide an object which maps its properties and values
 // into the backing Map as keys and values.
+// You can also provide an array to the second argument
+// for property names to omit from being merged.
 // obj: Object
-merge(obj)
+// omit: Optional Array
+merge(obj, omit)
 ```
 
 ```js

@@ -216,3 +216,52 @@ test('merge with values', t => {
     }]
   });
 });
+
+test('merge with omit', t => {
+  const rule = new Rule();
+
+  rule
+    .test(/\.js$/)
+    .post()
+    .include.add('gamma').add('delta').end()
+    .use('babel')
+      .loader('babel-loader')
+      .options({ presets: ['alpha'] });
+
+  rule.merge({
+    test: /\.jsx$/,
+    enforce: 'pre',
+    include: ['alpha', 'beta'],
+    exclude: ['alpha', 'beta'],
+    oneOf: {
+      inline: {
+        resourceQuery: /inline/,
+        use: {
+          url: {
+            loader: 'url-loader'
+          }
+        }
+      }
+    },
+    use: {
+      babel: {
+        options: {
+          presets: ['beta']
+        }
+      }
+    }
+  }, ['use', 'oneOf']);
+
+  t.deepEqual(rule.toConfig(), {
+    test: /\.jsx$/,
+    enforce: 'pre',
+    include: ['gamma', 'delta', 'alpha', 'beta'],
+    exclude: ['alpha', 'beta'],
+    use: [{
+      loader: 'babel-loader',
+      options: {
+        presets: ['alpha']
+      }
+    }]
+  });
+});

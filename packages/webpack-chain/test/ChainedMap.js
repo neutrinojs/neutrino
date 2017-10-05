@@ -118,6 +118,15 @@ test('merge with overriding values', t => {
   t.deepEqual(map.entries(), { a: 'alpha', b: 'beta', c: 'gamma' });
 });
 
+test('merge with omitting keys', t => {
+  const map = new ChainedMap();
+  const obj = { a: 'alpha', b: 'beta', c: 'gamma'};
+
+  map.merge(obj, ['b']);
+
+  t.deepEqual(map.entries(), { a: 'alpha', c: 'gamma' });
+});
+
 test('when true', t => {
   const map = new ChainedMap();
   const right = instance => {

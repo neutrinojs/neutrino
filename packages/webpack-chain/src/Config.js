@@ -74,41 +74,35 @@ module.exports = class extends ChainedMap {
     }));
   }
 
-  merge(obj = {}) {
-    Object
-      .keys(obj)
-      .forEach(key => {
-        const value = obj[key];
+  merge(obj = {}, omit = []) {
+    const omissions = [
+      'node',
+      'output',
+      'resolve',
+      'resolveLoader',
+      'devServer',
+      'performance',
+      'module'
+    ];
 
-        switch (key) {
-          case 'node':
-          case 'output':
-          case 'resolve':
-          case 'resolveLoader':
-          case 'devServer':
-          case 'performance':
-          case 'module': {
-            return this[key].merge(value);
-          }
+    if (!omit.includes('entry') && 'entry' in obj) {
+      Object
+        .keys(obj.entry)
+        .forEach(name => this.entry(name).merge(obj.entry[name]));
+    }
 
-          case 'entry': {
-            return Object
-              .keys(value)
-              .forEach(name => this.entry(name).merge(value[name]));
-          }
+    if (!omit.includes('plugin') && 'plugin' in obj) {
+      Object
+        .keys(obj.plugin)
+        .forEach(name => this.plugin(name).merge(obj.plugin[name]));
+    }
 
-          case 'plugin': {
-            return Object
-              .keys(value)
-              .forEach(name => this.plugin(name).merge(value[name]));
-          }
+    omissions.forEach(key => {
+      if (!omit.includes(key) && key in obj) {
+        this[key].merge(obj[key]);
+      }
+    });
 
-          default: {
-            this.set(key, value);
-          }
-        }
-      });
-
-    return this;
+    return super.merge(obj, [...omit, ...omissions, 'entry', 'plugin']);
   }
 };

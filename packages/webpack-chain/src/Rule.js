@@ -40,45 +40,36 @@ module.exports = class Rule extends ChainedMap {
     return this.clean(Object.assign(this.entries() || {}, {
       include: this.include.values(),
       exclude: this.exclude.values(),
-      oneOf: this.oneOfs.values().map(r => r.toConfig()),
+      oneOf: this.oneOfs.values().map(oneOf => oneOf.toConfig()),
       use: this.uses.values().map(use => use.toConfig())
     }));
   }
 
-  merge(obj) {
-    Object
-      .keys(obj)
-      .forEach(key => {
-        const value = obj[key];
+  merge(obj, omit = []) {
+    if (!omit.includes('include') && 'include' in obj) {
+      this.include.merge(obj.include);
+    }
 
-        switch (key) {
-          case 'include':
-          case 'exclude': {
-            return this[key].merge(value);
-          }
+    if (!omit.includes('exclude') && 'exclude' in obj) {
+      this.exclude.merge(obj.exclude);
+    }
 
-          case 'use': {
-            return Object
-              .keys(value)
-              .forEach(name => this.use(name).merge(value[name]));
-          }
+    if (!omit.includes('use') && 'use' in obj) {
+      Object
+        .keys(obj.use)
+        .forEach(name => this.use(name).merge(obj.use[name]));
+    }
 
-          case 'oneOf': {
-            return Object
-              .keys(value)
-              .forEach(name => this.oneOf(name).merge(value[name]))
-          }
+    if (!omit.includes('oneOf') && 'oneOf' in obj) {
+      Object
+        .keys(obj.oneOf)
+        .forEach(name => this.oneOf(name).merge(obj.oneOf[name]))
+    }
 
-          case 'test': {
-            return this.test(value instanceof RegExp ? value : new RegExp(value));
-          }
+    if (!omit.includes('test') && 'test' in obj) {
+      this.test(obj.test instanceof RegExp ? obj.test : new RegExp(obj.test));
+    }
 
-          default: {
-            this.set(key, value);
-          }
-        }
-      });
-
-    return this;
+    return super.merge(obj, [...omit, 'include', 'exclude', 'use', 'oneOf', 'test']);
   }
 };

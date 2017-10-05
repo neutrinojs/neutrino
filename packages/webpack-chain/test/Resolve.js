@@ -83,3 +83,24 @@ test('merge with values', t => {
     alias: { React: 'src/react', ReactDOM: 'src/react-dom' }
   });
 });
+
+test('merge with omit', t => {
+  const resolve = new Resolve();
+
+  resolve
+    .modules.add('src').end()
+    .extensions.add('.js').end()
+    .alias.set('React', 'src/react');
+
+  resolve.merge({
+    modules: ['dist'],
+    extensions: ['.jsx'],
+    alias: { ReactDOM: 'src/react-dom' }
+  }, ['alias']);
+
+  t.deepEqual(resolve.toConfig(), {
+    modules: ['src', 'dist'],
+    extensions: ['.js', '.jsx'],
+    alias: { React: 'src/react' }
+  });
+});

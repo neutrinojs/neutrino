@@ -45,34 +45,24 @@ module.exports = class extends ChainedMap {
     }));
   }
 
-  merge(obj) {
-    Object
-      .keys(obj)
-      .forEach(key => {
-        const value = obj[key];
+  merge(obj, omit = []) {
+    const omissions = [
+      'alias',
+      'aliasFields',
+      'descriptionFiles',
+      'extensions',
+      'mainFields',
+      'mainFiles',
+      'modules',
+      'plugins'
+    ];
 
-        switch (key) {
-          case 'alias':
-          case 'aliasFields':
-          case 'descriptionFiles':
-          case 'extensions':
-          case 'mainFields':
-          case 'mainFiles':
-          case 'modules':
-          case 'plugins': {
-            return this[key].merge(value);
-          }
+    omissions.forEach(key => {
+      if (!omit.includes(key) && key in obj) {
+        this[key].merge(obj[key]);
+      }
+    });
 
-          default: {
-            if (this.has(key)) {
-              this.set(key, merge(this.get(key), value));
-            } else {
-              this.set(key, value);
-            }
-          }
-        }
-      });
-
-    return this;
+    return super.merge(obj, [...omit, ...omissions]);
   }
 };
