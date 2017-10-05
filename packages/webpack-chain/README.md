@@ -208,11 +208,11 @@ merge(obj)
 ```js
 // Conditionally execute a function to continue configuration
 // condition: Boolean
-// truthyHandler: Function -> ChainedMap
+// whenTruthy: Function -> ChainedMap
   // invoked when condition is truthy, given a single argument of the ChainedMap instance
-// falsyHandler: Function -> ChainedMap
+// whenFalsy: Optional Function -> ChainedMap
   // invoked when condition is falsy, given a single argument of the ChainedMap instance
-when(condition, truthyHandler, falsyHandler)
+when(condition, whenTruthy, whenFalsy)
 ```
 
 ## ChainedSet
@@ -269,11 +269,11 @@ merge(arr)
 ```js
 // Conditionally execute a function to continue configuration
 // condition: Boolean
-// truthyHandler: Function -> ChainedSet
+// whenTruthy: Function -> ChainedSet
   // invoked when condition is truthy, given a single argument of the ChainedSet instance
-// falsyHandler: Function -> ChainedSet
+// whenFalsy: Optional Function -> ChainedSet
   // invoked when condition is falsy, given a single argument of the ChainedSet instance
-when(condition, truthyHandler, falsyHandler)
+when(condition, whenTruthy, whenFalsy)
 ```
 
 ## Shorthand methods
