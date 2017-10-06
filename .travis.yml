@@ -8,8 +8,8 @@ node_js:
 install:
 - yarn install --frozen-lockfile
 before_install:
-# Required due to: https://github.com/travis-ci/travis-ci/issues/7951
-- curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 0.25.4
+# Older version required due to: https://github.com/guigrpa/oao/issues/50
+- curl -sSfL https://yarnpkg.com/install.sh | bash -s -- --version 0.25.4
 - export PATH=$HOME/.yarn/bin:$PATH
 before_script:
 - yarn bootstrap
