@@ -1,10 +1,54 @@
+2017-10-05
+==========
+
+  * 4.4.0
+  * Bumping deps
+  * Merge pull request [#42](https://github.com/mozilla-neutrino/webpack-chain/issues/42) from eliperelman/use-before-after
+    Feature: allow specifying to use before or after other use
+  * Feature: allow specifying .before or .after to order plugins and uses
+
+2017-10-04
+==========
+
+  * Allow omitting keys from source merge object
+  * Rename when arguments to be clearer
+
+2017-10-01
+==========
+
+  * Merge pull request [#41](https://github.com/mozilla-neutrino/webpack-chain/issues/41) from edmorley/neutrino-docs-sync
+    Docs: Upstream fixes made to Neutrino's webpack-chain docs
+  * Docs: Upstream fixes made to Neutrino's webpack-chain docs
+    Neutrino now has a slightly modified copy of the webpack-chain docs
+    in its own repository:
+    https://github.com/mozilla-neutrino/neutrino-dev/blob/master/docs/webpack-chain.md
+    As part of that import, a few docs cleanups occurred that are also
+    applicable to the docs in the webpack-chain repo. Upstreaming these
+    reduces the size of the diff so should also make it easier to keep
+    the two in sync in the future.
+
+2017-09-26
+==========
+
+  * Merge pull request [#40](https://github.com/mozilla-neutrino/webpack-chain/issues/40) from edmorley/plugins-docs
+    Improve documentation for plugin configuration
+
+2017-09-24
+==========
+
+  * Improve documentation for plugin configuration
+    Adds examples for deleting plugins (to make it clearer that the
+    `.delete()` must be applied to the backing set and not using the
+    shorthand form), and corrects some typos.
+
 2017-09-12
 ==========
 
+  * Update changelog
+  * 4.3.0
   * Merge pull request [#38](https://github.com/mozilla-neutrino/webpack-chain/issues/38) from eliperelman/update-shorthands-devserver-config-output
     Update API for base config, dev server, and output
   * Update API for base config, dev server, and output
-  * Update changelog
   * 4.2.0
   * Updating README with shorthands
   * Merge pull request [#37](https://github.com/mozilla-neutrino/webpack-chain/issues/37) from eliperelman/resolve-module-shorthands
