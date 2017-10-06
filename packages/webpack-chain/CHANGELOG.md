@@ -1,6 +1,7 @@
 2017-10-05
 ==========
 
+  * Updating changelog
   * 4.4.0
   * Bumping deps
   * Merge pull request [#42](https://github.com/mozilla-neutrino/webpack-chain/issues/42) from eliperelman/use-before-after
