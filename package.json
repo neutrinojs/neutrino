@@ -8,7 +8,7 @@
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "repository": "mozilla-neutrino/neutrino-dev",
   "scripts": {
-    "lint": "packages/neutrino/bin/neutrino lint",
+    "lint": "node packages/neutrino/bin/neutrino lint",
     "bootstrap": "oao bootstrap --no-parallel",
     "changelog": "changelog mozilla-neutrino/neutrino-dev all --markdown > CHANGELOG.md",
     "deps:add": "oao add",
@@ -19,7 +19,7 @@
     "docs:build": "gitbook build && cp CNAME _book",
     "docs:deploy": "yarn docs:build && gh-pages --dist _book --remote upstream",
     "docs:serve": "gitbook serve",
-    "release": ".scripts/publish",
+    "release": "node .scripts/publish",
     "test": "nyc --reporter lcov ava packages/*/test",
     "precommit": "lint-staged"
   },
