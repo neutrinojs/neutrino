@@ -156,6 +156,8 @@ values()
 // where the key is the object property, and the value
 // corresponding to the key. Will return `undefined` if the backing
 // Map is empty.
+// This will order properties by their name if the value is
+// a ChainedMap that used .before() or .after().
 // returns: Object, undefined if empty
 entries()
 ````
@@ -163,18 +165,21 @@ entries()
 ```js
 // Provide an object which maps its properties and values
 // into the backing Map as keys and values.
+// You can also provide an array as the second argument
+// for property names to omit from being merged.
 // obj: Object
-merge(obj)
+// omit: Optional Array
+merge(obj, omit)
 ```
 
 ```js
 // Conditionally execute a function to continue configuration
 // condition: Boolean
-// truthyHandler: Function -> ChainedMap
+// whenTruthy: Function -> ChainedMap
   // invoked when condition is truthy, given a single argument of the ChainedMap instance
-// falsyHandler: Function -> ChainedMap
+// whenFalsy: Optional Function -> ChainedMap
   // invoked when condition is falsy, given a single argument of the ChainedMap instance
-when(condition, truthyHandler, falsyHandler)
+when(condition, whenTruthy, whenFalsy)
 ```
 
 ## ChainedSet
@@ -231,11 +236,11 @@ merge(arr)
 ```js
 // Conditionally execute a function to continue configuration
 // condition: Boolean
-// truthyHandler: Function -> ChainedSet
+// whenTruthy: Function -> ChainedSet
   // invoked when condition is truthy, given a single argument of the ChainedSet instance
-// falsyHandler: Function -> ChainedSet
+// whenFalsy: Optional Function -> ChainedSet
   // invoked when condition is falsy, given a single argument of the ChainedSet instance
-when(condition, truthyHandler, falsyHandler)
+when(condition, whenTruthy, whenFalsy)
 ```
 
 ## Shorthand methods
@@ -307,7 +312,7 @@ neutrino.config
 
 neutrino.config
   .entry(name)
-  .clear()
+    .clear()
 
 // Using low-level config.entryPoints:
 
@@ -523,16 +528,16 @@ _NOTE: Do not use `new` to create the plugin, as this will be done for you._
 ```js
 neutrino.config
   .plugin(name)
-  .use(WebpackPlugin, args)
+    .use(WebpackPlugin, args)
 
 // Examples
 neutrino.config
   .plugin('hot')
-  .use(webpack.HotModuleReplacementPlugin);
+    .use(webpack.HotModuleReplacementPlugin);
 
 neutrino.config
   .plugin('env')
-  .use(webpack.EnvironmentPlugin, ['NODE_ENV']);
+    .use(webpack.EnvironmentPlugin, ['NODE_ENV']);
 ```
 
 #### Config plugins: modify arguments
@@ -540,12 +545,12 @@ neutrino.config
 ```js
 neutrino.config
   .plugin(name)
-  .tap(args => newArgs)
+    .tap(args => newArgs)
 
 // Example
 neutrino.config
   .plugin('env')
-  .tap(args => [...args, 'SECRET_KEY']);
+    .tap(args => [...args, 'SECRET_KEY']);
 ```
 
 #### Config plugins: modify instantiation
@@ -553,13 +558,55 @@ neutrino.config
 ```js
 neutrino.config
   .plugin(name)
-  .init((Plugin, args) => new Plugin(...args));
+    .init((Plugin, args) => new Plugin(...args));
 ```
 
 #### Config plugins: removing
 
 ```js
 neutrino.config.plugins.delete(name)
+```
+
+#### Config plugins: ordering before
+
+Specify that the current `plugin` context should operate before another named `plugin`.
+You cannot use both `.before()` and `.after()` on the same plugin.
+
+```js
+neutrino.config
+  .plugin(name)
+    .before(otherName)
+    
+// Example
+
+neutrino.config
+  .plugin('html-template')
+    .use(HtmlWebpackTemplate)
+    .end()
+  .plugin('script-ext')
+    .use(ScriptExtWebpackPlugin)
+    .before('html-template');
+```
+
+#### Config plugins: ordering after
+
+Specify that the current `plugin` context should operate after another named `plugin`.
+You cannot use both `.before()` and `.after()` on the same plugin.
+
+```js
+neutrino.config
+  .plugin(name)
+    .after(otherName)
+
+// Example
+
+neutrino.config
+  .plugin('html-template')
+    .after('script-ext')
+    .use(HtmlWebpackTemplate)
+    .end()
+  .plugin('script-ext')
+    .use(ScriptExtWebpackPlugin);
 ```
 
 #### Config resolve plugins
@@ -576,7 +623,7 @@ _NOTE: Do not use `new` to create the plugin, as this will be done for you._
 ```js
 neutrino.config.resolve
   .plugin(name)
-  .use(WebpackPlugin, args)
+    .use(WebpackPlugin, args)
 ```
 
 #### Config resolve plugins: modify arguments
@@ -584,7 +631,7 @@ neutrino.config.resolve
 ```js
 neutrino.config.resolve
   .plugin(name)
-  .tap(args => newArgs)
+    .tap(args => newArgs)
 ```
 
 #### Config resolve plugins: modify instantiation
@@ -592,13 +639,55 @@ neutrino.config.resolve
 ```js
 neutrino.config.resolve
   .plugin(name)
-  .init((Plugin, args) => new Plugin(...args))
+    .init((Plugin, args) => new Plugin(...args))
 ```
 
 #### Config resolve plugins: removing
 
 ```js
 neutrino.config.resolve.plugins.delete(name)
+```
+
+#### Config resolve plugins: ordering before
+
+Specify that the current `plugin` context should operate before another named `plugin`.
+You cannot use both `.before()` and `.after()` on the same resolve plugin.
+
+```js
+neutrino.config.resolve
+  .plugin(name)
+    .before(otherName)
+
+// Example
+
+neutrino.config.resolve
+  .plugin('beta')
+    .use(BetaWebpackPlugin)
+    .end()
+  .plugin('alpha')
+    .use(AlphaWebpackPlugin)
+    .before('beta');
+```
+
+#### Config resolve plugins: ordering after
+
+Specify that the current `plugin` context should operate after another named `plugin`.
+You cannot use both `.before()` and `.after()` on the same resolve plugin.
+
+```js
+neutrino.config.resolve
+  .plugin(name)
+    .after(otherName)
+
+// Example
+
+neutrino.config.resolve
+  .plugin('beta')
+    .after('alpha')
+    .use(BetaWebpackTemplate)
+    .end()
+  .plugin('alpha')
+    .use(AlphaWebpackPlugin);
 ```
 
 #### Config node
@@ -805,7 +894,9 @@ neutrino.config.merge({
   plugin: {
     [name]: {
       plugin: WebpackPlugin,
-      args: [...args]
+      args: [...args],
+      before,
+      after
     }
   },
 
@@ -863,7 +954,9 @@ neutrino.config.merge({
     plugin: {
       [name]: {
         plugin: WebpackPlugin,
-        args: [...args]
+        args: [...args],
+        before,
+        after
       }
     }
   },
@@ -901,7 +994,9 @@ neutrino.config.merge({
         use: {
           [name]: {
             loader: LoaderString,
-            options: LoaderOptions
+            options: LoaderOptions,
+            before,
+            after
           }
         }
       }
