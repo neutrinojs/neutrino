@@ -1,6 +1,38 @@
+2017-10-05
+==========
+
+  * Feature: upgrade webpack-chain to use .before() and .after() ([#346](https://github.com/mozilla-neutrino/neutrino-dev/issues/346))
+  * Make yarn lint/publish commands work on Windows ([#345](https://github.com/mozilla-neutrino/neutrino-dev/issues/345))
+    Even though MSYS2 and related cygwin-based environments for Windows
+    understand shebangs, when a package.json script command is run via
+    a Windows yarn/npm install, it runs outside of the bash shell and so
+    if it's a direct path to a local script (rather than a package in
+    `node_modules/.bin/` which already has `.cmd` shims created by yarn),
+    it fails with eg:
+    ```
+    'packages\neutrino\bin\neutrino' is not recognized as an internal or external command,
+    operable program or batch file.
+    ```
+    To make the package.json scripts truly portable, local scripts must
+    be explicitly run with `node`:
+    http://alan.norbauer.com/articles/cross-platform-nodejs/#Shell-scripts-that-rely-on-Unix-shebangs
+  * Preserve ESLint default include when just exclude set ([#344](https://github.com/mozilla-neutrino/neutrino-dev/issues/344))
+    Previously if `exclude` was set manually, it would prevent the default
+    value for `include` being used. Now consumers of the middleware can
+    pass just `exclude` and not have to pass both. See:
+    https://github.com/mozilla-neutrino/neutrino-dev/pull/315#discussion_r141779549
+    The default include in neutrino-preset-airbnb-base has also been
+    removed, since it just duplicated that in neutrino-middleware-eslint.
+  * Travis: Document the pinned version of yarn ([#343](https://github.com/mozilla-neutrino/neutrino-dev/issues/343))
+    See:
+    https://github.com/mozilla-neutrino/neutrino-dev/pull/315#discussion_r141776823
+    Also restores the best practices of using `-f` with curl, as well as
+    quietening the log spam.
+
 2017-10-02
 ==========
 
+  * Release 7.0.2
   * Remove unused dependencies ([#339](https://github.com/mozilla-neutrino/neutrino-dev/issues/339))
     * Move preset-airbnb-base dependencies out of middleware-eslint
     The `eslint-config-airbnb-base` and `eslint-plugin-import` packages
@@ -744,12 +776,3 @@
 ==========
 
   * v5.2.0
-  * Allow setting karma middleware options as overridable ([#160](https://github.com/mozilla-neutrino/neutrino-dev/issues/160))
-
-2017-03-29
-==========
-
-  * neutrino v5.1.1
-  * options.output mis-named as options.build ([#159](https://github.com/mozilla-neutrino/neutrino-dev/issues/159))
-  * Releasing v5.1.0
-  * Upgrading webpack-chain to v3.1 ([#157](https://github.com/mozilla-neutrino/neutrino-dev/issues/157))
