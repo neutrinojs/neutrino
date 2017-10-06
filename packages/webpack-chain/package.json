@@ -20,11 +20,11 @@
     "changelog": "changelog mozilla-neutrino/webpack-chain all --markdown > CHANGELOG.md"
   },
   "dependencies": {
-    "deepmerge": "^1.5.1"
+    "deepmerge": "^1.5.2"
   },
   "devDependencies": {
     "ava": "^0.22.0",
     "changelog": "^1.4.0",
-    "webpack": "^3.5.6"
+    "webpack": "^3.6.0"
   }
 }
