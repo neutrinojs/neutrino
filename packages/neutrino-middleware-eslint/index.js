@@ -29,7 +29,7 @@ module.exports = (neutrino, opts = {}) => {
   const failBuild = process.env.NODE_ENV !== 'development' || neutrino.options.command !== 'start';
   const options = merge.all([
     opts,
-    !opts.include && !opts.exclude ? { include: [neutrino.options.source] } : {}
+    !opts.include ? { include: [neutrino.options.source] } : {}
   ]);
 
   neutrino.config
