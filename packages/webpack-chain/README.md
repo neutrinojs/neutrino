@@ -935,7 +935,9 @@ config.merge({
   plugin: {
     [name]: {
       plugin: WebpackPlugin,
-      args: [...args]
+      args: [...args],
+      before,
+      after
     }
   },
 
@@ -993,7 +995,9 @@ config.merge({
     plugin: {
       [name]: {
         plugin: WebpackPlugin,
-        args: [...args]
+        args: [...args],
+        before,
+        after
       }
     }
   },
@@ -1031,7 +1035,9 @@ config.merge({
         use: {
           [name]: {
             loader: LoaderString,
-            options: LoaderOptions
+            options: LoaderOptions,
+            before,
+            after
           }
         }
       }
