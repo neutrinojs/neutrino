@@ -63,7 +63,7 @@ module.exports = class Rule extends ChainedMap {
     if (!omit.includes('oneOf') && 'oneOf' in obj) {
       Object
         .keys(obj.oneOf)
-        .forEach(name => this.oneOf(name).merge(obj.oneOf[name]))
+        .forEach(name => this.oneOf(name).merge(obj.oneOf[name]));
     }
 
     if (!omit.includes('test') && 'test' in obj) {

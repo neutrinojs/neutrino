@@ -1,6 +1,7 @@
 const ChainedMap = require('./ChainedMap');
+const Orderable = require('./Orderable');
 
-module.exports = class extends ChainedMap {
+module.exports = Orderable(class extends ChainedMap {
   constructor(parent) {
     super(parent);
     this.extend(['init']);
@@ -28,7 +29,7 @@ module.exports = class extends ChainedMap {
       this.set('args', obj.args);
     }
 
-    return super.merge(obj, [...omit, 'args', 'plugin'])
+    return super.merge(obj, [...omit, 'args', 'plugin']);
   }
 
   toConfig() {
@@ -36,4 +37,4 @@ module.exports = class extends ChainedMap {
 
     return init(this.get('plugin'), this.get('args'));
   }
-};
+});

@@ -1,7 +1,8 @@
 const ChainedMap = require('./ChainedMap');
+const Orderable = require('./Orderable');
 const merge = require('deepmerge');
 
-module.exports = class extends ChainedMap {
+module.exports = Orderable(class extends ChainedMap {
   constructor(parent) {
     super(parent);
     this.extend(['loader', 'options']);
@@ -27,4 +28,4 @@ module.exports = class extends ChainedMap {
   toConfig() {
     return this.clean(this.entries() || {});
   }
-};
+});

@@ -12,6 +12,7 @@ module.exports = class extends Chainable {
     methods.map(method => {
       this[method] = value => this.set(method, value);
     });
+    return this;
   }
 
   clear() {
@@ -24,21 +25,41 @@ module.exports = class extends Chainable {
     return this;
   }
 
-  entries() {
-    const entries = [...this.store];
-
-    if (!entries.length) {
-      return;
-    }
-
-    return entries.reduce((acc, [key, value]) => {
+  order() {
+    const entries = [...this.store].reduce((acc, [key, value]) => {
       acc[key] = value;
       return acc;
     }, {});
+    const names = Object.keys(entries);
+    const order = [...names];
+
+    names.forEach(name => {
+      const { __before, __after } = entries[name];
+
+      if (__before && order.includes(__before)) {
+        order.splice(order.indexOf(name), 1);
+        order.splice(order.indexOf(__before), 0, name);
+      } else if (__after && order.includes(__after)) {
+        order.splice(order.indexOf(name), 1);
+        order.splice(order.indexOf(__after) + 1, 0, name);
+      }
+    });
+
+    return { entries, order };
+  }
+
+  entries() {
+    const { entries, order } = this.order();
+
+    if (order.length) {
+      return entries;
+    }
   }
 
   values() {
-    return [...this.store.values()];
+    const { entries, order } = this.order();
+
+    return order.map(name => entries[name]);
   }
 
   get(key) {
