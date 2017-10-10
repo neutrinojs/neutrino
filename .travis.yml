@@ -1,3 +1,8 @@
+# Use the fully virtualised infra not for sudo, but since their container
+# infra's 4GB of RAM is not sufficient to prevent yarn bootstrap OOMs:
+# https://github.com/guigrpa/oao/issues/51
+# https://docs.travis-ci.com/user/reference/overview/#Virtualization-environments
+sudo: required
 dist: trusty
 language: node_js
 cache: yarn
@@ -6,14 +11,13 @@ node_js:
 - '7'
 - '8'
 before_install:
-# oao breaks on node 6 for anything newer than yarn 0.28.4:
-# https://github.com/guigrpa/oao/issues/51
-- curl -sSfL https://yarnpkg.com/install.sh | bash -s -- --version 0.28.4
+# Use newer yarn than that pre-installed in the Travis image.
+- curl -sSfL https://yarnpkg.com/install.sh | bash
 - export PATH="$HOME/.yarn/bin:$PATH"
 install:
 - yarn install --frozen-lockfile
 before_script:
-- yarn bootstrap
+- yarn bootstrap --frozen-lockfile
 script:
 - yarn lint
 - yarn test
