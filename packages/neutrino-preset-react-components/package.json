@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-react-components",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "main": "index.js",
   "files": [
     "lib",
