@@ -2890,9 +2890,9 @@ wbuf@^1.1.0, wbuf@^1.7.2:
   dependencies:
     minimalistic-assert "^1.0.0"
 
-webpack-chain@^4.4.1:
-  version "4.4.1"
-  resolved "https://registry.yarnpkg.com/webpack-chain/-/webpack-chain-4.4.1.tgz#28b63729d02ea45e033c07962570933aa0b0dcb8"
+webpack-chain@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/webpack-chain/-/webpack-chain-4.4.2.tgz#6234884f59c096ebd622535c6a69d31e8440ff99"
   dependencies:
     deepmerge "^1.5.2"
 
