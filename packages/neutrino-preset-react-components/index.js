@@ -15,7 +15,6 @@ module.exports = (neutrino, options = {}) => {
       title: 'React Preview'
     },
     babel: {
-      plugins: [require.resolve('babel-plugin-transform-es2015-classes')],
       presets: [
         ['babel-preset-env', {
           targets: {
