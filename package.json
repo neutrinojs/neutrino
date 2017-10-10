@@ -9,7 +9,7 @@
   "repository": "mozilla-neutrino/neutrino-dev",
   "scripts": {
     "lint": "node packages/neutrino/bin/neutrino lint",
-    "bootstrap": "oao bootstrap --no-parallel",
+    "bootstrap": "oao bootstrap --no-parallel --frozen-lockfile",
     "changelog": "changelog mozilla-neutrino/neutrino-dev all --markdown > CHANGELOG.md",
     "deps:add": "oao add",
     "deps:remove": "oao remove",
@@ -44,7 +44,7 @@
     "husky": "^0.14.3",
     "lint-staged": "^4.2.3",
     "nyc": "^11.2.1",
-    "oao": "^0.10.1",
+    "oao": "^0.10.3",
     "prettier": "^1.7.2",
     "semver": "^5.4.1",
     "webpack": "^3.6.0"
