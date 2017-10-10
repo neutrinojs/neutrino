@@ -296,7 +296,7 @@ _Example: Neutrino's Node.js preset has performance hints disabled. Let's re-ena
 module.exports = {
   use: [
     'neutrino-preset-node',
-    (neutrino) => neutrino.config.performance.hints(true)
+    (neutrino) => neutrino.config.performance.hints('error')
   ]
 };
 ```
