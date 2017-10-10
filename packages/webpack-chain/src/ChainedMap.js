@@ -34,6 +34,10 @@ module.exports = class extends Chainable {
     const order = [...names];
 
     names.forEach(name => {
+      if (!entries[name]) {
+        return;
+      }
+
       const { __before, __after } = entries[name];
 
       if (__before && order.includes(__before)) {
