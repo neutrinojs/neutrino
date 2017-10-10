@@ -61,7 +61,7 @@ module.exports = (neutrino, options = {}) => {
         .devtool('source-map')
         .entryPoints.delete('index').end()
         .plugins.delete('html').end()
-        .performance.hints(true).end()
+        .performance.hints('error').end()
         .externals([nodeExternals()])
         .output
           .filename('[name].js')
