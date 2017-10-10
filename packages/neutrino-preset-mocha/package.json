@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-mocha",
-  "version": "7.1.0",
+  "version": "7.1.1",
   "description": "Neutrino preset for testing Neutrino projects with Mocha",
   "main": "src/index.js",
   "keywords": [
@@ -17,7 +17,7 @@
     "change-case": "^3.0.1",
     "deepmerge": "^1.5.2",
     "mocha": "^3.5.3",
-    "neutrino-middleware-loader-merge": "^7.0.2",
+    "neutrino-middleware-loader-merge": "^7.1.0",
     "ramda": "^0.24.1"
   },
   "peerDependencies": {

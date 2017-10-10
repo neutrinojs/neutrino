@@ -1900,38 +1900,38 @@ neutrino-middleware-banner@^7.1.0:
     deepmerge "^1.5.2"
     webpack "^3.6.0"
 
-neutrino-middleware-clean@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-clean/-/neutrino-middleware-clean-7.1.0.tgz#a3bea8866a062e5d9fb9e6c75f5eefba8924da6a"
+neutrino-middleware-clean@^7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-clean/-/neutrino-middleware-clean-7.1.1.tgz#56ad646ac0e1d5eb79f2c4b10a1f0d9088e0ae8c"
   dependencies:
     clean-webpack-plugin "^0.1.17"
     deepmerge "^1.5.2"
 
-neutrino-middleware-compile-loader@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-compile-loader/-/neutrino-middleware-compile-loader-7.1.0.tgz#5d2d2182e8ae8cf260815eebecbfa797fedf18cb"
+neutrino-middleware-compile-loader@^7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-compile-loader/-/neutrino-middleware-compile-loader-7.1.1.tgz#6d1e66404973c65e333dc094edeb15d5d0289445"
   dependencies:
     babel-core "^6.26.0"
     babel-loader "^7.1.2"
     babel-merge "^1.1.0"
     deepmerge "^1.5.2"
 
-neutrino-middleware-copy@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-copy/-/neutrino-middleware-copy-7.1.0.tgz#14526546ac0585e36210c2cc8ea7695bf621ae0b"
+neutrino-middleware-copy@^7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-copy/-/neutrino-middleware-copy-7.1.1.tgz#c048f17419bed5584e9a0d223bf4e458e3bba03a"
   dependencies:
     copy-webpack-plugin "^4.0.1"
     deepmerge "^1.5.2"
 
-neutrino-middleware-hot@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-hot/-/neutrino-middleware-hot-7.1.0.tgz#aa3e77ff849fbb8319deb3edc11f360834a53d98"
+neutrino-middleware-hot@^7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-hot/-/neutrino-middleware-hot-7.1.1.tgz#23fdc65545c0fa3574eb4d12c31695dc7906f2ed"
   dependencies:
     webpack "^3.6.0"
 
-neutrino-middleware-start-server@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/neutrino-middleware-start-server/-/neutrino-middleware-start-server-7.1.0.tgz#845f45e5f11610c22f5e8d6ecfbd047b19c89c35"
+neutrino-middleware-start-server@^7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/neutrino-middleware-start-server/-/neutrino-middleware-start-server-7.1.1.tgz#7bc9288f93f5b60f83991507893f681fac0276f2"
   dependencies:
     start-server-webpack-plugin "^2.2.0"
 

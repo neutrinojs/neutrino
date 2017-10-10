@@ -1,6 +1,12 @@
+2017-10-09
+==========
+
+  * Hotfix - bump webpack-chain to guard non-defined chainedmap entries
+
 2017-10-05
 ==========
 
+  * Release 7.1.0
   * Feature: upgrade webpack-chain to use .before() and .after() ([#346](https://github.com/mozilla-neutrino/neutrino-dev/issues/346))
   * Make yarn lint/publish commands work on Windows ([#345](https://github.com/mozilla-neutrino/neutrino-dev/issues/345))
     Even though MSYS2 and related cygwin-based environments for Windows
@@ -770,9 +776,3 @@
 
   * Release v5.3.0
   * Update build executable to respect config stats. ([#163](https://github.com/mozilla-neutrino/neutrino-dev/issues/163))
-  * fix eslint-semi-off middleware example ([#161](https://github.com/mozilla-neutrino/neutrino-dev/issues/161))
-
-2017-03-31
-==========
-
-  * v5.2.0
