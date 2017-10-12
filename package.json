@@ -8,6 +8,10 @@
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "repository": "mozilla-neutrino/neutrino-dev",
   "scripts": {
+    "validate:eslintrc:root": "eslint --no-eslintrc --print-config . -c ./.eslintrc.js > /dev/null",
+    "validate:eslintrc:eslint": "eslint --no-eslintrc --print-config . -c ./packages/neutrino-middleware-eslint/eslintrc.js > /dev/null",
+    "validate:eslintrc:airbnb-base": "eslint --no-eslintrc --print-config . -c ./packages/neutrino-preset-airbnb-base/eslintrc.js > /dev/null",
+    "validate:eslintrc": "yarn validate:eslintrc:eslint && yarn validate:eslintrc:airbnb-base && yarn validate:eslintrc:root",
     "lint": "node packages/neutrino/bin/neutrino lint",
     "bootstrap": "oao bootstrap --no-parallel",
     "changelog": "changelog mozilla-neutrino/neutrino-dev all --markdown > CHANGELOG.md",
@@ -51,7 +55,11 @@
   },
   "lint-staged": {
     "*.js": [
-      "packages/neutrino/bin/neutrino lint --fix",
+      "yarn lint --fix",
+      "git add"
+    ],
+    "packages/neutrino/bin/neutrino": [
+      "yarn lint --fix",
       "git add"
     ]
   }

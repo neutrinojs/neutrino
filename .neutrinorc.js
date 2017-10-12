@@ -8,7 +8,6 @@ module.exports = {
         'packages/neutrino/bin/*'
       ],
       eslint: {
-        node: true,
         envs: ['browser', 'commonjs', 'node'],
         plugins: ['eslint-plugin-prettier'],
         rules: {
