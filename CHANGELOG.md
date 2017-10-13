@@ -1,6 +1,29 @@
+2017-10-12
+==========
+
+  * Remove extra keys that are invalid in eslintrc ([#358](https://github.com/mozilla-neutrino/neutrino-dev/issues/358))
+
 2017-10-09
 ==========
 
+  * Use latest version of yarn on Travis ([#355](https://github.com/mozilla-neutrino/neutrino-dev/issues/355))
+    The only remaining error with oao + recent yarn turned out to be due
+    to OOM (https://github.com/guigrpa/oao/issues/51), which can be solved
+    by switching to Travis' fully virtualised infra, which has more RAM.
+    The `--frozen-lockfile` parameter has also been moved to `.travis.yml`
+    so that the lockfiles are still updated when working making changes
+    locally.
+  * Upgrade oao/yarn and use --frozen-lockfile with oao bootstrap ([#354](https://github.com/mozilla-neutrino/neutrino-dev/issues/354))
+    * Upgrades oao to latest (0.10.3).
+    * Upgrades yarn to latest version known to work with oao (0.28.4)
+    (see https://github.com/guigrpa/oao/issues/51).
+    * Uses `--frozen-lockfile` with `oao bootstrap` since the previous
+    issues with it appear to be fixed, and using it ensures that the
+    `yarn.lock` files under `packages/*/` have been kept in sync with
+    `package.json` changes. Fixes [#255](https://github.com/mozilla-neutrino/neutrino-dev/issues/255).
+    * Switches the Travis node 6 job from 6.10.3 to latest 6.x (6.11.4).
+  * performance hints ([#353](https://github.com/mozilla-neutrino/neutrino-dev/issues/353))
+  * Release v7.1.1
   * Hotfix - bump webpack-chain to guard non-defined chainedmap entries
 
 2017-10-05
@@ -763,16 +786,3 @@
   * Node.js preset v5.3.1
   * Correct Node.js preset compile target object ([#170](https://github.com/mozilla-neutrino/neutrino-dev/issues/170))
   * Update changelog
-  * ESLint middleware docs bug, v5.3.1
-  * Fixing incorrect documentation for linting ([#169](https://github.com/mozilla-neutrino/neutrino-dev/issues/169))
-
-2017-04-04
-==========
-
-  * Add react router starter and blog post ([#164](https://github.com/mozilla-neutrino/neutrino-dev/issues/164))
-
-2017-04-02
-==========
-
-  * Release v5.3.0
-  * Update build executable to respect config stats. ([#163](https://github.com/mozilla-neutrino/neutrino-dev/issues/163))
