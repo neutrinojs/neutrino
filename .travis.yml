@@ -19,5 +19,6 @@ install:
 before_script:
 - yarn bootstrap --frozen-lockfile
 script:
+- yarn validate:eslintrc
 - yarn lint
 - yarn test
