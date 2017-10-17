@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-banner",
-  "version": "7.1.2",
+  "version": "7.1.3",
   "description": "Neutrino middleware for injecting a banner into bundled files",
   "main": "index.js",
   "keywords": [

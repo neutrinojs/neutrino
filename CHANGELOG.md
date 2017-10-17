@@ -1,6 +1,13 @@
+2017-10-16
+==========
+
+  * Add eslintrc.js to .npmignore ([#359](https://github.com/mozilla-neutrino/neutrino-dev/issues/359))
+    Since it's only used for testing.
+
 2017-10-12
 ==========
 
+  * Release 7.1.2
   * Remove extra keys that are invalid in eslintrc ([#358](https://github.com/mozilla-neutrino/neutrino-dev/issues/358))
 
 2017-10-09
@@ -784,5 +791,3 @@
 ==========
 
   * Node.js preset v5.3.1
-  * Correct Node.js preset compile target object ([#170](https://github.com/mozilla-neutrino/neutrino-dev/issues/170))
-  * Update changelog
