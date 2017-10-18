@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-web",
-  "version": "7.1.3",
+  "version": "7.1.10",
   "description": "Neutrino preset for building generic web applications",
   "main": "index.js",
   "keywords": [

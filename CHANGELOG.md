@@ -1,6 +1,15 @@
+2017-10-17
+==========
+
+  * Update to the newest version of html-webpack-template ([#361](https://github.com/mozilla-neutrino/neutrino-dev/issues/361))
+    Counter-intuitively the most recent version of the package is actually
+    5.6.0, rather than 6.0.0 or 6.0.1 due to a publishing error. See:
+    https://github.com/jaketrent/html-webpack-template/issues/59
+
 2017-10-16
 ==========
 
+  * Release v7.1.3
   * Add eslintrc.js to .npmignore ([#359](https://github.com/mozilla-neutrino/neutrino-dev/issues/359))
     Since it's only used for testing.
 
@@ -783,11 +792,3 @@
 ==========
 
   * Releasing v5.4.0
-  * neutrino-middleware-image-loader: Use svg-url-loader for svg rule ([#171](https://github.com/mozilla-neutrino/neutrino-dev/issues/171))
-    * Use svg-url-loader for svgs, since base64ing svgs doesn't make sense.
-    * Use 'url' name.
-
-2017-04-05
-==========
-
-  * Node.js preset v5.3.1

@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-html-template",
-  "version": "7.1.3",
+  "version": "7.1.10",
   "description": "Neutrino middleware for automatic HTML file generation from metadata",
   "main": "index.js",
   "keywords": [

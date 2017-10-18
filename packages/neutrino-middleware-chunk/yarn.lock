@@ -194,8 +194,8 @@ brorand@^1.0.1:
   resolved "https://registry.yarnpkg.com/brorand/-/brorand-1.1.0.tgz#12c25efe40a45e3c323eb8675a0a0ce57b22371f"
 
 browserify-aes@^1.0.0, browserify-aes@^1.0.4:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/browserify-aes/-/browserify-aes-1.0.8.tgz#c8fa3b1b7585bb7ba77c5560b60996ddec6d5309"
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/browserify-aes/-/browserify-aes-1.1.0.tgz#1d2ad62a8b479f23f0ab631c1be86a82dbccbe48"
   dependencies:
     buffer-xor "^1.0.3"
     cipher-base "^1.0.0"
@@ -514,20 +514,20 @@ error-ex@^1.2.0:
   dependencies:
     is-arrayish "^0.2.1"
 
-es5-ext@^0.10.14, es5-ext@^0.10.9, es5-ext@~0.10.14:
-  version "0.10.31"
-  resolved "https://registry.yarnpkg.com/es5-ext/-/es5-ext-0.10.31.tgz#7bb938c95a7f1b9f728092dc09c41edcc398eefe"
+es5-ext@^0.10.14, es5-ext@^0.10.35, es5-ext@^0.10.9, es5-ext@~0.10.14:
+  version "0.10.35"
+  resolved "https://registry.yarnpkg.com/es5-ext/-/es5-ext-0.10.35.tgz#18ee858ce6a3c45c7d79e91c15fcca9ec568494f"
   dependencies:
     es6-iterator "~2.0.1"
     es6-symbol "~3.1.1"
 
 es6-iterator@^2.0.1, es6-iterator@~2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/es6-iterator/-/es6-iterator-2.0.1.tgz#8e319c9f0453bf575d374940a655920e59ca5512"
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/es6-iterator/-/es6-iterator-2.0.3.tgz#a7de889141a05a94b0854403b2d0a0fbfa98f3b7"
   dependencies:
     d "1"
-    es5-ext "^0.10.14"
-    es6-symbol "^3.1"
+    es5-ext "^0.10.35"
+    es6-symbol "^3.1.1"
 
 es6-map@^0.1.3:
   version "0.1.5"
@@ -550,7 +550,7 @@ es6-set@~0.1.5:
     es6-symbol "3.1.1"
     event-emitter "~0.3.5"
 
-es6-symbol@3.1.1, es6-symbol@^3.1, es6-symbol@^3.1.1, es6-symbol@~3.1.1:
+es6-symbol@3.1.1, es6-symbol@^3.1.1, es6-symbol@~3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/es6-symbol/-/es6-symbol-3.1.1.tgz#bf00ef4fdab6ba1b46ecb7b629b4c7ed5715cc77"
   dependencies:
@@ -1468,8 +1468,8 @@ randombytes@^2.0.0, randombytes@^2.0.1:
     safe-buffer "^5.1.0"
 
 rc@^1.1.7:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/rc/-/rc-1.2.1.tgz#2e03e8e42ee450b8cb3dce65be1bf8974e1dfd95"
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/rc/-/rc-1.2.2.tgz#d8ce9cb57e8d64d9c7badd9876c7c34cbe3c7077"
   dependencies:
     deep-extend "~0.4.0"
     ini "~1.3.0"
@@ -1738,8 +1738,8 @@ strip-json-comments@~2.0.1:
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
 
 supports-color@^4.2.1:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-4.4.0.tgz#883f7ddabc165142b2a61427f3352ded195d1a3e"
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-4.5.0.tgz#be7a0de484dec5c5cddf8b3d59125044912f635b"
   dependencies:
     has-flag "^2.0.0"
 
@@ -1881,8 +1881,8 @@ webpack-sources@^1.0.1:
     source-map "~0.5.3"
 
 webpack@^3.6.0:
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-3.6.0.tgz#a89a929fbee205d35a4fa2cc487be9cbec8898bc"
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-3.8.1.tgz#b16968a81100abe61608b0153c9159ef8bb2bd83"
   dependencies:
     acorn "^5.0.0"
     acorn-dynamic-import "^2.0.0"
