@@ -20,7 +20,7 @@
     "docs:build": "gitbook build && cp CNAME _book",
     "docs:deploy": "yarn docs:build && gh-pages --dist _book --remote upstream",
     "docs:serve": "gitbook serve",
-    "precommt": "lint-staged",
+    "precommit": "lint-staged",
     "release": "node .scripts/publish",
     "test": "nyc --reporter lcov ava packages/*/test"
   },
