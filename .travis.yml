@@ -17,7 +17,7 @@ before_install:
 install:
 - yarn install --frozen-lockfile
 before_script:
-- yarn bootstrap --frozen-lockfile
+- yarn lerna bootstrap
 script:
 - yarn validate:eslintrc
 - yarn lint
