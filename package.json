@@ -1,12 +1,15 @@
 {
   "name": "neutrino-dev",
-  "version": "7.1.10",
+  "version": "7.2.0",
   "private": true,
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "repository": "mozilla-neutrino/neutrino-dev",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "validate:eslintrc:root": "eslint --no-eslintrc --print-config . -c ./.eslintrc.js > /dev/null",
     "validate:eslintrc:eslint": "eslint --no-eslintrc --print-config . -c ./packages/neutrino-middleware-eslint/eslintrc.js > /dev/null",
@@ -24,8 +27,7 @@
     "docs:deploy": "yarn docs:build && gh-pages --dist _book --remote upstream",
     "docs:serve": "gitbook serve",
     "release": "node .scripts/publish",
-    "test": "nyc --reporter lcov ava packages/*/test",
-    "precommit": "lint-staged"
+    "test": "nyc --reporter lcov ava packages/*/test"
   },
   "devDependencies": {
     "ava": "^0.22.0",
@@ -46,9 +48,9 @@
     "gitbook-plugin-prism": "^2.3.0",
     "graph-data-structure": "^1.0.0",
     "husky": "^0.14.3",
+    "lerna": "^2.4.0",
     "lint-staged": "^4.2.3",
     "nyc": "^11.2.1",
-    "oao": "^0.10.3",
     "prettier": "^1.7.2",
     "semver": "^5.4.1",
     "webpack": "^3.6.0"

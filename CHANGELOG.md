@@ -1,6 +1,16 @@
+2017-10-19
+==========
+
+  * Adding docs for hot middleware updates
+  * feat(hot): Include NamedModulesPlugin for better developer experience ([#365](https://github.com/mozilla-neutrino/neutrino-dev/issues/365))
+    https://webpack.js.org/plugins/named-modules-plugin/ is a recommended plugin to use with HMR and it enables better debug information in the console.
+  * fix: Use cheap-module-eval-source-map for faster recompilation ([#366](https://github.com/mozilla-neutrino/neutrino-dev/issues/366))
+    https://webpack.js.org/guides/build-performance/ suggests to use `cheap-module-eval-source-map` to improve incremental build speed. This reduces recompilation times by a magnitude on bigger projects.
+
 2017-10-17
 ==========
 
+  * Release v7.1.10
   * Update to the newest version of html-webpack-template ([#361](https://github.com/mozilla-neutrino/neutrino-dev/issues/361))
     Counter-intuitively the most recent version of the package is actually
     5.6.0, rather than 6.0.0 or 6.0.1 due to a publishing error. See:
@@ -778,17 +788,3 @@
 ==========
 
   * v5.5.0 -> v5.5.1
-  * Set devServer.publicPath to use output.publicPath ([#177](https://github.com/mozilla-neutrino/neutrino-dev/issues/177))
-  * Adding getters and setters for path options, options for middleware ([#176](https://github.com/mozilla-neutrino/neutrino-dev/issues/176))
-  * Polyfills ([#173](https://github.com/mozilla-neutrino/neutrino-dev/issues/173))
-    * Rdesign Advanced Customization examples to use Neutrino v5 fashion
-    * Fix polyfills set to match only supported platforms
-    * Remove 'tranform-regenerator' because according to the babel preset debug log it is already included
-    * Fix indentation
-    * Add VSCode local settings to the ignore list
-    * Separate chunk for polyfills
-
-2017-04-06
-==========
-
-  * Releasing v5.4.0
