@@ -4,7 +4,7 @@ const jestOptions = require('jest-cli/build/cli/args').options;
 const { omit } = require('ramda');
 const merge = require('deepmerge');
 const loaderMerge = require('neutrino-middleware-loader-merge');
-const { isAbsolute, join } = require('path');
+const { isAbsolute, basename, join } = require('path');
 const { tmpdir } = require('os');
 const { writeFileSync } = require('fs');
 
@@ -47,12 +47,14 @@ function normalizeJestOptions(opts, neutrino) {
 
   return merge.all([
     {
+      rootDir: neutrino.options.root,
       moduleDirectories,
       moduleFileExtensions,
       moduleNameMapper,
       bail: true,
-      roots: [neutrino.options.tests],
-      testRegex: '(_test|_spec|\\.test|\\.spec)\\.jsx?$',
+      coveragePathIgnorePatterns: [neutrino.options.node_modules],
+      collectCoverageFrom: [join(basename(neutrino.options.source), '**/*.js')],
+      testRegex: join(basename(neutrino.options.tests), '.*(_test|_spec|\\.test|\\.spec)\\.jsx?$'),
       transform: { [jsNames]: require.resolve('./transformer') },
       globals: {
         BABEL_OPTIONS: omit(
@@ -114,7 +116,7 @@ module.exports = (neutrino, opts = {}) => {
 
       writeFileSync(configFile, `${JSON.stringify(options, null, 2)}\n`);
 
-      jest.runCLI(cliOptions, options.roots, result =>
+      jest.runCLI(cliOptions, options.roots || [options.rootDir], result =>
         (result.numFailedTests || result.numFailedTestSuites ?
           reject() :
           resolve()));
