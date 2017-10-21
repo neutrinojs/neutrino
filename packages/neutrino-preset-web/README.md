@@ -285,7 +285,7 @@ _Note: Some plugins are only available in certain environments. To override them
 | --- | --- | --- |
 | `env` | Inject environment variables into source code at `process.env`, defaults to only inject `NODE_ENV`. From `neutrino-middleware-env`. | all |
 | `html` | Automatically generates HTML files for configured entry-points. From `neutrino-middleware-html-template` | all |
-| `named-modules` | Enables named modules for improved debugging and console output. From `neutrino-middleware-chunk`. | `NODE_ENV production` |
+| `named-modules` | Enables named modules for improved debugging and console output. From `neutrino-middleware-chunk` and `neutrino-middleware-hot`. | `NODE_ENV production`, `start` command |
 | `named-chunks` | Enables named chunks for improved debugging and console output. From `neutrino-middleware-chunk`. | `NODE_ENV production` |
 | `vendor-chunk` | Creates a separate file/chunk consisting of common modules shared between multiple entry points. From `neutrino-middleware-chunk`. | `NODE_ENV production` |
 | `runtime-chunk` | Creates a separate file/chunk consisting of the Webpack manifest-specific code. From `neutrino-middleware-chunk`. | `NODE_ENV production` |
