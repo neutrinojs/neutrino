@@ -37,7 +37,7 @@ another Neutrino preset for building your application source code.
 
 ## Project Layout
 
-`neutrino-preset-airbnb-base` follows the standard [project layout](../../project-layout.md) specified by Neutrino. This
+`neutrino-preset-airbnb-base` follows the standard [project layout](../../project-layout) specified by Neutrino. This
 means that by default all project source code should live in a directory named `src` in the root of the
 project.
 
@@ -175,7 +175,7 @@ module.exports = {
 
 ## Customizing
 
-To override the build configuration, start with the documentation on [customization](../../customization/README.md).
+To override the build configuration, start with the documentation on [customization](../../customization).
 `neutrino-preset-airbnb-base` creates some conventions to make overriding the configuration easier once you are ready to
 make changes.
 
@@ -195,7 +195,7 @@ middleware.
 
 ### Override configuration
 
-By following the [customization guide](../../customization/README.md) and knowing the rule and loader IDs above,
+By following the [customization guide](../../customization) and knowing the rule and loader IDs above,
 you can also override or augment the build by providing a function to your `.neutrinorc.js` use array. You can also
 make this change from the Neutrino API when using the `use` method.
 
@@ -243,7 +243,7 @@ If you cannot or do not wish to use Neutrino to execute one-off linting, you can
 `neutrino-middleware-eslint`, from which this preset inherits, also provides a method for getting the ESLint
 configuration suitable for use in an eslintrc file. Typically this is used for providing hints or fix solutions to the
 development environment, e.g. IDEs and text editors. Doing this requires
-[creating an instance of the Neutrino API](../../api/README.md) and providing the middleware it uses. If you keep all
+[creating an instance of the Neutrino API](../../api) and providing the middleware it uses. If you keep all
 this information in a `.neutrinorc.js`, this should be relatively straightforward. By providing all the middleware used
 to Neutrino, you can ensure all the linting options used across all middleware will be merged together for your
 development environment, without the need for copying, duplication, or loss of organization and separation.
@@ -312,7 +312,7 @@ in the [ESLint user guide](http://eslint.org/docs/user-guide/configuring#ignorin
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](https://neutrino.js.org/contributing) for details.
+[contributing guide](../../contributing) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-airbnb-base.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-airbnb-base.svg

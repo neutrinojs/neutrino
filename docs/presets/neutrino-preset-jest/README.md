@@ -58,7 +58,7 @@ testing with this approach.
 
 ## Project Layout
 
-`neutrino-preset-jest` follows the standard [project layout](../../project-layout.md) specified by Neutrino. This
+`neutrino-preset-jest` follows the standard [project layout](../../project-layout) specified by Neutrino. This
 means that by default all project test code should live in a directory named `test` in the root of the
 project. Test files end in either `_test.js`, `.test.js`, `_test.jsx`, or `.test.jsx`.
 
@@ -149,7 +149,7 @@ For more details on specific Jest usage, please refer to their [documentation](h
 ## Executing single tests
 
 By default this preset will execute every test file located in your test directory ending in the appropriate file
-extension. Use the command line [`files` parameters](../../cli/README.md#neutrino-test) to execute individual tests.
+extension. Use the command line [`files` parameters](../../cli#neutrino-test) to execute individual tests.
 
 ## Watching for changes
 
@@ -224,7 +224,7 @@ module.exports = {
 
 ## Customizing
 
-To override the test configuration, start with the documentation on [customization](../../customization/README.md).
+To override the test configuration, start with the documentation on [customization](../../customization).
 `neutrino-preset-jest` creates some conventions to make overriding the configuration easier once you are ready to make
 changes.
 
@@ -275,7 +275,7 @@ module.exports = {
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](https://neutrino.js.org/contributing) for details.
+[contributing guide](../../contributing) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-jest.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-jest.svg

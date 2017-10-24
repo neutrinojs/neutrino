@@ -9,7 +9,7 @@
 - Modern Babel compilation adding JSX and object rest spread syntax.
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
-- Extends from [neutrino-preset-web](../neutrino-preset-web/README.md)
+- Extends from [neutrino-preset-web](../neutrino-preset-web)
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
   - Webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
   - Webpack Dev Server during development
@@ -47,7 +47,7 @@ React development.
 
 ## Project Layout
 
-`neutrino-preset-react` follows the standard [project layout](../../project-layout.md) specified by Neutrino. This
+`neutrino-preset-react` follows the standard [project layout](../../project-layout) specified by Neutrino. This
 means that by default all project source code should live in a directory named `src` in the root of the
 project. This includes JavaScript files, CSS stylesheets, images, and any other assets that would be available
 to import your compiled project.
@@ -190,14 +190,14 @@ module.exports = {
 
 ## Customizing
 
-To override the build configuration, start with the documentation on [customization](../../customization/README.md).
+To override the build configuration, start with the documentation on [customization](../../customization).
 `neutrino-preset-react` does not use any additional named rules, loaders, or plugins that aren't already in use by the
 Web preset. See the [Web documentation customization](../neutrino-preset-web#customizing)
 for preset-specific configuration to override.
 
 ### Advanced configuration
 
-By following the [customization guide](../../customization/advanced.md) and knowing the rule, loader, and plugin IDs from
+By following the [customization guide](../../customization) and knowing the rule, loader, and plugin IDs from
 `neutrino-preset-web`, you can override and augment the build by providing a function to your `.neutrinorc.js` use
 array. You can also make these changes from the Neutrino API in custom middleware.
 
@@ -272,7 +272,7 @@ load();
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](https://neutrino.js.org/contributing) for details.
+[contributing guide](../../contributing) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-react.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-react.svg

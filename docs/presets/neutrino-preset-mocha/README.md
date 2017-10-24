@@ -35,7 +35,7 @@ another Neutrino preset for building your application source code.
 
 ## Project Layout
 
-`neutrino-preset-mocha` follows the standard [project layout](../../project-layout.md) specified by Neutrino. This
+`neutrino-preset-mocha` follows the standard [project layout](../../project-layout) specified by Neutrino. This
 means that by default all project test code should live in a directory named `test` in the root of the
 project. Test files end in `_test.js` by default.
 
@@ -121,7 +121,7 @@ For more details on specific Mocha usage, please refer to their [documentation](
 ## Executing single tests
 
 By default this preset will execute every test file located in your test directory ending in `_test.js`.
-Use the command line [`files` parameters](../../cli/README.md#neutrino-test) to execute individual tests.
+Use the command line [`files` parameters](../../cli#neutrino-test) to execute individual tests.
 
 ## Preset options
 
@@ -157,7 +157,7 @@ module.exports = {
 
 ## Customizing
 
-To override the test configuration, start with the documentation on [customization](../../customization/README.md).
+To override the test configuration, start with the documentation on [customization](../../customization).
 `neutrino-preset-mocha` creates some conventions to make overriding the configuration easier once you are ready to make
 changes.
 
@@ -208,7 +208,7 @@ module.exports = {
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](https://neutrino.js.org/contributing) for details.
+[contributing guide](../../contributing) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-mocha.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-mocha.svg
