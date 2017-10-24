@@ -1,6 +1,14 @@
+2017-10-23
+==========
+
+  * Use source directory for jest code coverage ([#369](https://github.com/mozilla-neutrino/neutrino-dev/issues/369))
+
 2017-10-19
 ==========
 
+  * Remove legacy oao command
+  * Remove oao, swap for lerna
+  * v7.2.1
   * Adding docs for hot middleware updates
   * feat(hot): Include NamedModulesPlugin for better developer experience ([#365](https://github.com/mozilla-neutrino/neutrino-dev/issues/365))
     https://webpack.js.org/plugins/named-modules-plugin/ is a recommended plugin to use with HMR and it enables better debug information in the console.
@@ -769,22 +777,3 @@
 ==========
 
   * Release v5.6.0
-  * Merge branch 'master' of github.com:mozilla-neutrino/neutrino-dev
-  * Refactoring minify plugin options
-
-2017-04-14
-==========
-
-  * Setting devServer publicPath to / ([#179](https://github.com/mozilla-neutrino/neutrino-dev/issues/179))
-  * Consider case when 'core-js' is located in 'babel-polyfill' root ([#181](https://github.com/mozilla-neutrino/neutrino-dev/issues/181))
-    * Rdesign Advanced Customization examples to use Neutrino v5 fashion
-    * Fix cases when there are several 'core-js' instances in the project
-    * Add 'core-js' alias and lock 'babel-polyfill' version
-    * Spaces instead of tabs
-    * Use `dirname` instead of `join`
-    * Correct hierarchy indentation
-
-2017-04-11
-==========
-
-  * v5.5.0 -> v5.5.1
