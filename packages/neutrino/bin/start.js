@@ -33,6 +33,13 @@ module.exports = (middleware, args) => {
 
       if (!compiler.options.devServer) {
         spinner.succeed('Build completed');
+        const building = ora('Performing initial build');
+
+        compiler.plugin('done', () => building.succeed('Build completed'));
+        compiler.plugin('compile', () => {
+          building.text = 'Source changed, re-compiling';
+          building.start();
+        });
       } else {
         const { devServer } = compiler.options;
         const url = `${devServer.https ? 'https' : 'http'}://${devServer.public}:${devServer.port}`;
