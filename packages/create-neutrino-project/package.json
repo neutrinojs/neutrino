@@ -1,0 +1,33 @@
+{
+  "name": "create-neutrino-project",
+  "version": "1.0.0",
+  "description": "Scaffold new Neutrino projects with a CLI helper",
+  "bin": {
+    "create-neutrino-project": "./bin/create-neutrino-project.js"
+  },
+  "commands": [
+    {
+      "name": "init",
+      "description": "Scaffold a new project"
+    }
+  ],
+  "scripts": {
+    "start": "create-neutrino-project init"
+  },
+  "files": [
+    "bin",
+    "commands"
+  ],
+  "repository": "https://github.com/mozilla-neutrino/create-neutrino-project",
+  "author": "Hassan Ali <helfi92@gmail.com>",
+  "license": "MPL-2.0",
+  "dependencies": {
+    "change-case": "^3.0.1",
+    "command-exists": "^1.2.2",
+    "deepmerge": "^2.0.0",
+    "mkdirp": "^0.5.1",
+    "vorpal": "^1.12.0",
+    "yeoman-environment": "^2.0.5",
+    "yeoman-generator": "^2.0.1"
+  }
+}
