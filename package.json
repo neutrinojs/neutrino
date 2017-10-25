@@ -7,6 +7,10 @@
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "repository": "mozilla-neutrino/neutrino-dev",
+  "engines": {
+    "node": ">=6.10.0",
+    "yarn": "^1.2.1"
+  },
   "workspaces": [
     "packages/*"
   ],
