@@ -12,7 +12,7 @@ with this symbol show sample console output from running the previous command._
 Developing for neutrino-dev requires:
 
 - Node.js v6.10+
-- Yarn client, installation instructions at https://yarnpkg.com/en/docs/install
+- Yarn v1.2.1+, installation instructions at https://yarnpkg.com/en/docs/install
 - git, GitHub account
 
 ## Getting started
@@ -30,30 +30,17 @@ of the account you forked the repository to:
 ❯ cd neutrino-dev
 ```
 
-Upon cloning, you should install dependencies and bootstrap the project:
+Upon cloning, you should install dependencies:
 
 ```bash
 ❯ yarn
-❯ yarn bootstrap
 ```
 
-This will create symlinks between the various packages, making local development much easier. It also creates yarn links
-for testing out these packages elsewhere on your system.
+This uses the yarn workspaces feature to create symlinks between the various packages, simplifying local development.
 
 ## Development commands
 
 The package.json for neutrino-dev defines several commands to assist in the development and deployment process.
-
----
-
-`bootstrap`
-
-Installs all sub-package dependencies using yarn. External dependencies are installed normally, whereas those belonging
-to the neutrino-dev monorepo itself are `yarn link`ed.
-
-```bash
-❯ yarn bootstrap
-```
 
 ---
 
@@ -64,51 +51,6 @@ Generates a changelog for the `mozilla-neutrino/neutrino-dev` GitHub repository.
 
 ```bash
 ❯ yarn changelog
-```
-
----
-
-`deps:add [--dev] <package> <...dependencies>`
-
-Adds one or more new dependencies or development dependencies to a sub-package. Any flags used, such as `--dev` are
-passed on to `yarn add`. For example, if you wanted to add "lodash.clonedeep" to the neutrino package:
-
-```bash
-❯ yarn deps:add neutrino lodash.clonedeep
-```
-
----
-
-`deps:remove <package> <...dependencies>`
-
-Removes one or more dependencies from a sub-package. Any flags used are
-passed on to `yarn remove`. For example, if you wanted to remove "lodash.clonedeep" from the neutrino package:
-
-```bash
-❯ yarn deps:remove neutrino lodash.clonedeep
-```
-
----
-
-`deps:upgrade <package> <...dependencies>`
-
-Upgrades one or more dependencies in a sub-package. Any flags used are
-passed on to `yarn upgrade`. For example, if you wanted to upgrade "lodash.clonedeep" in the neutrino package:
-
-```bash
-❯ yarn deps:upgrade neutrino lodash.clonedeep
-```
-
----
-
-`deps:clean`
-
-Removes the `node_modules` directory from all sub-packages. After running this you will need to re-bootstrap
-neutrino-dev in order to continue development. Useful if you have somehow put your local development environment in an
-unworkable state with regards to local inter-dependencies.
-
-```bash
-❯ yarn deps:clean
 ```
 
 ---
