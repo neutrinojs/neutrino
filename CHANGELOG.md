@@ -1,6 +1,57 @@
+2017-10-25
+==========
+
+  * v7.2.3
+
+2017-10-24
+==========
+
+  * Output logging messages when using watch instead of devServer ([#378](https://github.com/mozilla-neutrino/neutrino-dev/issues/378))
+  * Allow using Jest and Mocha presets without Babel ([#379](https://github.com/mozilla-neutrino/neutrino-dev/issues/379))
+  * Follow-ups to the switch to Lerna ([#372](https://github.com/mozilla-neutrino/neutrino-dev/issues/372))
+    * Remove redundant `lerna bootstrap` call on Travis
+    Due to yarn workspaces, the main yarn install command (already run
+    prior to bootstrap on Travis) itself handles the linking/bootstrapping
+    of dependencies. As such, `lerna bootstrap` is now just an alias for
+    `yarn install`, and therefore redundant.
+    * Remove yarn.lock from the package's .npmignore files
+    Since with yarn workspaces, the per-package yarn.lock file no longer
+    exists, with all dependencies instead pinned from the root yarn.lock.
+    * Set node and yarn engine versions in package.json
+    To make it more obvious to users/contributors when using versions
+    that have not been tested (or in the case of yarn, that don't support
+    the workspaces feature).
+    * Update development docs with lerna/workspaces changes
+    Since we're no longer using oao. The reference to creating package
+    links has been removed since yarn workspaces intentionally constrains
+    development versions to the individual workspace, rather than
+    allowing them to affect other projects installed elsewhere.
+    * Replace custom publish script with lerna publish
+    The `--force-publish=*` option is specified to ensure that all
+    packages are released, rather than just those that were modified, to
+    preserve the Neutrino tradition of keeping all versions in sync.
+    The new `release:preview` command is unfortunately not a true dry run,
+    in that it leaves changes in the working directory that have to be
+    reverted, but at least allows for confirming the necessary versions
+    have been adjusted.
+    With the `.scripts/publish` script removed, the `graph-data-structure`
+    and `semver` devDependencies are now unused.
+    * Remove version from root package.json
+    Since the global version is now tracked via lerna.json, and lerna
+    doesn't know to update the root package.json, so it will only end up
+    getting out of sync.
+    * Remove unnecessary devDependencies from root package.json
+    Now that we're using yarn workspaces, linting of the repo is possible
+    without having to duplicate the `neutrino-preset-airbnb-base` and
+    `neutrino-middleware-eslint` sub-dependencies into the repo root
+    `package.json`, since they are all available in the root `node_modules`.
+    * Regenerate yarn.lock
+
 2017-10-23
 ==========
 
+  * Dev: fixing typo in yarn lint script
+  * Release v7.2.2
   * Use source directory for jest code coverage ([#369](https://github.com/mozilla-neutrino/neutrino-dev/issues/369))
 
 2017-10-19
@@ -753,27 +804,3 @@
     * Remove file extension
     * Update docs
     * Update the deafult 'entry' test
-
-2017-04-27
-==========
-
-  * Indent to clarify context change ([#191](https://github.com/mozilla-neutrino/neutrino-dev/issues/191))
-
-2017-04-24
-==========
-
-  * Release v5.7.0
-  * Simplify error logging. ([#148](https://github.com/mozilla-neutrino/neutrino-dev/issues/148))
-    * Bump webpack version to "^2.4.1"
-    * Simplify error logging
-
-2017-04-23
-==========
-
-  * Fixing typo in karma docs
-  * Fix typo in preset name ([#190](https://github.com/mozilla-neutrino/neutrino-dev/issues/190))
-
-2017-04-17
-==========
-
-  * Release v5.6.0
