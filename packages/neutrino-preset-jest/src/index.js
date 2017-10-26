@@ -22,7 +22,7 @@ function getFinalPath(path) {
     join('<rootDir>', 'node_modules', path);
 }
 
-function normalizeJestOptions(opts, neutrino) {
+function normalizeJestOptions(opts, neutrino, usingBabel) {
   const aliases = neutrino.config.resolve.alias.entries() || {};
   const moduleNames = Object
     .keys(aliases)
@@ -57,13 +57,9 @@ function normalizeJestOptions(opts, neutrino) {
       testRegex: join(basename(neutrino.options.tests), '.*(_test|_spec|\\.test|\\.spec)\\.jsx?$'),
       transform: { [jsNames]: require.resolve('./transformer') },
       globals: {
-        BABEL_OPTIONS: omit(
-          ['cacheDirectory'],
-          neutrino.config.module
-            .rule('compile')
-            .use('babel')
-            .get('options')
-        )
+        BABEL_OPTIONS: usingBabel
+          ? omit(['cacheDirectory'], neutrino.config.module.rule('compile').use('babel').get('options'))
+          : {}
       }
     },
     opts
@@ -84,14 +80,18 @@ module.exports = (neutrino, opts = {}) => {
     }));
 
   neutrino.on('test', (args) => {
-    neutrino.use(loaderMerge('compile', 'babel'), {
-      env: {
-        test: {
-          retainLines: true,
-          presets: [require.resolve('babel-preset-jest')],
-          plugins: [require.resolve('babel-plugin-transform-es2015-modules-commonjs')]
+    const usingBabel = neutrino.config.module.rules.has('compile');
+
+    neutrino.config.when(usingBabel, () => {
+      neutrino.use(loaderMerge('compile', 'babel'), {
+        env: {
+          test: {
+            retainLines: true,
+            presets: [require.resolve('babel-preset-jest')],
+            plugins: [require.resolve('babel-plugin-transform-es2015-modules-commonjs')]
+          }
         }
-      }
+      });
     });
 
     return new Promise((resolve, reject) => {
@@ -102,7 +102,7 @@ module.exports = (neutrino, opts = {}) => {
         .command('test [files..]', 'Run tests', jestOptions)
         .argv;
       const configFile = join(tmpdir(), 'config.json');
-      const options = normalizeJestOptions(opts, neutrino);
+      const options = normalizeJestOptions(opts, neutrino, usingBabel);
       const cliOptions = Object.assign(
         jestArgs,
         {
