@@ -2,7 +2,11 @@ const { Neutrino } = require('../src');
 const merge = require('deepmerge');
 const ora = require('ora');
 
-module.exports = (middleware, args) => {
+const timeout = setTimeout(Function.prototype, 10000);
+
+process.on('message', ([middleware, args]) => {
+  clearTimeout(timeout);
+
   const commandName = args._[0];
   const spinner = args.quiet ? null : ora(`Running ${commandName}`).start();
   const options = merge({
@@ -16,10 +20,10 @@ module.exports = (middleware, args) => {
   }, args.options);
   const api = Neutrino(options);
 
-  api.register(`${commandName}-cli`, (config, api) => api.commands[commandName](config, api));
-
   return api
-    .run(`${commandName}-cli`, middleware)
+    .register(`${commandName}-cli`, (config, api) => api.commands[commandName](config, api))
+    .use(middleware)
+    .run(`${commandName}-cli`)
     .fork((errors) => {
       if (!args.quiet) {
         spinner.fail(`Running ${commandName} failed`);
@@ -30,7 +34,12 @@ module.exports = (middleware, args) => {
     }, (output) => {
       if (!args.quiet) {
         spinner.succeed(`Running ${commandName} completed`);
-        console.log(output);
+
+        if (output) {
+          console.log(output);
+        }
       }
+
+      process.exit(0);
     });
-};
+});

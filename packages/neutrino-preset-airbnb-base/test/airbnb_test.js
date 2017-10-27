@@ -47,5 +47,6 @@ test('exposes lint command', t => {
 test('exposes eslintrc config', t => {
   const api = Neutrino();
 
-  t.is(typeof api.call('eslintrc', [mw()]), 'object');
+  api.use(mw());
+  t.is(typeof api.call('eslintrc'), 'object');
 });
