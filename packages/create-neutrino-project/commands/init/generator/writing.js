@@ -1,158 +1,150 @@
-const deepmerge = require('deepmerge');
 const mkdirp = require('mkdirp');
 const path = require('path');
-const changeCase = require('change-case');
+const stringify = require('javascript-stringify');
 const utils = require('./utils');
 
-const VERSIONS = utils.VERSIONS;
 const PROJECTS = utils.PROJECTS;
+const LIBRARY = utils.LIBRARY;
 const LINTERS = utils.LINTERS;
 
 function makeRcFile(data) {
   let config = { use: [] };
 
-  if (data.projectType === PROJECTS.REACT) {
-    config.use.push('neutrino-preset-react');
-  } else {
-    config.use.push(`neutrino-preset-${data.projectType}`);
+  config.use.push(`neutrino-preset-${data.projectType}`);
+
+  switch (data.linter) {
+    case LINTERS.AIRBNB:
+      config.use.push(
+        data.projectType === PROJECTS.WEB ? LIBRARY.NEUTRINO_PRESET_AIRBNB_BASE : LIBRARY.NEUTRINO_PRESET_AIRBNB
+      );
+      break;
+    case LINTERS.STANDARDJS:
+      config.use.push(LIBRARY.NEUTRINO_MIDDLEWARE_STANDARDJS);
+      break;
+    default:
+      break;
   }
 
   if (data.testRunner) {
     config.use.push(`neutrino-preset-${data.testRunner}`);
   }
 
-  switch (data.linter) {
-    case LINTERS.AIRBNB:
-      config.use.push(`neutrino-preset-${data.linter}${data.projectType === PROJECTS.WEB ? '-base' : ''}`);
-      break;
-    case LINTERS.STANDARDJS:
-      config.use.push(`neutrino-middleware-${LINTERS.STANDARDJS}`);
-      break;
-    default:
-      config.use.push(`neutrino-preset-${data.linter}`);
-  }
-
-  return `module.exports = ${JSON.stringify(config, null, 2)};\n`;
+  return `module.exports = ${stringify(config, null, ' ')};\n`;
 }
 
-function requiredPackageJson(data) {
-  const devDependencies = {};
-  const dependencies = {};
-  const scripts = {};
+function getDependencies() {
+  const devDependencies = [];
+  const dependencies = [];
 
-  switch (data.projectType) {
+  switch (this.data.projectType) {
     case PROJECTS.REACT:
-      dependencies[PROJECTS.REACT] = VERSIONS.REACT;
-      dependencies['react-dom'] = VERSIONS.REACT;
-      dependencies['react-hot-loader'] = VERSIONS.REACT_HOT_LOADER;
-      devDependencies['neutrino-preset-react'] = VERSIONS.NEUTRINO;
+      dependencies.push(PROJECTS.REACT, LIBRARY.REACT_DOM, LIBRARY.REACT_HOT_LOADER);
+      devDependencies.push(LIBRARY.NEUTRINO_PRESET_REACT);
       break;
     case PROJECTS.REACT_COMPONENTS:
-      dependencies[PROJECTS.REACT] = VERSIONS.REACT;
-      dependencies['react-dom'] = VERSIONS.REACT;
-      dependencies['neutrino-preset-react-components'] = VERSIONS.REACT_COMPONENTS;
-      dependencies['react-addons-css-transition-group'] = VERSIONS.REACT_ADDONS_CSS_TRANSITION_GROUP;
+      dependencies.push(
+        LIBRARY.REACT, LIBRARY.REACT_DOM, LIBRARY.NEUTRINO_PRESET_REACT_COMPONENTS, LIBRARY.REACT_ADDONS_CSS_TRANSITION_GROUP
+      );
       break;
     case PROJECTS.WEB:
-      devDependencies[`neutrino-preset-web`] = VERSIONS.NEUTRINO;
+      devDependencies.push(LIBRARY.NEUTRINO_PRESET_WEB);
       break;
     case PROJECTS.NODE:
-      devDependencies[`neutrino-preset-node`] = VERSIONS.NEUTRINO;
+      devDependencies.push(LIBRARY.NEUTRINO_PRESET_NODE);
       break;
     case PROJECTS.WEB_LIBRARY:
-      dependencies[`neutrino-preset-taskcluster-web-library`] = VERSIONS.WEB_LIBRARY;
+      dependencies.push(LIBRARY.NEUTRINO_PRESET_TASKCLUSTER_WEB_LIBRARY);
       break;
   }
 
-  if (data.testRunner) {
-    devDependencies[`neutrino-preset-${data.testRunner}`] = VERSIONS.NEUTRINO;
+  if (this.data.testRunner) {
+    devDependencies.push(`neutrino-preset-${this.data.testRunner}`);
 
-    if (data.testRunner === 'karma' || data.testRunner === 'mocha') {
-      devDependencies[`assert`] = VERSIONS.ASSERT;
+    if (this.data.testRunner === 'karma' || this.data.testRunner === 'mocha') {
+      devDependencies.push(LIBRARY.ASSERT);
     }
-
-    scripts.test = 'neutrino test';
   }
 
-  if (data.projectType === PROJECTS.REACT && data.router) {
-    dependencies['react-router-dom'] = VERSIONS.REACT_ROUTER_DOM;
-    dependencies['react-async-component'] = VERSIONS.REACT_ASYNC;
+  if (this.data.projectType === PROJECTS.REACT && this.data.router) {
+    dependencies.push(LIBRARY.REACT_ROUTER_DOM, LIBRARY.REACT_ASYNC_COMPONENT);
   }
 
-  if (data.linter) {
-    if (data.projectType === PROJECTS.WEB && data.linter === LINTERS.AIRBNB) {
-      devDependencies[`neutrino-preset-airbnb-base`] = VERSIONS.NEUTRINO;
-    } else if (data.linter === 'standardjs') {
-      devDependencies[`neutrino-middleware-standardjs`] = VERSIONS.STANDARDJS;
+  if (this.data.linter) {
+    if (this.data.projectType === PROJECTS.WEB && this.data.linter === LINTERS.AIRBNB) {
+      devDependencies.push(LIBRARY.NEUTRINO_PRESET_AIRBNB_BASE);
+    } else if (this.data.linter === LINTERS.STANDARDJS) {
+      devDependencies.push(LIBRARY.NEUTRINO_MIDDLEWARE_STANDARDJS);
     } else {
-      devDependencies[`neutrino-preset-${data.linter}`] = VERSIONS[changeCase.upper(data.linter)];
+      devDependencies.push(LIBRARY.NEUTRINO_PRESET_AIRBNB);
     }
-
-    scripts.lint = 'neutrino lint';
   }
 
-  if (data.project !== 'library') {
-    scripts.start = 'neutrino start';
-  }
-
-  devDependencies['neutrino'] = VERSIONS.NEUTRINO;
+  devDependencies.push(LIBRARY.NEUTRINO);
 
   return Object.assign(
     {},
-    !utils.isObjectEmpty(devDependencies) ? { devDependencies } : null,
     !utils.isObjectEmpty(dependencies) ? { dependencies } : null,
-    !utils.isObjectEmpty(scripts) ? { scripts } : null
+    !utils.isObjectEmpty(devDependencies) ? { devDependencies } : null
   );
 }
 
-function makePackageJson(data) {
-  let packageJson = {
-    name: data.name,
-    author: data.author,
-    version: '1.0.0',
-    description: data.description,
-    engines: {
-      'node': '>=6.10'
-    },
-    keywords: [
-      'neutrino',
-      data.projectType,
-      'starter',
-      'webpack'
-    ],
-    scripts: {
-      'build': 'neutrino build'
-    }
-  };
+function initialPackageJson() {
+  const done = this.async();
+  const packageManger = utils.isYarn ? 'yarn' : 'npm';
+  const scripts = { 'build': 'neutrino build' };
 
-  packageJson = deepmerge(packageJson, requiredPackageJson(data));
+  if (this.data.project !== 'library') {
+    scripts.start = 'neutrino start';
+  }
 
-  return JSON.stringify(packageJson, null, 2);
+  if (this.data.project === 'linter') {
+    scripts.lint = 'neutrino lint';
+  }
+
+  if (this.data.testRunner) {
+    scripts.test = 'neutrino test';
+  }
+
+  mkdirp.sync(this.options.directory);
+
+  const command = this.spawnCommand('bash', [
+    '-c',
+    `cd ${this.options.directory} && ${packageManger} init --force --yes`
+  ], { stdio: 'ignore' });
+
+  command.on('close', () => {
+    this.fs.extendJSON(path.resolve(this.destinationPath(this.options.directory), 'package.json'), { scripts });
+
+    return done();
+  });
 }
 
 module.exports = function () {
+  const destinationPath =  this.destinationPath(this.options.directory);
   let templateDir = this.data.projectType;
 
-  if (this.data.router === 'react-router') {
+  if (this.data.router) {
     templateDir = 'react-router';
   }
 
-  this.fs.copy(this.templatePath(`${templateDir}/src/**/*`), this.destinationPath('src'));
-  this.fs.write(this.destinationPath('package.json'), makePackageJson(this.data));
-  this.fs.write(this.destinationPath('.neutrinorc.js'), makeRcFile(this.data));
+  initialPackageJson.call(this);
+  this.allDependencies = getDependencies.call(this);
+  this.fs.copyTpl(this.templatePath(`${templateDir}/src/**/*`), path.join(destinationPath, 'src'), { data: this.options });
+  this.fs.write(path.join(destinationPath, '.neutrinorc.js'), makeRcFile(this.data));
 
   if (this.data.testRunner) {
-    const testDestinationDir = path.join(this.destinationRoot(), 'test');
+    const testDestinationDir = path.join(destinationPath, 'test');
 
     mkdirp.sync(testDestinationDir);
+
     this.fs.copy(
       this.templatePath(path.join('test', `${this.data.testRunner}.js`)),
       path.join(testDestinationDir, 'simple_test.js')
     );
 
     this.fs.copy(
-      this.templatePath(path.join('test', `eslintrc.js`)),
-      path.join(this.destinationRoot(), '.eslintrc.js')
+      this.templatePath('eslintrc.js'),
+      path.join(destinationPath, '.eslintrc.js')
     );
   }
 };

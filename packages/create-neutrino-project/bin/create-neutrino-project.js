@@ -1,34 +1,18 @@
 #!/usr/bin/env node
 
-'use strict';
-
 const yeoman = require('yeoman-environment');
-const Vorpal = require('vorpal');
+const yargs = require('yargs');
 const path = require('path');
-const commands = require('../package.json').commands;
 
-const cli = new Vorpal();
 const env = yeoman.createEnv();
+const done = exitCode => process.exit(exitCode || 0);
+const dir = path.resolve(__dirname, `../commands/init`);
 
-const register = (command) => {
-  const name = command.name;
-  const dir = path.resolve(__dirname, `../commands/${name}`);
+env.register(require.resolve(dir), `create-neutrino-project:init`);
 
-  env.register(require.resolve(dir), `create-neutrino-project:${name}`);
+const cli = yargs.command('<project-directory>')
+  .demandCommand(1, 'Only <project-directory> is required')
+  .help()
+  .argv;
 
-  cli
-    .command(name, command.description)
-    .action(function (args) {
-      const done = exitCode => process.exit(exitCode || 0);
-
-      env.run(`create-neutrino-project:${name}`, done);
-    });
-};
-
-commands.map(register);
-
-cli
-  .find('exit')
-  .hidden();
-
-cli.parse.apply(cli, process.argv[2] ? [process.argv] : process.argv.concat(['help']));
+env.run(`create-neutrino-project:init`, { 'directory': cli._[0]}, done);

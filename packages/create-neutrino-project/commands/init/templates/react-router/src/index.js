@@ -1,7 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-
 import App from './App';
 
 const renderApp = () => {
@@ -15,7 +14,7 @@ const renderApp = () => {
 
 // This is needed for Hot Module Replacement
 if (module.hot) {
-  module.hot.accept('./App', () => renderApp());
+  module.hot.accept('./App', renderApp);
 }
 
 renderApp();

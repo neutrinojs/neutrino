@@ -8,8 +8,6 @@ const install = require('./generator/install');
 class Project extends Generator {
   constructor(args, opts) {
     super(args, opts);
-
-    this.data = {};
   }
 }
 

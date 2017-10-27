@@ -5,12 +5,6 @@
   "bin": {
     "create-neutrino-project": "./bin/create-neutrino-project.js"
   },
-  "commands": [
-    {
-      "name": "init",
-      "description": "Scaffold a new project"
-    }
-  ],
   "scripts": {
     "start": "create-neutrino-project init"
   },
@@ -22,11 +16,11 @@
   "author": "Hassan Ali <helfi92@gmail.com>",
   "license": "MPL-2.0",
   "dependencies": {
-    "change-case": "^3.0.1",
-    "command-exists": "^1.2.2",
+    "chalk": "^2.3.0",
     "deepmerge": "^2.0.0",
+    "javascript-stringify": "^1.6.0",
     "mkdirp": "^0.5.1",
-    "vorpal": "^1.12.0",
+    "yargs": "^10.0.3",
     "yeoman-environment": "^2.0.5",
     "yeoman-generator": "^2.0.1"
   }

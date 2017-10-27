@@ -1,20 +1,21 @@
-const path = require('path');
-
-module.exports = (defaults) => [
+module.exports = () => [
   {
     name: 'project',
     type: 'list',
     message: 'Do you want to build an application, a library, or components?',
     choices: [
-      { name: 'Application',
+      {
+        name: 'Application',
         value: 'application',
         checked: true
       },
-      { name: 'Library',
+      {
+        name: 'Library',
         value: 'library',
         checked: false
       },
-      { name: 'Components',
+      {
+        name: 'Components',
         value: 'components',
         checked: false
       },
@@ -24,19 +25,22 @@ module.exports = (defaults) => [
   {
     name: 'projectType',
     type: 'list',
-    message: 'What kind of application?',
+    message: 'What kind of application would you like to create?',
     when: (data) => data.project === 'application',
     choices: [
-      { name: 'React',
+      {
+        name: 'React',
         value: 'react',
         checked: true
       },
       {
+
         name: 'Web',
         value: 'web',
         checked: false
       },
-      { name: 'Node',
+      {
+        name: 'Node.js',
         value: 'node',
         checked: false
       }
@@ -45,7 +49,7 @@ module.exports = (defaults) => [
   {
     name: 'projectType',
     type: 'list',
-    message: 'What kind of library?',
+    message: 'What kind of library would you like to create?',
     when: (data) => data.project === 'library',
     choices: [{
       name: 'Web',
@@ -56,28 +60,29 @@ module.exports = (defaults) => [
   {
     name: 'projectType',
     type: 'list',
-    message: 'What kind of components?',
+    message: 'What kind of components would you like to create?',
     when: (data) => data.project === 'components',
     choices: [
       {
         name: 'React Component',
         value: 'react-components',
-        checked: false
+        checked: true
       },
     ]
   },
   {
     name: 'router',
     type: 'confirm',
-    message: 'Do you want to build a single-page application? I can set up code-splitting for you.',
+    message: 'Would you like to use React Router? If so, I will automatically code-split your routes for you.',
     when: (data) => data.projectType === 'react'
   },
   {
     name: 'testRunner',
     type: 'list',
-    message: 'What kind of test runner do you want?',
+    message: 'Would you like to add a test runner to your project?',
     choices: [
-      { name: 'Jest',
+      {
+        name: 'Jest',
         value: 'jest',
         checked: true
       },
@@ -91,7 +96,8 @@ module.exports = (defaults) => [
         value: 'mocha',
         checked: false
       },
-      { name: 'none',
+      {
+        name: 'none',
         value: false,
         checked: false
       },
@@ -101,9 +107,10 @@ module.exports = (defaults) => [
   {
     name: 'linter',
     type: 'list',
-    message: 'What kind of linter do you want?',
+    message: 'Would you like to add linting to your project?',
     choices: [
-      { name: 'Airbnb style rules',
+      {
+        name: 'Airbnb style rules',
         value: 'airbnb',
         checked: true
       },
@@ -119,22 +126,5 @@ module.exports = (defaults) => [
       }
     ],
     store: true
-  },
-  {
-    name: 'name',
-    message: 'What is the name of your package (i.e. npm package name)?',
-    default: path.basename(process.cwd()).replace(/\s/g, '-'),
-    store: false
-  },
-  {
-    name: 'author',
-    message: 'Who is the author of this app?',
-    default: defaults.author,
-    store: true
-  },
-  {
-    name: 'description',
-    message: 'Description',
-    default: defaults.description
   }
 ];

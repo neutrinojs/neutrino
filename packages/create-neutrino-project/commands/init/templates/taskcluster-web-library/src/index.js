@@ -1,1 +1,1 @@
-export { sum, product } from './my-library';
+export default () => console.log('Welcome to <%= data.directory %>');

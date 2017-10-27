@@ -1,17 +1,3 @@
-module.exports.VERSIONS = {
-  NEUTRINO: '^7.2.1',
-  REACT: '^16.0.0',
-  REACT_COMPONENTS: '^3.0.0',
-  REACT_ADDONS_CSS_TRANSITION_GROUP: '^15.6.2',
-  REACT_HOT_LOADER: '^3.1.1',
-  REACT_ROUTER_DOM: '^4.2.2',
-  REACT_ASYNC: '^1.0.2',
-  AIRBNB: '^4.0.0',
-  STANDARDJS: '^1.0.1',
-  ASSERT: '^1.4.1',
-  WEB_LIBRARY: '^2.0.0'
-};
-
 module.exports.PROJECTS = {
   REACT: 'react',
   REACT_COMPONENTS: 'react-components',
@@ -20,9 +6,31 @@ module.exports.PROJECTS = {
   WEB_LIBRARY: 'taskcluster-web-library'
 };
 
+module.exports.LIBRARY = {
+  REACT: 'react',
+  REACT_DOM: 'react-dom',
+  WEB_LIBRARY: 'taskcluster-web-library',
+  REACT_ADDONS_CSS_TRANSITION_GROUP: 'react-addons-css-transition-group',
+  ASSERT: 'assert',
+  NEUTRINO: 'neutrino',
+  NEUTRINO_PRESET_REACT_COMPONENTS: 'neutrino-preset-react-components',
+  NEUTRINO_PRESET_REACT: 'neutrino-preset-react',
+  NEUTRINO_PRESET_WEB: 'neutrino-preset-web',
+  NEUTRINO_PRESET_NODE: 'neutrino-preset-node',
+  NEUTRINO_PRESET_TASKCLUSTER_WEB_LIBRARY: 'neutrino-preset-taskcluster-web-library',
+  NEUTRINO_PRESET_AIRBNB_BASE: 'neutrino-preset-airbnb-base',
+  NEUTRINO_PRESET_AIRBNB: 'neutrino-preset-airbnb',
+  NEUTRINO_MIDDLEWARE_STANDARDJS: 'neutrino-middleware-standardjs',
+  REACT_ROUTER_DOM: 'react-router-dom',
+  REACT_HOT_LOADER: 'react-hot-loader',
+  REACT_ASYNC_COMPONENT: 'react-async-component'
+};
+
 module.exports.LINTERS = {
   AIRBNB: 'airbnb',
   STANDARDJS: 'standardjs'
 };
 
 module.exports.isObjectEmpty = obj => Object.keys(obj).length === 0 && obj.constructor === Object;
+
+module.exports.isYarn = process.env.npm_config_user_agent && process.env.npm_config_user_agent.includes('yarn');
