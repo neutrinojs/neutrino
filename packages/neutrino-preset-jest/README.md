@@ -222,6 +222,48 @@ module.exports = {
 };
 ```
 
+You might need to instruct Jest to load some setup scripts (e.g. when you use Enzyme). 
+
+_Example: Jest setup scripts_
+
+```js
+module.exports = {
+  use: [
+    ['neutrino-preset-jest', {
+      // setup script for the framework
+      setupTestFrameworkScriptFile: '<rootDir>/test-setup.js',
+      // and / or shims
+      setupFiles: [
+        '<rootDir>/shim.js'
+      ]
+    }]
+  ]
+};
+```
+
+<details>
+  <summary>test-setup.js and shim.js</summary>
+  
+_test-setup.js for the example above_
+
+```js
+const Enzyme = require('enzyme');
+const EnzymeAdapter = require('enzyme-adapter-react-16');
+
+// Setup enzyme's react adapter
+Enzyme.configure({ adapter: new EnzymeAdapter() });
+```
+
+_shim.js for the example above_
+
+```js
+global.requestAnimationFrame = (callback) => {
+  setTimeout(callback, 0);
+};
+```
+  
+</details>
+
 ## Customizing
 
 To override the test configuration, start with the documentation on [customization](https://neutrino.js.org/customization).
