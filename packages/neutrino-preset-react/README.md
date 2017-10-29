@@ -225,18 +225,18 @@ module.exports = {
 While `neutrino-preset-react` supports Hot Module Replacement your app using React Hot Loader, it does require some
 application-specific changes in order to operate.
 
-First, install `react-hot-loader` as a dependency, this **must** be React Hot Loader v3+ (currently in beta):
+First, install `react-hot-loader` as a dependency, this **must** be React Hot Loader v3+:
 
 #### Yarn
 
 ```bash
-❯ yarn add react-hot-loader@next
+❯ yarn add react-hot-loader
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save react-hot-loader@next
+❯ npm install --save react-hot-loader
 ```
 
 ---
