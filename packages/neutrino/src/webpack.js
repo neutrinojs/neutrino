@@ -43,10 +43,21 @@ const serve = pipe(
 const validator = pipe(Future.of, Future.ap(Future.of(webpack.validate)));
 
 // validate :: Object config -> Future Error Object
-const validate = config => validator(config)
-  .chain(errors => (isEmpty(errors) ?
-    Future.of(config) :
-    Future.reject([new webpack.WebpackOptionsValidationError(errors)])));
+const validate = (config) => {
+  if (!config.entry) {
+    return Future.reject([new Error([
+      'No entry points were found.',
+      'Ensure that all intended middleware or presets are being used',
+      'and at least one entry point is defined.',
+      'You can inspect the final configuration with --inspect.'
+    ].join(' '))]);
+  }
+
+  return validator(config)
+    .chain(errors => (isEmpty(errors) ?
+      Future.of(config) :
+      Future.reject([new webpack.WebpackOptionsValidationError(errors)])));
+};
 
 // watch :: Object config -> Future Error Object
 const watcher = pipe(
