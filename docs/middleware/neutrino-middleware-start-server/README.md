@@ -1,8 +1,11 @@
 # Neutrino Start Server Middleware
-[![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url] [![Join Slack][slack-image]][slack-url]
 
 `neutrino-middleware-start-server` is Neutrino middleware for starting a Node.js server for a file upon
 completion of a build.
+
+[![NPM version][npm-image]][npm-url]
+[![NPM downloads][npm-downloads]][npm-url]
+[![Join the Neutrino community on Spectrum][spectrum-image]][spectrum-url]
 
 ## Requirements
 
@@ -92,5 +95,5 @@ containing all resources for developing Neutrino and its core presets and middle
 [npm-image]: https://img.shields.io/npm/v/neutrino-middleware-start-server.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-middleware-start-server.svg
 [npm-url]: https://npmjs.org/package/neutrino-middleware-start-server
-[slack-image]: https://neutrino-slack.herokuapp.com/badge.svg
-[slack-url]: https://neutrino-slack.herokuapp.com/
+[spectrum-image]: https://withspectrum.github.io/badge/badge.svg
+[spectrum-url]: https://spectrum.chat/neutrino

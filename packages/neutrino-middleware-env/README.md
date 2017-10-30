@@ -1,9 +1,12 @@
 # Neutrino Environment Middleware
-[![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url] [![Join Slack][slack-image]][slack-url]
 
 `neutrino-middleware-env` is Neutrino middleware for injecting environment variable definitions into
 source code at `process.env`. You can use this to make a custom environment variable (e.g. an API server backend to
 use) available inside your project. Always injects `process.env.NODE_ENV`, unless overridden.
+
+[![NPM version][npm-image]][npm-url]
+[![NPM downloads][npm-downloads]][npm-url]
+[![Join the Neutrino community on Spectrum][spectrum-image]][spectrum-url]
 
 ## Requirements
 
@@ -83,5 +86,5 @@ containing all resources for developing Neutrino and its core presets and middle
 [npm-image]: https://img.shields.io/npm/v/neutrino-middleware-env.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-middleware-env.svg
 [npm-url]: https://npmjs.org/package/neutrino-middleware-env
-[slack-image]: https://neutrino-slack.herokuapp.com/badge.svg
-[slack-url]: https://neutrino-slack.herokuapp.com/
+[spectrum-image]: https://withspectrum.github.io/badge/badge.svg
+[spectrum-url]: https://spectrum.chat/neutrino

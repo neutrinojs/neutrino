@@ -1,7 +1,10 @@
 # Neutrino Copy Middleware
-[![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url] [![Join Slack][slack-image]][slack-url]
 
 `neutrino-middleware-copy` is Neutrino middleware for copying files during building.
+
+[![NPM version][npm-image]][npm-url]
+[![NPM downloads][npm-downloads]][npm-url]
+[![Join the Neutrino community on Spectrum][spectrum-image]][spectrum-url]
 
 ## Requirements
 
@@ -91,5 +94,5 @@ containing all resources for developing Neutrino and its core presets and middle
 [npm-image]: https://img.shields.io/npm/v/neutrino-middleware-copy.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-middleware-copy.svg
 [npm-url]: https://npmjs.org/package/neutrino-middleware-copy
-[slack-image]: https://neutrino-slack.herokuapp.com/badge.svg
-[slack-url]: https://neutrino-slack.herokuapp.com/
+[spectrum-image]: https://withspectrum.github.io/badge/badge.svg
+[spectrum-url]: https://spectrum.chat/neutrino

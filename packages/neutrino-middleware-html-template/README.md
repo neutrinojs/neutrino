@@ -1,8 +1,11 @@
 # Neutrino HTML Template Middleware
-[![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url] [![Join Slack][slack-image]][slack-url]
 
 `neutrino-middleware-html-template` is Neutrino middleware for automatically creating HTML files for configured
 entry-points.
+
+[![NPM version][npm-image]][npm-url]
+[![NPM downloads][npm-downloads]][npm-url]
+[![Join the Neutrino community on Spectrum][spectrum-image]][spectrum-url]
 
 ## Requirements
 
@@ -112,5 +115,5 @@ containing all resources for developing Neutrino and its core presets and middle
 [npm-image]: https://img.shields.io/npm/v/neutrino-middleware-html-template.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-middleware-html-template.svg
 [npm-url]: https://npmjs.org/package/neutrino-middleware-html-template
-[slack-image]: https://neutrino-slack.herokuapp.com/badge.svg
-[slack-url]: https://neutrino-slack.herokuapp.com/
+[spectrum-image]: https://withspectrum.github.io/badge/badge.svg
+[spectrum-url]: https://spectrum.chat/neutrino

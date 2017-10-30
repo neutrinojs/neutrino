@@ -1,8 +1,11 @@
-# Neutrino Airbnb Preset
-[![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url] [![Join Slack][slack-image]][slack-url] 
+# Neutrino Airbnb Base Preset
 
 `neutrino-preset-airbnb-base` is a Neutrino preset that supports linting JavaScript projects with Airbnb's base ESLint
 config, following the [Airbnb styleguide](https://github.com/airbnb/javascript).
+
+[![NPM version][npm-image]][npm-url]
+[![NPM downloads][npm-downloads]][npm-url]
+[![Join the Neutrino community on Spectrum][spectrum-image]][spectrum-url] 
 
 ## Features
 
@@ -10,6 +13,9 @@ config, following the [Airbnb styleguide](https://github.com/airbnb/javascript).
 - Modern Babel knowledge supporting ES modules, JSX (when used with React preset), Web and Node.js apps
 - Highly visible during development, fails compilation when building for production
 - Easily extensible to customize your project as needed
+
+_Note: If you are building a React project, you should probably use 
+[`neutrino-preset-airbnb`](https://www.npmjs.com/package/neutrino-preset-airbnb) instead._
 
 ## Requirements
 
@@ -317,5 +323,5 @@ containing all resources for developing Neutrino and its core presets and middle
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-airbnb-base.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-airbnb-base.svg
 [npm-url]: https://npmjs.org/package/neutrino-preset-airbnb-base
-[slack-image]: https://neutrino-slack.herokuapp.com/badge.svg
-[slack-url]: https://neutrino-slack.herokuapp.com/
+[spectrum-image]: https://withspectrum.github.io/badge/badge.svg
+[spectrum-url]: https://spectrum.chat/neutrino
