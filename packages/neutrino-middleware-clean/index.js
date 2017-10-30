@@ -6,5 +6,5 @@ module.exports = (neutrino, options = {}) => {
 
   neutrino.config
     .plugin(options.pluginId || 'clean')
-    .use(CleanPlugin, [paths, { root, verbose: false }]);
+    .use(CleanPlugin, [paths, { root, verbose: neutrino.options.debug }]);
 };
