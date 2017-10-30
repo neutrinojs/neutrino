@@ -21,7 +21,7 @@
     "deepmerge": "^1.5.2"
   },
   "devDependencies": {
-    "webpack": "^3.6.0"
+    "webpack": "3.8.1"
   },
   "peerDependencies": {
     "neutrino": "^7.0.0"
