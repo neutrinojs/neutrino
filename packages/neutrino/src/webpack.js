@@ -45,12 +45,7 @@ const validator = pipe(Future.of, Future.ap(Future.of(webpack.validate)));
 // validate :: Object config -> Future Error Object
 const validate = (config) => {
   if (!config.entry) {
-    return Future.reject([new Error([
-      'No entry points were found.',
-      'Ensure that all intended middleware or presets are being used',
-      'and at least one entry point is defined.',
-      'You can inspect the final configuration with --inspect.'
-    ].join(' '))]);
+    return Future.reject([new Error('No entry points found')]);
   }
 
   return validator(config)
