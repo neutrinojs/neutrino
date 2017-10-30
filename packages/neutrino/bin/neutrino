@@ -68,12 +68,18 @@ const args = yargs
     }
   })
   .command('*')
-  .demandCommand(1, 'You must specify a command for Neutrino to run.\nUSAGE:  neutrino <command>')
   .recommendCommands()
   .argv;
 
+const command = args._[0];
+
+if (!command) {
+  console.error('You must specify a command for Neutrino to run.\nUSAGE:  neutrino <command>');
+  process.exit(1);
+}
+
 const rc = '.neutrinorc.js';
-const cmd = args.inspect ? 'inspect' : args._[0];
+const cmd = args.inspect ? 'inspect' : command;
 const middleware = [...new Set([
   ...(exists.sync(rc, { root: process.cwd() }) ? [rc] : []),
   ...args.use
