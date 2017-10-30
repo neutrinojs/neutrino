@@ -197,3 +197,15 @@ test('creates a Webpack config', t => {
 
   t.notDeepEqual(api.config.toConfig(), {});
 });
+
+test('throws when trying to call() a non-registered command', t => {
+  const api = Neutrino();
+
+  t.throws(() => api.call('non-registered', []));
+});
+
+test('fails when trying to run() a non-registered command', async t => {
+  const api = Neutrino();
+
+  await t.throws(api.run('non-registered', []).promise());
+});
