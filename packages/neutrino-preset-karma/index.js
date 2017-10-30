@@ -1,4 +1,4 @@
-const { Server } = require('karma');
+const { Server, constants: { LOG_DEBUG, LOG_INFO } } = require('karma');
 const merge = require('deepmerge');
 const { join } = require('path');
 const { omit } = require('ramda');
@@ -16,6 +16,7 @@ module.exports = (neutrino, opts = {}) => {
       require.resolve('karma-mocha-reporter')
     ],
     basePath: neutrino.options.root,
+    logLevel: neutrino.options.debug ? LOG_DEBUG : LOG_INFO,
     browsers: [process.env.CI ? 'ChromeCI' : 'Chrome'],
     customLaunchers: {
       ChromeCI: {
