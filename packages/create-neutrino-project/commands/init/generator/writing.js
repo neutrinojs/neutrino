@@ -1,4 +1,4 @@
-const mkdirp = require('mkdirp');
+const { ensureDirSync, readJsonSync, writeJsonSync } = require('fs-extra');
 const path = require('path');
 const stringify = require('javascript-stringify');
 const utils = require('./utils');
@@ -10,7 +10,7 @@ const LINTERS = utils.LINTERS;
 function makeRcFile(data) {
   let config = { use: [] };
 
-  config.use.push(`neutrino-preset-${data.projectType}`);
+  config.use.push(data.projectType);
 
   switch (data.linter) {
     case LINTERS.AIRBNB:
@@ -26,10 +26,10 @@ function makeRcFile(data) {
   }
 
   if (data.testRunner) {
-    config.use.push(`neutrino-preset-${data.testRunner}`);
+    config.use.push(data.testRunner);
   }
 
-  return `module.exports = ${stringify(config, null, ' ')};\n`;
+  return `module.exports = ${stringify(config, null, 2)};\n`;
 }
 
 function getDependencies() {
@@ -38,12 +38,15 @@ function getDependencies() {
 
   switch (this.data.projectType) {
     case PROJECTS.REACT:
-      dependencies.push(PROJECTS.REACT, LIBRARY.REACT_DOM, LIBRARY.REACT_HOT_LOADER);
+      dependencies.push(LIBRARY.REACT, LIBRARY.REACT_DOM, LIBRARY.REACT_HOT_LOADER);
       devDependencies.push(LIBRARY.NEUTRINO_PRESET_REACT);
       break;
     case PROJECTS.REACT_COMPONENTS:
       dependencies.push(
-        LIBRARY.REACT, LIBRARY.REACT_DOM, LIBRARY.NEUTRINO_PRESET_REACT_COMPONENTS, LIBRARY.REACT_ADDONS_CSS_TRANSITION_GROUP
+        LIBRARY.REACT,
+        LIBRARY.REACT_DOM,
+        LIBRARY.NEUTRINO_PRESET_REACT_COMPONENTS,
+        LIBRARY.REACT_ADDONS_CSS_TRANSITION_GROUP
       );
       break;
     case PROJECTS.WEB:
@@ -58,15 +61,7 @@ function getDependencies() {
   }
 
   if (this.data.testRunner) {
-    devDependencies.push(`neutrino-preset-${this.data.testRunner}`);
-
-    if (this.data.testRunner === 'karma' || this.data.testRunner === 'mocha') {
-      devDependencies.push(LIBRARY.ASSERT);
-    }
-  }
-
-  if (this.data.projectType === PROJECTS.REACT && this.data.router) {
-    dependencies.push(LIBRARY.REACT_ROUTER_DOM, LIBRARY.REACT_ASYNC_COMPONENT);
+    devDependencies.push(this.data.testRunner);
   }
 
   if (this.data.linter) {
@@ -90,7 +85,7 @@ function getDependencies() {
 
 function initialPackageJson() {
   const done = this.async();
-  const packageManger = utils.isYarn ? 'yarn' : 'npm';
+  const installer = utils.isYarn ? 'yarn' : 'npm';
   const scripts = { 'build': 'neutrino build' };
 
   if (this.data.project !== 'library') {
@@ -105,15 +100,16 @@ function initialPackageJson() {
     scripts.test = 'neutrino test';
   }
 
-  mkdirp.sync(this.options.directory);
+  ensureDirSync(this.options.directory);
 
-  const command = this.spawnCommand('bash', [
-    '-c',
-    `cd ${this.options.directory} && ${packageManger} init --force --yes`
-  ], { stdio: 'ignore' });
+  const command = this.spawnCommand(installer, ['init', '--yes'], { cwd: path.resolve(this.options.directory), stdio: 'ignore'});
 
   command.on('close', () => {
-    this.fs.extendJSON(path.resolve(this.destinationPath(this.options.directory), 'package.json'), { scripts });
+    const jsonPath = path.join(this.options.directory, 'package.json');
+    const json = readJsonSync(`./${jsonPath}`);
+    const packageJson = Object.assign(json, { scripts });
+
+    writeJsonSync(jsonPath, packageJson, { spaces: 2 });
 
     return done();
   });
@@ -121,11 +117,7 @@ function initialPackageJson() {
 
 module.exports = function () {
   const destinationPath =  this.destinationPath(this.options.directory);
-  let templateDir = this.data.projectType;
-
-  if (this.data.router) {
-    templateDir = 'react-router';
-  }
+  const templateDir = this.data.projectType;
 
   initialPackageJson.call(this);
   this.allDependencies = getDependencies.call(this);
@@ -135,7 +127,7 @@ module.exports = function () {
   if (this.data.testRunner) {
     const testDestinationDir = path.join(destinationPath, 'test');
 
-    mkdirp.sync(testDestinationDir);
+    ensureDirSync(testDestinationDir);
 
     this.fs.copy(
       this.templatePath(path.join('test', `${this.data.testRunner}.js`)),

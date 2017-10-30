@@ -30,18 +30,18 @@ module.exports = () => [
     choices: [
       {
         name: 'React',
-        value: 'react',
+        value: 'neutrino-preset-react',
         checked: true
       },
       {
 
         name: 'Web',
-        value: 'web',
+        value: 'neutrino-preset-web',
         checked: false
       },
       {
         name: 'Node.js',
-        value: 'node',
+        value: 'neutrino-preset-node',
         checked: false
       }
     ]
@@ -53,7 +53,7 @@ module.exports = () => [
     when: (data) => data.project === 'library',
     choices: [{
       name: 'Web',
-      value: 'taskcluster-web-library',
+      value: 'neutrino-preset-taskcluster-web-library',
       checked: true
     }]
   },
@@ -65,16 +65,10 @@ module.exports = () => [
     choices: [
       {
         name: 'React Component',
-        value: 'react-components',
+        value: 'neutrino-preset-react-components',
         checked: true
       },
     ]
-  },
-  {
-    name: 'router',
-    type: 'confirm',
-    message: 'Would you like to use React Router? If so, I will automatically code-split your routes for you.',
-    when: (data) => data.projectType === 'react'
   },
   {
     name: 'testRunner',
@@ -83,21 +77,21 @@ module.exports = () => [
     choices: [
       {
         name: 'Jest',
-        value: 'jest',
+        value: 'neutrino-preset-jest',
         checked: true
       },
       {
         name: 'Karma',
-        value: 'karma',
+        value: 'neutrino-preset-karma',
         checked: false
       },
       {
         name: 'Mocha',
-        value: 'mocha',
+        value: 'neutrino-preset-mocha',
         checked: false
       },
       {
-        name: 'none',
+        name: 'None',
         value: false,
         checked: false
       },
@@ -120,7 +114,7 @@ module.exports = () => [
         checked: false
       },
       {
-        name: 'none',
+        name: 'None',
         value: false,
         checked: false
       }
