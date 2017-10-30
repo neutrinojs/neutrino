@@ -15,4 +15,4 @@ const cli = yargs.command('<project-directory>')
   .help()
   .argv;
 
-env.run(`create-neutrino-project:init`, { 'directory': cli._[0]}, done);
+env.run(`create-neutrino-project:init`, { 'directory': cli._[0] }, done);

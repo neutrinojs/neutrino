@@ -6,11 +6,7 @@ const writing = require('./generator/writing');
 const install = require('./generator/install');
 const end = require('./generator/end');
 
-class Project extends Generator {
-  constructor(args, opts) {
-    super(args, opts);
-  }
-}
+class Project extends Generator {}
 
 Project.prototype.prompting = prompting;
 Project.prototype.writing = writing;

@@ -6,7 +6,7 @@ module.exports.PROJECTS = {
   WEB_LIBRARY: 'neutrino-preset-taskcluster-web-library'
 };
 
-module.exports.LIBRARY = {
+module.exports.LIBRARIES = {
   REACT: 'react',
   REACT_DOM: 'react-dom',
   REACT_ADDONS_CSS_TRANSITION_GROUP: 'react-addons-css-transition-group',
