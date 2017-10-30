@@ -154,7 +154,14 @@ const Api = pipe(getOptions, (options) => {
     // call :: String commandName -> Array middleware -> IO a
     call: (commandName, middleware = [rc]) => {
       map(api.use, middleware);
-      return api.commands[commandName](api.config.toConfig(), api);
+
+      const command = api.commands[commandName];
+
+      if (!command) {
+        throw new Error(`A command with the name "${commandName}" was not registered`);
+      }
+
+      return command(api.config.toConfig(), api);
     },
 
     // run :: String commandName -> Array middleware -> Future
@@ -167,7 +174,13 @@ const Api = pipe(getOptions, (options) => {
       .chain(() => Future.encaseP2(api.emitForAll, 'prerun', api.options.args))
       // Execute the command
       .chain(() => {
-        const result = api.commands[commandName](api.config.toConfig(), api);
+        const command = api.commands[commandName];
+
+        if (!command) {
+          return Future.reject(new Error(`A command with the name "${commandName}" was not registered`));
+        }
+
+        const result = command(api.config.toConfig(), api);
 
         return Future.isFuture(result) ?
           result :

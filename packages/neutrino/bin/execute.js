@@ -16,7 +16,15 @@ module.exports = (middleware, args) => {
   }, args.options);
   const api = Neutrino(options);
 
-  api.register(`${commandName}-cli`, (config, api) => api.commands[commandName](config, api));
+  api.register(`${commandName}-cli`, (config, api) => {
+    const command = api.commands[commandName];
+
+    if (!command) {
+      throw new Error(`A command with the name "${commandName}" was not registered`);
+    }
+
+    command(config, api);
+  });
 
   return api
     .run(`${commandName}-cli`, middleware)
