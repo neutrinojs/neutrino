@@ -29,22 +29,22 @@
     "test": "nyc --reporter lcov ava packages/*/test"
   },
   "devDependencies": {
-    "ava": "^0.22.0",
-    "changelog": "^1.4.0",
-    "codecov": "^2.3.0",
-    "eslint-plugin-prettier": "^2.3.1",
-    "gh-pages": "^1.0.0",
-    "gitbook-cli": "^2.3.2",
-    "gitbook-plugin-anchorjs": "^1.1.1",
-    "gitbook-plugin-edit-link": "^2.0.2",
-    "gitbook-plugin-github": "^2.0.0",
-    "gitbook-plugin-npmsearchlist": "^1.0.0",
-    "gitbook-plugin-prism": "^2.3.0",
-    "husky": "^0.14.3",
-    "lerna": "^2.4.0",
-    "lint-staged": "^4.2.3",
-    "nyc": "^11.2.1",
-    "prettier": "^1.7.2"
+    "ava": "0.22.0",
+    "changelog": "1.4.0",
+    "codecov": "2.3.1",
+    "eslint-plugin-prettier": "2.3.1",
+    "gh-pages": "1.0.0",
+    "gitbook-cli": "2.3.2",
+    "gitbook-plugin-anchorjs": "1.1.1",
+    "gitbook-plugin-edit-link": "2.0.2",
+    "gitbook-plugin-github": "2.0.0",
+    "gitbook-plugin-npmsearchlist": "1.0.0",
+    "gitbook-plugin-prism": "2.3.0",
+    "husky": "0.14.3",
+    "lerna": "2.4.0",
+    "lint-staged": "4.3.0",
+    "nyc": "11.3.0",
+    "prettier": "1.7.4"
   },
   "lint-staged": {
     "*.js": [
