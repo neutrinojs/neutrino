@@ -1,5 +1,9 @@
 {
   "extends": [
     "config:base"
-  ]
+  ],
+  "reviewers": [
+    "mozilla-neutrino/core-contributors"
+  ],
+  "pinVersions": false
 }
