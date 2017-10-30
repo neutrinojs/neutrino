@@ -2,7 +2,11 @@ const { Neutrino, build } = require('../src');
 const merge = require('deepmerge');
 const ora = require('ora');
 
-module.exports = (middleware, args) => {
+const timeout = setTimeout(Function.prototype, 10000);
+
+process.on('message', ([middleware, args]) => {
+  clearTimeout(timeout);
+
   const spinner = args.quiet ? null : ora('Building project').start();
   const options = merge({
     args,
@@ -15,10 +19,10 @@ module.exports = (middleware, args) => {
   }, args.options);
   const api = Neutrino(options);
 
-  api.register('build', build);
-
   return api
-    .run('build', middleware)
+    .register('build', build)
+    .use(middleware)
+    .run('build')
     .fork((errors) => {
       if (!args.quiet) {
         spinner.fail('Building project failed');
@@ -37,4 +41,4 @@ module.exports = (middleware, args) => {
         }, stats.compilation.compiler.options.stats || {})));
       }
     });
-};
+});

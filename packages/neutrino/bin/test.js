@@ -1,7 +1,11 @@
 const { Neutrino, test } = require('../src');
 const merge = require('deepmerge');
 
-module.exports = (middleware, args) => {
+const timeout = setTimeout(Function.prototype, 10000);
+
+process.on('message', ([middleware, args]) => {
+  clearTimeout(timeout);
+
   const options = merge({
     args,
     command: args._[0],
@@ -13,10 +17,10 @@ module.exports = (middleware, args) => {
   }, args.options);
   const api = Neutrino(options);
 
-  api.register('test', test);
-
   return api
-    .run('test', middleware)
+    .register('test', test)
+    .use(middleware)
+    .run('test')
     .fork((err) => {
       if (err) {
         Array.isArray(err) ? err.forEach(err => err && console.error(err)) : console.error(err);
@@ -28,4 +32,4 @@ module.exports = (middleware, args) => {
       // Force exit once we get here.
       process.exit(0);
     });
-};
+});

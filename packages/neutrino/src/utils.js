@@ -1,5 +1,5 @@
 const {
-  cond, curry, identity, of, T
+  cond, curry, identity, is, map, objOf, of, T
 } = require('ramda');
 const { List } = require('immutable-ext');
 const { isAbsolute, join } = require('path');
@@ -35,9 +35,16 @@ const req = (moduleId, root) => {
   return require(path); // eslint-disable-line
 };
 
+// normalizeConfig :: Array Any -> Array Object
+const normalizeConfig = map(cond([
+  [is(Object), identity],
+  [T, objOf('use')]
+]));
+
 module.exports = {
   createPaths,
   normalizePath,
   toArray,
-  req
+  req,
+  normalizeConfig
 };

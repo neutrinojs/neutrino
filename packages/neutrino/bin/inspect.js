@@ -7,8 +7,11 @@ const envs = {
   start: 'development',
   test: 'test'
 };
+const timeout = setTimeout(Function.prototype, 10000);
 
-module.exports = (middleware, args) => {
+process.on('message', ([middleware, args]) => {
+  clearTimeout(timeout);
+
   const commandName = args._[0];
   const options = merge({
     args,
@@ -21,10 +24,10 @@ module.exports = (middleware, args) => {
   }, args.options);
   const api = Neutrino(options);
 
-  api.register('inspect', inspect);
-
   return api
-    .run('inspect', middleware)
+    .register('inspect', inspect)
+    .use(middleware)
+    .run('inspect')
     .fork((err) => {
       if (!args.quiet) {
         console.error(err);
@@ -32,4 +35,4 @@ module.exports = (middleware, args) => {
 
       process.exit(1);
     }, console.log);
-};
+});
