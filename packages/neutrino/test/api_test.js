@@ -219,5 +219,5 @@ test('throws when trying to validate config with no entry point', async t => {
 
   const errors = await t.throws(api.run('build', []).promise());
 
-  t.true(errors[0].message.includes('No entry points found'));
+  t.true(errors[0].message.includes(`configuration misses the property 'entry'`));
 });

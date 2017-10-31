@@ -27,7 +27,10 @@ module.exports = (middleware, args) => {
     successHandler(output) {
       if (!args.quiet) {
         spinner.succeed(`Running ${commandName} completed`);
-        console.log(output);
+
+        if (output != null) {
+          console.log(output);
+        }
       }
     }
   });
