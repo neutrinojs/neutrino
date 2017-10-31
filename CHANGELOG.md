@@ -1,6 +1,60 @@
+2017-10-30
+==========
+
+  * v7.3.0
+  * Reformat readme headings, favor spectrum over slack ([#396](https://github.com/mozilla-neutrino/neutrino-dev/issues/396))
+  * Improve error messaging for middleware used with no entry point ([#386](https://github.com/mozilla-neutrino/neutrino-dev/issues/386))
+    * Improve error messaging for middleware used with no entry point
+    * Abstract bin commands to reduce duplication and consistently handle errors
+    * Use webpack validation errors within API
+
+2017-10-29
+==========
+
+  * Update renovate configuration ([#409](https://github.com/mozilla-neutrino/neutrino-dev/issues/409))
+  * Throw more useful errors when missing commands ([#393](https://github.com/mozilla-neutrino/neutrino-dev/issues/393))
+    * Throw more useful errors when missing commands
+    * Add tests for trying to run() or call() non-registered commands
+  * Configure Renovate ([#395](https://github.com/mozilla-neutrino/neutrino-dev/issues/395))
+
+2017-10-28
+==========
+
+  * Make --debug increase karma's logLevel from info to debug ([#394](https://github.com/mozilla-neutrino/neutrino-dev/issues/394))
+    This gives output of form:
+    https://emorley.pastebin.mozilla.org/9071511
+    See:
+    https://karma-runner.github.io/1.0/config/configuration-file.html
+    https://karma-runner.github.io/1.0/dev/public-api.html
+    Refs [#389](https://github.com/mozilla-neutrino/neutrino-dev/issues/389).
+  * Make --debug set clean-webpack-plugin's 'verbose' option ([#392](https://github.com/mozilla-neutrino/neutrino-dev/issues/392))
+    This gives output of form:
+    ```
+    clean-webpack-plugin: C:\Users\Ed\src\treeherder\build has been removed.
+    ```
+    See:
+    https://github.com/johnagan/clean-webpack-plugin#options-and-defaults-optional
+    Refs [#389](https://github.com/mozilla-neutrino/neutrino-dev/issues/389).
+  * Make --debug set copy-webpack-plugin's 'debug' option ([#391](https://github.com/mozilla-neutrino/neutrino-dev/issues/391))
+    Setting copy-webpack-plugin's `debug` option to `true` increases the
+    log level from `warning` to `info`:
+    https://github.com/webpack-contrib/copy-webpack-plugin#available-options
+    Which gives output of form:
+    ```
+    [copy-webpack-plugin] processing from: '**/*' to: 'static'
+    [copy-webpack-plugin] begin globbing '...\src\static\**\*' with a context of '...\src\static'
+    [copy-webpack-plugin] determined that '.../src/static/foo.txt' should write to 'static/foo.txt'
+    [copy-webpack-plugin] reading ...\src\static\foo.txt to write to assets
+    [copy-webpack-plugin] writing 'static/foo.txt' to compilation assets from '...\src\static\foo.txt'
+    ```
+    Refs [#389](https://github.com/mozilla-neutrino/neutrino-dev/issues/389).
+  * react-hot-loader is no longer beta ([#381](https://github.com/mozilla-neutrino/neutrino-dev/issues/381))
+  * add notes about setup scripts ([#388](https://github.com/mozilla-neutrino/neutrino-dev/issues/388))
+
 2017-10-25
 ==========
 
+  * Fixes to publishing
   * v7.2.3
 
 2017-10-24
@@ -748,59 +802,3 @@
 ==========
 
   * Releasing Jest preset v5.9.1
-  * Hotfix/neutrino preset jest/relative alias handling ([#243](https://github.com/mozilla-neutrino/neutrino-dev/issues/243))
-    * Check whether path is relative, and add wildcard suffix to catch nested path resolutions
-    * lint errors
-    * use path.isAbsolute and string.startsWith
-
-2017-06-02
-==========
-
-  * Add description how to ignore files in an IDE lint ([#205](https://github.com/mozilla-neutrino/neutrino-dev/issues/205))
-    * Add description how to ignore files in an IDE lint
-    * Rewrite ESLint ignore documentation
-    * Duplicate ESLint ignore reference in docs
-    * Change Neutrino configuration naming
-
-2017-05-31
-==========
-
-  * Releasing node preset v5.9.1
-  * Use string version of specifying target ([#217](https://github.com/mozilla-neutrino/neutrino-dev/issues/217))
-    I get the following, very annoying, warning when building. This change fixes it.
-    ```
-    Warning, the following targets are using a decimal version:
-    node: 6.9
-    We recommend using a string for minor/patch versions to avoid numbers like 6.10
-    getting parsed as 6.1, which can lead to unexpected behavior.
-    ```
-
-2017-05-25
-==========
-
-  * Releasing v5.9.0
-  * Use absolute paths in package readme
-  * Docs for --debug
-  * add option for node debugging ([#215](https://github.com/mozilla-neutrino/neutrino-dev/issues/215))
-    * add neutrino.options.debug via --debug flag
-    * use start server with inspect conditionally
-    * improve codestyle for node debug option
-
-2017-05-18
-==========
-
-  * Fix error in test usage example ([#209](https://github.com/mozilla-neutrino/neutrino-dev/issues/209))
-
-2017-05-09
-==========
-
-  * README update
-
-2017-05-01
-==========
-
-  * Releasing v5.8.0
-  * Feature/universal entry ([#195](https://github.com/mozilla-neutrino/neutrino-dev/issues/195))
-    * Remove file extension
-    * Update docs
-    * Update the deafult 'entry' test
