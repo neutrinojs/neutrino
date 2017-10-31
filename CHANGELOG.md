@@ -1,804 +1,527 @@
-2017-10-30
-==========
-
-  * v7.3.0
-  * Reformat readme headings, favor spectrum over slack ([#396](https://github.com/mozilla-neutrino/neutrino-dev/issues/396))
-  * Improve error messaging for middleware used with no entry point ([#386](https://github.com/mozilla-neutrino/neutrino-dev/issues/386))
-    * Improve error messaging for middleware used with no entry point
-    * Abstract bin commands to reduce duplication and consistently handle errors
-    * Use webpack validation errors within API
-
-2017-10-29
-==========
-
-  * Update renovate configuration ([#409](https://github.com/mozilla-neutrino/neutrino-dev/issues/409))
-  * Throw more useful errors when missing commands ([#393](https://github.com/mozilla-neutrino/neutrino-dev/issues/393))
-    * Throw more useful errors when missing commands
-    * Add tests for trying to run() or call() non-registered commands
-  * Configure Renovate ([#395](https://github.com/mozilla-neutrino/neutrino-dev/issues/395))
-
-2017-10-28
-==========
-
-  * Make --debug increase karma's logLevel from info to debug ([#394](https://github.com/mozilla-neutrino/neutrino-dev/issues/394))
-    This gives output of form:
-    https://emorley.pastebin.mozilla.org/9071511
-    See:
-    https://karma-runner.github.io/1.0/config/configuration-file.html
-    https://karma-runner.github.io/1.0/dev/public-api.html
-    Refs [#389](https://github.com/mozilla-neutrino/neutrino-dev/issues/389).
-  * Make --debug set clean-webpack-plugin's 'verbose' option ([#392](https://github.com/mozilla-neutrino/neutrino-dev/issues/392))
-    This gives output of form:
-    ```
-    clean-webpack-plugin: C:\Users\Ed\src\treeherder\build has been removed.
-    ```
-    See:
-    https://github.com/johnagan/clean-webpack-plugin#options-and-defaults-optional
-    Refs [#389](https://github.com/mozilla-neutrino/neutrino-dev/issues/389).
-  * Make --debug set copy-webpack-plugin's 'debug' option ([#391](https://github.com/mozilla-neutrino/neutrino-dev/issues/391))
-    Setting copy-webpack-plugin's `debug` option to `true` increases the
-    log level from `warning` to `info`:
-    https://github.com/webpack-contrib/copy-webpack-plugin#available-options
-    Which gives output of form:
-    ```
-    [copy-webpack-plugin] processing from: '**/*' to: 'static'
-    [copy-webpack-plugin] begin globbing '...\src\static\**\*' with a context of '...\src\static'
-    [copy-webpack-plugin] determined that '.../src/static/foo.txt' should write to 'static/foo.txt'
-    [copy-webpack-plugin] reading ...\src\static\foo.txt to write to assets
-    [copy-webpack-plugin] writing 'static/foo.txt' to compilation assets from '...\src\static\foo.txt'
-    ```
-    Refs [#389](https://github.com/mozilla-neutrino/neutrino-dev/issues/389).
-  * react-hot-loader is no longer beta ([#381](https://github.com/mozilla-neutrino/neutrino-dev/issues/381))
-  * add notes about setup scripts ([#388](https://github.com/mozilla-neutrino/neutrino-dev/issues/388))
-
-2017-10-25
-==========
-
-  * Fixes to publishing
-  * v7.2.3
-
-2017-10-24
-==========
-
-  * Output logging messages when using watch instead of devServer ([#378](https://github.com/mozilla-neutrino/neutrino-dev/issues/378))
-  * Allow using Jest and Mocha presets without Babel ([#379](https://github.com/mozilla-neutrino/neutrino-dev/issues/379))
-  * Follow-ups to the switch to Lerna ([#372](https://github.com/mozilla-neutrino/neutrino-dev/issues/372))
-    * Remove redundant `lerna bootstrap` call on Travis
-    Due to yarn workspaces, the main yarn install command (already run
-    prior to bootstrap on Travis) itself handles the linking/bootstrapping
-    of dependencies. As such, `lerna bootstrap` is now just an alias for
-    `yarn install`, and therefore redundant.
-    * Remove yarn.lock from the package's .npmignore files
-    Since with yarn workspaces, the per-package yarn.lock file no longer
-    exists, with all dependencies instead pinned from the root yarn.lock.
-    * Set node and yarn engine versions in package.json
-    To make it more obvious to users/contributors when using versions
-    that have not been tested (or in the case of yarn, that don't support
-    the workspaces feature).
-    * Update development docs with lerna/workspaces changes
-    Since we're no longer using oao. The reference to creating package
-    links has been removed since yarn workspaces intentionally constrains
-    development versions to the individual workspace, rather than
-    allowing them to affect other projects installed elsewhere.
-    * Replace custom publish script with lerna publish
-    The `--force-publish=*` option is specified to ensure that all
-    packages are released, rather than just those that were modified, to
-    preserve the Neutrino tradition of keeping all versions in sync.
-    The new `release:preview` command is unfortunately not a true dry run,
-    in that it leaves changes in the working directory that have to be
-    reverted, but at least allows for confirming the necessary versions
-    have been adjusted.
-    With the `.scripts/publish` script removed, the `graph-data-structure`
-    and `semver` devDependencies are now unused.
-    * Remove version from root package.json
-    Since the global version is now tracked via lerna.json, and lerna
-    doesn't know to update the root package.json, so it will only end up
-    getting out of sync.
-    * Remove unnecessary devDependencies from root package.json
-    Now that we're using yarn workspaces, linting of the repo is possible
-    without having to duplicate the `neutrino-preset-airbnb-base` and
-    `neutrino-middleware-eslint` sub-dependencies into the repo root
-    `package.json`, since they are all available in the root `node_modules`.
-    * Regenerate yarn.lock
-
-2017-10-23
-==========
-
-  * Dev: fixing typo in yarn lint script
-  * Release v7.2.2
-  * Use source directory for jest code coverage ([#369](https://github.com/mozilla-neutrino/neutrino-dev/issues/369))
-
-2017-10-19
-==========
-
-  * Remove legacy oao command
-  * Remove oao, swap for lerna
-  * v7.2.1
-  * Adding docs for hot middleware updates
-  * feat(hot): Include NamedModulesPlugin for better developer experience ([#365](https://github.com/mozilla-neutrino/neutrino-dev/issues/365))
-    https://webpack.js.org/plugins/named-modules-plugin/ is a recommended plugin to use with HMR and it enables better debug information in the console.
-  * fix: Use cheap-module-eval-source-map for faster recompilation ([#366](https://github.com/mozilla-neutrino/neutrino-dev/issues/366))
-    https://webpack.js.org/guides/build-performance/ suggests to use `cheap-module-eval-source-map` to improve incremental build speed. This reduces recompilation times by a magnitude on bigger projects.
-
-2017-10-17
-==========
-
-  * Release v7.1.10
-  * Update to the newest version of html-webpack-template ([#361](https://github.com/mozilla-neutrino/neutrino-dev/issues/361))
-    Counter-intuitively the most recent version of the package is actually
-    5.6.0, rather than 6.0.0 or 6.0.1 due to a publishing error. See:
-    https://github.com/jaketrent/html-webpack-template/issues/59
-
-2017-10-16
-==========
-
-  * Release v7.1.3
-  * Add eslintrc.js to .npmignore ([#359](https://github.com/mozilla-neutrino/neutrino-dev/issues/359))
-    Since it's only used for testing.
-
-2017-10-12
-==========
-
-  * Release 7.1.2
-  * Remove extra keys that are invalid in eslintrc ([#358](https://github.com/mozilla-neutrino/neutrino-dev/issues/358))
-
-2017-10-09
-==========
-
-  * Use latest version of yarn on Travis ([#355](https://github.com/mozilla-neutrino/neutrino-dev/issues/355))
-    The only remaining error with oao + recent yarn turned out to be due
-    to OOM (https://github.com/guigrpa/oao/issues/51), which can be solved
-    by switching to Travis' fully virtualised infra, which has more RAM.
-    The `--frozen-lockfile` parameter has also been moved to `.travis.yml`
-    so that the lockfiles are still updated when working making changes
-    locally.
-  * Upgrade oao/yarn and use --frozen-lockfile with oao bootstrap ([#354](https://github.com/mozilla-neutrino/neutrino-dev/issues/354))
-    * Upgrades oao to latest (0.10.3).
-    * Upgrades yarn to latest version known to work with oao (0.28.4)
-    (see https://github.com/guigrpa/oao/issues/51).
-    * Uses `--frozen-lockfile` with `oao bootstrap` since the previous
-    issues with it appear to be fixed, and using it ensures that the
-    `yarn.lock` files under `packages/*/` have been kept in sync with
-    `package.json` changes. Fixes [#255](https://github.com/mozilla-neutrino/neutrino-dev/issues/255).
-    * Switches the Travis node 6 job from 6.10.3 to latest 6.x (6.11.4).
-  * performance hints ([#353](https://github.com/mozilla-neutrino/neutrino-dev/issues/353))
-  * Release v7.1.1
-  * Hotfix - bump webpack-chain to guard non-defined chainedmap entries
-
-2017-10-05
-==========
-
-  * Release 7.1.0
-  * Feature: upgrade webpack-chain to use .before() and .after() ([#346](https://github.com/mozilla-neutrino/neutrino-dev/issues/346))
-  * Make yarn lint/publish commands work on Windows ([#345](https://github.com/mozilla-neutrino/neutrino-dev/issues/345))
-    Even though MSYS2 and related cygwin-based environments for Windows
-    understand shebangs, when a package.json script command is run via
-    a Windows yarn/npm install, it runs outside of the bash shell and so
-    if it's a direct path to a local script (rather than a package in
-    `node_modules/.bin/` which already has `.cmd` shims created by yarn),
-    it fails with eg:
-    ```
-    'packages\neutrino\bin\neutrino' is not recognized as an internal or external command,
-    operable program or batch file.
-    ```
-    To make the package.json scripts truly portable, local scripts must
-    be explicitly run with `node`:
-    http://alan.norbauer.com/articles/cross-platform-nodejs/#Shell-scripts-that-rely-on-Unix-shebangs
-  * Preserve ESLint default include when just exclude set ([#344](https://github.com/mozilla-neutrino/neutrino-dev/issues/344))
-    Previously if `exclude` was set manually, it would prevent the default
-    value for `include` being used. Now consumers of the middleware can
-    pass just `exclude` and not have to pass both. See:
-    https://github.com/mozilla-neutrino/neutrino-dev/pull/315#discussion_r141779549
-    The default include in neutrino-preset-airbnb-base has also been
-    removed, since it just duplicated that in neutrino-middleware-eslint.
-  * Travis: Document the pinned version of yarn ([#343](https://github.com/mozilla-neutrino/neutrino-dev/issues/343))
-    See:
-    https://github.com/mozilla-neutrino/neutrino-dev/pull/315#discussion_r141776823
-    Also restores the best practices of using `-f` with curl, as well as
-    quietening the log spam.
-
-2017-10-02
-==========
-
-  * Release 7.0.2
-  * Remove unused dependencies ([#339](https://github.com/mozilla-neutrino/neutrino-dev/issues/339))
-    * Move preset-airbnb-base dependencies out of middleware-eslint
-    The `eslint-config-airbnb-base` and `eslint-plugin-import` packages
-    are not used by `neutrino-middleware-eslint` itself, but instead by
-    `neutrino-preset-airbnb-base`.
-    * Remove unused dependencies
-    Of note:
-    * `webpack-dev-middleware` can be removed from the karma preset,
-    since it's only used by `karma-webpack` which already has it as a
-    dependency.
-    * `webpack-dev-server` can be removed from the web preset since it's
-    a leftover from when `neutrino-middleware-dev-server` was created.
-    * the web preset's `core-js` and `babel-polyfill` dependencies are
-    leftover from [#315](https://github.com/mozilla-neutrino/neutrino-dev/issues/315).
-    Everything else was manually determined to be unused via correlating
-    the package list against greps of the source, plus checking that the
-    package wasn't a peer dependency of another listed package.
-    * Regenerate yarn lockfiles
-
-2017-10-01
-==========
-
-  * Fix link to babel-minify-webpack-plugin options ([#340](https://github.com/mozilla-neutrino/neutrino-dev/issues/340))
-    Addresses:
-    https://github.com/mozilla-neutrino/neutrino-dev/pull/315#discussion_r141777719
-  * Lint the JS config files in the root of the repo ([#338](https://github.com/mozilla-neutrino/neutrino-dev/issues/338))
-    Previously the `.neutrinorc.js` and `.eslintrc.js` files were not
-    being included in the eslint run.
-
-2017-09-29
-==========
-
-  * Simplify require_test.js, making it pass on Windows ([#337](https://github.com/mozilla-neutrino/neutrino-dev/issues/337))
-    Previously the test would consistently fail on Windows due to it
-    attempting to remove the `test-modules` directory before the `chdir()`
-    call to reset the working directory. Subsequent runs would additionally
-    hit ava test discovery errors due to it seeing the leftover
-    `test-modules` directory as a test rather than a fixture.
-    Whilst these issues could be fixed by inverting the cleanup order, it
-    makes more sense to commit the `test-module` files to the repo rather
-    than generate them on the fly. They have been moved under the `fixtures`
-    directory to avoid the above ava errors.
-    The test cleanup `chdir(cwd)` step has also been removed, since ava runs
-    each test file in a new process, meaning no tests will run after it
-    anyway.
-    Fixes [#336](https://github.com/mozilla-neutrino/neutrino-dev/issues/336).
-  * Misc documentation fixes - part 2 ([#335](https://github.com/mozilla-neutrino/neutrino-dev/issues/335))
-    * Docs: Stop using a relative URL for the docs contributing links
-    Since unlike links pointing at eg API docs, the contributing links
-    don't need to stay in sync with the version being browsed. Using
-    the same link on both the `packages/` and `docs/` locations reduces
-    the diffs considerable when trying to keep the files in sync.
-    * Docs: Sync CONTRIBUTING.md with docs/contributing/README.md
-    * Docs: Clarify that the static directory is named `static`
-    * Docs: Remove trailing whitespace from webpack-chain.md
-    * Docs: Restore changes from [#325](https://github.com/mozilla-neutrino/neutrino-dev/issues/325) lost after merge conflicts
-    * Docs: Sync the READMEs in docs/ and packages/
-    * Docs: Sync the react and web preset feature lists
-
-2017-09-27
-==========
-
-  * Configuration docs nits
-  * Release v7.0.1
-  * Release v7.0.0
-  * Upgrading Webpack to v3, merge config as middleware ([#315](https://github.com/mozilla-neutrino/neutrino-dev/issues/315))
-    * Upgrading Webpack to v3, merge config as middleware
-    * Documentation updates
-    * Removing remaining uses of options.static
-    * Document Neutrino event mechanisms
-    * Lock yarn to oao-compatible version
-    * Updating webpack-chain and other external depenencies
-    * Switch babel merging out for babel-merge package
-    * Adding docs for babel configuration merging for compile loader
-    * Be explicit about letting certain build features run in certain environments
-    * Updating plugin environments and command execution
-    * Module concatenation plugin
-    * Removing babel-polyfill as a default entry
-    * Switch to BabelMinifyWebpackPlugin
-    * Remove default webpack node options
-    * Docs about minify breaking change
-    * Allow middleware to be reused by allowing option for usage IDs
-    * Add feature for --require
-    * Run env middleware against process.env as well as api.options.env
-    * Upgrading dependencies again
-    * Remove configured externals in react preset for React 16
-    * Document options.command
-    * Switching svg loader from file to url
-    * Update webpack-chain docs from @emorley
-    * Revert svg loader breaking change docs
-    * Post-rebase yarn.lock updates
-  * Release v6.2.1
-  * Make the lint command check .jsx files too ([#333](https://github.com/mozilla-neutrino/neutrino-dev/issues/333))
-    Previously the `neutrino lint` command would only check `.js` files,
-    which was inconsistent with the build/start commands, since they use
-    `eslint-loader` and so instead use the `test` regex of `/\.(js|jsx)$/`.
-    Fixes [#332](https://github.com/mozilla-neutrino/neutrino-dev/issues/332).
-
-2017-09-24
-==========
-
-  * Misc documentation fixes ([#325](https://github.com/mozilla-neutrino/neutrino-dev/issues/325))
-    * Docs: Sync the READMEs in docs/ and packages/
-    Since the content had drifted out of sync.
-    * Docs: Use consistent case for Hot Module Replacement
-    * Docs: Sync the react and web preset feature lists
-    * Docs: Correct the loader name for the 'html' rule
-    Since the loader name was changed from `file` to `html` in [#219](https://github.com/mozilla-neutrino/neutrino-dev/issues/219).
-    * Docs: Correct the rule name for neutrino-middleware-style-loader
-    Since it was changed from `css` to `style` in [#86](https://github.com/mozilla-neutrino/neutrino-dev/issues/86).
-
-2017-09-13
-==========
-
-  * Small API docs change to avoid confusion. ([#317](https://github.com/mozilla-neutrino/neutrino-dev/issues/317))
-    The API is first assigned to `neutrino`, but the rest of the doc uses `api`, which was seeming to come from nowhere.
-
-2017-09-11
-==========
-
-  * Release v6.2.0
-  * feat: Allow passing any Jest CLI options to neutrino-jest test task ([#313](https://github.com/mozilla-neutrino/neutrino-dev/issues/313))
-    * feat: Allow passing any Jest CLI options to neutrino-jest test task
-    Closes [#287](https://github.com/mozilla-neutrino/neutrino-dev/issues/287)
-    * docs: Update docs for Jest presets
-  * chore: Add lint-staged and husky ([#314](https://github.com/mozilla-neutrino/neutrino-dev/issues/314))
-    Add lint-staged with an auto-fix configuration for all JS files.
-    See https://github.com/okonet/lint-staged
-
-2017-09-06
-==========
-
-  * Release 6.1.8
-  * Fixes [#311](https://github.com/mozilla-neutrino/neutrino-dev/issues/311) ([#312](https://github.com/mozilla-neutrino/neutrino-dev/issues/312))
-
-2017-08-30
-==========
-
-  * Release 6.1.6
-
-2017-08-29
-==========
-
-  * Handle list of errors from test command ([#310](https://github.com/mozilla-neutrino/neutrino-dev/issues/310))
-
-2017-07-31
-==========
-
-  * Release 6.1.5
-  * Fix hot reload ([#304](https://github.com/mozilla-neutrino/neutrino-dev/issues/304))
-    * Fix dev server live reload
-    * Remove unused variable
-    * Fix lint error
-    * Simplify code
-
-2017-07-30
-==========
-
-  * Make it more clear what the env plugin can be used for ([#295](https://github.com/mozilla-neutrino/neutrino-dev/issues/295))
-  * [windows] fix spawn [..]\mocha ENOENT error ([#298](https://github.com/mozilla-neutrino/neutrino-dev/issues/298))
-
-2017-07-02
-==========
-
-  * Fixing broken middleware links
-
-2017-06-28
-==========
-
-  * Release v6.1.4
-  * Correctly override path options for custom options ([#293](https://github.com/mozilla-neutrino/neutrino-dev/issues/293))
-  * Release v6.1.2
-  * Add an .npmignore to all packages ([#291](https://github.com/mozilla-neutrino/neutrino-dev/issues/291))
-    Excluding the test directory and `yarn.lock` reduces the package
-    size significantly (for example 85-90% reduction in both compressed
-    and uncompressed size of neutrino-preset-web), plus reduces the
-    noise when consumers need to grep their local `node_modules`.
-    An `.npmignore` has been used instead of the `files` directive in
-    `package.json` since the latter can cause breakage that isn't shown
-    in CI if the directory layout changes (which is likely given the
-    Neutrino packages have a mixture of using the `src` directory and
-    not, depending on how many files they include). `.npmignore` was
-    used instead of `.yarnignore` since npm doesn't support the latter
-    whereas yarn supports both.
-
-2017-06-22
-==========
-
-  * Prevent null chunks from preventing naming ([#284](https://github.com/mozilla-neutrino/neutrino-dev/issues/284))
-  * Release v6.1.0
-  * Ensure test cases are not run 2x in watch mode. ([#280](https://github.com/mozilla-neutrino/neutrino-dev/issues/280))
-  * Karma coverage ([#282](https://github.com/mozilla-neutrino/neutrino-dev/issues/282))
-    * Add missing semi-colon in neutrino-preset-karma.
-    * Wrap preset-karma loaderMerge call in conditional which only runs when `compile` rule exists.
-  * Fix broken link ([#281](https://github.com/mozilla-neutrino/neutrino-dev/issues/281))
-  * Add `babel-plugin-istanbul` to ensure accurate coverage is reported. ([#279](https://github.com/mozilla-neutrino/neutrino-dev/issues/279))
-
-2017-06-21
-==========
-
-  * Release v6.0.5
-  * Hashing entire un-named chunk instead of individual modules ([#278](https://github.com/mozilla-neutrino/neutrino-dev/issues/278))
-  * Release v6.0.4
-
-2017-06-20
-==========
-
-  * Adding ESLint support back to React ([#275](https://github.com/mozilla-neutrino/neutrino-dev/issues/275))
-
-2017-06-19
-==========
-
-  * Add Travis badge to README ([#270](https://github.com/mozilla-neutrino/neutrino-dev/issues/270))
-    Also improves mark-up readability (has no effect on display layout).
-
-2017-06-18
-==========
-
-  * Release v6.0.3
-  * Reject test runners when non-zero exit code ([#269](https://github.com/mozilla-neutrino/neutrino-dev/issues/269))
-
-2017-06-16
-==========
-
-  * Correct typo ([#266](https://github.com/mozilla-neutrino/neutrino-dev/issues/266))
-
-2017-06-15
-==========
-
-  * Releasing v6.0.2
-  * Fixing issues in babel merging and dynamic named chunks ([#264](https://github.com/mozilla-neutrino/neutrino-dev/issues/264))
-  * Correct typo ([#261](https://github.com/mozilla-neutrino/neutrino-dev/issues/261))
-  * Removing frozen-lockfile...again
-  * Updating oao, yarn.lock files, travis installation
-
-2017-06-14
-==========
-
-  * Disabling git status checks for now
-  * Releasing v6.0.0
-  * Yarn lockfile updates
-  * v6 ([#254](https://github.com/mozilla-neutrino/neutrino-dev/issues/254))
-    * Buffer: true; -> Buffer: false ([#201](https://github.com/mozilla-neutrino/neutrino-dev/issues/201))
-    remove not-needed polyfill
-    * Buffer: true; -> Buffer: false ([#201](https://github.com/mozilla-neutrino/neutrino-dev/issues/201))
-    remove not-needed polyfill
-    * V6 dev fast async ([#202](https://github.com/mozilla-neutrino/neutrino-dev/issues/202))
-    * 🗼babel fast async to preset-web
-    * 🗼babel fast async to preset-node
-    * 📦🐈 yarn lock file for preset-node
-    * 📦⬆  fast-async semver dep  ⌨️⚒ node v -> string
-    * ❎ remove `builtIns: false`
-    * 🙃 flip builtIn: true
-    * 👕 formatting
-    * 💍 fast-async runtimePattern from  📌 entry point
-    * 📌 add as entry point instead of regex
-    * 🔙💍 update async for node
-    * merge after bootstrap again
-    * 🚚📌 move entry points to beginning
-    * Bugfix/eslint jest rules ([#212](https://github.com/mozilla-neutrino/neutrino-dev/issues/212))
-    * Fix ESLint Jest analyze
-    * Add SCSS extension to the mocking list
-    * Upgrade eslint jest plugin
-    * Mark focused test as errors
-    * Remove `Buffer` global rule from Web preset for v6
-    * Upgrade the package version to v6
-    * Upgrade dependencies to v6
-    * Switching HTML loader middleware to html-loader ([#219](https://github.com/mozilla-neutrino/neutrino-dev/issues/219))
-    * Adding cacheDirectory to compile-loader ([#221](https://github.com/mozilla-neutrino/neutrino-dev/issues/221))
-    * Replace events with generic event 'run'
-    closes [#166](https://github.com/mozilla-neutrino/neutrino-dev/issues/166)
-    * Add additional event run and prerun
-    * Inline prerun and run names
-    * Bugfix/react set state ([#213](https://github.com/mozilla-neutrino/neutrino-dev/issues/213))
-    * Fix `setState()` exception in React
-    * Upgrade React preset package version to v6
-    * Rollback versions
-    * Redesign react babel config
-    * Update dependencies to v5
-    * Update lock file
-    * Add missing dependency
-    * Update docs to include the additional run and prerun events ([#224](https://github.com/mozilla-neutrino/neutrino-dev/issues/224))
-    * Adding default environment to eslint middleware ([#225](https://github.com/mozilla-neutrino/neutrino-dev/issues/225))
-    * Updating Node.js version for Travis CI and removing codecov ([#226](https://github.com/mozilla-neutrino/neutrino-dev/issues/226))
-    * Allow environment-specific configuration overrides ([#230](https://github.com/mozilla-neutrino/neutrino-dev/issues/230))
-    * Allow environment-specific config override
-    * Refine comment
-    * Add docs for environment-specific configuration ([#231](https://github.com/mozilla-neutrino/neutrino-dev/issues/231))
-    * PWA middleware ([#227](https://github.com/mozilla-neutrino/neutrino-dev/issues/227))
-    * Caching based on hashed and inline manifest ([#223](https://github.com/mozilla-neutrino/neutrino-dev/issues/223))
-    * Feature/dev server ip ([#204](https://github.com/mozilla-neutrino/neutrino-dev/issues/204))
-    * Detect if dev server is public and log the local network IP in the terminal
-    * Extract Dev server to a separate middleware
-    * Add 'open' option to autostart a default browser
-    * Upgrade version
-    * Declare dependencies for the dev server middlware
-    * Update Webpack Dev Server dependency
-    * Correctly handle 'open' option
-    * Change the server custom configuration scheme
-    * Use 'public' option instead of 'host' for the Dev Server
-    * Simplify open browser URL address detection
-    * Exclude hot reload functionality from the web preset
-    * Finish Dev Server documentatoin
-    * Add customization documentation
-    * Let dev server middleware to decide when to initialize
-    * Fix typos in Docs
-    * Make dev server middleware environment independent again
-    * Fix versions dependencies
-    * Redesign opennning of a browser so that server parameters may be redefined later
-    * Move Hot middleware back to Web preset
-    * Use Future instead of Promise
-    * Fix bugs after refactoring
-    * Upgrade dependencies
-    * Split settings between the middleware and the preset
-    * Fixing missing comma and duplicate package.json entry
-    * Move from package.json configuration to .neutrinorc.js ([#233](https://github.com/mozilla-neutrino/neutrino-dev/issues/233))
-    * Fixing missing port and https in dev-server
-    * Adding transform-class-properties as default babel plugin for react preset ([#234](https://github.com/mozilla-neutrino/neutrino-dev/issues/234))
-    * Switching to static directory for non-compiled/copyable assets ([#235](https://github.com/mozilla-neutrino/neutrino-dev/issues/235))
-    * Custom commands 😍 ([#236](https://github.com/mozilla-neutrino/neutrino-dev/issues/236))
-    * Add api.call for direct use and command execution ([#238](https://github.com/mozilla-neutrino/neutrino-dev/issues/238))
-    * Buffer: true; -> Buffer: false ([#201](https://github.com/mozilla-neutrino/neutrino-dev/issues/201))
-    remove not-needed polyfill
-    * V6 dev fast async ([#202](https://github.com/mozilla-neutrino/neutrino-dev/issues/202))
-    * 🗼babel fast async to preset-web
-    * 🗼babel fast async to preset-node
-    * 📦🐈 yarn lock file for preset-node
-    * 📦⬆  fast-async semver dep  ⌨️⚒ node v -> string
-    * ❎ remove `builtIns: false`
-    * 🙃 flip builtIn: true
-    * 👕 formatting
-    * 💍 fast-async runtimePattern from  📌 entry point
-    * 📌 add as entry point instead of regex
-    * 🔙💍 update async for node
-    * merge after bootstrap again
-    * 🚚📌 move entry points to beginning
-    * Bugfix/eslint jest rules ([#212](https://github.com/mozilla-neutrino/neutrino-dev/issues/212))
-    * Fix ESLint Jest analyze
-    * Add SCSS extension to the mocking list
-    * Upgrade eslint jest plugin
-    * Mark focused test as errors
-    * Remove `Buffer` global rule from Web preset for v6
-    * Upgrade the package version to v6
-    * Upgrade dependencies to v6
-    * Switching HTML loader middleware to html-loader ([#219](https://github.com/mozilla-neutrino/neutrino-dev/issues/219))
-    * Adding cacheDirectory to compile-loader ([#221](https://github.com/mozilla-neutrino/neutrino-dev/issues/221))
-    * Replace events with generic event 'run'
-    closes [#166](https://github.com/mozilla-neutrino/neutrino-dev/issues/166)
-    * Add additional event run and prerun
-    * Inline prerun and run names
-    * Adding default environment to eslint middleware ([#225](https://github.com/mozilla-neutrino/neutrino-dev/issues/225))
-    * Updating Node.js version for Travis CI and removing codecov ([#226](https://github.com/mozilla-neutrino/neutrino-dev/issues/226))
-    * Update docs to include the additional run and prerun events ([#224](https://github.com/mozilla-neutrino/neutrino-dev/issues/224))
-    * Bugfix/react set state ([#213](https://github.com/mozilla-neutrino/neutrino-dev/issues/213))
-    * Fix `setState()` exception in React
-    * Upgrade React preset package version to v6
-    * Rollback versions
-    * Redesign react babel config
-    * Update dependencies to v5
-    * Update lock file
-    * Add missing dependency
-    * Allow environment-specific configuration overrides ([#230](https://github.com/mozilla-neutrino/neutrino-dev/issues/230))
-    * Allow environment-specific config override
-    * Refine comment
-    * Add docs for environment-specific configuration ([#231](https://github.com/mozilla-neutrino/neutrino-dev/issues/231))
-    * PWA middleware ([#227](https://github.com/mozilla-neutrino/neutrino-dev/issues/227))
-    * Caching based on hashed and inline manifest ([#223](https://github.com/mozilla-neutrino/neutrino-dev/issues/223))
-    * Feature/dev server ip ([#204](https://github.com/mozilla-neutrino/neutrino-dev/issues/204))
-    * Detect if dev server is public and log the local network IP in the terminal
-    * Extract Dev server to a separate middleware
-    * Add 'open' option to autostart a default browser
-    * Upgrade version
-    * Declare dependencies for the dev server middlware
-    * Update Webpack Dev Server dependency
-    * Correctly handle 'open' option
-    * Change the server custom configuration scheme
-    * Use 'public' option instead of 'host' for the Dev Server
-    * Simplify open browser URL address detection
-    * Exclude hot reload functionality from the web preset
-    * Finish Dev Server documentatoin
-    * Add customization documentation
-    * Let dev server middleware to decide when to initialize
-    * Fix typos in Docs
-    * Make dev server middleware environment independent again
-    * Fix versions dependencies
-    * Redesign opennning of a browser so that server parameters may be redefined later
-    * Move Hot middleware back to Web preset
-    * Use Future instead of Promise
-    * Fix bugs after refactoring
-    * Upgrade dependencies
-    * Split settings between the middleware and the preset
-    * Fixing missing comma and duplicate package.json entry
-    * Move from package.json configuration to .neutrinorc.js ([#233](https://github.com/mozilla-neutrino/neutrino-dev/issues/233))
-    * Fixing missing port and https in dev-server
-    * Adding transform-class-properties as default babel plugin for react preset ([#234](https://github.com/mozilla-neutrino/neutrino-dev/issues/234))
-    * Switching to static directory for non-compiled/copyable assets ([#235](https://github.com/mozilla-neutrino/neutrino-dev/issues/235))
-    * Custom commands 😍 ([#236](https://github.com/mozilla-neutrino/neutrino-dev/issues/236))
-    * Add api.call for direct use and command execution ([#238](https://github.com/mozilla-neutrino/neutrino-dev/issues/238))
-    * Updating yarn.lock
-    * Upgrading outdated dependencies ([#240](https://github.com/mozilla-neutrino/neutrino-dev/issues/240))
-    * Upgrading v6 dependencies, part 2 ([#245](https://github.com/mozilla-neutrino/neutrino-dev/issues/245))
-    * CLI: register before run; CLI: add --quiet; API: run registered command ([#247](https://github.com/mozilla-neutrino/neutrino-dev/issues/247))
-    * v6 documentation changes ([#252](https://github.com/mozilla-neutrino/neutrino-dev/issues/252))
-    * v6 documentation changes
-    * Updating middleware documentation for v6 changes
-    * v6 customization docs
-    * v6 docs for Jest and Airbnb presets
-    * Karma preset v6 documentation updates
-    * Mocha preset documentation updates
-    * Node.js preset v6 docs updates
-    * React preset v6 docs updates
-    * v6 docs for Web preset and dev middleware
-    * Conditional config overrides
-    * Remove travis cache ([#253](https://github.com/mozilla-neutrino/neutrino-dev/issues/253))
-    * Adding rudimentary tests to all packages ([#256](https://github.com/mozilla-neutrino/neutrino-dev/issues/256))
-    * Buffer: true; -> Buffer: false ([#201](https://github.com/mozilla-neutrino/neutrino-dev/issues/201))
-    remove not-needed polyfill
-    * V6 dev fast async ([#202](https://github.com/mozilla-neutrino/neutrino-dev/issues/202))
-    * 🗼babel fast async to preset-web
-    * 🗼babel fast async to preset-node
-    * 📦🐈 yarn lock file for preset-node
-    * 📦⬆  fast-async semver dep  ⌨️⚒ node v -> string
-    * ❎ remove `builtIns: false`
-    * 🙃 flip builtIn: true
-    * 👕 formatting
-    * 💍 fast-async runtimePattern from  📌 entry point
-    * 📌 add as entry point instead of regex
-    * 🔙💍 update async for node
-    * merge after bootstrap again
-    * 🚚📌 move entry points to beginning
-    * Switching HTML loader middleware to html-loader ([#219](https://github.com/mozilla-neutrino/neutrino-dev/issues/219))
-    * Adding cacheDirectory to compile-loader ([#221](https://github.com/mozilla-neutrino/neutrino-dev/issues/221))
-    * Replace events with generic event 'run'
-    closes [#166](https://github.com/mozilla-neutrino/neutrino-dev/issues/166)
-    * Add additional event run and prerun
-    * Inline prerun and run names
-    * Adding default environment to eslint middleware ([#225](https://github.com/mozilla-neutrino/neutrino-dev/issues/225))
-    * Updating Node.js version for Travis CI and removing codecov ([#226](https://github.com/mozilla-neutrino/neutrino-dev/issues/226))
-    * Update docs to include the additional run and prerun events ([#224](https://github.com/mozilla-neutrino/neutrino-dev/issues/224))
-    * Bugfix/eslint jest rules ([#212](https://github.com/mozilla-neutrino/neutrino-dev/issues/212))
-    * Fix ESLint Jest analyze
-    * Add SCSS extension to the mocking list
-    * Upgrade eslint jest plugin
-    * Mark focused test as errors
-    * Remove `Buffer` global rule from Web preset for v6
-    * Upgrade the package version to v6
-    * Upgrade dependencies to v6
-    * Bugfix/react set state ([#213](https://github.com/mozilla-neutrino/neutrino-dev/issues/213))
-    * Fix `setState()` exception in React
-    * Upgrade React preset package version to v6
-    * Rollback versions
-    * Redesign react babel config
-    * Update dependencies to v5
-    * Update lock file
-    * Add missing dependency
-    * Allow environment-specific configuration overrides ([#230](https://github.com/mozilla-neutrino/neutrino-dev/issues/230))
-    * Allow environment-specific config override
-    * Refine comment
-    * Add docs for environment-specific configuration ([#231](https://github.com/mozilla-neutrino/neutrino-dev/issues/231))
-    * PWA middleware ([#227](https://github.com/mozilla-neutrino/neutrino-dev/issues/227))
-    * V6 dev fast async ([#202](https://github.com/mozilla-neutrino/neutrino-dev/issues/202))
-    * 🗼babel fast async to preset-web
-    * 🗼babel fast async to preset-node
-    * 📦🐈 yarn lock file for preset-node
-    * 📦⬆  fast-async semver dep  ⌨️⚒ node v -> string
-    * ❎ remove `builtIns: false`
-    * 🙃 flip builtIn: true
-    * 👕 formatting
-    * 💍 fast-async runtimePattern from  📌 entry point
-    * 📌 add as entry point instead of regex
-    * 🔙💍 update async for node
-    * merge after bootstrap again
-    * 🚚📌 move entry points to beginning
-    * Bugfix/eslint jest rules ([#212](https://github.com/mozilla-neutrino/neutrino-dev/issues/212))
-    * Fix ESLint Jest analyze
-    * Add SCSS extension to the mocking list
-    * Upgrade eslint jest plugin
-    * Mark focused test as errors
-    * Remove `Buffer` global rule from Web preset for v6
-    * Upgrade the package version to v6
-    * Upgrade dependencies to v6
-    * Caching based on hashed and inline manifest ([#223](https://github.com/mozilla-neutrino/neutrino-dev/issues/223))
-    * Feature/dev server ip ([#204](https://github.com/mozilla-neutrino/neutrino-dev/issues/204))
-    * Detect if dev server is public and log the local network IP in the terminal
-    * Extract Dev server to a separate middleware
-    * Add 'open' option to autostart a default browser
-    * Upgrade version
-    * Declare dependencies for the dev server middlware
-    * Update Webpack Dev Server dependency
-    * Correctly handle 'open' option
-    * Change the server custom configuration scheme
-    * Use 'public' option instead of 'host' for the Dev Server
-    * Simplify open browser URL address detection
-    * Exclude hot reload functionality from the web preset
-    * Finish Dev Server documentatoin
-    * Add customization documentation
-    * Let dev server middleware to decide when to initialize
-    * Fix typos in Docs
-    * Make dev server middleware environment independent again
-    * Fix versions dependencies
-    * Redesign opennning of a browser so that server parameters may be redefined later
-    * Move Hot middleware back to Web preset
-    * Use Future instead of Promise
-    * Fix bugs after refactoring
-    * Upgrade dependencies
-    * Split settings between the middleware and the preset
-    * Fixing missing comma and duplicate package.json entry
-    * Move from package.json configuration to .neutrinorc.js ([#233](https://github.com/mozilla-neutrino/neutrino-dev/issues/233))
-    * Fixing missing port and https in dev-server
-    * Adding transform-class-properties as default babel plugin for react preset ([#234](https://github.com/mozilla-neutrino/neutrino-dev/issues/234))
-    * Switching to static directory for non-compiled/copyable assets ([#235](https://github.com/mozilla-neutrino/neutrino-dev/issues/235))
-    * Custom commands 😍 ([#236](https://github.com/mozilla-neutrino/neutrino-dev/issues/236))
-    * Add api.call for direct use and command execution ([#238](https://github.com/mozilla-neutrino/neutrino-dev/issues/238))
-    * Adding default environment to eslint middleware ([#225](https://github.com/mozilla-neutrino/neutrino-dev/issues/225))
-    * Bugfix/react set state ([#213](https://github.com/mozilla-neutrino/neutrino-dev/issues/213))
-    * Fix `setState()` exception in React
-    * Upgrade React preset package version to v6
-    * Rollback versions
-    * Redesign react babel config
-    * Update dependencies to v5
-    * Update lock file
-    * Add missing dependency
-    * PWA middleware ([#227](https://github.com/mozilla-neutrino/neutrino-dev/issues/227))
-    * Caching based on hashed and inline manifest ([#223](https://github.com/mozilla-neutrino/neutrino-dev/issues/223))
-    * Feature/dev server ip ([#204](https://github.com/mozilla-neutrino/neutrino-dev/issues/204))
-    * Detect if dev server is public and log the local network IP in the terminal
-    * Extract Dev server to a separate middleware
-    * Add 'open' option to autostart a default browser
-    * Upgrade version
-    * Declare dependencies for the dev server middlware
-    * Update Webpack Dev Server dependency
-    * Correctly handle 'open' option
-    * Change the server custom configuration scheme
-    * Use 'public' option instead of 'host' for the Dev Server
-    * Simplify open browser URL address detection
-    * Exclude hot reload functionality from the web preset
-    * Finish Dev Server documentatoin
-    * Add customization documentation
-    * Let dev server middleware to decide when to initialize
-    * Fix typos in Docs
-    * Make dev server middleware environment independent again
-    * Fix versions dependencies
-    * Redesign opennning of a browser so that server parameters may be redefined later
-    * Move Hot middleware back to Web preset
-    * Use Future instead of Promise
-    * Fix bugs after refactoring
-    * Upgrade dependencies
-    * Split settings between the middleware and the preset
-    * Fixing missing comma and duplicate package.json entry
-    * Move from package.json configuration to .neutrinorc.js ([#233](https://github.com/mozilla-neutrino/neutrino-dev/issues/233))
-    * Adding transform-class-properties as default babel plugin for react preset ([#234](https://github.com/mozilla-neutrino/neutrino-dev/issues/234))
-    * Switching to static directory for non-compiled/copyable assets ([#235](https://github.com/mozilla-neutrino/neutrino-dev/issues/235))
-    * Custom commands 😍 ([#236](https://github.com/mozilla-neutrino/neutrino-dev/issues/236))
-    * Upgrading outdated dependencies ([#240](https://github.com/mozilla-neutrino/neutrino-dev/issues/240))
-    * Upgrading v6 dependencies, part 2 ([#245](https://github.com/mozilla-neutrino/neutrino-dev/issues/245))
-    * CLI: register before run; CLI: add --quiet; API: run registered command ([#247](https://github.com/mozilla-neutrino/neutrino-dev/issues/247))
-    * v6 documentation changes ([#252](https://github.com/mozilla-neutrino/neutrino-dev/issues/252))
-    * v6 documentation changes
-    * Updating middleware documentation for v6 changes
-    * v6 customization docs
-    * v6 docs for Jest and Airbnb presets
-    * Karma preset v6 documentation updates
-    * Mocha preset documentation updates
-    * Node.js preset v6 docs updates
-    * React preset v6 docs updates
-    * v6 docs for Web preset and dev middleware
-    * Conditional config overrides
-    * Remove travis cache ([#253](https://github.com/mozilla-neutrino/neutrino-dev/issues/253))
-    * Adding rudimentary tests to all packages ([#256](https://github.com/mozilla-neutrino/neutrino-dev/issues/256))
-    * Switch fast-async to spec mode ([#258](https://github.com/mozilla-neutrino/neutrino-dev/issues/258))
-    * Fail CI if git status is unclean
-
-2017-06-12
-==========
-
-  * Changelog
-  * Document conditional configuration ([#250](https://github.com/mozilla-neutrino/neutrino-dev/issues/250))
-    * Document conditional configuration
-    * Switch 'blows up' to 'throws an exception'
-    * Document the Web preset w.r.t conditional configs
-    * Document the Node preset w.r.t conditional changes
-    In addition, I added an entry for `hot` to the list of plugins.
-  * Switch Travis runs from Ubuntu Precise to Trusty ([#249](https://github.com/mozilla-neutrino/neutrino-dev/issues/249))
-    See:
-    https://docs.travis-ci.com/user/trusty-ci-environment/
-    This also fixes the warning about not using a C++11 compiler:
-    https://docs.travis-ci.com/user/languages/javascript-with-nodejs#Node.js-v4-(or-io.js-v3)-compiler-requirements
-    Note this intentionally isn't switching to their container based
-    infra, since whilst it has faster boot times, these jobs still take
-    longer at the moment, due to the lower CPU/RAM allowances. If [#248](https://github.com/mozilla-neutrino/neutrino-dev/issues/248)
-    manages to improve the overall runtime this may be worth revisiting.
-
-2017-06-11
-==========
-
-  * Test against Node.js 8 on Travis ([#246](https://github.com/mozilla-neutrino/neutrino-dev/issues/246))
-
-2017-06-09
-==========
-
-  * Releasing Jest preset v5.9.1
+### Changelog
+All notable changes to this project will be documented in this file.
+
+Generated by [auto-changelog](https://github.com/CookPete/auto-changelog).
+
+#### [v7.3.1](https://github.com/mozilla-neutrino/neutrino-dev/compare/v7.3.0...v7.3.1)
+> 6 November 2017
+- Use shorter eslintrc [`#412`](https://github.com/mozilla-neutrino/neutrino-dev/pull/412)
+- Update changelog [`94e737a`](https://github.com/mozilla-neutrino/neutrino-dev/commit/94e737ad1a2bb5abd2cafd11f2826f10b992cd05)
+- Ensure checking error message prior to access (#418) [`50a588e`](https://github.com/mozilla-neutrino/neutrino-dev/commit/50a588ed9031ebc10628e540b95710a8ed2ef870)
+
+#### [v7.3.0](https://github.com/mozilla-neutrino/neutrino-dev/compare/v7.2.3...v7.3.0)
+> 31 October 2017
+- Improve error messaging for middleware used with no entry point [`#386`](https://github.com/mozilla-neutrino/neutrino-dev/pull/386)
+- Throw more useful errors when missing commands [`#393`](https://github.com/mozilla-neutrino/neutrino-dev/pull/393)
+- Reformat readme headings, favor spectrum over slack (#396) [`78fa05c`](https://github.com/mozilla-neutrino/neutrino-dev/commit/78fa05c203f784ba3380d95fe7423952acf2edd2)
+- add notes about setup scripts (#388) [`21c38fb`](https://github.com/mozilla-neutrino/neutrino-dev/commit/21c38fb2356bbdc149c1195a95bb5d4b8f0b53c1)
+- Fixes to publishing [`6ea0728`](https://github.com/mozilla-neutrino/neutrino-dev/commit/6ea0728c95ac1a7c061428a8dd7a33db7dfd6192)
+- react-hot-loader is no longer beta (#381) [`078d22b`](https://github.com/mozilla-neutrino/neutrino-dev/commit/078d22be8b7fc644dd22c14031c476d8d5ef2323)
+- Make --debug set copy-webpack-plugin&#x27;s &#x27;debug&#x27; option (#391) [`9650d30`](https://github.com/mozilla-neutrino/neutrino-dev/commit/9650d301025c9f75cc369f04693060cb213afd00)
+- Update renovate configuration (#409) [`c84f56e`](https://github.com/mozilla-neutrino/neutrino-dev/commit/c84f56e8740bf09636d1656fe891b09fffa05d0f)
+- Configure Renovate (#395) [`da10089`](https://github.com/mozilla-neutrino/neutrino-dev/commit/da10089b9cf20c7294572154431a9c78fc459fe8)
+- Make --debug increase karma&#x27;s logLevel from info to debug (#394) [`84d4501`](https://github.com/mozilla-neutrino/neutrino-dev/commit/84d450178d1e7ca8625708ac5867df384d9ca8c1)
+- Make --debug set clean-webpack-plugin&#x27;s &#x27;verbose&#x27; option (#392) [`4f08c21`](https://github.com/mozilla-neutrino/neutrino-dev/commit/4f08c21bb6dadd367d94013a7aeb6551b9907327)
+
+#### [v7.2.3](https://github.com/mozilla-neutrino/neutrino-dev/compare/v7.2.2...v7.2.3)
+> 26 October 2017
+- Follow-ups to the switch to Lerna [`#372`](https://github.com/mozilla-neutrino/neutrino-dev/pull/372)
+- Allow using Jest and Mocha presets without Babel (#379) [`ee2e7ba`](https://github.com/mozilla-neutrino/neutrino-dev/commit/ee2e7ba1d32bbbb7e652eea8ed8041a9c1b2a44d)
+- Output logging messages when using watch instead of devServer (#378) [`dbc12fd`](https://github.com/mozilla-neutrino/neutrino-dev/commit/dbc12fd37962b3a9a409dd40b0c3035aeff81c19)
+- Dev: fixing typo in yarn lint script [`913a875`](https://github.com/mozilla-neutrino/neutrino-dev/commit/913a8754fc7bb0a1ba4661515d89a6e0e81d4fdc)
+
+#### [v7.2.2](https://github.com/mozilla-neutrino/neutrino-dev/compare/v7.2.1...v7.2.2)
+> 24 October 2017
+- Release v7.2.2 [`d399824`](https://github.com/mozilla-neutrino/neutrino-dev/commit/d399824fe61d2494445b2b3bfc4a30c73795b5cd)
+- Use source directory for jest code coverage (#369) [`1f09c91`](https://github.com/mozilla-neutrino/neutrino-dev/commit/1f09c91bbbb2c3c7466b6b4923b99c29ccce0e79)
+- Remove oao, swap for lerna [`ee6d47d`](https://github.com/mozilla-neutrino/neutrino-dev/commit/ee6d47df2ce75a01992e900aaa0bc131bb03523e)
+- Remove legacy oao command [`cec00f8`](https://github.com/mozilla-neutrino/neutrino-dev/commit/cec00f82101913ffa13e2ad07d7e4e181732b7cf)
+
+#### [v7.2.1](https://github.com/mozilla-neutrino/neutrino-dev/compare/v7.1.10...v7.2.1)
+> 20 October 2017
+- Adding docs for hot middleware updates [`1318ab5`](https://github.com/mozilla-neutrino/neutrino-dev/commit/1318ab565d0e6b0ecd92d77932df994d56775464)
+- feat(hot): Include NamedModulesPlugin for better developer experience (#365) [`ac62509`](https://github.com/mozilla-neutrino/neutrino-dev/commit/ac6250907b971024bccb401a584396a419264a39)
+- fix: Use cheap-module-eval-source-map for faster recompilation (#366) [`66b5594`](https://github.com/mozilla-neutrino/neutrino-dev/commit/66b559403f0f78e760cbfa7d8bc1664e53173218)
+
+#### [v7.1.10](https://github.com/mozilla-neutrino/neutrino-dev/compare/v7.1.3...v7.1.10)
+> 18 October 2017
+- Release v7.1.10 [`190de2d`](https://github.com/mozilla-neutrino/neutrino-dev/commit/190de2db17f00c8a6ee98a7882272d0087fc5c4e)
+- Update to the newest version of html-webpack-template (#361) [`238959c`](https://github.com/mozilla-neutrino/neutrino-dev/commit/238959c3ade42a14a8d947b09e9ea64094987dbf)
+
+#### [v7.1.3](https://github.com/mozilla-neutrino/neutrino-dev/compare/v7.1.2...v7.1.3)
+> 17 October 2017
+- Release v7.1.3 [`e909de6`](https://github.com/mozilla-neutrino/neutrino-dev/commit/e909de6712593f092d4321708d373b8ad94d65e2)
+- Add eslintrc.js to .npmignore (#359) [`943de06`](https://github.com/mozilla-neutrino/neutrino-dev/commit/943de063e01e91fd401fc4ba9bf4ca8866ea8baa)
+
+#### [v7.1.2](https://github.com/mozilla-neutrino/neutrino-dev/compare/v7.1.1...v7.1.2)
+> 13 October 2017
+- Upgrade oao/yarn and use --frozen-lockfile with oao bootstrap [`#354`](https://github.com/mozilla-neutrino/neutrino-dev/pull/354)
+- Release 7.1.2 [`09b8e92`](https://github.com/mozilla-neutrino/neutrino-dev/commit/09b8e92c9b4957090aa93607f2aa2f00ccbe5159)
+- Remove extra keys that are invalid in eslintrc (#358) [`62945b6`](https://github.com/mozilla-neutrino/neutrino-dev/commit/62945b683febabeb306f1c39b5c382ddba2dae85)
+- Use latest version of yarn on Travis (#355) [`3d495a8`](https://github.com/mozilla-neutrino/neutrino-dev/commit/3d495a8e98f149b87295875bb113eefe9f1c7a74)
+- performance hints (#353) [`0fcfa38`](https://github.com/mozilla-neutrino/neutrino-dev/commit/0fcfa380f7c54dbf949422b505a8e94a40c8d0c7)
+
+#### [v7.1.1](https://github.com/mozilla-neutrino/neutrino-dev/compare/v7.1.0...v7.1.1)
+> 10 October 2017
+- Release v7.1.1 [`ed6be9b`](https://github.com/mozilla-neutrino/neutrino-dev/commit/ed6be9bbbd72e042862c9276b5c5405eb83f4a10)
+- Hotfix - bump webpack-chain to guard non-defined chainedmap entries [`2ee3b42`](https://github.com/mozilla-neutrino/neutrino-dev/commit/2ee3b42ddf9c4259088e0f4a7bb07a64bac634c1)
+
+#### [v7.1.0](https://github.com/mozilla-neutrino/neutrino-dev/compare/v7.0.2...v7.1.0)
+> 6 October 2017
+- Release 7.1.0 [`ea0a2ce`](https://github.com/mozilla-neutrino/neutrino-dev/commit/ea0a2cec2830365bdd1b9cc9fdf643cd5fde8a72)
+- Feature: upgrade webpack-chain to use .before() and .after() (#346) [`3aa2666`](https://github.com/mozilla-neutrino/neutrino-dev/commit/3aa266695336ffb9fcaefb5dd014b534111073b5)
+- Preserve ESLint default include when just exclude set (#344) [`bb190c4`](https://github.com/mozilla-neutrino/neutrino-dev/commit/bb190c4fadf0f59d170815611fdf9944a5c4a27b)
+- Make yarn lint/publish commands work on Windows (#345) [`a4e7f64`](https://github.com/mozilla-neutrino/neutrino-dev/commit/a4e7f647c3ddb7e303cbc6913cc9cc0cabe6ffa9)
+- Travis: Document the pinned version of yarn (#343) [`dec7201`](https://github.com/mozilla-neutrino/neutrino-dev/commit/dec7201a65aea49fde1a25319f822752153fbeb5)
+
+#### [v7.0.2](https://github.com/mozilla-neutrino/neutrino-dev/compare/v7.0.1...v7.0.2)
+> 3 October 2017
+- Remove unused dependencies [`#339`](https://github.com/mozilla-neutrino/neutrino-dev/pull/339)
+- Misc documentation fixes - part 2 [`#335`](https://github.com/mozilla-neutrino/neutrino-dev/pull/335)
+- Simplify require_test.js, making it pass on Windows (#337) [`#336`](https://github.com/mozilla-neutrino/neutrino-dev/issues/336)
+- Release 7.0.2 [`7e7ecfc`](https://github.com/mozilla-neutrino/neutrino-dev/commit/7e7ecfc9147df945396ac472b98890e68fce9534)
+- Configuration docs nits [`1a707f6`](https://github.com/mozilla-neutrino/neutrino-dev/commit/1a707f6b07d56509738c031918948596858906ce)
+- Fix link to babel-minify-webpack-plugin options (#340) [`703da77`](https://github.com/mozilla-neutrino/neutrino-dev/commit/703da77efb6c072cc132656afefe0cc2e5d1cc35)
+- Lint the JS config files in the root of the repo (#338) [`484c988`](https://github.com/mozilla-neutrino/neutrino-dev/commit/484c9882eeec50ddf9958cab54824ad68068d09b)
+
+#### [v7.0.1](https://github.com/mozilla-neutrino/neutrino-dev/compare/v7.0.0...v7.0.1)
+> 28 September 2017
+- Release v7.0.1 [`b138b3d`](https://github.com/mozilla-neutrino/neutrino-dev/commit/b138b3dcd5c931e183ad7a05975058367f307ce8)
+
+#### [v7.0.0](https://github.com/mozilla-neutrino/neutrino-dev/compare/v6.2.1...v7.0.0)
+> 28 September 2017
+- Upgrading Webpack to v3, merge config as middleware [`#315`](https://github.com/mozilla-neutrino/neutrino-dev/pull/315)
+- Release v7.0.0 [`a7f701d`](https://github.com/mozilla-neutrino/neutrino-dev/commit/a7f701dfc05163ec7aab095781f1723cbe978b5c)
+
+#### [v6.2.1](https://github.com/mozilla-neutrino/neutrino-dev/compare/v6.2.0...v6.2.1)
+> 28 September 2017
+- Misc documentation fixes [`#325`](https://github.com/mozilla-neutrino/neutrino-dev/pull/325)
+- Make the lint command check .jsx files too (#333) [`#332`](https://github.com/mozilla-neutrino/neutrino-dev/issues/332)
+- Release v6.2.1 [`dd7c5b3`](https://github.com/mozilla-neutrino/neutrino-dev/commit/dd7c5b39f8e6404ea6c3feb4360c5bd9fc5a85b2)
+- Small API docs change to avoid confusion. (#317) [`e994c2d`](https://github.com/mozilla-neutrino/neutrino-dev/commit/e994c2d3d2d4290840d1100485ec823f1affdbc0)
+
+#### [v6.2.0](https://github.com/mozilla-neutrino/neutrino-dev/compare/v6.1.8...v6.2.0)
+> 12 September 2017
+- feat: Allow passing any Jest CLI options to neutrino-jest test task [`#313`](https://github.com/mozilla-neutrino/neutrino-dev/pull/313)
+- Release v6.2.0 [`8237cda`](https://github.com/mozilla-neutrino/neutrino-dev/commit/8237cda6c4b2dd1d723c0eb75ca5997d28a06cd9)
+- chore: Add lint-staged and husky (#314) [`d854f94`](https://github.com/mozilla-neutrino/neutrino-dev/commit/d854f94a591a6557c2f7c7a64dbd7bda2042a518)
+
+#### [v6.1.8](https://github.com/mozilla-neutrino/neutrino-dev/compare/v6.1.6...v6.1.8)
+> 7 September 2017
+- Fixes #311 (#312) [`#311`](https://github.com/mozilla-neutrino/neutrino-dev/issues/311)
+- Release 6.1.8 [`01d9ae9`](https://github.com/mozilla-neutrino/neutrino-dev/commit/01d9ae9c1ef04c69ade4a627f4511bd02eefe543)
+
+#### [v6.1.6](https://github.com/mozilla-neutrino/neutrino-dev/compare/v6.1.5...v6.1.6)
+> 31 August 2017
+- Handle list of errors from test command (#310) [`6ceef02`](https://github.com/mozilla-neutrino/neutrino-dev/commit/6ceef028a61c512aa5562996ce307a6275a2d129)
+- Release 6.1.6 [`fff6cbb`](https://github.com/mozilla-neutrino/neutrino-dev/commit/fff6cbb9ac412465ddf286989e06f2b226963801)
+
+#### [v6.1.5](https://github.com/mozilla-neutrino/neutrino-dev/compare/v6.1.4...v6.1.5)
+> 1 August 2017
+- Fix hot reload [`#304`](https://github.com/mozilla-neutrino/neutrino-dev/pull/304)
+- Release 6.1.5 [`f7977ed`](https://github.com/mozilla-neutrino/neutrino-dev/commit/f7977ed677225200f0662814ac865a0b395906b1)
+- Fixing broken middleware links [`21bd4de`](https://github.com/mozilla-neutrino/neutrino-dev/commit/21bd4de12dff79dd12eb173f0cb48796234671b2)
+- Make it more clear what the env plugin can be used for (#295) [`127aadd`](https://github.com/mozilla-neutrino/neutrino-dev/commit/127aadd616f81e8962696bb675d07b82dbc54791)
+- [windows] fix spawn [..]\mocha ENOENT error (#298) [`f1d7d15`](https://github.com/mozilla-neutrino/neutrino-dev/commit/f1d7d15cdc875f9a5bb21f7c95ca012e4731c1ed)
+
+#### [v6.1.4](https://github.com/mozilla-neutrino/neutrino-dev/compare/v6.1.2...v6.1.4)
+> 29 June 2017
+- Release v6.1.4 [`7411f0b`](https://github.com/mozilla-neutrino/neutrino-dev/commit/7411f0b3f673cf20ba6409f2ab0de4020cfd6612)
+- Correctly override path options for custom options (#293) [`9cf8080`](https://github.com/mozilla-neutrino/neutrino-dev/commit/9cf8080a88a308874cc7a36022ae37473566dd1f)
+
+#### [v6.1.2](https://github.com/mozilla-neutrino/neutrino-dev/compare/v6.1.0...v6.1.2)
+> 29 June 2017
+- Release v6.1.2 [`fc85787`](https://github.com/mozilla-neutrino/neutrino-dev/commit/fc8578712d8482ad1f357c0be12e1bd580f07e4d)
+- Add an .npmignore to all packages (#291) [`ac0fd0d`](https://github.com/mozilla-neutrino/neutrino-dev/commit/ac0fd0d540b85dd62a1da652d8562012e2320ac2)
+- Prevent null chunks from preventing naming (#284) [`03dbed0`](https://github.com/mozilla-neutrino/neutrino-dev/commit/03dbed024feff4ec3ddcd3e69eb257dd02669fd1)
+
+#### [v6.1.0](https://github.com/mozilla-neutrino/neutrino-dev/compare/v6.0.5...v6.1.0)
+> 23 June 2017
+- Karma coverage [`#282`](https://github.com/mozilla-neutrino/neutrino-dev/pull/282)
+- Release v6.1.0 [`1de650c`](https://github.com/mozilla-neutrino/neutrino-dev/commit/1de650c8a9676a5a39fa0fca2910e7ec527cdd74)
+- Add &#x60;babel-plugin-istanbul&#x60; to ensure accurate coverage is reported. (#279) [`4846888`](https://github.com/mozilla-neutrino/neutrino-dev/commit/484688860b0efbb26b443afe4e32e285f26566b6)
+- Ensure test cases are not run 2x in watch mode. (#280) [`5754b99`](https://github.com/mozilla-neutrino/neutrino-dev/commit/5754b99225029762cbc12fc70e26a3dcbb439e2c)
+- Fix broken link (#281) [`136d0ea`](https://github.com/mozilla-neutrino/neutrino-dev/commit/136d0ea8e5c2adb55a9faa62afe1a6d0de89c3cb)
+
+#### [v6.0.5](https://github.com/mozilla-neutrino/neutrino-dev/compare/v6.0.4...v6.0.5)
+> 22 June 2017
+- Release v6.0.5 [`09b5957`](https://github.com/mozilla-neutrino/neutrino-dev/commit/09b59578e885f8d4706f8678368ed3099450ae2b)
+- Hashing entire un-named chunk instead of individual modules (#278) [`ec7cf98`](https://github.com/mozilla-neutrino/neutrino-dev/commit/ec7cf98b755c695cafbcc100c4b8e1526177c475)
+
+#### [v6.0.4](https://github.com/mozilla-neutrino/neutrino-dev/compare/v6.0.3...v6.0.4)
+> 22 June 2017
+- Release v6.0.4 [`7128bb3`](https://github.com/mozilla-neutrino/neutrino-dev/commit/7128bb3c4aa795b12aa0ede0356170910f18d892)
+- Adding ESLint support back to React (#275) [`f3a61ba`](https://github.com/mozilla-neutrino/neutrino-dev/commit/f3a61badb1737beb796578e66ba0ba13622726a1)
+- Add Travis badge to README (#270) [`7825767`](https://github.com/mozilla-neutrino/neutrino-dev/commit/78257673f196e70170564dc4f20fb1596b21d7f5)
+
+#### [v6.0.3](https://github.com/mozilla-neutrino/neutrino-dev/compare/v6.0.2...v6.0.3)
+> 19 June 2017
+- Release v6.0.3 [`39f2f32`](https://github.com/mozilla-neutrino/neutrino-dev/commit/39f2f327c4f51e2d4969d63fae4d815bff70affb)
+- Reject test runners when non-zero exit code (#269) [`1435477`](https://github.com/mozilla-neutrino/neutrino-dev/commit/143547780c368cc985723df3b0ad49695a82b4f2)
+- Correct typo (#266) [`d957604`](https://github.com/mozilla-neutrino/neutrino-dev/commit/d9576045e1c5aefcd6f75eca5eb20671946e35e8)
+
+#### [v6.0.2](https://github.com/mozilla-neutrino/neutrino-dev/compare/v6.0.0...v6.0.2)
+> 16 June 2017
+- Updating oao, yarn.lock files, travis installation [`82a24dd`](https://github.com/mozilla-neutrino/neutrino-dev/commit/82a24dd9d93962b43555eabc0e3d69b9acdabfd7)
+- Releasing v6.0.2 [`0370c89`](https://github.com/mozilla-neutrino/neutrino-dev/commit/0370c892798c4ffacf27bfbdf1794e0fabf8e687)
+- Fixing issues in babel merging and dynamic named chunks (#264) [`b02679f`](https://github.com/mozilla-neutrino/neutrino-dev/commit/b02679f8b7bc2a8370ce48039809d666a9fe6d85)
+- Correct typo (#261) [`dfac4ad`](https://github.com/mozilla-neutrino/neutrino-dev/commit/dfac4adbb64333574ddb98627cfdba38c858e1d2)
+- Removing frozen-lockfile...again [`8335e50`](https://github.com/mozilla-neutrino/neutrino-dev/commit/8335e506b82816005a2832ecabd76a5799290666)
+- Disabling git status checks for now [`606fe23`](https://github.com/mozilla-neutrino/neutrino-dev/commit/606fe23eca315941bb3ec7a14bf35fb74a314e46)
+
+#### [v6.0.0](https://github.com/mozilla-neutrino/neutrino-dev/compare/v5.9.0...v6.0.0)
+> 15 June 2017
+- v6 [`#254`](https://github.com/mozilla-neutrino/neutrino-dev/pull/254)
+- Document conditional configuration [`#250`](https://github.com/mozilla-neutrino/neutrino-dev/pull/250)
+- Hotfix/neutrino preset jest/relative alias handling [`#243`](https://github.com/mozilla-neutrino/neutrino-dev/pull/243)
+- Add description how to ignore files in an IDE lint [`#205`](https://github.com/mozilla-neutrino/neutrino-dev/pull/205)
+- Releasing v6.0.0 [`8b07eed`](https://github.com/mozilla-neutrino/neutrino-dev/commit/8b07eed958ea06cc3e978a24c8f269e296107d0f)
+- Yarn lockfile updates [`3a3f73e`](https://github.com/mozilla-neutrino/neutrino-dev/commit/3a3f73e4375a1d6535c182753dfb378ea38b58bd)
+- Changelog [`8aa0b45`](https://github.com/mozilla-neutrino/neutrino-dev/commit/8aa0b457f418170499273b71ebc3d743d287d1f5)
+- Releasing node preset v5.9.1 [`2aa6521`](https://github.com/mozilla-neutrino/neutrino-dev/commit/2aa652164a63c60b9e79a476449720d07d0b8525)
+- Releasing Jest preset v5.9.1 [`bfa2988`](https://github.com/mozilla-neutrino/neutrino-dev/commit/bfa29882a21a1124cf5501ff3a849db94456e458)
+- Use string version of specifying target (#217) [`ce39b93`](https://github.com/mozilla-neutrino/neutrino-dev/commit/ce39b93930424e307b490eaa58ba93d03c13261c)
+- Switch Travis runs from Ubuntu Precise to Trusty (#249) [`56c6b87`](https://github.com/mozilla-neutrino/neutrino-dev/commit/56c6b871bf28718c499e9b557a62e3c6019f447a)
+- Test against Node.js 8 on Travis (#246) [`13adea3`](https://github.com/mozilla-neutrino/neutrino-dev/commit/13adea32550de2f1eae9ae79f2980f8a2f6b5e82)
+
+#### [v5.9.0](https://github.com/mozilla-neutrino/neutrino-dev/compare/v5.8.0...v5.9.0)
+> 26 May 2017
+- add option for node debugging [`#215`](https://github.com/mozilla-neutrino/neutrino-dev/pull/215)
+- Releasing v5.9.0 [`c3d7020`](https://github.com/mozilla-neutrino/neutrino-dev/commit/c3d70200c56c1e4a326246fd6233b160660c4cd4)
+- Docs for --debug [`dde1f40`](https://github.com/mozilla-neutrino/neutrino-dev/commit/dde1f406fa985a587e1c8422e0dbac04e1dee24c)
+- README update [`a446881`](https://github.com/mozilla-neutrino/neutrino-dev/commit/a446881e891d252b48faec3c7a30aef591f844d8)
+- Use absolute paths in package readme [`c44c456`](https://github.com/mozilla-neutrino/neutrino-dev/commit/c44c4566bcb8f5d11c16202bbc15a8b32e21d3ef)
+- Fix error in test usage example (#209) [`904ed37`](https://github.com/mozilla-neutrino/neutrino-dev/commit/904ed376717e83a02bb1bbf71d50967773285804)
+
+#### [v5.8.0](https://github.com/mozilla-neutrino/neutrino-dev/compare/v5.7.0...v5.8.0)
+> 2 May 2017
+- Feature/universal entry [`#195`](https://github.com/mozilla-neutrino/neutrino-dev/pull/195)
+- Releasing v5.8.0 [`2afdd26`](https://github.com/mozilla-neutrino/neutrino-dev/commit/2afdd26f3e6568cc5aa477b8209d823ce6d5d00f)
+- Indent to clarify context change (#191) [`d7688dc`](https://github.com/mozilla-neutrino/neutrino-dev/commit/d7688dc674af187011c114f42f5837f0ce2b880b)
+
+#### [v5.7.0](https://github.com/mozilla-neutrino/neutrino-dev/compare/v5.6.9...v5.7.0)
+> 25 April 2017
+- Simplify error logging. [`#148`](https://github.com/mozilla-neutrino/neutrino-dev/pull/148)
+- Release v5.7.0 [`9186de6`](https://github.com/mozilla-neutrino/neutrino-dev/commit/9186de6175ab49dcfb710bc93fee45befbb725c6)
+- Fixing typo in karma docs [`b3d3c73`](https://github.com/mozilla-neutrino/neutrino-dev/commit/b3d3c7330d247f30e0dd7af5f2d8c39cc1ced38e)
+- Fix typo in preset name (#190) [`4a3842f`](https://github.com/mozilla-neutrino/neutrino-dev/commit/4a3842fe24103782e54aba2af2b50ff2b30f51ed)
+
+#### [v5.6.9](https://github.com/mozilla-neutrino/neutrino-dev/compare/v5.5.1...v5.6.9)
+> 18 April 2017
+- Consider case when &#x27;core-js&#x27; is located in &#x27;babel-polyfill&#x27; root [`#181`](https://github.com/mozilla-neutrino/neutrino-dev/pull/181)
+- Release v5.6.0 [`3f56635`](https://github.com/mozilla-neutrino/neutrino-dev/commit/3f56635381131369279ea54c931c8277ef39aca5)
+- Merge branch &#x27;master&#x27; of github.com:mozilla-neutrino/neutrino-dev [`587851b`](https://github.com/mozilla-neutrino/neutrino-dev/commit/587851b1687ad09e20d2d8b3aa496099b7b62e38)
+- Setting devServer publicPath to / (#179) [`fbe39af`](https://github.com/mozilla-neutrino/neutrino-dev/commit/fbe39af90ba7aae5352c6c0e14f1d51c32fdac87)
+- Refactoring minify plugin options [`7acea9c`](https://github.com/mozilla-neutrino/neutrino-dev/commit/7acea9c5d31dfd36ec7b7d3a6c4da3c074898282)
+
+#### [v5.5.1](https://github.com/mozilla-neutrino/neutrino-dev/compare/v5.4.0...v5.5.1)
+> 12 April 2017
+- Polyfills [`#173`](https://github.com/mozilla-neutrino/neutrino-dev/pull/173)
+- v5.5.0 -&gt; v5.5.1 [`425f3ac`](https://github.com/mozilla-neutrino/neutrino-dev/commit/425f3ac37345b2e7774c7bf013d15abac449bc78)
+- Adding getters and setters for path options, options for middleware (#176) [`957645f`](https://github.com/mozilla-neutrino/neutrino-dev/commit/957645f820c5262373096c65ba1cd530b26101eb)
+- Set devServer.publicPath to use output.publicPath (#177) [`ebc078a`](https://github.com/mozilla-neutrino/neutrino-dev/commit/ebc078a60f7438e94eafa457ad91cf4c71635c08)
+
+#### [v5.4.0](https://github.com/mozilla-neutrino/neutrino-dev/compare/v5.3.0...v5.4.0)
+> 7 April 2017
+- neutrino-middleware-image-loader: Use svg-url-loader for svg rule [`#171`](https://github.com/mozilla-neutrino/neutrino-dev/pull/171)
+- Releasing v5.4.0 [`f2c1dfb`](https://github.com/mozilla-neutrino/neutrino-dev/commit/f2c1dfb2a34aaf1c52018697bdbe271cd6b6d92b)
+- Fixing incorrect documentation for linting (#169) [`5724b5a`](https://github.com/mozilla-neutrino/neutrino-dev/commit/5724b5a3955233d3e1b582e5ef0b5b5e5603e8a8)
+- Update changelog [`20c1065`](https://github.com/mozilla-neutrino/neutrino-dev/commit/20c1065c5c222c97c0957106d34ce72e68270703)
+- Node.js preset v5.3.1 [`f267108`](https://github.com/mozilla-neutrino/neutrino-dev/commit/f26710840b1c5c01d461b74204e510f9e759cdc8)
+- Correct Node.js preset compile target object (#170) [`0217d2e`](https://github.com/mozilla-neutrino/neutrino-dev/commit/0217d2e1947e140c1df1efaef269440a19970511)
+- ESLint middleware docs bug, v5.3.1 [`e01ecf2`](https://github.com/mozilla-neutrino/neutrino-dev/commit/e01ecf2bc0fa55dadaf604903ec925fe9fa0ce94)
+- Add react router starter and blog post (#164) [`5b46e0c`](https://github.com/mozilla-neutrino/neutrino-dev/commit/5b46e0ca3c36c966ade8658d6fe0d11fc77c5f7e)
+
+#### [v5.3.0](https://github.com/mozilla-neutrino/neutrino-dev/compare/v5.2.0...v5.3.0)
+> 3 April 2017
+- Release v5.3.0 [`aec1cbb`](https://github.com/mozilla-neutrino/neutrino-dev/commit/aec1cbb12e4f1cbab54373010c65626094bdd122)
+- Update build executable to respect config stats. (#163) [`ab38cd5`](https://github.com/mozilla-neutrino/neutrino-dev/commit/ab38cd54722aca468e283a207f0b701233d1f478)
+- fix eslint-semi-off middleware example (#161) [`e6924e2`](https://github.com/mozilla-neutrino/neutrino-dev/commit/e6924e246fcc968314b00cd779b3009185000d69)
+
+#### [v5.2.0](https://github.com/mozilla-neutrino/neutrino-dev/compare/v5.1.0...v5.2.0)
+> 1 April 2017
+- Allow setting karma middleware options as overridable (#160) [`3f90dfd`](https://github.com/mozilla-neutrino/neutrino-dev/commit/3f90dfdfa35a95683f69e7aadf86bbd4b0c3483a)
+- neutrino v5.1.1 [`878026a`](https://github.com/mozilla-neutrino/neutrino-dev/commit/878026a96102bfda1760f7717e494c7b45058c6e)
+- options.output mis-named as options.build (#159) [`e9a7a36`](https://github.com/mozilla-neutrino/neutrino-dev/commit/e9a7a36c786bdb513a84470bae910341052c2987)
+
+#### [v5.1.0](https://github.com/mozilla-neutrino/neutrino-dev/compare/v5.0.2...v5.1.0)
+> 30 March 2017
+- Upgrading webpack-chain to v3.1 (#157) [`d009882`](https://github.com/mozilla-neutrino/neutrino-dev/commit/d009882e6d2dbbefe5c450472e689817dbc753af)
+- Releasing v5.1.0 [`adcc04f`](https://github.com/mozilla-neutrino/neutrino-dev/commit/adcc04fbf09b2d2cf285a27d6b89fcbb69b71c8d)
+- Adding code coverage with Codacy support (#156) [`9871634`](https://github.com/mozilla-neutrino/neutrino-dev/commit/98716343f75f6de5a5ec9d9853bcc084668afc04)
+- Use smarter publish script (#154) [`3afd737`](https://github.com/mozilla-neutrino/neutrino-dev/commit/3afd73784f2e661d8c3064901144759379a9a246)
+- fix docs for creating loaders (#153) [`e7d0b97`](https://github.com/mozilla-neutrino/neutrino-dev/commit/e7d0b97df899030c194d10012b4780c9aea0e045)
+
+#### [v5.0.2](https://github.com/mozilla-neutrino/neutrino-dev/compare/v4.2.0...v5.0.2)
+> 28 March 2017
+- Adding documention about web publicPath [`#141`](https://github.com/mozilla-neutrino/neutrino-dev/pull/141)
+- Hopefully last round of docs changes for v5 [`#140`](https://github.com/mozilla-neutrino/neutrino-dev/pull/140)
+- Upgrading dependencies [`#139`](https://github.com/mozilla-neutrino/neutrino-dev/pull/139)
+- Validate webpack configuration before running compiler [`#138`](https://github.com/mozilla-neutrino/neutrino-dev/pull/138)
+- Functional refactor [`#137`](https://github.com/mozilla-neutrino/neutrino-dev/pull/137)
+- Resolve packages from parent node_modules folders [`#135`](https://github.com/mozilla-neutrino/neutrino-dev/pull/135)
+- Fix typo in develop function. [`#132`](https://github.com/mozilla-neutrino/neutrino-dev/pull/132)
+- Neutrino webpack [`#127`](https://github.com/mozilla-neutrino/neutrino-dev/pull/127)
+- Rename &#x60;getWebpackOptions&#x60; to &#x60;getWebpackConfig&#x60;. [`#123`](https://github.com/mozilla-neutrino/neutrino-dev/pull/123)
+- Neutrino refactor [`#119`](https://github.com/mozilla-neutrino/neutrino-dev/pull/119)
+- Fixing linting to run for all packages [`#120`](https://github.com/mozilla-neutrino/neutrino-dev/pull/120)
+- Fix link [`#117`](https://github.com/mozilla-neutrino/neutrino-dev/pull/117)
+- Fix svg mime-type [`#115`](https://github.com/mozilla-neutrino/neutrino-dev/pull/115)
+- Adding option-configurable compile targets [`#111`](https://github.com/mozilla-neutrino/neutrino-dev/pull/111)
+- Add support building react-native app [`#88`](https://github.com/mozilla-neutrino/neutrino-dev/pull/88)
+- Defer test configuration overrides until on:test [`#110`](https://github.com/mozilla-neutrino/neutrino-dev/pull/110)
+- Using neutrino to lint itself [`#106`](https://github.com/mozilla-neutrino/neutrino-dev/pull/106)
+- Should generate correct sourcemaps during dev [`#105`](https://github.com/mozilla-neutrino/neutrino-dev/pull/105)
+- eslint [`#102`](https://github.com/mozilla-neutrino/neutrino-dev/pull/102)
+- README updates for v5 [`#103`](https://github.com/mozilla-neutrino/neutrino-dev/pull/103)
+- v5 Docs [`#98`](https://github.com/mozilla-neutrino/neutrino-dev/pull/98)
+- Baseline for Neutrino v5 [`#86`](https://github.com/mozilla-neutrino/neutrino-dev/pull/86)
+- Added coverage support to jest preset [`#76`](https://github.com/mozilla-neutrino/neutrino-dev/pull/76)
+- Add Community section for starter kits [`#78`](https://github.com/mozilla-neutrino/neutrino-dev/pull/78)
+- Add FAQ section [`#62`](https://github.com/mozilla-neutrino/neutrino-dev/pull/62)
+- Refining middleware concept, splitting presets into middleware packages [`f202977`](https://github.com/mozilla-neutrino/neutrino-dev/commit/f20297738b1fe7d248ee2c6ae3cbd1a94b060539)
+- Updating yarn.lock files [`4b8eb84`](https://github.com/mozilla-neutrino/neutrino-dev/commit/4b8eb8493f0ed73b0a832bdefe059b59644b040e)
+- Upgrading to webpack-chain v3, add more tests for full presets [`49b9e29`](https://github.com/mozilla-neutrino/neutrino-dev/commit/49b9e296ff8b73dca534e981f2559da6b47e0eda)
+- peerDeps and invalid deps [`d202d01`](https://github.com/mozilla-neutrino/neutrino-dev/commit/d202d017fffe28898303a19ec4022e4741da8d73)
+- Trying out use(loader, options) [`73ef503`](https://github.com/mozilla-neutrino/neutrino-dev/commit/73ef503d156613a731591b6aa4e248e8d46d1af6)
+- Adding rudimentary testing [`47e9b52`](https://github.com/mozilla-neutrino/neutrino-dev/commit/47e9b520be741d97918a6d24e702f228786b87e8)
+- Fix resolution issues when linking neutrino [`e4c53c2`](https://github.com/mozilla-neutrino/neutrino-dev/commit/e4c53c238e8f4ab4fb93ecfbf74f79ce0e95303f)
+- Node.js HMR, source watching, named modules for Node and Web [`e3c7b60`](https://github.com/mozilla-neutrino/neutrino-dev/commit/e3c7b60210f2f1466621e0bcb10b8b97e1a7d8c8)
+- Switch packages licenses to MPL v2, add AVA to start test implementation [`e1ee626`](https://github.com/mozilla-neutrino/neutrino-dev/commit/e1ee6267b162313dc2308246685779fcaf0827a3)
+- Hopefully last round of docs changes [`448aa4b`](https://github.com/mozilla-neutrino/neutrino-dev/commit/448aa4b651c8e05f7335a437c6a58c4c3ac5f00c)
+- Updating for latest v5 changes [`f4db936`](https://github.com/mozilla-neutrino/neutrino-dev/commit/f4db9360b726f72d8abb32bc24655282953fa6e3)
+- Syncing packages to docs, adding scripts for publishing [`887ec68`](https://github.com/mozilla-neutrino/neutrino-dev/commit/887ec68d5a9cdfee8ddc9e89a926229df26a4e8a)
+- Updating changelog [`6bc3542`](https://github.com/mozilla-neutrino/neutrino-dev/commit/6bc3542ab6e40e6727cadefdfb8e34dabc32ccc5)
+- Releasing v5.0.2 [`f3a24de`](https://github.com/mozilla-neutrino/neutrino-dev/commit/f3a24de25182f93b247a2bc9b9971fc0e9562a29)
+- Syncing package readmes with docs [`79c3df0`](https://github.com/mozilla-neutrino/neutrino-dev/commit/79c3df048580e4bc7a803b10c5096bfe8aef49a9)
+- Pull webpack actions out of Neutrino class. [`d71fee5`](https://github.com/mozilla-neutrino/neutrino-dev/commit/d71fee588d227ec884c46d9d770cd05897594c02)
+- Switching paths to relative [`c87d0f1`](https://github.com/mozilla-neutrino/neutrino-dev/commit/c87d0f133b38d84a9297693f04f68b9fa14ffcee)
+- Extracting webpack utils to their own file (#147) [`af1ba6a`](https://github.com/mozilla-neutrino/neutrino-dev/commit/af1ba6ab6f731733abda509b8851ff6db86c9eda)
+- Move require/import middleware functionality to api. [`6fdd8d6`](https://github.com/mozilla-neutrino/neutrino-dev/commit/6fdd8d617bff1d11ac305b60eb91a209ec6806c3)
+- Upgrade webpack-chain to v2, add --inspect [`11cd3ba`](https://github.com/mozilla-neutrino/neutrino-dev/commit/11cd3ba0cab4efcbdf408d3943b44d9e493db0bd)
+- add .eslintrc file, eslint fix script. add deps: prettier, prettier-eslint, eslint, eslint-plugin-react. use config from neutrino-preset-mozilla-rpweb [`2cdab9b`](https://github.com/mozilla-neutrino/neutrino-dev/commit/2cdab9bc25b52077952e802119ed451e3d8317f3)
+- Fixing deprecation warning (#72) [`8ad608b`](https://github.com/mozilla-neutrino/neutrino-dev/commit/8ad608bd01d8b699b4cd9e40d7332930c5399227)
+- Fixing json extension [`74f6f65`](https://github.com/mozilla-neutrino/neutrino-dev/commit/74f6f6519ebde0691955432b1f3463659624fad7)
+- React preset v4.2.2 [`bdcbecf`](https://github.com/mozilla-neutrino/neutrino-dev/commit/bdcbecf5c7a86c905303923b0e227a03788665a5)
+- Add custom method for generating an eslintrc config (#63) [`68606b4`](https://github.com/mozilla-neutrino/neutrino-dev/commit/68606b43e62b12b5da736a9a81e8d46daa92c2cb)
+- changelog [`bacf6b4`](https://github.com/mozilla-neutrino/neutrino-dev/commit/bacf6b4f8b4d022dd7504e46c0de17114e70b95e)
+- Merge branch &#x27;master&#x27; of github.com:mozilla-neutrino/neutrino-dev [`189eee4`](https://github.com/mozilla-neutrino/neutrino-dev/commit/189eee4536498d74dd236b3b896b837354dc45d3)
+- unquote property names, rebase, remove react bits [`0baee5b`](https://github.com/mozilla-neutrino/neutrino-dev/commit/0baee5bd6b1b75ff51cf067a7a47492efe95fea7)
+- Changelog update [`ad9a88c`](https://github.com/mozilla-neutrino/neutrino-dev/commit/ad9a88c960d4d5fa0df424244685b84097bb1e5e)
+- Pointing package.json respository to tree location [`a594ef9`](https://github.com/mozilla-neutrino/neutrino-dev/commit/a594ef97885b3a597202cb4e48242ff49182d198)
+- Changelog [`31ebf7a`](https://github.com/mozilla-neutrino/neutrino-dev/commit/31ebf7abaa5b06be8b370e601af996bc863391a2)
+- Make sourcemap support optional for node libraries (#85) [`f02af3f`](https://github.com/mozilla-neutrino/neutrino-dev/commit/f02af3fc9f577d24976c79cd24bf2dd6f26aaeeb)
+- Add &#x60;runCommand&#x60; helper method to Neutrino. [`339d049`](https://github.com/mozilla-neutrino/neutrino-dev/commit/339d049956a4cf669dc9ef12b1efb342ee89061b)
+- Moving boilerplate blurb to FAQs (#69) [`898ae88`](https://github.com/mozilla-neutrino/neutrino-dev/commit/898ae88f366d9631a4d492999964a6cafe4bfae1)
+- Why use a chaining API? (#87) [`8f322fb`](https://github.com/mozilla-neutrino/neutrino-dev/commit/8f322fbacd178017f91d8c5f7de692182666f11e)
+- Mocha dependency upgrades [`42c2e66`](https://github.com/mozilla-neutrino/neutrino-dev/commit/42c2e666f4c191b6e2634dccb3e96c9946f7bb80)
+- Remove unnecessary specificity from webpack config test. [`9826301`](https://github.com/mozilla-neutrino/neutrino-dev/commit/9826301398d1b93e15c1059795d3c82e13020cb5)
+- Set environment variable, NODE_ENV, inside of &#x60;runCommand&#x60; (also adds --env option to CLI). [`27b8011`](https://github.com/mozilla-neutrino/neutrino-dev/commit/27b8011be15d6d2059e979d6f900d8d68b243020)
+- Add community presets page to docs (#77) [`1b47daf`](https://github.com/mozilla-neutrino/neutrino-dev/commit/1b47dafc820afde5f54918f4f1d7fac10503b5b1)
+- Adding rule include and exclude upgrade documentation [`a392fb1`](https://github.com/mozilla-neutrino/neutrino-dev/commit/a392fb10aad71abe8c1f10215e02250db69ee193)
+- Manually caching monorepo package node_modules for travis [`05e4b09`](https://github.com/mozilla-neutrino/neutrino-dev/commit/05e4b09983f14c46adf4cc8a4e3154a7ed121a64)
+- Fixing jest exception (#57) [`2fb747a`](https://github.com/mozilla-neutrino/neutrino-dev/commit/2fb747a207702b17970c8c559670feb1607efa6d)
+- Make run method in bin/neutrino self contained. [`60880d8`](https://github.com/mozilla-neutrino/neutrino-dev/commit/60880d8b57a385c9be4816f587a031f5f619a2e3)
+- Preparing docs for v5 [`eafa888`](https://github.com/mozilla-neutrino/neutrino-dev/commit/eafa888b3c09bb0b5dcc1ebe558c7eb1accdcf20)
+- Updating yarn.lock [`66fc708`](https://github.com/mozilla-neutrino/neutrino-dev/commit/66fc708da6f52d6b29a3e519005406ca0094d0f3)
+- Move &#x60;run&#x60; process logic to location of call. [`98eec4c`](https://github.com/mozilla-neutrino/neutrino-dev/commit/98eec4ce044447cb5054e911bf1dbcc7ac6d7871)
+- Dynamic import() for Node [`ac48dbf`](https://github.com/mozilla-neutrino/neutrino-dev/commit/ac48dbf3c3158e97d51008405e98f79af404e6c6)
+- Fixing typo in docs [`0ad7137`](https://github.com/mozilla-neutrino/neutrino-dev/commit/0ad71379eae0b17d5e0f69885a6849059a4b2ffe)
+- Adding dynamic import syntax, babel-polyfill by default, devserver port fix [`34d845a`](https://github.com/mozilla-neutrino/neutrino-dev/commit/34d845ae251e2ea9a0557df8cd46906f5a5eabb4)
+- Upgrading webpack-chain for loader merge bug [`112f7d7`](https://github.com/mozilla-neutrino/neutrino-dev/commit/112f7d7fdd0b66a15ceb9481f68069b5e9b92fcb)
+- Remove concept of &quot;presets&quot; in favor of &quot;middleware(s)/use&quot;. [`4ae503a`](https://github.com/mozilla-neutrino/neutrino-dev/commit/4ae503a99b9488c05477adf3b9109e399f867b08)
+- Moving peerDeps of deps to devDeps [`112f88d`](https://github.com/mozilla-neutrino/neutrino-dev/commit/112f88d10ada444edc209efc13b8505c53a6547b)
+- Bumping for babel-preset-env bug [`48b0e53`](https://github.com/mozilla-neutrino/neutrino-dev/commit/48b0e53ac2563250460b266af71fa3458d636fe4)
+- Normalize API paths based on absolute or relative location [`c33480f`](https://github.com/mozilla-neutrino/neutrino-dev/commit/c33480f9f9fd86e92151f94260db162e7b4e0ac3)
+- Airbnb-base v4.3 [`f1561b4`](https://github.com/mozilla-neutrino/neutrino-dev/commit/f1561b4fa7f597873f088187f77ebaab121fba75)
+- Allow linting overrides to airbnb preset [`7b4b1b3`](https://github.com/mozilla-neutrino/neutrino-dev/commit/7b4b1b38af9c7f3ad25ffd1cdf98cc1e31044a1e)
+- Allow inspecting the API default exports without erroring (#152) [`ebf7879`](https://github.com/mozilla-neutrino/neutrino-dev/commit/ebf7879ca67c1deca22e85991adf52da5db25a32)
+- Bumping for bugfix in webpack-chain [`c253f83`](https://github.com/mozilla-neutrino/neutrino-dev/commit/c253f83ea6fbfa7e6c8390fa8d710d27d7a44df8)
+- Airbnb base v4.3.1 [`9e4fbdf`](https://github.com/mozilla-neutrino/neutrino-dev/commit/9e4fbdf845de379da35803f29a5daac627684623)
+- Simplify deep picking with pathOr [`99db808`](https://github.com/mozilla-neutrino/neutrino-dev/commit/99db8080c062efa4d5fc304b94f5fc2a7575d027)
+- Rdesign Advanced Customization examples to use Neutrino v5 fashion (#145) [`ea92b84`](https://github.com/mozilla-neutrino/neutrino-dev/commit/ea92b84e6207194ff468619b5def761854805c26)
+- Cleaning up unused gitignores [`c35c84d`](https://github.com/mozilla-neutrino/neutrino-dev/commit/c35c84def16abffc7dc20cda9b4dfeb45a17e1b7)
+- React preset v4.2.3 [`0ab4d34`](https://github.com/mozilla-neutrino/neutrino-dev/commit/0ab4d34abbcc35049bae731e04453ad4d07b7338)
+- Middleware vs. Presets? (#149) [`c2496bf`](https://github.com/mozilla-neutrino/neutrino-dev/commit/c2496bfa3cdb5ba4a49afb1953e1d48b032632c1)
+- dev-server/client host/port fix (#83) [`ac081c1`](https://github.com/mozilla-neutrino/neutrino-dev/commit/ac081c143e3eb06569d52370a6685ff9ea90b420)
+- Review nits [`d428c8c`](https://github.com/mozilla-neutrino/neutrino-dev/commit/d428c8cce7e9062ac48e8d79ff0d84c36b1bbcfb)
+- Add packages/bin/neutrino to lint files list. [`7f518f8`](https://github.com/mozilla-neutrino/neutrino-dev/commit/7f518f8938721b363b946344f93d679699c4b26a)
+- Travis changes [`573c821`](https://github.com/mozilla-neutrino/neutrino-dev/commit/573c8212f2a099880c7624df15c5502db993feee)
+- Switching clean middleware to use options.root [`eafadf2`](https://github.com/mozilla-neutrino/neutrino-dev/commit/eafadf2013f37547de5e419db21a0f8c23e49bd3)
+- Put community contributions alongside core ones [`3e2121d`](https://github.com/mozilla-neutrino/neutrino-dev/commit/3e2121df1d8070be0d6a2453c1d5c6d4fb7b04c3)
+- Switch to relative paths [`9b4bce0`](https://github.com/mozilla-neutrino/neutrino-dev/commit/9b4bce0819fe29225b721940684eb95752f68634)
+- Neutrino and Jest preset v4.3.0 [`eb2f20f`](https://github.com/mozilla-neutrino/neutrino-dev/commit/eb2f20f732632f63bb6ea1170bafc6edd40a124f)
+- Web and Node preset v4.2.1 [`62d698a`](https://github.com/mozilla-neutrino/neutrino-dev/commit/62d698ac01a682b484b477162d3007abdae87211)
+- Removing extraneous construct [`46e6637`](https://github.com/mozilla-neutrino/neutrino-dev/commit/46e66378f5a085de90a845ab7dc4fe2102310df9)
+- Fixing neutrino.custom.eslintrc to not except (#68) [`89e7658`](https://github.com/mozilla-neutrino/neutrino-dev/commit/89e7658ecc64832f543fe98a56004958b727f457)
+- Update upgrading-neutrino.md (eslint middleware) (#144) [`872022a`](https://github.com/mozilla-neutrino/neutrino-dev/commit/872022a79674e49d843bf03aad1edf1e471b0112)
+- Fixing LESS example usage [`28df3c4`](https://github.com/mozilla-neutrino/neutrino-dev/commit/28df3c43ec4215f16d4bb199d6ca4da3c5253bb5)
+- Adding Module to preset config (#70) [`1414669`](https://github.com/mozilla-neutrino/neutrino-dev/commit/14146699fc1b9b94a21f624a10bd5b4db774a6e1)
+- Adding missing packages to travis cache, removing duplicate yarn install directive [`bd51085`](https://github.com/mozilla-neutrino/neutrino-dev/commit/bd5108565e135beb404d85f9de0358488607d8a0)
+- Web preset v4.2.3 [`c76c735`](https://github.com/mozilla-neutrino/neutrino-dev/commit/c76c7352e32a368c4fb997712e664d797cad715b)
+- Lint base v4.3.1 [`3474a95`](https://github.com/mozilla-neutrino/neutrino-dev/commit/3474a952d3ce02a60eb6391c78964e49b35dcd46)
+- Heading typo [`64a0a2e`](https://github.com/mozilla-neutrino/neutrino-dev/commit/64a0a2e64241b5130f0ee4b67c9022d2321e38df)
+- Fixing incorrect regex usage in docs for LESS (#67) [`dc638f5`](https://github.com/mozilla-neutrino/neutrino-dev/commit/dc638f5328cd399908628e0c519dec3d9489339a)
+- Web preset v4.2.2 [`10f57fa`](https://github.com/mozilla-neutrino/neutrino-dev/commit/10f57fa379ef54f3d913ccb7ed82fc89310be5a6)
+- use correct value for package.json config (#146) [`b09f01e`](https://github.com/mozilla-neutrino/neutrino-dev/commit/b09f01edbb70c7f504406d025110833f468034e2)
+- corrected typo in docs/contributing/development.md (#55) [`de2dfe2`](https://github.com/mozilla-neutrino/neutrino-dev/commit/de2dfe25bf63dec7e798c504dfe26795afdfa08d)
+- Node preset v4.2.2 [`5c53dc0`](https://github.com/mozilla-neutrino/neutrino-dev/commit/5c53dc04679d03aa6792449cab18639e75dcebdd)
+- Typo [`b46331f`](https://github.com/mozilla-neutrino/neutrino-dev/commit/b46331f937e98cadf7eba961f7e417f21f2c8c7d)
+- Move FAQ&#x27;s higher up in the summary [`94965ac`](https://github.com/mozilla-neutrino/neutrino-dev/commit/94965ac5953b392a88f0962eca1fb16bfb54c196)
+- Bumping jest to 4.2.1 [`775a4b7`](https://github.com/mozilla-neutrino/neutrino-dev/commit/775a4b7d68ecc89509d9880f3652ee9be04fb9a1)
+- Bug in web preset devServer port detection [`f571252`](https://github.com/mozilla-neutrino/neutrino-dev/commit/f5712521246c0bdf6e27d5f3abfd3f7625030e66)
+- lint-base v4.3 [`23bcd67`](https://github.com/mozilla-neutrino/neutrino-dev/commit/23bcd67545d8aeb328c224e3d9f693cd1a439cb8)
+- Attempting to cache packages&#x27; node_modules via wildcard [`aa16fa6`](https://github.com/mozilla-neutrino/neutrino-dev/commit/aa16fa658dcda2c114777544a89a96fb1fed492f)
+
+#### [v4.2.0](https://github.com/mozilla-neutrino/neutrino-dev/compare/v4.1.1...v4.2.0)
+> 24 February 2017
+- v4.2 [`#54`](https://github.com/mozilla-neutrino/neutrino-dev/pull/54)
+- add eslint-jest-plugin [`#48`](https://github.com/mozilla-neutrino/neutrino-dev/pull/48)
+- Add github repo link to gitbook [`#53`](https://github.com/mozilla-neutrino/neutrino-dev/pull/53)
+- Add website to GitHub homepage. Fixes #49 [`#51`](https://github.com/mozilla-neutrino/neutrino-dev/pull/51)
+- Add website to GitHub homepage. Fixes #49 [`#49`](https://github.com/mozilla-neutrino/neutrino-dev/issues/49)
+- Throw exception on missing module (#45) [`c1033ae`](https://github.com/mozilla-neutrino/neutrino-dev/commit/c1033ae8b0b212e11770f59a4800ad2a9fbf2399)
+- Fix typo in usage example (#52) [`dac5df7`](https://github.com/mozilla-neutrino/neutrino-dev/commit/dac5df78fd4790199b68f7bebc82b6f54d9c6cb6)
+
+#### [v4.1.1](https://github.com/mozilla-neutrino/neutrino-dev/compare/v4.1.0...v4.1.1)
+> 22 February 2017
+- Wrong lint base version [`fe5c381`](https://github.com/mozilla-neutrino/neutrino-dev/commit/fe5c38180743e4f48c8b97b9b3209e7ad7971ab5)
+
+#### [v4.1.0](https://github.com/mozilla-neutrino/neutrino-dev/compare/v4.0.1...v4.1.0)
+> 22 February 2017
+- Introduce lint base to make lint preset creation much easier (#41) [`b838a0d`](https://github.com/mozilla-neutrino/neutrino-dev/commit/b838a0da54a1c31bbc5a2f5845df1ba42fba31dc)
+- Changelogs (#31) [`b32ad66`](https://github.com/mozilla-neutrino/neutrino-dev/commit/b32ad66c7d6b0fc8665633f42d416e6d900ba8f6)
+- Docs: learning resources [`2647be7`](https://github.com/mozilla-neutrino/neutrino-dev/commit/2647be77806e7431a8888f94f7c2602db58aeade)
+- copy editing (#30) [`5f65cfc`](https://github.com/mozilla-neutrino/neutrino-dev/commit/5f65cfc534d07af3b9d335458e56cf637f0d2b32)
+- Jest docs: Usage with React (#37) [`296576b`](https://github.com/mozilla-neutrino/neutrino-dev/commit/296576bb3ccd83c985f0ff58cc7535e3da9fef21)
+- Fix typo in preset-jest (#34) [`1ade8c9`](https://github.com/mozilla-neutrino/neutrino-dev/commit/1ade8c9613dac04bcb6a23c10fc7e06e14d631fb)
+- Add Tree-shaking to README (#33) [`4b84a23`](https://github.com/mozilla-neutrino/neutrino-dev/commit/4b84a23693fe4e0bd36caa380332a64fbdc4d2b1)
+- missing object in the example of preset (#38) [`4143052`](https://github.com/mozilla-neutrino/neutrino-dev/commit/414305210a0faf5d7ec53dc35069017c9ca9c960)
+- Wrong URL for express-starter [`2f61c11`](https://github.com/mozilla-neutrino/neutrino-dev/commit/2f61c11512576ff3a0c2bcb7af45f55b3d48b11f)
+- Avoid no-plusplus (#29) [`3768aba`](https://github.com/mozilla-neutrino/neutrino-dev/commit/3768aba5fc320676956293896ce92bedd175bc0c)
+- Fix typo commited -&gt; committed (#28) [`5feec46`](https://github.com/mozilla-neutrino/neutrino-dev/commit/5feec467f85dca7f346930cc061f6aaaad71ecb0)
+
+#### [v4.0.1](https://github.com/mozilla-neutrino/neutrino-dev/compare/v4.0.0...v4.0.1)
+> 17 February 2017
+- Fix: React lifecycle methods shouldn&#x27;t fail eslint [`#26`](https://github.com/mozilla-neutrino/neutrino-dev/pull/26)
+- Slack badges [`#25`](https://github.com/mozilla-neutrino/neutrino-dev/pull/25)
+- Badge updates [`#24`](https://github.com/mozilla-neutrino/neutrino-dev/pull/24)
+- Tagline update [`24900a4`](https://github.com/mozilla-neutrino/neutrino-dev/commit/24900a473ad1a51c46ddc35758816c6161a689a9)
+
+#### [v4.0.0](https://github.com/mozilla-neutrino/neutrino-dev/compare/v4.0.0-beta.3...v4.0.0)
+> 16 February 2017
+- ._. [`02a3983`](https://github.com/mozilla-neutrino/neutrino-dev/commit/02a3983df98446c9b0ffad84f68d05c8378b5a97)
+- Major version [`ec22aca`](https://github.com/mozilla-neutrino/neutrino-dev/commit/ec22aca1445388ec957aa80b42ac88c364eec838)
+
+#### [v4.0.0-beta.3](https://github.com/mozilla-neutrino/neutrino-dev/compare/v4.0.0-beta.0...v4.0.0-beta.3)
+> 16 February 2017
+- All bump [`065cda7`](https://github.com/mozilla-neutrino/neutrino-dev/commit/065cda76e6908af7bbe773026db42e4bc4b2ca63)
+- Bump [`cde3503`](https://github.com/mozilla-neutrino/neutrino-dev/commit/cde350374615a5ae10cf07d0a3cee4460f877422)
+- README typo [`a6ad540`](https://github.com/mozilla-neutrino/neutrino-dev/commit/a6ad54050c7fb37aac8f0a6db3a19f486862da46)
+
+#### v4.0.0-beta.0
+> 16 February 2017
+- Documentation [`#17`](https://github.com/mozilla-neutrino/neutrino-dev/pull/17)
+- Removing base preset, adding Airbnb preset [`#22`](https://github.com/mozilla-neutrino/neutrino-dev/pull/22)
+- Simplify configuration [`#18`](https://github.com/mozilla-neutrino/neutrino-dev/pull/18)
+- Displaying fancier build status during dev server [`#16`](https://github.com/mozilla-neutrino/neutrino-dev/pull/16)
+- Fixes HMR [`#15`](https://github.com/mozilla-neutrino/neutrino-dev/pull/15)
+- Pluggable event architecture mode, new test presets [`#10`](https://github.com/mozilla-neutrino/neutrino-dev/pull/10)
+- add version badges [`#12`](https://github.com/mozilla-neutrino/neutrino-dev/pull/12)
+- HTML update [`#2`](https://github.com/mozilla-neutrino/neutrino-dev/pull/2)
+- Linting changes and new config API [`#1`](https://github.com/mozilla-neutrino/neutrino-dev/pull/1)
+- Migration to webpack 2 [`#10`](https://github.com/mozilla-neutrino/neutrino-dev/pull/10)
+- Init in cli [`#8`](https://github.com/mozilla-neutrino/neutrino-dev/pull/8)
+- Attempting to force v4 [`35408a8`](https://github.com/mozilla-neutrino/neutrino-dev/commit/35408a8d240e266261bd004041b3b20c02b32dc3)
+- oao upgrade [`4925b1d`](https://github.com/mozilla-neutrino/neutrino-dev/commit/4925b1d39aecf0fcbe73bb31ee2efb3b51e53095)
+- Release commands [`a792904`](https://github.com/mozilla-neutrino/neutrino-dev/commit/a7929042030696c68bb65daabb94601a5d4589fc)
+- Prepublish requirements [`0deb630`](https://github.com/mozilla-neutrino/neutrino-dev/commit/0deb63001f8d2988956afabc24bbf8c57b8da582)
+- Docs: final cleanup [`3065eff`](https://github.com/mozilla-neutrino/neutrino-dev/commit/3065eff293e748f4057fe04fb21a8a076b84cc01)
+- Docs: incorrect URL for airbnb [`2d28882`](https://github.com/mozilla-neutrino/neutrino-dev/commit/2d288826f15e1062e81bb85cc4ee5e203a431db9)
+- Docs: Airbnb [`0f70ace`](https://github.com/mozilla-neutrino/neutrino-dev/commit/0f70acebeccc737dc936664d7b4b05d4b8e4ae64)
+- Docs: Karma, neutrino.js.org, dev commands [`22c5292`](https://github.com/mozilla-neutrino/neutrino-dev/commit/22c5292d95f9881d483871c57b325b6de8ba230b)
+- Docs: Jest [`cae69d8`](https://github.com/mozilla-neutrino/neutrino-dev/commit/cae69d877053a6ee3befdae3344c75e57ddc2f55)
+- Docs: Mocha, Jest intro [`0ef8679`](https://github.com/mozilla-neutrino/neutrino-dev/commit/0ef86792515a0a2d069e46d57981e4c85208aed8)
+- Docs: Web and React presets, placeholders, package READMEs [`a96b875`](https://github.com/mozilla-neutrino/neutrino-dev/commit/a96b875a1520edc74657db223c9a9ae63d2abd98)
+- Docs: license [`a28b66f`](https://github.com/mozilla-neutrino/neutrino-dev/commit/a28b66f084856406377f859d4dd4a19d383f6df4)
+- Docs: contributing and development [`2ce7bee`](https://github.com/mozilla-neutrino/neutrino-dev/commit/2ce7bee1c5af32e07de97be2bc7e573df234c282)
+- Docs: contributing and code of conduct [`e92413d`](https://github.com/mozilla-neutrino/neutrino-dev/commit/e92413d67aa21fd18464585832cf90b575ee71a9)
+- Docs: CLI [`deb2255`](https://github.com/mozilla-neutrino/neutrino-dev/commit/deb2255a53af367e12ff41bff35bb516596d81a1)
+- Docs: API [`5cda5b1`](https://github.com/mozilla-neutrino/neutrino-dev/commit/5cda5b19e4ae1837d84e2e17b59bc835fa4da832)
+- Docs: creating presets [`35ad98a`](https://github.com/mozilla-neutrino/neutrino-dev/commit/35ad98a6dbb90710b497d4999a1b21816716fdf3)
+- Documentation for customization, more placeholders [`53c5a03`](https://github.com/mozilla-neutrino/neutrino-dev/commit/53c5a036569d82f84899b28d0367dc85f1266116)
+- Project layout, usage, testing preset placeholders [`2bf82c6`](https://github.com/mozilla-neutrino/neutrino-dev/commit/2bf82c6c0b6181a419a094e8b6ec360ac98eac1c)
+- Fixes errors in airbnb preset [`70f0460`](https://github.com/mozilla-neutrino/neutrino-dev/commit/70f046080c375385996061bbdae5ff195fbe9f29)
+- Fixes Jest not searching in node_modules of preset for deps [`b4fe224`](https://github.com/mozilla-neutrino/neutrino-dev/commit/b4fe224328a5b00f6eaf312385ec1231190b89bc)
+- Fixes unnecessary regenerator for Node 6.9, error in source-map-support [`f32539f`](https://github.com/mozilla-neutrino/neutrino-dev/commit/f32539f7979c8854794c6e7358c3beb5be4d1c61)
+- Upgrading webpack-chain to fix externals not chaining [`ff37488`](https://github.com/mozilla-neutrino/neutrino-dev/commit/ff37488653bc4c8dea7c63e1357f0cb212a2ecf5)
+- Swapping babel-preset-babili for babili-webpack-plugin [`089927c`](https://github.com/mozilla-neutrino/neutrino-dev/commit/089927cfb7355b5f1e9b73eee7ba355a7e33889a)
+- Missing BUILD in web and node [`376220a`](https://github.com/mozilla-neutrino/neutrino-dev/commit/376220adab9c0ecbcd9ce389a4f8678097befc2a)
+- Bugs with web preset missing dev server [`4f1655d`](https://github.com/mozilla-neutrino/neutrino-dev/commit/4f1655dbd311dbe5e0fb5158cfc88f12b36726ec)
+- Removing exists-file from web preset [`02e1355`](https://github.com/mozilla-neutrino/neutrino-dev/commit/02e135529d3e5c0738a238425004d2ed47d1bb08)
+- Docs/logo update [`e47c8d9`](https://github.com/mozilla-neutrino/neutrino-dev/commit/e47c8d9b0b81b485b9e3b211dc5dbf15cd4cc86f)
+- Merge branch &#x27;master&#x27; of github.com:mozilla-neutrino/neutrino-dev [`618604c`](https://github.com/mozilla-neutrino/neutrino-dev/commit/618604cb59f5bd98fb088d11bc489643837ed306)
+- Moar docs [`90612ef`](https://github.com/mozilla-neutrino/neutrino-dev/commit/90612ef1bc3de25dce30679445d07af3db29974e)
+- Updates docs/README.md [`9662140`](https://github.com/mozilla-neutrino/neutrino-dev/commit/96621404931f7e1dd410c41af6ae6e60941b1446)
+- CNAME [`535a7ac`](https://github.com/mozilla-neutrino/neutrino-dev/commit/535a7acf3130a50efc552c8f91595e97f42398cc)
+- Logo update [`b0fcb14`](https://github.com/mozilla-neutrino/neutrino-dev/commit/b0fcb14b723395b37238695d67539bd6b1b427d5)
+- Logo update [`87f8d6f`](https://github.com/mozilla-neutrino/neutrino-dev/commit/87f8d6f656870b9341b964a1802a0fb3f60b5d13)
+- Logo update [`f4ca012`](https://github.com/mozilla-neutrino/neutrino-dev/commit/f4ca012ff1df3d259d8a57a60d1983b6a20c145b)
+- Logo update [`3115836`](https://github.com/mozilla-neutrino/neutrino-dev/commit/3115836d7112bceb79ed2b63d7ba273452c8c88b)
+- Settings docs edit dir [`e5515a8`](https://github.com/mozilla-neutrino/neutrino-dev/commit/e5515a80b1219d47cb7c55fe3436348d7ab957c4)
+- Initializing docs dir [`965ee12`](https://github.com/mozilla-neutrino/neutrino-dev/commit/965ee12a16d876fc9070f1bf00fa7ce23e0650f6)
+- Adding book.json [`98e8be9`](https://github.com/mozilla-neutrino/neutrino-dev/commit/98e8be90e64d0d02655e4b3f8a3472ba4637b17c)
+- Removing gitbook assets [`a7119b0`](https://github.com/mozilla-neutrino/neutrino-dev/commit/a7119b0241b9bc4967e499d07f66798c707da20f)
+- Updates test.md [`ae50e9e`](https://github.com/mozilla-neutrino/neutrino-dev/commit/ae50e9e7132457e52f582ddd864eb1c2de8e4642)
+- Creates SUMMARY.md [`c6480d4`](https://github.com/mozilla-neutrino/neutrino-dev/commit/c6480d47f3b75d7fd4ef1181cfe10e34573edb6d)
+- Importing old README [`d7d3c73`](https://github.com/mozilla-neutrino/neutrino-dev/commit/d7d3c735a755ad11baba0f419d5f2662171ad0a5)
+- Simplifying HTML file creation [`a70891a`](https://github.com/mozilla-neutrino/neutrino-dev/commit/a70891a460139025e53f3b41df0528eb517a8650)
+- ESLint fixes and webpack-chain integration [`c358c0c`](https://github.com/mozilla-neutrino/neutrino-dev/commit/c358c0c31e4882e5dc571097b37f5e26ee0210f9)
+- Changes to linting and adding package config [`c26086d`](https://github.com/mozilla-neutrino/neutrino-dev/commit/c26086d1ad3d20759a8c93f65793927499174032)
+- Allowing use of node globals [`47b3972`](https://github.com/mozilla-neutrino/neutrino-dev/commit/47b3972261ee5a1130db79ffc213452a77bd6831)
+- Adding draft publish script [`04203e9`](https://github.com/mozilla-neutrino/neutrino-dev/commit/04203e984d6011d59625137e32987c81704e90ae)
+- Swapping lerna for yarn-autolink [`f0fcc9e`](https://github.com/mozilla-neutrino/neutrino-dev/commit/f0fcc9e1700bfa062de8dc75ba6a866714ea0b7e)
+- Upcoming major version [`b97ccce`](https://github.com/mozilla-neutrino/neutrino-dev/commit/b97ccce94cf3daf68e1878834ba69c188db9cb8c)
+- import neutrino-preset-react [`eabf199`](https://github.com/mozilla-neutrino/neutrino-dev/commit/eabf1992b0e4c033b811ce0207b8df309a44763b)
+- importing neutrino-preset-web [`30e3f5b`](https://github.com/mozilla-neutrino/neutrino-dev/commit/30e3f5ba2cf7ed99ffc9295dfb3fb53cb3b98c68)
+- Linting [`4b7f128`](https://github.com/mozilla-neutrino/neutrino-dev/commit/4b7f128ef948b28fa0a59519d6a1a327b6e52639)
+- Add BannerPlugin [`aff5382`](https://github.com/mozilla-neutrino/neutrino-dev/commit/aff5382ef2b1beb89cac200d5e4cd0f3d6911d27)
+- Add new line [`3b93e5f`](https://github.com/mozilla-neutrino/neutrino-dev/commit/3b93e5f3b786b5ad19f089c6e64d94a169b8cdf6)
+- Migrate webpack to 2.2.0 [`9603d98`](https://github.com/mozilla-neutrino/neutrino-dev/commit/9603d9817e06b9a962f9be604caf7f655693c64b)
+- add npm and dependency badges [`aae4813`](https://github.com/mozilla-neutrino/neutrino-dev/commit/aae4813cefeafca0b8b92e2450e53b9a393f6894)
+- Automatically wire sourcemaps to bundle [`9f2d6bc`](https://github.com/mozilla-neutrino/neutrino-dev/commit/9f2d6bc794c66cfb4375d27c23590994ea279a27)
+- Bumping base dep, updating gitignore [`7cadc67`](https://github.com/mozilla-neutrino/neutrino-dev/commit/7cadc67440b2165050d5f14fb538df7f0f75367f)
+- Using commonjs2 as a library target for exports [`4ff8834`](https://github.com/mozilla-neutrino/neutrino-dev/commit/4ff883447a4722b51e61adbcabcb8886332ce90b)
+- Switching to use source-map for all targets [`0f8886d`](https://github.com/mozilla-neutrino/neutrino-dev/commit/0f8886d29f58233d1b67cee9f719e8a21ac8d3ac)
+- Building async to generators [`3f334e6`](https://github.com/mozilla-neutrino/neutrino-dev/commit/3f334e60c4115608b25b04c464b0641cc8641982)
+- Bumping dependency [`8e7f6a0`](https://github.com/mozilla-neutrino/neutrino-dev/commit/8e7f6a06bb5fa155f0faa8282a0448c1ce30259e)
+- Upgrading dependencies, adding yarn instructions [`8b9f87b`](https://github.com/mozilla-neutrino/neutrino-dev/commit/8b9f87b12a169fcae3f5e43840c6dab96e69f0f5)
+- Bumping base preset [`74ab222`](https://github.com/mozilla-neutrino/neutrino-dev/commit/74ab222997132c48a48e15a3b907b1dabe7a5dae)
+- Upgrading base preset [`21b41d7`](https://github.com/mozilla-neutrino/neutrino-dev/commit/21b41d7f6640786b9a8f2e6ed3978775719079b9)
+- Initial implementation [`7ac2373`](https://github.com/mozilla-neutrino/neutrino-dev/commit/7ac2373616babb5edf1ff3fbf4227152c07717e9)
+- Removing recursive option which is now controlled via presence of files [`a6c06d1`](https://github.com/mozilla-neutrino/neutrino-dev/commit/a6c06d1ad1397d6e1302ff411410fd15c3815302)
+- Adding mocha configuration [`25747f4`](https://github.com/mozilla-neutrino/neutrino-dev/commit/25747f4b9b5d73a34da50ad011b10644d848720d)
+- Initial commit, creating neutrino Node.js preset [`ff893f2`](https://github.com/mozilla-neutrino/neutrino-dev/commit/ff893f2aa83dd1f71d328a7d9812ce124b572148)
+- importing neutrino-preset-base [`d97ac6e`](https://github.com/mozilla-neutrino/neutrino-dev/commit/d97ac6e902323542cde11f3174c504899534dcd6)
+- add npm and dependency badges (#9) [`ffec303`](https://github.com/mozilla-neutrino/neutrino-dev/commit/ffec303addf51b48a5be605b98e6887b0a9f4149)
+- Add repository to package.json (#6) [`c5afeaa`](https://github.com/mozilla-neutrino/neutrino-dev/commit/c5afeaa46d99ccb130d427d869344ba4eacf40b3)
+- Wrong version number [`1e244c4`](https://github.com/mozilla-neutrino/neutrino-dev/commit/1e244c4c601679144f26e9df6f0224c1752d3a52)
+- README bump [`56dd7ab`](https://github.com/mozilla-neutrino/neutrino-dev/commit/56dd7ab572770cc95681137efb5f2dc42e8fd3f8)
+- logo changes [`7bd92d4`](https://github.com/mozilla-neutrino/neutrino-dev/commit/7bd92d49c46c125e9599542998cbc3ef82e7dd31)
+- Correcting path to mocha binary [`d6d950f`](https://github.com/mozilla-neutrino/neutrino-dev/commit/d6d950f1ccec832873f86c06649b5deff2308c3a)
+- Removing scaffolding, upgrading dependencies [`357585f`](https://github.com/mozilla-neutrino/neutrino-dev/commit/357585fee7a3dde41f85cd502637cffb9023df17)
+- Handling errors to properly fail builds [`117c9e9`](https://github.com/mozilla-neutrino/neutrino-dev/commit/117c9e90aabe8afc17ecdb980814ec54f08f8b27)
+- Improving log output during building [`461681d`](https://github.com/mozilla-neutrino/neutrino-dev/commit/461681d0ec4ccb59bfc2e66f741f873c85a6a370)
+- Logo size [`37fcab6`](https://github.com/mozilla-neutrino/neutrino-dev/commit/37fcab6952bdac101aa56296f54c6021b6f1c896)
+- Updating logo on readme [`0456182`](https://github.com/mozilla-neutrino/neutrino-dev/commit/0456182f5a9ba91a559f38c7bb3f8088b028dc22)
+- Fixing npm readme [`86f6048`](https://github.com/mozilla-neutrino/neutrino-dev/commit/86f6048bfb817b38d7e99184c31140b8315b3105)
+- Adding keywords to package.json [`fbba15e`](https://github.com/mozilla-neutrino/neutrino-dev/commit/fbba15e41f8f33b7874f543b581309845300d896)
+- Updating README [`2d4ab7a`](https://github.com/mozilla-neutrino/neutrino-dev/commit/2d4ab7a6715896bfb63677c3c80c850a33909b9c)
+- Fixing build commands, adding docs [`3cd9230`](https://github.com/mozilla-neutrino/neutrino-dev/commit/3cd9230082855067775d6229abda21599c2d2455)
+- Adding single-run test for karma [`c8a48b6`](https://github.com/mozilla-neutrino/neutrino-dev/commit/c8a48b610141ca524cc120d36e15cd819190c107)
+- Allow running tests against one-off files or recursive based on cli [`b3cd6ad`](https://github.com/mozilla-neutrino/neutrino-dev/commit/b3cd6ade9879585e1bed58eadb72908de64461c9)
+- Adding Node.js mocha testing [`ed0d600`](https://github.com/mozilla-neutrino/neutrino-dev/commit/ed0d600977894ceda5e7516e9136a645a1ae01db)
+- Initial commit, moving Neo core into neutrino [`59c5c52`](https://github.com/mozilla-neutrino/neutrino-dev/commit/59c5c526488c722a51a116f4c386444a0b978188)
+- initial commit [`9639e0d`](https://github.com/mozilla-neutrino/neutrino-dev/commit/9639e0d6d0b2bf749d8a25f3342dfdda9fcd899d)
+- initial commit [`1b00e0a`](https://github.com/mozilla-neutrino/neutrino-dev/commit/1b00e0a3fc992c0bfe57a09bc9ef4b2f1ccb9d99)
+
