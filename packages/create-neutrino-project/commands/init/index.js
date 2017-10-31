@@ -48,7 +48,7 @@ module.exports = class Project extends Generator {
         devDependencies.push(LIBRARIES.NEUTRINO_PRESET_REACT);
         break;
       case PROJECTS.REACT_COMPONENTS:
-        dependencies.push(
+        devDependencies.push(
           LIBRARIES.REACT,
           LIBRARIES.REACT_DOM,
           LIBRARIES.NEUTRINO_PRESET_REACT_COMPONENTS,
@@ -62,7 +62,7 @@ module.exports = class Project extends Generator {
         devDependencies.push(LIBRARIES.NEUTRINO_PRESET_NODE);
         break;
       case PROJECTS.WEB_LIBRARY:
-        dependencies.push(LIBRARIES.NEUTRINO_PRESET_TASKCLUSTER_WEB_LIBRARY);
+        devDependencies.push(LIBRARIES.NEUTRINO_PRESET_TASKCLUSTER_WEB_LIBRARY);
         break;
     }
 
@@ -92,7 +92,7 @@ module.exports = class Project extends Generator {
   _initialPackageJson() {
     const done = this.async();
     const installer = isYarn ? 'yarn' : 'npm';
-    const scripts = { 'build': 'neutrino build' };
+    const scripts = { build: 'neutrino build' };
 
     if (this.data.project !== 'library') {
       scripts.start = 'neutrino start';
@@ -168,7 +168,7 @@ module.exports = class Project extends Generator {
     const installer = isYarn ? 'yarn' : 'npm';
     const argument = isYarn ? 'add' : 'install';
     const development = isYarn ? '--dev' : '--save-dev';
-    const { dependencies , devDependencies } = this._getDependencies();
+    const { dependencies, devDependencies } = this._getDependencies();
 
     this.log(`${chalk.green('success')} Saved package.json`);
     process.chdir(this.options.directory);
