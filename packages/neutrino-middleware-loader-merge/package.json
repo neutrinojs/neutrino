@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-loader-merge",
-  "version": "7.2.3",
+  "version": "7.3.0",
   "description": "Neutrino middleware for merging options into existing ruleset loader options",
   "main": "index.js",
   "keywords": [
