@@ -14,7 +14,7 @@ const {
 
 module.exports = class Project extends Generator {
   _makeRcFile(data) {
-    let config = { use: [] };
+    const config = { use: [] };
 
     config.use.push(data.projectType);
 
