@@ -1,5 +1,5 @@
 import test from 'ava';
-import { Neutrino } from '../src';
+import { Neutrino, build } from '../src';
 import { join } from 'path';
 
 test('initializes with no arguments', t => {
@@ -201,11 +201,23 @@ test('creates a Webpack config', t => {
 test('throws when trying to call() a non-registered command', t => {
   const api = Neutrino();
 
-  t.throws(() => api.call('non-registered', []));
+  const err = t.throws(() => api.call('non-registered', []));
+
+  t.true(err.message.includes('was not registered'));
 });
 
 test('fails when trying to run() a non-registered command', async t => {
   const api = Neutrino();
 
   await t.throws(api.run('non-registered', []).promise());
+});
+
+test('throws when trying to validate config with no entry point', async t => {
+  const api = Neutrino();
+
+  api.register('build', build);
+
+  const errors = await t.throws(api.run('build', []).promise());
+
+  t.true(errors[0].message.includes(`configuration misses the property 'entry'`));
 });

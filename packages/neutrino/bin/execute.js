@@ -1,44 +1,37 @@
-const { Neutrino } = require('../src');
-const merge = require('deepmerge');
 const ora = require('ora');
+const base = require('./base');
 
 module.exports = (middleware, args) => {
   const commandName = args._[0];
   const spinner = args.quiet ? null : ora(`Running ${commandName}`).start();
-  const options = merge({
+
+  return base({
+    middleware,
     args,
-    command: commandName,
-    debug: args.debug,
-    quiet: args.quiet,
-    env: {
-      NODE_ENV: 'production'
-    }
-  }, args.options);
-  const api = Neutrino(options);
+    NODE_ENV: 'production',
+    commandName: `${commandName}-cli`,
+    commandHandler(config, api) {
+      const command = api.commands[commandName];
 
-  api.register(`${commandName}-cli`, (config, api) => {
-    const command = api.commands[commandName];
+      if (!command) {
+        throw new Error(`A command with the name "${commandName}" was not registered`);
+      }
 
-    if (!command) {
-      throw new Error(`A command with the name "${commandName}" was not registered`);
-    }
-
-    command(config, api);
-  });
-
-  return api
-    .run(`${commandName}-cli`, middleware)
-    .fork((errors) => {
+      command(config, api);
+    },
+    errorsHandler() {
       if (!args.quiet) {
         spinner.fail(`Running ${commandName} failed`);
-        errors.forEach(err => console.error(err));
       }
-
-      process.exit(1);
-    }, (output) => {
+    },
+    successHandler(output) {
       if (!args.quiet) {
         spinner.succeed(`Running ${commandName} completed`);
-        console.log(output);
+
+        if (output != null) {
+          console.log(output);
+        }
       }
-    });
+    }
+  });
 };

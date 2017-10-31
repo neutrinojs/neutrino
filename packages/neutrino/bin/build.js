@@ -1,32 +1,22 @@
-const { Neutrino, build } = require('../src');
 const merge = require('deepmerge');
 const ora = require('ora');
+const { build } = require('../src');
+const base = require('./base');
 
 module.exports = (middleware, args) => {
   const spinner = args.quiet ? null : ora('Building project').start();
-  const options = merge({
+
+  return base({
+    middleware,
     args,
-    command: args._[0],
-    debug: args.debug,
-    quiet: args.quiet,
-    env: {
-      NODE_ENV: 'production'
-    }
-  }, args.options);
-  const api = Neutrino(options);
-
-  api.register('build', build);
-
-  return api
-    .run('build', middleware)
-    .fork((errors) => {
+    NODE_ENV: 'production',
+    commandHandler: build,
+    errorsHandler() {
       if (!args.quiet) {
         spinner.fail('Building project failed');
-        errors.forEach(err => console.error(err));
       }
-
-      process.exit(1);
-    }, (stats) => {
+    },
+    successHandler(stats) {
       if (!args.quiet) {
         spinner.succeed('Building project completed');
         console.log(stats.toString(merge({
@@ -36,5 +26,6 @@ module.exports = (middleware, args) => {
           children: false
         }, stats.compilation.compiler.options.stats || {})));
       }
-    });
+    }
+  })
 };

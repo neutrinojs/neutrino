@@ -1,6 +1,6 @@
-const { Neutrino, inspect } = require('../src');
 const { defaultTo } = require('ramda');
-const merge = require('deepmerge');
+const { inspect } = require('../src');
+const base = require('./base');
 
 const envs = {
   build: 'production',
@@ -8,28 +8,15 @@ const envs = {
   test: 'test'
 };
 
-module.exports = (middleware, args) => {
-  const commandName = args._[0];
-  const options = merge({
-    args,
-    command: commandName,
-    debug: args.debug,
-    quiet: args.quiet,
-    env: {
-      NODE_ENV: defaultTo('development', envs[commandName])
+module.exports = (middleware, args) => base({
+  middleware,
+  args,
+  NODE_ENV: defaultTo('development', envs[args._[0]]),
+  commandHandler: inspect,
+  commandName: 'inspect',
+  successHandler(output) {
+    if (!args.quiet) {
+      console.log(output);
     }
-  }, args.options);
-  const api = Neutrino(options);
-
-  api.register('inspect', inspect);
-
-  return api
-    .run('inspect', middleware)
-    .fork((err) => {
-      if (!args.quiet) {
-        console.error(err);
-      }
-
-      process.exit(1);
-    }, console.log);
-};
+  }
+});
