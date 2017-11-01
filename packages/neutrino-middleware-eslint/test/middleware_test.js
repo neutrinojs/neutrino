@@ -9,15 +9,11 @@ test('loads middleware', t => {
 });
 
 test('uses middleware', t => {
-  const api = Neutrino();
-
-  t.notThrows(() => api.use(mw()));
+  t.notThrows(() => Neutrino().use(mw()));
 });
 
 test('uses with options', t => {
-  const api = Neutrino();
-
-  t.notThrows(() => api.use(mw(), options));
+  t.notThrows(() => Neutrino().use(mw(), options));
 });
 
 test('instantiates', t => {
@@ -45,7 +41,5 @@ test('exposes lint command', t => {
 });
 
 test('exposes eslintrc config', t => {
-  const api = Neutrino();
-
-  t.is(typeof api.call('eslintrc', [mw()]), 'object');
+  t.is(typeof Neutrino().call('eslintrc', [mw()]), 'object');
 });

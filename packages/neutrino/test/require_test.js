@@ -10,25 +10,17 @@ test.before(t => {
 });
 
 test('requires middleware relative to root', t => {
-  const api = Neutrino();
-
-  t.notThrows(() => api.use('middleware'));
+  t.notThrows(() => Neutrino().use('middleware'));
 });
 
 test('requires middleware from root/node_modules', t => {
-  const api = Neutrino();
-
-  t.notThrows(() => api.use('alpha'));
+  t.notThrows(() => Neutrino().use('alpha'));
 });
 
 test('forks with error middleware contains error', (t) => {
-  const api = Neutrino();
-
-  t.throws(() => api.use('errorMiddleware'));
+  t.throws(() => Neutrino().use('errorMiddleware'));
 });
 
 test('throws if middleware cannot be found', (t) => {
-  const api = Neutrino();
-
-  t.throws(() => api.use('nonExistent'));
+  t.throws(() => Neutrino().use('nonExistent'));
 });

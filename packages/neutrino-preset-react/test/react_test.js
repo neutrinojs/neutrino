@@ -7,9 +7,7 @@ test('loads preset', t => {
 });
 
 test('uses preset', t => {
-  const api = Neutrino();
-
-  t.notThrows(() => api.use(require('..')));
+  t.notThrows(() => Neutrino().use(require('..')));
 });
 
 test('valid preset production', t => {
