@@ -8,9 +8,7 @@ test('loads preset', t => {
 });
 
 test('uses preset', t => {
-  const api = Neutrino();
-
-  t.notThrows(() => api.use(mw()));
+  t.notThrows(() => Neutrino().use(mw()));
 });
 
 test('uses preset in test environment', t => {

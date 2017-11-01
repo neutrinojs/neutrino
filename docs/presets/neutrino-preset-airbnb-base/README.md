@@ -266,9 +266,8 @@ _Example: Create a .eslintrc.js file in the root of the project, using `.neutrin
 // it will use the local .neutrinorc.js file
 
 const { Neutrino } = require('neutrino');
-const api = Neutrino();
 
-module.exports = api.call('eslintrc');
+module.exports = Neutrino().call('eslintrc');
 ```
 
 _Example: Create a .eslintrc.js file in the root of the project, using specified middleware._
@@ -276,9 +275,8 @@ _Example: Create a .eslintrc.js file in the root of the project, using specified
 ```js
 // .eslintrc.js
 const { Neutrino } = require('neutrino');
-const api = Neutrino();
 
-module.exports = api.call('eslintrc', [
+module.exports = Neutrino().call('eslintrc', [
   ['neutrino-preset-airbnb-base', {
     eslint: {
       rules: { semi: 'off' }

@@ -9,15 +9,11 @@ test('loads middleware', t => {
 });
 
 test('uses middleware', t => {
-  const api = Neutrino();
-
-  t.notThrows(() => api.use(mw()));
+  t.notThrows(() => Neutrino().use(mw()));
 });
 
 test('uses with options', t => {
-  const api = Neutrino();
-
-  t.notThrows(() => api.use(mw(), options));
+  t.notThrows(() => Neutrino().use(mw(), options));
 });
 
 test('instantiates', t => {

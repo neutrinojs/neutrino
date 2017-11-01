@@ -92,9 +92,7 @@ test('options.entry', t => {
 });
 
 test('creates an instance of webpack-chain', t => {
-  const api = Neutrino();
-
-  t.is(typeof api.config.toConfig, 'function');
+  t.is(typeof Neutrino().config.toConfig, 'function');
 });
 
 test('middleware receives API instance', t => {
@@ -207,9 +205,7 @@ test('throws when trying to call() a non-registered command', t => {
 });
 
 test('fails when trying to run() a non-registered command', async t => {
-  const api = Neutrino();
-
-  await t.throws(api.run('non-registered', []).promise());
+  await t.throws(Neutrino().run('non-registered', []).promise());
 });
 
 test('throws when trying to validate config with no entry point', async t => {
