@@ -1,0 +1,24 @@
+{
+  "name": "@neutrinojs/image-loader",
+  "version": "7.3.2",
+  "description": "Neutrino middleware for importing and loading image files from modules",
+  "main": "index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-middleware",
+    "image"
+  ],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MPL-2.0",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/image-loader",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "dependencies": {
+    "deepmerge": "^1.5.2",
+    "file-loader": "^0.11.2",
+    "url-loader": "^0.5.8"
+  },
+  "peerDependencies": {
+    "neutrino": "^7.0.0"
+  }
+}

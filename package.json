@@ -15,8 +15,8 @@
   ],
   "scripts": {
     "validate:eslintrc:root": "eslint --no-eslintrc --print-config . -c ./.eslintrc.js > /dev/null",
-    "validate:eslintrc:eslint": "eslint --no-eslintrc --print-config . -c ./packages/neutrino-middleware-eslint/eslintrc.js > /dev/null",
-    "validate:eslintrc:airbnb-base": "eslint --no-eslintrc --print-config . -c ./packages/neutrino-preset-airbnb-base/eslintrc.js > /dev/null",
+    "validate:eslintrc:eslint": "eslint --no-eslintrc --print-config . -c ./packages/eslint/eslintrc.js > /dev/null",
+    "validate:eslintrc:airbnb-base": "eslint --no-eslintrc --print-config . -c ./packages/airbnb-base/eslintrc.js > /dev/null",
     "validate:eslintrc": "yarn validate:eslintrc:eslint && yarn validate:eslintrc:airbnb-base && yarn validate:eslintrc:root",
     "lint": "node packages/neutrino/bin/neutrino lint",
     "changelog": "auto-changelog --remote upstream --commit-limit false",

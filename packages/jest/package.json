@@ -1,0 +1,30 @@
+{
+  "name": "@neutrinojs/jest",
+  "version": "7.3.2",
+  "description": "Neutrino preset for testing Neutrino projects with Jest",
+  "main": "src/index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-preset",
+    "jest"
+  ],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MPL-2.0",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/jest",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "dependencies": {
+    "@neutrinojs/loader-merge": "^7.3.2",
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+    "babel-preset-jest": "^21.0.2",
+    "deepmerge": "^1.5.1",
+    "eslint-plugin-jest": "^21.0.2",
+    "jest-cli": "^21.0.2",
+    "ramda": "^0.24.1",
+    "yargs": "^9.0.1"
+  },
+  "peerDependencies": {
+    "neutrino": "^7.0.0"
+  }
+}

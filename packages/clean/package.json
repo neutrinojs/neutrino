@@ -1,0 +1,23 @@
+{
+  "name": "@neutrinojs/clean",
+  "version": "7.3.2",
+  "description": "Neutrino middleware for cleaning bundle output directories",
+  "main": "index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-middleware",
+    "clean"
+  ],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MPL-2.0",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/clean",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "dependencies": {
+    "clean-webpack-plugin": "^0.1.17",
+    "deepmerge": "^1.5.2"
+  },
+  "peerDependencies": {
+    "neutrino": "^7.0.0"
+  }
+}
