@@ -40,7 +40,7 @@ module.exports = ({
               return;
             }
 
-            if (err.message.includes('No entry points found')) {
+            if (err.message && err.message.includes('No entry points found')) {
               console.error([
                 'No entry points were found.',
                 'Ensure that all intended middleware or presets are being used',
