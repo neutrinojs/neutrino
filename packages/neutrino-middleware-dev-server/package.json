@@ -1,6 +1,6 @@
 {
   "name": "neutrino-middleware-dev-server",
-  "version": "7.3.0",
+  "version": "7.3.1",
   "description": "Neutrino middleware for starting a webpack-dev-server",
   "main": "index.js",
   "keywords": [
