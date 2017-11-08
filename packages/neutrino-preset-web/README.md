@@ -157,9 +157,7 @@ module.exports = {
 
       polyfills: {
         // Enables fast-async polyfill. Set to false to disable
-        async: true,
-        // Enables babel-polyfill. Set to false to disable
-        babel: true
+        async: true
       },
 
       // Change options related to generating the HTML document

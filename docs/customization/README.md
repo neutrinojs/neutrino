@@ -186,7 +186,7 @@ module.exports = {
     }],
 
     ['neutrino-preset-react', {
-      polyfills: { babel: false },
+      polyfills: { async: false },
       html: { title: 'Epic React App' }
     }],
 
