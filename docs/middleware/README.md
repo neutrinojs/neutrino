@@ -172,7 +172,7 @@ module.exports = {
     'neutrino-preset-airbnb-base',
     
     // array format
-    ['neutrino-preset-react', { polyfills: { babel: false } }],
+    ['neutrino-preset-react', { polyfills: { async: false } }],
     
     // function format
     (neutrino) => {
