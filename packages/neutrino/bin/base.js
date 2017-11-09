@@ -25,17 +25,15 @@ module.exports = ({
   return api
     .run(commandName, middleware)
     .fork(
-      (errors) => {
-        if (!Array.isArray(errors)) {
-          errors = [errors];
-        }
+      (errs) => {
+        const errors = Array.isArray(errs) ? errs : [errs];
 
         if (errorsHandler) {
           errorsHandler(errors);
         }
 
         if (!args.quiet) {
-          errors.forEach(err => {
+          errors.forEach((err) => {
             if (!err) {
               return;
             }
