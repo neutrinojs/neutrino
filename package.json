@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "auto-changelog": "^1.1.0",
-    "ava": "^0.22.0",
+    "ava": "^0.23.0",
     "codecov": "^2.3.0",
     "eslint-plugin-prettier": "^2.3.1",
     "gh-pages": "^1.0.0",
