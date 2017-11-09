@@ -27,5 +27,5 @@ module.exports = (middleware, args) => {
         }, stats.compilation.compiler.options.stats || {})));
       }
     }
-  })
+  });
 };
