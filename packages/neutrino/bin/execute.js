@@ -17,7 +17,7 @@ module.exports = (middleware, args) => {
         throw new Error(`A command with the name "${commandName}" was not registered`);
       }
 
-      command(config, api);
+      return command(config, api);
     },
     errorsHandler() {
       if (!args.quiet) {
