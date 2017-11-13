@@ -22,6 +22,7 @@ const MODULES = join(__dirname, 'node_modules');
 module.exports = (neutrino, opts = {}) => {
   const options = merge({
     env: [],
+    spa: true,
     hot: true,
     html: {},
     devServer: {
@@ -68,11 +69,9 @@ module.exports = (neutrino, opts = {}) => {
   }
 
   neutrino.use(env, options.env);
-  neutrino.use(htmlLoader);
   neutrino.use(styleLoader);
   neutrino.use(fontLoader);
   neutrino.use(imageLoader);
-  neutrino.use(htmlTemplate, options.html);
   neutrino.use(compileLoader, {
     include: [
       neutrino.options.source,
@@ -116,9 +115,6 @@ module.exports = (neutrino, opts = {}) => {
       .set('fs', 'empty')
       .set('tls', 'empty')
       .end()
-    .plugin('script-ext')
-      .use(ScriptExtHtmlPlugin, [{ defaultAttribute: 'defer' }])
-      .end()
     .module
       .rule('worker')
         .test(/\.worker\.js$/)
@@ -127,6 +123,12 @@ module.exports = (neutrino, opts = {}) => {
           .end()
         .end()
       .end()
+    .when(options.spa, config => {
+      neutrino.use(htmlLoader);
+      neutrino.use(htmlTemplate, options.html);
+      config.plugin('script-ext')
+        .use(ScriptExtHtmlPlugin, [{ defaultAttribute: 'defer' }]);
+    })
     .when(neutrino.config.module.rules.has('lint'), () => neutrino
       .use(loaderMerge('lint', 'eslint'), {
         envs: ['browser', 'commonjs']
