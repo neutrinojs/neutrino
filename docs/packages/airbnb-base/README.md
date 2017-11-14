@@ -158,7 +158,7 @@ module.exports = {
 
 ## Middleware options
 
-This preset uses the same middleware options as [@neutrinojs/eslint](../../middleware/@neutrinojs/eslint).
+This preset uses the same middleware options as [@neutrinojs/eslint](../../packages/eslint).
 If you wish to customize what is included, excluded, or any ESLint options, you can provide an options object with the
 middleware and this will be merged with our internal defaults for this preset. Use an array pair instead of a string
 to supply these options.

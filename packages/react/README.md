@@ -12,7 +12,7 @@
 - Modern Babel compilation adding JSX and object rest spread syntax.
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
-- Extends from [@neutrinojs/web](https://neutrino.js.org/presets/@neutrinojs/web)
+- Extends from [@neutrinojs/web](https://neutrino.js.org/packages/web)
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
   - Webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
   - Webpack Dev Server during development
@@ -138,7 +138,7 @@ You can either serve or deploy the contents of this `build` directory as a stati
 If you wish to copy files to the build directory that are not imported from application code, you can place
 them in a directory within `src` called `static`. All files in this directory will be copied from `src/static`
 to `build/static`. To change this behavior, specify your own patterns with
-[@neutrinojs/copy](../../middleware/@neutrinojs/copy/README.md).
+[@neutrinojs/copy](../../packages/copy/README.md).
 
 ## Paths
 
@@ -154,7 +154,7 @@ preset builds. You can modify React preset settings from `.neutrinorc.js` by ove
 an array pair instead of a string to supply these options in `.neutrinorc.js`.
 
 The following shows how you can pass an options object to the React preset and override its options. See the
-[Web documentation](https://neutrino.js.org/presets/@neutrinojs/web#preset-options) for specific options you can override with this object.
+[Web documentation](https://neutrino.js.org/packages/web#preset-options) for specific options you can override with this object.
 
 ```js
 module.exports = {
@@ -195,7 +195,7 @@ module.exports = {
 
 To override the build configuration, start with the documentation on [customization](https://neutrino.js.org/customization).
 `@neutrinojs/react` does not use any additional named rules, loaders, or plugins that aren't already in use by the
-Web preset. See the [Web documentation customization](https://neutrino.js.org/presets/@neutrinojs/web#customizing)
+Web preset. See the [Web documentation customization](https://neutrino.js.org/packages/web#customizing)
 for preset-specific configuration to override.
 
 ### Advanced configuration

@@ -131,7 +131,7 @@ You can either serve or deploy the contents of this `build` directory as a stati
 If you wish to copy files to the build directory that are not imported from application code, you can place
 them in a directory within `src` called `static`. All files in this directory will be copied from `src/static`
 to `build/static`. To change this behavior, specify your own patterns with
-[@neutrinojs/copy](../../middleware/@neutrinojs/copy/README.md).
+[@neutrinojs/copy](../../packages/copy/README.md).
 
 ## Paths
 

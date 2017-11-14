@@ -383,7 +383,7 @@ The `call` method will invoke the registered command with two arguments: a Webpa
 instance of the Neutrino API. The return value of using `call` will be the return value of invoking the registered
 handler with these two arguments.
 
-For a concrete example, the [eslint middleware](../middleware/@neutrinojs/eslint) registers an `eslintrc`
+For a concrete example, the [eslint middleware](../packages/eslint) registers an `eslintrc`
 command. The results of this command can be returned with `call` (provided this middleware is loaded within
 `.neutrinorc.js` in this example):
 
