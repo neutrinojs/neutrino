@@ -22,17 +22,29 @@ const MODULES = join(__dirname, 'node_modules');
 module.exports = (neutrino, opts = {}) => {
   const options = merge({
     env: [],
-    spa: true,
     hot: true,
-    html: {},
-    devServer: {
-      hot: opts.hot !== false
-    },
+    html: true,
+    htmlTemplate: {},
+    publicPath: './',
     polyfills: {
       async: true
     },
     babel: {}
   }, opts);
+
+  options.devServer = merge({
+    hot: opts.hot !== false,
+    publicPath: options.publicPath
+  }, options.devServer);
+
+  if (options.devServerProxy && !options.devServer.proxy) {
+    options.devServer.proxy = {
+      '**': {
+        target: options.devServerProxy,
+        changeOrigin: true,
+      },
+    }
+  }
 
   Object.assign(options, {
     babel: compileLoader.merge({
@@ -89,7 +101,7 @@ module.exports = (neutrino, opts = {}) => {
       .end()
     .output
       .path(neutrino.options.output)
-      .publicPath('./')
+      .publicPath(options.publicPath)
       .filename('[name].js')
       .chunkFilename('[name].[chunkhash].js')
       .end()
@@ -123,9 +135,9 @@ module.exports = (neutrino, opts = {}) => {
           .end()
         .end()
       .end()
-    .when(options.spa, config => {
+    .when(options.html, config => {
       neutrino.use(htmlLoader);
-      neutrino.use(htmlTemplate, options.html);
+      neutrino.use(htmlTemplate, options.htmlTemplate);
       config.plugin('script-ext')
         .use(ScriptExtHtmlPlugin, [{ defaultAttribute: 'defer' }]);
     })
