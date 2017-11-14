@@ -1,6 +1,6 @@
 # Neutrino Karma Preset
 
-`neutrino-preset-karma` is a Neutrino preset that supports testing web applications using the Karma test runner.
+`@neutrinojs/karma` is a Neutrino preset that supports testing web applications using the Karma test runner.
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
@@ -22,25 +22,25 @@
 
 ## Installation
 
-`neutrino-preset-karma` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `neutrino-preset-karma` are development dependencies. You will also be using
+`@neutrinojs/karma` can be installed via the Yarn or npm clients. Inside your project, make sure
+`neutrino` and `@neutrinojs/karma` are development dependencies. You will also be using
 another Neutrino preset for building your application source code.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev neutrino-preset-karma
+❯ yarn add --dev @neutrinojs/karma
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev neutrino-preset-karma
+❯ npm install --save-dev @neutrinojs/karma
 ```
 
 ## Project Layout
 
-`neutrino-preset-karma` follows the standard [project layout](https://neutrino.js.org/project-layout) specified by Neutrino. This
+`@neutrinojs/karma` follows the standard [project layout](https://neutrino.js.org/project-layout) specified by Neutrino. This
 means that by default all project test code should live in a directory named `test` in the root of the
 project. Test files end in `_test.js` by default.
 
@@ -71,7 +71,7 @@ let's pretend this is a React project:
 ```json
 {
   "scripts": {
-    "test": "neutrino test --use neutrino-preset-react neutrino-preset-karma"
+    "test": "neutrino test --use @neutrinojs/react @neutrinojs/karma"
   }
 }
 ```
@@ -81,8 +81,8 @@ Or if you are using `.neutrinorc.js`, add this preset to your use array instead 
 ```js
 module.exports = {
   use: [
-    'neutrino-preset-react',
-    'neutrino-preset-karma'
+    '@neutrinojs/react',
+    '@neutrinojs/karma'
   ]
 }
 ```
@@ -144,12 +144,12 @@ extension. Use the command line [`files` parameters](https://neutrino.js.org/cli
 
 ## Watching for changes
 
-`neutrino-preset-karma` can watch for changes on your source directory and subsequently re-run tests. Simply use the
+`@neutrinojs/karma` can watch for changes on your source directory and subsequently re-run tests. Simply use the
 `--watch` flag with your `neutrino test` command.
 
 ## Using from CI
 
-`neutrino-preset-karma` needs no additional configuration to run your tests in CI infrastructure, but you will still
+`@neutrinojs/karma` needs no additional configuration to run your tests in CI infrastructure, but you will still
 need to ensure your CI can actually run the tests. This usually means having a display emulator and access to the
 browsers you are testing against.
 
@@ -166,7 +166,7 @@ before_install:
 
 You can provide custom options and have them merged with this preset's default options, which are subsequently passed
 to Karma. You can modify Karma settings from `.neutrinorc.js` by overriding with any options Karma accepts. In a standalone
-Karma project this is typically done in a `karma.conf.js` or similar file, but `neutrino-preset-karma` allows
+Karma project this is typically done in a `karma.conf.js` or similar file, but `@neutrinojs/karma` allows
 configuration through `.neutrinorc.js` as well. This accepts the same configuration options as outlined in the
 [Karma documentation](https://karma-runner.github.io/1.0/config/configuration-file.html). Use an array pair instead of
 a string to supply these options.
@@ -176,7 +176,7 @@ _Example: Change the duration Karma waits for a browser to reconnect (in ms)._
 ```js
 module.exports = {
   use: [
-    ['neutrino-preset-karma', { browserDisconnectTimeout: 5000 }]
+    ['@neutrinojs/karma', { browserDisconnectTimeout: 5000 }]
   ]
 };
 ```
@@ -187,7 +187,7 @@ If you wish to completely override the Karma configuration instead of it being m
 ```js
 module.exports = {
   use: [
-    ['neutrino-preset-karma', {
+    ['@neutrinojs/karma', {
       override: true,
       /* specify all other Karma configuration options */
     }]
@@ -201,8 +201,8 @@ This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/ne
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](https://neutrino.js.org/contributing) for details.
 
-[npm-image]: https://img.shields.io/npm/v/neutrino-preset-karma.svg
-[npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-karma.svg
-[npm-url]: https://npmjs.org/package/neutrino-preset-karma
+[npm-image]: https://img.shields.io/npm/v/@neutrinojs/karma.svg
+[npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/karma.svg
+[npm-url]: https://npmjs.org/package/@neutrinojs/karma
 [spectrum-image]: https://withspectrum.github.io/badge/badge.svg
 [spectrum-url]: https://spectrum.chat/neutrino

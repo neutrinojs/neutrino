@@ -1,6 +1,6 @@
 # Neutrino React Preset
 
-`neutrino-preset-react` is a Neutrino preset that supports building React web applications.
+`@neutrinojs/react` is a Neutrino preset that supports building React web applications.
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
@@ -12,7 +12,7 @@
 - Modern Babel compilation adding JSX and object rest spread syntax.
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
-- Extends from [neutrino-preset-web](https://neutrino.js.org/presets/neutrino-preset-web)
+- Extends from [@neutrinojs/web](https://neutrino.js.org/presets/@neutrinojs/web)
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
   - Webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
   - Webpack Dev Server during development
@@ -30,27 +30,27 @@
 
 ## Installation
 
-`neutrino-preset-react` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `neutrino-preset-react` are development dependencies. You will also need React and React DOM for actual
+`@neutrinojs/react` can be installed via the Yarn or npm clients. Inside your project, make sure
+`neutrino` and `@neutrinojs/react` are development dependencies. You will also need React and React DOM for actual
 React development.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev neutrino neutrino-preset-react
+❯ yarn add --dev neutrino @neutrinojs/react
 ❯ yarn add react react-dom
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev neutrino neutrino-preset-react
+❯ npm install --save-dev neutrino @neutrinojs/react
 ❯ npm install --save react react-dom
 ```
 
 ## Project Layout
 
-`neutrino-preset-react` follows the standard [project layout](https://neutrino.js.org/project-layout) specified by Neutrino. This
+`@neutrinojs/react` follows the standard [project layout](https://neutrino.js.org/project-layout) specified by Neutrino. This
 means that by default all project source code should live in a directory named `src` in the root of the
 project. This includes JavaScript files, CSS stylesheets, images, and any other assets that would be available
 to import your compiled project.
@@ -79,8 +79,8 @@ Now edit your project's package.json to add commands for starting and building t
 ```json
 {
   "scripts": {
-    "start": "neutrino start --use neutrino-preset-react",
-    "build": "neutrino build --use neutrino-preset-react"
+    "start": "neutrino start --use @neutrinojs/react",
+    "build": "neutrino build --use @neutrinojs/react"
   }
 }
 ```
@@ -89,7 +89,7 @@ If you are using `.neutrinorc.js`, add this preset to your use array instead of 
 
 ```js
 module.exports = {
-  use: ['neutrino-preset-react']
+  use: ['@neutrinojs/react']
 };
 ```
 
@@ -113,7 +113,7 @@ Start the app, then open a browser to the address in the console:
 
 ## Building
 
-`neutrino-preset-react` builds static assets to the `build` directory by default when running `neutrino build`. Using
+`@neutrinojs/react` builds static assets to the `build` directory by default when running `neutrino build`. Using
 the quick start example above as a reference:
 
 ```bash
@@ -138,11 +138,11 @@ You can either serve or deploy the contents of this `build` directory as a stati
 If you wish to copy files to the build directory that are not imported from application code, you can place
 them in a directory within `src` called `static`. All files in this directory will be copied from `src/static`
 to `build/static`. To change this behavior, specify your own patterns with
-[neutrino-middleware-copy](../../middleware/neutrino-middleware-copy/README.md).
+[@neutrinojs/copy](../../middleware/@neutrinojs/copy/README.md).
 
 ## Paths
 
-The `neutrino-preset-web` preset loads assets relative to the path of your application by setting Webpack's
+The `@neutrinojs/web` preset loads assets relative to the path of your application by setting Webpack's
 [`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath) to `./`. If you wish to load
 assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
 override `output.publicPath`. See the [Customizing](#Customizing) section below.
@@ -154,12 +154,12 @@ preset builds. You can modify React preset settings from `.neutrinorc.js` by ove
 an array pair instead of a string to supply these options in `.neutrinorc.js`.
 
 The following shows how you can pass an options object to the React preset and override its options. See the
-[Web documentation](https://neutrino.js.org/presets/neutrino-preset-web#preset-options) for specific options you can override with this object.
+[Web documentation](https://neutrino.js.org/presets/@neutrinojs/web#preset-options) for specific options you can override with this object.
 
 ```js
 module.exports = {
   use: [
-    ['neutrino-preset-react', {
+    ['@neutrinojs/react', {
       /* preset options */
 
       // Example: disable Hot Module Replacement
@@ -194,14 +194,14 @@ module.exports = {
 ## Customizing
 
 To override the build configuration, start with the documentation on [customization](https://neutrino.js.org/customization).
-`neutrino-preset-react` does not use any additional named rules, loaders, or plugins that aren't already in use by the
-Web preset. See the [Web documentation customization](https://neutrino.js.org/presets/neutrino-preset-web#customizing)
+`@neutrinojs/react` does not use any additional named rules, loaders, or plugins that aren't already in use by the
+Web preset. See the [Web documentation customization](https://neutrino.js.org/presets/@neutrinojs/web#customizing)
 for preset-specific configuration to override.
 
 ### Advanced configuration
 
 By following the [customization guide](https://neutrino.js.org/customization) and knowing the rule, loader, and plugin IDs from
-`neutrino-preset-web`, you can override and augment the build by providing a function to your `.neutrinorc.js` use
+`@neutrinojs/web`, you can override and augment the build by providing a function to your `.neutrinorc.js` use
 array. You can also make these changes from the Neutrino API in custom middleware.
 
 #### Vendoring
@@ -214,7 +214,7 @@ _Example: Put React and React DOM into a separate "vendor" chunk:_
 ```js
 module.exports = {
   use: [
-    'neutrino-preset-react',
+    '@neutrinojs/react',
     (neutrino) => neutrino.config
       .entry('vendor')
         .add('react')
@@ -225,7 +225,7 @@ module.exports = {
 
 ## Hot Module Replacement
 
-While `neutrino-preset-react` supports Hot Module Replacement your app using React Hot Loader, it does require some
+While `@neutrinojs/react` supports Hot Module Replacement your app using React Hot Loader, it does require some
 application-specific changes in order to operate.
 
 First, install `react-hot-loader` as a dependency, this **must** be React Hot Loader v3+:
@@ -277,8 +277,8 @@ This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/ne
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](https://neutrino.js.org/contributing) for details.
 
-[npm-image]: https://img.shields.io/npm/v/neutrino-preset-react.svg
-[npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-react.svg
-[npm-url]: https://npmjs.org/package/neutrino-preset-react
+[npm-image]: https://img.shields.io/npm/v/@neutrinojs/react.svg
+[npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/react.svg
+[npm-url]: https://npmjs.org/package/@neutrinojs/react
 [spectrum-image]: https://withspectrum.github.io/badge/badge.svg
 [spectrum-url]: https://spectrum.chat/neutrino

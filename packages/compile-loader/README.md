@@ -1,6 +1,6 @@
 # Neutrino Compile Loader Middleware
 
-`neutrino-middleware-compile-loader` is Neutrino middleware for compiling source code with Babel.
+`@neutrinojs/compile-loader` is Neutrino middleware for compiling source code with Babel.
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
@@ -14,29 +14,29 @@
 
 ## Installation
 
-`neutrino-middleware-compile-loader` can be installed via the Yarn or npm clients.
+`@neutrinojs/compile-loader` can be installed via the Yarn or npm clients.
 
 #### Yarn
 
 ```bash
-❯ yarn add neutrino-middleware-compile-loader
+❯ yarn add @neutrinojs/compile-loader
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save neutrino-middleware-compile-loader
+❯ npm install --save @neutrinojs/compile-loader
 ```
 
 ## Usage
 
-`neutrino-middleware-compile-loader` can be consumed from the Neutrino API, middleware, or presets. Require this package
+`@neutrinojs/compile-loader` can be consumed from the Neutrino API, middleware, or presets. Require this package
 and plug it into Neutrino:
 
 ```js
 // Using function middleware format
 
-const compile = require('neutrino-middleware-compile-loader');
+const compile = require('@neutrinojs/compile-loader');
 
 neutrino.use(compile, {
   include: [],
@@ -50,7 +50,7 @@ neutrino.use(compile, {
 
 module.exports = {
   use: [
-    ['neutrino-middleware-compile-loader', {
+    ['@neutrinojs/compile-loader', {
       include: [],
       exclude: [],
       babel: {}
@@ -72,7 +72,7 @@ This package also exposes a function for merging Babel configurations. This come
 the [babel-merge](https://www.npmjs.com/package/babel-merge) package.
 
 ```js
-const { merge } = require('neutrino-middleware-compile-loader');
+const { merge } = require('@neutrinojs/compile-loader');
 
 const together = merge(
   {
@@ -114,7 +114,7 @@ console.log(together);
 
 ## Customization
 
-`neutrino-middleware-compile-loader` creates some conventions to make overriding the configuration easier once you are
+`@neutrinojs/compile-loader` creates some conventions to make overriding the configuration easier once you are
 ready to make changes.
 
 ### Rules
@@ -131,8 +131,8 @@ This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrin
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](https://neutrino.js/contributing) for details.
 
-[npm-image]: https://img.shields.io/npm/v/neutrino-middleware-compile-loader.svg
-[npm-downloads]: https://img.shields.io/npm/dt/neutrino-middleware-compile-loader.svg
-[npm-url]: https://npmjs.org/package/neutrino-middleware-compile-loader
+[npm-image]: https://img.shields.io/npm/v/@neutrinojs/compile-loader.svg
+[npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/compile-loader.svg
+[npm-url]: https://npmjs.org/package/@neutrinojs/compile-loader
 [spectrum-image]: https://withspectrum.github.io/badge/badge.svg
 [spectrum-url]: https://spectrum.chat/neutrino

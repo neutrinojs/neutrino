@@ -1,6 +1,6 @@
 # Neutrino Node.js Preset
 
-`neutrino-preset-node` is a Neutrino preset that supports building Node.js applications.
+`@neutrinojs/node` is a Neutrino preset that supports building Node.js applications.
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
@@ -24,19 +24,19 @@
 
 ## Installation
 
-`neutrino-preset-node` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `neutrino-preset-node` are development dependencies.
+`@neutrinojs/node` can be installed via the Yarn or npm clients. Inside your project, make sure
+`neutrino` and `@neutrinojs/node` are development dependencies.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev neutrino neutrino-preset-node
+❯ yarn add --dev neutrino @neutrinojs/node
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev neutrino neutrino-preset-node
+❯ npm install --save-dev neutrino @neutrinojs/node
 ```
 
 If you want to have automatically wired sourcemaps added to your project, add `source-map-support`:
@@ -55,7 +55,7 @@ If you want to have automatically wired sourcemaps added to your project, add `s
 
 ## Project Layout
 
-`neutrino-preset-node` follows the standard [project layout](https://neutrino.js.org/project-layout) specified by Neutrino. This
+`@neutrinojs/node` follows the standard [project layout](https://neutrino.js.org/project-layout) specified by Neutrino. This
 means that by default all project source code should live in a directory named `src` in the root of the
 project. This includes JavaScript files that would be available to your compiled project.
 
@@ -89,8 +89,8 @@ Now edit your project's package.json to add commands for starting and building t
 ```json
 {
   "scripts": {
-    "start": "neutrino start --use neutrino-preset-node",
-    "build": "neutrino build --use neutrino-preset-node"
+    "start": "neutrino start --use @neutrinojs/node",
+    "build": "neutrino build --use @neutrinojs/node"
   }
 }
 ```
@@ -99,7 +99,7 @@ If you are using `.neutrinorc.js`, add this preset to your use array instead of 
 
 ```js
 module.exports = {
-  use: ['neutrino-preset-node']
+  use: ['@neutrinojs/node']
 };
 ```
 
@@ -131,7 +131,7 @@ hi!
 
 ## Building
 
-`neutrino-preset-node` builds assets to the `build` directory by default when running `neutrino build`. Using the
+`@neutrinojs/node` builds assets to the `build` directory by default when running `neutrino build`. Using the
 quick start example above as a reference:
 
 ```bash
@@ -169,7 +169,7 @@ libraries, and will take a little extra customization to make them suitable for 
 
 ## Hot Module Replacement
 
-While `neutrino-preset-node` supports Hot Module Replacement for your app, it does require some application-specific
+While `@neutrinojs/node` supports Hot Module Replacement for your app, it does require some application-specific
 changes in order to operate. Your application should define split points for which to accept modules to reload using
 `module.hot`:
 
@@ -223,7 +223,7 @@ defaults:
 ```js
 module.exports = {
   use: [
-    ['neutrino-preset-node', {
+    ['@neutrinojs/node', {
       // Enables Hot Module Replacement. Set to false to disable
       hot: true,
 
@@ -256,7 +256,7 @@ _Example: Override the Node.js Babel compilation target to Node.js v8:_
 ```js
 module.exports = {
   use: [
-    ['neutrino-preset-node', {
+    ['@neutrinojs/node', {
       // Add additional Babel plugins, presets, or env options
       babel: {
         // Override options for babel-preset-env
@@ -278,7 +278,7 @@ module.exports = {
 ## Customizing
 
 To override the build configuration, start with the documentation on [customization](https://neutrino.js.org/customization).
-`neutrino-preset-node` creates some conventions to make overriding the configuration easier once you are ready to make
+`@neutrinojs/node` creates some conventions to make overriding the configuration easier once you are ready to make
 changes.
 
 By default the Node.js preset creates a single **main** `index` entry point to your application, and this maps to the
@@ -312,7 +312,7 @@ _Note: Some plugins are only available in certain environments. To override them
 | `clean` | Clears the contents of `build` prior to creating a production bundle. | `build` command |
 | `start-server` | Start a Node.js for a configured entry point or specified file. | `start` command |
 | `hot` | Enables Hot Module Replacement. | `start` command |
-| `named-modules` | Enables named modules for improved debugging and console output. From `neutrino-middleware-hot`. | `start` command |
+| `named-modules` | Enables named modules for improved debugging and console output. From `@neutrinojs/hot`. | `start` command |
 | `module-concat` | Concatenate the scope of all your modules into one closure and allow for your code to have a faster execution time in the browser. | `NODE_ENV production` |
 
 ### Override configuration
@@ -326,7 +326,7 @@ _Example: Allow importing modules with a `.mjs` extension._
 ```js
 module.exports = {
   use: [
-    'neutrino-preset-node',
+    '@neutrinojs/node',
     (neutrino) => neutrino.config.resolve.extensions.add('.mjs')
   ]
 };
@@ -338,8 +338,8 @@ This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/ne
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](https://neutrino.js.org/contributing) for details.
 
-[npm-image]: https://img.shields.io/npm/v/neutrino-preset-node.svg
-[npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-node.svg
-[npm-url]: https://npmjs.org/package/neutrino-preset-node
+[npm-image]: https://img.shields.io/npm/v/@neutrinojs/node.svg
+[npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/node.svg
+[npm-url]: https://npmjs.org/package/@neutrinojs/node
 [spectrum-image]: https://withspectrum.github.io/badge/badge.svg
 [spectrum-url]: https://spectrum.chat/neutrino

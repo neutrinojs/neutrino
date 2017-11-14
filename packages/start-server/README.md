@@ -1,6 +1,6 @@
 # Neutrino Start Server Middleware
 
-`neutrino-middleware-start-server` is Neutrino middleware for starting a Node.js server for a file upon
+`@neutrinojs/start-server` is Neutrino middleware for starting a Node.js server for a file upon
 completion of a build.
 
 [![NPM version][npm-image]][npm-url]
@@ -15,28 +15,28 @@ completion of a build.
 
 ## Installation
 
-`neutrino-middleware-start-server` can be installed via the Yarn or npm clients.
+`@neutrinojs/start-server` can be installed via the Yarn or npm clients.
 
 #### Yarn
 
 ```bash
-❯ yarn add neutrino-middleware-start-server
+❯ yarn add @neutrinojs/start-server
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save neutrino-middleware-start-server
+❯ npm install --save @neutrinojs/start-server
 ```
 
 ## Usage
 
-`neutrino-middleware-start-server` can be consumed from the Neutrino API, middleware, or presets. Require this package
+`@neutrinojs/start-server` can be consumed from the Neutrino API, middleware, or presets. Require this package
 and plug it into Neutrino:
 
 ```js
 // Using function middleware format
-const server = require('neutrino-middleware-start-server');
+const server = require('@neutrinojs/start-server');
 
 // Use with default options, starting the server
 // for the main entry point, neutrino.options.entry
@@ -52,13 +52,13 @@ neutrino.use(server, { name: 'custom.js' });
 // Use with default options, starting the server
 // for the main entry point, neutrino.options.entry
 module.exports = {
-  use: ['neutrino-middleware-start-server']
+  use: ['@neutrinojs/start-server']
 };
 
 // Usage with custom server file to start
 module.exports = {
   use: [
-    ['neutrino-middleware-start-server', {
+    ['@neutrinojs/start-server', {
       name: 'custom.js'
     }]
   ]
@@ -70,7 +70,7 @@ This middleware optionally accepts an object with a `name` property for a path t
 
 ## Customization
 
-`neutrino-middleware-start-server` creates some conventions to make overriding the configuration easier once you are
+`@neutrinojs/start-server` creates some conventions to make overriding the configuration easier once you are
 ready to make changes.
 
 ### Plugins
@@ -93,8 +93,8 @@ This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrin
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](https://neutrino.js.org/contributing) for details.
 
-[npm-image]: https://img.shields.io/npm/v/neutrino-middleware-start-server.svg
-[npm-downloads]: https://img.shields.io/npm/dt/neutrino-middleware-start-server.svg
-[npm-url]: https://npmjs.org/package/neutrino-middleware-start-server
+[npm-image]: https://img.shields.io/npm/v/@neutrinojs/start-server.svg
+[npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/start-server.svg
+[npm-url]: https://npmjs.org/package/@neutrinojs/start-server
 [spectrum-image]: https://withspectrum.github.io/badge/badge.svg
 [spectrum-url]: https://spectrum.chat/neutrino

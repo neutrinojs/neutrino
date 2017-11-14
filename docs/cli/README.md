@@ -47,7 +47,7 @@ The `--use` flag can be used in conjunction with any of the top-level commands t
 middleware and presets to load. These can be an npm package or a relative path to a module to load as middleware.
 
 ```bash
-❯ neutrino start --use neutrino-preset-react neutrino-preset-karma
+❯ neutrino start --use @neutrinojs/react @neutrinojs/karma
 ```
 
 The Neutrino CLI will still attempt to load any presets and middleware defined in the project's `.neutrinorc.js` file.
@@ -62,20 +62,20 @@ middleware that have been supplied, but will then exit after logging the configu
 watchers will be started.
 
 ```bash
-❯ neutrino start --inspect --use neutrino-preset-react neutrino-preset-jest
+❯ neutrino start --inspect --use @neutrinojs/react @neutrinojs/jest
 ```
 
 This could also be used to help create diffs between configuration changes. Take the following command:
 
 ```bash
-❯ neutrino start --inspect --use neutrino-preset-react neutrino-preset-jest
+❯ neutrino start --inspect --use @neutrinojs/react @neutrinojs/jest
 ```
 
 We can capture this inspection to a file, and capture the change by adding a preset override:
 
 ```bash
-❯ neutrino start --inspect --use neutrino-preset-react neutrino-preset-jest > a.config
-❯ neutrino start --inspect --use neutrino-preset-react neutrino-preset-jest override.js > b.config
+❯ neutrino start --inspect --use @neutrinojs/react @neutrinojs/jest > a.config
+❯ neutrino start --inspect --use @neutrinojs/react @neutrinojs/jest override.js > b.config
 ```
 
 Using `git diff a.config b.config`, we get a pretty diff of the configuration change:
@@ -190,7 +190,7 @@ dashes after the last preset to denote the end of the presets and the beginning 
 ```
 
 ```bash
-❯ neutrino test --use neutrino-preset-react neutrino-preset-karma -- a_test.js b_test.js
+❯ neutrino test --use @neutrinojs/react @neutrinojs/karma -- a_test.js b_test.js
 ```
 
 You can also pass a flag `--watch` to watch source files for changes and re-run tests, if your middleware supports it.

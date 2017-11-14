@@ -1,6 +1,6 @@
 # Neutrino Web Preset
 
-`neutrino-preset-web` is a Neutrino preset that supports building generic applications for the web.
+`@neutrinojs/web` is a Neutrino preset that supports building generic applications for the web.
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
@@ -26,24 +26,24 @@
 
 ## Installation
 
-`neutrino-preset-web` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `neutrino-preset-web` are development dependencies.
+`@neutrinojs/web` can be installed via the Yarn or npm clients. Inside your project, make sure
+`neutrino` and `@neutrinojs/web` are development dependencies.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev neutrino neutrino-preset-web
+❯ yarn add --dev neutrino @neutrinojs/web
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev neutrino neutrino-preset-web
+❯ npm install --save-dev neutrino @neutrinojs/web
 ```
 
 ## Project Layout
 
-`neutrino-preset-web` follows the standard [project layout](https://neutrino.js.org/project-layout) specified by Neutrino. This
+`@neutrinojs/web` follows the standard [project layout](https://neutrino.js.org/project-layout) specified by Neutrino. This
 means that by default all project source code should live in a directory named `src` in the root of the
 project. This includes JavaScript files, CSS stylesheets, images, and any other assets that would be available
 to your compiled project.
@@ -73,8 +73,8 @@ Now edit your project's package.json to add commands for starting and building t
 ```json
 {
   "scripts": {
-    "start": "neutrino start --use neutrino-preset-web",
-    "build": "neutrino build --use neutrino-preset-web"
+    "start": "neutrino start --use @neutrinojs/web",
+    "build": "neutrino build --use @neutrinojs/web"
   }
 }
 ```
@@ -83,7 +83,7 @@ If you are using `.neutrinorc.js`, add this preset to your use array instead of 
 
 ```js
 module.exports = {
-  use: ['neutrino-preset-web']
+  use: ['@neutrinojs/web']
 };
 ```
 
@@ -107,7 +107,7 @@ Start the app, then open a browser to the address in the console:
 
 ## Building
 
-`neutrino-preset-web` builds static assets to the `build` directory by default when running `neutrino build`. Using the
+`@neutrinojs/web` builds static assets to the `build` directory by default when running `neutrino build`. Using the
 quick start example above as a reference:
 
 ```bash
@@ -131,11 +131,11 @@ You can either serve or deploy the contents of this `build` directory as a stati
 If you wish to copy files to the build directory that are not imported from application code, you can place
 them in a directory within `src` called `static`. All files in this directory will be copied from `src/static`
 to `build/static`. To change this behavior, specify your own patterns with
-[neutrino-middleware-copy](../../middleware/neutrino-middleware-copy/README.md).
+[@neutrinojs/copy](../../middleware/@neutrinojs/copy/README.md).
 
 ## Paths
 
-The `neutrino-preset-web` preset loads assets relative to the path of your application by setting Webpack's
+The `@neutrinojs/web` preset loads assets relative to the path of your application by setting Webpack's
 [`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath) to `./`. If you wish to load
 assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
 override `output.publicPath`. See the [Customizing](#Customizing) section below.
@@ -151,7 +151,7 @@ The following shows how you can pass an options object to the Web preset and ove
 ```js
 module.exports = {
   use: [
-    ['neutrino-preset-web', {
+    ['@neutrinojs/web', {
       // Enables Hot Module Replacement. Set to false to disable
       hot: true,
 
@@ -161,12 +161,12 @@ module.exports = {
       },
 
       // Change options related to generating the HTML document
-      // See neutrino-middleware-html-template for the defaults
+      // See @neutrinojs/html-template for the defaults
       // used by the Web preset
       html: {},
 
       // Change options related to starting a webpack-dev-server
-      // See neutrino-middleware-html-template for the defaults
+      // See @neutrinojs/html-template for the defaults
       // used by the Web preset
       devServer: {
         // Disabling options.hot will also disable devServer.hot
@@ -199,7 +199,7 @@ _Example: Disable Hot Module Replacement and change the page title:_
 ```js
 module.exports = {
   use: [
-    ['neutrino-preset-web', {
+    ['@neutrinojs/web', {
       /* preset options */
 
       // Example: disable Hot Module Replacement
@@ -216,7 +216,7 @@ module.exports = {
 
 ## Hot Module Replacement
 
-While `neutrino-preset-web` supports Hot Module Replacement your app, it does require some application-specific changes
+While `@neutrinojs/web` supports Hot Module Replacement your app, it does require some application-specific changes
 in order to operate. Your application should define split points for which to accept modules to reload using
 `module.hot`:
 
@@ -254,7 +254,7 @@ modification during development.
 ## Customizing
 
 To override the build configuration, start with the documentation on [customization](https://neutrino.js.org/customization).
-`neutrino-preset-web` creates some conventions to make overriding the configuration easier once you are ready to make
+`@neutrinojs/web` creates some conventions to make overriding the configuration easier once you are ready to make
 changes.
 
 By default the Web preset creates a single **main** `index` entry point to your application, and this maps to
@@ -268,12 +268,12 @@ The following is a list of rules and their identifiers which can be overridden:
 
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
-| `compile` | Compiles JS files from the `src` directory using Babel. Contains a single loader named `babel`. From `neutrino-middleware-compile-loader`. | all |
-| `html` | Allows importing HTML files from modules. Contains a single loader named `html`. From `neutrino-middleware-html-loader`. | all |
-| `style` | Allows importing CSS stylesheets from modules. Contains two loaders named `style` and `css`. From `neutrino-middleware-style-loader`. | all |
-| `img`, `svg`, `ico` | Allows import image files from modules. Each contains a single loader named `url`. From `neutrino-middleware-image-loader`. | all |
-| `woff`, `ttf` | Allows importing WOFF and TTF font files from modules. Each contains a single loader named `url`. From `neutrino-middleware-font-loader`. | all |
-| `eot` | Allows importing EOT font files from modules. Contains a single loader named `file`. From `neutrino-middleware-font-loader`. | all |
+| `compile` | Compiles JS files from the `src` directory using Babel. Contains a single loader named `babel`. From `@neutrinojs/compile-loader`. | all |
+| `html` | Allows importing HTML files from modules. Contains a single loader named `html`. From `@neutrinojs/html-loader`. | all |
+| `style` | Allows importing CSS stylesheets from modules. Contains two loaders named `style` and `css`. From `@neutrinojs/style-loader`. | all |
+| `img`, `svg`, `ico` | Allows import image files from modules. Each contains a single loader named `url`. From `@neutrinojs/image-loader`. | all |
+| `woff`, `ttf` | Allows importing WOFF and TTF font files from modules. Each contains a single loader named `url`. From `@neutrinojs/font-loader`. | all |
+| `eot` | Allows importing EOT font files from modules. Contains a single loader named `file`. From `@neutrinojs/font-loader`. | all |
 | `worker` | Allows importing Web Workers automatically with `.worker.js` extensions. Contains a single loader named `worker`. | all |
 
 ### Plugins
@@ -284,17 +284,17 @@ _Note: Some plugins are only available in certain environments. To override them
 
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
-| `env` | Inject environment variables into source code at `process.env`, defaults to only inject `NODE_ENV`. From `neutrino-middleware-env`. | all |
-| `html` | Automatically generates HTML files for configured entry-points. From `neutrino-middleware-html-template` | all |
-| `named-modules` | Enables named modules for improved debugging and console output. From `neutrino-middleware-chunk` and `neutrino-middleware-hot`. | `NODE_ENV production`, `start` command |
-| `named-chunks` | Enables named chunks for improved debugging and console output. From `neutrino-middleware-chunk`. | `NODE_ENV production` |
-| `vendor-chunk` | Creates a separate file/chunk consisting of common modules shared between multiple entry points. From `neutrino-middleware-chunk`. | `NODE_ENV production` |
-| `runtime-chunk` | Creates a separate file/chunk consisting of the Webpack manifest-specific code. From `neutrino-middleware-chunk`. | `NODE_ENV production` |
-| `name-all` | Names all remaining modules that do not get named via `named-modules`. From `neutrino-middleware-chunk`. | `NODE_ENV production` |
-| `hot` | Enables Hot Module Replacement. From `neutrino-middleware-hot`. | `start` command |
-| `copy` | Copies files during build, defaults from `src/static` to `build/static`. From `neutrino-middleware-copy` | `build` command |
-| `clean` | Removes the `build` directory prior to building. From `neutrino-middleware-clean`. | `build` command |
-| `minify` | Minifies source code using `BabiliWebpackPlugin`. From `neutrino-middleware-minify`. | `NODE_ENV production` |
+| `env` | Inject environment variables into source code at `process.env`, defaults to only inject `NODE_ENV`. From `@neutrinojs/env`. | all |
+| `html` | Automatically generates HTML files for configured entry-points. From `@neutrinojs/html-template` | all |
+| `named-modules` | Enables named modules for improved debugging and console output. From `@neutrinojs/chunk` and `@neutrinojs/hot`. | `NODE_ENV production`, `start` command |
+| `named-chunks` | Enables named chunks for improved debugging and console output. From `@neutrinojs/chunk`. | `NODE_ENV production` |
+| `vendor-chunk` | Creates a separate file/chunk consisting of common modules shared between multiple entry points. From `@neutrinojs/chunk`. | `NODE_ENV production` |
+| `runtime-chunk` | Creates a separate file/chunk consisting of the Webpack manifest-specific code. From `@neutrinojs/chunk`. | `NODE_ENV production` |
+| `name-all` | Names all remaining modules that do not get named via `named-modules`. From `@neutrinojs/chunk`. | `NODE_ENV production` |
+| `hot` | Enables Hot Module Replacement. From `@neutrinojs/hot`. | `start` command |
+| `copy` | Copies files during build, defaults from `src/static` to `build/static`. From `@neutrinojs/copy` | `build` command |
+| `clean` | Removes the `build` directory prior to building. From `@neutrinojs/clean`. | `build` command |
+| `minify` | Minifies source code using `BabiliWebpackPlugin`. From `@neutrinojs/minify`. | `NODE_ENV production` |
 | `module-concat` | Concatenate the scope of all your modules into one closure and allow for your code to have a faster execution time in the browser. | `NODE_ENV production` |
 
 ### Override configuration
@@ -313,7 +313,7 @@ _Example: Put lodash into a separate "vendor" chunk:_
 ```js
 module.exports = {
   use: [
-    'neutrino-preset-web',
+    '@neutrinojs/web',
     neutrino => neutrino.config.entry('vendor').add('lodash')
   ]
 };
@@ -325,8 +325,8 @@ This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/ne
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](https://neutrino.js.org/contributing) for details.
 
-[npm-image]: https://img.shields.io/npm/v/neutrino-preset-web.svg
-[npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-web.svg
-[npm-url]: https://npmjs.org/package/neutrino-preset-web
+[npm-image]: https://img.shields.io/npm/v/@neutrinojs/web.svg
+[npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/web.svg
+[npm-url]: https://npmjs.org/package/@neutrinojs/web
 [spectrum-image]: https://withspectrum.github.io/badge/badge.svg
 [spectrum-url]: https://spectrum.chat/neutrino

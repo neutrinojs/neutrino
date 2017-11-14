@@ -1,6 +1,6 @@
 # Neutrino Dev Server Middleware
 
-`neutrino-middleware-dev-server` is Neutrino middleware for starting a Webpack Dev Server for fast development cycles.
+`@neutrinojs/dev-server` is Neutrino middleware for starting a Webpack Dev Server for fast development cycles.
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
@@ -14,28 +14,28 @@
 
 ## Installation
 
-`neutrino-middleware-dev-server` can be installed via the Yarn or npm clients.
+`@neutrinojs/dev-server` can be installed via the Yarn or npm clients.
 
 #### Yarn
 
 ```bash
-❯ yarn add neutrino-middleware-dev-server
+❯ yarn add @neutrinojs/dev-server
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save neutrino-middleware-dev-server
+❯ npm install --save @neutrinojs/dev-server
 ```
 
 ## Usage
 
-`neutrino-middleware-dev-server` can be consumed from the Neutrino API, middleware, or presets. Require this package
+`@neutrinojs/dev-server` can be consumed from the Neutrino API, middleware, or presets. Require this package
 and plug it into Neutrino:
 
 ```js
 // Using function middleware format
-const devServer = require('neutrino-middleware-dev-server');
+const devServer = require('@neutrinojs/dev-server');
 
 // Usage with default options
 neutrino.use(devServer);
@@ -76,13 +76,13 @@ neutrino.use(devServer, {
 
 // Usage with default options
 module.exports = {
-  use: ['neutrino-middleware-dev-server']
+  use: ['@neutrinojs/dev-server']
 };
 
 // Usage with custom options (default options are shown)
 module.exports = {
   use: [
-    ['neutrino-middleware-dev-server', {
+    ['@neutrinojs/dev-server', {
       https: false,
       port: 5000,
       host: 'localhost',
@@ -123,7 +123,7 @@ More information about usage of Neutrino middleware can be found in the [documen
 
 ## Middleware options
 
-`neutrino-middleware-dev-server` optionally accepts an object with several options to override the default behavior.
+`@neutrinojs/dev-server` optionally accepts an object with several options to override the default behavior.
 This object, as seen used above, can accept any
 [property that is accepted by Webpack Dev Server](https://webpack.js.org/configuration/dev-server/). In addition, you
 may also specify the following options:
@@ -136,8 +136,8 @@ This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrin
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](https://neutrino.js.org/contributing) for details.
 
-[npm-image]: https://img.shields.io/npm/v/neutrino-middleware-dev-server.svg
-[npm-downloads]: https://img.shields.io/npm/dt/neutrino-middleware-dev-server.svg
-[npm-url]: https://npmjs.org/package/neutrino-middleware-dev-server
+[npm-image]: https://img.shields.io/npm/v/@neutrinojs/dev-server.svg
+[npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/dev-server.svg
+[npm-url]: https://npmjs.org/package/@neutrinojs/dev-server
 [spectrum-image]: https://withspectrum.github.io/badge/badge.svg
 [spectrum-url]: https://spectrum.chat/neutrino

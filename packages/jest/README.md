@@ -1,6 +1,6 @@
 # Neutrino Jest Preset
 
-`neutrino-preset-jest` is a Neutrino preset that supports testing JavaScript projects with the Jest test runner.
+`@neutrinojs/jest` is a Neutrino preset that supports testing JavaScript projects with the Jest test runner.
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
@@ -22,26 +22,26 @@
 
 ## Installation
 
-`neutrino-preset-jest` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `neutrino-preset-jest` are development dependencies. You will also be using
+`@neutrinojs/jest` can be installed via the Yarn or npm clients. Inside your project, make sure
+`neutrino` and `@neutrinojs/jest` are development dependencies. You will also be using
 another Neutrino preset for building your application source code.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev neutrino-preset-jest
+❯ yarn add --dev @neutrinojs/jest
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev neutrino-preset-jest
+❯ npm install --save-dev @neutrinojs/jest
 ```
 
 ### Installation: React Testing
 
 Jest is often used in the testing of React components. If you are using this preset in a React application, which most
-likely means you are using `neutrino-preset-react`, you should also consider adding React's TestUtils and potentially a
+likely means you are using `@neutrinojs/react`, you should also consider adding React's TestUtils and potentially a
 higher-level abstraction such as Airbnb's Enzyme. These should be development dependencies of your project.
 
 #### Yarn
@@ -61,7 +61,7 @@ testing with this approach.
 
 ## Project Layout
 
-`neutrino-preset-jest` follows the standard [project layout](https://neutrino.js.org/project-layout) specified by Neutrino. This
+`@neutrinojs/jest` follows the standard [project layout](https://neutrino.js.org/project-layout) specified by Neutrino. This
 means that by default all project test code should live in a directory named `test` in the root of the
 project. Test files end in either `_test.js`, `.test.js`, `_test.jsx`, or `.test.jsx`.
 
@@ -90,7 +90,7 @@ let's pretend this is a Node.js project:
 ```json
 {
   "scripts": {
-    "test": "neutrino test --use neutrino-preset-node neutrino-preset-jest"
+    "test": "neutrino test --use @neutrinojs/node @neutrinojs/jest"
   }
 }
 ```
@@ -100,8 +100,8 @@ Or if you are using `.neutrinorc.js`, add this preset to your use array instead 
 ```js
 module.exports = {
   use: [
-    'neutrino-preset-node',
-    'neutrino-preset-jest'
+    '@neutrinojs/node',
+    '@neutrinojs/jest'
   ]
 };
 ```
@@ -156,7 +156,7 @@ extension. Use the command line [`files` parameters](https://neutrino.js.org/cli
 
 ## Watching for changes
 
-`neutrino-preset-jest` can watch for changes on your source directory and subsequently re-run tests. Simply use the
+`@neutrinojs/jest` can watch for changes on your source directory and subsequently re-run tests. Simply use the
 `--watch` flag with your `neutrino test` command.
 
 ## Coverage reporting
@@ -210,7 +210,7 @@ and update the configuration in your `package.json` to:
 
 You can provide custom options and have them merged with this preset's default options, which are subsequently passed
 to Jest. You can modify Jest settings from `.neutrinorc.js` by overriding with any options Jest accepts. In a standalone
-Jest project this is typically done in the package.json file, but `neutrino-preset-jest` allows configuration through
+Jest project this is typically done in the package.json file, but `@neutrinojs/jest` allows configuration through
 this mechanism as well. This accepts the same configuration options as outlined in the
 [Jest documentation](https://facebook.github.io/jest/docs/configuration.html). Use an array pair instead of a string
 to supply these options.
@@ -220,7 +220,7 @@ _Example: Turn off bailing on test failures._
 ```js
 module.exports = {
   use: [
-    ['neutrino-preset-jest', { bail: false }]
+    ['@neutrinojs/jest', { bail: false }]
   ]
 };
 ```
@@ -232,7 +232,7 @@ _Example: Jest setup scripts_
 ```js
 module.exports = {
   use: [
-    ['neutrino-preset-jest', {
+    ['@neutrinojs/jest', {
       // setup script for the framework
       setupTestFrameworkScriptFile: '<rootDir>/test-setup.js',
       // and / or shims
@@ -270,7 +270,7 @@ global.requestAnimationFrame = (callback) => {
 ## Customizing
 
 To override the test configuration, start with the documentation on [customization](https://neutrino.js.org/customization).
-`neutrino-preset-jest` creates some conventions to make overriding the configuration easier once you are ready to make
+`@neutrinojs/jest` creates some conventions to make overriding the configuration easier once you are ready to make
 changes.
 
 ### Rules
@@ -287,7 +287,7 @@ By following the [customization guide](https://neutrino.js.org/customization) an
 you can override and augment testing by providing a function to your `.neutrinorc.js` use array. You can also
 make this change from the Neutrino API when using the `use` method.
 
-In a standalone Jest project this is typically done in the package.json file, but `neutrino-preset-jest` allows
+In a standalone Jest project this is typically done in the package.json file, but `@neutrinojs/jest` allows
 configuration through this mechanism as well. This accepts the same configuration options as outlined in the
 [Jest documentation](https://facebook.github.io/jest/docs/configuration.html). Use an array pair instead of a string
 to supply these options.
@@ -297,7 +297,7 @@ _Example: Add a custom Babel plugin when testing:_
 ```js
 module.exports = {
   use: [
-    'neutrino-preset-jest'
+    '@neutrinojs/jest'
   ],
   env: {
     NODE_ENV: {
@@ -322,8 +322,8 @@ This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/ne
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](https://neutrino.js.org/contributing) for details.
 
-[npm-image]: https://img.shields.io/npm/v/neutrino-preset-jest.svg
-[npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-jest.svg
-[npm-url]: https://npmjs.org/package/neutrino-preset-jest
+[npm-image]: https://img.shields.io/npm/v/@neutrinojs/jest.svg
+[npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/jest.svg
+[npm-url]: https://npmjs.org/package/@neutrinojs/jest
 [spectrum-image]: https://withspectrum.github.io/badge/badge.svg
 [spectrum-url]: https://spectrum.chat/neutrino

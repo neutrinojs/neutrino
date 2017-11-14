@@ -163,9 +163,9 @@ use for you:
 ```js
 module.exports = {
   use: [
-    'neutrino-preset-airbnb-base',
-    'neutrino-preset-react',
-    'neutrino-preset-jest',
+    '@neutrinojs/airbnb-base',
+    '@neutrinojs/react',
+    '@neutrinojs/jest',
     './override.js'
   ]
 };
@@ -177,7 +177,7 @@ module name and options:
 ```js
 module.exports = {
   use: [
-    ['neutrino-preset-airbnb-base', {
+    ['@neutrinojs/airbnb-base', {
       eslint: {
         rules: {
           semi: 'off'
@@ -185,12 +185,12 @@ module.exports = {
       }
     }],
 
-    ['neutrino-preset-react', {
+    ['@neutrinojs/react', {
       polyfills: { async: false },
       html: { title: 'Epic React App' }
     }],
 
-    'neutrino-preset-jest'
+    '@neutrinojs/jest'
   ]
 };
 ```
@@ -201,9 +201,9 @@ and have access to the Neutrino API:
 ```js
 module.exports = {
   use: [
-    'neutrino-preset-airbnb-base',
-    'neutrino-preset-react',
-    'neutrino-preset-jest',
+    '@neutrinojs/airbnb-base',
+    '@neutrinojs/react',
+    '@neutrinojs/jest',
     (neutrino) => neutrino.config.module
       .rule('style')
       .use('css')
@@ -227,7 +227,7 @@ module.exports = {
   env: {
     NODE_ENV: {
       production: {
-        use: ['neutrino-middleware-pwa']
+        use: ['@neutrinojs/pwa']
       }
     }
   }
@@ -277,14 +277,14 @@ using its API.
 
 This `neutrino.config` is an accumulation of all configuration up to this moment. All Neutrino middleware and presets
 interact with and make changes through this config, which is all available to you. For example, if you are using the
-presets `neutrino-preset-react` and `neutrino-preset-karma`, any config set can be extended, manipulated, or removed.
+presets `@neutrinojs/react` and `@neutrinojs/karma`, any config set can be extended, manipulated, or removed.
 
 _Example: Neutrino's React preset adds `.jsx` as a module extension. Let's remove it._
 
 ```js
 module.exports = {
   use: [
-    'neutrino-preset-react',
+    '@neutrinojs/react',
     (neutrino) => neutrino.config.resolve.extensions.delete('.jsx')
   ]
 };
@@ -295,7 +295,7 @@ _Example: Neutrino's Node.js preset has performance hints disabled. Let's re-ena
 ```js
 module.exports = {
   use: [
-    'neutrino-preset-node',
+    '@neutrinojs/node',
     (neutrino) => neutrino.config.performance.hints('error')
   ]
 };

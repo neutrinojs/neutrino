@@ -1,6 +1,6 @@
 # Neutrino ESLint Middleware
 
-`neutrino-middleware-eslint` is Neutrino middleware for linting source code using ESLint and eslint-loader.
+`@neutrinojs/eslint` is Neutrino middleware for linting source code using ESLint and eslint-loader.
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
@@ -14,28 +14,28 @@
 
 ## Installation
 
-`neutrino-middleware-eslint` can be installed via the Yarn or npm clients.
+`@neutrinojs/eslint` can be installed via the Yarn or npm clients.
 
 #### Yarn
 
 ```bash
-❯ yarn add neutrino-middleware-eslint
+❯ yarn add @neutrinojs/eslint
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save neutrino-middleware-eslint
+❯ npm install --save @neutrinojs/eslint
 ```
 
 ## Usage
 
-`neutrino-middleware-eslint` can be consumed from the Neutrino API, middleware, or presets. Require this package
+`@neutrinojs/eslint` can be consumed from the Neutrino API, middleware, or presets. Require this package
 and plug it into Neutrino:
 
 ```js
 // Using function middleware format
-const eslint = require('neutrino-middleware-eslint');
+const eslint = require('@neutrinojs/eslint');
 
 // Usage shows default values
 neutrino.use(eslint, {
@@ -74,7 +74,7 @@ neutrino.use(eslint, {
 
 ## Customization
 
-`neutrino-middleware-eslint` creates some conventions to make overriding the configuration easier once you are ready to
+`@neutrinojs/eslint` creates some conventions to make overriding the configuration easier once you are ready to
 make changes.
 
 ### Rules
@@ -125,7 +125,7 @@ the console.
 
 If you cannot or do not wish to use Neutrino to execute one-off linting, you can still use ESLint manually.
 
-`neutrino-middleware-eslint` also provides a method for getting the ESLint configuration suitable for use in an eslintrc
+`@neutrinojs/eslint` also provides a method for getting the ESLint configuration suitable for use in an eslintrc
 file. Typically this is used for providing hints or fix solutions to the development environment, e.g. IDEs and text
 editors. Doing this requires [creating an instance of the Neutrino API](https://neutrino.js.org/api) and providing the
 middleware it uses. If you keep all this information in a `.neutrinorc.js`, this should be relatively straightforward. By
@@ -156,12 +156,12 @@ _Example: Create a .eslintrc.js file in the root of the project, using specified
 const { Neutrino } = require('neutrino');
 
 module.exports = Neutrino().call('eslintrc', [
-  ['neutrino-middleware-eslint', {
+  ['@neutrinojs/eslint', {
     eslint: {
       rules: { semi: 'off' }
     }
   }],
-  'neutrino-preset-react'
+  '@neutrinojs/react'
 ]);
 ```
 
@@ -197,8 +197,8 @@ This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrin
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](https://neutrino.js.org/contributing) for details.
 
-[npm-image]: https://img.shields.io/npm/v/neutrino-middleware-eslint.svg
-[npm-downloads]: https://img.shields.io/npm/dt/neutrino-middleware-eslint.svg
-[npm-url]: https://npmjs.org/package/neutrino-middleware-eslint
+[npm-image]: https://img.shields.io/npm/v/@neutrinojs/eslint.svg
+[npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/eslint.svg
+[npm-url]: https://npmjs.org/package/@neutrinojs/eslint
 [spectrum-image]: https://withspectrum.github.io/badge/badge.svg
 [spectrum-url]: https://spectrum.chat/neutrino

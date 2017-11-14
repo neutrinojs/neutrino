@@ -1,6 +1,6 @@
 # Neutrino Airbnb Base Preset
 
-`neutrino-preset-airbnb-base` is a Neutrino preset that supports linting JavaScript projects with Airbnb's base ESLint
+`@neutrinojs/airbnb-base` is a Neutrino preset that supports linting JavaScript projects with Airbnb's base ESLint
 config, following the [Airbnb styleguide](https://github.com/airbnb/javascript).
 
 [![NPM version][npm-image]][npm-url]
@@ -15,7 +15,7 @@ config, following the [Airbnb styleguide](https://github.com/airbnb/javascript).
 - Easily extensible to customize your project as needed
 
 _Note: If you are building a React project, you should probably use 
-[`neutrino-preset-airbnb`](https://www.npmjs.com/package/neutrino-preset-airbnb) instead._
+[`@neutrinojs/airbnb`](https://www.npmjs.com/package/@neutrinojs/airbnb) instead._
 
 ## Requirements
 
@@ -25,38 +25,38 @@ _Note: If you are building a React project, you should probably use
 
 ## Installation
 
-`neutrino-preset-airbnb-base` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `neutrino-preset-airbnb-base` are development dependencies. You will also be using
+`@neutrinojs/airbnb-base` can be installed via the Yarn or npm clients. Inside your project, make sure
+`neutrino` and `@neutrinojs/airbnb-base` are development dependencies. You will also be using
 another Neutrino preset for building your application source code.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev neutrino-preset-airbnb-base
+❯ yarn add --dev @neutrinojs/airbnb-base
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev neutrino-preset-airbnb-base
+❯ npm install --save-dev @neutrinojs/airbnb-base
 ```
 
 ## Project Layout
 
-`neutrino-preset-airbnb-base` follows the standard [project layout](https://neutrino.js.org/project-layout) specified by Neutrino. This
+`@neutrinojs/airbnb-base` follows the standard [project layout](https://neutrino.js.org/project-layout) specified by Neutrino. This
 means that by default all project source code should live in a directory named `src` in the root of the
 project.
 
 ## Quickstart
 
 After adding the Airbnb preset to your Neutrino-built project, edit your project's package.json to add the preset for
-linting **before** your build preset. For example, if you are building your project using `neutrino-preset-web`:
+linting **before** your build preset. For example, if you are building your project using `@neutrinojs/web`:
 
 ```json
 {
   "scripts": {
-    "start": "neutrino start --use neutrino-preset-airbnb-base neutrino-preset-web",
-    "build": "neutrino build --use neutrino-preset-airbnb-base neutrino-preset-web"
+    "start": "neutrino start --use @neutrinojs/airbnb-base @neutrinojs/web",
+    "build": "neutrino build --use @neutrinojs/airbnb-base @neutrinojs/web"
   }
 }
 ```
@@ -66,8 +66,8 @@ Or if you are using a `.neutrinorc.js`, add this preset to your use array instea
 ```js
 module.exports = {
   use: [
-    'neutrino-preset-airbnb-base',
-    'neutrino-preset-web'
+    '@neutrinojs/airbnb-base',
+    '@neutrinojs/web'
   ]
 };
 ```
@@ -116,7 +116,7 @@ ERROR in ./src/index.js
 
 ## Building
 
-`neutrino-preset-airbnb-base` will cause errors to **fail your build** when creating a bundle via `neutrino build`. If
+`@neutrinojs/airbnb-base` will cause errors to **fail your build** when creating a bundle via `neutrino build`. If
 you want to ease introduction of this linting preset to your project, consider only adding it to your use list for
 `neutrino start` or `development` environment until all linting errors have been resolved.
 
@@ -144,12 +144,12 @@ _Example: ease linting into project by only adding when `NODE_ENV=development`, 
 ```js
 module.exports = {
   use: [
-    'neutrino-preset-web'
+    '@neutrinojs/web'
   ],
   env: {
     NODE_ENV: {
       development: {
-        use: ['neutrino-preset-airbnb-base']
+        use: ['@neutrinojs/airbnb-base']
       }
     }
   }
@@ -158,7 +158,7 @@ module.exports = {
 
 ## Middleware options
 
-This preset uses the same middleware options as [neutrino-middleware-eslint](https://neutrino.js.org/middleware/neutrino-middleware-eslint).
+This preset uses the same middleware options as [@neutrinojs/eslint](https://neutrino.js.org/middleware/@neutrinojs/eslint).
 If you wish to customize what is included, excluded, or any ESLint options, you can provide an options object with the
 middleware and this will be merged with our internal defaults for this preset. Use an array pair instead of a string
 to supply these options.
@@ -168,7 +168,7 @@ _Example: Turn off semicolons from being required as defined by the Airbnb rules
 ```js
 module.exports = {
   use: [
-    ['neutrino-preset-airbnb-base', {
+    ['@neutrinojs/airbnb-base', {
       eslint: {
         rules: {
           semi: 'off'
@@ -182,7 +182,7 @@ module.exports = {
 ## Customizing
 
 To override the build configuration, start with the documentation on [customization](https://neutrino.js.org/customization).
-`neutrino-preset-airbnb-base` creates some conventions to make overriding the configuration easier once you are ready to
+`@neutrinojs/airbnb-base` creates some conventions to make overriding the configuration easier once you are ready to
 make changes.
 
 ### Rules
@@ -191,7 +191,7 @@ The following is a list of rules and their identifiers which can be overridden:
 
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
-| `lint` | Lints JS and JSX files from the `src` directory using ESLint. Contains a single loader named `eslint`. This is inherited from `neutrino-middleware-eslint`. | all |
+| `lint` | Lints JS and JSX files from the `src` directory using ESLint. Contains a single loader named `eslint`. This is inherited from `@neutrinojs/eslint`. | all |
 
 ### Information
 
@@ -210,7 +210,7 @@ _Example: Turn off semicolons from being required as defined by the Airbnb rules
 ```js
 module.exports = {
   use: [
-    'neutrino-preset-airbnb-base',
+    '@neutrinojs/airbnb-base',
     (neutrino) => neutrino.config.module
       .rule('lint')
       .use('eslint')
@@ -225,7 +225,7 @@ module.exports = {
 
 ## eslint CLI
 
-_This is the recommended way to perform a one-off lint in a Neutrino project, and is inherited from neutrino-middleware-eslint._
+_This is the recommended way to perform a one-off lint in a Neutrino project, and is inherited from @neutrinojs/eslint._
 
 You can also have Neutrino invoke ESLint for you if you wish to perform a one-time lint. This avoids needing to install
 ESLint manually, creating a `.eslintrc.js` file, or having to manage includes and ignores. As long as the ESLint
@@ -246,7 +246,7 @@ the console.
 
 If you cannot or do not wish to use Neutrino to execute one-off linting, you can still use ESLint manually.
 
-`neutrino-middleware-eslint`, from which this preset inherits, also provides a method for getting the ESLint
+`@neutrinojs/eslint`, from which this preset inherits, also provides a method for getting the ESLint
 configuration suitable for use in an eslintrc file. Typically this is used for providing hints or fix solutions to the
 development environment, e.g. IDEs and text editors. Doing this requires
 [creating an instance of the Neutrino API](https://neutrino.js.org/api) and providing the middleware it uses. If you keep all
@@ -277,12 +277,12 @@ _Example: Create a .eslintrc.js file in the root of the project, using specified
 const { Neutrino } = require('neutrino');
 
 module.exports = Neutrino().call('eslintrc', [
-  ['neutrino-preset-airbnb-base', {
+  ['@neutrinojs/airbnb-base', {
     eslint: {
       rules: { semi: 'off' }
     }
   }],
-  'neutrino-preset-react'
+  '@neutrinojs/react'
 ]);
 ```
 
@@ -318,8 +318,8 @@ This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/ne
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](https://neutrino.js.org/contributing) for details.
 
-[npm-image]: https://img.shields.io/npm/v/neutrino-preset-airbnb-base.svg
-[npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-airbnb-base.svg
-[npm-url]: https://npmjs.org/package/neutrino-preset-airbnb-base
+[npm-image]: https://img.shields.io/npm/v/@neutrinojs/airbnb-base.svg
+[npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/airbnb-base.svg
+[npm-url]: https://npmjs.org/package/@neutrinojs/airbnb-base
 [spectrum-image]: https://withspectrum.github.io/badge/badge.svg
 [spectrum-url]: https://spectrum.chat/neutrino

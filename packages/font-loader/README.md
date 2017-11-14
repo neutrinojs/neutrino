@@ -1,6 +1,6 @@
 # Neutrino Font Loader Middleware
 
-`neutrino-middleware-font-loader` is Neutrino middleware for loading and importing font files from modules.
+`@neutrinojs/font-loader` is Neutrino middleware for loading and importing font files from modules.
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
@@ -14,28 +14,28 @@
 
 ## Installation
 
-`neutrino-middleware-font-loader` can be installed via the Yarn or npm clients.
+`@neutrinojs/font-loader` can be installed via the Yarn or npm clients.
 
 #### Yarn
 
 ```bash
-❯ yarn add neutrino-middleware-font-loader
+❯ yarn add @neutrinojs/font-loader
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save neutrino-middleware-font-loader
+❯ npm install --save @neutrinojs/font-loader
 ```
 
 ## Usage
 
-`neutrino-middleware-font-loader` can be consumed from the Neutrino API, middleware, or presets. Require this package
+`@neutrinojs/font-loader` can be consumed from the Neutrino API, middleware, or presets. Require this package
 and plug it into Neutrino:
 
 ```js
 // Using function middleware format
-const fonts = require('neutrino-middleware-font-loader');
+const fonts = require('@neutrinojs/font-loader');
 
 // Use with default options
 neutrino.use(fonts);
@@ -54,13 +54,13 @@ neutrino.use(fonts, {
 
 // Use with default options
 module.exports = {
-  use: ['neutrino-middleware-font-loader']
+  use: ['@neutrinojs/font-loader']
 };
 
 // Usage showing default options
 module.exports = {
   use: [
-    ['neutrino-middleware-font-loader', {
+    ['@neutrinojs/font-loader', {
       limit: '10000',
       woff: {},
       ttf: {},
@@ -77,7 +77,7 @@ module.exports = {
 
 ## Customization
 
-`neutrino-middleware-font-loader` creates some conventions to make overriding the configuration easier once you are
+`@neutrinojs/font-loader` creates some conventions to make overriding the configuration easier once you are
 ready to make changes.
 
 ### Rules
@@ -96,8 +96,8 @@ This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrin
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](https://neutrino.js.org/contributing) for details.
 
-[npm-image]: https://img.shields.io/npm/v/neutrino-middleware-font-loader.svg
-[npm-downloads]: https://img.shields.io/npm/dt/neutrino-middleware-font-loader.svg
-[npm-url]: https://npmjs.org/package/neutrino-middleware-font-loader
+[npm-image]: https://img.shields.io/npm/v/@neutrinojs/font-loader.svg
+[npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/font-loader.svg
+[npm-url]: https://npmjs.org/package/@neutrinojs/font-loader
 [spectrum-image]: https://withspectrum.github.io/badge/badge.svg
 [spectrum-url]: https://spectrum.chat/neutrino

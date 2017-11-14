@@ -74,8 +74,8 @@ needing to to include your extended presets in their own commands.
 _Example: Define a Neutrino preset which combines Node.js and Mocha presets._
 
 ```js
-const node = require('neutrino-preset-node');
-const mocha = require('neutrino-preset-mocha');
+const node = require('@neutrinojs/node');
+const mocha = require('@neutrinojs/mocha');
 
 module.exports = neutrino => {
   neutrino.use(node);
