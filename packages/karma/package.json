@@ -1,0 +1,34 @@
+{
+  "name": "@neutrinojs/karma",
+  "version": "7.3.2",
+  "description": "Neutrino preset for testing Neutrino projects with Karma",
+  "main": "index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-preset",
+    "karma",
+    "mocha",
+    "chrome"
+  ],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MPL-2.0",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/karma",
+  "dependencies": {
+    "@neutrinojs/loader-merge": "^7.3.2",
+    "babel-plugin-istanbul": "^4.1.5",
+    "deepmerge": "^1.5.2",
+    "karma": "^1.7.1",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.1",
+    "karma-mocha": "^1.3.0",
+    "karma-mocha-reporter": "^2.2.4",
+    "karma-webpack": "^2.0.4",
+    "mocha": "^3.5.3",
+    "mocha-coverage-reporter": "^0.0.1",
+    "ramda": "^0.24.1",
+    "webpack": "^3.6.0"
+  },
+  "peerDependencies": {
+    "neutrino": "^7.0.0"
+  }
+}
