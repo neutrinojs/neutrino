@@ -37,13 +37,13 @@ module.exports = (neutrino, opts = {}) => {
     publicPath: options.publicPath
   }, options.devServer);
 
-  if (options.devServerProxy && !options.devServer.proxy) {
+  if (typeof options.devServer.proxy === 'string') {
     options.devServer.proxy = {
       '**': {
-        target: options.devServerProxy,
-        changeOrigin: true,
-      },
-    }
+        target: options.devServer.proxy,
+        changeOrigin: true
+      }
+    };
   }
 
   Object.assign(options, {
@@ -135,7 +135,7 @@ module.exports = (neutrino, opts = {}) => {
           .end()
         .end()
       .end()
-    .when(options.html, config => {
+    .when(options.html, (config) => {
       neutrino.use(htmlLoader);
       neutrino.use(htmlTemplate, options.htmlTemplate);
       config.plugin('script-ext')
