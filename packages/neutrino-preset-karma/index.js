@@ -17,10 +17,10 @@ module.exports = (neutrino, opts = {}) => {
     ],
     basePath: neutrino.options.root,
     logLevel: neutrino.options.debug ? LOG_DEBUG : LOG_INFO,
-    browsers: [process.env.CI ? 'ChromeCI' : 'Chrome'],
+    browsers: [process.env.CI ? 'ChromeCI' : 'ChromeHeadless'],
     customLaunchers: {
       ChromeCI: {
-        base: 'Chrome',
+        base: 'ChromeHeadless',
         flags: ['--no-sandbox']
       }
     },
