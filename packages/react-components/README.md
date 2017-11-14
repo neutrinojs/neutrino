@@ -1,55 +1,58 @@
 # Neutrino React Components Preset
+
+`@neutrinojs/react-components` is a Neutrino preset for building sets of React components.
+
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
-[![Join Slack][slack-image]][slack-url]
+[![Join the Neutrino community on Spectrum][spectrum-image]][spectrum-url]
 
-`neutrino-preset-react-components` is a Neutrino preset that supports creating generic React components and previewing
+`@neutrinojs/react-components` is a Neutrino preset that supports creating generic React components and previewing
 them without the need to embed in an application. Plays nicely with other Neutrino middleware, so you can build, test,
 preview, and publish multiple React components from a single repository.
 
 ## Features
 
-- Extends partially from [neutrino-preset-react](https://neutrino.js.org/presets/neutrino-preset-react)
+- Extends partially from [@neutrinojs/react](https://neutrino.js.org/presets/@neutrinojs/react)
 - Zero upfront configuration necessary to start developing, building, and visually previewing a React component.
 Minimal code is needed to generate stories previewer.
 - Modern Babel compilation adding JSX and object rest spread syntax.
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
 - Support for importing web workers with `.worker.js` file extensions
-- Extends from [neutrino-preset-web](https://neutrino.js.org/presets/neutrino-preset-web)
+- Extends from [@neutrinojs/web](https://neutrino.js.org/presets/@neutrinojs/web)
   - Modern Babel compilation supporting ES modules, **latest** major browser versions, async functions, and dynamic imports
   - Webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
   - Webpack Dev Server during development
   - Hot module replacement support
   - Easily extensible to customize your project as needed
 
-**Important! The Neutrino Web and React presets include babel-polyfill by default, but this preset does not. If you need
+**Important! This preset does not include babel-polyfill for size reasons. If you need
 polyfills in your library code, consider importing babel-polyfill, core-js, or other alternative.**
 
 ## Requirements
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v6
+- Neutrino v7
 - React, React DOM, and React Addons CSS Transition Group
 
 ## Installation
 
-`neutrino-preset-react-components` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `neutrino-preset-react-components` are development dependencies. You will also need React and React DOM
+`@neutrinojs/react-components` can be installed via the Yarn or npm clients. Inside your project, make sure
+`neutrino` and `@neutrinojs/react-components` are development dependencies. You will also need React and React DOM
 for actual component development.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev neutrino neutrino-preset-react-components
+❯ yarn add --dev neutrino @neutrinojs/react-components
 ❯ yarn add react react-dom react-addons-css-transition-group
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev neutrino neutrino-preset-react-components
+❯ npm install --save-dev neutrino @neutrinojs/react-components
 ❯ npm install --save react react-dom react-addons-css-transition-group
 ```
 
@@ -69,7 +72,7 @@ If you want to have automatically wired sourcemaps added to your project, add `s
 
 ## Project Layout
 
-`neutrino-preset-react-components` follows the standard [project layout](https://neutrino.js.org/project-layout)
+`@neutrinojs/react-components` follows the standard [project layout](https://neutrino.js.org/project-layout)
 specified by Neutrino. This means that by default all project source code should live in a directory named `src` in the
 root of the project. This includes JavaScript files that would be available to your compiled project.
 
@@ -89,7 +92,7 @@ Edit your `src/stories.js` file with the following:
 ```js
 import React from 'react';
 import { render } from 'react-dom';
-import { Stories, Story, Props } from 'neutrino-preset-react-components/lib';
+import { Stories, Story, Props } from '@neutrinojs/react-components/lib';
 import YourCustomComponent from './components/YourCustomComponent';
 
 const root = document.getElementById('root');
@@ -110,8 +113,8 @@ Now edit your project's package.json to add commands for starting the preview ap
 ```json
 {
   "scripts": {
-    "start": "neutrino start --use neutrino-preset-react-components",
-    "build": "neutrino build --use neutrino-preset-react-components"
+    "start": "neutrino start --use @neutrinojs/react-components",
+    "build": "neutrino build --use @neutrinojs/react-components"
   }
 }
 ```
@@ -120,7 +123,7 @@ If you are using `.neutrinorc.js`, add this preset to your use array instead of 
 
 ```js
 module.exports = {
-  use: ['neutrino-preset-react-components']
+  use: ['@neutrinojs/react-components']
 };
 ```
 
@@ -144,7 +147,7 @@ Start the app, then open a browser to http://localhost:5000 to preview your comp
 
 ## Building
 
-`neutrino-preset-react-components` builds components to the `lib` directory by default when running `neutrino build`.
+`@neutrinojs/react-components` builds components to the `lib` directory by default when running `neutrino build`.
 Using the quick start example above as a reference:
 
 ```bash
@@ -176,7 +179,7 @@ By default this preset creates an individual entry point for every top-level com
 
 ## Previewer Components
 
-This preset exposes 3 React components from `neutrino-preset-react-component/lib` to generate a component previewer
+This preset exposes 3 React components from `@neutrinojs/react-components/lib` to generate a component previewer
 interface:
 
 ### Stories
@@ -190,7 +193,7 @@ The `<Stories />` component should be given 1 or more `<Story />` components as 
 ```js
 import React from 'react';
 import { render } from 'react-dom';
-import { Stories } from 'neutrino-preset-react-component/lib';
+import { Stories } from '@neutrinojs/react-components/lib';
 
 const root = document.getElementById('root');
 
@@ -212,7 +215,7 @@ render the specified component upon selection.
 ```js
 import React from 'react';
 import { render } from 'react-dom';
-import { Stories, Story } from 'neutrino-preset-react-component/lib';
+import { Stories, Story } from '@neutrinojs/react-components/lib';
 
 const root = document.getElementById('root');
 
@@ -237,7 +240,7 @@ The `<Props />` component should be given a `name` property for displaying in th
 ```js
 import React from 'react';
 import { render } from 'react-dom';
-import { Stories, Story, Props } from 'neutrino-preset-react-component/lib';
+import { Stories, Story, Props } from '@neutrinojs/react-components/lib';
 
 const root = document.getElementById('root');
 
@@ -258,20 +261,20 @@ render((
 ), root);
 ```
 
-![example gif](neutrino-react-components-example.gif)
+![example gif](example.gif)
 
 ## Hot Module Replacement
 
-While `neutrino-preset-react-components` supports Hot Module Replacement for your app, it does require some
+While `@neutrinojs/react-components` supports Hot Module Replacement for your app, it does require some
 changes to the preview app in order to operate. The preview app should define split points for which to accept
 modules (Components) to reload using `module.hot`. See the
-[React preset docs](https://neutrino.js.org/presets/neutrino-preset-react/#hot-module-replacement) for guidance.
+[React preset docs](https://neutrino.js.org/packages/react/#hot-module-replacement) for guidance.
 
 ## Customizing
 
 To override the build configuration, start with the documentation on [customization](https://neutrino.js.org/customization).
-`neutrino-preset-react-components` uses a few rules and plugins in addition to the ones in use by the React and Web presets.
-See the [Web documentation customization](https://neutrino.js.org/presets/neutrino-preset-web#customizing)
+`@neutrinojs/react-components` uses a few rules and plugins in addition to the ones in use by the React and Web presets.
+See the [Web documentation customization](https://neutrino.js.org/packages/web#customizing)
 for preset-specific configuration to override.
 
 By default this preset creates an individual entry point for every top-level component found in `src/components`.
@@ -282,8 +285,8 @@ The following is a list of rules and their identifiers which can be overridden, 
 
 | Name | Description | Environments |
 | ---- | ----------- | ------------ |
-| `style` | Allows importing CSS stylesheets from modules. Contains two loaders named `style` and `css`. Allows using CSS modules from project CSS files. | all |
-| `plain-style` | Allows importing CSS stylesheets from modules. Contains two loaders named `style` and `css`. Used for importing CSS files from node_modules; has CSS modules disabled. | all |
+| `style` | Allows importing CSS stylesheets. Contains two loaders named `style` and `css`. | all |
+| `css-modules` | Allows importing modules from project CSS stylesheets named `*.module.css`. Contains two loaders named `style` and `css`. | all |
 
 ### Plugins
 
@@ -305,15 +308,15 @@ _Example: Change the name of the components directory:_
 ```js
 module.exports = {
   use: [
-    ['neutrino-preset-react-components', {
+    ['@neutrinojs/react-components', {
       components: 'react-stuff' // now you can put your components in src/react-stuff/
     }]
   ]
 }
 ```
 
-[npm-image]: https://img.shields.io/npm/v/neutrino-preset-react-components.svg
-[npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-react-components.svg
-[npm-url]: https://npmjs.org/package/neutrino-preset-react-components
-[slack-image]: https://neutrino-slack.herokuapp.com/badge.svg
-[slack-url]: https://neutrino-slack.herokuapp.com/
+[npm-image]: https://img.shields.io/npm/v/@neutrinojs/react-components.svg
+[npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/react-components.svg
+[npm-url]: https://npmjs.org/package/@neutrinojs/react-components
+[spectrum-image]: https://withspectrum.github.io/badge/badge.svg
+[spectrum-url]: https://spectrum.chat/neutrino

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react'; // eslint-disable-line import/no-extraneous-dependencies
 import { Button, Menu, MenuItem, Popover, Position } from '@blueprintjs/core';
 import 'normalize.css/normalize.css';
 import '@blueprintjs/core/dist/blueprint.css';
@@ -7,7 +7,7 @@ const getDisplayName = Component => Component.displayName ||
   Component.name ||
   (typeof Component === 'string' ? Component : 'Component');
 
-export class Stories extends React.Component {
+export default class Stories extends Component {
   constructor(props) {
     super(props);
     this.state = this.getComponentsAndStories(props);
@@ -26,11 +26,11 @@ export class Stories extends React.Component {
   getComponentsAndStories(props) {
     const children = Array.isArray(props.children) ? props.children : [props.children];
     const components = new Map();
-    const stories = children.map(story => {
+    const stories = children.map((story) => {
       const { component, children } = story.props;
       const kind = getDisplayName(component);
       const states = new Map();
-      const stories = (Array.isArray(children) ? children : [children]).map(state => {
+      const stories = (Array.isArray(children) ? children : [children]).map((state) => {
         states.set(state.props.name, state.props);
 
         return state.props.name;
@@ -61,10 +61,12 @@ export class Stories extends React.Component {
   }
 
   render() {
-    const { components, stories, kind, Component, props } = this.state;
+    const {
+      components, stories, kind, Component, props
+    } = this.state;
     const componentsMenu = (
       <Menu>
-        {stories.map((story, index) => (
+        {stories.map(story => (
           <MenuItem
             key={`components-menu-${story.kind}`}
             iconName="code"
@@ -99,10 +101,16 @@ export class Stories extends React.Component {
           </div>
         </nav>
 
-        <div style={{ position: 'absolute', top: 50, left: 0, right: 0, bottom: 0 }}>
+        <div style={{
+          position: 'absolute',
+          top: 50,
+          left: 0,
+          right: 0,
+          bottom: 0
+        }}>
           <Component {...props} />
         </div>
       </div>
-    )
+    );
   }
 }
