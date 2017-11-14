@@ -3809,11 +3809,12 @@ file-exists@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/file-exists/-/file-exists-5.0.0.tgz#d8c21d5101312ac8a5600bd86f5420bf9a25b6ad"
 
-file-loader@^0.11.2:
-  version "0.11.2"
-  resolved "https://registry.yarnpkg.com/file-loader/-/file-loader-0.11.2.tgz#4ff1df28af38719a6098093b88c82c71d1794a34"
+file-loader@^1.0.0:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/file-loader/-/file-loader-1.1.5.tgz#91c25b6b6fbe56dae99f10a425fd64933b5c9daa"
   dependencies:
     loader-utils "^1.0.2"
+    schema-utils "^0.3.0"
 
 filename-regex@^2.0.0:
   version "2.0.1"
