@@ -29,24 +29,24 @@ _Note: The `create` command is a shorthand that helps you do two things at once.
 or components. Depending on the project type, the CLI helper may offer different flavors
 of that project to scaffold. Each project type harnesses the power of middleware or presets to configure itself.
 
-| Project          | Project Type     | Middleware                                                                                                         |
-|------------------|------------------|--------------------------------------------------------------------------------------------------------------------|
-| React            | Application      | [`neutrino-preset-react`](https://neutrino.js.org/presets/neutrino-preset-react/)                                  |
-| Web              | Application      | [`neutrino-preset-web`](https://neutrino.js.org/presets/neutrino-preset-web/)                                      |
-| Node.js          | Application      | [`neutrino-preset-node`](https://neutrino.js.org/presets/neutrino-preset-node/)                                    |
-| Web              | Library          | [`neutrino-preset-taskcluster-web-library`](https://www.npmjs.com/package/neutrino-preset-taskcluster-web-library) |
-| React Components | Components       | [`neutrino-preset-react-components`](https://www.npmjs.com/package/neutrino-preset-react-components)               |
+| Project | Project Type | Middleware |
+|---|---|---|
+| React | Application | [`neutrino-preset-react`](https://neutrino.js.org/presets/neutrino-preset-react/) |
+| Web | Application | [`neutrino-preset-web`](https://neutrino.js.org/presets/neutrino-preset-web/) |
+| Node.js | Application | [`neutrino-preset-node`](https://neutrino.js.org/presets/neutrino-preset-node/) |
+| Web | Library | [`neutrino-preset-taskcluster-web-library`](https://www.npmjs.com/package/neutrino-preset-taskcluster-web-library) |
+| React Components | Components | [`neutrino-preset-react-components`](https://www.npmjs.com/package/neutrino-preset-react-components) |
 
 ## Test Runners
 
 If you wish to use a test runner, `create-neutrino-project` will offer to set one up for you during
 the scaffolding phase.
 
-| Test Runner | Middleware                                                                        |
-|-------------|-----------------------------------------------------------------------------------|
-| Jest        | [`neutrino-preset-jest`](https://neutrino.js.org/presets/neutrino-preset-jest/)   |
-| Karma       | [`neutrino-preset-karma`](https://neutrino.js.org/presets/neutrino-preset-karma/) |
-| Mocha       | [`neutrino-preset-mocha`](https://neutrino.js.org/presets/neutrino-preset-mocha/) |
+| Test Runner | Middleware |
+|---|---|
+| Jest | [`neutrino-preset-jest`](https://neutrino.js.org/presets/neutrino-preset-jest/) |
+| Karma | [`neutrino-preset-karma`](https://neutrino.js.org/presets/neutrino-preset-karma/) |
+| Mocha | [`neutrino-preset-mocha`](https://neutrino.js.org/presets/neutrino-preset-mocha/) |
 
 Be sure to check out the test runner preset to get more information on its features and how files should be named.
 
@@ -55,10 +55,10 @@ Be sure to check out the test runner preset to get more information on its featu
 If you wish to add linting to your project, Neutrino makes it simple to set up during the scaffolding
 process. `create-neutrino-project` currently offers two linting middleware choices.
 
-| Linting style | Middleware                                                                                                                                                                                                            |
-|---------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Airbnb        | With React: [`neutrino-preset-airbnb`](https://www.npmjs.com/package/neutrino-preset-airbnb) <br> Other projects: [`neutrino-preset-airbnb-base`](https://neutrino.js.org/presets/neutrino-preset-airbnb-base/)       |
-| StandardJS    | [`neutrino-middleware-standardjs`](https://www.npmjs.com/package/neutrino-middleware-standardjs)                                                                                                                      |
+| Linting style | Middleware |
+|---|---|
+| Airbnb | With React: [`neutrino-preset-airbnb`](https://www.npmjs.com/package/neutrino-preset-airbnb) <br> Other projects: [`neutrino-preset-airbnb-base`](https://neutrino.js.org/presets/neutrino-preset-airbnb-base/) |
+| StandardJS | [`neutrino-middleware-standardjs`](https://www.npmjs.com/package/neutrino-middleware-standardjs) |
 
 ## Project Layout
 
