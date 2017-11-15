@@ -34,13 +34,8 @@ module.exports = (neutrino, opts = {}) => {
   }, opts);
 
   if (typeof options.publicPath === 'undefined') {
-    options.publicPath = options.html ? './' : `/${basename(neutrino.options.output)}/`;
+    options.publicPath = options.html ? '/' : `/${basename(neutrino.options.output)}/`;
   }
-
-  options.devServer = merge({
-    hot: opts.hot !== false,
-    publicPath: options.publicPath
-  }, options.devServer);
 
   if (typeof options.devServer.proxy === 'string') {
     options.devServer.proxy = {
@@ -50,6 +45,11 @@ module.exports = (neutrino, opts = {}) => {
       }
     };
   }
+
+  options.devServer = merge({
+    hot: opts.hot !== false,
+    publicPath: options.publicPath
+  }, options.devServer);
 
   Object.assign(options, {
     babel: compileLoader.merge({
