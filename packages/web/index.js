@@ -13,6 +13,7 @@ const minify = require('@neutrinojs/minify');
 const loaderMerge = require('@neutrinojs/loader-merge');
 const devServer = require('@neutrinojs/dev-server');
 const { join, basename } = require('path');
+const { resolve } = require('url');
 const merge = require('deepmerge');
 const ScriptExtHtmlPlugin = require('script-ext-html-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
@@ -26,8 +27,8 @@ module.exports = (neutrino, opts = {}) => {
     hot: true,
     html: true,
     htmlTemplate: {},
-    publicPath: '',
     devServer: {},
+    publicPath: '',
     polyfills: {
       async: true
     },
@@ -44,8 +45,8 @@ module.exports = (neutrino, opts = {}) => {
   }
 
   options.devServer = merge({
-    hot: opts.hot !== false,
-    publicPath: options.publicPath
+    hot: options.hot !== false,
+    publicPath: resolve('/', options.publicPath)
   }, options.devServer);
 
   Object.assign(options, {
