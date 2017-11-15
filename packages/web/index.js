@@ -86,6 +86,7 @@ module.exports = (neutrino, opts = {}) => {
   }
 
   neutrino.use(env, options.env);
+  neutrino.use(htmlLoader);
   neutrino.use(styleLoader);
   neutrino.use(fontLoader);
   neutrino.use(imageLoader);
@@ -144,7 +145,6 @@ module.exports = (neutrino, opts = {}) => {
         .end()
       .end()
     .when(options.html, (config) => {
-      neutrino.use(htmlLoader);
       neutrino.use(htmlTemplate, options.htmlTemplate);
       config.plugin('script-ext')
         .use(ScriptExtHtmlPlugin, [{ defaultAttribute: 'defer' }]);
