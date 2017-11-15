@@ -25,12 +25,16 @@ module.exports = (neutrino, opts = {}) => {
     hot: true,
     html: true,
     htmlTemplate: {},
-    publicPath: './',
+    devServer: {},
     polyfills: {
       async: true
     },
     babel: {}
   }, opts);
+
+  if (typeof options.publicPath === 'undefined') {
+    options.publicPath = options.html ? './' : `/${basename(neutrino.options.output)}/`;
+  }
 
   options.devServer = merge({
     hot: opts.hot !== false,
