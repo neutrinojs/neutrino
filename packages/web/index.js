@@ -97,6 +97,7 @@ module.exports = (neutrino, opts = {}) => {
     exclude: [staticDir],
     babel: options.babel
   });
+  neutrino.use(clean, { paths: [neutrino.options.output] });
 
   neutrino.config
     .target('web')
@@ -162,7 +163,6 @@ module.exports = (neutrino, opts = {}) => {
         .use(optimize.ModuleConcatenationPlugin);
     })
     .when(neutrino.options.command === 'build', (config) => {
-      neutrino.use(clean, { paths: [neutrino.options.output] });
       neutrino.use(copy, {
         patterns: [{
           context: staticDir,
