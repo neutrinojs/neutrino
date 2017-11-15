@@ -3,8 +3,7 @@ const { fork } = require('child_process');
 const { join } = require('path');
 const { createInterface } = require('readline');
 
-module.exports = (neutrino, opts = {}) => {
-  const options = Object.assign({}, opts, {});
+module.exports = (neutrino, options = {}) => {
   const registeredCommand = neutrino.commands[neutrino.options.command];
 
   global.interactive = false;
@@ -19,7 +18,7 @@ module.exports = (neutrino, opts = {}) => {
 
   neutrino.on('prerun', () => {
     const children = Object
-      .keys(options.configs)
+      .keys(options.configs || {})
       .map((namespace) => {
         const middleware = options.configs[namespace];
         const script = join(__dirname, './neutrino-child');
@@ -27,11 +26,9 @@ module.exports = (neutrino, opts = {}) => {
         const stdout = createInterface({ input: child.stdout });
         const stderr = createInterface({ input: child.stderr });
 
-        child.on('message', ([type, args]) => {
-          neutrino.emit(`${namespace}:${type}`, ...args);
-        });
         stdout.on('line', message => console.log(gray(`[${namespace}]`), message));
         stderr.on('line', message => console.error(gray(`[${namespace}]`), message));
+        child.on('message', ([type, args]) => neutrino.emit(`${namespace}:${type}`, ...args));
         child.send([middleware, neutrino.options.args]);
 
         return child;

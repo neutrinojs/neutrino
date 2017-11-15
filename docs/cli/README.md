@@ -50,9 +50,8 @@ middleware and presets to load. These can be an npm package or a relative path t
 ❯ neutrino start --use @neutrinojs/react @neutrinojs/karma
 ```
 
-The Neutrino CLI will still attempt to load any presets and middleware defined in the project's `.neutrinorc.js` file.
-Middleware passed via the CLI `--use` will take precedence over middleware defined in `.neutrinorc.js`, meaning that
-options set by `.neutrinorc.js` middleware can have their values overridden by `--use` middleware.
+**The Neutrino CLI will not attempt to load any presets and middleware defined in the project's `.neutrinorc.js` file
+when passing middleware via `--use`.**
 
 ## `--inspect`
 
@@ -78,7 +77,7 @@ We can capture this inspection to a file, and capture the change by adding a pre
 ❯ neutrino start --inspect --use @neutrinojs/react @neutrinojs/jest override.js > b.config
 ```
 
-Using `git diff a.config b.config`, we get a pretty diff of the configuration change:
+Using `git diff --no-index a.config b.config`, we get a pretty diff of the configuration change:
 
 ```diff
 diff --git a/a.config b/b.config

@@ -33,6 +33,7 @@
   * [env](./packages/env/README.md)
   * [eslint](./packages/eslint/README.md)
   * [font-loader](./packages/font-loader/README.md)
+  * [fork](./packages/fork/README.md)
   * [hot](./packages/hot/README.md)
   * [html-loader](./packages/html-loader/README.md)
   * [html-template](./packages/html-template/README.md)
