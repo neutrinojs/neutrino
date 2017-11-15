@@ -2,7 +2,7 @@
   "name": "webpack-chain",
   "version": "4.4.2",
   "main": "src/Config.js",
-  "repository": "mozilla-neutrino/webpack-chain",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/webpack-chain",
   "keywords": [
     "webpack",
     "config",
@@ -15,16 +15,10 @@
   ],
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
-  "scripts": {
-    "test": "ava test",
-    "changelog": "changelog mozilla-neutrino/webpack-chain all --markdown > CHANGELOG.md"
-  },
   "dependencies": {
     "deepmerge": "^1.5.2"
   },
   "devDependencies": {
-    "ava": "^0.22.0",
-    "changelog": "^1.4.0",
     "webpack": "^3.6.0"
   }
 }

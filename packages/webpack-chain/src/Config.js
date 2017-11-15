@@ -97,7 +97,7 @@ module.exports = class extends ChainedMap {
         .forEach(name => this.plugin(name).merge(obj.plugin[name]));
     }
 
-    omissions.forEach(key => {
+    omissions.forEach((key) => {
       if (!omit.includes(key) && key in obj) {
         this[key].merge(obj[key]);
       }

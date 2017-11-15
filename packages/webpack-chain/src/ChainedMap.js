@@ -9,7 +9,7 @@ module.exports = class extends Chainable {
 
   extend(methods) {
     this.shorthands = methods;
-    methods.map(method => {
+    methods.forEach((method) => {
       this[method] = value => this.set(method, value);
     });
     return this;
@@ -33,7 +33,7 @@ module.exports = class extends Chainable {
     const names = Object.keys(entries);
     const order = [...names];
 
-    names.forEach(name => {
+    names.forEach((name) => {
       if (!entries[name]) {
         return;
       }
@@ -52,6 +52,7 @@ module.exports = class extends Chainable {
     return { entries, order };
   }
 
+  // eslint-disable-next-line consistent-return
   entries() {
     const { entries, order } = this.order();
 
@@ -82,7 +83,7 @@ module.exports = class extends Chainable {
   merge(obj, omit = []) {
     Object
       .keys(obj)
-      .forEach(key => {
+      .forEach((key) => {
         if (omit.includes(key)) {
           return;
         }

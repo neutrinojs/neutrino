@@ -10,7 +10,9 @@ This documentation corresponds to v4 of webpack-chain.
 * [v1 docs](https://github.com/mozilla-neutrino/webpack-chain/tree/v1.4.3)
 
 _Note: while webpack-chain is utilized extensively in Neutrino, this package is completely
-standalone and can be used by any project._
+standalone and can be used by any project. See the
+[Neutrino configuration API](https://neutrino.js.org/webpack-chain)
+for specifics on using webpack-chain to customize a Neutrino project._
 
 ## Introduction
 

@@ -5,7 +5,6 @@ module.exports = Orderable(class extends ChainedMap {
   constructor(parent) {
     super(parent);
     this.extend(['init']);
-
     this.init((Plugin, args = []) => new Plugin(...args));
   }
 

@@ -1,13 +1,10 @@
 const ChainedMap = require('./ChainedMap');
 const ChainedSet = require('./ChainedSet');
-const merge = require('deepmerge');
 
 module.exports = class extends ChainedMap {
   constructor(parent) {
     super(parent);
-
     this.allowedHosts = new ChainedSet(this);
-
     this.extend([
       'bonjour',
       'clientLogLevel',
@@ -50,7 +47,7 @@ module.exports = class extends ChainedMap {
 
   toConfig() {
     return this.clean(Object.assign({
-      allowedHosts: this.allowedHosts.values(),
+      allowedHosts: this.allowedHosts.values()
     }, this.entries() || {}));
   }
 

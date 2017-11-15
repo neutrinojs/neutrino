@@ -1,4 +1,6 @@
-module.exports = (Class) => class extends Class {
+/* eslint-disable no-underscore-dangle */
+
+module.exports = Class => class extends Class {
   before(name) {
     if (this.__after) {
       throw new Error(`Unable to set .before(${JSON.stringify(name)}) with existing value for .after()`);

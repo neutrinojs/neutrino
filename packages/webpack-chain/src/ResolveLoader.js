@@ -1,6 +1,5 @@
 const ChainedMap = require('./ChainedMap');
 const ChainedSet = require('./ChainedSet');
-const merge = require('deepmerge');
 
 module.exports = class extends ChainedMap {
   constructor(parent) {
@@ -28,7 +27,7 @@ module.exports = class extends ChainedMap {
       'packageMains'
     ];
 
-    omissions.forEach(key => {
+    omissions.forEach((key) => {
       if (!omit.includes(key) && key in obj) {
         this[key].merge(obj[key]);
       }
