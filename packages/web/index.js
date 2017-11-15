@@ -15,6 +15,7 @@ const devServer = require('@neutrinojs/dev-server');
 const { join, basename } = require('path');
 const merge = require('deepmerge');
 const ScriptExtHtmlPlugin = require('script-ext-html-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 const { optimize } = require('webpack');
 
 const MODULES = join(__dirname, 'node_modules');
@@ -169,6 +170,12 @@ module.exports = (neutrino, opts = {}) => {
           to: basename(staticDir)
         }]
       });
+
+      if (!options.html) {
+        neutrino.config.plugin('manifest')
+          .use(ManifestPlugin);
+      }
+
       config.output.filename('[name].[chunkhash].js');
     });
 };
