@@ -15,7 +15,7 @@ module.exports = (middleware, args) => base({
   commandHandler: inspect,
   commandName: 'inspect',
   successHandler(output) {
-    if (!args.quiet) {
+    if (!args.quiet && output) {
       console.log(output);
     }
   }

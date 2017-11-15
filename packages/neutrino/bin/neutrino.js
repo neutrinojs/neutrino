@@ -52,6 +52,12 @@ const args = yargs
     default: [],
     global: true
   })
+  .option('--no-tty', {
+    description: 'Disable text terminal interactions',
+    boolean: true,
+    default: false,
+    global: true
+  })
   .command('start', 'Build a project in development mode')
   .command('build', 'Compile the source directory to a bundled build')
   .command('test [files..]', 'Run all suites from the test directory or provided files', {
@@ -69,6 +75,8 @@ const args = yargs
   .command('*')
   .recommendCommands()
   .argv;
+
+global.interactive = !args.noTty && (process.stderr && process.stderr.isTTY) && !process.env.CI;
 
 const command = args._[0];
 

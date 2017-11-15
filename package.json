@@ -53,10 +53,6 @@
     "*.js": [
       "yarn lint --fix",
       "git add"
-    ],
-    "packages/neutrino/bin/neutrino": [
-      "yarn lint --fix",
-      "git add"
     ]
   }
 }

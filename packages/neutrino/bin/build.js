@@ -4,21 +4,33 @@ const { build } = require('../src');
 const base = require('./base');
 
 module.exports = (middleware, args) => {
-  const spinner = args.quiet ? null : ora('Building project').start();
+  const spinner = ora({ text: 'Building project' });
 
   return base({
     middleware,
     args,
     NODE_ENV: 'production',
-    commandHandler: build,
+    commandHandler: (config, neutrino) => {
+      if (!args.quiet) {
+        spinner.enabled = global.interactive;
+        spinner.start();
+      }
+
+      return build(config, neutrino);
+    },
     errorsHandler() {
       if (!args.quiet) {
         spinner.fail('Building project failed');
       }
     },
     successHandler(stats) {
-      if (!args.quiet) {
-        spinner.succeed('Building project completed');
+      if (args.quiet) {
+        return;
+      }
+
+      spinner.succeed('Building project completed');
+
+      if (stats) {
         console.log(stats.toString(merge({
           modules: false,
           colors: true,
