@@ -97,7 +97,9 @@ module.exports = (neutrino, opts = {}) => {
     exclude: [staticDir],
     babel: options.babel
   });
-  neutrino.use(clean, { paths: [neutrino.options.output] });
+  neutrino.use(clean, {
+    paths: [neutrino.options.output]
+  });
 
   neutrino.config
     .target('web')
