@@ -28,7 +28,7 @@ module.exports = (neutrino, opts = {}) => {
     html: true,
     htmlTemplate: {},
     devServer: {},
-    publicPath: '',
+    publicPath: './',
     polyfills: {
       async: true
     },
