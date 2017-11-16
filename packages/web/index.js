@@ -30,7 +30,15 @@ module.exports = (neutrino, opts = {}) => {
     polyfills: {
       async: true
     },
-    babel: {}
+    babel: {},
+    browsers: [
+      'last 2 Chrome versions',
+      'last 2 Firefox versions',
+      'last 2 Edge versions',
+      'last 2 Opera versions',
+      'last 2 Safari versions',
+      'last 2 iOS versions'
+    ]
   }, opts);
 
   Object.assign(options, {
@@ -46,7 +54,7 @@ module.exports = (neutrino, opts = {}) => {
           useBuiltIns: true,
           exclude: options.polyfills.async ? ['transform-regenerator', 'transform-async-to-generator'] : [],
           targets: {
-            browsers: []
+            browsers: options.browsers
           }
         }]
       ]
@@ -54,18 +62,6 @@ module.exports = (neutrino, opts = {}) => {
   });
 
   const staticDir = join(neutrino.options.source, 'static');
-  const presetEnvOptions = options.babel.presets[0][1];
-
-  if (!presetEnvOptions.targets.browsers.length) {
-    presetEnvOptions.targets.browsers.push(
-      'last 2 Chrome versions',
-      'last 2 Firefox versions',
-      'last 2 Edge versions',
-      'last 2 Opera versions',
-      'last 2 Safari versions',
-      'last 2 iOS versions'
-    );
-  }
 
   neutrino.use(env, options.env);
   neutrino.use(htmlLoader);
