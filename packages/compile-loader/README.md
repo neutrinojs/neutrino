@@ -41,7 +41,8 @@ const compile = require('@neutrinojs/compile-loader');
 neutrino.use(compile, {
   include: [],
   exclude: [],
-  babel: {}
+  babel: {},
+  cache: {}
 });
 ```
 
@@ -53,7 +54,8 @@ module.exports = {
     ['@neutrinojs/compile-loader', {
       include: [],
       exclude: [],
-      babel: {}
+      babel: {},
+      cache: {}
     }]
   ]
 };
@@ -65,6 +67,7 @@ module.exports = {
 [`Rule.exclude`](https://webpack.js.org/configuration/module/#rule-exclude)
 - `babel` is a [Babel configuration object](https://babeljs.io/docs/usage/api/#options), consumed by babel-loader. Use
 this to set properties such as `presets`, `plugins`, and `env`.
+- `cache` is an object to set options for the [cache-loader](https://github.com/webpack-contrib/cache-loader).
 
 ## Merging Babel Configuration
 
@@ -111,6 +114,14 @@ console.log(together);
   ]
 }
 ```
+
+## Caching
+
+The compile-loader caches the results of compilations to disk to speed up subsequent builds using
+[cache-loader](https://github.com/webpack-contrib/cache-loader). By default these results are
+stored in a `.cache-loader` directory in the project. You should consider adding this directory to
+your `.gitignore` or `.hgignore` to exclude these results from being committed to source control.
+You can also delete this directory if you want a fresh build exclusive of previous cache results.
 
 ## Customization
 
