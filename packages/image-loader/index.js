@@ -13,19 +13,19 @@ module.exports = (neutrino, options = {}) => {
     .test(/\.svg(\?v=\d+\.\d+\.\d+)?$/)
     .use('url')
       .loader(urlLoader)
-      .options(merge({ limit, name }, options.svg));
+      .options(merge({ limit, name }, options.svg || {}));
 
   neutrino.config.module
     .rule('img')
     .test(/\.(png|jpg|jpeg|gif)(\?v=\d+\.\d+\.\d+)?$/)
     .use('url')
       .loader(urlLoader)
-      .options(merge({ limit, name }, options.img));
+      .options(merge({ limit, name }, options.img || {}));
 
   neutrino.config.module
     .rule('ico')
     .test(/\.ico(\?v=\d+\.\d+\.\d+)?$/)
     .use('url')
       .loader(urlLoader)
-      .options(merge({ limit, name }, options.ico));
+      .options(merge({ limit, name }, options.ico || {}));
 };
