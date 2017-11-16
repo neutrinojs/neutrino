@@ -31,14 +31,16 @@ module.exports = (neutrino, opts = {}) => {
       async: true
     },
     babel: {},
-    browsers: [
-      'last 2 Chrome versions',
-      'last 2 Firefox versions',
-      'last 2 Edge versions',
-      'last 2 Opera versions',
-      'last 2 Safari versions',
-      'last 2 iOS versions'
-    ]
+    targets: {
+      browsers: [
+        'last 2 Chrome versions',
+        'last 2 Firefox versions',
+        'last 2 Edge versions',
+        'last 2 Opera versions',
+        'last 2 Safari versions',
+        'last 2 iOS versions'
+      ]
+    }
   }, opts);
 
   Object.assign(options, {
@@ -53,9 +55,7 @@ module.exports = (neutrino, opts = {}) => {
           modules: false,
           useBuiltIns: true,
           exclude: options.polyfills.async ? ['transform-regenerator', 'transform-async-to-generator'] : [],
-          targets: {
-            browsers: options.browsers
-          }
+          targets: options.targets
         }]
       ]
     }, options.babel)
