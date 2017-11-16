@@ -25,8 +25,7 @@ module.exports = (neutrino, opts = {}) => {
   const options = merge({
     env: [],
     hot: true,
-    html: true,
-    htmlTemplate: {},
+    html: {},
     devServer: {},
     publicPath: './',
     polyfills: {
@@ -143,7 +142,7 @@ module.exports = (neutrino, opts = {}) => {
         .end()
       .end()
     .when(options.html, (config) => {
-      neutrino.use(htmlTemplate, options.htmlTemplate);
+      neutrino.use(htmlTemplate, options.html);
       config.plugin('script-ext')
         .use(ScriptExtHtmlPlugin, [{ defaultAttribute: 'defer' }]);
     })
@@ -171,7 +170,7 @@ module.exports = (neutrino, opts = {}) => {
         }]
       });
 
-      if (!options.html) {
+      if (options.html === false) {
         neutrino.config.plugin('manifest')
           .use(ManifestPlugin);
       }
