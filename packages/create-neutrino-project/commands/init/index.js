@@ -21,7 +21,9 @@ module.exports = class Project extends Generator {
     switch (data.linter) {
       case LINTERS.AIRBNB:
         config.use.push(
-          data.projectType === PROJECTS.REACT ? LIBRARIES.NEUTRINO_PRESET_AIRBNB : LIBRARIES.NEUTRINO_PRESET_AIRBNB_BASE
+          data.projectType === (PROJECTS.REACT || PROJECTS.PREACT) ?
+            LIBRARIES.NEUTRINO_PRESET_AIRBNB :
+            LIBRARIES.NEUTRINO_PRESET_AIRBNB_BASE
         );
         break;
       case LINTERS.STANDARDJS:
@@ -46,6 +48,10 @@ module.exports = class Project extends Generator {
       case PROJECTS.REACT:
         dependencies.push(LIBRARIES.REACT, LIBRARIES.REACT_DOM, LIBRARIES.REACT_HOT_LOADER);
         devDependencies.push(LIBRARIES.NEUTRINO_PRESET_REACT);
+        break;
+      case PROJECTS.PREACT:
+        dependencies.push(LIBRARIES.PREACT, LIBRARIES.PREACT_COMPAT);
+        devDependencies.push(LIBRARIES.NEUTRINO_PRESET_PREACT);
         break;
       case PROJECTS.REACT_COMPONENTS:
         devDependencies.push(

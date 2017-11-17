@@ -1,5 +1,6 @@
 module.exports.PROJECTS = {
   REACT: 'neutrino-preset-react',
+  PREACT: 'neutrino-preset-preact',
   REACT_COMPONENTS: 'neutrino-preset-react-components',
   WEB: 'neutrino-preset-web',
   NODE: 'neutrino-preset-node',
@@ -8,11 +9,13 @@ module.exports.PROJECTS = {
 
 module.exports.LIBRARIES = {
   REACT: 'react',
+  PREACT: 'preact',
   REACT_DOM: 'react-dom',
   REACT_ADDONS_CSS_TRANSITION_GROUP: 'react-addons-css-transition-group',
   NEUTRINO: 'neutrino',
   NEUTRINO_PRESET_REACT_COMPONENTS: 'neutrino-preset-react-components',
   NEUTRINO_PRESET_REACT: 'neutrino-preset-react',
+  NEUTRINO_PRESET_PREACT: 'neutrino-preset-preact',
   NEUTRINO_PRESET_WEB: 'neutrino-preset-web',
   NEUTRINO_PRESET_NODE: 'neutrino-preset-node',
   NEUTRINO_PRESET_TASKCLUSTER_WEB_LIBRARY: 'neutrino-preset-taskcluster-web-library',

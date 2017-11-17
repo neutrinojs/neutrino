@@ -34,6 +34,11 @@ module.exports = () => [
         checked: true
       },
       {
+        name: 'Preact',
+        value: 'neutrino-preset-preact',
+        checked: false
+      },
+      {
 
         name: 'Web',
         value: 'neutrino-preset-web',
