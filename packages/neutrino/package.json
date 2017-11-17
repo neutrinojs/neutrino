@@ -35,6 +35,6 @@
     "webpack": "^3.6.0",
     "webpack-chain": "^4.4.2",
     "webpack-dev-server": "^2.9.1",
-    "yargs": "^9.0.1"
+    "yargs": "^10.0.0"
   }
 }
