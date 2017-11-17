@@ -4239,9 +4239,9 @@ gitbook-plugin-edit-link@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/gitbook-plugin-edit-link/-/gitbook-plugin-edit-link-2.0.2.tgz#d8fcd927eced81e7a662a72d59db609eafd7e72f"
 
-gitbook-plugin-github@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/gitbook-plugin-github/-/gitbook-plugin-github-2.0.0.tgz#5166e763cfcc402d432880b7a6c85c1c54b56a8d"
+gitbook-plugin-github@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/gitbook-plugin-github/-/gitbook-plugin-github-3.0.0.tgz#67457df98a57ea8ef9b2518b88340db370a5317b"
 
 gitbook-plugin-npmsearchlist@^1.0.0:
   version "1.0.0"
