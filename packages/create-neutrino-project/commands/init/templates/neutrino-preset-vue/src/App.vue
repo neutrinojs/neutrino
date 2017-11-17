@@ -8,13 +8,13 @@
 </script>
 
 <template>
-    <div :class="$style.App">
-        Welcome to <%= data.directory %>
-    </div>
+  <div :class="$style.App">
+    <h1>Welcome to <%= data.directory %></h1>
+  </div>
 </template>
 
 <style module>
-    .App {
-        padding: 20px;
-    }
+  .App {
+    padding: 20px;
+  }
 </style>
