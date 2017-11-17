@@ -22,7 +22,7 @@
     "eslint-plugin-jest": "^21.0.2",
     "jest-cli": "^21.0.2",
     "ramda": "^0.25.0",
-    "yargs": "^9.0.1"
+    "yargs": "^10.0.0"
   },
   "peerDependencies": {
     "neutrino": "^7.0.0"
