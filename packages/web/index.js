@@ -24,6 +24,9 @@ module.exports = (neutrino, opts = {}) => {
     env: [],
     hot: true,
     html: {},
+    style: {
+      hot: opts.hot !== false
+    },
     devServer: {
       hot: opts.hot !== false
     },
@@ -69,7 +72,7 @@ module.exports = (neutrino, opts = {}) => {
 
   neutrino.use(env, options.env);
   neutrino.use(htmlLoader);
-  neutrino.use(styleLoader);
+  neutrino.use(styleLoader, options.style);
   neutrino.use(fontLoader);
   neutrino.use(imageLoader);
   neutrino.use(htmlTemplate, options.html);

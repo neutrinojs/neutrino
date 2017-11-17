@@ -16,7 +16,10 @@
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
+    "css-hot-loader": "^1.3.3",
     "css-loader": "^0.28.7",
+    "deepmerge": "^2.0.1",
+    "extract-text-webpack-plugin": "^3.0.2",
     "style-loader": "^0.18.2"
   },
   "peerDependencies": {
