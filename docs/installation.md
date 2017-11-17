@@ -3,7 +3,7 @@
 ## Requirements
 
 Installing Neutrino requires Node.js v6.10+, and either [Yarn](https://yarnpkg.com/lang/en/docs/install/) or
-npm. At a minimum, you will be installing Neutrino and Neutrino middleware, such as `neutrino-preset-react`.
+npm. At a minimum, you will be installing Neutrino and Neutrino middleware, such as `@neutrinojs/react`.
 
 ## Yarn Installation
 
@@ -17,7 +17,7 @@ yarn add --dev neutrino MIDDLEWARE
 For example, if you wanted to build your project using Neutrino's React preset:
 
 ```bash
-yarn add --dev neutrino neutrino-preset-react
+yarn add --dev neutrino @neutrinojs/react
 ```
 
 ## npm Installation
@@ -32,7 +32,7 @@ npm install --save-dev neutrino MIDDLEWARE
 For example, if you wanted to build your project using Neutrino's React preset:
 
 ```bash
-npm install --save-dev neutrino neutrino-preset-react
+npm install --save-dev neutrino @neutrinojs/react
 ```
 
 ## Getting started

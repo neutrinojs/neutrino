@@ -44,11 +44,11 @@ externally.
 ## Support
 
 Neutrino team members and contributors are here to help you! Should you need assistance or have questions in using
-Neutrino or its core presets, please consider asking on our Slack channel, Stack Overflow, or other channel rather than
+Neutrino or its core presets, please consider asking on our Spectrum channel, Stack Overflow, or other channel rather than
 filing issues. We would prefer to keep our GitHub issues clear for bugs, feature requests, discussions, and
 relevant information related to its development.
 
-[Join our Slack channel!](https://neutrino-slack.herokuapp.com/)
+[![Join the Neutrino community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/neutrino)
 
 ## Guidelines
 

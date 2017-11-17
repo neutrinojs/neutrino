@@ -1,0 +1,23 @@
+{
+  "name": "@neutrinojs/banner",
+  "version": "7.3.2",
+  "description": "Neutrino middleware for injecting a banner into bundled files",
+  "main": "index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-middleware",
+    "banner"
+  ],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MPL-2.0",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/banner",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "dependencies": {
+    "deepmerge": "^1.5.2",
+    "webpack": "^3.6.0"
+  },
+  "peerDependencies": {
+    "neutrino": "^7.0.0"
+  }
+}

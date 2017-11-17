@@ -383,7 +383,7 @@ The `call` method will invoke the registered command with two arguments: a Webpa
 instance of the Neutrino API. The return value of using `call` will be the return value of invoking the registered
 handler with these two arguments.
 
-For a concrete example, the [eslint middleware](../middleware/neutrino-middleware-eslint) registers an `eslintrc`
+For a concrete example, the [eslint middleware](../packages/eslint) registers an `eslintrc`
 command. The results of this command can be returned with `call` (provided this middleware is loaded within
 `.neutrinorc.js` in this example):
 
@@ -449,7 +449,7 @@ const api = Neutrino();
 
 api.register('build', build);
 
-run('build', ['neutrino-preset-react'])
+run('build', ['@neutrinojs/react'])
   .fork(
     errors => errors.forEach(console.error),
     stats => console.log(stats.toString({ colors: true }))
@@ -482,7 +482,7 @@ const api = Neutrino();
 
 api.register('start', start);
 
-api.run('start', ['neutrino-preset-react'])
+api.run('start', ['@neutrinojs/react'])
   .fork(
     errors => errors.forEach(err => console.error(err)),
     compiler => console.log('App running!')
@@ -495,7 +495,7 @@ Calling `start` manually:
 const { Neutrino, start } = require('neutrino');
 const api = Neutrino();
 
-api.use('neutrino-preset-react');
+api.use('@neutrinojs/react');
 
 start(api.config.toConfig(), api)
   .fork(
@@ -520,7 +520,7 @@ const api = Neutrino();
 
 api.register('build', build);
 
-api.run('build', ['neutrino-preset-node'])
+api.run('build', ['@neutrinojs/node'])
   .fork(
     errors => errors.forEach(err => console.error(err)),
     stats => console.log(stats.toString({ colors: true }))
@@ -533,7 +533,7 @@ Calling `build` manually:
 const { Neutrino, build } = require('neutrino');
 const api = Neutrino();
 
-api.use('neutrino-preset-node');
+api.use('@neutrinojs/node');
 
 build(api.config.toConfig(), api)
   .fork(
@@ -566,7 +566,7 @@ const api = Neutrino();
 
 api.register('test', test);
 
-api.run('test', ['neutrino-preset-node', 'neutrino-preset-mocha'])
+api.run('test', ['@neutrinojs/node', '@neutrinojs/mocha'])
   .fork(
     err => console.error(err),
     () => console.log('Testing completed!')
@@ -582,7 +582,7 @@ const api = Neutrino({
 
 api.register('test', test);
 
-api.run('test', ['neutrino-preset-node', 'neutrino-preset-mocha'])
+api.run('test', ['@neutrinojs/node', '@neutrinojs/mocha'])
   .fork(
     errors => errors.forEach(err => console.error(err)),
     () => console.log('Testing completed!')
@@ -595,8 +595,8 @@ Calling `test` manually:
 const { Neutrino, test } = require('neutrino');
 const api = Neutrino();
 
-api.use('neutrino-preset-node');
-api.use('neutrino-preset-mocha');
+api.use('@neutrinojs/node');
+api.use('@neutrinojs/mocha');
 
 test(api.config.toConfig(), api)
   .fork(
@@ -626,7 +626,7 @@ const api = Neutrino();
 
 api.register('inspect', inspect);
 
-api.run('inspect', ['neutrino-preset-node'])
+api.run('inspect', ['@neutrinojs/node'])
   .fork(
     errors => errors.forEach(err => console.error(err)),
     config => console.log(config)
@@ -639,7 +639,7 @@ Calling `inspect` manually:
 const { Neutrino, inspect } = require('neutrino');
 const api = Neutrino();
 
-api.use('neutrino-preset-node');
+api.use('@neutrinojs/node');
 
 inspect(api.config.toConfig(), api)
   .fork(

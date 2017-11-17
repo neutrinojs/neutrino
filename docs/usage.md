@@ -29,17 +29,17 @@ Check the documentation of your preset for details.
 Usage:
 
 ```bash
-# PRESET_MODULE is the name of the preset to build with, e.g. neutrino-preset-react
+# PRESET_MODULE is the name of the preset to build with, e.g. @neutrinojs/react
 neutrino start --use PRESET_MODULE
 ```
 
 Putting this into your `package.json` will allow you to build your project using either
-`yarn start` or `npm start`. Using `neutrino-preset-react` as an example:
+`yarn start` or `npm start`. Using `@neutrinojs/react` as an example:
 
 ```json
 {
   "scripts": {
-    "start": "neutrino start --use neutrino-preset-react"
+    "start": "neutrino start --use @neutrinojs/react"
   }
 }
 ```
@@ -52,17 +52,17 @@ which is available in your project source code. See the documentation for your p
 steps after your build is completed.
 
 ```bash
-# PRESET_MODULE is the name of the preset to build with, e.g. neutrino-preset-react
+# PRESET_MODULE is the name of the preset to build with, e.g. @neutrinojs/react
 neutrino build --use PRESET_MODULE
 ```
 
 Putting this into your `package.json` will allow you to build your project using either
-`yarn build` or `npm run build`. Using `neutrino-preset-react` as an example:
+`yarn build` or `npm run build`. Using `@neutrinojs/react` as an example:
 
 ```json
 {
   "scripts": {
-    "build": "neutrino build --use neutrino-preset-react"
+    "build": "neutrino build --use @neutrinojs/react"
   }
 }
 ```
@@ -76,18 +76,18 @@ is determined by the middleware you are using. Running suites that are built the
 using Neutrino-compatible middleware. Neutrino currently provides three core testing presets: Karma, Jest, and Mocha.
 
 ```bash
-# PRESET_MODULE is the name of the preset to build with, e.g. neutrino-preset-react
-# TESTING_MODULE is the name of another middleware to build with, e.g. neutrino-preset-karma
+# PRESET_MODULE is the name of the preset to build with, e.g. @neutrinojs/react
+# TESTING_MODULE is the name of another middleware to build with, e.g. @neutrinojs/karma
 neutrino test --use PRESET_MODULE TESTING_MODULE
 ```
 
 Putting this into your `package.json` will allow you to test your project using either
-`yarn test` or `npm test`. Using `neutrino-preset-react` and `neutrino-preset-karma` as an example:
+`yarn test` or `npm test`. Using `@neutrinojs/react` and `@neutrinojs/karma` as an example:
 
 ```json
 {
   "scripts": {
-    "test": "neutrino test --use neutrino-preset-react neutrino-preset-karma"
+    "test": "neutrino test --use @neutrinojs/react @neutrinojs/karma"
   }
 }
 ```
@@ -126,8 +126,8 @@ This is the recommended approach when using more than one preset/middleware.
 // .neutrinorc.js
 module.exports = {
   use: [
-    'neutrino-preset-react',
-    'neutrino-preset-karma'
+    '@neutrinojs/react',
+    '@neutrinojs/karma'
   ]
 }
 ```
