@@ -172,7 +172,17 @@ module.exports = class Project extends Generator {
 
     this.log(`${chalk.green('success')} Saved package.json`);
     process.chdir(this.options.directory);
+
+    if (dependencies.length) {
+      this.log(`${chalk.green('installing dependencies:')} ${chalk.yellow(dependencies.join(', '))}`);
+    }
+
     this.spawnCommandSync(installer, [argument, ...dependencies], { stdio: 'inherit' });
+
+    if (devDependencies.length) {
+      this.log(`${chalk.green('installing dev-dependencies:')} ${chalk.yellow(devDependencies.join(', '))}`);
+    }
+
     this.spawnCommandSync(installer, [argument, development, ...devDependencies], { stdio: 'inherit' });
 
     if (this.data.linter) {
@@ -181,7 +191,7 @@ module.exports = class Project extends Generator {
   }
 
   end() {
-    this.log(`Success! Created ${this.options.directory} at ${process.cwd()}`);
+    this.log(`${chalk.green('Success!')} Created ${this.options.directory} at ${process.cwd()}`);
     this.log(`To get started, change your current working directory to: ${chalk.cyan(this.options.directory)}`);
   }
 };
