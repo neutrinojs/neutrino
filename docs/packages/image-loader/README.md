@@ -72,7 +72,7 @@ module.exports = {
 
 - `limit`: Return a Data URL if the file is smaller than a byte limit.
 - `svg`: Set options for the url-loader used when loading svg files.
-- `img`: Set options for the url-loader used when loading png, jpeg, and gif files.
+- `img`: Set options for the url-loader used when loading png, jpeg, gif, and webp files.
 - `ico`: Set options for the url-loader used when loading ico files.
 
 ## Customization
@@ -86,7 +86,7 @@ The following is a list of rules and their identifiers which can be overridden:
 
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
-| `img` | Allows importing JPEG, PNG, and GIF files from modules. Contains a single loader named `url`. | all |
+| `img` | Allows importing JPEG, PNG, GIF, and WEBP files from modules. Contains a single loader named `url`. | all |
 | `svg` | Allows importing SVG files from modules. Contains a single loader named `url`. | all |
 | `ico` | Allows importing ICO files from modules. Contains a single loader named `url`. | all |
 
