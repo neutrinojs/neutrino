@@ -240,14 +240,16 @@ module.exports = {
       // Add additional Babel plugins, presets, or env options
       babel: {
         // Override options for babel-preset-env, showing defaults:
-        presetEnv: {
-          targets: { node: '6.10' },
-          modules: false,
-          useBuiltIns: true,
-          // These are excluded when using polyfills.async. Disabling the async polyfill
-          // will remove these from the exclusion list
-          exclude: ['transform-regenerator', 'transform-async-to-generator']
-        }
+        presets: [
+          ['babel-preset-env', {
+            targets: { node: '6.10' },
+            modules: false,
+            useBuiltIns: true,
+            // These are excluded when using polyfills.async. Disabling the async polyfill
+            // will remove these from the exclusion list
+            exclude: ['transform-regenerator', 'transform-async-to-generator']
+          }]
+        ]
       }
     }]
   ]
