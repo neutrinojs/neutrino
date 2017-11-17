@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Stories, Story, Props } from 'neutrino-preset-react-components/lib';
+import { Stories, Story, Props } from '@neutrinojs/react-components/lib';
 import HelloWorld from './components/HelloWorld';
 
 const root = document.getElementById('root');

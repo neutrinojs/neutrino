@@ -1,20 +1,31 @@
 {
-  "name": "create-neutrino-project",
+  "name": "@neutrinojs/create-project",
   "version": "1.0.0",
   "description": "Scaffold new Neutrino projects with a CLI helper",
   "bin": {
     "create-neutrino-project": "./bin/create-neutrino-project.js"
   },
   "scripts": {
-    "start": "create-neutrino-project init"
+    "start": "./bin/create-neutrino-project init"
   },
   "files": [
     "bin",
     "commands"
   ],
-  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/create-neutrino-project",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/create-project",
   "author": "Hassan Ali <helfi92@gmail.com>",
   "license": "MPL-2.0",
+  "keywords": [
+    "neutrino",
+    "create",
+    "project",
+    "app",
+    "library",
+    "react",
+    "preact",
+    "vue",
+    "node"
+  ],
   "dependencies": {
     "chalk": "^2.3.0",
     "deepmerge": "^2.0.0",
