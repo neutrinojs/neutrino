@@ -2,13 +2,12 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const merge = require('deepmerge');
 
 module.exports = (neutrino, opts = {}) => {
-  const isBuild = neutrino.options.command === 'start';
   const options = merge({
     styleUseId: 'style',
     hot: true,
     extract: {
       plugin: {
-        filename: isBuild ? '[name].css' : '[name].[contenthash].css'
+        filename: neutrino.options.command === 'build' ? '[name].[contenthash].css' : '[name].css'
       }
     }
   }, opts);
