@@ -13,7 +13,7 @@ module.exports = ({ config }, options = {}) => {
 
   config.module
     .rule('img')
-    .test(/\.(png|jpg|jpeg|gif)(\?v=\d+\.\d+\.\d+)?$/)
+    .test(/\.(png|jpg|jpeg|gif|webp)(\?v=\d+\.\d+\.\d+)?$/)
     .use('url')
       .loader(urlLoader)
       .options(merge({ limit }, options.img || {}));
