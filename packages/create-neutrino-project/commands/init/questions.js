@@ -40,6 +40,12 @@ module.exports = () => [
       },
       {
 
+        name: 'Vue',
+        value: 'neutrino-preset-vue',
+        checked: false
+      },
+      {
+
         name: 'Web',
         value: 'neutrino-preset-web',
         checked: false

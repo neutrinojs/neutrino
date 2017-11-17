@@ -49,6 +49,9 @@ module.exports = class Project extends Generator {
         dependencies.push(LIBRARIES.REACT, LIBRARIES.REACT_DOM, LIBRARIES.REACT_HOT_LOADER);
         devDependencies.push(LIBRARIES.NEUTRINO_PRESET_REACT);
         break;
+      case PROJECTS.VUE:
+        dependencies.push(LIBRARIES.VUE);
+        devDependencies.push(LIBRARIES.NEUTRINO_PRESET_VUE);
       case PROJECTS.PREACT:
         dependencies.push(LIBRARIES.PREACT, LIBRARIES.PREACT_COMPAT);
         devDependencies.push(LIBRARIES.NEUTRINO_PRESET_PREACT);
