@@ -21,7 +21,7 @@
     "deepmerge": "^1.5.1",
     "eslint-plugin-jest": "^21.0.2",
     "jest-cli": "^21.0.2",
-    "ramda": "^0.24.1",
+    "ramda": "^0.25.0",
     "yargs": "^9.0.1"
   },
   "peerDependencies": {

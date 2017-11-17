@@ -18,7 +18,7 @@
     "change-case": "^3.0.1",
     "deepmerge": "^1.5.2",
     "mocha": "^3.5.3",
-    "ramda": "^0.24.1"
+    "ramda": "^0.25.0"
   },
   "peerDependencies": {
     "neutrino": "^7.0.0"
