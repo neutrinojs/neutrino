@@ -33,7 +33,13 @@ module.exports = (neutrino, opts = {}) => {
     polyfills: {
       async: true
     },
-    babel: {}
+    babel: {},
+    minify: {
+      minify: {
+        removeConsole: true,
+        removeDebugger: true
+      }
+    }
   }, opts);
 
   Object.assign(options, {
@@ -141,7 +147,7 @@ module.exports = (neutrino, opts = {}) => {
     })
     .when(process.env.NODE_ENV === 'production', () => {
       neutrino.use(chunk);
-      neutrino.use(minify);
+      neutrino.use(minify, options.minify);
       neutrino.config.plugin('module-concat')
         .use(optimize.ModuleConcatenationPlugin);
     })
