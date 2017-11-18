@@ -42,7 +42,8 @@ module.exports = (neutrino, opts = {}) => {
     hot: true,
     polyfills: {
       async: true
-    }
+    },
+    optimize: neutrino.options.optimize
   }, opts);
 
   neutrino.use(compile, {
@@ -117,7 +118,7 @@ module.exports = (neutrino, opts = {}) => {
       config.devtool('inline-sourcemap');
       config.output.devtoolModuleFilenameTemplate('[absolute-resource-path]');
     })
-    .when(neutrino.options.env.NODE_ENV === 'production', (config) => {
+    .when(options.optimize, (config) => {
       config.plugin('module-concat').use(optimize.ModuleConcatenationPlugin);
     })
     .when(neutrino.options.command === 'build', () => {

@@ -45,7 +45,10 @@ neutrino.use(images, {
   limit: 8192,
   svg: {},
   img: {},
-  ico: {}
+  ico: {},
+  imagemin: {
+    enabled: neutrino.options.env.NODE_ENV === 'production'
+  }
 });
 ```
 
@@ -64,7 +67,10 @@ module.exports = {
       limit: 8192,
       svg: {},
       img: {},
-      ico: {}
+      ico: {},
+      imagemin: {
+        enabled: process.env.NODE_ENV === 'production'
+      },
     }]
   ]
 };
@@ -74,6 +80,7 @@ module.exports = {
 - `svg`: Set options for the url-loader used when loading svg files.
 - `img`: Set options for the url-loader used when loading png, jpeg, gif, and webp files.
 - `ico`: Set options for the url-loader used when loading ico files.
+- `imagemin`: Set options for imagemin, via the img-loader used when loading `img` and `svg` rules.
 
 ## Customization
 
