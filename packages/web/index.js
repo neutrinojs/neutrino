@@ -30,7 +30,8 @@ module.exports = (neutrino, opts = {}) => {
     polyfills: {
       async: true
     },
-    babel: {}
+    babel: {},
+    optimize: neutrino.options.optimize
   }, opts);
 
   Object.assign(options, {
@@ -136,7 +137,7 @@ module.exports = (neutrino, opts = {}) => {
       neutrino.use(devServer, options.devServer);
       config.when(options.hot, () => neutrino.use(hot));
     })
-    .when(neutrino.options.optimize, () => {
+    .when(options.optimize, () => {
       neutrino.use(chunk);
       neutrino.use(minify);
       neutrino.config.plugin('module-concat')
