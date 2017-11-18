@@ -18,9 +18,12 @@ module.exports = (neutrino, opts = {}) => {
       .loader(urlLoader)
       .options(merge({ limit }, options.svg || {}))
       .end()
-    .use('imagemin')
-      .loader(imgLoader)
-      .options(options.imagemin);
+    .when(neutrino.options.optimize, (rule) => {
+      rule
+        .use('imagemin')
+          .loader(imgLoader)
+          .options(options.imagemin);
+    });
 
   neutrino.config.module
     .rule('img')
@@ -29,9 +32,12 @@ module.exports = (neutrino, opts = {}) => {
       .loader(urlLoader)
       .options(merge({ limit }, options.img || {}))
       .end()
-    .use('imagemin')
-      .loader(imgLoader)
-      .options(options.imagemin);
+    .when(neutrino.options.optimize, (rule) => {
+      rule
+        .use('imagemin')
+          .loader(imgLoader)
+          .options(options.imagemin);
+    });
 
   neutrino.config.module
     .rule('ico')
