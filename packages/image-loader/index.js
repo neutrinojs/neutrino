@@ -4,7 +4,7 @@ module.exports = (neutrino, opts = {}) => {
   const options = merge({
     limit: 8192,
     imagemin: {
-      enabled: neutrino.options.env.NODE_ENV === 'production'
+      enabled: neutrino.options.optimize
     }
   }, opts);
   const { limit } = options;
@@ -18,12 +18,9 @@ module.exports = (neutrino, opts = {}) => {
       .loader(urlLoader)
       .options(merge({ limit }, options.svg || {}))
       .end()
-    .when(neutrino.options.optimize, (rule) => {
-      rule
-        .use('imagemin')
-          .loader(imgLoader)
-          .options(options.imagemin);
-    });
+    .use('imagemin')
+      .loader(imgLoader)
+      .options(options.imagemin);
 
   neutrino.config.module
     .rule('img')
@@ -32,12 +29,9 @@ module.exports = (neutrino, opts = {}) => {
       .loader(urlLoader)
       .options(merge({ limit }, options.img || {}))
       .end()
-    .when(neutrino.options.optimize, (rule) => {
-      rule
-        .use('imagemin')
-          .loader(imgLoader)
-          .options(options.imagemin);
-    });
+    .use('imagemin')
+      .loader(imgLoader)
+      .options(options.imagemin);
 
   neutrino.config.module
     .rule('ico')
