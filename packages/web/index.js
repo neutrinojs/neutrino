@@ -26,8 +26,13 @@ module.exports = (neutrino, opts = {}) => {
     env: [],
     hot: true,
     html: {},
-    devServer: {},
     publicPath: './',
+    style: {
+      hot: opts.hot !== false
+    },
+    devServer: {
+      hot: opts.hot !== false
+    },
     polyfills: {
       async: true
     },
@@ -84,7 +89,7 @@ module.exports = (neutrino, opts = {}) => {
 
   neutrino.use(env, options.env);
   neutrino.use(htmlLoader);
-  neutrino.use(styleLoader);
+  neutrino.use(styleLoader, options.style);
   neutrino.use(fontLoader);
   neutrino.use(imageLoader);
   neutrino.use(compileLoader, {
