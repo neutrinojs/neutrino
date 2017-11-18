@@ -119,7 +119,6 @@ Version: webpack 3.5.6
 Time: 4145ms
                            Asset       Size    Chunks             Chunk Names
    index.523b6da56c6363aaf056.js    10.1 kB     index  [emitted]  index
-polyfill.57dabda41992eba7552f.js    69.2 kB  polyfill  [emitted]  polyfill
  runtime.ce4090a4e87f82940ff0.js    1.51 kB   runtime  [emitted]  runtime
                       index.html  846 bytes            [emitted]
 ```

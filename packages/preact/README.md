@@ -1,55 +1,58 @@
 # Neutrino Preact Preset
-[![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url]  
-`neutrino-preset-preact` is a Neutrino preset that supports building Preact web applications.
+
+`@neutrinojs/preact` is a Neutrino preset that supports building Preact web applications.
+
+[![NPM version][npm-image]][npm-url]
+[![NPM downloads][npm-downloads]][npm-url]
+[![Join the Neutrino community on Spectrum][spectrum-image]][spectrum-url]
 
 ## Features
 
 - Zero upfront configuration necessary to start developing and building a Preact web app
 - Modern Babel compilation adding JSX and object rest spread syntax.
-- ~~Support for React Hot Loader~~
-- Support for ES6/7 class properties and experimental decorators.
 - Write JSX in .js or .jsx files
-- Extends from [neutrino-preset-web](https://neutrino.js.org/presets/neutrino-preset-web)
+- Extends from [@neutrinojs/web](https://neutrino.js.org/packages/web)
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
-  - Webpack loaders for importing HTML, CSS, images, icons, and fonts
+  - Webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
   - Webpack Dev Server during development
   - Automatic creation of HTML pages, no templating necessary
-  - Hot module replacement support<sup>*</sup>
-  - Production-optimized bundles with Babili minification and easy chunking
+  - Hot Module Replacement support
+  - Tree-shaking to create smaller bundles
+  - Production-optimized bundles with Babel minification, easy chunking, and scope-hoisted modules for faster execution
   - Easily extensible to customize your project as needed
 
 ## Requirements
 
-- Node.js v6.9+
+- Node.js v6.10+
 - Yarn or npm client
-- Neutrino v5
+- Neutrino v7
 
 ## Installation
 
-`neutrino-preset-preact` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `neutrino-preset-preact` are development dependencies. You will also need Preact and Preact-compat (recommended) for actual
+`@neutrinojs/preact` can be installed via the Yarn or npm clients. Inside your project, make sure
+`neutrino` and `@neutrinojs/preact` are development dependencies. You will also need `preact` for actual
 Preact development.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev neutrino neutrino-preset-preact
-❯ yarn add preact preact-compat
+❯ yarn add --dev neutrino @neutrinojs/preact
+❯ yarn add preact
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev neutrino neutrino-preset-preact
-❯ npm install --save preact preact-compat
+❯ npm install --save-dev neutrino @neutrinojs/preact
+❯ npm install --save preact
 ```
 
 ## Project Layout
 
-`neutrino-preset-preact` follows the standard [project layout](https://neutrino.js.org/project-layout) specified by Neutrino. This
+`@neutrinojs/preact` follows the standard [project layout](https://neutrino.js.org/project-layout) specified by Neutrino. This
 means that by default all project source code should live in a directory named `src` in the root of the
 project. This includes JavaScript files, CSS stylesheets, images, and any other assets that would be available
-to your compiled project.
+to import your compiled project.
 
 ## Quickstart
 
@@ -64,9 +67,9 @@ This Preact preset exposes an element in the page with an ID of `root` to which 
 your `src/index.js` file with the following:
 
 ```jsx
-import { h, render } from 'preact';
+import { render } from 'preact';
 
-render(<h1>Hello world!</h1>, document.body, document.getElementById('root'));
+render(<h1>Hello world!</h1>, document.getElementById('root'));
 ```
 
 Now edit your project's package.json to add commands for starting and building the application:
@@ -74,10 +77,18 @@ Now edit your project's package.json to add commands for starting and building t
 ```json
 {
   "scripts": {
-    "start": "neutrino start --use neutrino-preset-preact",
-    "build": "neutrino build --use neutrino-preset-preact"
+    "start": "neutrino start --use @neutrinojs/preact",
+    "build": "neutrino build --use @neutrinojs/preact"
   }
 }
+```
+
+If you are using `.neutrinorc.js`, add this preset to your use array instead of `--use` flags:
+
+```js
+module.exports = {
+  use: ['@neutrinojs/preact']
+};
 ```
 
 Start the app, then open a browser to the address in the console:
@@ -100,137 +111,122 @@ Start the app, then open a browser to the address in the console:
 
 ## Building
 
-`neutrino-preset-preact` builds static assets to the `build` directory by default when running `neutrino build`. Using
+`@neutrinojs/preact` builds static assets to the `build` directory by default when running `neutrino build`. Using
 the quick start example above as a reference:
 
 ```bash
 ❯ yarn build
-clean-webpack-plugin: /preact/build has been removed.
-Build completed in 6.692s
 
-Hash: 7a83f769b15f88b80727
-Version: webpack 2.2.1
-Time: 6695ms
-                                  Asset       Size  Chunks             Chunk Names
-   index.b615ea9e95317f530317.bundle.js     143 kB    0, 1  [emitted]  index
-manifest.2211d9c1970bbd3c952b.bundle.js    1.41 kB       1  [emitted]  manifest
-                             index.html  779 bytes          [emitted]
-✨  Done in 8.32s.
+✔ Building project completed
+Hash: b26ff013b5a2d5f7b824
+Version: webpack 3.5.6
+Time: 9773ms
+                           Asset       Size    Chunks             Chunk Names
+   index.dfbad882ab3d86bfd747.js     181 kB     index  [emitted]  index
+ runtime.3d9f9d2453f192a2b10f.js    1.51 kB   runtime  [emitted]  runtime
+                      index.html  846 bytes            [emitted]
+✨  Done in 4.62s.
 ```
 
 You can either serve or deploy the contents of this `build` directory as a static site.
 
+## Static assets
+
+If you wish to copy files to the build directory that are not imported from application code, you can place
+them in a directory within `src` called `static`. All files in this directory will be copied from `src/static`
+to `build/static`. To change this behavior, specify your own patterns with
+[@neutrinojs/copy](https://neutrino.js.org/packages/copy).
+
 ## Paths
 
-The `neutrino-preset-web` preset loads assets relative to the path of your application by setting Webpack's
+The `@neutrinojs/preact` preset loads assets relative to the path of your application by setting Webpack's
 [`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath) to `./`. If you wish to load
 assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
 override `output.publicPath`. See the [Customizing](#Customizing) section below.
 
+## Preset options
+
+You can provide custom options and have them merged with this preset's default options to easily affect how this
+preset builds. You can modify Preact preset settings from `.neutrinorc.js` by overriding with an options object. Use
+an array pair instead of a string to supply these options in `.neutrinorc.js`.
+
+The following shows how you can pass an options object to the Preact preset and override its options. See the
+[Web documentation](https://neutrino.js.org/packages/web#preset-options) for specific options you can override with this object.
+
+```js
+module.exports = {
+  use: [
+    ['@neutrinojs/preact', {
+      /* preset options */
+
+      // Example: disable Hot Module Replacement
+      hot: false,
+
+      // Example: change the page title
+      html: {
+        title: 'Epic Preact App'
+      },
+
+      // Add additional Babel plugins, presets, or env options
+      babel: {
+        // Override options for babel-preset-env
+        presets: [
+          ['babel-preset-env', {
+            // Passing in targets to babel-preset-env will replace them
+            // instead of merging them
+            targets: {
+              browsers: [
+                'last 1 Chrome versions',
+                'last 1 Firefox versions'
+              ]
+            }
+          }]
+        ]
+      }
+    }]
+  ]
+};
+```
+
 ## Customizing
 
 To override the build configuration, start with the documentation on [customization](https://neutrino.js.org/customization).
-`neutrino-preset-preact` does not use any additional named rules, loaders, or plugins that aren't already in use by the
-Web preset. See the [Web documentation customization](https://neutrino.js.org/presets/neutrino-preset-web#customizing)
+`@neutrinojs/preact` does not use any additional named rules, loaders, or plugins that aren't already in use by the
+Web preset. See the [Web documentation customization](https://neutrino.js.org/packages/web#customizing)
 for preset-specific configuration to override.
-
-### Simple customization
-
-By following the [customization guide](https://neutrino.js.org/customization/simple) and knowing the rule, loader, and plugin IDs above,
-you can override and augment the build directly from package.json.
-
-#### Vendoring
-
-By defining an entry point in package.json named `vendor` you can split out external dependencies into a chunk separate
-from your application code. When working with a Preact application, it is recommended to start out by splitting off
-Preact and Preact-compat into the `vendor` chunk.
-
-_Example: Put Preact and Preact-compat into a separate "vendor" chunk:_
-
-```json
-{
-  "neutrino": {
-    "config": {
-      "entry": {
-        "vendor": [
-          "preact",
-          "preact-compat"
-        ]
-      }
-    }
-  },
-  "dependencies": {
-    "preact": "^8.1.0",
-    "preact-compat": "^3.16.0"
-  }
-}
-```
-
-Running the build again, you can contrast the bundles generated here with the one generated in the quick start:
-
-```bash
-❯ yarn build
-clean-webpack-plugin: /preact/build has been removed.
-Build completed in 6.726s
-
-Hash: 0468e662989da55bdc5e
-Version: webpack 2.2.1
-Time: 6730ms
-                                  Asset       Size  Chunks             Chunk Names
-  vendor.0b3c06ba6b2494d683ee.bundle.js     142 kB    0, 2  [emitted]  vendor
-   index.d264625fd405d81cb995.bundle.js  276 bytes    1, 2  [emitted]  index
-manifest.29ee4d0db8f2534cc643.bundle.js    1.44 kB       2  [emitted]  manifest
-                             index.html  866 bytes          [emitted]
-✨  Done in 8.21s.
-```
-
-#### HTML files
-
-If you wish to override how HTML files are created for your Preact app, refer to the [relevant section on
-neutrino-preset-web](https://neutrino.js.org/presets/neutrino-preset-web#html-files).
-
-_Example: Change the application mount ID from "root" to "app":_
-
-```json
-{
-  "neutrino": {
-    "options": {
-      "html": {
-        "appMountId": "app"
-      }
-    }
-  }
-}
-```
 
 ### Advanced configuration
 
-By following the [customization guide](https://neutrino.js.org/customization/advanced) and knowing the rule, loader, and plugin IDs from
-neutrino-preset-web, you can override and augment the build by creating a JS module which overrides the config.
+By following the [customization guide](https://neutrino.js.org/customization) and knowing the rule, loader, and plugin IDs from
+`@neutrinojs/web`, you can override and augment the build by providing a function to your `.neutrinorc.js` use
+array. You can also make these changes from the Neutrino API in custom middleware.
 
 #### Vendoring
 
 By defining an entry point named `vendor` you can split out external dependencies into a chunk separate
 from your application code.
 
-_Example: Put Preact and Preact-compat into a separate "vendor" chunk:_
+_Example: Put Preact into a separate "vendor" chunk:_
 
 ```js
-module.exports = neutrino => {
-  neutrino.config
-    .entry('vendor')
-      .add('react')
-      .add('react-dom');
+module.exports = {
+  use: [
+    '@neutrinojs/preact',
+    (neutrino) => {
+      neutrino.config
+        .entry('vendor')
+          .add('preact')
+    }
+  ]
 };
 ```
 
 ## Hot Module Replacement
 
-Webpack's HMR is enabled but Hot Module Replacement may/may not work at this moment. This is due to *react-hot-loader* not working with Preact and having to rely on webpack only.
+While `@neutrinojs/preact` supports Hot Module Replacement, it does require some
+application-specific changes in order to operate.
 
----
-
-- From your `index` entry point (defaults to `src/index.js` from `neutrino.options.entry`), Perform the application render in a reusable function for initial load and subsequent reloads.
+- Perform the application render in a reusable function for initial load and subsequent reloads.
 - Add the `hot` acceptance to call this function.
 
 For example:
@@ -239,21 +235,29 @@ For example:
 import { render } from 'preact';
 import App from './App';
 
+const mount = document.getElementById('root');
 let root;
-function init () {
-  root = render(<App />, document.getElementById('root'), root);
+const load = () => {
+  const App = require('./App').default;
+ 
+  root = render(<App />, mount, root);
+};
+ 
+if (module.hot) {
+  module.hot.accept('./App', () => requestAnimationFrame(load));
 }
-
-init();
-
-if (module.hot) module.hot.accept('./App', init);
-
+ 
+load();
 ```
 
 ## Contributing
 
-Just send me a PR and try to follow my code style (semistandard).
+This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
+[contributing guide](https://neutrino.js.org/contributing) for details.
 
-[npm-image]: https://img.shields.io/npm/v/neutrino-preset-preact.svg
-[npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-preact.svg
-[npm-url]: https://npmjs.org/package/neutrino-preset-preact
+[npm-image]: https://img.shields.io/npm/v/@neutrinojs/preact.svg
+[npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/preact.svg
+[npm-url]: https://npmjs.org/package/@neutrinojs/preact
+[spectrum-image]: https://withspectrum.github.io/badge/badge.svg
+[spectrum-url]: https://spectrum.chat/neutrino
