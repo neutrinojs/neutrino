@@ -26,6 +26,7 @@
     "@neutrinojs/html-loader": "^7.3.2",
     "@neutrinojs/html-template": "^7.3.2",
     "@neutrinojs/image-loader": "^7.3.2",
+    "@neutrinojs/imagemin": "^7.3.2",
     "@neutrinojs/loader-merge": "^7.3.2",
     "@neutrinojs/minify": "^7.3.2",
     "@neutrinojs/style-loader": "^7.3.2",

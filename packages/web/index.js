@@ -10,6 +10,7 @@ const chunk = require('@neutrinojs/chunk');
 const copy = require('@neutrinojs/copy');
 const clean = require('@neutrinojs/clean');
 const minify = require('@neutrinojs/minify');
+const imagemin = require('@neutrinojs/imagemin');
 const loaderMerge = require('@neutrinojs/loader-merge');
 const devServer = require('@neutrinojs/dev-server');
 const { join, basename } = require('path');
@@ -166,16 +167,6 @@ module.exports = (neutrino, opts = {}) => {
       neutrino.use(devServer, options.devServer);
       config.when(options.hot, () => neutrino.use(hot));
     })
-    .when(process.env.NODE_ENV === 'production', () => {
-      neutrino.use(chunk);
-
-      if (options.minify) {
-        neutrino.use(minify, options.minify);
-      }
-
-      neutrino.config.plugin('module-concat')
-        .use(optimize.ModuleConcatenationPlugin);
-    })
     .when(neutrino.options.command === 'build', (config) => {
       neutrino.use(clean, { paths: [neutrino.options.output] });
       neutrino.use(copy, {
@@ -192,5 +183,16 @@ module.exports = (neutrino, opts = {}) => {
       }
 
       config.output.filename('[name].[chunkhash].js');
+    })
+    .when(process.env.NODE_ENV === 'production', () => {
+      neutrino.use(chunk);
+
+      if (options.minify) {
+        neutrino.use(minify, options.minify);
+      }
+
+      neutrino.use(imagemin);
+      neutrino.config.plugin('module-concat')
+        .use(optimize.ModuleConcatenationPlugin);
     });
 };
