@@ -17,9 +17,8 @@ module.exports = (neutrino, opts = {}) => {
     .rule('svg')
     .use('imagemin')
       .loader(imageminLoader)
-      .options(options.imagemin);
-
-  neutrino.config.module
+      .options(options.imagemin)
+      .end()
     .rule('img')
     .use('imagemin')
       .loader(imageminLoader)
