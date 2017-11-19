@@ -16,8 +16,6 @@ module.exports = (neutrino, options) => {
     .loader(require.resolve('vue-loader'))
     .options(options);
 
-  neutrino.config.resolve.extensions.add('.vue');
-
   if (compileRule && compileRule.uses.has('babel')) {
     const babelOptions = compileRule.use('babel').get('options');
     neutrino.config.module
@@ -72,6 +70,10 @@ module.exports = (neutrino, options) => {
       ]);
   }
 
-  neutrino.config.resolve.modules.add(MODULES);
-  neutrino.config.resolveLoader.modules.add(MODULES);
+  neutrino.config
+    .resolve
+      .modules.add(MODULES).end()
+      .extensions.add('.vue').end()
+      .end()
+    .resolveLoader.modules.add(MODULES);
 };
