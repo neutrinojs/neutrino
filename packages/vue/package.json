@@ -1,0 +1,30 @@
+{
+  "name": "neutrino-preset-vue",
+  "version": "4.0.0-rc.1",
+  "description": "Neutrino preset adding Vue.js support.",
+  "main": "src/index.js",
+  "author": "Capi Etheriel <barraponto@gmail.com> (https://barraponto.blog.br)",
+  "license": "GPL-3.0",
+  "peerDependencies": {
+    "neutrino": "^7.0.0",
+    "vue": "^2.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.9.0",
+    "eslint-plugin-prettier": "^2.3.1",
+    "neutrino": "^7.2.1"
+  },
+  "keywords": [
+    "neutrino",
+    "neutrino-preset",
+    "vue"
+  ],
+  "dependencies": {
+    "arrify": "^1.0.1",
+    "deepmerge": "^1.4.4",
+    "eslint-plugin-vue": "^2.1.0",
+    "stylelint-processor-html": "^1.0.0",
+    "vue-loader": "^13.3.0",
+    "vue-template-compiler": "^2.5.2"
+  }
+}
