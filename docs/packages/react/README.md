@@ -12,6 +12,7 @@
 - Modern Babel compilation adding JSX and object rest spread syntax.
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
+- Automatic import of `React.createElement`, no need to import `react` or `React.createElement` yourself
 - Extends from [@neutrinojs/web](../@neutrinojs/web/README.md)
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
   - Webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
@@ -125,7 +126,6 @@ Version: webpack 3.5.6
 Time: 9773ms
                            Asset       Size    Chunks             Chunk Names
    index.dfbad882ab3d86bfd747.js     181 kB     index  [emitted]  index
-polyfill.57dabda41992eba7552f.js    69.2 kB  polyfill  [emitted]  polyfill
  runtime.3d9f9d2453f192a2b10f.js    1.51 kB   runtime  [emitted]  runtime
                       index.html  846 bytes            [emitted]
 ✨  Done in 14.62s.
@@ -228,18 +228,18 @@ module.exports = {
 While `@neutrinojs/react` supports Hot Module Replacement your app using React Hot Loader, it does require some
 application-specific changes in order to operate.
 
-First, install `react-hot-loader` as a dependency, this **must** be React Hot Loader v3+ (currently in beta):
+First, install `react-hot-loader` as a dependency, this **must** be React Hot Loader v3+:
 
 #### Yarn
 
 ```bash
-❯ yarn add react-hot-loader@next
+❯ yarn add react-hot-loader
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save react-hot-loader@next
+❯ npm install --save react-hot-loader
 ```
 
 ---
