@@ -1,62 +1,253 @@
-# Neutrino Vue preset
+# Neutrino Vue Preset
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/barraponto/neutrino-preset-vue.svg)](https://greenkeeper.io/)
-[![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url]
-[![Join Slack][slack-image]][slack-url]
+[![NPM version][npm-image]][npm-url]
+[![NPM downloads][npm-downloads]][npm-url]
+[![Join the Neutrino community on Spectrum][spectrum-image]][spectrum-url]
 
-`neutrino-preset-vue` is a Neutrino preset that adds basic support for
-[Vue components][vuejs].
+## Features
 
-## Documentation
+- Zero upfront configuration necessary to start developing and building a Vue web app
+- Modern Babel compilation.
+- Extends from [@neutrinojs/web](https://neutrino.js.org/packages/web)
+  - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
+  - Webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
+  - Webpack Dev Server during development
+  - Automatic creation of HTML pages, no templating necessary
+  - Hot Module Replacement support
+  - Tree-shaking to create smaller bundles
+  - Production-optimized bundles with Babili minification, easy chunking, and scope-hoisted modules for faster execution
+  - Easily extensible to customize your project as needed
 
-Install this preset to your development dependencies, then set it in
-`.neutrinorc.js`. It should go after `neutrino-preset-web`, though it just needs
-something to give it an entry point.
+## Requirements
 
-```js
-  module.exports = {
-    use: [
-      "neutrino-preset-web",
-      "neutrino-preset-vue"
-    ],
-    ...
-  };
+- Node.js v6.10+
+- Yarn or npm client
+- Neutrino v7
+
+## Installation
+
+`@neutrinojs/vue` can be installed via the Yarn or npm clients. Inside your project, make sure
+`neutrino` and `@neutrinojs/vue` are development dependencies. You will also need Vue for actual
+Vue development.
+
+#### Yarn
+
+```bash
+❯ yarn add --dev neutrino @neutrinojs/vue
+❯ yarn add vue
 ```
 
-If you're using `neutrino-preset-lint` or any preset based on it,
-this preset will add eslint plugin and rules for Vue components.
+#### npm
 
-If you're using `neutrino-preset-stylelint` or any preset based on it,
-this preset will add support for `<style>` tags in Vue components.
-
-Just ensure the linter presets are loaded *before* this one.
-
-## Support Object spread syntax
-
-Vuex makes heavy use of object rest/spread, which is still a stage 3 ECMAScript
-proposal. If you want to use it, you have to add the
-[babel plugin][babel-object-rest-spread-plugin] for it. Neutrino Web Preset
-users can just add it to that preset through an option in `.neutrinorc.js`.
+```bash
+❯ npm install --save-dev neutrino @neutrinojs/vue
+❯ npm install --save vue
 
 
-```js
-  module.exports = {
-    use: [
-      ["neutrino-preset-web", {
-        babel: {
-          plugins: [require.resolve('babel-plugin-transform-object-rest-spread')]
-       }
-      }],
-      "neutrino-preset-vue"
-    ],
-    ...
-  };
+## Project Layout
+
+`@neutrinojs/vue` follows the standard [project layout](https://neutrino.js.org/project-layout) specified by Neutrino. This
+means that by default all project source code should live in a directory named `src` in the root of the
+project. This includes JavaScript files, CSS stylesheets, images, and any other assets that would be available
+to import your compiled project.
+
+## Quickstart
+
+After installing Neutrino and the Vue preset, add a new directory named `src` in the root of the project, with
+two files `index.js` and `App.vue` in it.
+
+```bash
+❯ mkdir src && touch src/index.js && touch src/App.vue
 ```
 
-[vuejs]: https://vuejs.org/v2/guide/components.html
-[babel-object-rest-spread-plugin]: https://www.npmjs.com/package/babel-plugin-transform-object-rest-spread
-[npm-image]: https://img.shields.io/npm/v/neutrino-preset-vue.svg
-[npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-vue.svg
-[npm-url]: https://npmjs.org/package/neutrino-preset-vue
-[slack-image]: https://neutrino-slack.herokuapp.com/badge.svg
-[slack-url]: https://neutrino-slack.herokuapp.com/
+This Vue preset exposes an element in the page with an ID of `root` to which you can mount your application. Edit
+your `src/index.js` file with the following:
+
+```js
+import Vue from 'vue';
+import App from './App.vue';
+
+new Vue({
+  el: '#root',
+  render: (h) => h(App),
+});
+```
+
+Next, edit your `src/App.vue` with the following:
+
+```html
+<script>
+  export default {
+    name: 'App',
+    data() {
+      return {};
+    }
+  };
+</script>
+
+<template>
+  <div>
+    <h1>Hello world!</h1>
+  </div>
+</template>
+```
+
+Now edit your project's package.json to add commands for starting and building the application:
+
+```json
+{
+  "scripts": {
+    "start": "neutrino start --use @neutrinojs/vue",
+    "build": "neutrino build --use @neutrinojs/vue"
+  }
+}
+```
+
+If you are using `.neutrinorc.js`, add this preset to your use array instead of `--use` flags:
+
+```js
+module.exports = {
+  use: ['@neutrinojs/vue']
+};
+```
+
+#### Yarn
+
+```bash
+❯ yarn start
+✔ Development server running on: http://localhost:5000
+✔ Build completed
+```
+
+#### npm
+
+```bash
+❯ npm start
+✔ Development server running on: http://localhost:5000
+✔ Build completed
+```
+
+Start the app, then open a browser to the address in the console:
+
+## Building
+
+`@neutrinojs/vue` builds static assets to the `build` directory by default when running `neutrino build`. Using
+the quick start example above as a reference:
+
+```bash
+❯ yarn build
+
+✔ Building project completed
+Hash: b26ff013b5a2d5f7b824
+Version: webpack 3.5.6
+Time: 9773ms
+                           Asset       Size    Chunks             Chunk Names
+   index.dfbad882ab3d86bfd747.js     181 kB     index  [emitted]  index
+polyfill.57dabda41992eba7552f.js    69.2 kB  polyfill  [emitted]  polyfill
+ runtime.3d9f9d2453f192a2b10f.js    1.51 kB   runtime  [emitted]  runtime
+                      index.html  846 bytes            [emitted]
+✨  Done in 14.62s.
+```
+
+You can either serve or deploy the contents of this `build` directory as a static site.
+
+## Static assets
+
+If you wish to copy files to the build directory that are not imported from application code, you can place
+them in a directory within `src` called `static`. All files in this directory will be copied from `src/static`
+to `build/static`. To change this behavior, specify your own patterns with
+[@neutrinojs/copy](../../packages/copy/README.md).
+
+## Paths
+
+The `@neutrinojs/web` preset loads assets relative to the path of your application by setting Webpack's
+[`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath) to `./`. If you wish to load
+assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
+override `output.publicPath`. See the [Customizing](#Customizing) section below.
+
+## Preset options
+
+You can provide custom options and have them merged with this preset's default options to easily affect how this
+preset builds. You can modify Vue preset settings from `.neutrinorc.js` by overriding with an options object. Use
+an array pair instead of a string to supply these options in `.neutrinorc.js`.
+
+The following shows how you can pass an options object to the Vue preset and override its options. See the
+[Web documentation](https://neutrino.js.org/packages/web#preset-options) for specific options you can override with this object.
+
+```js
+module.exports = {
+  use: [
+    ['@neutrinojs/vue', {
+      /* preset options */
+
+      // Example: disable Hot Module Replacement
+      hot: false,
+
+      // Example: change the page title
+      html: {
+        title: 'Epic Vue App'
+      },
+
+      // Add additional Babel plugins, presets, or env options
+      babel: {
+        // Override options for babel-preset-env
+        presets: [
+          ['babel-preset-env', {
+            // Passing in targets to babel-preset-env will replace them
+            // instead of merging them
+            targets: {
+              browsers: [
+                'last 1 Chrome versions',
+                'last 1 Firefox versions'
+              ]
+            }
+          }]
+        ]
+      }
+    }]
+  ]
+};
+```
+
+## Customizing
+
+To override the build configuration, start with the documentation on [customization](https://neutrino.js.org/customization).
+`@neutrinojs/vue` does not use any additional named rules, loaders, or plugins that aren't already in use by the
+Web preset. See the [Web documentation customization](https://neutrino.js.org/packages/web#customizing)
+for preset-specific configuration to override.
+
+### Advanced configuration
+
+By following the [customization guide](https://neutrino.js.org/customization) and knowing the rule, loader, and plugin IDs from
+`@neutrinojs/web`, you can override and augment the build by providing a function to your `.neutrinorc.js` use
+array. You can also make these changes from the Neutrino API in custom middleware.
+
+#### Vendoring
+
+By defining an entry point named `vendor` you can split out external dependencies into a chunk separate
+from your application code.
+
+_Example: Put Vue into a separate "vendor" chunk:_
+
+```js
+module.exports = {
+  use: [
+    '@neutrinojs/vue',
+    (neutrino) => neutrino.config
+      .entry('vendor')
+        .add('vue')
+  ]
+};
+```
+
+## Contributing
+
+This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
+[contributing guide](https://neutrino.js.org/contributing) for details.
+
+[npm-image]: https://img.shields.io/npm/v/@neutrinojs/vue.svg
+[npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/vue.svg
+[npm-url]: https://npmjs.org/package/@neutrinojs/vue
+[spectrum-image]: https://withspectrum.github.io/badge/badge.svg
+[spectrum-url]: https://spectrum.chat/neutrino
