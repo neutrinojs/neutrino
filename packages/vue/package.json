@@ -21,6 +21,7 @@
   ],
   "dependencies": {
     "arrify": "^1.0.1",
+    "@neutrinojs/web": "^7.3.2",
     "deepmerge": "^1.4.4",
     "eslint-plugin-vue": "^2.1.0",
     "stylelint-processor-html": "^1.0.0",
