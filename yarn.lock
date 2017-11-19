@@ -835,6 +835,10 @@ babel-helper-to-multiple-sequence-expressions@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/babel-helper-to-multiple-sequence-expressions/-/babel-helper-to-multiple-sequence-expressions-0.2.0.tgz#d1a419634c6cb301f27858c659167cfee0a9d318"
 
+babel-helper-vue-jsx-merge-props@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/babel-helper-vue-jsx-merge-props/-/babel-helper-vue-jsx-merge-props-2.0.2.tgz#aceb1c373588279e2755ea1cfd35c22394fd33f8"
+
 babel-helpers@^6.24.1:
   version "6.24.1"
   resolved "https://registry.yarnpkg.com/babel-helpers/-/babel-helpers-6.24.1.tgz#3471de9caec388e5c850e597e58a26ddf37602b2"
@@ -914,11 +918,27 @@ babel-plugin-jest-hoist@^21.2.0:
   version "21.2.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-jest-hoist/-/babel-plugin-jest-hoist-21.2.0.tgz#2cef637259bd4b628a6cace039de5fcd14dbb006"
 
+babel-plugin-jsx-event-modifiers@^2.0.2:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/babel-plugin-jsx-event-modifiers/-/babel-plugin-jsx-event-modifiers-2.0.5.tgz#93e6ebb5d7553bb08f9fedbf7a0bee3af09a0472"
+
 babel-plugin-jsx-pragmatic@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/babel-plugin-jsx-pragmatic/-/babel-plugin-jsx-pragmatic-1.0.2.tgz#41e2beb8642235f34b2a7ab12ca39e07201b8e59"
   dependencies:
     babel-plugin-syntax-jsx "^6.0.0"
+
+babel-plugin-jsx-v-model@^2.0.1:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/babel-plugin-jsx-v-model/-/babel-plugin-jsx-v-model-2.0.3.tgz#c396416b99cb1af782087315ae1d3e62e070f47d"
+  dependencies:
+    babel-plugin-syntax-jsx "^6.18.0"
+    html-tags "^2.0.0"
+    svg-tags "^1.0.0"
+
+babel-plugin-jsx-vue-functional@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-jsx-vue-functional/-/babel-plugin-jsx-vue-functional-2.1.0.tgz#5630a0c86fe1904d28c30465e6bf1cf71235a239"
 
 babel-plugin-minify-builtins@^0.2.0:
   version "0.2.0"
@@ -1005,7 +1025,7 @@ babel-plugin-syntax-flow@^6.18.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-flow/-/babel-plugin-syntax-flow-6.18.0.tgz#4c3ab20a2af26aa20cd25995c398c4eb70310c8d"
 
-babel-plugin-syntax-jsx@^6.0.0, babel-plugin-syntax-jsx@^6.3.13, babel-plugin-syntax-jsx@^6.8.0:
+babel-plugin-syntax-jsx@^6.0.0, babel-plugin-syntax-jsx@^6.18.0, babel-plugin-syntax-jsx@^6.3.13, babel-plugin-syntax-jsx@^6.8.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-jsx/-/babel-plugin-syntax-jsx-6.18.0.tgz#0af32a9a6e13ca7a3fd5069e62d7b0f58d0d8946"
 
@@ -1313,6 +1333,12 @@ babel-plugin-transform-undefined-to-void@^6.8.3:
   version "6.8.3"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-undefined-to-void/-/babel-plugin-transform-undefined-to-void-6.8.3.tgz#fc52707f6ee1ddc71bb91b0d314fbefdeef9beb4"
 
+babel-plugin-transform-vue-jsx@^3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-vue-jsx/-/babel-plugin-transform-vue-jsx-3.5.0.tgz#6b1ad29351ad753919403675f0bf8b2a43e17671"
+  dependencies:
+    esutils "^2.0.2"
+
 babel-polyfill@^6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-polyfill/-/babel-polyfill-6.26.0.tgz#379937abc67d7895970adc621f284cd966cf2153"
@@ -1407,6 +1433,17 @@ babel-preset-react@^6.24.0:
     babel-plugin-transform-react-jsx-self "^6.22.0"
     babel-plugin-transform-react-jsx-source "^6.22.0"
     babel-preset-flow "^6.23.0"
+
+babel-preset-vue@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/babel-preset-vue/-/babel-preset-vue-1.2.1.tgz#b0de8977e0ce981fc6824cf0a537917a02a6fe87"
+  dependencies:
+    babel-helper-vue-jsx-merge-props "^2.0.2"
+    babel-plugin-jsx-event-modifiers "^2.0.2"
+    babel-plugin-jsx-v-model "^2.0.1"
+    babel-plugin-jsx-vue-functional "^2.1.0"
+    babel-plugin-syntax-jsx "^6.18.0"
+    babel-plugin-transform-vue-jsx "^3.5.0"
 
 babel-register@^6.26.0:
   version "6.26.0"
@@ -4916,6 +4953,10 @@ html-minifier@^3.0.1, html-minifier@^3.2.3:
     relateurl "0.2.x"
     uglify-js "3.1.x"
 
+html-tags@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/html-tags/-/html-tags-2.0.0.tgz#10b30a386085f43cede353cc8fa7cb0deeea668b"
+
 html-webpack-plugin@^2.30.1:
   version "2.30.1"
   resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-2.30.1.tgz#7f9c421b7ea91ec460f56527d78df484ee7537d5"
@@ -8335,7 +8376,7 @@ promzard@^0.3.0:
   dependencies:
     read "1"
 
-prop-types@^15.5.4, prop-types@^15.6.0:
+prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.6.0:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
@@ -9729,6 +9770,10 @@ supports-color@^4.0.0, supports-color@^4.2.1, supports-color@^4.4.0:
   dependencies:
     has-flag "^2.0.0"
 
+svg-tags@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/svg-tags/-/svg-tags-1.0.0.tgz#58f71cee3bd519b59d4b2a843b6c7de64ac04764"
+
 svgo@^0.7.0:
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/svgo/-/svgo-0.7.2.tgz#9f5772413952135c6fefbf40afe6a4faa88b4bb5"
@@ -10336,7 +10381,7 @@ vue-hot-reload-api@^2.2.0:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.2.4.tgz#683bd1d026c0d3b3c937d5875679e9a87ec6cd8f"
 
-vue-loader@^13.3.0:
+vue-loader@^13.5.0:
   version "13.5.0"
   resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-13.5.0.tgz#52f7b3790a267eff80012b77ea187a54586dd5d4"
   dependencies:
@@ -10361,7 +10406,7 @@ vue-style-loader@^3.0.0:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-template-compiler@^2.5.2:
+vue-template-compiler@^2.5.6:
   version "2.5.6"
   resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.5.6.tgz#93f062a230a4437ef16064f1eef9cf3797d34bb4"
   dependencies:
