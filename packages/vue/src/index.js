@@ -7,7 +7,6 @@ const LOADER_EXTENSIONS = /\.vue$/;
 const MODULES = path.join(__dirname, 'node_modules');
 
 module.exports = (neutrino, options) => {
-  const styleRule = neutrino.config.module.rules.get('style');
   const lintRule = neutrino.config.module.rules.get('lint');
   const compileRule = neutrino.config.module.rules.get('compile');
 
@@ -18,18 +17,6 @@ module.exports = (neutrino, options) => {
     .options(options);
 
   neutrino.config.resolve.extensions.add('.vue');
-
-  if (styleRule && styleRule.uses.has('postcss')) {
-    const postcssLoaderOptions = styleRule.use('postcss').get('options');
-    if (Object.getOwnPropertyNames(postcssLoaderOptions).length) { // check if object is not empty
-      neutrino.config.module
-        .rule('vue')
-        .use('vue')
-        .tap((vueLoaderOptions = {}) => merge({
-          postcss: postcssLoaderOptions
-        }, vueLoaderOptions));
-    }
-  }
 
   if (compileRule && compileRule.uses.has('babel')) {
     const babelOptions = compileRule.use('babel').get('options');
