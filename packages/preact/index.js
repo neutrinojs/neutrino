@@ -1,4 +1,4 @@
-const web = require('neutrino-preset-web');
+const web = require('@neutrinojs/web');
 const { join } = require('path');
 const merge = require('deepmerge');
 
@@ -8,11 +8,18 @@ module.exports = (neutrino, opts = {}) => {
   const options = merge({
     hot: true,
     babel: {
-      presets: [require.resolve('babel-preset-preact')],
       plugins: [
         [
           require.resolve('babel-plugin-transform-react-jsx'),
-          { pragma: 'Preact.h' }
+          { pragma: 'h' }
+        ],
+        [
+          require.resolve('babel-plugin-jsx-pragmatic'),
+          {
+            module: 'preact',
+            export: 'h',
+            import: 'h'
+          }
         ],
         require.resolve('babel-plugin-transform-object-rest-spread'),
         process.env.NODE_ENV !== 'development' ?
@@ -33,16 +40,17 @@ module.exports = (neutrino, opts = {}) => {
   neutrino.use(web, options);
 
   neutrino.config
+    .resolveLoader
+      .modules
+        .add(MODULES)
+        .end()
+      .end()
     .resolve
       .modules.add(MODULES).end()
       .extensions.add('.jsx').end()
       .alias
         .set('react', 'preact-compat')
         .set('react-dom', 'preact-compat')
-        .end()
-      .end()
-    .resolveLoader.modules.add(MODULES).end().end()
-    .when(process.env.NODE_ENV === 'development', config => config
-      .entry('index')
-      .prepend(require.resolve('webpack/hot/only-dev-server')));
+        .set('create-react-class', 'preact-compat/lib/create-react-class')
+        .set('react-addons-css-transition-group', 'preact-css-transition-group');
 };

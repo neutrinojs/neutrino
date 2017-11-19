@@ -11,6 +11,8 @@
 - Zero upfront configuration necessary to start developing and building a Preact web app
 - Modern Babel compilation adding JSX and object rest spread syntax.
 - Write JSX in .js or .jsx files
+- Automatic import of `Preact.h`, no need to import `h` or `createElement` yourself
+- Compatibility and pre-configured aliasing for React-based modules and packages
 - Extends from [@neutrinojs/web](https://neutrino.js.org/packages/web)
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
   - Webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
@@ -45,6 +47,21 @@ Preact development.
 ```bash
 ❯ npm install --save-dev neutrino @neutrinojs/preact
 ❯ npm install --save preact
+```
+
+If you want to import React-based modules or packages, you should also install the `preact-compat`
+compatibility layer:
+
+#### Yarn
+
+```bash
+❯ yarn add preact-compat
+```
+
+#### npm
+
+```bash
+❯ npm install --save preact-compat
 ```
 
 ## Project Layout
@@ -235,19 +252,30 @@ For example:
 import { render } from 'preact';
 import App from './App';
 
-const mount = document.getElementById('root');
-let root;
-const load = () => {
-  const App = require('./App').default;
- 
-  root = render(<App />, mount, root);
+let mount;
+const root = document.getElementById('root');
+const load = (App) => {
+  mount = render(<App />, root, mount);
 };
  
 if (module.hot) {
-  module.hot.accept('./App', () => requestAnimationFrame(load));
+  module.hot.accept('./App', () => requestAnimationFrame(() => {
+    load(require('./App').default);
+  ));
 }
  
-load();
+load(App);
+```
+
+## Preact Devtools
+
+To use the React Devtools for your Preact project, require the preact devtools during the `development` environment
+within your `entry` file:
+
+```js
+if (process.env.NODE_ENV === 'development') {
+  require('preact/devtools');
+} 
 ```
 
 ## Contributing
