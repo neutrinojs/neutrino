@@ -4,7 +4,8 @@ module.exports = {
       include: [
         '.*.js',
         'packages/*/*.js',
-        'packages/*/src/**/*.js',
+        'packages/*/{src,bin,commands}/*.js',
+        'packages/*/commands/init/*.js',
         'packages/neutrino/bin/*'
       ],
       eslint: {
