@@ -11,6 +11,16 @@ const createPaths = curry((root, moduleId) => List.of(
   moduleId
 ));
 
+// exists :: (String -> String) -> Boolean
+const exists = (root, module) => {
+  try {
+    require.resolve(join(root, module));
+    return true;
+  } catch (err) {
+    return false;
+  }
+};
+
 // normalize :: String base -> String path -> String
 const normalizePath = curry((base, path) => (isAbsolute(path) ? path : join(base, path)));
 
@@ -37,6 +47,7 @@ const req = (moduleId, root) => {
 
 module.exports = {
   createPaths,
+  exists,
   normalizePath,
   toArray,
   req

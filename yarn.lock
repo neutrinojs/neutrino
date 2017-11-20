@@ -3940,10 +3940,6 @@ file-entry-cache@^2.0.0:
     flat-cache "^1.2.1"
     object-assign "^4.0.1"
 
-file-exists@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/file-exists/-/file-exists-5.0.0.tgz#d8c21d5101312ac8a5600bd86f5420bf9a25b6ad"
-
 file-loader@^1.0.0:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/file-loader/-/file-loader-1.1.5.tgz#91c25b6b6fbe56dae99f10a425fd64933b5c9daa"
