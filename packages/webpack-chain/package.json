@@ -1,0 +1,24 @@
+{
+  "name": "webpack-chain",
+  "version": "4.4.2",
+  "main": "src/Config.js",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/webpack-chain",
+  "keywords": [
+    "webpack",
+    "config",
+    "chain",
+    "fluent",
+    "api"
+  ],
+  "files": [
+    "src"
+  ],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MPL-2.0",
+  "dependencies": {
+    "deepmerge": "^1.5.2"
+  },
+  "devDependencies": {
+    "webpack": "^3.6.0"
+  }
+}
