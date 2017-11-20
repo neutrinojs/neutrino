@@ -2,7 +2,7 @@ module.exports = () => [
   {
     name: 'projectType',
     type: 'list',
-    message: 'What would you like to create?',
+    message: 'First up, what would you like to create?',
     choices: [
       {
         name: 'A web or Node.js application',
@@ -25,7 +25,7 @@ module.exports = () => [
   {
     name: 'project',
     type: 'list',
-    message: 'Great! What kind of application would you like to create?',
+    message: 'Great! Next, what kind of application would you like to create?',
     when: data => data.projectType === 'application',
     choices: [
       {
@@ -46,7 +46,7 @@ module.exports = () => [
       },
       {
 
-        name: 'Web',
+        name: 'Some other web app, e.g. Angular, jQuery, or plain JS',
         value: '@neutrinojs/web',
         checked: false
       },
@@ -60,7 +60,7 @@ module.exports = () => [
   {
     name: 'project',
     type: 'list',
-    message: 'Great! What kind of library would you like to create?',
+    message: 'Great! Next, what kind of library would you like to create?',
     when: data => data.projectType === 'library',
     choices: [{
       name: 'Web and/or Node.js',
@@ -71,7 +71,7 @@ module.exports = () => [
   {
     name: 'project',
     type: 'list',
-    message: 'Great! What kind of components would you like to create?',
+    message: 'Great! Next, what kind of components would you like to create?',
     when: data => data.projectType === 'components',
     choices: [
       {

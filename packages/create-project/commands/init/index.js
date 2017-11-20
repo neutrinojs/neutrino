@@ -9,6 +9,15 @@ const { projects, isYarn } = require('./utils');
 
 /* eslint-disable no-underscore-dangle */
 module.exports = class Project extends Generator {
+  _logo() {
+    return `                          _          _
+      _ __    ___  _   _ | |_  _ __ (_) _ __    ___
+     | '_ \\  / _ \\| | | || __|| '__|| || '_ \\  / _ \\
+     | | | ||  __/| |_| || |_ | |   | || | | || (_) |
+     |_| |_| \\___| \\__,_| \\__||_|   |_||_| |_| \\___/
+    `;
+  }
+
   _makeRcFile(data) {
     const rc = { use: [] };
 
@@ -92,10 +101,14 @@ module.exports = class Project extends Generator {
   prompting() {
     const done = this.async();
 
+    console.log(chalk.cyan.bold(this._logo()));
+    console.log(chalk.magenta.bold('Welcome to Neutrino!'));
+    console.log(chalk.cyan('To help you create your new project, I am going to ask you a few questions. :)\n'));
+
     this
       .prompt(questions())
       .then(answers => this.data = answers)
-      .then(done);
+      .then(() => done());
   }
 
   writing() {
@@ -134,16 +147,16 @@ module.exports = class Project extends Generator {
     const development = isYarn ? '--dev' : '--save-dev';
     const { dependencies, devDependencies } = this._getDependencies();
 
-    this.log(`${chalk.green('success')} Saved package.json`);
+    this.log(`\n${chalk.green('success')} Saved package.json`);
     process.chdir(this.options.directory);
 
     if (dependencies) {
-      this.log(`${chalk.green('installing dependencies:')} ${chalk.yellow(dependencies.join(', '))}`);
+      this.log(`\n${chalk.green('Installing dependencies:')} ${chalk.yellow(dependencies.join(', '))}`);
       this.spawnCommandSync(installer, [argument, ...dependencies], { stdio: 'inherit' });
     }
 
     if (devDependencies) {
-      this.log(`${chalk.green('installing dev-dependencies:')} ${chalk.yellow(devDependencies.join(', '))}`);
+      this.log(`\n${chalk.green('Installing dev-dependencies:')} ${chalk.yellow(devDependencies.join(', '))}`);
       this.spawnCommandSync(installer, [argument, development, ...devDependencies], { stdio: 'inherit' });
     }
 
@@ -153,7 +166,7 @@ module.exports = class Project extends Generator {
   }
 
   end() {
-    this.log(`${chalk.green('Success!')} Created ${this.options.directory} at ${process.cwd()}`);
+    this.log(`\n${chalk.green('Success!')} Created ${chalk.cyan(this.options.directory)} at ${chalk.yellow(process.cwd())}`);
     this.log(`To get started, change your current working directory to: ${chalk.cyan(this.options.directory)}`);
   }
 };
