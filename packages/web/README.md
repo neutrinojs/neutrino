@@ -173,19 +173,22 @@ module.exports = {
         hot: options.hot
       },
 
+      // Target specific browsers with babel-preset-env
+      targets: {
+        browsers: [
+          'last 1 Chrome versions',
+          'last 1 Firefox versions'
+        ]
+      }
+
       // Add additional Babel plugins, presets, or env options
       babel: {
-        // Override options for babel-preset-env
+        // Override options for babel-preset-env:
         presets: [
           ['babel-preset-env', {
-            // Passing in targets to babel-preset-env will replace them
-            // instead of merging them
-            targets: {
-              browsers: [
-                'last 1 Chrome versions',
-                'last 1 Firefox versions'
-              ]
-            }
+            modules: false,
+            useBuiltIns: true,
+            exclude: ['transform-regenerator', 'transform-async-to-generator'],
           }]
         ]
       }
