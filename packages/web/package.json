@@ -1,0 +1,43 @@
+{
+  "name": "@neutrinojs/web",
+  "version": "7.3.2",
+  "description": "Neutrino preset for building generic web applications",
+  "main": "index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-preset",
+    "web",
+    "hot module reload"
+  ],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MPL-2.0",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/web",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "dependencies": {
+    "@neutrinojs/chunk": "^7.3.2",
+    "@neutrinojs/clean": "^7.3.2",
+    "@neutrinojs/compile-loader": "^7.3.2",
+    "@neutrinojs/copy": "^7.3.2",
+    "@neutrinojs/dev-server": "^7.3.2",
+    "@neutrinojs/env": "^7.3.2",
+    "@neutrinojs/font-loader": "^7.3.2",
+    "@neutrinojs/hot": "^7.3.2",
+    "@neutrinojs/html-loader": "^7.3.2",
+    "@neutrinojs/html-template": "^7.3.2",
+    "@neutrinojs/image-loader": "^7.3.2",
+    "@neutrinojs/loader-merge": "^7.3.2",
+    "@neutrinojs/minify": "^7.3.2",
+    "@neutrinojs/style-loader": "^7.3.2",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-preset-env": "^1.6.0",
+    "deepmerge": "^1.5.2",
+    "fast-async": "^6.3.0",
+    "script-ext-html-webpack-plugin": "^1.8.5",
+    "webpack": "^3.6.0",
+    "worker-loader": "^1.0.0"
+  },
+  "peerDependencies": {
+    "neutrino": "^7.0.0"
+  }
+}

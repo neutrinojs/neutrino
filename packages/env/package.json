@@ -1,0 +1,24 @@
+{
+  "name": "@neutrinojs/env",
+  "version": "7.3.2",
+  "description": "Neutrino middleware for injecting environment variables into source code",
+  "main": "index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-middleware",
+    "env",
+    "environment",
+    "variables"
+  ],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MPL-2.0",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/env",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "dependencies": {
+    "webpack": "^3.6.0"
+  },
+  "peerDependencies": {
+    "neutrino": "^7.0.0"
+  }
+}

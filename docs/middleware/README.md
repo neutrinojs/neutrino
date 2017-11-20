@@ -36,7 +36,7 @@ The string and array formats are generally used from within the more powerful ob
 
 Providing a string as a middleware item denotes it as being a require-able module. Neutrino will attempt to require
 this string and then try to use its exports as another middleware format. For example, using the string
-"neutrino-preset-react" will be required by Neutrino, and then be re-processed through Neutrino using its exports as a
+"@neutrinojs/react" will be required by Neutrino, and then be re-processed through Neutrino using its exports as a
 different middleware type, depending on what that preset exported.
 
 Using the string format is most commonly used to depend on other middleware. Referencing a string does not enable
@@ -45,27 +45,27 @@ method.
 
 ```bash
 # String format on the CLI
-❯ neutrino start --use neutrino-preset-react
+❯ neutrino start --use @neutrinojs/react
 ```
 
 ```js
 // String format exported from other middleware
 // not very useful, but possible
-module.exports = 'neutrino-preset-react';
+module.exports = '@neutrinojs/react';
 ```
 
 ```js
 // String format being used within an object-format .neutrinorc.js
 module.exports = {
-  use: ['neutrino-preset-react']
+  use: ['@neutrinojs/react']
 };
 ```
 
 ```js
 // String format being used within function format
 module.exports = neutrino => {
-  neutrino.use('neutrino-preset-react');
-  neutrino.use('neutrino-preset-react', {
+  neutrino.use('@neutrinojs/react');
+  neutrino.use('@neutrinojs/react', {
     devServer: { port: 3000 }
   });
 };
@@ -83,14 +83,14 @@ required middleware. Referencing an array does not enable access to the Neutrino
 ```js
 // Array format exported from other middleware
 // still not very useful, but possible
-module.exports = ['neutrino-preset-react', { devServer: { port: 3000 } }];
+module.exports = ['@neutrinojs/react', { devServer: { port: 3000 } }];
 ```
 
 ```js
 // Array format being used within an object-format .neutrinorc.js
 module.exports = {
   use: [
-    ['neutrino-preset-react', {
+    ['@neutrinojs/react', {
       devServer: { port: 3000 }
     }]
   ]
@@ -101,7 +101,7 @@ module.exports = {
 // Array format being used within an object-format .neutrinorc.js
 module.exports = {
   use: [
-    ['neutrino-preset-react', {
+    ['@neutrinojs/react', {
       devServer: { port: 3000 }
     }]
   ]
@@ -111,8 +111,8 @@ module.exports = {
 ```js
 // Array format being used within function format
 module.exports = neutrino => {
-  neutrino.use(['neutrino-preset-react']);
-  neutrino.use(['neutrino-preset-react', {
+  neutrino.use(['@neutrinojs/react']);
+  neutrino.use(['@neutrinojs/react', {
     devServer: { port: 3000 }
   }]);
 };
@@ -142,14 +142,14 @@ module.exports = {
   env: {
     NODE_ENV: {
       // Require minify middleware during production
-      production: 'neutrino-middleware-minify',
+      production: '@neutrinojs/minify',
       
       // Use dev-server during development
-      development: ['neutrino-middleware-dev-server', { port: 3000 }],
+      development: ['@neutrinojs/dev-server', { port: 3000 }],
       
       // Use Jest during test-only
       test: {
-        use: ['neutrino-preset-jest']
+        use: ['@neutrinojs/jest']
       }
     },
     
@@ -169,10 +169,10 @@ module.exports = {
   // providing a "use" array specifies another list of middleware formats to work with
   use: [
     // string format
-    'neutrino-preset-airbnb-base',
+    '@neutrinojs/airbnb-base',
     
     // array format
-    ['neutrino-preset-react', { polyfills: { async: false } }],
+    ['@neutrinojs/react', { polyfills: { async: false } }],
     
     // function format
     (neutrino) => {
@@ -235,7 +235,7 @@ Additional middleware can also be loaded from a middleware function. This makes 
 consumers.
 
 ```js
-// neutrino-middleware-env
+// @neutrinojs/env
 const { EnvironmentPlugin } = require('webpack');
 
 module.exports = (neutrino, additionalVars = []) => neutrino.config
@@ -245,7 +245,7 @@ module.exports = (neutrino, additionalVars = []) => neutrino.config
 
 ```js
 // react preset (which is also middleware)
-const env = require('neutrino-middleware-env');
+const env = require('@neutrinojs/env');
 
 module.exports = neutrino => {
   neutrino.use(env, ['SECRET_KEY']);
@@ -272,7 +272,7 @@ Let's create a contrived example using our `env` middleware. Let's use a closure
 alternate plugin name when creating the middleware:
 
 ```js
-// neutrino-middleware-env
+// @neutrinojs/env
 const { EnvironmentPlugin } = require('webpack');
 
 module.exports = (pluginName = 'env') => (neutrino, additionalVars = []) => {
@@ -284,7 +284,7 @@ module.exports = (pluginName = 'env') => (neutrino, additionalVars = []) => {
 
 ```js
 // react preset (which is also middleware)
-const env = require('neutrino-middleware-env');
+const env = require('@neutrinojs/env');
 
 module.exports = neutrino => {
   neutrino.use(env('ENV-PLUGIN'), ['SECRET_KEY']);

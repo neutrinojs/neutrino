@@ -1,10 +1,11 @@
 module.exports = {
   use: [
-    ['./packages/neutrino-preset-airbnb-base', {
+    ['./packages/airbnb-base', {
       include: [
         '.*.js',
         'packages/*/*.js',
-        'packages/*/src/**/*.js',
+        'packages/*/{src,bin,commands}/*.js',
+        'packages/*/commands/init/*.js',
         'packages/neutrino/bin/*'
       ],
       eslint: {

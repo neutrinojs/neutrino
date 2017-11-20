@@ -10,7 +10,7 @@
   "useWorkspaces": true,
   "command": {
     "publish": {
-      "allowBranch": "master"
+      "allowBranch": "release/v*"
     }
   }
 }
