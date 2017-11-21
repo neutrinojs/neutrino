@@ -20,10 +20,10 @@ module.exports = ({
   }, args.options);
   const api = Neutrino(options);
 
-  api.register(commandName, commandHandler);
-
-  return api
-    .run(commandName, middleware)
+  api
+    .register(commandName, commandHandler)
+    .use(middleware)
+    .run(commandName)
     .fork(
       (errs) => {
         const errors = Array.isArray(errs) ? errs : [errs];
@@ -55,4 +55,6 @@ module.exports = ({
       },
       successHandler
     );
+
+  return api;
 };

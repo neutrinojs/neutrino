@@ -41,5 +41,5 @@ test('exposes lint command', t => {
 });
 
 test('exposes eslintrc config', t => {
-  t.is(typeof Neutrino().call('eslintrc', [mw()]), 'object');
+  t.is(typeof Neutrino().use(mw()).call('eslintrc'), 'object');
 });
