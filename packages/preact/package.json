@@ -1,0 +1,30 @@
+{
+  "name": "@neutrinojs/preact",
+  "version": "7.3.1",
+  "description": "Neutrino preset for building Preact web applications",
+  "main": "index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-preset",
+    "preact",
+    "web",
+    "hot module reload"
+  ],
+  "author": "Fahad Hossain <8bit.demoncoder@gmail.com>",
+  "license": "MPL-2.0",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/preact",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "dependencies": {
+    "@neutrinojs/loader-merge": "^7.3.2",
+    "@neutrinojs/web": "^7.3.2",
+    "babel-plugin-jsx-pragmatic": "^1.0.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-es2015-classes": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "deepmerge": "^1.5.2"
+  },
+  "peerDependencies": {
+    "neutrino": "^7.0.0"
+  }
+}

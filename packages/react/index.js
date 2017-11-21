@@ -15,6 +15,18 @@ module.exports = (neutrino, opts = {}) => {
   Object.assign(options, {
     babel: compileLoader.merge({
       plugins: [
+        [
+          require.resolve('babel-plugin-transform-react-jsx'),
+          { pragma: 'createElement' }
+        ],
+        [
+          require.resolve('babel-plugin-jsx-pragmatic'),
+          {
+            module: 'react',
+            export: 'createElement',
+            import: 'createElement'
+          }
+        ],
         require.resolve('babel-plugin-transform-object-rest-spread'),
         ...(process.env.NODE_ENV !== 'development' ?
           [[require.resolve('babel-plugin-transform-class-properties'), { spec: true }]] :

@@ -119,7 +119,6 @@ Version: webpack 3.5.6
 Time: 4145ms
                            Asset       Size    Chunks             Chunk Names
    index.523b6da56c6363aaf056.js    10.1 kB     index  [emitted]  index
-polyfill.57dabda41992eba7552f.js    69.2 kB  polyfill  [emitted]  polyfill
  runtime.ce4090a4e87f82940ff0.js    1.51 kB   runtime  [emitted]  runtime
                       index.html  846 bytes            [emitted]
 ```
@@ -146,7 +145,7 @@ You can provide custom options and have them merged with this preset's default o
 preset builds. You can modify Web preset settings from `.neutrinorc.js` by overriding with an options object. Use
 an array pair instead of a string to supply these options in `.neutrinorc.js`.
 
-The following shows how you can pass an options object to the Web preset and override its options, showing the defaults:
+The following shows how you can pass an options object to the Web preset and override its options:
 
 ```js
 module.exports = {
@@ -179,7 +178,7 @@ module.exports = {
           'last 1 Chrome versions',
           'last 1 Firefox versions'
         ]
-      }
+      },
 
       // Add additional Babel plugins, presets, or env options
       babel: {
