@@ -15,7 +15,7 @@
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
-    "copy-webpack-plugin": "^4.0.1",
+    "copy-webpack-plugin": "^4.2.1",
     "deepmerge": "^2.0.0"
   },
   "peerDependencies": {

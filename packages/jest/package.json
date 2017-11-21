@@ -19,7 +19,7 @@
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "babel-preset-jest": "^21.0.2",
     "deepmerge": "^2.0.0",
-    "eslint-plugin-jest": "^21.0.2",
+    "eslint-plugin-jest": "^21.3.2",
     "jest-cli": "^21.0.2",
     "ramda": "^0.25.0",
     "yargs": "^10.0.0"
