@@ -34,17 +34,19 @@ module.exports = (neutrino, opts = {}) => {
       async: true
     },
     babel: {},
-    targets: {
-      browsers: [
-        'last 2 Chrome versions',
-        'last 2 Firefox versions',
-        'last 2 Edge versions',
-        'last 2 Opera versions',
-        'last 2 Safari versions',
-        'last 2 iOS versions'
-      ]
-    }
+    targets: {}
   }, opts);
+
+  if (!options.targets.node && !options.targets.browsers) {
+    options.targets.browsers = [
+      'last 2 Chrome versions',
+      'last 2 Firefox versions',
+      'last 2 Edge versions',
+      'last 2 Opera versions',
+      'last 2 Safari versions',
+      'last 2 iOS versions'
+    ];
+  }
 
   Object.assign(options, {
     babel: compileLoader.merge({

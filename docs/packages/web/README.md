@@ -146,7 +146,7 @@ You can provide custom options and have them merged with this preset's default o
 preset builds. You can modify Web preset settings from `.neutrinorc.js` by overriding with an options object. Use
 an array pair instead of a string to supply these options in `.neutrinorc.js`.
 
-The following shows how you can pass an options object to the Web preset and override its options, showing the defaults:
+The following shows how you can pass an options object to the Web preset and override its options:
 
 ```js
 module.exports = {
@@ -179,7 +179,7 @@ module.exports = {
           'last 1 Chrome versions',
           'last 1 Firefox versions'
         ]
-      }
+      },
 
       // Add additional Babel plugins, presets, or env options
       babel: {

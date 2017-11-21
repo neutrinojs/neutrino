@@ -12,22 +12,7 @@ module.exports = (neutrino, options = {}) => {
     html: {
       title: 'React Preview'
     },
-    externals: {},
-    babel: {
-      presets: [
-        ['babel-preset-env', {
-          targets: {
-            browsers: [
-              'last 1 Chrome versions',
-              'last 1 Firefox versions',
-              'last 1 Edge versions',
-              'last 1 Safari versions',
-              'last 1 iOS versions'
-            ]
-          }
-        }]
-      ]
-    }
+    externals: {}
   }, options);
 
   neutrino.config.resolve.modules.add(MODULES);
