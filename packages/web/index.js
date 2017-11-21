@@ -10,7 +10,6 @@ const chunk = require('@neutrinojs/chunk');
 const copy = require('@neutrinojs/copy');
 const clean = require('@neutrinojs/clean');
 const minify = require('@neutrinojs/minify');
-const imagemin = require('@neutrinojs/imagemin');
 const loaderMerge = require('@neutrinojs/loader-merge');
 const devServer = require('@neutrinojs/dev-server');
 const { join, basename } = require('path');
@@ -189,10 +188,6 @@ module.exports = (neutrino, opts = {}) => {
 
       if (options.minify) {
         neutrino.use(minify, options.minify);
-      }
-
-      if (options.imagemin) {
-        neutrino.use(imagemin, options.imagemin);
       }
 
       neutrino.config.plugin('module-concat')
