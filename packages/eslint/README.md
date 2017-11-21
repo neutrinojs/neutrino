@@ -140,13 +140,14 @@ _Example: Create a .eslintrc.js file in the root of the project, using `.neutrin
 
 ```js
 // .eslintrc.js
-
-// If you do not specify any middleware to call(),
-// it will use the local .neutrinorc.js file
-
 const { Neutrino } = require('neutrino');
 
-module.exports = Neutrino().call('eslintrc');
+// Specify middleware to Neutrino prior to calling eslintrc.
+// Even if using .neutrinorc.js, you must specify it when using
+// the API
+module.exports = Neutrino()
+  .use('.neutrinorc.js')
+  .call('eslintrc');
 ```
 
 _Example: Create a .eslintrc.js file in the root of the project, using specified middleware._
@@ -155,14 +156,13 @@ _Example: Create a .eslintrc.js file in the root of the project, using specified
 // .eslintrc.js
 const { Neutrino } = require('neutrino');
 
-module.exports = Neutrino().call('eslintrc', [
-  ['@neutrinojs/eslint', {
+module.exports = Neutrino()
+  .use('@neutrinojs/eslint', {
     eslint: {
       rules: { semi: 'off' }
     }
-  }],
-  '@neutrinojs/react'
-]);
+  })
+  .call('eslintrc');
 ```
 
 If you are able, only use a `.eslintrc.js` file for editor hints, and use the Neutrino `lint` command for one-off linting
