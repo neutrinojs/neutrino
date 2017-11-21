@@ -160,6 +160,29 @@ module.exports = {
         async: true
       },
 
+      // Sets Webpack's `output.publicPath` and
+      // `devServer.publicPath` settings. Useful if you want to
+      // serve assets from a non-root location (e.g. `/assets/`)
+      publicPath: './',
+
+      // Change options for @neutrinojs/style-loader
+      style: {
+        // Disabling options.hot will also disable style.hot
+        hot: true
+      },
+
+      // Change options for @neutrinojs/font-loader
+      font: {},
+
+      // Change options for @neutrinojs/image-loader
+      image: {},
+
+      // Change options for @neutrinojs/minify
+      minify: {},
+
+      // Change options for `webpack-manifest-plugin`
+      manifest: {},
+
       // Change options related to generating the HTML document
       // See @neutrinojs/html-template for the defaults
       // used by the Web preset
@@ -207,6 +230,20 @@ module.exports = {
 
       // Example: disable Hot Module Replacement
       hot: false,
+
+      // Example: disable image-loader, style-loader, font-loader,
+      // font-loader, webpack-manifest-plugin
+      image: false,
+      style: false,
+      font: false,
+      image: false,
+      manifest: false,
+
+      // Example: Remove console and debugger from output
+      minify: {
+        removeConsole: true,
+        removeDebugger: true,
+      },
 
       // Example: change the page title
       html: {

@@ -41,7 +41,9 @@ module.exports = (neutrino, opts = {}) => {
     manifest: opts.html === false ? {} : false,
     minify: {},
     babel: {},
-    targets: {}
+    targets: {},
+    font: {},
+    image: {}
   }, opts);
 
   if (typeof options.devServer.proxy === 'string') {
@@ -86,9 +88,19 @@ module.exports = (neutrino, opts = {}) => {
 
   neutrino.use(env, options.env);
   neutrino.use(htmlLoader);
-  neutrino.use(styleLoader, options.style);
-  neutrino.use(fontLoader);
-  neutrino.use(imageLoader);
+
+  if (options.style) {
+    neutrino.use(styleLoader, options.style);
+  }
+
+  if (options.font) {
+    neutrino.use(fontLoader, options.font);
+  }
+
+  if (options.image) {
+    neutrino.use(imageLoader, options.image);
+  }
+
   neutrino.use(compileLoader, {
     include: [
       neutrino.options.source,
