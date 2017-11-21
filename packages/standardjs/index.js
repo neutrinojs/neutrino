@@ -6,7 +6,7 @@ module.exports = (neutrino, opts = {}) => {
     {
       eslint: {
         baseConfig: {
-          extends: ['standard']
+          extends: ['standard', 'standard-jsx']
         },
         plugins: ['standard'],
         rules: {

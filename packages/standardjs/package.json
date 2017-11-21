@@ -19,6 +19,7 @@
     "@neutrinojs/eslint": "^7.3.2",
     "deepmerge": "^1.5.2",
     "eslint-config-standard": "^10.2.1",
+    "eslint-config-standard-jsx": "^4.0.2",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.6.0",
