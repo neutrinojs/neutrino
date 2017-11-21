@@ -20,6 +20,7 @@
     "validate:eslintrc:airbnb-base": "eslint --no-eslintrc --print-config . -c ./packages/airbnb-base/eslintrc.js > /dev/null",
     "validate:eslintrc:standardjs": "eslint --no-eslintrc --print-config . -c ./packages/standardjs/eslintrc.js > /dev/null",
     "validate:eslintrc": "yarn validate:eslintrc:eslint && yarn validate:eslintrc:airbnb-base && yarn validate:eslintrc:airbnb && yarn validate:eslintrc:standardjs && yarn validate:eslintrc:root",
+    "link:all": "lerna exec yarn link",
     "lint": "node packages/neutrino/bin/neutrino lint",
     "changelog": "auto-changelog --remote upstream --commit-limit false",
     "docs:build": "gitbook build && cp CNAME _book",
