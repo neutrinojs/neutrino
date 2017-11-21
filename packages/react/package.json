@@ -23,7 +23,7 @@
     "babel-plugin-transform-es2015-classes": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-react": "^6.24.0",
-    "deepmerge": "^1.5.2",
+    "deepmerge": "^2.0.0",
     "eslint-plugin-react": "^7.4.0",
     "react-hot-loader": "^3.1.1"
   },

@@ -31,7 +31,7 @@
     "@neutrinojs/style-loader": "^7.3.2",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-preset-env": "^1.6.0",
-    "deepmerge": "^1.5.2",
+    "deepmerge": "^2.0.0",
     "fast-async": "^6.3.0",
     "script-ext-html-webpack-plugin": "^1.8.5",
     "webpack": "^3.6.0",

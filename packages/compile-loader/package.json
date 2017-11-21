@@ -18,7 +18,7 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-merge": "^1.1.0",
-    "deepmerge": "^1.5.2"
+    "deepmerge": "^2.0.0"
   },
   "devDependencies": {
     "webpack": "^3.6.0"
