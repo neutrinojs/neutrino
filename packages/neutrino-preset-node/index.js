@@ -7,7 +7,7 @@ const hot = require('neutrino-middleware-hot');
 const nodeExternals = require('webpack-node-externals');
 const { optimize } = require('webpack');
 const {
-  basename, join, parse, format
+  basename, extname, join, parse, format
 } = require('path');
 const merge = require('deepmerge');
 const {
@@ -33,6 +33,7 @@ const getOutputForEntry = pipe(
 module.exports = (neutrino, opts = {}) => {
   const pkg = getPackageJson(neutrino.options.root);
   const staticDir = join(neutrino.options.source, 'static');
+  const entryName = basename(neutrino.options.entry, extname(neutrino.options.entry));
   const sourceMap = pathOr(
     pathOr(false, ['dependencies', 'source-map-support'], pkg),
     ['devDependencies', 'source-map-support'],
@@ -78,7 +79,7 @@ module.exports = (neutrino, opts = {}) => {
     .devtool('source-map')
     .externals([nodeExternals({ whitelist: [/^webpack/] })])
     .context(neutrino.options.root)
-    .entry('index')
+    .entry(entryName)
       .add(neutrino.options.entry)
       .end()
     .output
@@ -110,7 +111,7 @@ module.exports = (neutrino, opts = {}) => {
       });
       config.when(options.hot, () => {
         neutrino.use(hot);
-        config.entry('index').add('webpack/hot/poll?1000');
+        config.entry(entryName).add('webpack/hot/poll?1000');
       });
     })
     .when(neutrino.options.env.NODE_ENV === 'development', (config) => {
