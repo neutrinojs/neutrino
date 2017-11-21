@@ -40,8 +40,6 @@ const getOptions = (opts = {}) => {
     .keys(options.env)
     .forEach(env => process.env[env] = options.env[env]);
 
-  options.optimize = defaultTo(options.env.NODE_ENV === 'production', options.optimize);
-
   pathOptions.forEach(([path, defaultValue, getNormalizeBase]) => {
     let value = defaultTo(defaultValue, options[path]);
 
