@@ -13,8 +13,10 @@ const minify = require('@neutrinojs/minify');
 const loaderMerge = require('@neutrinojs/loader-merge');
 const devServer = require('@neutrinojs/dev-server');
 const { join, basename } = require('path');
+const { resolve } = require('url');
 const merge = require('deepmerge');
 const ScriptExtHtmlPlugin = require('script-ext-html-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 const { optimize } = require('webpack');
 
 const MODULES = join(__dirname, 'node_modules');
@@ -24,6 +26,7 @@ module.exports = (neutrino, opts = {}) => {
     env: [],
     hot: true,
     html: {},
+    publicPath: './',
     style: {
       hot: opts.hot !== false
     },
@@ -36,6 +39,20 @@ module.exports = (neutrino, opts = {}) => {
     babel: {},
     targets: {}
   }, opts);
+
+  if (typeof options.devServer.proxy === 'string') {
+    options.devServer.proxy = {
+      '**': {
+        target: options.devServer.proxy,
+        changeOrigin: true
+      }
+    };
+  }
+
+  options.devServer = merge({
+    hot: options.hot !== false,
+    publicPath: resolve('/', options.publicPath)
+  }, options.devServer);
 
   if (!options.targets.node && !options.targets.browsers) {
     options.targets.browsers = [
@@ -73,7 +90,6 @@ module.exports = (neutrino, opts = {}) => {
   neutrino.use(styleLoader, options.style);
   neutrino.use(fontLoader);
   neutrino.use(imageLoader);
-  neutrino.use(htmlTemplate, options.html);
   neutrino.use(compileLoader, {
     include: [
       neutrino.options.source,
@@ -91,7 +107,7 @@ module.exports = (neutrino, opts = {}) => {
       .end()
     .output
       .path(neutrino.options.output)
-      .publicPath('./')
+      .publicPath(options.publicPath)
       .filename('[name].js')
       .chunkFilename('[name].[chunkhash].js')
       .end()
@@ -117,9 +133,6 @@ module.exports = (neutrino, opts = {}) => {
       .set('fs', 'empty')
       .set('tls', 'empty')
       .end()
-    .plugin('script-ext')
-      .use(ScriptExtHtmlPlugin, [{ defaultAttribute: 'defer' }])
-      .end()
     .module
       .rule('worker')
         .test(/\.worker\.js$/)
@@ -128,6 +141,11 @@ module.exports = (neutrino, opts = {}) => {
           .end()
         .end()
       .end()
+    .when(options.html, (config) => {
+      neutrino.use(htmlTemplate, options.html);
+      config.plugin('script-ext')
+        .use(ScriptExtHtmlPlugin, [{ defaultAttribute: 'defer' }]);
+    })
     .when(neutrino.config.module.rules.has('lint'), () => neutrino
       .use(loaderMerge('lint', 'eslint'), {
         envs: ['browser', 'commonjs']
@@ -152,6 +170,12 @@ module.exports = (neutrino, opts = {}) => {
           to: basename(staticDir)
         }]
       });
+
+      if (options.html === false) {
+        neutrino.config.plugin('manifest')
+          .use(ManifestPlugin);
+      }
+
       config.output.filename('[name].[chunkhash].js');
     });
 };
