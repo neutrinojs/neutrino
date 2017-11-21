@@ -36,6 +36,8 @@ module.exports = (neutrino, opts = {}) => {
     polyfills: {
       async: true
     },
+    minify: {},
+    manifest: {},
     babel: {},
     targets: {}
   }, opts);
@@ -157,7 +159,11 @@ module.exports = (neutrino, opts = {}) => {
     })
     .when(process.env.NODE_ENV === 'production', () => {
       neutrino.use(chunk);
-      neutrino.use(minify);
+
+      if (options.minify) {
+        neutrino.use(minify, options.minify);
+      }
+
       neutrino.config.plugin('module-concat')
         .use(optimize.ModuleConcatenationPlugin);
     })
@@ -171,9 +177,9 @@ module.exports = (neutrino, opts = {}) => {
         }]
       });
 
-      if (options.html === false) {
+      if (options.html === false && options.manifest) {
         neutrino.config.plugin('manifest')
-          .use(ManifestPlugin);
+          .use(ManifestPlugin, [options.manifest]);
       }
 
       config.output.filename('[name].[chunkhash].js');
