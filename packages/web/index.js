@@ -191,7 +191,10 @@ module.exports = (neutrino, opts = {}) => {
         neutrino.use(minify, options.minify);
       }
 
-      neutrino.use(imagemin);
+      if (options.imagemin) {
+        neutrino.use(imagemin, options.imagemin);
+      }
+
       neutrino.config.plugin('module-concat')
         .use(optimize.ModuleConcatenationPlugin);
     });

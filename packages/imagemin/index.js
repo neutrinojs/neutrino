@@ -2,27 +2,45 @@ const merge = require('deepmerge');
 
 const imageminLoader = require.resolve('imagemin-webpack/imagemin-loader');
 const ImageminWebpackPlugin = require('imagemin-webpack/ImageminWebpackPlugin');
+const gifsicle = require('imagemin-gifsicle');
+const svgo = require('imagemin-svgo');
+const pngquant = require('imagemin-pngquant');
+const mozjpeg = require('imagemin-mozjpeg');
+const webp = require('imagemin-webp');
 
 module.exports = (neutrino, opts = {}) => {
   const options = merge({
-    imagemin: {},
-    plugin: {}
+    imagemin: {
+      plugins: [
+        gifsicle(),
+        svgo(),
+        pngquant(),
+        mozjpeg(),
+        webp()
+      ]
+    },
+    plugin: {
+      name: '[path][name].[ext]',
+      test: /\.(jpe?g|png|gif|svg|webp)$/i
+    },
+    pluginId: 'imagemin',
+    useId: 'imagemin',
+    rules: ['svg', 'img']
   }, opts);
 
   options.plugin = merge({
     imageminOptions: options.imagemin
   }, options.plugin);
 
-  neutrino.config.module
-    .rule('svg')
-    .use('imagemin')
-      .loader(imageminLoader)
-      .options(options.imagemin)
-      .end()
-    .rule('img')
-    .use('imagemin')
-      .loader(imageminLoader)
-      .options(options.imagemin);
+  options.rules.forEach((ruleId) => {
+    neutrino.config.module
+      .rule(ruleId)
+      .use(options.useId)
+        .loader(imageminLoader)
+        .options(options.imagemin);
+  });
 
-  neutrino.use(ImageminWebpackPlugin, options.plugin);
+  neutrino.config
+    .plugin(options.pluginId)
+    .use(ImageminWebpackPlugin, [options.plugin]);
 };
