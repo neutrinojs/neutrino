@@ -22,7 +22,7 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-classes": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "deepmerge": "^2.0.1"
+    "deepmerge": "^1.5.2"
   },
   "peerDependencies": {
     "neutrino": "^7.0.0"

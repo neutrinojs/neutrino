@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "deep-sort-object": "^1.0.2",
-    "deepmerge": "^2.0.0",
+    "deepmerge": "^1.5.2",
     "fluture": "^7.2.2",
     "immutable": "^3.8.1",
     "immutable-ext": "^1.1.2",
