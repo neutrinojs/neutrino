@@ -22,22 +22,24 @@ const { optimize } = require('webpack');
 const MODULES = join(__dirname, 'node_modules');
 
 module.exports = (neutrino, opts = {}) => {
+  const publicPath = './';
   const options = merge({
+    publicPath,
     env: [],
     hot: true,
     html: {},
-    publicPath: './',
-    style: {
-      hot: opts.hot !== false
-    },
-    devServer: {
-      hot: opts.hot !== false
-    },
     polyfills: {
       async: true
     },
+    devServer: {
+      hot: opts.hot !== false,
+      publicPath: resolve('/', publicPath)
+    },
+    style: {
+      hot: opts.hot !== false
+    },
+    manifest: opts.html === false ? {} : false,
     minify: {},
-    manifest: {},
     babel: {},
     targets: {}
   }, opts);
@@ -50,11 +52,6 @@ module.exports = (neutrino, opts = {}) => {
       }
     };
   }
-
-  options.devServer = merge({
-    hot: options.hot !== false,
-    publicPath: resolve('/', options.publicPath)
-  }, options.devServer);
 
   if (!options.targets.node && !options.targets.browsers) {
     options.targets.browsers = [
@@ -177,7 +174,7 @@ module.exports = (neutrino, opts = {}) => {
         }]
       });
 
-      if (options.html === false && options.manifest) {
+      if (options.manifest) {
         neutrino.config.plugin('manifest')
           .use(ManifestPlugin, [options.manifest]);
       }
