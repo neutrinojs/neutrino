@@ -12,7 +12,7 @@
 * [Configuration API - webpack-chain](./webpack-chain.md)
 * [Customization](./customization/README.md)
 * [Creating presets](./creating-presets.md)
-* [Upgrading from v6 to v7](./upgrading-neutrino.md)
+* [Migration Guide](./migration-guide.md)
 * [Presets](./presets/README.md)
   * [Community presets](./packages/community-presets.md)
 * [Middleware](./middleware/README.md)
