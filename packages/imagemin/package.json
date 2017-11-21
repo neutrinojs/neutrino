@@ -9,13 +9,13 @@
     "image",
     "imagemin"
   ],
-  "author": "Eli Perelman <eli@eliperelman.com>",
+  "author": "Tim Kelty <timkelty@gmail.com>",
   "license": "MPL-2.0",
   "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/imagemin",
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
-    "deepmerge": "^1.5.2",
+    "deepmerge": "^2.0.0",
     "imagemin-gifsicle": "5.2.0",
     "imagemin-mozjpeg": "^6.0.0",
     "imagemin-pngquant": "^5.0.0",
