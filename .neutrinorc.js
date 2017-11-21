@@ -4,12 +4,23 @@ module.exports = {
       include: [
         '.*.js',
         'packages/*/*.js',
-        'packages/*/src/**/*.js',
+        'packages/*/{src,bin,commands}/*.js',
+        'packages/*/commands/init/*.js',
         'packages/neutrino/bin/*'
       ],
       eslint: {
+        baseConfig: {
+          extends: [
+            'plugin:react/recommended',
+            'prettier',
+            'prettier/react'
+          ]
+        },
         envs: ['browser', 'commonjs', 'node'],
-        plugins: ['eslint-plugin-prettier'],
+        plugins: [
+          'eslint-plugin-prettier',
+          'eslint-plugin-react'
+        ],
         rules: {
           // Algebraic and functional types should allow capital constructors without new
           'babel/new-cap': 'off',

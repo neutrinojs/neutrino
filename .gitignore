@@ -6,6 +6,7 @@ lerna-debug.log
 
 # Build directories
 build
+lib
 
 # Runtime data
 pids

@@ -374,41 +374,35 @@ will throw an exception if Neutrino is unable to require the specified module ID
 
 ### `call(commandName, middleware)`
 
-This API method will invoke a command function that has been previously defined by the `register` method after
-consuming any specified middleware. The `commandName` argument should be a String, and optionally `middleware`
-should be an Array of middleware formats. If `middleware` is not specified, Neutrino will load middleware from the
-local `.neutrinorc.js` file.
+This API method will invoke a command function that has been previously defined by the `register` method.
+The `commandName` argument should be a String. Any necessary middleware should be used prior to invoking `call`.
 
 The `call` method will invoke the registered command with two arguments: a Webpack configuration object, and the
 instance of the Neutrino API. The return value of using `call` will be the return value of invoking the registered
 handler with these two arguments.
 
 For a concrete example, the [eslint middleware](../packages/eslint) registers an `eslintrc`
-command. The results of this command can be returned with `call` (provided this middleware is loaded within
-`.neutrinorc.js` in this example):
+command. The results of this command can be returned with `call`, which is loaded within
+`.neutrinorc.js` in this example:
 
 ```js
 const { Neutrino } = require('neutrino');
 
-const eslintConfig = Neutrino().call('eslintrc');
+const eslintConfig = Neutrino()
+  .use('.neutrinorc.js')
+  .call('eslintrc');
 ```
 
-### `run(commandName, middleware)`
+### `run(commandName)`
 
-This API method will invoke a command function that has been previously defined by the `register` method after
-consuming any specified middleware. The `commandName` argument should be a String, and optionally `middleware`
-should be an Array of middleware formats. If `middleware` is not specified, Neutrino will load middleware from the
-local `.neutrinorc.js` file.
-
-The Neutrino package exports functions to automate key parts of interacting with the Neutrino API, and they are named
-`build`, `inspect`, `start`, and `test`. These are functions that are invoked when using the CLI.
+This API method will invoke a command function that has been previously defined by the `register` method.
+The `commandName` argument should be a String. Any necessary middleware should be used prior to invoking `run`.
 
 Every runnable command performs the following flow:
 
-- Requires and `use`s provided middleware, or pulls from `.neutrinorc.js` if not specified
 - Triggers all `pre*` event handlers for the given command name
 - Triggers all `prerun` event handlers
-- Invokes the given registered command name
+- Invokes the given registered command function
 - Triggers all event handlers for the given command name
 - Triggers all `run` event handlers
 
@@ -419,7 +413,29 @@ be resolved with the resolution value of the command, or rejected with any error
 value from the registered command can be any synchronous value, Promise, or Future, and Neutrino will properly chain
 from this.
 
-_Example: execute the `jsonify` command we registered in the `register()` example`:
+The Neutrino package exports functions to automate key parts of interacting with the Neutrino API, and they are named
+`build`, `inspect`, `start`, and `test`. These are command functions that are invoked when using the CLI.
+As an example, the CLI does this similar to the following:
+
+```js
+const { Neutrino, build } = require('neutrino');
+
+const api = Neutrino();
+
+api.register('build', build);
+
+// later
+api
+  .use(middleware)
+  .run('build')
+  .fork(
+    (errs) => { /* handle errors */ },
+    () => { /* handle success */ }
+  );
+
+```
+
+_Example: execute the `jsonify` command we registered in the `register()` example, and resolve with a Future`:
 
 ```js
 const api = Neutrino();
@@ -434,11 +450,22 @@ api
   .fork(console.error, json => console.log(json));
 ```
 
-The `run` method takes two arguments:
+_Example: execute the `jsonify` command we registered in the `register()` example, and resolve with a Promise`:
 
-- A String command name which the API can execute, which has been previously registered
-- An optional Array which will be iterated and used as middleware. Not providing this will cause Neutrino to attempt
-to load middleware from the local `.neutrinorc.js` file.
+```js
+const api = Neutrino();
+
+api.register('jsonify', config => Promise.resolve(JSON.stringify(config, null, 2)));
+
+// ...
+
+api
+  .run('jsonify')
+  .fork(console.error, json => console.log(json));
+```
+
+The `run` method takes a single argument, a String command name which the API can execute,
+which has been previously registered with `register`.
 
 Prior to starting this process, Neutrino will trigger and wait for `pre{command}` and `prerun` events to
 finish. After it is complete, Neutrino will trigger and wait for `{command}` and `run` events to finish.
@@ -447,9 +474,10 @@ finish. After it is complete, Neutrino will trigger and wait for `{command}` and
 const { Neutrino, build } = require('neutrino');
 const api = Neutrino();
 
-api.register('build', build);
-
-run('build', ['@neutrinojs/react'])
+api
+  .register('build', build)
+  .use('@neutrinojs/react')
+  .run('build')
   .fork(
     errors => errors.forEach(console.error),
     stats => console.log(stats.toString({ colors: true }))
@@ -461,7 +489,7 @@ run('build', ['@neutrinojs/react'])
 The following functions are exported from Neutrino and can be registered with the API to be executed from `run`
 (recommended) or `call`. These functions are used internally by the CLI, which creates its own instance of the API and
 registers them prior to `run`. Since each of them can be registered directly with the API, they each have the same
-signature accepting a Webpack configuration and an API instance.
+signature, accepting a Webpack configuration and an API instance.
 
 ### `start(webpackConfig, neutrinoApi)`
 
@@ -474,22 +502,23 @@ kick off the runnable flow. This Future will be resolved with a Webpack compiler
 additional build events), or reject with an **array of errors**. This resolution will be completed when the dev server
 or Webpack watcher has been started.
 
-Using the `run` method:
+_Example: using the `run` method:_
 
 ```js
 const { Neutrino, start } = require('neutrino');
 const api = Neutrino();
 
-api.register('start', start);
-
-api.run('start', ['@neutrinojs/react'])
+api
+  .register('start', start)
+  .use('@neutrinojs/react')
+  .run('start')
   .fork(
     errors => errors.forEach(err => console.error(err)),
     compiler => console.log('App running!')
   );
 ```
 
-Calling `start` manually:
+_Example: calling `start` manually:_
 
 ```js
 const { Neutrino, start } = require('neutrino');
@@ -512,22 +541,23 @@ The `build` function returns a [`Future`](https://github.com/fluture-js/Fluture)
 kick off the runnable flow. This Future will be resolved with a Webpack stats object about the build, or reject with an
 **array of errors**. This resolution will be completed when the build has been completed.
 
-Using the `run` method:
+_Example: using the `run` method:_
 
 ```js
 const { Neutrino, build } = require('neutrino');
 const api = Neutrino();
 
-api.register('build', build);
-
-api.run('build', ['@neutrinojs/node'])
+api
+  .register('build', build)
+  .use('@neutrinojs/node')
+  .run('build')
   .fork(
     errors => errors.forEach(err => console.error(err)),
     stats => console.log(stats.toString({ colors: true }))
   );
 ```
 
-Calling `build` manually:
+_Example: calling `build` manually_:
 
 ```js
 const { Neutrino, build } = require('neutrino');
@@ -558,15 +588,17 @@ The `test` function returns a [`Future`](https://github.com/fluture-js/Fluture) 
 kick off the runnable flow. This Future will be resolved, or reject with an error. This resolution will be completed
 when the testing has been finished.
 
-Using the `run` method:
+_Example: Using the `run` method:_
 
 ```js
 const { Neutrino, test } = require('neutrino');
 const api = Neutrino();
 
-api.register('test', test);
-
-api.run('test', ['@neutrinojs/node', '@neutrinojs/mocha'])
+api
+  .register('test', test)
+  .use('@neutrinojs/node')
+  .use('@neutrinojs/mocha')
+  .run('test')
   .fork(
     err => console.error(err),
     () => console.log('Testing completed!')
@@ -580,23 +612,26 @@ const api = Neutrino({
   }
 });
 
-api.register('test', test);
-
-api.run('test', ['@neutrinojs/node', '@neutrinojs/mocha'])
+api
+  .register('test', test)
+  .use('@neutrinojs/node')
+  .use('@neutrinojs/mocha')
+  .run('test')
   .fork(
     errors => errors.forEach(err => console.error(err)),
     () => console.log('Testing completed!')
   );
 ```
 
-Calling `test` manually:
+_Example: calling `test` manually:_
 
 ```js
 const { Neutrino, test } = require('neutrino');
 const api = Neutrino();
 
-api.use('@neutrinojs/node');
-api.use('@neutrinojs/mocha');
+api
+  .use('@neutrinojs/node')
+  .use('@neutrinojs/mocha');
 
 test(api.config.toConfig(), api)
   .fork(
@@ -618,22 +653,23 @@ The `inspect` function returns a [`Future`](https://github.com/fluture-js/Flutur
 kick off the runnable flow. This Future will be resolved with a string representation of the Webpack config, or reject
 with an error.
 
-Using the `run` method:
+_Example: using the `run` method:_
 
 ```js
 const { Neutrino, inspect } = require('neutrino');
 const api = Neutrino();
 
-api.register('inspect', inspect);
-
-api.run('inspect', ['@neutrinojs/node'])
+api
+  .register('inspect', inspect)
+  .use('@neutrinojs/node')
+  .run('inspect')
   .fork(
     errors => errors.forEach(err => console.error(err)),
     config => console.log(config)
   );
 ```
 
-Calling `inspect` manually:
+_Example: calling `inspect` manually:_
 
 ```js
 const { Neutrino, inspect } = require('neutrino');
