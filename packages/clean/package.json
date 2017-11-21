@@ -15,7 +15,7 @@
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
     "clean-webpack-plugin": "^0.1.17",
-    "deepmerge": "^1.5.2"
+    "deepmerge": "^2.0.0"
   },
   "peerDependencies": {
     "neutrino": "^7.0.0"

@@ -16,7 +16,7 @@
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
     "babel-eslint": "^8.0.1",
-    "deepmerge": "^1.5.2",
+    "deepmerge": "^2.0.0",
     "eslint": "^4.7.2",
     "eslint-loader": "^1.9.0",
     "eslint-plugin-babel": "^4.1.2",

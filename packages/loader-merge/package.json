@@ -16,7 +16,7 @@
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
-    "deepmerge": "^1.5.2"
+    "deepmerge": "^2.0.0"
   },
   "peerDependencies": {
     "neutrino": "^7.0.0"

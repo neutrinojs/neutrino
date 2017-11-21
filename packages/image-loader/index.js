@@ -1,27 +1,31 @@
 const merge = require('deepmerge');
 
-module.exports = ({ config }, options = {}) => {
-  const { limit } = merge({ limit: 8192 }, options);
+module.exports = (neutrino, options = {}) => {
+  const isBuild = neutrino.options.command === 'build';
   const urlLoader = require.resolve('url-loader');
+  const { limit, name } = merge({
+    limit: 8192,
+    name: isBuild ? '[name].[hash].[ext]' : '[name].[ext]'
+  }, options);
 
-  config.module
+  neutrino.config.module
     .rule('svg')
     .test(/\.svg(\?v=\d+\.\d+\.\d+)?$/)
     .use('url')
       .loader(urlLoader)
-      .options(merge({ limit }, options.svg || {}));
+      .options(merge({ limit, name }, options.svg || {}));
 
-  config.module
+  neutrino.config.module
     .rule('img')
     .test(/\.(png|jpg|jpeg|gif|webp)(\?v=\d+\.\d+\.\d+)?$/)
     .use('url')
       .loader(urlLoader)
-      .options(merge({ limit }, options.img || {}));
+      .options(merge({ limit, name }, options.img || {}));
 
-  config.module
+  neutrino.config.module
     .rule('ico')
     .test(/\.ico(\?v=\d+\.\d+\.\d+)?$/)
     .use('url')
       .loader(urlLoader)
-      .options(merge({ limit }, options.ico || {}));
+      .options(merge({ limit, name }, options.ico || {}));
 };

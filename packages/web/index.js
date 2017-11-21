@@ -37,16 +37,7 @@ module.exports = (neutrino, opts = {}) => {
       async: true
     },
     babel: {},
-    targets: {
-      browsers: [
-        'last 2 Chrome versions',
-        'last 2 Firefox versions',
-        'last 2 Edge versions',
-        'last 2 Opera versions',
-        'last 2 Safari versions',
-        'last 2 iOS versions'
-      ]
-    }
+    targets: {}
   }, opts);
 
   if (typeof options.devServer.proxy === 'string') {
@@ -62,6 +53,17 @@ module.exports = (neutrino, opts = {}) => {
     hot: options.hot !== false,
     publicPath: resolve('/', options.publicPath)
   }, options.devServer);
+
+  if (!options.targets.node && !options.targets.browsers) {
+    options.targets.browsers = [
+      'last 2 Chrome versions',
+      'last 2 Firefox versions',
+      'last 2 Edge versions',
+      'last 2 Opera versions',
+      'last 2 Safari versions',
+      'last 2 iOS versions'
+    ];
+  }
 
   Object.assign(options, {
     babel: compileLoader.merge({

@@ -14,9 +14,9 @@
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
-    "deepmerge": "^1.5.2",
+    "deepmerge": "^2.0.0",
     "file-loader": "^1.0.0",
-    "url-loader": "^0.5.8"
+    "url-loader": "^0.6.0"
   },
   "peerDependencies": {
     "neutrino": "^7.0.0"
