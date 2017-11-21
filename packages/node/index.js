@@ -120,7 +120,7 @@ module.exports = (neutrino, opts = {}) => {
       config.devtool('inline-sourcemap');
       config.output.devtoolModuleFilenameTemplate('[absolute-resource-path]');
     })
-    .when(neutrino.options.env.NODE_ENV === 'production', (config) => {
+    .when(neutrino.options.optimize, (config) => {
       config.plugin('module-concat').use(optimize.ModuleConcatenationPlugin);
     })
     .when(neutrino.options.command === 'build', () => {
