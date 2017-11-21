@@ -63,14 +63,14 @@ module.exports = (neutrino, opts = {}) => {
   neutrino.config.resolveLoader.modules.add(MODULES);
 
   try {
-    const pkg = require(join(neutrino.options.root, 'package.json'));
+    const pkg = require(join(neutrino.options.root, 'package.json')); // eslint-disable-line global-require
     const hasSourceMap = (pkg.dependencies && 'source-map-support' in pkg.dependencies) ||
       (pkg.devDependencies && 'source-map-support' in pkg.devDependencies);
 
     if (hasSourceMap) {
       neutrino.use(banner);
     }
-  } catch (ex) {}
+  } catch (ex) {} // eslint-disable-line
 
   neutrino.use(compileLoader, {
     include: [
