@@ -18,7 +18,7 @@
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
-    "deepmerge": "^2.0.0",
+    "deepmerge": "^1.5.2",
     "opn": "^5.1.0",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.9.4"

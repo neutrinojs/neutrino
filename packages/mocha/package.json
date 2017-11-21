@@ -16,7 +16,7 @@
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "babel-register": "^6.26.0",
     "change-case": "^3.0.1",
-    "deepmerge": "^2.0.0",
+    "deepmerge": "^1.5.2",
     "mocha": "^4.0.0",
     "ramda": "^0.25.0"
   },
