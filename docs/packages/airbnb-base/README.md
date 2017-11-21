@@ -123,12 +123,7 @@ you want to ease introduction of this linting preset to your project, consider o
 ```bash
 ❯ yarn build
 
-clean-webpack-plugin: /web/build has been removed.
-Build completed in 1.287s
-
-./src/index.js
-
-/Users/eli/code/neutrino-examples/web/src/index.js
+/web/src/index.js
   6:1   warning  Unexpected console statement            no-console
   6:14  error    A space is required after '{'           babel/object-curly-spacing
   6:16  error    Missing space before value for key 'a'  key-spacing
@@ -261,13 +256,14 @@ _Example: Create a .eslintrc.js file in the root of the project, using `.neutrin
 
 ```js
 // .eslintrc.js
-
-// If you do not specify any middleware to call(),
-// it will use the local .neutrinorc.js file
-
 const { Neutrino } = require('neutrino');
 
-module.exports = Neutrino().call('eslintrc');
+// Specify middleware to Neutrino prior to calling eslintrc.
+// Even if using .neutrinorc.js, you must specify it when using
+// the API
+module.exports = Neutrino()
+  .use('.neutrinorc.js')
+  .call('eslintrc');
 ```
 
 _Example: Create a .eslintrc.js file in the root of the project, using specified middleware._
@@ -276,14 +272,17 @@ _Example: Create a .eslintrc.js file in the root of the project, using specified
 // .eslintrc.js
 const { Neutrino } = require('neutrino');
 
-module.exports = Neutrino().call('eslintrc', [
-  ['@neutrinojs/airbnb-base', {
+// Specify middleware to Neutrino prior to calling eslintrc.
+// You can choose to not use .neutrinorc.js as the middleware to
+// use if you prefer, specifying any middleware you wish.
+module.exports = Neutrino()
+  .use('@neutrinojs/airbnb-base', {
     eslint: {
       rules: { semi: 'off' }
     }
-  }],
-  '@neutrinojs/react'
-]);
+  })
+  .use('@neutrinojs/react')
+  .call('eslintrc');
 ```
 
 If you are able, only use a `.eslintrc.js` file for editor hints, and use the Neutrino `lint` command for one-off linting
