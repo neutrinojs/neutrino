@@ -12,6 +12,13 @@ test('uses preset', t => {
   t.notThrows(() => api.use(require('..')));
 });
 
+test('uses preset with custom entry', t => {
+  const api = Neutrino({ entry: 'server' });
+
+  t.notThrows(() => api.use(require('..')));
+  t.true(api.config.entryPoints.has('server'));
+});
+
 test('valid preset production', t => {
   const api = Neutrino({ env: { NODE_ENV: 'production' } });
   
