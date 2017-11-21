@@ -36,16 +36,30 @@ and plug it into Neutrino:
 ```js
 // Using function middleware format
 const images = require('@neutrinojs/image-loader');
-const images = require('@neutrinojs/imagemin');
+const imagemin = require('@neutrinojs/imagemin');
 
 // Use with default options
 neutrino.use(images);
-neutrino.use(imageMin);
+neutrino.use(imagemin);
 
 // Usage showing default options
-neutrino.use(imageMin, {
-  imagemin: {},
-  plugin: {}
+neutrino.use(imagemin, {
+	imagemin: {
+	  plugins: [
+	    gifsicle(),
+	    svgo(),
+	    pngquant(),
+	    mozjpeg(),
+	    webp()
+	  ]
+	},
+	plugin: {
+	  name: '[path][name].[ext]',
+	  test: /\.(png|jpg|jpeg|gif|webp)$/
+	},
+	pluginId: 'imagemin',
+	useId: 'imagemin',
+	rules: ['svg', 'img']
 });
 ```
 
@@ -61,15 +75,20 @@ module.exports = {
 module.exports = {
   use: [
     ['@neutrinojs/imagemin', {
-      imagemin: {},
-      plugin: {}
+	imagemin: {},
+	plugin: {
+	  name: '[path][name].[ext]',
+	  test: /\.(png|jpg|jpeg|gif|webp)$/
+	},
+	rules: ['svg', 'img']
     }]
   ]
 };
 ```
 
-- `imagemin`: Set options for imagemin.
-- `plugin`: Set options for imagemin-webpack's ImageminWebpackPlugin.
+- `imagemin`: Set options for [imagemin](https://github.com/imagemin/imagemin#options).
+- `plugin`: Set options for [imagemin-webpack](https://github.com/itgalaxy/imagemin-webpack#standalone-plugin)'s ImageminWebpackPlugin.
+- `rules`: Specify rules to apply imagemin to
 
 ## Customization
 
