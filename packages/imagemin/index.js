@@ -21,7 +21,7 @@ module.exports = (neutrino, opts = {}) => {
     },
     plugin: {
       name: '[path][name].[ext]',
-      test: /\.(png|jpg|jpeg|gif|webp)$/
+      test: /\.(svg|png|jpg|jpeg|gif|webp)$/
     },
     pluginId: 'imagemin',
     useId: 'imagemin',
