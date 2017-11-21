@@ -1,12 +1,12 @@
 const merge = require('deepmerge');
-
-const imageminLoader = require.resolve('imagemin-webpack/imagemin-loader');
 const ImageminWebpackPlugin = require('imagemin-webpack/ImageminWebpackPlugin');
 const gifsicle = require('imagemin-gifsicle');
 const svgo = require('imagemin-svgo');
 const pngquant = require('imagemin-pngquant');
 const mozjpeg = require('imagemin-mozjpeg');
 const webp = require('imagemin-webp');
+
+const imageminLoader = require.resolve('imagemin-webpack/imagemin-loader');
 
 module.exports = (neutrino, opts = {}) => {
   const options = merge({
