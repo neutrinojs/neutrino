@@ -135,7 +135,7 @@ module.exports = (neutrino, opts = {}) => {
       neutrino.use(devServer, options.devServer);
       config.when(options.hot, () => neutrino.use(hot));
     })
-    .when(neutrino.options.optimize, () => {
+    .when(process.env.NODE_ENV === 'production', () => {
       neutrino.use(chunk);
       neutrino.use(minify);
       neutrino.config.plugin('module-concat')
