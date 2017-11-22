@@ -3,11 +3,9 @@ const merge = require('deepmerge');
 const Future = require('fluture');
 const mitt = require('mitt');
 const {
-  cond, defaultTo, is, map, omit, pipe, prop
+  defaultTo, is, map, omit, prop
 } = require('ramda');
 const { normalizePath, toArray, req } = require('./utils');
-
-const rc = '.neutrinorc.js';
 
 // getRoot :: Object -> String
 const getRoot = prop('root');
@@ -80,124 +78,141 @@ const mergeOptions = (options, newOptions) => {
 };
 /* eslint-enable no-param-reassign */
 
-// Api :: Object? -> Object
-const Api = pipe(getOptions, (options) => {
-  const listeners = {};
-  const api = merge(mitt(listeners), {
-    listeners,
-    options,
-    commands: {},
-    config: new Config(),
+class Api {
+  constructor(options) {
+    this.options = getOptions(options);
+    this.listeners = {};
+    this.emitter = mitt(this.listeners);
+    this.commands = {};
+    this.config = new Config();
+  }
 
-    // emitForAll :: String -> payload -> Promise
-    emitForAll: (eventName, payload) => Promise
-      .all((api.listeners[eventName] || []).map(f => f(payload))),
+  emit(...args) {
+    return this.emitter.emit(...args);
+  }
 
-    // register :: String commandName -> Function handler -> ()
-    register: (commandName, handler) => (api.commands[commandName] = handler),
+  on(...args) {
+    return this.emitter.on(...args);
+  }
 
-    // require :: String moduleId -> a
-    require: (moduleId, root = api.options.root) => req(moduleId, root),
+  off(...args) {
+    return this.emitter.off(...args);
+  }
 
-    // use :: a middleware -> Object options -> IO ()
-    use: (middleware, options) => cond([
+  // emitForAll :: String eventName -> Any payload -> Promise
+  emitForAll(eventName, payload) {
+    return Promise.all([
+      ...(this.listeners[eventName] || []).map(f => f(payload)),
+      ...(this.listeners['*'] || []).map(f => f(eventName, payload))
+    ]);
+  }
+
+  // register :: String commandName -> Function handler -> Api
+  register(commandName, handler) {
+    this.commands[commandName] = handler;
+    return this;
+  }
+
+  // require :: String moduleId -> Any
+  require(moduleId, root = this.options.root) {
+    return req(moduleId, root);
+  }
+
+  // use :: Any middleware -> Object options -> IO Api
+  use(middleware, options) {
+    if (is(Function, middleware)) {
       // If middleware is a function, invoke it with the provided options
-      [is(Function), () => middleware(api, options)],
-
+      middleware(this, options);
+    } else if (is(String, middleware)) {
       // If middleware is a string, it's a module to require. Require it, then run the results back
       // through .use() with the provided options
-      [is(String), () => api.use(api.require(middleware, api.options.root), options)],
-
+      this.use(this.require(middleware, this.options.root), options);
+    } else if (is(Array, middleware)) {
       // If middleware is an array, it's a pair of some other middleware type and options
-      [is(Array), () => api.use(...middleware)],
-
+      this.use(...middleware);
+    } else if (is(Object, middleware)) {
       // If middleware is an object, it could contain other middleware in its "use" property.
       // Run every item in "use" prop back through .use(), plus set any options.
       // The value of "env" will also be consumed as middleware, which will potentially load more middleware and
       // options
-      [is(Object), () => {
-        if (middleware.options) {
-          api.options = mergeOptions(api.options, middleware.options);
-        }
-
-        if (middleware.env) {
-          const envMiddleware = Object
-            .keys(middleware.env)
-            .map((key) => {
-              const envValue = api.options.env[key] || process.env[key];
-              const env = middleware.env[key][envValue];
-
-              if (!env) {
-                return null;
-              }
-
-              if (!is(Object, env) || !env.options) {
-                return env;
-              }
-
-              api.options = mergeOptions(api.options, env.options);
-
-              return omit(['options'], env);
-            });
-
-          if (middleware.use) {
-            map(api.use, middleware.use);
-          }
-
-          map(api.use, envMiddleware.filter(Boolean));
-        } else if (middleware.use) {
-          map(api.use, middleware.use);
-        }
-      }]
-    ])(middleware),
-
-    // call :: String commandName -> Array middleware -> IO a
-    call: (commandName, middleware = [rc]) => {
-      map(api.use, middleware);
-
-      const command = api.commands[commandName];
-
-      if (!command) {
-        throw new Error(`A command with the name "${commandName}" was not registered`);
+      if (middleware.options) {
+        this.options = mergeOptions(this.options, middleware.options);
       }
 
-      return command(api.config.toConfig(), api);
-    },
+      if (middleware.env) {
+        const envMiddleware = Object
+          .keys(middleware.env)
+          .map((key) => {
+            const envValue = this.options.env[key] || process.env[key];
+            const env = middleware.env[key][envValue];
 
-    // run :: String commandName -> Array middleware -> Future
-    run: (commandName, middleware = [rc]) => Future
-      // Require and use all middleware
-      .try(() => map(api.use, middleware))
-      // Trigger all pre-events for the current command
-      .chain(() => Future.encaseP2(api.emitForAll, `pre${commandName}`, api.options.args))
-      // Trigger generic pre-event
-      .chain(() => Future.encaseP2(api.emitForAll, 'prerun', api.options.args))
-      // Execute the command
-      .chain(() => {
-        const command = api.commands[commandName];
+            if (!env) {
+              return null;
+            }
 
-        if (!command) {
-          return Future.reject(new Error(`A command with the name "${commandName}" was not registered`));
+            if (!is(Object, env) || !env.options) {
+              return env;
+            }
+
+            this.options = mergeOptions(this.options, env.options);
+
+            return omit(['options'], env);
+          });
+
+        if (middleware.use) {
+          map(use => this.use(use), middleware.use);
         }
 
-        const result = command(api.config.toConfig(), api);
+        map(env => this.use(env), envMiddleware.filter(Boolean));
+      } else if (middleware.use) {
+        map(use => this.use(use), middleware.use);
+      }
+    }
 
-        return Future.isFuture(result) ?
-          result :
-          Future.tryP(() => Promise.resolve().then(() => result));
-      })
-      // Trigger all post-command events, resolving with the value of the command execution
-      .chain(value => Future
-        .encaseP2(api.emitForAll, commandName, api.options.args)
-        .chain(() => Future.of(value)))
-      // Trigger generic post-event, resolving with the value of the command execution
-      .chain(value => Future
-        .encaseP2(api.emitForAll, 'run', api.options.args)
-        .chain(() => Future.of(value)))
-      .mapRej(toArray)
-  });
+    return this;
+  }
 
-  return api;
-});
+  // call :: String commandName -> IO Any
+  call(commandName) {
+    const command = this.commands[commandName];
 
-module.exports = Api;
+    if (!command) {
+      throw new Error(`A command with the name "${commandName}" was not registered`);
+    }
+
+    return command(this.config.toConfig(), this);
+  }
+
+  // run :: String commandName -> Future
+  run(commandName) {
+    const emitForAll = this.emitForAll.bind(this);
+    const command = this.commands[commandName];
+
+    return Future((reject, resolve) => (command ?
+      resolve() :
+      reject(new Error(`A command with the name "${commandName}" was not registered`))))
+    // Trigger all pre-events for the current command
+    .chain(() => Future.encaseP2(emitForAll, `pre${commandName}`, this.options.args))
+    // Trigger generic pre-event
+    .chain(() => Future.encaseP2(emitForAll, 'prerun', this.options.args))
+    // Execute the command
+    .chain(() => {
+      const result = command(this.config.toConfig(), this);
+
+      return Future.isFuture(result) ?
+        result :
+        Future.tryP(() => Promise.resolve().then(() => result));
+    })
+    // Trigger all post-command events, resolving with the value of the command execution
+    .chain(value => Future
+      .encaseP2(emitForAll, commandName, this.options.args)
+      .chain(() => Future.of(value)))
+    // Trigger generic post-event, resolving with the value of the command execution
+    .chain(value => Future
+      .encaseP2(emitForAll, 'run', this.options.args)
+      .chain(() => Future.of(value)))
+    .mapRej(toArray);
+  }
+}
+
+module.exports = options => new Api(options);

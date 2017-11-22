@@ -16,8 +16,11 @@
   "scripts": {
     "validate:eslintrc:root": "eslint --no-eslintrc --print-config . -c ./.eslintrc.js > /dev/null",
     "validate:eslintrc:eslint": "eslint --no-eslintrc --print-config . -c ./packages/eslint/eslintrc.js > /dev/null",
+    "validate:eslintrc:airbnb": "eslint --no-eslintrc --print-config . -c ./packages/airbnb/eslintrc.js > /dev/null",
     "validate:eslintrc:airbnb-base": "eslint --no-eslintrc --print-config . -c ./packages/airbnb-base/eslintrc.js > /dev/null",
-    "validate:eslintrc": "yarn validate:eslintrc:eslint && yarn validate:eslintrc:airbnb-base && yarn validate:eslintrc:root",
+    "validate:eslintrc:standardjs": "eslint --no-eslintrc --print-config . -c ./packages/standardjs/eslintrc.js > /dev/null",
+    "validate:eslintrc": "yarn validate:eslintrc:eslint && yarn validate:eslintrc:airbnb-base && yarn validate:eslintrc:airbnb && yarn validate:eslintrc:standardjs && yarn validate:eslintrc:root",
+    "link:all": "lerna exec yarn link",
     "lint": "node packages/neutrino/bin/neutrino lint",
     "changelog": "auto-changelog --remote upstream --commit-limit false",
     "docs:build": "gitbook build && cp CNAME _book",
@@ -33,8 +36,10 @@
     "auto-changelog": "^1.1.0",
     "ava": "^0.23.0",
     "codecov": "^3.0.0",
+    "eslint-config-prettier": "^2.8.0",
     "eslint-plugin-prettier": "^2.3.1",
-    "gh-pages": "^1.0.0",
+    "eslint-plugin-react": "^7.4.0",
+    "gh-pages": "^1.1.0",
     "gitbook-cli": "^2.3.2",
     "gitbook-plugin-anchorjs": "^1.1.1",
     "gitbook-plugin-edit-link": "^2.0.2",
@@ -42,17 +47,13 @@
     "gitbook-plugin-npmsearchlist": "^1.0.0",
     "gitbook-plugin-prism": "^2.3.0",
     "husky": "^0.14.3",
-    "lerna": "^2.4.0",
+    "lerna": "^2.5.1",
     "lint-staged": "^5.0.0",
     "nyc": "^11.2.1",
-    "prettier": "^1.7.2"
+    "prettier": "^1.8.2"
   },
   "lint-staged": {
     "*.js": [
-      "yarn lint --fix",
-      "git add"
-    ],
-    "packages/neutrino/bin/neutrino": [
       "yarn lint --fix",
       "git add"
     ]

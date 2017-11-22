@@ -199,21 +199,22 @@ test('creates a Webpack config', t => {
 test('throws when trying to call() a non-registered command', t => {
   const api = Neutrino();
 
-  const err = t.throws(() => api.call('non-registered', []));
+  const err = t.throws(() => api.call('non-registered'));
 
   t.true(err.message.includes('was not registered'));
 });
 
 test('fails when trying to run() a non-registered command', async t => {
-  await t.throws(Neutrino().run('non-registered', []).promise());
+  await t.throws(Neutrino().run('non-registered').promise());
 });
 
 test('throws when trying to validate config with no entry point', async t => {
   const api = Neutrino();
 
   api.register('build', build);
+  const result = api.run('build').promise();
 
-  const errors = await t.throws(api.run('build', []).promise());
+  const [err] = await t.throws(result);
 
-  t.true(errors[0].message.includes(`configuration misses the property 'entry'`));
+  t.true(err.message.includes(`configuration misses the property 'entry'`));
 });

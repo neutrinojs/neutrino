@@ -8,13 +8,12 @@ const yargs = require('yargs');
 const {
   cond, equals, map, T
 } = require('ramda');
-const exists = require('file-exists');
 const build = require('./build');
 const inspect = require('./inspect');
 const start = require('./start');
 const test = require('./test');
 const execute = require('./execute');
-const { req } = require('../src/utils');
+const { exists, req } = require('../src/utils');
 
 const cwd = process.cwd();
 const args = yargs
@@ -53,6 +52,12 @@ const args = yargs
     default: [],
     global: true
   })
+  .option('--no-tty', {
+    description: 'Disable text terminal interactions',
+    boolean: true,
+    default: false,
+    global: true
+  })
   .command('start', 'Build a project in development mode')
   .command('build', 'Compile the source directory to a bundled build')
   .command('test [files..]', 'Run all suites from the test directory or provided files', {
@@ -71,6 +76,8 @@ const args = yargs
   .recommendCommands()
   .argv;
 
+global.interactive = !args.noTty && (process.stderr && process.stderr.isTTY) && !process.env.CI;
+
 const command = args._[0];
 
 if (!command) {
@@ -80,10 +87,8 @@ if (!command) {
 
 const rc = '.neutrinorc.js';
 const cmd = args.inspect ? 'inspect' : command;
-const middleware = [...new Set([
-  ...(exists.sync(rc, { root: process.cwd() }) ? [rc] : []),
-  ...args.use
-])];
+const hasRc = exists(process.cwd(), rc);
+const middleware = [...new Set(hasRc ? [rc] : args.use)];
 
 if (!middleware.length) {
   throw new Error('No middleware was found. Specify middleware with --use or create a .neutrinorc.js file.');

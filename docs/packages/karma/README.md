@@ -8,7 +8,7 @@
 
 ## Features
 
-- Zero upfront configuration necessary to start testing on real browsers with Karma, Mocha, and Chrome
+- Zero upfront configuration necessary to start testing on real browsers with Karma, Mocha, and Chrome Headless
 - Babel compilation that compiles your tests using the same Babel options used by your source code
 - Source watching for re-running of tests on change
 - Out-of-the-box support for running in CI
@@ -95,18 +95,17 @@ Run the tests, and view the results in your console:
 ❯ yarn test
 
 START:
-16 02 2017 10:36:34.713:INFO [karma]: Karma v1.7.1 server started at http://0.0.0.0:9876/
-16 02 2017 10:36:34.715:INFO [launcher]: Launching browser Chrome with unlimited concurrency
-16 02 2017 10:36:34.731:INFO [launcher]: Starting browser Chrome
-16 02 2017 10:36:35.655:INFO [Chrome 60 (Mac OS X 10.12.3)]: Connected on socket MkTbqJLpAAa2HFaeAAAA with id 21326158
+21 11 2017 06:56:39.804:INFO [karma]: Karma v1.7.1 server started at http://0.0.0.0:9876/
+21 11 2017 06:56:39.806:INFO [launcher]: Launching browser ChromeHeadless with unlimited concurrency
+21 11 2017 06:56:39.809:INFO [launcher]: Starting browser ChromeHeadless
+21 11 2017 06:56:40.170:INFO [HeadlessChrome 0.0.0 (Mac OS X 10.13.0)]: Connected on socket PW-kCVej8pQuT-HAAAAA with id 14691980
   simple
     ✔ should be sane
 
-Finished in 0.003 secs / 0 secs @ 10:36:35 GMT-0600 (CST)
+Finished in 0.005 secs / 0 secs @ 06:56:40 GMT-0600 (CST)
 
 SUMMARY:
 ✔ 1 test completed
-✨  Done in 7.54s.
 ```
 
 #### npm
@@ -115,14 +114,14 @@ SUMMARY:
 ❯ npm test
 
 START:
-16 02 2017 10:38:12.865:INFO [karma]: Karma v1.7.1 server started at http://0.0.0.0:9876/
-16 02 2017 10:38:12.867:INFO [launcher]: Launching browser Chrome with unlimited concurrency
-16 02 2017 10:38:12.879:INFO [launcher]: Starting browser Chrome
-16 02 2017 10:38:13.688:INFO [Chrome 60 (Mac OS X 10.12.3)]: Connected on socket svRGoxU0etKTKQWhAAAA with id 68456725
+21 11 2017 06:56:39.804:INFO [karma]: Karma v1.7.1 server started at http://0.0.0.0:9876/
+21 11 2017 06:56:39.806:INFO [launcher]: Launching browser ChromeHeadless with unlimited concurrency
+21 11 2017 06:56:39.809:INFO [launcher]: Starting browser ChromeHeadless
+21 11 2017 06:56:40.170:INFO [HeadlessChrome 0.0.0 (Mac OS X 10.13.0)]: Connected on socket PW-kCVej8pQuT-HAAAAA with id 14691980
   simple
     ✔ should be sane
 
-Finished in 0.006 secs / 0 secs @ 10:38:13 GMT-0600 (CST)
+Finished in 0.005 secs / 0 secs @ 06:56:40 GMT-0600 (CST)
 
 SUMMARY:
 ✔ 1 test completed
@@ -146,21 +145,6 @@ extension. Use the command line [`files` parameters](../../cli/README.md#neutrin
 
 `@neutrinojs/karma` can watch for changes on your source directory and subsequently re-run tests. Simply use the
 `--watch` flag with your `neutrino test` command.
-
-## Using from CI
-
-`@neutrinojs/karma` needs no additional configuration to run your tests in CI infrastructure, but you will still
-need to ensure your CI can actually run the tests. This usually means having a display emulator and access to the
-browsers you are testing against.
-
-To do this in Travis-CI, you will need to add the following to your `.travis.yml` file for Chrome tests:
-
-```yaml
-before_install:
-- export CHROME_BIN=chromium-browser
-- export DISPLAY=:99.0
-- sh -e /etc/init.d/xvfb start
-```
 
 ## Preset options
 
@@ -193,6 +177,40 @@ module.exports = {
     }]
   ]
 };
+```
+
+## Using from CI
+
+`@neutrinojs/karma` needs no additional configuration to run your tests in CI infrastructure when using Chrome Headless.
+If you decide to use a browser with a display, you will need to ensure your CI can actually run the tests similar to
+a headless mode. This usually means having a display emulator and access to the browsers you are testing against.
+
+For an example using Travis-CI and normal Chrome, you will need to add the following to your `.travis.yml` file:
+
+```yaml
+before_install:
+- export CHROME_BIN=chromium-browser
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+```
+
+You may also need to pass additional options to the Karma preset to change its behavior in CI, using standard
+Chrome as an example instead of Chrome Headless:
+
+```js
+module.exports = {
+  use: [
+    ['@neutrinojs/karma', {
+      browsers: [process.env.CI ? 'ChromeCI' : 'Chrome'],
+      customLaunchers: {
+        ChromeCI: {
+          base: 'Chrome',
+          flags: ['--no-sandbox']
+        }
+      },
+    }]
+  ]
+}
 ```
 
 ## Contributing

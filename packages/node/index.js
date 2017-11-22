@@ -42,6 +42,9 @@ module.exports = (neutrino, opts = {}) => {
     hot: true,
     polyfills: {
       async: true
+    },
+    targets: {
+      node: '6.10'
     }
   }, opts);
 
@@ -56,7 +59,7 @@ module.exports = (neutrino, opts = {}) => {
       presets: [
         [require.resolve('babel-preset-env'), {
           debug: neutrino.options.debug,
-          targets: { node: '6.10' },
+          targets: options.targets,
           modules: false,
           useBuiltIns: true,
           exclude: options.polyfills.async ? ['transform-regenerator', 'transform-async-to-generator'] : []

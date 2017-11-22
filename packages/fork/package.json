@@ -1,0 +1,27 @@
+{
+  "name": "@neutrinojs/fork",
+  "version": "7.3.1",
+  "description": "Neutrino middleware for forking the usage of other middleware into separate processes",
+  "main": "index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-middleware",
+    "fork",
+    "spawn",
+    "process",
+    "multiple",
+    "config"
+  ],
+  "author": "Eli Perelman <eli@eliperelman.com>",
+  "license": "MPL-2.0",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/fork",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "dependencies": {
+    "chalk": "^2.3.0",
+    "ramda": "^0.25.0"
+  },
+  "peerDependencies": {
+    "neutrino": "^7.0.0"
+  }
+}

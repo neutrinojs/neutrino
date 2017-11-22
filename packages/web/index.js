@@ -13,28 +13,58 @@ const minify = require('@neutrinojs/minify');
 const loaderMerge = require('@neutrinojs/loader-merge');
 const devServer = require('@neutrinojs/dev-server');
 const { join, basename } = require('path');
+const { resolve } = require('url');
 const merge = require('deepmerge');
 const ScriptExtHtmlPlugin = require('script-ext-html-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 const { optimize } = require('webpack');
 
 const MODULES = join(__dirname, 'node_modules');
 
 module.exports = (neutrino, opts = {}) => {
+  const publicPath = './';
   const options = merge({
+    publicPath,
     env: [],
     hot: true,
     html: {},
-    style: {
-      hot: opts.hot !== false
-    },
-    devServer: {
-      hot: opts.hot !== false
-    },
     polyfills: {
       async: true
     },
-    babel: {}
+    devServer: {
+      hot: opts.hot !== false,
+      publicPath: resolve('/', publicPath)
+    },
+    style: {
+      hot: opts.hot !== false
+    },
+    manifest: opts.html === false ? {} : false,
+    minify: {},
+    babel: {},
+    targets: {},
+    font: {},
+    image: {}
   }, opts);
+
+  if (typeof options.devServer.proxy === 'string') {
+    options.devServer.proxy = {
+      '**': {
+        target: options.devServer.proxy,
+        changeOrigin: true
+      }
+    };
+  }
+
+  if (!options.targets.node && !options.targets.browsers) {
+    options.targets.browsers = [
+      'last 2 Chrome versions',
+      'last 2 Firefox versions',
+      'last 2 Edge versions',
+      'last 2 Opera versions',
+      'last 2 Safari versions',
+      'last 2 iOS versions'
+    ];
+  }
 
   Object.assign(options, {
     babel: compileLoader.merge({
@@ -48,34 +78,29 @@ module.exports = (neutrino, opts = {}) => {
           modules: false,
           useBuiltIns: true,
           exclude: options.polyfills.async ? ['transform-regenerator', 'transform-async-to-generator'] : [],
-          targets: {
-            browsers: []
-          }
+          targets: options.targets
         }]
       ]
     }, options.babel)
   });
 
   const staticDir = join(neutrino.options.source, 'static');
-  const presetEnvOptions = options.babel.presets[0][1];
-
-  if (!presetEnvOptions.targets.browsers.length) {
-    presetEnvOptions.targets.browsers.push(
-      'last 2 Chrome versions',
-      'last 2 Firefox versions',
-      'last 2 Edge versions',
-      'last 2 Opera versions',
-      'last 2 Safari versions',
-      'last 2 iOS versions'
-    );
-  }
 
   neutrino.use(env, options.env);
   neutrino.use(htmlLoader);
-  neutrino.use(styleLoader, options.style);
-  neutrino.use(fontLoader);
-  neutrino.use(imageLoader);
-  neutrino.use(htmlTemplate, options.html);
+
+  if (options.style) {
+    neutrino.use(styleLoader, options.style);
+  }
+
+  if (options.font) {
+    neutrino.use(fontLoader, options.font);
+  }
+
+  if (options.image) {
+    neutrino.use(imageLoader, options.image);
+  }
+
   neutrino.use(compileLoader, {
     include: [
       neutrino.options.source,
@@ -93,7 +118,7 @@ module.exports = (neutrino, opts = {}) => {
       .end()
     .output
       .path(neutrino.options.output)
-      .publicPath('./')
+      .publicPath(options.publicPath)
       .filename('[name].js')
       .chunkFilename('[name].[chunkhash].js')
       .end()
@@ -119,9 +144,6 @@ module.exports = (neutrino, opts = {}) => {
       .set('fs', 'empty')
       .set('tls', 'empty')
       .end()
-    .plugin('script-ext')
-      .use(ScriptExtHtmlPlugin, [{ defaultAttribute: 'defer' }])
-      .end()
     .module
       .rule('worker')
         .test(/\.worker\.js$/)
@@ -130,6 +152,11 @@ module.exports = (neutrino, opts = {}) => {
           .end()
         .end()
       .end()
+    .when(options.html, (config) => {
+      neutrino.use(htmlTemplate, options.html);
+      config.plugin('script-ext')
+        .use(ScriptExtHtmlPlugin, [{ defaultAttribute: 'defer' }]);
+    })
     .when(neutrino.config.module.rules.has('lint'), () => neutrino
       .use(loaderMerge('lint', 'eslint'), {
         envs: ['browser', 'commonjs']
@@ -141,7 +168,11 @@ module.exports = (neutrino, opts = {}) => {
     })
     .when(process.env.NODE_ENV === 'production', () => {
       neutrino.use(chunk);
-      neutrino.use(minify);
+
+      if (options.minify) {
+        neutrino.use(minify, options.minify);
+      }
+
       neutrino.config.plugin('module-concat')
         .use(optimize.ModuleConcatenationPlugin);
     })
@@ -154,6 +185,12 @@ module.exports = (neutrino, opts = {}) => {
           to: basename(staticDir)
         }]
       });
+
+      if (options.manifest) {
+        neutrino.config.plugin('manifest')
+          .use(ManifestPlugin, [options.manifest]);
+      }
+
       config.output.filename('[name].[chunkhash].js');
     });
 };

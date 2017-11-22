@@ -44,6 +44,20 @@ The package.json for neutrino-dev defines several commands to assist in the deve
 
 ---
 
+`link:all`
+
+Runs `yarn link` against all packages in the neutrino-dev monorepo. This allows you to run `yarn link <package>`
+anywhere on your system for neutrino-dev packages, making testing of the packages simpler in local projects.
+
+```bash
+❯ yarn link:all
+
+# Elsewhere on your system
+❯ yarn link @neutrinojs/react
+```
+
+---
+
 `changelog`
 
 Generates a changelog for the `mozilla-neutrino/neutrino-dev` GitHub repository. This changelog is output to a
