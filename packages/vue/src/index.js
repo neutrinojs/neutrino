@@ -7,6 +7,8 @@ const LOADER_EXTENSIONS = /\.vue$/;
 const MODULES = path.join(__dirname, 'node_modules');
 
 module.exports = (neutrino, options) => {
+  neutrino.use(web, options);
+
   const lintRule = neutrino.config.module.rules.get('lint');
   const compileRule = neutrino.config.module.rules.get('compile');
 
@@ -18,6 +20,7 @@ module.exports = (neutrino, options) => {
 
   if (compileRule && compileRule.uses.has('babel')) {
     const babelOptions = compileRule.use('babel').get('options');
+
     neutrino.config.module
       .rule('vue')
       .use('vue')
@@ -30,8 +33,6 @@ module.exports = (neutrino, options) => {
         }
       }, vueLoaderOptions));
   }
-
-  neutrino.use(web, options);
 
   if (lintRule) {
     // ensure conditions is an array of original values plus our own regex
@@ -56,8 +57,8 @@ module.exports = (neutrino, options) => {
 
   if (neutrino.config.plugins.has('stylelint')) {
     neutrino.config.plugin('stylelint')
-      .tap(args => [
-        merge(args[0], {
+      .tap(([options, ...args]) => [
+        merge(options, {
           files: ['**/*.vue'],
           config: {
             processors: [require.resolve('stylelint-processor-html')],
@@ -66,7 +67,8 @@ module.exports = (neutrino, options) => {
               'no-empty-source': null
             }
           }
-        })
+        }),
+        ...args
       ]);
   }
 
