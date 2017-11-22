@@ -1,3 +1,4 @@
+const web = require('@neutrinojs/web');
 const path = require('path');
 const arrify = require('arrify');
 const merge = require('deepmerge');
@@ -5,34 +6,22 @@ const merge = require('deepmerge');
 const LOADER_EXTENSIONS = /\.vue$/;
 const MODULES = path.join(__dirname, 'node_modules');
 
-module.exports = ({ config }, options) => {
-  const styleRule = config.module.rules.get('style');
-  const lintRule = config.module.rules.get('lint');
-  const compileRule = config.module.rules.get('compile');
+module.exports = (neutrino, options) => {
+  neutrino.use(web, options);
 
-  config.module.rule('vue')
+  const lintRule = neutrino.config.module.rules.get('lint');
+  const compileRule = neutrino.config.module.rules.get('compile');
+
+  neutrino.config.module.rule('vue')
     .test(LOADER_EXTENSIONS)
     .use('vue')
     .loader(require.resolve('vue-loader'))
     .options(options);
 
-  config.resolve.extensions.add('.vue');
-
-  if (styleRule && styleRule.uses.has('postcss')) {
-    const postcssLoaderOptions = styleRule.use('postcss').get('options');
-    if (Object.getOwnPropertyNames(postcssLoaderOptions).length) { // check if object is not empty
-      config.module
-        .rule('vue')
-        .use('vue')
-        .tap((vueLoaderOptions = {}) => merge({
-          postcss: postcssLoaderOptions
-        }, vueLoaderOptions));
-    }
-  }
-
   if (compileRule && compileRule.uses.has('babel')) {
     const babelOptions = compileRule.use('babel').get('options');
-    config.module
+
+    neutrino.config.module
       .rule('vue')
       .use('vue')
       .tap((vueLoaderOptions = {}) => merge({
@@ -48,7 +37,7 @@ module.exports = ({ config }, options) => {
   if (lintRule) {
     // ensure conditions is an array of original values plus our own regex
     const conditions = arrify(lintRule.get('test')).concat([LOADER_EXTENSIONS]);
-    config.module
+    neutrino.config.module
       .rule('lint')
       .test(conditions)
       .use('eslint')
@@ -66,10 +55,10 @@ module.exports = ({ config }, options) => {
       }));
   }
 
-  if (config.plugins.has('stylelint')) {
-    config.plugin('stylelint')
-      .tap(args => [
-        merge(args[0], {
+  if (neutrino.config.plugins.has('stylelint')) {
+    neutrino.config.plugin('stylelint')
+      .tap(([options, ...args]) => [
+        merge(options, {
           files: ['**/*.vue'],
           config: {
             processors: [require.resolve('stylelint-processor-html')],
@@ -78,10 +67,15 @@ module.exports = ({ config }, options) => {
               'no-empty-source': null
             }
           }
-        })
+        }),
+        ...args
       ]);
   }
 
-  config.resolve.modules.add(MODULES);
-  config.resolveLoader.modules.add(MODULES);
+  neutrino.config
+    .resolve
+      .modules.add(MODULES).end()
+      .extensions.add('.vue').end()
+      .end()
+    .resolveLoader.modules.add(MODULES);
 };
