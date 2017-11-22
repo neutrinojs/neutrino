@@ -26,13 +26,25 @@ const pathOptions = [
 
 // getOptions :: Object? -> IO Object
 const getOptions = (opts = {}) => {
+  let extensions = new Set(['js', 'jsx', 'vue', 'ts', 'mjs']);
   const options = merge({
     env: {
       NODE_ENV: 'development'
     },
     debug: false,
-    quiet: false
+    quiet: false,
+    extensions
   }, opts);
+
+  Object.defineProperty(options, 'extensions', {
+    enumerable: true,
+    get() {
+      return new RegExp(`.(${[...extensions].join('|')})$`);
+    },
+    set(newValue) {
+      extensions = defaultTo(extensions, newValue);
+    }
+  });
 
   Object
     .keys(options.env)
