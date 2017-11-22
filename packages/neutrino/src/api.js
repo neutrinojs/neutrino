@@ -1,6 +1,7 @@
 const Config = require('webpack-chain');
 const merge = require('deepmerge');
 const Future = require('fluture');
+const { tail, equals } = require('ramda');
 const mitt = require('mitt');
 const {
   defaultTo, is, map, omit, prop
@@ -26,23 +27,25 @@ const pathOptions = [
 
 // getOptions :: Object? -> IO Object
 const getOptions = (opts = {}) => {
-  let extensions = new Set(['js', 'jsx', 'vue', 'ts', 'mjs']);
+  let fileExtensions = new Set(['js', 'jsx', 'vue', 'ts', 'mjs']);
   const options = merge({
     env: {
       NODE_ENV: 'development'
     },
     debug: false,
     quiet: false,
-    extensions
+    extensions: fileExtensions
   }, opts);
 
   Object.defineProperty(options, 'extensions', {
     enumerable: true,
     get() {
-      return new RegExp(`.(${[...extensions].join('|')})$`);
+      return [...fileExtensions];
     },
-    set(newValue) {
-      extensions = defaultTo(extensions, newValue);
+    set(extensions) {
+      const newExtensions = extensions.map(ext => equals(ext[0], '.') ? tail(ext) : ext);
+
+      fileExtensions = [...new Set(newExtensions)];
     }
   });
 
@@ -97,6 +100,10 @@ class Api {
     this.emitter = mitt(this.listeners);
     this.commands = {};
     this.config = new Config();
+  }
+
+  regexFromExtensions(extensions = this.options.extensions) {
+    return new RegExp(`.(${extensions.join('|')})$`);
   }
 
   emit(...args) {
