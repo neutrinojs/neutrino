@@ -10,29 +10,12 @@ module.exports = (neutrino, options) => {
   neutrino.use(web, options);
 
   const lintRule = neutrino.config.module.rules.get('lint');
-  const compileRule = neutrino.config.module.rules.get('compile');
 
   neutrino.config.module.rule('vue')
     .test(LOADER_EXTENSIONS)
     .use('vue')
     .loader(require.resolve('vue-loader'))
     .options(options);
-
-  if (compileRule && compileRule.uses.has('babel')) {
-    const babelOptions = compileRule.use('babel').get('options');
-
-    neutrino.config.module
-      .rule('vue')
-      .use('vue')
-      .tap((vueLoaderOptions = {}) => merge({
-        loaders: {
-          js: {
-            loader: 'babel-loader',
-            options: babelOptions
-          }
-        }
-      }, vueLoaderOptions));
-  }
 
   if (lintRule) {
     // ensure conditions is an array of original values plus our own regex
