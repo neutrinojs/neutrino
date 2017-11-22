@@ -165,6 +165,7 @@ The `@neutrinojs/web` preset loads assets relative to the path of your applicati
 assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
 override `output.publicPath`. See the [Customizing](#Customizing) section below.
 
+
 ## Preset options
 
 You can provide custom options and have them merged with this preset's default options to easily affect how this
@@ -188,19 +189,22 @@ module.exports = {
         title: 'Epic Vue App'
       },
 
+      // Target specific browsers with babel-preset-env
+      targets: {
+        browsers: [
+          'last 1 Chrome versions',
+          'last 1 Firefox versions'
+        ]
+      },
+
       // Add additional Babel plugins, presets, or env options
       babel: {
-        // Override options for babel-preset-env
+        // Override options for babel-preset-env:
         presets: [
           ['babel-preset-env', {
-            // Passing in targets to babel-preset-env will replace them
-            // instead of merging them
-            targets: {
-              browsers: [
-                'last 1 Chrome versions',
-                'last 1 Firefox versions'
-              ]
-            }
+            modules: false,
+            useBuiltIns: true,
+            exclude: ['transform-regenerator', 'transform-async-to-generator'],
           }]
         ]
       }
