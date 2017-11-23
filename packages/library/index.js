@@ -139,11 +139,18 @@ module.exports = (neutrino, opts = {}) => {
         neutrino.use(loaderMerge('lint', 'eslint'), { envs: ['browser', 'commonjs'] });
       }
     })
-    .when(process.env.NODE_ENV === 'production', () => {
+    .when(process.env.NODE_ENV === 'production', (config) => {
       neutrino.use(minify);
-      neutrino.config
-        .plugin('module-concat')
-          .use(optimize.ModuleConcatenationPlugin);
+      config.plugin('module-concat').use(optimize.ModuleConcatenationPlugin);
+
+      if (neutrino.options.debug) {
+        config.merge({
+          stats: {
+            maxModules: Infinity,
+            optimizationBailout: true
+          }
+        });
+      }
     })
     .when(neutrino.options.command === 'build', () => {
       neutrino.use(clean, { paths: [neutrino.options.output] });

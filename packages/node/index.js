@@ -122,6 +122,15 @@ module.exports = (neutrino, opts = {}) => {
     })
     .when(neutrino.options.env.NODE_ENV === 'production', (config) => {
       config.plugin('module-concat').use(optimize.ModuleConcatenationPlugin);
+
+      if (neutrino.options.debug) {
+        config.merge({
+          stats: {
+            maxModules: Infinity,
+            optimizationBailout: true
+          }
+        });
+      }
     })
     .when(neutrino.options.command === 'build', () => {
       neutrino.use(clean, { paths: [neutrino.options.output] });
