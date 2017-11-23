@@ -1,5 +1,5 @@
 const { ensureDirSync, readJsonSync, writeJsonSync } = require('fs-extra');
-const path = require('path');
+const { join } = require('path');
 const chalk = require('chalk');
 const stringify = require('javascript-stringify');
 const merge = require('deepmerge');
@@ -28,12 +28,12 @@ module.exports = class Project extends Generator {
     if (data.projectType === 'application' && data.project !== '@neutrinojs/node') {
       rc.use.push([data.project, {
         html: {
-          title: this.options.directory
+          title: this.options.name
         }
       }]);
     } else if (data.projectType === 'library') {
       rc.use.push([data.project, {
-        name: this.options.directory
+        name: this.options.name
       }]);
     } else {
       rc.use.push(data.project);
@@ -60,6 +60,7 @@ module.exports = class Project extends Generator {
     } else if (deps.devDependencies.length) {
       return { devDependencies: deps.devDependencies };
     }
+
     return {};
   }
 
@@ -83,13 +84,13 @@ module.exports = class Project extends Generator {
     ensureDirSync(this.options.directory);
 
     const command = this.spawnCommand(installer, ['init', '--yes'], {
-      cwd: path.resolve(this.options.directory),
+      cwd: this.options.directory,
       stdio: 'ignore'
     });
 
     command.on('close', () => {
-      const jsonPath = path.join(this.options.directory, 'package.json');
-      const json = readJsonSync(`./${jsonPath}`);
+      const jsonPath = join(this.options.directory, 'package.json');
+      const json = readJsonSync(jsonPath);
       const packageJson = Object.assign(json, { scripts });
 
       writeJsonSync(jsonPath, packageJson, { spaces: 2 });
@@ -101,9 +102,9 @@ module.exports = class Project extends Generator {
   prompting() {
     const done = this.async();
 
-    console.log(chalk.cyan.bold(this._logo()));
-    console.log(chalk.magenta.bold('Welcome to Neutrino!'));
-    console.log(chalk.cyan('To help you create your new project, I am going to ask you a few questions. :)\n'));
+    this.log(chalk.cyan.bold(this._logo()));
+    this.log(chalk.magenta.bold('Welcome to Neutrino!'));
+    this.log(chalk.cyan('To help you create your new project, I am going to ask you a few questions. :)\n'));
 
     this
       .prompt(questions())
@@ -112,61 +113,90 @@ module.exports = class Project extends Generator {
   }
 
   writing() {
-    const destinationPath = this.destinationPath(this.options.directory);
     const templateDir = this.data.project.replace('@neutrinojs/', '');
 
     this._initialPackageJson();
     this.fs.copyTpl(
       this.templatePath(`${templateDir}/src/**/*`),
-      path.join(destinationPath, 'src'),
+      join(this.options.directory, 'src'),
       { data: this.options }
     );
-    this.fs.write(path.join(destinationPath, '.neutrinorc.js'), this._makeRcFile(this.data));
+    this.fs.write(join(this.options.directory, '.neutrinorc.js'), this._makeRcFile(this.data));
 
     if (this.data.testRunner) {
-      const testDestinationDir = path.join(destinationPath, 'test');
+      const testDestinationDir = join(this.options.directory, 'test');
 
       ensureDirSync(testDestinationDir);
       this.fs.copy(
-        this.templatePath(path.join('test', `${this.data.testRunner.replace('@neutrinojs/', '')}.js`)),
-        path.join(testDestinationDir, 'simple_test.js')
+        this.templatePath(join('test', `${this.data.testRunner.replace('@neutrinojs/', '')}.js`)),
+        join(testDestinationDir, 'simple_test.js')
       );
     }
 
     if (this.data.linter) {
       this.fs.copy(
         this.templatePath('eslintrc.js'),
-        path.join(destinationPath, '.eslintrc.js')
+        join(this.options.directory, '.eslintrc.js')
       );
     }
   }
 
   install() {
-    const installer = isYarn ? 'yarn' : 'npm';
-    const argument = isYarn ? 'add' : 'install';
-    const development = isYarn ? '--dev' : '--save-dev';
+    const packageManager = isYarn ? 'yarn' : 'npm';
+    const install = isYarn ? 'add' : 'install';
+    const devFlag = isYarn ? '--dev' : '--save-dev';
     const { dependencies, devDependencies } = this._getDependencies();
 
     this.log(`\n${chalk.green('success')} Saved package.json`);
-    process.chdir(this.options.directory);
 
     if (dependencies) {
       this.log(`\n${chalk.green('Installing dependencies:')} ${chalk.yellow(dependencies.join(', '))}`);
-      this.spawnCommandSync(installer, [argument, ...dependencies], { stdio: 'inherit' });
+      this.spawnCommandSync(packageManager, [install, ...dependencies], {
+        cwd: this.options.directory,
+        stdio: this.options.stdio,
+        env: process.env
+      });
     }
 
     if (devDependencies) {
-      this.log(`\n${chalk.green('Installing dev-dependencies:')} ${chalk.yellow(devDependencies.join(', '))}`);
-      this.spawnCommandSync(installer, [argument, development, ...devDependencies], { stdio: 'inherit' });
+      if (process.env.NODE_ENV === 'test') {
+        const remote = devDependencies.filter(d => !d.includes('@neutrinojs'));
+        const local = devDependencies.filter(d => d.includes('@neutrinojs'));
+
+        if (remote.length) {
+          this.log(`\n${chalk.green('Installing remote devDependencies:')} ${chalk.yellow(remote.join(', '))}`);
+          this.spawnCommandSync(packageManager, [install, devFlag, ...remote], {
+            stdio: this.options.stdio,
+            env: process.env,
+            cwd: this.options.directory
+          });
+        }
+
+        if (local.length) {
+          this.log(`\n${chalk.green('Linking local devDependencies:')} ${chalk.yellow(local.join(', '))}`);
+          this.spawnCommandSync('yarn', ['link', ...local], {
+            stdio: this.options.stdio,
+            env: process.env,
+            cwd: this.options.directory
+          });
+        }
+      } else {
+        this.log(`\n${chalk.green('Installing devDependencies:')} ${chalk.yellow(devDependencies.join(', '))}`);
+        this.spawnCommandSync(packageManager, [install, devFlag, ...devDependencies], {
+          stdio: this.options.stdio,
+          env: process.env,
+          cwd: this.options.directory
+        });
+      }
     }
 
     if (this.data.linter) {
-      this.spawnCommandSync('neutrino', ['lint', '--fix'], { stdio: 'ignore' });
+      this.spawnCommandSync('neutrino', ['lint', '--fix'], { stdio: this.options.stdio, cwd: this.options.directory });
     }
   }
 
   end() {
-    this.log(`\n${chalk.green('Success!')} Created ${chalk.cyan(this.options.directory)} at ${chalk.yellow(process.cwd())}`);
-    this.log(`To get started, change your current working directory to: ${chalk.cyan(this.options.directory)}`);
+    this.log(`\n${chalk.green('Hooray, I successfully created your project!')}`);
+    this.log(`To get started, change your current working directory to:\n  ${chalk.cyan(this.options.directory)}`);
   }
 };

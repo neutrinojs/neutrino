@@ -1,1 +1,1 @@
-export default () => console.log('Welcome to <%= data.directory %>');
+export default () => 'Welcome to <%= data.name %>';

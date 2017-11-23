@@ -6,18 +6,15 @@ module.exports = () => [
     choices: [
       {
         name: 'A web or Node.js application',
-        value: 'application',
-        checked: true
+        value: 'application'
       },
       {
         name: 'A library',
-        value: 'library',
-        checked: false
+        value: 'library'
       },
       {
         name: 'Components',
-        value: 'components',
-        checked: false
+        value: 'components'
       }
     ],
     store: true
@@ -30,30 +27,23 @@ module.exports = () => [
     choices: [
       {
         name: 'React',
-        value: '@neutrinojs/react',
-        checked: true
+        value: '@neutrinojs/react'
       },
       {
         name: 'Preact',
-        value: '@neutrinojs/preact',
-        checked: false
+        value: '@neutrinojs/preact'
       },
       {
-
         name: 'Vue',
-        value: '@neutrinojs/vue',
-        checked: false
+        value: '@neutrinojs/vue'
       },
       {
-
         name: 'Some other web app, e.g. Angular, jQuery, or plain JS',
-        value: '@neutrinojs/web',
-        checked: false
+        value: '@neutrinojs/web'
       },
       {
         name: 'Node.js',
-        value: '@neutrinojs/node',
-        checked: false
+        value: '@neutrinojs/node'
       }
     ]
   },
@@ -62,11 +52,12 @@ module.exports = () => [
     type: 'list',
     message: 'Great! Next, what kind of library would you like to create?',
     when: data => data.projectType === 'library',
-    choices: [{
-      name: 'Web and/or Node.js',
-      value: '@neutrinojs/library',
-      checked: true
-    }]
+    choices: [
+      {
+        name: 'Web and/or Node.js',
+        value: '@neutrinojs/library'
+      }
+    ]
   },
   {
     name: 'project',
@@ -76,8 +67,7 @@ module.exports = () => [
     choices: [
       {
         name: 'React Components',
-        value: '@neutrinojs/react-components',
-        checked: true
+        value: '@neutrinojs/react-components'
       }
     ]
   },
@@ -88,23 +78,19 @@ module.exports = () => [
     choices: [
       {
         name: 'Jest',
-        value: '@neutrinojs/jest',
-        checked: true
+        value: '@neutrinojs/jest'
       },
       {
         name: 'Karma',
-        value: '@neutrinojs/karma',
-        checked: false
+        value: '@neutrinojs/karma'
       },
       {
         name: 'Mocha',
-        value: '@neutrinojs/mocha',
-        checked: false
+        value: '@neutrinojs/mocha'
       },
       {
         name: 'None',
-        value: false,
-        checked: false
+        value: false
       }
     ],
     store: true
@@ -117,18 +103,15 @@ module.exports = () => [
     choices: [
       {
         name: 'Airbnb style rules',
-        value: '@neutrinojs/airbnb',
-        checked: true
+        value: '@neutrinojs/airbnb'
       },
       {
         name: 'StandardJS rules',
-        value: '@neutrinojs/standardjs',
-        checked: false
+        value: '@neutrinojs/standardjs'
       },
       {
         name: 'None',
-        value: false,
-        checked: false
+        value: false
       }
     ],
     store: true
@@ -141,18 +124,15 @@ module.exports = () => [
     choices: [
       {
         name: 'Airbnb style rules',
-        value: '@neutrinojs/airbnb-base',
-        checked: true
+        value: '@neutrinojs/airbnb-base'
       },
       {
         name: 'StandardJS rules',
-        value: '@neutrinojs/standardjs',
-        checked: false
+        value: '@neutrinojs/standardjs'
       },
       {
         name: 'None',
-        value: false,
-        checked: false
+        value: false
       }
     ],
     store: true
