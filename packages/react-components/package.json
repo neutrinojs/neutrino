@@ -21,7 +21,7 @@
     "@blueprintjs/core": "^1.31.0",
     "@neutrinojs/banner": "^7.1.1",
     "@neutrinojs/react": "^7.1.1",
-    "deepmerge": "^1.5.2",
+    "deepmerge": "^2.0.0",
     "normalize.css": "^7.0.0",
     "prop-types": "^15.6.0",
     "webpack-node-externals": "^1.6.0"

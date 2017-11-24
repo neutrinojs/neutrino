@@ -16,7 +16,7 @@
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
     "@neutrinojs/eslint": "^7.3.2",
-    "deepmerge": "^1.5.2",
+    "deepmerge": "^2.0.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^6.0.2"
