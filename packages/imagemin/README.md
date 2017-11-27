@@ -44,22 +44,22 @@ neutrino.use(imagemin);
 
 // Usage showing default options
 neutrino.use(imagemin, {
-	imagemin: {
-	  plugins: [
-	    gifsicle(),
-	    svgo(),
-	    pngquant(),
-	    mozjpeg(),
-	    webp()
-	  ]
-	},
-	plugin: {
-	  name: '[path][name].[ext]',
-	  test: /\.(png|jpg|jpeg|gif|webp)$/
-	},
-	pluginId: 'imagemin',
-	useId: 'imagemin',
-	rules: ['svg', 'img']
+  imagemin: {
+    plugins: [
+      gifsicle(),
+      svgo(),
+      pngquant(),
+      mozjpeg(),
+      webp()
+    ]
+  },
+  plugin: {
+    name: '[path][name].[ext]',
+    test: /\.(png|jpg|jpeg|gif|webp)$/
+  },
+  pluginId: 'imagemin',
+  useId: 'imagemin',
+  rules: ['svg', 'img']
 });
 ```
 
@@ -75,14 +75,14 @@ module.exports = {
 module.exports = {
   use: [
     ['@neutrinojs/imagemin', {
-			imagemin: {},
-			plugin: {
-			  name: '[path][name].[ext]',
-			  test: /\.(png|jpg|jpeg|gif|webp)$/
-			},
-			rules: ['svg', 'img']
-		}]
-	]
+      imagemin: {},
+      plugin: {
+        name: '[path][name].[ext]',
+        test: /\.(png|jpg|jpeg|gif|webp)$/
+      },
+      rules: ['svg', 'img']
+    }]
+  ]
 };
 ```
 
