@@ -75,14 +75,14 @@ module.exports = {
 module.exports = {
   use: [
     ['@neutrinojs/imagemin', {
-	imagemin: {},
-	plugin: {
-	  name: '[path][name].[ext]',
-	  test: /\.(png|jpg|jpeg|gif|webp)$/
-	},
-	rules: ['svg', 'img']
-    }]
-  ]
+			imagemin: {},
+			plugin: {
+			  name: '[path][name].[ext]',
+			  test: /\.(png|jpg|jpeg|gif|webp)$/
+			},
+			rules: ['svg', 'img']
+		}]
+	]
 };
 ```
 
