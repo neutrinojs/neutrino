@@ -16,15 +16,10 @@ const project = (prompts) => helpers
   })
   .withPrompts(prompts)
   .toPromise();
-
 const usable = (dir, files) => assert.file(files.map(f => join(dir, f)));
-
 const buildable = (dir) => spawnSync('yarn', ['build'], { cwd: dir, stdio: 'pipe' });
-
 const testable = (dir) => spawnSync('yarn', ['test'], { cwd: dir, stdio: 'pipe' });
-
 const lintable = (dir) => spawnSync('yarn', ['lint'], { cwd: dir, stdio: 'pipe' });
-
 const tests = [false, '@neutrinojs/jest', '@neutrinojs/karma', '@neutrinojs/mocha'];
 const matrix = {
   react: [
@@ -60,11 +55,14 @@ const matrix = {
 };
 
 Object
-  .entries(matrix)
-  .forEach(([key, [presets, linters, tests]]) => {
+  .keys(matrix)
+  .forEach((key) => {
+    const [presets, linters, tests] = matrix[key];
 
     xprod(presets, tests).forEach(([preset, testRunner]) => {
-      test(`${preset} + ${testRunner}`, async t => {
+      const testName = testRunner ? `${preset} + ${testRunner}` : preset;
+
+      test(testName, async t => {
         const dir = await project({
           projectType: 'application',
           project: preset,
@@ -80,10 +78,10 @@ Object
           ]);
 
           const built = buildable(dir);
-          t.is(built.status, 0);
+          t.is(built.status, 0, 'Building project failed');
 
           const tested = testable(dir);
-          t.is(tested.status, 0);
+          t.is(tested.status, 0, 'Testing project failed');
         } else {
           usable(dir, [
             'package.json',
@@ -91,7 +89,7 @@ Object
           ]);
 
           const built = buildable(dir);
-          t.is(built.status, 0);
+          t.is(built.status, 0, 'Building project failed');
         }
       });
     });
@@ -112,10 +110,10 @@ Object
         ]);
 
         const built = buildable(dir);
-        t.is(built.status, 0);
+        t.is(built.status, 0, 'Building project failed');
 
         const linted = lintable(dir);
-        t.is(linted.status, 0);
+        t.is(linted.status, 0, 'Linting project failed');
       });
     });
   });

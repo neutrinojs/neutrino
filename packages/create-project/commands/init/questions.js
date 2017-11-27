@@ -2,7 +2,7 @@ module.exports = () => [
   {
     name: 'projectType',
     type: 'list',
-    message: 'First up, what would you like to create?',
+    message: '🤔  First up, what would you like to create?',
     choices: [
       {
         name: 'A web or Node.js application',
@@ -16,13 +16,12 @@ module.exports = () => [
         name: 'Components',
         value: 'components'
       }
-    ],
-    store: true
+    ]
   },
   {
     name: 'project',
     type: 'list',
-    message: 'Great! Next, what kind of application would you like to create?',
+    message: '🤔  Next, what kind of application would you like to create?',
     when: data => data.projectType === 'application',
     choices: [
       {
@@ -50,7 +49,7 @@ module.exports = () => [
   {
     name: 'project',
     type: 'list',
-    message: 'Great! Next, what kind of library would you like to create?',
+    message: '🤔  Next, what kind of library would you like to create?',
     when: data => data.projectType === 'library',
     choices: [
       {
@@ -62,7 +61,7 @@ module.exports = () => [
   {
     name: 'project',
     type: 'list',
-    message: 'Great! Next, what kind of components would you like to create?',
+    message: '🤔  Next, what kind of components would you like to create?',
     when: data => data.projectType === 'components',
     choices: [
       {
@@ -74,7 +73,7 @@ module.exports = () => [
   {
     name: 'testRunner',
     type: 'list',
-    message: 'Would you like to add a test runner to your project?',
+    message: '🤔  Would you like to add a test runner to your project?',
     choices: [
       {
         name: 'Jest',
@@ -92,13 +91,12 @@ module.exports = () => [
         name: 'None',
         value: false
       }
-    ],
-    store: true
+    ]
   },
   {
     name: 'linter',
     type: 'list',
-    message: 'Would you like to add linting to your project?',
+    message: '🤔  Would you like to add linting to your project?',
     when: data => data.project.includes('react'),
     choices: [
       {
@@ -113,13 +111,12 @@ module.exports = () => [
         name: 'None',
         value: false
       }
-    ],
-    store: true
+    ]
   },
   {
     name: 'linter',
     type: 'list',
-    message: 'Would you like to add linting to your project?',
+    message: '🤔  Would you like to add linting to your project?',
     when: data => !data.project.includes('react'),
     choices: [
       {
@@ -134,7 +131,6 @@ module.exports = () => [
         name: 'None',
         value: false
       }
-    ],
-    store: true
+    ]
   }
 ];

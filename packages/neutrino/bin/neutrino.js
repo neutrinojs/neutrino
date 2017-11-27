@@ -85,6 +85,10 @@ if (!command) {
   process.exit(1);
 }
 
+if (!args.files) {
+  args.files = [];
+}
+
 const rc = '.neutrinorc.js';
 const cmd = args.inspect ? 'inspect' : command;
 const hasRc = exists(process.cwd(), rc);

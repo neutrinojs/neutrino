@@ -1,40 +1,47 @@
+const LINTING = 'linting';
+const PROJECT = 'project';
+const TESTING = 'testing';
+
 const projects = {
   '@neutrinojs/airbnb': {
-    type: 'linting',
+    type: LINTING,
     devDependencies: [
       '@neutrinojs/airbnb'
     ]
   },
   '@neutrinojs/airbnb-base': {
-    type: 'linting',
+    type: LINTING,
     devDependencies: [
       '@neutrinojs/airbnb-base'
     ]
   },
   '@neutrinojs/library': {
-    type: 'project',
+    type: PROJECT,
     devDependencies: [
-      '@neutrinojs/library'
+      '@neutrinojs/library',
+      'neutrino'
     ]
   },
   '@neutrinojs/node': {
-    type: 'project',
+    type: PROJECT,
     devDependencies: [
-      '@neutrinojs/node'
+      '@neutrinojs/node',
+      'neutrino'
     ]
   },
   '@neutrinojs/preact': {
-    type: 'project',
+    type: PROJECT,
     dependencies: [
       'preact',
       'preact-compat'
     ],
     devDependencies: [
-      '@neutrinojs/preact'
+      '@neutrinojs/preact',
+      'neutrino'
     ]
   },
   '@neutrinojs/react': {
-    type: 'project',
+    type: PROJECT,
     dependencies: [
       'prop-types',
       'react',
@@ -42,13 +49,15 @@ const projects = {
       'react-hot-loader'
     ],
     devDependencies: [
-      '@neutrinojs/react'
+      '@neutrinojs/react',
+      'neutrino'
     ]
   },
   '@neutrinojs/react-components': {
-    type: 'project',
+    type: PROJECT,
     devDependencies: [
       '@neutrinojs/react-components',
+      'neutrino',
       'react',
       'react-dom',
       'prop-types',
@@ -56,40 +65,42 @@ const projects = {
     ]
   },
   '@neutrinojs/standardjs': {
-    type: 'linting',
+    type: LINTING,
     devDependencies: [
       '@neutrinojs/standardjs'
     ]
   },
   '@neutrinojs/vue': {
-    type: 'project',
+    type: PROJECT,
     dependencies: [
       'vue'
     ],
     devDependencies: [
-      '@neutrinojs/vue'
+      '@neutrinojs/vue',
+      'neutrino'
     ]
   },
   '@neutrinojs/web': {
-    type: 'project',
+    type: PROJECT,
     devDependencies: [
-      '@neutrinojs/web'
+      '@neutrinojs/web',
+      'neutrino'
     ]
   },
   '@neutrinojs/jest': {
-    type: 'testing',
+    type: TESTING,
     devDependencies: [
       '@neutrinojs/jest'
     ]
   },
   '@neutrinojs/karma': {
-    type: 'testing',
+    type: TESTING,
     devDependencies: [
       '@neutrinojs/karma'
     ]
   },
   '@neutrinojs/mocha': {
-    type: 'testing',
+    type: TESTING,
     devDependencies: [
       '@neutrinojs/mocha'
     ]

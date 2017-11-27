@@ -1,5 +1,5 @@
 const { ensureDirSync, readJsonSync, writeJsonSync } = require('fs-extra');
-const { join } = require('path');
+const { join, relative } = require('path');
 const chalk = require('chalk');
 const stringify = require('javascript-stringify');
 const merge = require('deepmerge');
@@ -103,13 +103,16 @@ module.exports = class Project extends Generator {
     const done = this.async();
 
     this.log(chalk.cyan.bold(this._logo()));
-    this.log(chalk.magenta.bold('Welcome to Neutrino!'));
-    this.log(chalk.cyan('To help you create your new project, I am going to ask you a few questions. :)\n'));
+    this.log(chalk.white.bold('Welcome to Neutrino! 👋'));
+    this.log(chalk.cyan('To help you create your new project, I am going to ask you a few questions.\n'));
 
     this
       .prompt(questions())
       .then(answers => this.data = answers)
-      .then(() => done());
+      .then(() => {
+        this.log(`\n👌  ${chalk.white.bold('Looks like I have all the info I need. Give me a moment while I create your project!')}\n`);
+        done();
+      });
   }
 
   writing() {
@@ -160,8 +163,8 @@ module.exports = class Project extends Generator {
 
     if (devDependencies) {
       if (process.env.NODE_ENV === 'test') {
-        const remote = devDependencies.filter(d => !d.includes('@neutrinojs'));
-        const local = devDependencies.filter(d => d.includes('@neutrinojs'));
+        const remote = devDependencies.filter(d => !d.includes('neutrino'));
+        const local = devDependencies.filter(d => d.includes('neutrino'));
 
         if (remote.length) {
           this.log(`\n${chalk.green('Installing remote devDependencies:')} ${chalk.yellow(remote.join(', '))}`);
@@ -191,12 +194,33 @@ module.exports = class Project extends Generator {
     }
 
     if (this.data.linter) {
-      this.spawnCommandSync('neutrino', ['lint', '--fix'], { stdio: this.options.stdio, cwd: this.options.directory });
+      this.spawnCommandSync('neutrino', ['lint', '--fix'], {
+        stdio: this.options.stdio === 'inherit' ? 'ignore' : this.options.stdio,
+        cwd: this.options.directory
+      });
     }
   }
 
   end() {
     this.log(`\n${chalk.green('Hooray, I successfully created your project!')}`);
-    this.log(`To get started, change your current working directory to:\n  ${chalk.cyan(this.options.directory)}`);
+    this.log(`\nI have added a few ${isYarn ? 'yarn' : 'npm'} scripts to help you get started:`);
+    this.log(`  • To build your project run:  ${chalk.cyan.bold(`${isYarn ? 'yarn' : 'npm run'} build`)}`);
+
+    if (this.data.projectType !== 'library') {
+      this.log(`  • To start your project locally run:  ${chalk.cyan.bold(`${isYarn ? 'yarn' : 'npm'} start`)}`);
+    }
+
+    if (this.data.testRunner) {
+      this.log(`  • To execute tests run:  ${chalk.cyan.bold(`${isYarn ? 'yarn' : 'npm'} test`)}`);
+    }
+
+    if (this.data.linter) {
+      this.log(`  • To lint your project manually run:  ${chalk.cyan.bold(`${isYarn ? 'yarn' : 'npm run'} lint`)}`);
+      this.log(`    You can also fix some linting problems with:  ${chalk.cyan.bold(`${isYarn ? 'yarn' : 'npm run'} lint --fix`)}`);
+    }
+
+    this.log('\nNow change your directory to the following to get started:');
+    this.log(`  ${chalk.cyan(relative(process.cwd(), this.options.directory))}`);
+    this.log(`\n❤️  ${chalk.white.bold('Neutrino')}`);
   }
 };
