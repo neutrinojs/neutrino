@@ -95,6 +95,23 @@ module.exports = {
 `@neutrinojs/imagemin` creates some conventions to make overriding the configuration easier once you are
 ready to make changes.
 
+### Rules
+
+The following is a list of rules and their identifiers which can be overridden:
+
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
+| `img` | Optimize JPEG, PNG, GIF, and WEBP files imported from modules. Contains a single loader named `imagemin`. | all |
+| `svg` | Optimize SVG files imported from modules. Contains a single loader named `imagemin`. | all |
+
+### Plugins
+
+The following is a list of plugins and their identifiers which can be overridden:
+
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
+| `imagemin` | Optimize any images added by other Webpack plugins (e.g. `copy-webpack-plugin`). | all |
+
 ## Contributing
 
 This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
