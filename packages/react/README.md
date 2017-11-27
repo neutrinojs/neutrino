@@ -9,7 +9,7 @@
 ## Features
 
 - Zero upfront configuration necessary to start developing and building a React web app
-- Modern Babel compilation adding JSX and object rest spread syntax.
+- Modern Babel compilation adding JSX, object rest spread syntax, and class properties.
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
 - Automatic import of `React.createElement`, no need to import `react` or `React.createElement` yourself
@@ -20,7 +20,7 @@
   - Automatic creation of HTML pages, no templating necessary
   - Hot Module Replacement support
   - Tree-shaking to create smaller bundles
-  - Production-optimized bundles with Babili minification, easy chunking, and scope-hoisted modules for faster execution
+  - Production-optimized bundles with Babel minification, easy chunking, and scope-hoisted modules for faster execution
   - Easily extensible to customize your project as needed
 
 ## Requirements
@@ -69,7 +69,6 @@ This React preset exposes an element in the page with an ID of `root` to which y
 your `src/index.js` file with the following:
 
 ```jsx
-import React from 'react';
 import { render } from 'react-dom';
 
 render(<h1>Hello world!</h1>, document.getElementById('root'));
@@ -138,7 +137,7 @@ You can either serve or deploy the contents of this `build` directory as a stati
 If you wish to copy files to the build directory that are not imported from application code, you can place
 them in a directory within `src` called `static`. All files in this directory will be copied from `src/static`
 to `build/static`. To change this behavior, specify your own patterns with
-[@neutrinojs/copy](../../packages/copy/README.md).
+[@neutrinojs/copy](https://neutrino.js.org/packages/copy).
 
 ## Paths
 
@@ -256,7 +255,6 @@ from `react-hot-loader`. The main file may be named `index.js` or `index.jsx`. T
 For example:
 
 ```jsx
-import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import MyApp from './MyApp';

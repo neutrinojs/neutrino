@@ -9,7 +9,7 @@
 ## Features
 
 - Zero upfront configuration necessary to start developing and building a React web app
-- Modern Babel compilation adding JSX and object rest spread syntax.
+- Modern Babel compilation adding JSX, object rest spread syntax, and class properties.
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
 - Automatic import of `React.createElement`, no need to import `react` or `React.createElement` yourself
@@ -69,7 +69,6 @@ This React preset exposes an element in the page with an ID of `root` to which y
 your `src/index.js` file with the following:
 
 ```jsx
-import React from 'react';
 import { render } from 'react-dom';
 
 render(<h1>Hello world!</h1>, document.getElementById('root'));
@@ -256,7 +255,6 @@ from `react-hot-loader`. The main file may be named `index.js` or `index.jsx`. T
 For example:
 
 ```jsx
-import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import MyApp from './MyApp';
