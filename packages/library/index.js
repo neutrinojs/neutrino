@@ -131,11 +131,13 @@ module.exports = (neutrino, opts = {}) => {
           .end()
         .end()
       .end()
-    .merge({
-      stats: {
-        maxModules: Infinity,
-        optimizationBailout: true
-      }
+    .when(neutrino.options.debug, (config) => {
+      config.merge({
+        stats: {
+          maxModules: Infinity,
+          optimizationBailout: true
+        }
+      });
     })
     .when(process.env.NODE_ENV !== 'test', config => config.externals([nodeExternals()]))
     .when(neutrino.config.module.rules.has('lint'), () => {

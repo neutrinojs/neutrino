@@ -107,11 +107,13 @@ module.exports = (neutrino, opts = {}) => {
         .add(MODULES)
         .end()
       .end()
-    .merge({
-      stats: {
-        maxModules: Infinity,
-        optimizationBailout: true
-      }
+    .when(neutrino.options.debug, (config) => {
+      config.merge({
+        stats: {
+          maxModules: Infinity,
+          optimizationBailout: true
+        }
+      });
     })
     .when(neutrino.options.command === 'start', (config) => {
       neutrino.use(startServer, {

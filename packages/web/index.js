@@ -152,11 +152,13 @@ module.exports = (neutrino, opts = {}) => {
           .end()
         .end()
       .end()
-    .merge({
-      stats: {
-        maxModules: Infinity,
-        optimizationBailout: true
-      }
+    .when(neutrino.options.debug, (config) => {
+      config.merge({
+        stats: {
+          maxModules: Infinity,
+          optimizationBailout: true
+        }
+      });
     })
     .when(options.html, (config) => {
       neutrino.use(htmlTemplate, options.html);
