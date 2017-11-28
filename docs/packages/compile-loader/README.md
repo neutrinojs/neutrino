@@ -59,9 +59,9 @@ module.exports = {
 };
 ```
 
-- `include` should be an array of paths to include in the compilation. Maps to Webpack's
+- `include` should be an array of paths to include in the compilation. Maps to webpack's
 [`Rule.include`](https://webpack.js.org/configuration/module/#rule-include)
-- `exclude` should be an array of paths to exclude from the compilation. Maps to Webpack's
+- `exclude` should be an array of paths to exclude from the compilation. Maps to webpack's
 [`Rule.exclude`](https://webpack.js.org/configuration/module/#rule-exclude)
 - `babel` is a [Babel configuration object](https://babeljs.io/docs/usage/api/#options), consumed by babel-loader. Use
 this to set properties such as `presets`, `plugins`, and `env`.

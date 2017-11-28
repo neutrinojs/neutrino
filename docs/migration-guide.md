@@ -14,7 +14,7 @@ this latest version:
 
 - **BREAKING CHANGE** webpack-chain upgraded to v4. The breakage from this upgrade is the `.noParse` method
 which is now a plain shortcut method, allowing you to set any value.
-- **BREAKING CHANGE** Webpack upgraded to v3. While most users should need no changes for this upgrade, be
+- **BREAKING CHANGE** webpack upgraded to v3. While most users should need no changes for this upgrade, be
 aware that it may still be possible for something to change during this upgrade.
 - **BREAKING CHANGE** The Web and React presets no longer include babel-polyfill by default, and have removed
 the `polyfill.babel` option. If you need babel-polyfill in your app, please import it.
@@ -99,7 +99,7 @@ neutrino start --options.host 192.168.1.10 --options.port 3000 --options.https
 ```
 
 - **BREAKING CHANGE** Setting `host` of `0.0.0.0` for webpack-dev-server is insecure and will not work properly. This
-is from https://github.com/webpack/webpack-dev-server/issues/887 causing a potential security issue into Webpack
+is from https://github.com/webpack/webpack-dev-server/issues/887 causing a potential security issue into webpack
 users' machines. When using `host`, specify your actual local IP address, and Neutrino will bind it to the `public`
 property of webpack-dev-server and set the host to `0.0.0.0` for you. Attempting to access the site from a host other
 than specified will result in an invalid host header error.
@@ -471,6 +471,6 @@ api.usesAndRequires([
 ```
 
 - `neutrino.getWebpackOptions()` has been removed in favor of the lower level to `neutrino.config.toConfig()`.
-- Using a `node` target no longer skips the watcher for a builder, it now uses the Webpack source watcher. This means
+- Using a `node` target no longer skips the watcher for a builder, it now uses the webpack source watcher. This means
 commands like `neutrino start && node build` are obsolete. `neutrino build && node build` would work to start a Node
 instance for production-built bundles.

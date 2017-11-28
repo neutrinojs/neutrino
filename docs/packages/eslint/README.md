@@ -68,8 +68,8 @@ neutrino.use(eslint, {
 ```
 
 - `test`: Test which files should be linted.
-- `include`: An array of paths to include in linting. Maps to Webpack's [`Rule.include`](https://webpack.js.org/configuration/module/#rule-include)
-- `exclude`: An array of paths to exclude from linting. Maps to Webpack's [`Rule.exclude`](https://webpack.js.org/configuration/module/#rule-exclude)
+- `include`: An array of paths to include in linting. Maps to webpack's [`Rule.include`](https://webpack.js.org/configuration/module/#rule-include)
+- `exclude`: An array of paths to exclude from linting. Maps to webpack's [`Rule.exclude`](https://webpack.js.org/configuration/module/#rule-exclude)
 - `eslint`: An ESLint CLIEngine configuration object for configuring ESLint. Use this to configure rules, plugins, and other [ESLint options](http://eslint.org/docs/user-guide/configuring).
 
 ## Customization
