@@ -200,6 +200,10 @@ To override the build configuration, start with the documentation on [customizat
 Web preset. See the [Web documentation customization](https://neutrino.js.org/packages/web#customizing)
 for preset-specific configuration to override.
 
+For details on merging and overriding Babel configuration, such as supporting decorator syntax, read more
+about using the [`compile-loader` `merge`](https://neutrino.js.org/packages/compile-loader#advanced-merging) once you
+are comfortable customizing your build.
+
 ### Advanced configuration
 
 By following the [customization guide](https://neutrino.js.org/customization) and knowing the rule, loader, and plugin IDs from
