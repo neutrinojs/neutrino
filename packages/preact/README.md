@@ -9,7 +9,7 @@
 ## Features
 
 - Zero upfront configuration necessary to start developing and building a Preact web app
-- Modern Babel compilation adding JSX and object rest spread syntax.
+- Modern Babel compilation adding JSX, object rest spread syntax, and class properties.
 - Write JSX in .js or .jsx files
 - Automatic import of `Preact.h`, no need to import `h` or `createElement` yourself
 - Compatibility and pre-configured aliasing for React-based modules and packages
