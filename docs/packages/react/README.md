@@ -200,6 +200,10 @@ To override the build configuration, start with the documentation on [customizat
 Web preset. See the [Web documentation customization](../@neutrinojs/web#customizing)
 for preset-specific configuration to override.
 
+For details on merging and overriding Babel configuration, such as supporting decorator syntax, read more
+about using the [`compile-loader` `merge`](../compile-loader#advanced-merging) once you
+are comfortable customizing your build.
+
 ### Advanced configuration
 
 By following the [customization guide](../../customization/advanced.md) and knowing the rule, loader, and plugin IDs from
