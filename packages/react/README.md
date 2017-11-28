@@ -15,8 +15,8 @@
 - Automatic import of `React.createElement`, no need to import `react` or `React.createElement` yourself
 - Extends from [@neutrinojs/web](https://neutrino.js.org/packages/web)
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
-  - Webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
-  - Webpack Dev Server during development
+  - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
+  - webpack Dev Server during development
   - Automatic creation of HTML pages, no templating necessary
   - Hot Module Replacement support
   - Tree-shaking to create smaller bundles
@@ -141,7 +141,7 @@ to `build/static`. To change this behavior, specify your own patterns with
 
 ## Paths
 
-The `@neutrinojs/web` preset loads assets relative to the path of your application by setting Webpack's
+The `@neutrinojs/web` preset loads assets relative to the path of your application by setting webpack's
 [`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath) to `./`. If you wish to load
 assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
 override `output.publicPath`. See the [Customizing](#Customizing) section below.
@@ -247,7 +247,7 @@ First, install `react-hot-loader` as a dependency, this **must** be React Hot Lo
 ---
 
 - From your `index` entry point (defaults to `src/index.*` from `neutrino.options.entry`), import an `AppContainer`
-from `react-hot-loader`. The main file may be named `index.js` or `index.jsx`. The extension is resolved by Webpack.
+from `react-hot-loader`. The main file may be named `index.js` or `index.jsx`. The extension is resolved by webpack.
 - Wrap your top-level React component in the `AppContainer`.
 - Perform the application render in a reusable function for initial load and subsequent reloads.
 - Add the `hot` acceptance to call this function.

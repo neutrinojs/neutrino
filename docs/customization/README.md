@@ -112,7 +112,7 @@ module.exports = {
 ### `options.entry`
 
 Set the main entry point for the application. If the option is not set, Neutrino defaults it to `index.*` - the
-extension is resolved by Webpack. If a relative path is specified, it will be resolved relative to `options.source`;
+extension is resolved by webpack. If a relative path is specified, it will be resolved relative to `options.source`;
 absolute paths will be used as-is.
 
 The main file by default is not required to be in JavaScript format. It also potentially may be JSX, TypeScript, or
@@ -272,7 +272,7 @@ middleware successive pipeline.
 The Neutrino API instance provided to your function has a `config` property that is an instance of
 [webpack-chain](https://github.com/mozilla-neutrino/webpack-chain). We won't go in-depth of all the configuration
 possibilities here, but encourage you to check out the documentation for webpack-chain for instructions on your
-particular use case. Just know that you can use webpack-chain to modify any part of the underlying Webpack configuration
+particular use case. Just know that you can use webpack-chain to modify any part of the underlying webpack configuration
 using its API.
 
 This `neutrino.config` is an accumulation of all configuration up to this moment. All Neutrino middleware and presets

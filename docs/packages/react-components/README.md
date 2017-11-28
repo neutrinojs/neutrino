@@ -21,8 +21,8 @@ Minimal code is needed to generate stories previewer.
 - Support for importing web workers with `.worker.js` file extensions
 - Extends from [@neutrinojs/web](../web)
   - Modern Babel compilation supporting ES modules, **latest** major browser versions, async functions, and dynamic imports
-  - Webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
-  - Webpack Dev Server during development
+  - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
+  - webpack Dev Server during development
   - Hot module replacement support
   - Easily extensible to customize your project as needed
 
