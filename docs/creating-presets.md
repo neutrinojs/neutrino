@@ -307,6 +307,28 @@ module.exports = {
 };
 ```
 
+### `options.extensions`
+
+Set the preferred list of module extensions to inform interested middleware. If the option is not set,
+Neutrino defaults it to `['js', 'jsx', 'vue', 'ts', 'mjs', 'json’]`.
+
+```js
+module.exports = neutrino => {
+  // if not specified, defaults to ['js', 'jsx', 'vue', 'ts', 'mjs', 'json’]
+  neutrino.options.extensions;
+
+  // overwrites the default list
+  neutrino.options.extensions = ['elm']
+}
+
+module.exports = {
+  options: {
+    // extends the default list to ['js', 'jsx', 'vue', 'ts', 'mjs', ‘json’, 'elm']
+    extensions: ['elm']
+  }
+};
+```
+
 ## Loader and Babel modules
 
 Because of package conflicts or unknown layout of a project's `node_modules` directory, it is usually safer to

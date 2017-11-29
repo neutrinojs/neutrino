@@ -204,6 +204,11 @@ The currently running CLI command, e.g. `build`, `start`, `lint`, etc. This valu
 set by the CLI when instantiating the API, but can also be set manually. This value is used by some
 middleware to determine when to augment the configuration with certain functionality.
 
+### `options.extensions`
+
+Informs interested middleware the preferred list of module extensions to support.
+By default, `options.extensions` is set to `['js', 'jsx', 'vue', 'ts', 'mjs', 'json’]`.
+
 ## Neutrino API
 
 When creating a Neutrino instance, you have the option of providing an object which can be passed as options to
@@ -682,4 +687,20 @@ inspect(api.config.toConfig(), api)
     err => err => console.error(err),
     config => console.log(config)
   );
+```
+
+## Helper Methods
+
+### `regexFromExtensions`
+
+Using the Neutrino API you can get a regex expression from a list of extensions using the `regexFromExtensions` method.
+The `regexFromExtensions` takes in an array of extensions as a parameter but can be invoked
+without any parameters which fallback to `neutrino.options.extensions`.
+
+```js
+// resolves to /\.(vue|js)$/
+neutrino.regexFromExtensions(['vue', 'js']);
+
+// defaults neutrino.options.extensions which resolves to /\.(js|jsx|vue|ts|mjs|json)$/
+neutrino.regexFromExtensions();
 ```
