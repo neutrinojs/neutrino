@@ -296,24 +296,10 @@ To override the build configuration, start with the documentation on [customizat
 `@neutrinojs/web` creates some conventions to make overriding the configuration easier once you are ready to make
 changes.
 
-By default Neutrino, and therefore this preset, creates a single **main** `index` entry point to your application, and
-this maps to the `index.*` file in the `src` directory. The extension is resolved by webpack. This value is provided by
-`neutrino.options.mains` at `neutrino.options.mains.index`. This means that the Web preset is optimized toward the use
-case of single-page applications over multi-page applications. If you wish to output multiple pages, you can detail
-all your mains in your `.neutrinorc.js`.
- 
-```js
-module.exports = {
-  options: {
-    mains: {
-      index: 'index', // outputs index.html from src/index.*
-      admin: 'admin', // outputs admin.html from src/admin.*
-      account: 'user' // outputs account.html from src/user.*
-    }
-  },
-  use: ['@neutrinojs/web']
-}
-```
+By default the Web preset creates a single **main** `index` entry point to your application, and this maps to
+the `index.*` file in the `src` directory. The extension is resolved by webpack. This value is provided by
+`neutrino.options.entry`. This means that the Web preset is optimized toward the use case of single-page
+applications over multi-page applications.
 
 ### Rules
 
@@ -338,6 +324,8 @@ _Note: Some plugins are only available in certain environments. To override them
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
 | `env` | Inject environment variables into source code at `process.env`, defaults to only inject `NODE_ENV`. From `@neutrinojs/env`. | all |
+| `extract` | Extracts CSS from JS bundle into a separate stylesheet file. From `@neutrinojs/style-loader`. | all |
+| `extract-modules` | Extracts CSS from JS bundle into a separate stylesheet file. From `@neutrinojs/style-loader`. | all |
 | `html` | Automatically generates HTML files for configured entry points. From `@neutrinojs/html-template` | all |
 | `named-modules` | Enables named modules for improved debugging and console output. From `@neutrinojs/chunk` and `@neutrinojs/hot`. | `NODE_ENV production`, `start` command |
 | `named-chunks` | Enables named chunks for improved debugging and console output. From `@neutrinojs/chunk`. | `NODE_ENV production` |
@@ -368,11 +356,7 @@ _Example: Put lodash into a separate "vendor" chunk:_
 module.exports = {
   use: [
     '@neutrinojs/web',
-    neutrino => {
-      neutrino.config
-        .entry('vendor')
-          .add('lodash');
-    }
+    neutrino => neutrino.config.entry('vendor').add('lodash')
   ]
 };
 ```

@@ -14,13 +14,16 @@
 - Write JSX in .js or .jsx files
 - Automatic import of `React.createElement`, no need to import `react` or `React.createElement` yourself
 - Extends from [@neutrinojs/web](../@neutrinojs/web/README.md)
+  - Zero upfront configuration necessary to start developing and building a web app
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
   - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
   - webpack Dev Server during development
   - Automatic creation of HTML pages, no templating necessary
-  - Hot Module Replacement support
+  - Automatic stylesheet extraction; importing stylesheets into modules creates bundled external stylesheets
+  - Pre-configured to support CSS Modules via `*.module.css` file extensions
+  - Hot Module Replacement support including CSS
   - Tree-shaking to create smaller bundles
-  - Production-optimized bundles with Babili minification, easy chunking, and scope-hoisted modules for faster execution
+  - Production-optimized bundles with Babel minification, easy chunking, and scope-hoisted modules for faster execution
   - Easily extensible to customize your project as needed
 
 ## Requirements
