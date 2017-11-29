@@ -689,9 +689,9 @@ inspect(api.config.toConfig(), api)
   );
 ```
 
-## Helper Functions
+## Helper Methods
 
-### regexFromExtensions
+### `regexFromExtensions`
 
 Using the Neutrino API you can get a regex expression from a list of extensions using the `regexFromExtensions` method.
 The `regexFromExtensions` takes in an array of extensions as a parameter but can be invoked
