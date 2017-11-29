@@ -131,6 +131,14 @@ module.exports = (neutrino, opts = {}) => {
           .end()
         .end()
       .end()
+    .when(neutrino.options.debug, (config) => {
+      config.merge({
+        stats: {
+          maxModules: Infinity,
+          optimizationBailout: true
+        }
+      });
+    })
     .when(process.env.NODE_ENV !== 'test', config => config.externals([nodeExternals()]))
     .when(neutrino.config.module.rules.has('lint'), () => {
       if (options.target === 'node') {
@@ -139,9 +147,9 @@ module.exports = (neutrino, opts = {}) => {
         neutrino.use(loaderMerge('lint', 'eslint'), { envs: ['browser', 'commonjs'] });
       }
     })
-    .when(process.env.NODE_ENV === 'production', () => {
+    .when(process.env.NODE_ENV === 'production', (config) => {
       neutrino.use(minify);
-      neutrino.config
+      config
         .plugin('module-concat')
           .use(optimize.ModuleConcatenationPlugin);
     })

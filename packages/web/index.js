@@ -152,6 +152,14 @@ module.exports = (neutrino, opts = {}) => {
           .end()
         .end()
       .end()
+    .when(neutrino.options.debug, (config) => {
+      config.merge({
+        stats: {
+          maxModules: Infinity,
+          optimizationBailout: true
+        }
+      });
+    })
     .when(options.html, (config) => {
       neutrino.use(htmlTemplate, options.html);
       config.plugin('script-ext')
@@ -166,15 +174,16 @@ module.exports = (neutrino, opts = {}) => {
       neutrino.use(devServer, options.devServer);
       config.when(options.hot, () => neutrino.use(hot));
     })
-    .when(process.env.NODE_ENV === 'production', () => {
+    .when(process.env.NODE_ENV === 'production', (config) => {
       neutrino.use(chunk);
 
       if (options.minify) {
         neutrino.use(minify, options.minify);
       }
 
-      neutrino.config.plugin('module-concat')
-        .use(optimize.ModuleConcatenationPlugin);
+      config
+        .plugin('module-concat')
+          .use(optimize.ModuleConcatenationPlugin);
     })
     .when(neutrino.options.command === 'build', (config) => {
       neutrino.use(clean, { paths: [neutrino.options.output] });
