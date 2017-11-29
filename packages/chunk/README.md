@@ -1,6 +1,6 @@
 # Neutrino Chunk Middleware
 
-`@neutrinojs/chunk` is Neutrino middleware for optimizing Webpack bundles via `CommonsChunkPlugin`.
+`@neutrinojs/chunk` is Neutrino middleware for optimizing webpack bundles via `CommonsChunkPlugin`.
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
@@ -62,7 +62,7 @@ The following is a list of plugins and their identifiers which can be overridden
 | `named-modules` | Enables named modules for improved debugging and console output. | all |
 | `named-chunks` | Enables named chunks for improved debugging and console output. | all |
 | `vendor-chunk` | Creates a separate file/chunk consisting of common modules shared between multiple entry points. | all |
-| `runtime-chunk` | Creates a separate file/chunk consisting of the Webpack manifest-specific code. | all |
+| `runtime-chunk` | Creates a separate file/chunk consisting of the webpack manifest-specific code. | all |
 | `name-all` | Names all remaining modules that do not get named via `named-modules`. | all |
 
 ## Contributing

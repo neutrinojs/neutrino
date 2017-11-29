@@ -1,6 +1,6 @@
 # Usage
 
-Neutrino is a command-line tool that wraps Webpack in order to support building JavaScript projects
+Neutrino is a command-line tool that wraps webpack in order to support building JavaScript projects
 based on shared configuration presets and middleware. You can use Neutrino within your project, preferably using
 scripts defined in your project's `package.json`.
 

@@ -22,7 +22,7 @@ There is always room for improvement and expansion in Neutrino. Some things that
 
 - Triaging and fixing bugs
 - Adding tests to Neutrino which can help ensure it functions properly with new contributions
-- Keeping core presets up to date with the best Webpack and Babel options
+- Keeping core presets up to date with the best webpack and Babel options
 - Expanding documentation, writing tutorials, and creating example projects
 - Something else, of course!
 

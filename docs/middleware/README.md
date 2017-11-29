@@ -294,7 +294,7 @@ module.exports = neutrino => {
 ## Distributing
 
 If you would like your middleware to be used by others, feel free to publish and distribute! By putting your middleware
-on npm, GitHub, or another location, you can share the hard work put into abstracting away Neutrino and Webpack
+on npm, GitHub, or another location, you can share the hard work put into abstracting away Neutrino and webpack
 interactions and save everyone in the community time and effort. As long as the Neutrino CLI, other middleware, or
 presets can require your middleware, it puts no restrictions on where you want to host it.
 

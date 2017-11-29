@@ -186,7 +186,7 @@ test('sets environment variables from options', t => {
   t.is(process.env.ALPHA, 'beta');
 });
 
-test('creates a Webpack config', t => {
+test('creates a webpack config', t => {
   const api = Neutrino();
 
   api.use(api => api.config.module

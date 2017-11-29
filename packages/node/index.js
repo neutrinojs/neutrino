@@ -107,6 +107,14 @@ module.exports = (neutrino, opts = {}) => {
         .add(MODULES)
         .end()
       .end()
+    .when(neutrino.options.debug, (config) => {
+      config.merge({
+        stats: {
+          maxModules: Infinity,
+          optimizationBailout: true
+        }
+      });
+    })
     .when(neutrino.options.command === 'start', (config) => {
       neutrino.use(startServer, {
         name: getOutputForEntry(neutrino.options.entry)
@@ -121,7 +129,9 @@ module.exports = (neutrino, opts = {}) => {
       config.output.devtoolModuleFilenameTemplate('[absolute-resource-path]');
     })
     .when(neutrino.options.env.NODE_ENV === 'production', (config) => {
-      config.plugin('module-concat').use(optimize.ModuleConcatenationPlugin);
+      config
+        .plugin('module-concat')
+          .use(optimize.ModuleConcatenationPlugin);
     })
     .when(neutrino.options.command === 'build', () => {
       neutrino.use(clean, { paths: [neutrino.options.output] });

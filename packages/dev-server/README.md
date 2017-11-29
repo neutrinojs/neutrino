@@ -1,6 +1,6 @@
 # Neutrino Dev Server Middleware
 
-`@neutrinojs/dev-server` is Neutrino middleware for starting a Webpack Dev Server for fast development cycles.
+`@neutrinojs/dev-server` is Neutrino middleware for starting a webpack Dev Server for fast development cycles.
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
@@ -125,7 +125,7 @@ More information about usage of Neutrino middleware can be found in the [documen
 
 `@neutrinojs/dev-server` optionally accepts an object with several options to override the default behavior.
 This object, as seen used above, can accept any
-[property that is accepted by Webpack Dev Server](https://webpack.js.org/configuration/dev-server/). In addition, you
+[property that is accepted by webpack Dev Server](https://webpack.js.org/configuration/dev-server/). In addition, you
 may also specify the following options:
 
 - `open`:  Optional Boolean value to open the project in the a tab of the default browser. Default is `false`.

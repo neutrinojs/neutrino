@@ -1,7 +1,7 @@
 # webpack-chain: Neutrino configuration API
 
 Use a chaining API to generate and simplify the modification of
-Webpack 2 and 3 configurations.
+webpack 2 and 3 configurations.
 
 This documentation corresponds to v4 of webpack-chain, which Neutrino utilizes.
 
@@ -10,7 +10,7 @@ standalone and can be used by any project. See the webpack-chain repo for standa
 
 ## Introduction
 
-Webpack's core configuration is based on creating and modifying a
+webpack's core configuration is based on creating and modifying a
 potentially unwieldy JavaScript object. While this is OK for configurations
 on individual projects, trying to share these objects across projects and
 make subsequent modifications gets messy, as you need to have a deep
@@ -271,7 +271,7 @@ specified. This is so you may chain API calls continuously if desired.
 
 For details on the specific values that are valid for all shorthand and low-level methods,
 please refer to their corresponding name in the
-[Webpack docs hierarchy](https://webpack.js.org/configuration/).
+[webpack docs hierarchy](https://webpack.js.org/configuration/).
 
 ```js
 Config : ChainedMap
@@ -853,8 +853,8 @@ neutrino.config.module
 ### Merging Config
 
 Neutrino config supports merging in an object to the configuration instance which matches a layout
-similar to how the configuration schema is laid out. Note that this is not a Webpack configuration
-object, but you may transform a Webpack configuration object before providing it to Neutrino configuration
+similar to how the configuration schema is laid out. Note that this is not a webpack configuration
+object, but you may transform a webpack configuration object before providing it to Neutrino configuration
 to match its layout.
 
 ```js

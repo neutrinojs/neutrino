@@ -138,7 +138,7 @@ Neutrino({
 ### `options.entry`
 
 Set the main entry point for the application. If the option is not set, Neutrino defaults it to `index.*` - the
-extension is resolved by Webpack. The main file by default is not required to be in JavaScript format. If a relative
+extension is resolved by webpack. The main file by default is not required to be in JavaScript format. If a relative
 path is specified, it will be resolved relative to `options.source`; absolute paths will be used as-is.
 
 ```js
@@ -338,9 +338,9 @@ api.on('custom-event', (args, payload) => {
 
 ### `config.toConfig()`
 
-While tools like webpack-chain provide a convenient API for creating Webpack configurations, this is not a format that
-is understandable by Webpack. With `config.toConfig()`, the webpack-chain instance at `config` will be converted to
-a configuration object readable directly by Webpack.
+While tools like webpack-chain provide a convenient API for creating webpack configurations, this is not a format that
+is understandable by webpack. With `config.toConfig()`, the webpack-chain instance at `config` will be converted to
+a configuration object readable directly by webpack.
 
 ```js
 api.config.toConfig(); // -> { ... }
@@ -349,16 +349,16 @@ api.config.toConfig(); // -> { ... }
 ### `register(command, handler)`
 
 This method registers a new command which can be run from the API at a later time. This function takes two
-arguments: a String command name, and a Function which accepts a Webpack configuration and the API. The return value of
+arguments: a String command name, and a Function which accepts a webpack configuration and the API. The return value of
 `handler` depends on the expected usage of the command.
 
 The handler function can accept two arguments:
 
-1. A Webpack configuration object. This is the result of calling `api.config.toConfig()`, and represents a
-Webpack-usable object
+1. A webpack configuration object. This is the result of calling `api.config.toConfig()`, and represents a
+webpack-usable object
 2. The Neutrino API instance
 
-_Example: add a new runnable command which resolves with a JSON-formatted Webpack configuration:`
+_Example: add a new runnable command which resolves with a JSON-formatted webpack configuration:`
 
 ```js
 api.register('jsonify', config => JSON.stringify(config, null, 2));
@@ -377,7 +377,7 @@ will throw an exception if Neutrino is unable to require the specified module ID
 This API method will invoke a command function that has been previously defined by the `register` method.
 The `commandName` argument should be a String. Any necessary middleware should be used prior to invoking `call`.
 
-The `call` method will invoke the registered command with two arguments: a Webpack configuration object, and the
+The `call` method will invoke the registered command with two arguments: a webpack configuration object, and the
 instance of the Neutrino API. The return value of using `call` will be the return value of invoking the registered
 handler with these two arguments.
 
@@ -406,7 +406,7 @@ Every runnable command performs the following flow:
 - Triggers all event handlers for the given command name
 - Triggers all `run` event handlers
 
-The `run` method will invoke the registered command with two arguments: a Webpack configuration object, and the
+The `run` method will invoke the registered command with two arguments: a webpack configuration object, and the
 instance of the Neutrino API. Calling a runnable command will return a
 [`Future`](https://github.com/fluture-js/Fluture) which can then be used to kick off the above flow. This Future will
 be resolved with the resolution value of the command, or rejected with any errors the command provides. The return
@@ -489,18 +489,18 @@ api
 The following functions are exported from Neutrino and can be registered with the API to be executed from `run`
 (recommended) or `call`. These functions are used internally by the CLI, which creates its own instance of the API and
 registers them prior to `run`. Since each of them can be registered directly with the API, they each have the same
-signature, accepting a Webpack configuration and an API instance.
+signature, accepting a webpack configuration and an API instance.
 
 ### `start(webpackConfig, neutrinoApi)`
 
 The `start` function is responsible for creating a development bundle, and when possible, starting a development
 server or source watcher. If the Neutrino config contains options for `devServer`, then a webpack-dev-server will be
-started, otherwise a Webpack source watcher will be started.
+started, otherwise a webpack source watcher will be started.
 
 The `start` function returns a [`Future`](https://github.com/fluture-js/Fluture) which can then be used to
-kick off the runnable flow. This Future will be resolved with a Webpack compiler (for example, if you wish to listen for
+kick off the runnable flow. This Future will be resolved with a webpack compiler (for example, if you wish to listen for
 additional build events), or reject with an **array of errors**. This resolution will be completed when the dev server
-or Webpack watcher has been started.
+or webpack watcher has been started.
 
 _Example: using the `run` method:_
 
@@ -538,7 +538,7 @@ start(api.config.toConfig(), api)
 The `build` function is responsible for creating a bundle typically used for production.
 
 The `build` function returns a [`Future`](https://github.com/fluture-js/Fluture) which can then be used to
-kick off the runnable flow. This Future will be resolved with a Webpack stats object about the build, or reject with an
+kick off the runnable flow. This Future will be resolved with a webpack stats object about the build, or reject with an
 **array of errors**. This resolution will be completed when the build has been completed.
 
 _Example: using the `run` method:_
@@ -642,15 +642,15 @@ test(api.config.toConfig(), api)
 
 ### `inspect(webpackConfig, neutrinoApi)`
 
-The `inspect()` function is responsible for creating an object string which represents a Webpack configuration for the
+The `inspect()` function is responsible for creating an object string which represents a webpack configuration for the
 provided middleware and options. Upon execution `inspect` will:
 
-- Receive the Webpack configuration object
+- Receive the webpack configuration object
 - Deep-sort the object
 - Stringify the object with 2 spaces (**not** JSON stringified!)
 
 The `inspect` function returns a [`Future`](https://github.com/fluture-js/Fluture) which can then be used to
-kick off the runnable flow. This Future will be resolved with a string representation of the Webpack config, or reject
+kick off the runnable flow. This Future will be resolved with a string representation of the webpack config, or reject
 with an error.
 
 _Example: using the `run` method:_
