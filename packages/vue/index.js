@@ -1,17 +1,16 @@
+const loaderMerge = require('@neutrinojs/loader-merge');
 const web = require('@neutrinojs/web');
 const path = require('path');
 const merge = require('deepmerge');
-const loaderMerge = require('@neutrinojs/loader-merge');
 
 const MODULES = path.join(__dirname, 'node_modules');
 
 module.exports = (neutrino, options) => {
   neutrino.use(web, options);
-  neutrino.options.extensions = ['vue']; // eslint-disable-line no-param-reassign
 
   neutrino.config.module
     .rule('vue')
-      .test(neutrino.regexFromExtensions())
+      .test(neutrino.regexFromExtensions(['vue']))
       .use('vue')
         .loader(require.resolve('vue-loader'))
         .options(options);
@@ -51,7 +50,6 @@ module.exports = (neutrino, options) => {
   neutrino.config
     .resolve
       .modules.add(MODULES).end()
-      .extensions.add('.vue').end()
       .end()
     .resolveLoader.modules.add(MODULES);
 };

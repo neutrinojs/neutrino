@@ -129,8 +129,7 @@ module.exports = (neutrino, opts = {}) => {
         .add(MODULES)
         .end()
       .extensions
-        .add('.js')
-        .add('.json')
+        .merge(neutrino.options.extensions.map(ext => `.${ext}`))
         .end()
       .end()
     .resolveLoader
