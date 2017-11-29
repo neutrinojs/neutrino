@@ -26,6 +26,7 @@ const pathOptions = [
 
 // getOptions :: Object? -> IO Object
 const getOptions = (opts = {}) => {
+  let moduleExtensions = new Set(['js', 'jsx', 'vue', 'ts', 'mjs', 'json']);
   const options = merge({
     env: {
       NODE_ENV: 'development'
@@ -33,6 +34,16 @@ const getOptions = (opts = {}) => {
     debug: false,
     quiet: false
   }, opts);
+
+  Object.defineProperty(options, 'extensions', {
+    enumerable: true,
+    get() {
+      return [...moduleExtensions];
+    },
+    set(extensions) {
+      moduleExtensions = new Set(extensions.map(ext => ext.replace('.', '')));
+    }
+  });
 
   Object
     .keys(options.env)
@@ -85,6 +96,10 @@ class Api {
     this.emitter = mitt(this.listeners);
     this.commands = {};
     this.config = new Config();
+  }
+
+  regexFromExtensions(extensions = this.options.extensions) {
+    return new RegExp(`.(${extensions.join('|')})$`);
   }
 
   emit(...args) {

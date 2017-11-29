@@ -1,0 +1,31 @@
+{
+  "name": "@neutrinojs/vue",
+  "version": "7.3.2",
+  "description": "Neutrino preset adding Vue.js support.",
+  "main": "src/index.js",
+  "author": "Capi Etheriel <barraponto@gmail.com> (https://barraponto.blog.br)",
+  "license": "MPL-2.0",
+  "peerDependencies": {
+    "neutrino": "^7.0.0"
+  },
+  "devDependencies": {
+    "neutrino": "^7.2.1"
+  },
+  "keywords": [
+    "neutrino",
+    "neutrino-preset",
+    "vue",
+    "web",
+    "hot module replacement"
+  ],
+  "dependencies": {
+    "@neutrinojs/web": "^7.3.2",
+    "@neutrinojs/loader-merge": "^7.3.2",
+    "babel-preset-vue": "^1.2.1",
+    "deepmerge": "^1.5.2",
+    "eslint-plugin-vue": "^2.1.0",
+    "stylelint-processor-html": "^1.0.0",
+    "vue-loader": "^13.5.0",
+    "vue-template-compiler": "^2.5.6"
+  }
+}
