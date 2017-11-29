@@ -20,9 +20,10 @@ module.exports = ({
   }, args.options);
   const api = Neutrino(options);
 
+  api.register(commandName, commandHandler);
+  middleware.forEach(middleware => api.use(middleware));
+
   api
-    .register(commandName, commandHandler)
-    .use(middleware)
     .run(commandName)
     .fork(
       (errs) => {

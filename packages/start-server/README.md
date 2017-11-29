@@ -39,7 +39,7 @@ and plug it into Neutrino:
 const server = require('@neutrinojs/start-server');
 
 // Use with default options, starting the server
-// for the main entry point, neutrino.options.entry
+// for the main entry point, defaults to neutrino.options.mains.index
 neutrino.use(server);
 
 // Usage with custom server file to start
@@ -50,7 +50,7 @@ neutrino.use(server, { name: 'custom.js' });
 // Using object or array middleware format
 
 // Use with default options, starting the server
-// for the main entry point, neutrino.options.entry
+// for the main entry point, defaults to neutrino.options.mains.index
 module.exports = {
   use: ['@neutrinojs/start-server']
 };
@@ -65,8 +65,9 @@ module.exports = {
 };
 ```
 
-By default this middleware will start a server with the single entry point configured in Neutrino.
-This middleware optionally accepts an object with a `name` property for a path to a module which to start the server.
+By default this middleware will start a server with the first main entry point configured in Neutrino, by default
+`src/index`. This middleware optionally accepts an object with a `name` property for a path to a module which to
+start the server.
 
 ## Customization
 
@@ -79,7 +80,7 @@ The following is a list of plugins and their identifiers which can be overridden
 
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
-| `start-server` | Start a Node.js for a configured entry point or specified file. | all |
+| `start-server` | Start a Node.js for the first configured main entry point or specified file. | all |
 
 ### Debugging
 

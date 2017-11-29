@@ -150,9 +150,9 @@ index.js.map  3.73 kB       0  [emitted]  index
 ```
 
 You can either serve or deploy the contents of this `build` directory as a Node.js module, server, or tool. For Node.js
-this usually means adding a `main` property to package.json pointing to the built entry point. Also when publishing your
-project to npm, consider excluding your `src` directory by using the `files` property to whitelist `build`,
-or via `.npmignore` to blacklist `src`.
+this usually means adding a `main` property to package.json pointing to the primary main built entry point. Also when
+publishing your project to npm, consider excluding your `src` directory by using the `files` property to whitelist
+`build`, or via `.npmignore` to blacklist `src`.
 
 ```json
 {
@@ -286,10 +286,11 @@ To override the build configuration, start with the documentation on [customizat
 `@neutrinojs/node` creates some conventions to make overriding the configuration easier once you are ready to make
 changes.
 
-By default the Node.js preset creates a single **main** `index` entry point to your application, and this maps to the
-`index.*` file in the `src` directory. This means that the Node.js preset is optimized toward a main entry to your app.
-Code not imported in the hierarchy of the `index` entry will not be output to the bundle. To overcome this you
-must either define more entry points, or import the code path somewhere along the `index` hierarchy.
+By default Neutrino, and therefore this preset, creates a single **main** `index` entry point to your application, and this
+maps to the `index.*` file in the `src` directory. This means that this preset is optimized toward a single main entry
+to your application. Code not imported in the hierarchy of the `index` entry will not be output to the bundle. To overcome
+this you must either define more mains via [`options.mains`](../../customization#optionsmains), import the code path
+somewhere along the `index` hierarchy, or define multiple configurations in your `.neutrinorc.js`.
 
 ### Vendoring
 
@@ -312,10 +313,10 @@ _Note: Some plugins are only available in certain environments. To override them
 
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
-| `banner` | Injects source-map-support into the entry point of your application if detected in `dependencies` or `devDependencies` of your package.json. | Only when `source-map-support` is installed |
+| `banner` | Injects source-map-support into the mains (entry points) of your application if detected in `dependencies` or `devDependencies` of your package.json. | Only when `source-map-support` is installed |
 | `copy` | Copies all files from `src/static` to `build` when using `neutrino build`. | `build` command |
 | `clean` | Clears the contents of `build` prior to creating a production bundle. | `build` command |
-| `start-server` | Start a Node.js for a configured entry point or specified file. | `start` command |
+| `start-server` | Start a Node.js for the first configured main entry point. | `start` command |
 | `hot` | Enables Hot Module Replacement. | `start` command |
 | `named-modules` | Enables named modules for improved debugging and console output. From `@neutrinojs/hot`. | `start` command |
 | `module-concat` | Concatenate the scope of all your modules into one closure and allow for your code to have a faster execution time in the browser. | `NODE_ENV production` |

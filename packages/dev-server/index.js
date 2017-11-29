@@ -19,11 +19,13 @@ const getPublic = (neutrino, options) => {
 
 
 module.exports = (neutrino, opts = {}) => {
+  const port = opts.port || 5000;
   const publicHost = getPublic(neutrino, opts);
   const host = getHost(publicHost);
+
   const options = merge.all([
     {
-      port: 5000,
+      port,
       https: false,
       contentBase: neutrino.options.source,
       open: false,
@@ -31,7 +33,7 @@ module.exports = (neutrino, opts = {}) => {
       historyApiFallback: true,
       publicPath: '/',
       headers: {
-        host: publicHost
+        host: `${publicHost}:${port}`
       },
       stats: {
         assets: false,
@@ -49,7 +51,7 @@ module.exports = (neutrino, opts = {}) => {
       }
     },
     opts,
-    { host, public: publicHost },
+    { host, public: `${publicHost}:${port}` },
     neutrino.options.port ? { port: neutrino.options.port } : {},
     neutrino.options.https ? { https: neutrino.options.https } : {}
   ]);
@@ -59,9 +61,7 @@ module.exports = (neutrino, opts = {}) => {
   neutrino.config
     .devServer
       .merge(options)
-      .end()
-    .when(options.open, () => neutrino.on('start', () => open(url, { wait: false })))
-    .entry('index')
-      .when(options.hot, entry => entry.prepend(require.resolve('webpack/hot/dev-server')))
-      .prepend(`${require.resolve('webpack-dev-server/client')}?${url}`);
+      .when(options.open, () => {
+        neutrino.on('start', () => open(url, { wait: false }));
+      });
 };

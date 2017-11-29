@@ -9,6 +9,7 @@ const MODULES = join(__dirname, 'node_modules');
 module.exports = (neutrino, opts = {}) => {
   const options = merge({
     hot: true,
+    hotEntries: [require.resolve('react-hot-loader/patch')],
     babel: {}
   }, opts);
 
@@ -49,18 +50,22 @@ module.exports = (neutrino, opts = {}) => {
 
   neutrino.config.when(neutrino.config.module.rules.has('lint'), () => {
     neutrino.use(loaderMerge('lint', 'eslint'), {
-      plugins: ['react']
+      plugins: ['react'],
+      rules: {
+        'react/react-in-jsx-scope': 'off'
+      }
     });
   });
 
   neutrino.config
     .resolve
-      .modules.add(MODULES).end()
-      .extensions.add('.jsx').end()
-      .alias.set('react-native', 'react-native-web').end()
+      .batch((resolve) => {
+        resolve.modules.add(MODULES);
+        resolve.extensions.add('.jsx');
+        resolve.alias.set('react-native', 'react-native-web');
+      })
       .end()
-    .resolveLoader.modules.add(MODULES).end().end()
-    .when(process.env.NODE_ENV === 'development' && options.hot, config => config
-      .entry('index')
-        .prepend(require.resolve('react-hot-loader/patch')));
+    .resolveLoader
+      .modules
+        .add(MODULES);
 };

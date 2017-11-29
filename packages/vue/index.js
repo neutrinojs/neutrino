@@ -1,7 +1,7 @@
 const loaderMerge = require('@neutrinojs/loader-merge');
 const web = require('@neutrinojs/web');
-const path = require('path');
 const merge = require('deepmerge');
+const path = require('path');
 
 const MODULES = path.join(__dirname, 'node_modules');
 
@@ -25,31 +25,29 @@ module.exports = (neutrino, options) => {
         }
       },
       rules: {
-        'vue/jsx-uses-vars': 2
+        'vue/jsx-uses-vars': 'error'
       }
     });
   });
 
   if (neutrino.config.plugins.has('stylelint')) {
-    neutrino.config.plugin('stylelint')
-      .tap(([options, ...args]) => [
-        merge(options, {
-          files: ['**/*.vue'],
-          config: {
-            processors: [require.resolve('stylelint-processor-html')],
-            rules: {
-              // allows empty <style> in vue components
-              'no-empty-source': null
+    neutrino.config
+      .plugin('stylelint')
+        .tap(([options, ...args]) => [
+          merge(options, {
+            files: ['**/*.vue'],
+            config: {
+              processors: [require.resolve('stylelint-processor-html')],
+              rules: {
+                // allows empty <style> in vue components
+                'no-empty-source': null
+              }
             }
-          }
-        }),
-        ...args
-      ]);
+          }),
+          ...args
+        ]);
   }
 
-  neutrino.config
-    .resolve
-      .modules.add(MODULES).end()
-      .end()
-    .resolveLoader.modules.add(MODULES);
+  neutrino.config.resolve.modules.add(MODULES);
+  neutrino.config.resolveLoader.modules.add(MODULES);
 };

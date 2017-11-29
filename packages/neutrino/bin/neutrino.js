@@ -6,7 +6,7 @@ process.noDeprecation = true;
 
 const yargs = require('yargs');
 const {
-  cond, equals, map, T
+  cond, equals, map, omit, T
 } = require('ramda');
 const build = require('./build');
 const inspect = require('./inspect');
@@ -52,7 +52,7 @@ const args = yargs
     default: [],
     global: true
   })
-  .option('--no-tty', {
+  .option('no-tty', {
     description: 'Disable text terminal interactions',
     boolean: true,
     default: false,
@@ -96,7 +96,12 @@ if (!middleware.length) {
 
 // Merge CLI config options as last piece of middleware, e.g. options.config.devServer.port 4000
 if (args.options) {
-  middleware.push(({ config }) => config.merge(args.options.config));
+  middleware.push({
+    options: omit(['config'], args.options),
+    use: args.options.config && (({ config }) => {
+      config.merge(args.options.config)
+    })
+  });
 }
 
 process.on('unhandledRejection', (err) => {

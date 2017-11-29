@@ -60,10 +60,10 @@ console.log(api.options.source); //   /project/lib
 ```
 
 ```js
-api.options.entry = 'app.js';
-console.log(api.options.entry); //   /project/src/app.js
+api.options.mains.index = 'app.js';
+console.log(api.options.mains.index); //   /project/src/app.js
 api.options.source = 'lib';
-console.log(api.options.entry); //   /project/lib/app.js
+console.log(api.options.mains.index); //   /project/lib/app.js
 ```
 
 ### `options.root`
@@ -135,21 +135,31 @@ Neutrino({
 })
 ```
 
-### `options.entry`
+### `options.mains`
 
-Set the main entry point for the application. If the option is not set, Neutrino defaults it to `index.*` - the
-extension is resolved by webpack. The main file by default is not required to be in JavaScript format. If a relative
-path is specified, it will be resolved relative to `options.source`; absolute paths will be used as-is.
+Set the main entry points for the application. If the option is not set, Neutrino defaults it to:
+ 
+```js
+{
+  index: 'index'
+}
+```
+ 
+Notice the entry point has no extension; the extension is resolved by webpack. If relative paths are specified,
+they will be computed and resolved relative to `options.source`; absolute paths will be used as-is.
 
 ```js
 Neutrino({
-  // if not specified, defaults to options.source + index
-
-  // relative, resolves to options.source + entry.js
-  entry: 'entry.js',
-
-  // absolute
-  entry: '/code/website/src/entry.js'
+  mains: {
+    // If not specified, defaults to options.source + index.*
+    index: 'index',
+    
+    // Override to relative, resolves to options.source + entry.*
+    index: 'entry',
+  
+    // Override to absolute path
+    index: '/code/website/src/entry.js'
+  }
 })
 ```
 

@@ -12,10 +12,12 @@
   "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/react-components",
   "license": "MPL-2.0",
   "scripts": {
-    "build": "neutrino build --use ./index.js"
+    "build": "neutrino build --use ./index.js --options.config.performance.hints warning"
   },
   "devDependencies": {
-    "react": "^16.0.0"
+    "react": "^16.0.0",
+    "react-addons-css-transition-group": "^15.6.2",
+    "react-dom": "^16.1.1"
   },
   "dependencies": {
     "@blueprintjs/core": "^1.31.0",

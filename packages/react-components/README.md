@@ -175,7 +175,8 @@ These modules are ES-compatible modules, so they can be `import`ed as expected. 
 const YourCustomComponent = require('your-custom-component').default;
 ```
 
-By default this preset creates an individual entry point for every top-level component found in `src/components`.
+By default this preset creates an individual entry point for every top-level component found in `src/components`. These
+are set and accessible via the API at [`neutrino.options.mains`](https://neutrino.js.org/api#optionsmains).
 
 ## Previewer Components
 
@@ -277,7 +278,8 @@ To override the build configuration, start with the documentation on [customizat
 See the [Web documentation customization](https://neutrino.js.org/packages/web#customizing)
 for preset-specific configuration to override.
 
-By default this preset creates an individual entry point for every top-level component found in `src/components`.
+By default this preset creates an individual entry point for every top-level component found in `src/components`. These
+are set and accessible via the API at [`neutrino.options.mains`](https://neutrino.js.org/api#optionsmains).
 
 ### Rules
 
@@ -297,7 +299,7 @@ _Note: Some plugins are only available in certain environments. To override them
 
 | Name | Description | Environments |
 | ---- | ----------- | ------------ |
-| `banner` | Injects source-map-support into the entry point of your application if detected in `dependencies` or `devDependencies` of your package.json. | all but `development` |
+| `banner` | Injects source-map-support into the mains (entry points) of your application if detected in `dependencies` or `devDependencies` of your package.json. | all but `development` |
 
 By following the [customization guide](https://neutrino.js.org/customization) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also

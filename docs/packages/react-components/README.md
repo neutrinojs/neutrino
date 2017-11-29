@@ -175,7 +175,8 @@ These modules are ES-compatible modules, so they can be `import`ed as expected. 
 const YourCustomComponent = require('your-custom-component').default;
 ```
 
-By default this preset creates an individual entry point for every top-level component found in `src/components`.
+By default this preset creates an individual entry point for every top-level component found in `src/components`. These
+are set and accessible via the API at [`neutrino.options.mains`](../../api#optionsmains).
 
 ## Previewer Components
 
@@ -277,7 +278,8 @@ To override the build configuration, start with the documentation on [customizat
 See the [Web documentation customization](../web#customizing)
 for preset-specific configuration to override.
 
-By default this preset creates an individual entry point for every top-level component found in `src/components`.
+By default this preset creates an individual entry point for every top-level component found in `src/components`. These
+are set and accessible via the API at [`neutrino.options.mains`](../../api#optionsmains).
 
 ### Rules
 

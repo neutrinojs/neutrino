@@ -142,9 +142,9 @@ Logger.js.map  3.73 kB       0  [emitted]  index
 ✨  Done in 1.51s.
 ```
 
-You should specify a `main` property in your package.json pointing to the built entry point. Also when publishing your
-project to npm, consider excluding your `src` directory by using the `files` property to whitelist `build`,
-or via `.npmignore` to blacklist `src`.
+You should specify a `main` property in your package.json pointing to your primary built main entry point. Also when
+publishing your project to npm, consider excluding your `src` directory by using the `files` property to whitelist
+`build`, or via `.npmignore` to blacklist `src`.
 
 ```json
 {
@@ -386,11 +386,11 @@ To override the build configuration, start with the documentation on [customizat
 `@neutrinojs/library` creates some conventions to make overriding the configuration easier once you are ready to make
 changes.
 
-By default the Library preset creates a single **main** `index` entry point to your library, and this maps to the
-`index.*` file in the `src` directory. This means that the Library preset is optimized toward a main entry to your library.
-Code not imported in the hierarchy of the `index` entry will not be output to the bundle. To overcome this you
-must either define more entry points, or import the code path somewhere along the `index` hierarchy, or define
-multiple configurations in your `.neutrinorc.js`.
+By default Neutrino, and therefore this preset, creates a single **main** `index` entry point to your library, and this
+maps to the `index.*` file in the `src` directory. This means that this preset is optimized toward a single main entry
+to your library. Code not imported in the hierarchy of the `index` entry will not be output to the bundle. To overcome
+this you must either define more mains via [`options.mains`](../../customization#optionsmains), import the code path
+somewhere along the `index` hierarchy, or define multiple configurations in your `.neutrinorc.js`.
 
 ### Rules
 
@@ -409,7 +409,7 @@ _Note: Some plugins are only available in certain environments. To override them
 
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
-| `banner` | Injects source-map-support into the entry point of your application if detected in `dependencies` or `devDependencies` of your package.json. | Only when `source-map-support` is installed |
+| `banner` | Injects source-map-support into the main entry points of your application if detected in `dependencies` or `devDependencies` of your package.json. | Only when `source-map-support` is installed |
 | `clean` | Clears the contents of `build` prior to creating a production bundle. | `build` command |
 | `minify` | Minifies source code using `BabiliWebpackPlugin`. From `@neutrinojs/minify`. | `NODE_ENV production` |
 | `module-concat` | Concatenate the scope of all your modules into one closure and allow for your code to have a faster execution time in the browser. | `NODE_ENV production` |

@@ -80,6 +80,10 @@ module.exports = (neutrino, opts = {}) => {
     babel: options.babel
   });
 
+  Object
+    .keys(neutrino.options.mains)
+    .forEach(key => neutrino.config.entry(key).add(neutrino.options.mains[key]));
+
   neutrino.config
     .target(options.target)
     .context(neutrino.options.root)
@@ -89,9 +93,6 @@ module.exports = (neutrino, opts = {}) => {
       .filename('[name].js')
       .libraryTarget(options.libraryTarget)
       .when(options.libraryTarget === 'umd', (output) => output.umdNamedDefine(true))
-      .end()
-    .entry('index')
-      .add(neutrino.options.entry)
       .end()
     .resolve
       .modules

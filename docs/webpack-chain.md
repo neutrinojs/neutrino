@@ -173,6 +173,13 @@ merge(obj, omit)
 ```
 
 ```js
+// Execute a function against the current configuration context
+// handler: Function -> ChainedMap
+  // A function which is given a single argument of the ChainedMap instance
+batch(handler)
+```
+
+```js
 // Conditionally execute a function to continue configuration
 // condition: Boolean
 // whenTruthy: Function -> ChainedMap
@@ -231,6 +238,13 @@ values()
 // Concatenates the given array to the end of the backing Set.
 // arr: Array
 merge(arr)
+```
+
+```js
+// Execute a function against the current configuration context
+// handler: Function -> ChainedSet
+  // A function which is given a single argument of the ChainedSet instance
+batch(handler)
 ```
 
 ```js

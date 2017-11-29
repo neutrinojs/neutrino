@@ -2,16 +2,17 @@ const react = require('@neutrinojs/react');
 const banner = require('@neutrinojs/banner');
 const merge = require('deepmerge');
 const nodeExternals = require('webpack-node-externals');
-const { join, basename } = require('path');
+const { extname, join, basename } = require('path');
 const { readdirSync } = require('fs');
 
 const MODULES = join(__dirname, 'node_modules');
 
 module.exports = (neutrino, options = {}) => {
   const reactOptions = merge({
-    html: {
+    html: process.env.NODE_ENV === 'development' && {
       title: 'React Preview'
     },
+    manifest: process.env.NODE_ENV === 'development',
     externals: {}
   }, options);
 
@@ -21,11 +22,22 @@ module.exports = (neutrino, options = {}) => {
   neutrino.config.when(
     process.env.NODE_ENV === 'development',
     () => {
-      neutrino.options.entry = 'stories'; // eslint-disable-line no-param-reassign
+      neutrino.options.mains.index = 'stories'; // eslint-disable-line no-param-reassign
       neutrino.use(react, reactOptions);
     },
     () => {
       const components = join(neutrino.options.source, options.components || 'components');
+
+      Object
+        .keys(neutrino.options.mains)
+        .forEach(key => {
+          delete neutrino.options.mains[key]; // eslint-disable-line no-param-reassign
+        });
+
+      readdirSync(components).forEach(component => {
+        // eslint-disable-next-line no-param-reassign
+        neutrino.options.mains[basename(component, extname(component))] = join(components, component);
+      });
 
       // eslint-disable-next-line no-param-reassign
       neutrino.options.output = neutrino.options.output.endsWith('build') ?
@@ -44,12 +56,6 @@ module.exports = (neutrino, options = {}) => {
 
       neutrino.config
         .devtool('source-map')
-        .entryPoints
-          .delete('index')
-          .end()
-        .plugins
-          .delete('html')
-          .end()
         .performance
           .hints('error')
           .end()
@@ -59,11 +65,6 @@ module.exports = (neutrino, options = {}) => {
           .library('[name]')
           .libraryTarget('umd')
           .umdNamedDefine(true);
-
-      readdirSync(components)
-        .map(component => neutrino.config
-          .entry(basename(component, '.js'))
-            .add(join(components, component)));
     }
   );
 

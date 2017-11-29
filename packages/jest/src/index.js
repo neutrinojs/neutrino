@@ -27,7 +27,7 @@ function normalizeJestOptions(opts, neutrino, usingBabel) {
   const moduleNames = Object
     .keys(aliases)
     .reduce((mapper, key) => Object.assign(mapper, {
-      [`${key}(.*)`]: `${getFinalPath(aliases[key])}$1`
+      [`^${key}$`]: `${getFinalPath(aliases[key])}$1`
     }), {});
   const moduleNameMapper = merge({
     [mediaNames]: require.resolve('./file-mock'),

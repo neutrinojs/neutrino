@@ -235,7 +235,7 @@ module.exports = {
     (neutrino) => {
       neutrino.config
         .entry('vendor')
-          .add('preact')
+          .add('preact');
     }
   ]
 };
@@ -273,7 +273,7 @@ load(App);
 ## Preact Devtools
 
 To use the React Devtools for your Preact project, require the preact devtools during the `development` environment
-within your `entry` file:
+within your main entry file (typically `src/index`):
 
 ```js
 if (process.env.NODE_ENV === 'development') {

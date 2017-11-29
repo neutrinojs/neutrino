@@ -19,7 +19,7 @@ root of the project. This includes compiled and imported JavaScript files, CSS s
 that would be available to your compiled project.
 
 When running your project or creating a build bundle, a preset will look for this `src` directory for
-the entry point(s) to your application and use this as the relative location for finding other assets
+the main entry points of your application and use this as the relative location for finding other assets
 necessary for creating your builds.
 
 ## Build Assets
