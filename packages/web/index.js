@@ -155,9 +155,6 @@ module.exports = (neutrino, opts = {}) => {
     })
     .when(process.env.NODE_ENV === 'development', config => config.devtool('cheap-module-eval-source-map'))
     .when(neutrino.options.command === 'start', (config) => {
-      console.log('•••••••••••••••••••••••••');
-      console.log(config);
-
       neutrino.use(devServer, options.devServer);
       config.when(options.hot, () => {
         neutrino.use(hot);
