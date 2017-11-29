@@ -10,8 +10,8 @@
 
 - Zero upfront configuration necessary to start developing and building a web app
 - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
-- Webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
-- Webpack Dev Server during development
+- webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
+- webpack Dev Server during development
 - Automatic creation of HTML pages, no templating necessary
 - Hot Module Replacement support
 - Tree-shaking to create smaller bundles
@@ -135,7 +135,7 @@ to `build/static`. To change this behavior, specify your own patterns with
 
 ## Paths
 
-The `@neutrinojs/web` preset loads assets relative to the path of your application by setting Webpack's
+The `@neutrinojs/web` preset loads assets relative to the path of your application by setting webpack's
 [`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath) to `./`. If you wish to load
 assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
 override `output.publicPath`. See the [Customizing](#Customizing) section below.
@@ -160,7 +160,7 @@ module.exports = {
         async: true
       },
 
-      // Sets Webpack's `output.publicPath` and
+      // Sets webpack's `output.publicPath` and
       // `devServer.publicPath` settings. Useful if you want to
       // serve assets from a non-root location (e.g. `/assets/`)
       publicPath: './',
@@ -298,7 +298,7 @@ To override the build configuration, start with the documentation on [customizat
 changes.
 
 By default the Web preset creates a single **main** `index` entry point to your application, and this maps to
-the `index.*` file in the `src` directory. The extension is resolved by Webpack. This value is provided by
+the `index.*` file in the `src` directory. The extension is resolved by webpack. This value is provided by
 `neutrino.options.entry`. This means that the Web preset is optimized toward the use case of single-page
 applications over multi-page applications.
 
@@ -329,7 +329,7 @@ _Note: Some plugins are only available in certain environments. To override them
 | `named-modules` | Enables named modules for improved debugging and console output. From `@neutrinojs/chunk` and `@neutrinojs/hot`. | `NODE_ENV production`, `start` command |
 | `named-chunks` | Enables named chunks for improved debugging and console output. From `@neutrinojs/chunk`. | `NODE_ENV production` |
 | `vendor-chunk` | Creates a separate file/chunk consisting of common modules shared between multiple entry points. From `@neutrinojs/chunk`. | `NODE_ENV production` |
-| `runtime-chunk` | Creates a separate file/chunk consisting of the Webpack manifest-specific code. From `@neutrinojs/chunk`. | `NODE_ENV production` |
+| `runtime-chunk` | Creates a separate file/chunk consisting of the webpack manifest-specific code. From `@neutrinojs/chunk`. | `NODE_ENV production` |
 | `name-all` | Names all remaining modules that do not get named via `named-modules`. From `@neutrinojs/chunk`. | `NODE_ENV production` |
 | `hot` | Enables Hot Module Replacement. From `@neutrinojs/hot`. | `start` command |
 | `copy` | Copies files during build, defaults from `src/static` to `build/static`. From `@neutrinojs/copy` | `build` command |

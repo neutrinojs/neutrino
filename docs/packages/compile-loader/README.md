@@ -59,9 +59,9 @@ module.exports = {
 };
 ```
 
-- `include` should be an array of paths to include in the compilation. Maps to Webpack's
+- `include` should be an array of paths to include in the compilation. Maps to webpack's
 [`Rule.include`](https://webpack.js.org/configuration/module/#rule-include)
-- `exclude` should be an array of paths to exclude from the compilation. Maps to Webpack's
+- `exclude` should be an array of paths to exclude from the compilation. Maps to webpack's
 [`Rule.exclude`](https://webpack.js.org/configuration/module/#rule-exclude)
 - `babel` is a [Babel configuration object](https://babeljs.io/docs/usage/api/#options), consumed by babel-loader. Use
 this to set properties such as `presets`, `plugins`, and `env`.
@@ -110,6 +110,39 @@ console.log(together);
     }]
   ]
 }
+```
+
+### Advanced merging
+
+Should you need to do merging of Babel configuration that is more advanced than this, such as re-ordering the options,
+you will need to `tap` into the existing Babel options to do so. This still involves using the compile-loader's
+`merge` function.
+
+_Example: enable current decorator syntax in the compile loader:_
+
+```js
+const { merge } = require('@neutrinojs/compile-loader');
+
+// Decorators generally need to be enabled *before* other
+// syntax which exists in both normal plugins, and
+// development environment plugins.
+const decorators = require.resolve('babel-plugin-transform-decorators-legacy');
+const classes = require.resolve('babel-plugin-transform-class-properties');
+
+// Now tap into the existing Babel options and merge our
+// decorator options *before* the rest of the existing
+// Babel options
+config.module
+  .rule('compile')
+    .use('babel')
+      .tap(options => merge({
+        plugins: [decorators, classes],
+        env: {
+          development: {
+            plugins: [decorators, classes]
+          }
+        }
+      }, options));
 ```
 
 ## Customization

@@ -9,14 +9,14 @@
 ## Features
 
 - Zero upfront configuration necessary to start developing and building a React web app
-- Modern Babel compilation adding JSX and object rest spread syntax.
+- Modern Babel compilation adding JSX, object rest spread syntax, and class properties.
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
 - Automatic import of `React.createElement`, no need to import `react` or `React.createElement` yourself
 - Extends from [@neutrinojs/web](../@neutrinojs/web/README.md)
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
-  - Webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
-  - Webpack Dev Server during development
+  - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
+  - webpack Dev Server during development
   - Automatic creation of HTML pages, no templating necessary
   - Hot Module Replacement support
   - Tree-shaking to create smaller bundles
@@ -69,7 +69,6 @@ This React preset exposes an element in the page with an ID of `root` to which y
 your `src/index.js` file with the following:
 
 ```jsx
-import React from 'react';
 import { render } from 'react-dom';
 
 render(<h1>Hello world!</h1>, document.getElementById('root'));
@@ -142,7 +141,7 @@ to `build/static`. To change this behavior, specify your own patterns with
 
 ## Paths
 
-The `@neutrinojs/web` preset loads assets relative to the path of your application by setting Webpack's
+The `@neutrinojs/web` preset loads assets relative to the path of your application by setting webpack's
 [`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath) to `./`. If you wish to load
 assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
 override `output.publicPath`. See the [Customizing](#Customizing) section below.
@@ -201,6 +200,10 @@ To override the build configuration, start with the documentation on [customizat
 Web preset. See the [Web documentation customization](../@neutrinojs/web#customizing)
 for preset-specific configuration to override.
 
+For details on merging and overriding Babel configuration, such as supporting decorator syntax, read more
+about using the [`compile-loader` `merge`](../compile-loader#advanced-merging) once you
+are comfortable customizing your build.
+
 ### Advanced configuration
 
 By following the [customization guide](../../customization/advanced.md) and knowing the rule, loader, and plugin IDs from
@@ -248,7 +251,7 @@ First, install `react-hot-loader` as a dependency, this **must** be React Hot Lo
 ---
 
 - From your `index` entry point (defaults to `src/index.*` from `neutrino.options.entry`), import an `AppContainer`
-from `react-hot-loader`. The main file may be named `index.js` or `index.jsx`. The extension is resolved by Webpack.
+from `react-hot-loader`. The main file may be named `index.js` or `index.jsx`. The extension is resolved by webpack.
 - Wrap your top-level React component in the `AppContainer`.
 - Perform the application render in a reusable function for initial load and subsequent reloads.
 - Add the `hot` acceptance to call this function.
@@ -256,7 +259,6 @@ from `react-hot-loader`. The main file may be named `index.js` or `index.jsx`. T
 For example:
 
 ```jsx
-import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import MyApp from './MyApp';

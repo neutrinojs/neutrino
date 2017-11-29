@@ -11,7 +11,7 @@ configuration and dependencies necessary to accomplish those use cases:
 ## Getting Started
 
 Neutrino middleware are Node.js modules or packages that export a [middleware format](./middleware/README.md#formats).
-We call these Neutrino middleware because they sit in the middle of Neutrino and Webpack, modifying a configuration with
+We call these Neutrino middleware because they sit in the middle of Neutrino and webpack, modifying a configuration with
 each subsequent middleware call. When using the function middleware formats, you can use the Neutrino instance provided
 to the middleware function to modify the configuration, provide your own configuration, expose custom options for your
 middleware, listen for build events, and execute custom functionality.
@@ -263,7 +263,7 @@ module.exports = {
 ### `options.entry`
 
 Set the main entry point for the application. If the option is not set, Neutrino defaults it to `index.*` - the
-extension is resolved by Webpack. If a relative path is specified, it will be resolved relative to `options.source`;
+extension is resolved by webpack. If a relative path is specified, it will be resolved relative to `options.source`;
 absolute paths will be used as-is.
 
 The main file by default is not required to be in JavaScript format. It also potentially may be JSX, TypeScript, or any
@@ -310,13 +310,13 @@ module.exports = {
 ## Loader and Babel modules
 
 Because of package conflicts or unknown layout of a project's `node_modules` directory, it is usually safer to
-define loaders, Babel plugins, and Babel presets to Webpack absolutely than by name. In our sample preset above, while
+define loaders, Babel plugins, and Babel presets to webpack absolutely than by name. In our sample preset above, while
 we could have passed the loader as just `'standard-loader'`, it is safer to resolve its location relative to our preset
-than having Webpack et al attempt to load it later from a different, potentially incorrect location. Instead we
+than having webpack et al attempt to load it later from a different, potentially incorrect location. Instead we
 passed `require.resolve('standard-loader')`.
 
 As a rule of thumb, if your preset is the one using `require`, you are safe to require by name. If you are passing the
-name of the module off to be required by Webpack or Babel, instead pass the path to the module via `require.resolve`.
+name of the module off to be required by webpack or Babel, instead pass the path to the module via `require.resolve`.
 
 ## Publishing
 

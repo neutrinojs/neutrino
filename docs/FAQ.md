@@ -25,13 +25,13 @@ between ease of set up and black-boxing the configuration. Once you decide to ma
 you are forced to maintain the entire configuration and its dependencies in perpetuity. We believe Neutrino
 represents a good balance between ease of set up and future extensibility.
 
-### Why don't presets use a normal Webpack configuration object instead of the chaining API?
+### Why don't presets use a normal webpack configuration object instead of the chaining API?
 
-The Webpack configuration works well when it is embedded into a single project, and it is the only configuration
+The webpack configuration works well when it is embedded into a single project, and it is the only configuration
 file to maintain. Once the configuration is no longer co-located with the project, and needs to be extended or
 modified across different projects, it becomes very messy to make those modifications.
 
-For example, let's say that a preset instead used the Webpack object configuration and added an instance of the
+For example, let's say that a preset instead used the webpack object configuration and added an instance of the
 `EnvironmentPlugin`:
 
 ```js
@@ -39,8 +39,8 @@ config.plugins.push(new webpack.EnvironmentPlugin(['NODE_ENV']));
 ```
 
 If you wanted to extend this plugin in your own project to add more environment variables, you would most likely
-resort to either adding a new instance of the `EnvironmentPlugin` by requiring Webpack yourself, or looping through
-Webpack's plugin array, removing the plugin, and re-instantiating it with your own arguments.
+resort to either adding a new instance of the `EnvironmentPlugin` by requiring webpack yourself, or looping through
+webpack's plugin array, removing the plugin, and re-instantiating it with your own arguments.
 
 ```js
 config.plugins = config.plugins.map(plugin => {
@@ -53,20 +53,20 @@ config.plugins = config.plugins.map(plugin => {
 ```
 
 This forces a much higher maintenance burden on your project, and this is only a very simple example. Modifying
-loaders created from raw Webpack configuration objects can be **much** more unwieldy.
+loaders created from raw webpack configuration objects can be **much** more unwieldy.
 
 Using [webpack-chain](https://github.com/mozilla-neutrino/webpack-chain) affords Neutrino the ability to identify and
 manipulate parts of the configuration without resorting to object and array manipulation hacks, something not currently
-possible when working with raw Webpack configuration data.
+possible when working with raw webpack configuration data.
 
-### Can I just re-use my existing Webpack configuration?
+### Can I just re-use my existing webpack configuration?
 
-The Neutrino configuration does let you merge a configuration object, but does not accept a normal Webpack configuration
+The Neutrino configuration does let you merge a configuration object, but does not accept a normal webpack configuration
 out of the box. Since Neutrino uses webpack-chain and enforces naming of plugins, rules, and loaders, you must use an
-object that corresponds with this "schema". Typically this would involve transforming your Webpack configuration to nest
+object that corresponds with this "schema". Typically this would involve transforming your webpack configuration to nest
 entities requiring a name into an object which maps the name to the entity.
 
-In short, you must transform your Webpack configuration in order to merge it into the Neutrino configuration cleanly.
+In short, you must transform your webpack configuration in order to merge it into the Neutrino configuration cleanly.
 
 ### What is the difference between middleware and presets?
 

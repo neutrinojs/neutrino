@@ -12,7 +12,7 @@ community, file an issue or submit a pull request.
 
 #### v5
 
-* [Code Splitting for React Router with Webpack and HMR](https://medium.com/@hassanhelfi/code-splitting-for-react-router-with-webpack-and-hmr-bb509968e86f) by [@hassanhelfi](https://twitter.com/hassanhelfi)
+* [Code Splitting for React Router with webpack and HMR](https://medium.com/@hassanhelfi/code-splitting-for-react-router-with-webpack-and-hmr-bb509968e86f) by [@hassanhelfi](https://twitter.com/hassanhelfi)
 
 #### v4
 
