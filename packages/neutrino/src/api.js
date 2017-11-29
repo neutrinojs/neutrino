@@ -32,8 +32,7 @@ const getOptions = (opts = {}) => {
       NODE_ENV: 'development'
     },
     debug: false,
-    quiet: false,
-    extensions: moduleExtensions
+    quiet: false
   }, opts);
 
   Object.defineProperty(options, 'extensions', {
