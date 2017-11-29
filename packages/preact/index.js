@@ -1,4 +1,5 @@
 const web = require('@neutrinojs/web');
+const loaderMerge = require('@neutrinojs/loader-merge');
 const { join } = require('path');
 const merge = require('deepmerge');
 
@@ -53,4 +54,12 @@ module.exports = (neutrino, opts = {}) => {
         .set('react-dom', 'preact-compat')
         .set('create-react-class', 'preact-compat/lib/create-react-class')
         .set('react-addons-css-transition-group', 'preact-css-transition-group');
+
+  neutrino.config.when(neutrino.config.module.rules.has('lint'), () => {
+    neutrino.use(loaderMerge('lint', 'eslint'), {
+      rules: {
+        'react/react-in-jsx-scope': 'off'
+      }
+    });
+  });
 };

@@ -210,6 +210,25 @@ By following the [customization guide](https://neutrino.js.org/customization) an
 `@neutrinojs/web`, you can override and augment the build by providing a function to your `.neutrinorc.js` use
 array. You can also make these changes from the Neutrino API in custom middleware.
 
+By default Neutrino, and therefore this preset, creates a single **main** `index` entry point to your application, and
+this maps to the `index.*` file in the `src` directory. The extension is resolved by webpack. This value is provided by
+`neutrino.options.mains` at `neutrino.options.mains.index`. This means that the Web preset is optimized toward the use
+case of single-page applications over multi-page applications. If you wish to output multiple pages, you can detail
+all your mains in your `.neutrinorc.js`.
+ 
+```js
+module.exports = {
+  options: {
+    mains: {
+      index: 'index', // outputs index.html from src/index.*
+      admin: 'admin', // outputs admin.html from src/admin.*
+      account: 'user' // outputs account.html from src/user.*
+    }
+  },
+  use: ['@neutrinojs/react']
+}
+```
+
 #### Vendoring
 
 By defining an entry point named `vendor` you can split out external dependencies into a chunk separate
@@ -250,7 +269,7 @@ First, install `react-hot-loader` as a dependency, this **must** be React Hot Lo
 
 ---
 
-- From your `index` entry point (defaults to `src/index.*` from `neutrino.options.entry`), import an `AppContainer`
+- From your `index` entry point (defaults to `src/index.*` from `neutrino.options.mains.index`), import an `AppContainer`
 from `react-hot-loader`. The main file may be named `index.js` or `index.jsx`. The extension is resolved by webpack.
 - Wrap your top-level React component in the `AppContainer`.
 - Perform the application render in a reusable function for initial load and subsequent reloads.

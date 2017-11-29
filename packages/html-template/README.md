@@ -1,7 +1,7 @@
 # Neutrino HTML Template Middleware
 
 `@neutrinojs/html-template` is Neutrino middleware for automatically creating HTML files for configured
-entry-points.
+entry points.
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
@@ -104,7 +104,7 @@ The following is a list of plugins and their identifiers which can be overridden
 
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
-| `html` | Automatically generates HTML files for configured entry-points. | all |
+| `html` | Automatically generates HTML files for configured entry points. | all |
 
 ## Contributing
 

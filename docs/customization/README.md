@@ -109,27 +109,35 @@ module.exports = {
 };
 ```
 
-### `options.entry`
+### `options.mains`
 
-Set the main entry point for the application. If the option is not set, Neutrino defaults it to `index.*` - the
-extension is resolved by webpack. If a relative path is specified, it will be resolved relative to `options.source`;
-absolute paths will be used as-is.
+Set the main entry points for the application. If the option is not set, Neutrino defaults it to:
 
-The main file by default is not required to be in JavaScript format. It also potentially may be JSX, TypeScript, or
-any other preprocessor language. These extensions should be specified in middleware at
-`neutrino.config.resolve.extensions`. 
+```js
+{
+  index: 'index'
+}
+```
+ 
+Notice the entry point has no extension; the extension is resolved by webpack. If relative paths are specified,
+they will be computed and resolved relative to `options.source`; absolute paths will be used as-is.
 
 ```js
 module.exports = {
   options: {
-    // Override to relative file, resolves to options.source + entry.*
-    entry: 'entry',
+    mains: {
+      // If not specified, defaults to options.source + index
+      index: 'index',
+      
+      // Override to relative, resolves to options.source + entry.*
+      index: 'entry',
     
-    // Override to relative file, resolves to options.source + app.js
-    entry: 'app.js',
-    
-    // Override to absolute file
-    entry: '/code/website/src/entry.js'
+      // Override to absolute path
+      index: '/code/website/src/entry.js',
+      
+      // Add additional main, resolves to options.source + admin.*
+      admin: 'admin'
+    }
   }
 };
 ```

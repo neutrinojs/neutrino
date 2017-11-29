@@ -77,18 +77,47 @@ test('options.node_modules', t => {
   t.is(api.options.node_modules, '/alpha');
 });
 
-test('options.entry', t => {
+test('options.mains', t => {
   const api = Neutrino();
 
-  t.is(api.options.entry, join(process.cwd(), 'src/index'));
-  api.options.entry = './alpha.js';
-  t.is(api.options.entry, join(process.cwd(), 'src/alpha.js'));
+  t.is(api.options.mains.index, join(process.cwd(), 'src/index'));
+  api.options.mains.index = './alpha.js';
+  t.is(api.options.mains.index, join(process.cwd(), 'src/alpha.js'));
   api.options.source = 'beta';
-  t.is(api.options.entry, join(process.cwd(), 'beta/alpha.js'));
+  t.is(api.options.mains.index, join(process.cwd(), 'beta/alpha.js'));
   api.options.root = '/gamma';
-  t.is(api.options.entry, join('/gamma', 'beta/alpha.js'));
-  api.options.entry = '/alpha.js';
-  t.is(api.options.entry, '/alpha.js');
+  t.is(api.options.mains.index, join('/gamma', 'beta/alpha.js'));
+  api.options.mains.index = '/alpha.js';
+  t.is(api.options.mains.index, '/alpha.js');
+});
+
+test('override options.mains', t => {
+  const api = Neutrino({
+    mains: {
+      alpha: 'beta',
+      gamma: 'delta'
+    }
+  });
+
+  t.is(api.options.mains.alpha, join(process.cwd(), 'src/beta'));
+  api.options.mains.alpha = './alpha.js';
+  t.is(api.options.mains.alpha, join(process.cwd(), 'src/alpha.js'));
+  api.options.source = 'epsilon';
+  t.is(api.options.mains.alpha, join(process.cwd(), 'epsilon/alpha.js'));
+  api.options.root = '/zeta';
+  t.is(api.options.mains.alpha, join('/zeta', 'epsilon/alpha.js'));
+  api.options.mains.alpha = '/alpha.js';
+  t.is(api.options.mains.alpha, '/alpha.js');
+
+  t.is(api.options.mains.gamma, join('/zeta', 'epsilon/delta'));
+  api.options.mains.gamma = './alpha.js';
+  t.is(api.options.mains.gamma, join('/zeta', 'epsilon/alpha.js'));
+  api.options.source = 'src';
+  t.is(api.options.mains.gamma, join('/zeta', 'src/alpha.js'));
+  api.options.root = process.cwd();
+  t.is(api.options.mains.gamma, join(process.cwd(), 'src/alpha.js'));
+  api.options.mains.gamma = '/alpha.js';
+  t.is(api.options.mains.gamma, '/alpha.js');
 });
 
 test('creates an instance of webpack-chain', t => {

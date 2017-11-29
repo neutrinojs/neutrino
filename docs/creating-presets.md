@@ -168,7 +168,9 @@ const middleware = (neutrino, options) => {
 module.exports = {
   options: {
     source: 'lib',
-    entry: 'application.js'
+    mains: {
+      index: 'application.js'
+    }
   },
   use: [middleware]
 }
@@ -260,27 +262,45 @@ module.exports = {
 };
 ```
 
-### `options.entry`
+### `options.mains`
 
-Set the main entry point for the application. If the option is not set, Neutrino defaults it to `index.*` - the
-extension is resolved by webpack. If a relative path is specified, it will be resolved relative to `options.source`;
-absolute paths will be used as-is.
+Set the main entry points for the application. If the option is not set, Neutrino defaults it to:
 
-The main file by default is not required to be in JavaScript format. It also potentially may be JSX, TypeScript, or any
-other preprocessor language. These extensions should be specified in middleware at `neutrino.config.resolve.extensions`. 
+```js
+{
+  index: 'index'
+}
+```
+ 
+Notice the entry point has no extension; the extension is resolved by webpack. If relative paths are specified,
+they will be computed and resolved relative to `options.source`; absolute paths will be used as-is.
+ 
+By default these main files are not required to be in JavaScript format. They may also potentially be JSX, TypeScript,
+or any other preprocessor language. These extensions should be specified in middleware at
+`neutrino.config.resolve.extensions`.
 
 ```js
 module.exports = neutrino => {
-  // if not specified, defaults to options.source + index
-  neutrino.options.entry;
+  // if not specified, defaults to an object with a single entry "index",
+  // resolved to options.source + index
+  neutrino.options.mains.index;
 };
 
 module.exports = {
   options: {
-    // relative, resolves to options.source + entry.js
-    entry: 'entry.js',
-    // absolute
-    entry: '/code/website/src/entry.js'
+    mains: {
+      // If not specified, defaults to options.source + index
+      index: 'index',
+      
+      // Override to relative, resolves to options.source + entry.*
+      index: 'entry',
+    
+      // Override to absolute path
+      index: '/code/website/src/entry.js',
+      
+      // Add additional main, resolves to options.source + admin.*
+      admin: 'admin'
+    }
   }
 };
 ```

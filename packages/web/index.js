@@ -27,6 +27,7 @@ module.exports = (neutrino, opts = {}) => {
     publicPath,
     env: [],
     hot: true,
+    hotEntries: [],
     html: {},
     polyfills: {
       async: true
@@ -88,19 +89,6 @@ module.exports = (neutrino, opts = {}) => {
 
   neutrino.use(env, options.env);
   neutrino.use(htmlLoader);
-
-  if (options.style) {
-    neutrino.use(styleLoader, options.style);
-  }
-
-  if (options.font) {
-    neutrino.use(fontLoader, options.font);
-  }
-
-  if (options.image) {
-    neutrino.use(imageLoader, options.image);
-  }
-
   neutrino.use(compileLoader, {
     include: [
       neutrino.options.source,
@@ -110,12 +98,16 @@ module.exports = (neutrino, opts = {}) => {
     babel: options.babel
   });
 
+  Object
+    .keys(neutrino.options.mains)
+    .forEach(key => neutrino.config.entry(key).add(neutrino.options.mains[key]));
+
   neutrino.config
+    .when(options.style, () => neutrino.use(styleLoader, options.style))
+    .when(options.font, () => neutrino.use(fontLoader, options.font))
+    .when(options.image, () => neutrino.use(imageLoader, options.image))
     .target('web')
     .context(neutrino.options.root)
-    .entry('index')
-      .add(neutrino.options.entry)
-      .end()
     .output
       .path(neutrino.options.output)
       .publicPath(options.publicPath)
@@ -151,36 +143,48 @@ module.exports = (neutrino, opts = {}) => {
           .end()
         .end()
       .end()
-    .when(neutrino.options.debug, (config) => {
-      config.merge({
-        stats: {
-          maxModules: Infinity,
-          optimizationBailout: true
-        }
-      });
-    })
     .when(options.html, (config) => {
       neutrino.use(htmlTemplate, options.html);
       config.plugin('script-ext')
         .use(ScriptExtHtmlPlugin, [{ defaultAttribute: 'defer' }]);
     })
-    .when(neutrino.config.module.rules.has('lint'), () => neutrino
-      .use(loaderMerge('lint', 'eslint'), {
+    .when(neutrino.config.module.rules.has('lint'), () => {
+      neutrino.use(loaderMerge('lint', 'eslint'), {
         envs: ['browser', 'commonjs']
-      }))
+      });
+    })
     .when(process.env.NODE_ENV === 'development', config => config.devtool('cheap-module-eval-source-map'))
     .when(neutrino.options.command === 'start', (config) => {
+      console.log('•••••••••••••••••••••••••');
+      console.log(config);
+
       neutrino.use(devServer, options.devServer);
-      config.when(options.hot, () => neutrino.use(hot));
+      config.when(options.hot, () => {
+        neutrino.use(hot);
+        config.when(options.hotEntries, (config) => {
+          const protocol = config.devServer.get('https') ? 'https' : 'http';
+          const url = `${protocol}://${config.devServer.get('public')}`;
+
+          Object
+            .keys(neutrino.options.mains)
+            .forEach(key => {
+              config
+                .entry(key)
+                  .batch(entry => {
+                    options.hotEntries.forEach(hotEntry => entry.prepend(hotEntry));
+                    entry
+                      .prepend(require.resolve('webpack/hot/dev-server'))
+                      .prepend(`${require.resolve('webpack-dev-server/client')}?${url}`);
+                  });
+            });
+        });
+      });
     })
     .when(process.env.NODE_ENV === 'production', (config) => {
       neutrino.use(chunk);
 
-      if (options.minify) {
-        neutrino.use(minify, options.minify);
-      }
-
       config
+        .when(options.minify, () => neutrino.use(minify, options.minify))
         .plugin('module-concat')
           .use(optimize.ModuleConcatenationPlugin);
     })

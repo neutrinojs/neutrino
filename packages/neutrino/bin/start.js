@@ -1,4 +1,5 @@
 const ora = require('ora');
+const debounce = require('lodash.debounce');
 const { start } = require('../src');
 const base = require('./base');
 
@@ -42,7 +43,7 @@ module.exports = (middleware, args) => {
         });
       } else {
         const { devServer } = compiler.options;
-        const url = `${devServer.https ? 'https' : 'http'}://${devServer.public}:${devServer.port}`;
+        const url = `${devServer.https ? 'https' : 'http'}://${devServer.public}`;
         const building = ora({
           text: 'Waiting for initial build to finish',
           enabled: global.interactive
@@ -53,10 +54,10 @@ module.exports = (middleware, args) => {
         compiler.plugin('done', () => {
           building.succeed('Build completed');
         });
-        compiler.plugin('compile', () => {
+        compiler.plugin('compile', debounce(() => {
           building.text = 'Source changed, re-compiling';
           building.start();
-        });
+        }, 1000, { leading: true, maxWait: 1000 }));
       }
     }
   });

@@ -68,6 +68,10 @@ module.exports = (neutrino, opts = {}) => {
     }, options.babel)
   });
 
+  Object
+    .keys(neutrino.options.mains)
+    .forEach(key => neutrino.config.entry(key).add(neutrino.options.mains[key]));
+
   neutrino.config
     .when(sourceMap, () => neutrino.use(banner))
     .performance
@@ -81,9 +85,6 @@ module.exports = (neutrino, opts = {}) => {
     .devtool('source-map')
     .externals([nodeExternals({ whitelist: [/^webpack/] })])
     .context(neutrino.options.root)
-    .entry('index')
-      .add(neutrino.options.entry)
-      .end()
     .output
       .path(neutrino.options.output)
       .filename('[name].js')
@@ -116,12 +117,14 @@ module.exports = (neutrino, opts = {}) => {
       });
     })
     .when(neutrino.options.command === 'start', (config) => {
+      const mainKeys = Object.keys(neutrino.options.mains);
+
       neutrino.use(startServer, {
-        name: getOutputForEntry(neutrino.options.entry)
+        name: getOutputForEntry(neutrino.options.mains[mainKeys[0]])
       });
       config.when(options.hot, () => {
         neutrino.use(hot);
-        config.entry('index').add('webpack/hot/poll?1000');
+        mainKeys.forEach(key => neutrino.config.entry(key).add(`${require.resolve('webpack/hot/poll')}?1000`));
       });
     })
     .when(neutrino.options.env.NODE_ENV === 'development', (config) => {

@@ -3,113 +3,152 @@ const merge = require('deepmerge');
 const Future = require('fluture');
 const mitt = require('mitt');
 const {
-  defaultTo, is, map, omit, prop
+  defaultTo, is, map, omit, replace
 } = require('ramda');
-const { normalizePath, toArray, req } = require('./utils');
-
-// getRoot :: Object -> String
-const getRoot = prop('root');
-
-// getSource :: Object -> String
-const getSource = prop('source');
-
-// [PATH_PROP_NAME, DEFAULT_VALUE, GET_NORMALIZE_BASE]
-const pathOptions = [
-  ['root', '', () => process.cwd()],
-  ['source', 'src', getRoot],
-  ['output', 'build', getRoot],
-  ['tests', 'test', getRoot],
-  ['node_modules', 'node_modules', getRoot],
-  ['static', 'static', getSource],
-  ['entry', 'index', getSource]
-];
-
-// getOptions :: Object? -> IO Object
-const getOptions = (opts = {}) => {
-  let moduleExtensions = new Set(['js', 'jsx', 'vue', 'ts', 'mjs', 'json']);
-  const options = merge({
-    env: {
-      NODE_ENV: 'development'
-    },
-    debug: false,
-    quiet: false
-  }, opts);
-
-  Object.defineProperty(options, 'extensions', {
-    enumerable: true,
-    get() {
-      return [...moduleExtensions];
-    },
-    set(extensions) {
-      moduleExtensions = new Set(extensions.map(ext => ext.replace('.', '')));
-    }
-  });
-
-  Object
-    .keys(options.env)
-    .forEach(env => process.env[env] = options.env[env]);
-
-  pathOptions.forEach(([path, defaultValue, getNormalizeBase]) => {
-    let value = defaultTo(defaultValue, options[path]);
-
-    Object.defineProperty(options, path, {
-      enumerable: true,
-      get() {
-        return normalizePath(getNormalizeBase(options), value);
-      },
-      set(newValue) {
-        value = defaultTo(defaultValue, newValue);
-      }
-    });
-  });
-
-  return options;
-};
-
-/* eslint-disable no-param-reassign */
-const mergeOptions = (options, newOptions) => {
-  const paths = pathOptions.map(([path]) => path);
-
-  Object
-    .keys(newOptions)
-    .forEach((key) => {
-      if (paths.includes(key)) {
-        options[key] = newOptions[key];
-        return;
-      }
-
-      if (!options[key]) {
-        options[key] = newOptions[key];
-      } else {
-        options[key] = merge(options[key], newOptions[key]);
-      }
-    });
-
-  return options;
-};
-/* eslint-enable no-param-reassign */
+const { normalizePath, toArray, req, pathOptions } = require('./utils');
 
 class Api {
   constructor(options) {
-    this.options = getOptions(options);
+    this.options = this.getOptions(options);
     this.listeners = {};
     this.emitter = mitt(this.listeners);
     this.commands = {};
     this.config = new Config();
   }
 
+  // getOptions :: Object? -> IO Object
+  getOptions(opts = {}) {
+    let moduleExtensions = new Set(['js', 'jsx', 'vue', 'ts', 'mjs', 'json']);
+    const options = merge.all([
+      {
+        env: {
+          NODE_ENV: 'development'
+        },
+        debug: false,
+        quiet: false
+      },
+      opts.mains ? { mains: opts.mains } : { mains: { index: 'index' } },
+      omit(['mains'], opts)
+    ]);
+
+    Object
+      .keys(options.env)
+      .forEach(env => process.env[env] = options.env[env]);
+
+    pathOptions.forEach(([path, defaultValue, getNormalizeBase]) => {
+      let value = defaultTo(defaultValue, options[path]);
+
+      Object.defineProperty(options, path, {
+        enumerable: true,
+        get() {
+          return normalizePath(getNormalizeBase(options), value);
+        },
+        set(newValue) {
+          value = defaultTo(defaultValue, newValue);
+        }
+      });
+    });
+
+    Object.defineProperty(options, 'extensions', {
+      enumerable: true,
+      get() {
+        return [...moduleExtensions];
+      },
+      set(extensions) {
+        moduleExtensions = new Set(extensions.map(replace('.', '')));
+      }
+    });
+
+    this.bindMainsOnOptions(options);
+
+    return options;
+  }
+
+  // mergeOptions :: (Object -> Object) -> Object
+  mergeOptions(options, newOptions) {
+    /* eslint-disable no-param-reassign */
+    const paths = pathOptions.map(([path]) => path);
+
+    Object
+      .keys(newOptions)
+      .forEach((key) => {
+        if (key === 'mains') {
+          this.bindMainsOnOptions(newOptions, options);
+          options.mains = newOptions.mains;
+          return;
+        }
+
+        if (paths.includes(key)) {
+          options[key] = newOptions[key];
+          return;
+        }
+
+        if (!options[key]) {
+          options[key] = newOptions[key];
+        } else {
+          options[key] = merge(options[key], newOptions[key]);
+        }
+      });
+
+    /* eslint-enable no-param-reassign */
+    return options;
+  }
+
+  // bindMainsOnOptions :: (Object options -> Object? optionsSource) -> IO ()
+  bindMainsOnOptions(options, optionsSource) {
+    Object
+      .keys(options.mains)
+      .forEach(key => {
+        let value = options.mains[key];
+
+        Object.defineProperty(options.mains, key, {
+          enumerable: true,
+          get() {
+            const source = optionsSource && optionsSource.source || options.source;
+
+            return normalizePath(source, value);
+          },
+          set(newValue) {
+            value = newValue;
+          }
+        });
+      });
+
+    this.mainsProxy = new Proxy(options.mains, {
+      defineProperty: (target, prop, { value }) => {
+        let currentValue = value;
+
+        return Reflect.defineProperty(target, prop, {
+          enumerable: true,
+          get() {
+            const source = optionsSource && optionsSource.source || options.source;
+
+            return normalizePath(source, currentValue);
+          },
+          set(newValue) {
+            currentValue = newValue;
+          }
+        });
+      }
+    });
+  }
+
+  // regexFromExtensions :: Array extensions -> RegExp
   regexFromExtensions(extensions = this.options.extensions) {
     return new RegExp(`.(${extensions.join('|')})$`);
   }
 
+  // emit :: Any -> IO
   emit(...args) {
     return this.emitter.emit(...args);
   }
 
+  // emit :: Any -> IO
   on(...args) {
     return this.emitter.on(...args);
   }
 
+  // emit :: Any -> IO
   off(...args) {
     return this.emitter.off(...args);
   }
@@ -151,7 +190,7 @@ class Api {
       // The value of "env" will also be consumed as middleware, which will potentially load more middleware and
       // options
       if (middleware.options) {
-        this.options = mergeOptions(this.options, middleware.options);
+        this.options = this.mergeOptions(this.options, middleware.options);
       }
 
       if (middleware.env) {
@@ -169,18 +208,24 @@ class Api {
               return env;
             }
 
-            this.options = mergeOptions(this.options, env.options);
+            this.options = this.mergeOptions(this.options, env.options);
 
             return omit(['options'], env);
           });
 
-        if (middleware.use) {
+        if (Array.isArray(middleware.use)) {
           map(use => this.use(use), middleware.use);
+        } else {
+          this.use(middleware.use);
         }
 
         map(env => this.use(env), envMiddleware.filter(Boolean));
       } else if (middleware.use) {
-        map(use => this.use(use), middleware.use);
+        if (Array.isArray(middleware.use)) {
+          map(use => this.use(use), middleware.use);
+        } else {
+          this.use(middleware.use);
+        }
       }
     }
 
@@ -205,7 +250,8 @@ class Api {
 
     return Future((reject, resolve) => (command ?
       resolve() :
-      reject(new Error(`A command with the name "${commandName}" was not registered`))))
+      reject(new Error(`A command with the name "${commandName}" was not registered`))
+    ))
     // Trigger all pre-events for the current command
     .chain(() => Future.encaseP2(emitForAll, `pre${commandName}`, this.options.args))
     // Trigger generic pre-event

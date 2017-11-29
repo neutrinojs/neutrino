@@ -1,5 +1,5 @@
 const {
-  cond, curry, identity, of, T
+  cond, curry, identity, of, prop, T
 } = require('ramda');
 const { List } = require('immutable-ext');
 const { isAbsolute, join } = require('path');
@@ -45,10 +45,28 @@ const req = (moduleId, root) => {
   return require(path); // eslint-disable-line
 };
 
+// getRoot :: Object -> String
+const getRoot = prop('root');
+
+// getSource :: Object -> String
+const getSource = prop('source');
+
+// [PATH_PROP_NAME, DEFAULT_VALUE, GET_NORMALIZE_BASE]
+const pathOptions = [
+  ['root', '', () => process.cwd()],
+  ['source', 'src', getRoot],
+  ['output', 'build', getRoot],
+  ['tests', 'test', getRoot],
+  ['node_modules', 'node_modules', getRoot]
+];
+
 module.exports = {
   createPaths,
   exists,
   normalizePath,
   toArray,
-  req
+  req,
+  getRoot,
+  getSource,
+  pathOptions
 };
