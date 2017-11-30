@@ -65,7 +65,7 @@ module.exports = (neutrino, opts = {}) => {
             root: true,
             // eslint-loader uses executeOnText(), which ignores the `extensions` setting.
             // However it's still needed for the lint command, as it uses executeOnFiles().
-            extensions: ['js', 'jsx'],
+            extensions: neutrino.options.extensions,
             plugins: ['babel'],
             baseConfig: {},
             envs: ['es6'],
