@@ -1,11 +1,12 @@
 const { ensureDirSync, readJsonSync, writeJsonSync } = require('fs-extra');
-const { join, relative } = require('path');
+const { basename, join, relative } = require('path');
 const chalk = require('chalk');
 const stringify = require('javascript-stringify');
 const merge = require('deepmerge');
+const { contains, partition } = require('ramda');
 const Generator = require('yeoman-generator');
 const questions = require('./questions');
-const { projects, isYarn } = require('./utils');
+const { projects, packages, isYarn } = require('./utils');
 
 /* eslint-disable no-underscore-dangle */
 module.exports = class Project extends Generator {
@@ -18,30 +19,32 @@ module.exports = class Project extends Generator {
     `;
   }
 
-  _makeRcFile(data) {
-    const rc = { use: [] };
+  _getProjectMiddleware() {
+    const { projectType, project } = this.data;
 
-    if (data.linter) {
-      rc.use.push(data.linter);
-    }
-
-    if (data.projectType === 'application' && data.project !== '@neutrinojs/node') {
-      rc.use.push([data.project, {
+    if (projectType === 'application' && project !== packages.NODE) {
+      return [project, {
         html: {
           title: this.options.name
         }
-      }]);
-    } else if (data.projectType === 'library') {
-      rc.use.push([data.project, {
+      }];
+    } else if (projectType === 'library') {
+      return [project, {
         name: this.options.name
-      }]);
-    } else {
-      rc.use.push(data.project);
+      }];
     }
 
-    if (data.testRunner) {
-      rc.use.push(data.testRunner);
-    }
+    return project;
+  }
+
+  _getNeutrinorcContent() {
+    const rc = {
+      use: [
+        this.data.linter,
+        this._getProjectMiddleware(),
+        this.data.testRunner
+      ].filter(Boolean)
+    };
 
     return `module.exports = ${stringify(rc, null, 2)};\n`;
   }
@@ -65,38 +68,34 @@ module.exports = class Project extends Generator {
   }
 
   _initialPackageJson() {
-    const done = this.async();
     const installer = isYarn ? 'yarn' : 'npm';
-    const scripts = { build: 'neutrino build' };
+    const scripts = { build: `${packages.NEUTRINO} build` };
 
     if (this.data.projectType !== 'library') {
-      scripts.start = 'neutrino start';
+      scripts.start = `${packages.NEUTRINO} start`;
     }
 
     if (this.data.linter) {
-      scripts.lint = 'neutrino lint';
+      scripts.lint = `${packages.NEUTRINO} lint`;
     }
 
     if (this.data.testRunner) {
-      scripts.test = 'neutrino test';
+      scripts.test = `${packages.NEUTRINO} test`;
     }
 
     ensureDirSync(this.options.directory);
 
-    const command = this.spawnCommand(installer, ['init', '--yes'], {
+    this.spawnCommandSync(installer, ['init', '--yes'], {
       cwd: this.options.directory,
-      stdio: 'ignore'
+      stdio: this.options.stdio
     });
 
-    command.on('close', () => {
-      const jsonPath = join(this.options.directory, 'package.json');
-      const json = readJsonSync(jsonPath);
-      const packageJson = Object.assign(json, { scripts });
+    const jsonPath = join(this.options.directory, 'package.json');
+    const json = readJsonSync(jsonPath);
+    const packageJson = Object.assign(json, { scripts });
 
-      writeJsonSync(jsonPath, packageJson, { spaces: 2 });
-
-      return done();
-    });
+    writeJsonSync(jsonPath, packageJson, { spaces: 2 });
+    this.log(`   ${chalk.green('create')} ${join(basename(this.options.directory), 'package.json')}`);
   }
 
   prompting() {
@@ -116,32 +115,24 @@ module.exports = class Project extends Generator {
   }
 
   writing() {
-    const templateDir = this.data.project.replace('@neutrinojs/', '');
+    const templates = [this.data.project, this.data.testRunner, this.data.linter].filter(Boolean);
 
     this._initialPackageJson();
-    this.fs.copyTpl(
-      this.templatePath(`${templateDir}/src/**/*`),
-      join(this.options.directory, 'src'),
-      { data: this.options }
+    this.fs.write(
+      join(this.options.directory, '.neutrinorc.js'),
+      this._getNeutrinorcContent()
     );
-    this.fs.write(join(this.options.directory, '.neutrinorc.js'), this._makeRcFile(this.data));
+    templates.forEach(template => {
+      const templateDir = template.replace('@neutrinojs/', '');
 
-    if (this.data.testRunner) {
-      const testDestinationDir = join(this.options.directory, 'test');
-
-      ensureDirSync(testDestinationDir);
-      this.fs.copy(
-        this.templatePath(join('test', `${this.data.testRunner.replace('@neutrinojs/', '')}.js`)),
-        join(testDestinationDir, 'simple_test.js')
+      this.fs.copyTpl(
+        this.templatePath(`${templateDir}/**`),
+        this.options.directory,
+        { data: this.options },
+        {},
+        { globOptions: { dot: true } }
       );
-    }
-
-    if (this.data.linter) {
-      this.fs.copy(
-        this.templatePath('eslintrc.js'),
-        join(this.options.directory, '.eslintrc.js')
-      );
-    }
+    });
   }
 
   install() {
@@ -150,10 +141,10 @@ module.exports = class Project extends Generator {
     const devFlag = isYarn ? '--dev' : '--save-dev';
     const { dependencies, devDependencies } = this._getDependencies();
 
-    this.log(`\n${chalk.green('success')} Saved package.json`);
+    this.log('');
 
     if (dependencies) {
-      this.log(`\n${chalk.green('Installing dependencies:')} ${chalk.yellow(dependencies.join(', '))}`);
+      this.log(`${chalk.green('⏳  Installing dependencies:')} ${chalk.yellow(dependencies.join(', '))}`);
       this.spawnCommandSync(packageManager, [install, ...dependencies], {
         cwd: this.options.directory,
         stdio: this.options.stdio,
@@ -163,11 +154,10 @@ module.exports = class Project extends Generator {
 
     if (devDependencies) {
       if (process.env.NODE_ENV === 'test') {
-        const remote = devDependencies.filter(d => !d.includes('neutrino'));
-        const local = devDependencies.filter(d => d.includes('neutrino'));
+        const [local, remote] = partition(contains(packages.NEUTRINO), devDependencies);
 
         if (remote.length) {
-          this.log(`\n${chalk.green('Installing remote devDependencies:')} ${chalk.yellow(remote.join(', '))}`);
+          this.log(`${chalk.green('⏳  Installing remote devDependencies:')} ${chalk.yellow(remote.join(', '))}`);
           this.spawnCommandSync(packageManager, [install, devFlag, ...remote], {
             stdio: this.options.stdio,
             env: process.env,
@@ -176,7 +166,7 @@ module.exports = class Project extends Generator {
         }
 
         if (local.length) {
-          this.log(`\n${chalk.green('Linking local devDependencies:')} ${chalk.yellow(local.join(', '))}`);
+          this.log(`${chalk.green('⏳  Linking local devDependencies:')} ${chalk.yellow(local.join(', '))}`);
           this.spawnCommandSync('yarn', ['link', ...local], {
             stdio: this.options.stdio,
             env: process.env,
@@ -184,7 +174,7 @@ module.exports = class Project extends Generator {
           });
         }
       } else {
-        this.log(`\n${chalk.green('Installing devDependencies:')} ${chalk.yellow(devDependencies.join(', '))}`);
+        this.log(`${chalk.green('⏳  Installing devDependencies:')} ${chalk.yellow(devDependencies.join(', '))}`);
         this.spawnCommandSync(packageManager, [install, devFlag, ...devDependencies], {
           stdio: this.options.stdio,
           env: process.env,
@@ -194,7 +184,8 @@ module.exports = class Project extends Generator {
     }
 
     if (this.data.linter) {
-      this.spawnCommandSync('neutrino', ['lint', '--fix'], {
+      this.log(`${chalk.green('⏳  Performing one-time lint')}`);
+      this.spawnCommandSync(packages.NEUTRINO, ['lint', '--fix'], {
         stdio: this.options.stdio === 'inherit' ? 'ignore' : this.options.stdio,
         cwd: this.options.directory
       });

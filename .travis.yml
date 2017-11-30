@@ -10,13 +10,16 @@ node_js:
 - '6'
 - '7'
 - '8'
+- '9'
 before_install:
 # Use newer yarn than that pre-installed in the Travis image.
 - curl -sSfL https://yarnpkg.com/install.sh | bash
 - export PATH="$HOME/.yarn/bin:$PATH"
 install:
 - yarn install --frozen-lockfile
+- yarn link:all
 script:
 - yarn validate:eslintrc
 - yarn lint
+- yarn build
 - yarn test

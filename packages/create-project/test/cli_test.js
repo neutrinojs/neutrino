@@ -4,6 +4,7 @@ import assert from 'yeoman-assert';
 import helpers from 'yeoman-test';
 import { join } from 'path';
 import { spawn } from 'child_process';
+import { packages } from '../commands/init/utils'
 
 if (process.env.NODE_ENV !== 'test') {
   process.env.NODE_ENV = 'test';
@@ -18,65 +19,69 @@ const project = (prompts) => helpers
   .toPromise();
 const usable = (dir, files) => assert.file(files.map(f => join(dir, f)));
 const spawnP = (cmd, args, options) => new Promise((resolve, reject) => {
-  spawn(cmd, args, options)
-    .on('close', (code) => {
-      code === 0 ? resolve(code) : reject(code);
-    });
+  const child = spawn(cmd, args, options);
+  let output = '';
+
+  child.stdout.on('data', data => output += data.toString());
+  child.stderr.on('data', data => output += data.toString());
+  child.on('close', (code) => {
+    code === 0 ? resolve(code) : reject(output);
+  });
 });
 const buildable = async (t, dir) => {
   try {
     await spawnP('yarn', ['build'], { cwd: dir, stdio: 'pipe' });
     t.pass();
-  } catch (code) {
-    t.fail('Failed to build project');
+  } catch (output) {
+    t.fail(`Failed to build project:\n\n${output}`);
   }
 };
 const testable = async (t, dir) => {
   try {
     await spawnP('yarn', ['test'], { cwd: dir, stdio: 'pipe' });
     t.pass();
-  } catch (code) {
-    t.fail('Failed to test project');
+  } catch (output) {
+    t.fail(`Failed to test project:\n\n${output}`);
   }
 };
 const lintable = async (t, dir) => {
   try {
     await spawnP('yarn', ['lint'], { cwd: dir, stdio: 'pipe' });
     t.pass();
-  } catch (code) {
-    t.fail('Failed to lint project');
+  } catch (output) {
+    t.fail(`Failed to lint project:\n\n${output}`);
   }
 };
-const tests = [false, '@neutrinojs/jest', '@neutrinojs/karma', '@neutrinojs/mocha'];
+const tests = [packages.JEST, packages.KARMA, packages.MOCHA];
 const matrix = {
   react: [
-    ['@neutrinojs/react'],
-    ['@neutrinojs/airbnb', '@neutrinojs/standardjs'],
+    [packages.REACT],
+    [packages.AIRBNB, packages.STANDARDJS],
     tests
   ],
   preact: [
-    ['@neutrinojs/preact'],
-    ['@neutrinojs/airbnb', '@neutrinojs/standardjs'],
+    [packages.PREACT],
+    [packages.AIRBNB, packages.STANDARDJS],
     tests
   ],
   node: [
-    ['@neutrinojs/node'],
-    ['@neutrinojs/airbnb-base', '@neutrinojs/standardjs'],
-    tests.filter(t => t !== '@neutrinojs/karma')
+    [packages.NODE],
+    [packages.AIRBNB_BASE, packages.STANDARDJS],
+    tests.filter(t => t !== packages.KARMA)
   ],
   'react-components': [
-    ['@neutrinojs/react-components'],
-    ['@neutrinojs/airbnb', '@neutrinojs/standardjs'],
+    [packages.REACT_COMPONENTS],
+    [packages.AIRBNB, packages.STANDARDJS],
     tests
   ],
   vue: [
-    ['@neutrinojs/vue'],
-    ['@neutrinojs/airbnb-base', '@neutrinojs/standardjs'],
+    [packages.VUE],
+    [packages.AIRBNB_BASE, packages.STANDARDJS],
     tests
   ],
   web: [
-    ['@neutrinojs/web'],
-    ['@neutrinojs/airbnb-base', '@neutrinojs/standardjs'],
+    [packages.WEB],
+    [packages.AIRBNB_BASE, packages.STANDARDJS],
     tests
   ],
 };
@@ -85,6 +90,23 @@ Object
   .keys(matrix)
   .forEach((key) => {
     const [presets, linters, tests] = matrix[key];
+    const [preset] = presets;
+
+    test.serial(preset, async t => {
+      const dir = await project({
+        projectType: 'application',
+        project: preset,
+        testRunner: false,
+        linter: false
+      });
+
+      usable(dir, [
+        'package.json',
+        '.neutrinorc.js'
+      ]);
+
+      await buildable(t, dir);
+    });
 
     xprod(presets, tests).forEach(([preset, testRunner]) => {
       const testName = testRunner ? `${preset} + ${testRunner}` : preset;
@@ -97,25 +119,16 @@ Object
           linter: false
         });
 
-        if (testRunner) {
-          usable(dir, [
-            'package.json',
-            '.neutrinorc.js',
-            'test/simple_test.js'
-          ]);
+        usable(dir, [
+          'package.json',
+          '.neutrinorc.js',
+          'test/simple_test.js'
+        ]);
 
-          await Promise.all([
-            buildable(t, dir),
-            testable(t, dir)
-          ]);
-        } else {
-          usable(dir, [
-            'package.json',
-            '.neutrinorc.js'
-          ]);
-
-          await buildable(t, dir);
-        }
+        await Promise.all([
+          buildable(t, dir),
+          testable(t, dir)
+        ]);
       });
     });
 

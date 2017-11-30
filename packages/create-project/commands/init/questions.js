@@ -1,20 +1,22 @@
+const { packages } = require('./utils');
+
 const NONE = { name: 'None', value: false };
 const APPLICATION = { name: 'A web or Node.js application', value: 'application' };
 const LIBRARY = { name: 'A library', value: 'library' };
 const COMPONENTS = { name: 'Components', value: 'components' };
-const REACT = { name: 'React', value: '@neutrinojs/react' };
-const PREACT = { name: 'Preact', value: '@neutrinojs/preact' };
-const VUE = { name: 'Vue', value: '@neutrinojs/vue' };
-const WEB = { name: 'Some other web app, e.g. Angular, jQuery, or plain JS', value: '@neutrinojs/web' };
-const NODE = { name: 'Node.js', value: '@neutrinojs/node' };
-const WEB_NODE_LIBRARY = { name: 'Web and/or Node.js', value: '@neutrinojs/library' };
-const REACT_COMPONENTS = { name: 'React Components', value: '@neutrinojs/react-components' };
-const JEST = { name: 'Jest', value: '@neutrinojs/jest' };
-const KARMA = { name: 'Karma', value: '@neutrinojs/karma' };
-const MOCHA = { name: 'Mocha', value: '@neutrinojs/mocha' };
-const AIRBNB = { name: 'Airbnb style rules', value: '@neutrinojs/airbnb' };
-const AIRBNB_BASE = { name: 'Airbnb style rules', value: '@neutrinojs/airbnb-base' };
-const STANDARDJS = { name: 'StandardJS rules', value: '@neutrinojs/standardjs' };
+const REACT = { name: 'React', value: packages.REACT };
+const PREACT = { name: 'Preact', value: packages.PREACT };
+const VUE = { name: 'Vue', value: packages.VUE };
+const WEB = { name: 'Some other web app, e.g. Angular, jQuery, or plain JS', value: packages.WEB };
+const NODE = { name: 'Node.js', value: packages.NODE };
+const WEB_NODE_LIBRARY = { name: 'Web and/or Node.js', value: packages.WEB_NODE_LIBRARY };
+const REACT_COMPONENTS = { name: 'React Components', value: packages.REACT_COMPONENTS };
+const JEST = { name: 'Jest', value: packages.JEST };
+const KARMA = { name: 'Karma', value: packages.KARMA };
+const MOCHA = { name: 'Mocha', value: packages.MOCHA };
+const AIRBNB = { name: 'Airbnb style rules', value: packages.AIRBNB };
+const AIRBNB_BASE = { name: 'Airbnb style rules', value: packages.AIRBNB_BASE };
+const STANDARDJS = { name: 'StandardJS rules', value: packages.STANDARDJS };
 
 module.exports = () => [
   {

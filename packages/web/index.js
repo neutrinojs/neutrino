@@ -37,7 +37,8 @@ module.exports = (neutrino, opts = {}) => {
       publicPath: resolve('/', publicPath)
     },
     style: {
-      hot: opts.hot !== false
+      hot: opts.hot !== false,
+      extract: opts.extract || process.env.NODE_ENV === 'production' && {}
     },
     manifest: opts.html === false ? {} : false,
     minify: {},

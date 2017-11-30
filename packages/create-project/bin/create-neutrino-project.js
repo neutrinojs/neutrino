@@ -17,4 +17,8 @@ const cli = yargs.command('<project-directory>')
 const directory = isAbsolute(cli._[0]) ? cli._[0] : join(process.cwd(), cli._[0]);
 const name = basename(directory);
 
-env.run('create-neutrino-project', { directory, name, stdio: 'inherit' }, done);
+env.run('create-neutrino-project', {
+  directory,
+  name,
+  stdio: process.env.NODE_ENV === 'test' ? 'ignore' : 'inherit'
+}, done);
