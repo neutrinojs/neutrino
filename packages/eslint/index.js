@@ -31,7 +31,6 @@ const getEslintRcConfig = pipe(
 );
 
 module.exports = (neutrino, opts = {}) => {
-  const failBuild = process.env.NODE_ENV !== 'development' || neutrino.options.command !== 'start';
   const options = merge.all([
     opts,
     !opts.include ? { include: [neutrino.options.source] } : {}
@@ -57,9 +56,7 @@ module.exports = (neutrino, opts = {}) => {
         .use('eslint')
           .loader(require.resolve('eslint-loader'))
           .options(merge({
-            failOnError: failBuild,
-            emitWarning: failBuild,
-            emitError: failBuild,
+            failOnError: neutrino.options.command !== 'start',
             cwd: neutrino.options.root,
             useEslintrc: false,
             root: true,
@@ -98,9 +95,15 @@ module.exports = (neutrino, opts = {}) => {
     return Future
       .of(eslintConfig)
       .map(options => new CLIEngine(options))
-      .chain(cli => Future.both(Future.of(cli.executeOnFiles(options.include)), Future.of(cli.getFormatter())))
+      .chain(cli => Future.both(
+        Future.of(cli.executeOnFiles(options.include)),
+        Future.of(cli.getFormatter())
+      ))
       .map(([report, formatter]) => {
-        fix && CLIEngine.outputFixes(report);
+        if (fix) {
+          CLIEngine.outputFixes(report);
+        }
+
         return [report, formatter];
       })
       .chain(([report, formatter]) => {
