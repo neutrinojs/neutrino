@@ -3,7 +3,9 @@ const merge = require('deepmerge');
 
 module.exports = (neutrino, opts = {}) => {
   const options = merge({
-    test: neutrino.regexFromExtensions(['css']),
+    test: opts.modules !== false
+      ? /(?<!\.module)\.css$/
+      : neutrino.regexFromExtensions(['css']),
     ruleId: 'style',
     styleUseId: 'style',
     cssUseId: 'css',
@@ -31,7 +33,8 @@ module.exports = (neutrino, opts = {}) => {
       hotUseId: `${options.hotUseId}${options.modulesSuffix}`,
       extractId: `${options.extractId}${options.modulesSuffix}`,
       css: {
-        modules: options.modules
+        modules: options.modules,
+        importLoaders: 1
       }
     }));
   }
