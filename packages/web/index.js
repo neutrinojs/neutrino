@@ -137,7 +137,7 @@ module.exports = (neutrino, opts = {}) => {
       .end()
     .module
       .rule('worker')
-        .test(/\.worker\.js$/)
+        .test(neutrino.regexFromExtensions(neutrino.options.extensions.map(ext => `worker.${ext}`)))
         .use('worker')
           .loader(require.resolve('worker-loader'))
           .end()

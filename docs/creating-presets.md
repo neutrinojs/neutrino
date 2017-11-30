@@ -116,7 +116,7 @@ module.exports = neutrino => {
   neutrino.config.module
     .rule('lint')
       .pre()
-      .test(/\.jsx?$/)
+      .test(neutrino.regexFromExtensions(['js', 'jsx']))
       .include
         .add(neutrino.options.source)
         .end()

@@ -61,7 +61,6 @@ module.exports = (neutrino, opts = {}) => {
     .resolve
       .batch((resolve) => {
         resolve.modules.add(MODULES);
-        resolve.extensions.add('.jsx');
         resolve.alias.set('react-native', 'react-native-web');
       })
       .end()

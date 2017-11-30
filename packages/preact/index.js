@@ -48,7 +48,6 @@ module.exports = (neutrino, opts = {}) => {
       .end()
     .resolve
       .modules.add(MODULES).end()
-      .extensions.add('.jsx').end()
       .alias
         .set('react', 'preact-compat')
         .set('react-dom', 'preact-compat')

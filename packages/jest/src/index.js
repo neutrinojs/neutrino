@@ -39,8 +39,6 @@ function normalizeJestOptions(opts, neutrino, usingBabel) {
     ...neutrino.config.resolve.modules.values()
   ])];
   const moduleFileExtensions = [...new Set([
-    'js',
-    'jsx',
     ...(opts.moduleFileExtensions || []),
     ...neutrino.config.resolve.extensions.values().map(e => e.replace('.', ''))
   ])];
