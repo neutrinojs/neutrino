@@ -50,7 +50,7 @@ module.exports = (neutrino, opts = {}) => {
       .end()
     .module
       .rule('lint')
-        .test(options.test || /\.(js|jsx)$/)
+        .test(options.test || neutrino.regexFromExtensions())
         .pre()
         .when(options.include, rule => rule.include.merge(options.include))
         .when(options.exclude, rule => rule.exclude.merge(options.exclude))

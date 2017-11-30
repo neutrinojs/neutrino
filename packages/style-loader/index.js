@@ -14,7 +14,7 @@ module.exports = (neutrino, opts = {}) => {
 
   neutrino.config.module
     .rule(options.ruleId || 'style')
-      .test(/\.css$/)
+      .test(neutrino.regexFromExtensions(['css']))
       .use(options.styleUseId)
          .loader(require.resolve('style-loader'))
          .when(options.style, use => use.options(options.style))

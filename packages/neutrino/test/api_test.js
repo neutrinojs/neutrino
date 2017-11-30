@@ -220,7 +220,7 @@ test('creates a webpack config', t => {
 
   api.use(api => api.config.module
     .rule('compile')
-    .test(/\.js$/));
+    .test(api.regexFromExtensions(['js'])));
 
   t.notDeepEqual(api.config.toConfig(), {});
 });
