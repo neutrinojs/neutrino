@@ -29,7 +29,10 @@ module.exports = (neutrino, opts = {}) => {
       styleUseId: `${options.styleUseId}${options.modulesSuffix}`,
       cssUseId: `${options.cssUseId}${options.modulesSuffix}`,
       hotUseId: `${options.hotUseId}${options.modulesSuffix}`,
-      extractId: `${options.extractId}${options.modulesSuffix}`
+      extractId: `${options.extractId}${options.modulesSuffix}`,
+      css: {
+        modules: options.modules
+      }
     }));
   }
 
