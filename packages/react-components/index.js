@@ -6,6 +6,7 @@ const { extname, join, basename } = require('path');
 const { readdirSync } = require('fs');
 
 const MODULES = join(__dirname, 'node_modules');
+const NEUTRINO_MODULES = join(__dirname, '../../node_modules');
 
 module.exports = (neutrino, options = {}) => {
   const reactOptions = merge({
@@ -16,8 +17,12 @@ module.exports = (neutrino, options = {}) => {
     externals: {}
   }, options);
 
-  neutrino.config.resolve.modules.add(MODULES);
-  neutrino.config.resolveLoader.modules.add(MODULES);
+  neutrino.config.resolve.modules
+    .add(MODULES)
+    .add(NEUTRINO_MODULES);
+  neutrino.config.resolveLoader.modules
+    .add(MODULES)
+    .add(NEUTRINO_MODULES);
 
   neutrino.config.when(
     process.env.NODE_ENV === 'development',

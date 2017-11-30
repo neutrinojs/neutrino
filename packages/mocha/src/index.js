@@ -9,7 +9,7 @@ module.exports = (neutrino, opts = {}) => {
     const options = merge.all([
       { reporter: 'spec', ui: 'tdd', bail: true },
       opts,
-      files.length ? { recursive: true } : {}
+      files && files.length ? { recursive: true } : {}
     ]);
 
     neutrino.config.when(usingBabel, () => {

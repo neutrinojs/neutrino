@@ -3,7 +3,7 @@ import { xprod } from 'ramda';
 import assert from 'yeoman-assert';
 import helpers from 'yeoman-test';
 import { join } from 'path';
-import { spawnSync } from 'child_process';
+import { spawn } from 'child_process';
 
 if (process.env.NODE_ENV !== 'test') {
   process.env.NODE_ENV = 'test';
@@ -17,9 +17,36 @@ const project = (prompts) => helpers
   .withPrompts(prompts)
   .toPromise();
 const usable = (dir, files) => assert.file(files.map(f => join(dir, f)));
-const buildable = (dir) => spawnSync('yarn', ['build'], { cwd: dir, stdio: 'pipe' });
-const testable = (dir) => spawnSync('yarn', ['test'], { cwd: dir, stdio: 'pipe' });
-const lintable = (dir) => spawnSync('yarn', ['lint'], { cwd: dir, stdio: 'pipe' });
+const spawnP = (cmd, args, options) => new Promise((resolve, reject) => {
+  spawn(cmd, args, options)
+    .on('close', (code) => {
+      code === 0 ? resolve(code) : reject(code);
+    });
+});
+const buildable = async (t, dir) => {
+  try {
+    await spawnP('yarn', ['build'], { cwd: dir, stdio: 'pipe' });
+    t.pass();
+  } catch (code) {
+    t.fail('Failed to build project');
+  }
+};
+const testable = async (t, dir) => {
+  try {
+    await spawnP('yarn', ['test'], { cwd: dir, stdio: 'pipe' });
+    t.pass();
+  } catch (code) {
+    t.fail('Failed to test project');
+  }
+};
+const lintable = async (t, dir) => {
+  try {
+    await spawnP('yarn', ['lint'], { cwd: dir, stdio: 'pipe' });
+    t.pass();
+  } catch (code) {
+    t.fail('Failed to lint project');
+  }
+};
 const tests = [false, '@neutrinojs/jest', '@neutrinojs/karma', '@neutrinojs/mocha'];
 const matrix = {
   react: [
@@ -35,7 +62,7 @@ const matrix = {
   node: [
     ['@neutrinojs/node'],
     ['@neutrinojs/airbnb-base', '@neutrinojs/standardjs'],
-    tests
+    tests.filter(t => t !== '@neutrinojs/karma')
   ],
   'react-components': [
     ['@neutrinojs/react-components'],
@@ -77,19 +104,17 @@ Object
             'test/simple_test.js'
           ]);
 
-          const built = buildable(dir);
-          t.is(built.status, 0, 'Building project failed');
-
-          const tested = testable(dir);
-          t.is(tested.status, 0, 'Testing project failed');
+          await Promise.all([
+            buildable(t, dir),
+            testable(t, dir)
+          ]);
         } else {
           usable(dir, [
             'package.json',
             '.neutrinorc.js'
           ]);
 
-          const built = buildable(dir);
-          t.is(built.status, 0, 'Building project failed');
+          await buildable(t, dir);
         }
       });
     });
@@ -109,11 +134,10 @@ Object
           '.eslintrc.js'
         ]);
 
-        const built = buildable(dir);
-        t.is(built.status, 0, 'Building project failed');
-
-        const linted = lintable(dir);
-        t.is(linted.status, 0, 'Linting project failed');
+        await Promise.all([
+          buildable(t, dir),
+          lintable(t, dir)
+        ]);
       });
     });
   });
