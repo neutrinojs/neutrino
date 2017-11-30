@@ -297,10 +297,24 @@ To override the build configuration, start with the documentation on [customizat
 `@neutrinojs/web` creates some conventions to make overriding the configuration easier once you are ready to make
 changes.
 
-By default the Web preset creates a single **main** `index` entry point to your application, and this maps to
-the `index.*` file in the `src` directory. The extension is resolved by webpack. This value is provided by
-`neutrino.options.entry`. This means that the Web preset is optimized toward the use case of single-page
-applications over multi-page applications.
+By default Neutrino, and therefore this preset, creates a single **main** `index` entry point to your application, and
+this maps to the `index.*` file in the `src` directory. The extension is resolved by webpack. This value is provided by
+`neutrino.options.mains` at `neutrino.options.mains.index`. This means that the Web preset is optimized toward the use
+case of single-page applications over multi-page applications. If you wish to output multiple pages, you can detail
+all your mains in your `.neutrinorc.js`.
+ 
+```js
+module.exports = {
+  options: {
+    mains: {
+      index: 'index', // outputs index.html from src/index.*
+      admin: 'admin', // outputs admin.html from src/admin.*
+      account: 'user' // outputs account.html from src/user.*
+    }
+  },
+  use: ['@neutrinojs/web']
+}
+```
 
 ### Rules
 
@@ -356,7 +370,11 @@ _Example: Put lodash into a separate "vendor" chunk:_
 module.exports = {
   use: [
     '@neutrinojs/web',
-    neutrino => neutrino.config.entry('vendor').add('lodash')
+    neutrino => {
+      neutrino.config
+        .entry('vendor')
+          .add('lodash');
+    }
   ]
 };
 ```
