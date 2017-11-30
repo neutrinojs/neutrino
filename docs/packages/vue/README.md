@@ -215,14 +215,47 @@ module.exports = {
 ## Customizing
 
 To override the build configuration, start with the documentation on [customization](../../customization).
-`@neutrinojs/vue` does not use any additional named rules, loaders, or plugins that aren't already in use by the
-Web preset. See the [Web documentation customization](../web#customizing)
-for preset-specific configuration to override.
+`@neutrinojs/vue` creates some conventions to make overriding the configuration easier once you are ready to make
+changes. Most of the configuration for `@neutrinojs/vue` is inherited from the
+[`@neutrinojs/web` preset](../web#customizing); continue to that documentation
+for details on customization.
+
+By default Neutrino, and therefore this preset, creates a single **main** `index` entry point to your application, and
+this maps to the `index.*` file in the `src` directory. The extension is resolved by webpack. This value is provided by
+`neutrino.options.mains` at `neutrino.options.mains.index`. This means that the Web preset is optimized toward the use
+case of single-page applications over multi-page applications. If you wish to output multiple pages, you can detail
+all your mains in your `.neutrinorc.js`.
+ 
+```js
+module.exports = {
+  options: {
+    mains: {
+      index: 'index', // outputs index.html from src/index.*
+      admin: 'admin', // outputs admin.html from src/admin.*
+      account: 'user' // outputs account.html from src/user.*
+    }
+  },
+  use: ['@neutrinojs/vue']
+}
+```
+
+### Rules
+
+The following is a list of additional rules and their identifiers this preset defines, in addition
+to the ones provided by `@neutrinojs/web`, which can be overridden:
+
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
+| `vue` | Compiles Vue files from the `src` directory using Babel and `vue-loader`. Contains a single loader named `vue`. | all |
+
+### Plugins
+
+_This preset does not define any additional plugins from those already in use by `@neutrinojs/web`._
 
 ### Advanced configuration
 
 By following the [customization guide](../../customization) and knowing the rule, loader, and plugin IDs from
-`@neutrinojs/web`, you can override and augment the build by providing a function to your `.neutrinorc.js` use
+`@neutrinojs/web` and above, you can override and augment the build by providing a function to your `.neutrinorc.js` use
 array. You can also make these changes from the Neutrino API in custom middleware.
 
 #### Vendoring
@@ -236,9 +269,11 @@ _Example: Put Vue into a separate "vendor" chunk:_
 module.exports = {
   use: [
     '@neutrinojs/vue',
-    (neutrino) => neutrino.config
-      .entry('vendor')
-        .add('vue')
+    (neutrino) => {
+      neutrino.config
+        .entry('vendor')
+          .add('vue');
+    }
   ]
 };
 ```
