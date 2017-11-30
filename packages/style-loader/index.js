@@ -13,7 +13,7 @@ module.exports = (neutrino, opts = {}) => {
     hotUseId: 'hot',
     modules: true,
     modulesSuffix: '-modules',
-    modulesTest: /\.module.css$/,
+    modulesTest: neutrino.regexFromExtensions(['module.css']),
     extractId: 'extract',
     extract: {
       plugin: {
