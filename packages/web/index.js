@@ -15,7 +15,6 @@ const devServer = require('@neutrinojs/dev-server');
 const { join, basename } = require('path');
 const { resolve } = require('url');
 const merge = require('deepmerge');
-const ScriptExtHtmlPlugin = require('script-ext-html-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const { optimize } = require('webpack');
 
@@ -106,6 +105,7 @@ module.exports = (neutrino, opts = {}) => {
     .when(options.style, () => neutrino.use(styleLoader, options.style))
     .when(options.font, () => neutrino.use(fontLoader, options.font))
     .when(options.image, () => neutrino.use(imageLoader, options.image))
+    .when(options.html, () => neutrino.use(htmlTemplate, options.html))
     .target('web')
     .context(neutrino.options.root)
     .output
@@ -143,11 +143,6 @@ module.exports = (neutrino, opts = {}) => {
           .end()
         .end()
       .end()
-    .when(options.html, (config) => {
-      neutrino.use(htmlTemplate, options.html);
-      config.plugin('script-ext')
-        .use(ScriptExtHtmlPlugin, [{ defaultAttribute: 'defer' }]);
-    })
     .when(neutrino.config.module.rules.has('lint'), () => {
       neutrino.use(loaderMerge('lint', 'eslint'), {
         envs: ['browser', 'commonjs']
