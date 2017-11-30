@@ -89,7 +89,7 @@ Object
     xprod(presets, tests).forEach(([preset, testRunner]) => {
       const testName = testRunner ? `${preset} + ${testRunner}` : preset;
 
-      test(testName, async t => {
+      test.serial(testName, async t => {
         const dir = await project({
           projectType: 'application',
           project: preset,
@@ -120,7 +120,9 @@ Object
     });
 
     xprod(presets, linters).forEach(([preset, linter]) => {
-      test(`${preset} + ${linter}`, async t => {
+      const testName = `${preset} + ${linter}`;
+
+      test.serial(testName, async t => {
         const dir = await project({
           projectType: 'application',
           project: preset,
