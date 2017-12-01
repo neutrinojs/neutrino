@@ -2,10 +2,20 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const merge = require('deepmerge');
 
 module.exports = (neutrino, opts = {}) => {
+  const cssTest = neutrino.regexFromExtensions(['css']);
+  const cssModulesTest = neutrino.regexFromExtensions(['module.css']);
+
   const options = merge({
-    test: opts.modules !== false
-      ? /(?<!\.module)\.css$/
-      : neutrino.regexFromExtensions(['css']),
+    test: (input) => {
+      const isCssModule = cssModulesTest.test(input);
+      const isRegularCss = cssTest.test(input);
+
+      if (opts.modules !== false && isCssModule) {
+        return false;
+      }
+
+      return isRegularCss;
+    },
     ruleId: 'style',
     styleUseId: 'style',
     cssUseId: 'css',
@@ -13,7 +23,7 @@ module.exports = (neutrino, opts = {}) => {
     hotUseId: 'hot',
     modules: true,
     modulesSuffix: '-modules',
-    modulesTest: neutrino.regexFromExtensions(['module.css']),
+    modulesTest: cssModulesTest,
     extractId: 'extract',
     extract: {
       plugin: {
