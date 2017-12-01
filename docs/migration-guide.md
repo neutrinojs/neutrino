@@ -32,7 +32,7 @@ if extracting is unwanted. ([#443](https://github.com/mozilla-neutrino/neutrino-
 
 ### Migrated Packages
 
-| Preset/Middleware | Scope |
+| Deprecated Preset/Middleware | New Scoped Package |
 |---|---|
 | `neutrino-middleware-banner` | [`@neutrinojs/banner`](https://www.npmjs.com/package/@neutrinojs/banner) |
 | `neutrino-middleware-chunk` | [`@neutrinojs/chunk`](https://www.npmjs.com/package/@neutrinojs/chunk) |
