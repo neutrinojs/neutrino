@@ -27,7 +27,9 @@ module.exports = (neutrino, opts = {}) => {
     extractId: 'extract',
     extract: {
       plugin: {
-        filename: neutrino.options.command === 'build' ? '[name].[contenthash].css' : '[name].css'
+        filename: neutrino.options.command === 'build' ? '[name].[contenthash].css' : '[name].css',
+        ignoreOrder: opts.modules !== false,
+        allChunks: true
       }
     }
   }, opts);
@@ -44,8 +46,7 @@ module.exports = (neutrino, opts = {}) => {
       extractId: `${options.extractId}${options.modulesSuffix}`,
       css: {
         modules: options.modules,
-        importLoaders: 1,
-        ignoreOrder: true
+        importLoaders: 1
       }
     }));
   }
