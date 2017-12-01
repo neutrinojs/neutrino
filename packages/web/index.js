@@ -23,6 +23,7 @@ const NEUTRINO_MODULES = join(__dirname, '../../node_modules');
 
 module.exports = (neutrino, opts = {}) => {
   const publicPath = './';
+  const extract = opts.extract || process.env.NODE_ENV === 'production';
   const options = merge({
     publicPath,
     env: [],
@@ -38,7 +39,8 @@ module.exports = (neutrino, opts = {}) => {
     },
     style: {
       hot: opts.hot !== false,
-      extract: opts.extract || process.env.NODE_ENV === 'production' && {}
+      extract: extract && {},
+      css: extract && { allChunks: true }
     },
     manifest: opts.html === false ? {} : false,
     minify: {},
