@@ -339,6 +339,8 @@ _Note: Some plugins are only available in certain environments. To override them
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
 | `env` | Inject environment variables into source code at `process.env`, defaults to only inject `NODE_ENV`. From `@neutrinojs/env`. | all |
+| `extract` | Extracts CSS from JS bundle into a separate stylesheet file. From `@neutrinojs/style-loader`. | all |
+| `extract-modules` | Extracts CSS from JS bundle into a separate stylesheet file. From `@neutrinojs/style-loader`. | all |
 | `html` | Automatically generates HTML files for configured main entry points. From `@neutrinojs/html-template` | all |
 | `named-modules` | Enables named modules for improved debugging and console output. From `@neutrinojs/chunk` and `@neutrinojs/hot`. | `NODE_ENV production`, `start` command |
 | `named-chunks` | Enables named chunks for improved debugging and console output. From `@neutrinojs/chunk`. | `NODE_ENV production` |
