@@ -2,9 +2,63 @@
 
 ## Contents
 
+- [Neutrino v7 to v8](#neutrino-v7-to-v8)
 - [Neutrino v6 to v7](#neutrino-v6-to-v7)
 - [Neutrino v5 to v6](#neutrino-v5-to-v6)
 - [Neutrino v4 to v5](#neutrino-v4-to-v5)
+
+## Neutrino v7 to v8
+
+Neutrino v8 introduces a number of changes, with some of them being breaking changes. To upgrade from Neutrino v7
+to v8, be sure to check this list for tasks you may need to perform to use this latest version:
+
+- **BREAKING CHANGE** The karma preset now uses Headless Chrome to run tests. To that end,
+you will need Chrome 60+ installed. ([#283](https://github.com/mozilla-neutrino/neutrino-dev/pull/283))
+- **BREAKING CHANGE** Removed `entry` option in order to support multiple entry points via new `mains` options.
+([#487](https://github.com/mozilla-neutrino/neutrino-dev/pull/487))
+- **BREAKING CHANGE** Support building multiple configurations from a single project with fork middleware
+([#425](https://github.com/mozilla-neutrino/neutrino-dev/pull/425))
+- **BREAKING CHANGE** Core packages have been migrated and scoped under the
+[@neutrinojs](https://www.npmjs.com/org/neutrinojs) organization. See [Migrated Packages](#migrated-packages)
+for the full list of migrated packages along with their scoped modules.
+([#424](https://github.com/mozilla-neutrino/neutrino-dev/pull/424))
+- **BREAKING CHANGE** `*.css` modules in entry chunks are no longer inlined into the JS bundle by default.
+They are moved into a separate CSS file. `options.extract = false` needs to be passed
+if extracting is unwanted. ([#443](https://github.com/mozilla-neutrino/neutrino-dev/pull/443))
+- **BREAKING CHANGE** When building, `file-loader` and `url-loader` will generate file names with pattern
+`[name].[hash].[ext]` instead of `[hash].[ext]`. ([#435](https://github.com/mozilla-neutrino/neutrino-dev/pull/435))
+- **BREAKING CHANGE** The web preset no longer uses the `script-ext` plugin. It was unneeded and had problems.
+([#500](https://github.com/mozilla-neutrino/neutrino-dev/pull/500))
+
+### Migrated Packages
+
+| Preset/Middleware | Scope |
+|---|---|
+| `neutrino-middleware-banner` | `@neutrinojs/banner` |
+| `neutrino-middleware-chunk` | `@neutrinojs/chunk` |
+| `neutrino-middleware-clean` | `@neutrinojs/clean` |
+| `neutrino-middleware-compile-loader` | `@neutrinojs/compile-loader` |
+| `neutrino-middleware-copy` | `@neutrinojs/copy` |
+| `neutrino-middleware-dev-server` | `@neutrinojs/dev-server` |
+| `neutrino-middleware-env` | `@neutrinojs/env` |
+| `neutrino-middleware-eslint` | `@neutrinojs/eslint` |
+| `neutrino-middleware-font-loader` | `@neutrinojs/font-loader` |
+| `neutrino-middleware-hot` | `@neutrinojs/hot` |
+| `neutrino-middleware-html-loader` | `@neutrinojs/html-loader` |
+| `neutrino-middleware-html-template` | `@neutrinojs/html-template` |
+| `neutrino-middleware-image-loader` | `@neutrinojs/image-loader` |
+| `neutrino-middleware-loader-merge` | `@neutrinojs/loader-merge` |
+| `neutrino-middleware-minify` | `@neutrinojs/minify` |
+| `neutrino-middleware-pwa` | `@neutrinojs/pwa` |
+| `neutrino-middleware-start-server` | `@neutrinojs/start-server` |
+| `neutrino-middleware-style-loader` | `@neutrinojs/style-loader` |
+| `neutrino-preset-airbnb-base` | `@neutrinojs/airbnb-base` |
+| `neutrino-preset-jest` | `@neutrinojs/jest` |
+| `neutrino-preset-karma` | `@neutrinojs/karma` |
+| `neutrino-preset-mocha` | `@neutrinojs/mocha` |
+| `neutrino-preset-node` | `@neutrinojs/node` |
+| `neutrino-preset-react` | `@neutrinojs/react` |
+| `neutrino-preset-web` | `@neutrinojs/web` |
 
 ## Neutrino v6 to v7
 
