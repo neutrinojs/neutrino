@@ -34,31 +34,31 @@ if extracting is unwanted. ([#443](https://github.com/mozilla-neutrino/neutrino-
 
 | Preset/Middleware | Scope |
 |---|---|
-| `neutrino-middleware-banner` | `@neutrinojs/banner` |
-| `neutrino-middleware-chunk` | `@neutrinojs/chunk` |
-| `neutrino-middleware-clean` | `@neutrinojs/clean` |
-| `neutrino-middleware-compile-loader` | `@neutrinojs/compile-loader` |
-| `neutrino-middleware-copy` | `@neutrinojs/copy` |
-| `neutrino-middleware-dev-server` | `@neutrinojs/dev-server` |
-| `neutrino-middleware-env` | `@neutrinojs/env` |
-| `neutrino-middleware-eslint` | `@neutrinojs/eslint` |
-| `neutrino-middleware-font-loader` | `@neutrinojs/font-loader` |
-| `neutrino-middleware-hot` | `@neutrinojs/hot` |
-| `neutrino-middleware-html-loader` | `@neutrinojs/html-loader` |
-| `neutrino-middleware-html-template` | `@neutrinojs/html-template` |
-| `neutrino-middleware-image-loader` | `@neutrinojs/image-loader` |
-| `neutrino-middleware-loader-merge` | `@neutrinojs/loader-merge` |
-| `neutrino-middleware-minify` | `@neutrinojs/minify` |
-| `neutrino-middleware-pwa` | `@neutrinojs/pwa` |
-| `neutrino-middleware-start-server` | `@neutrinojs/start-server` |
-| `neutrino-middleware-style-loader` | `@neutrinojs/style-loader` |
-| `neutrino-preset-airbnb-base` | `@neutrinojs/airbnb-base` |
-| `neutrino-preset-jest` | `@neutrinojs/jest` |
-| `neutrino-preset-karma` | `@neutrinojs/karma` |
-| `neutrino-preset-mocha` | `@neutrinojs/mocha` |
-| `neutrino-preset-node` | `@neutrinojs/node` |
-| `neutrino-preset-react` | `@neutrinojs/react` |
-| `neutrino-preset-web` | `@neutrinojs/web` |
+| `neutrino-middleware-banner` | [`@neutrinojs/banner`](https://www.npmjs.com/package/@neutrinojs/banner) |
+| `neutrino-middleware-chunk` | [`@neutrinojs/chunk`](https://www.npmjs.com/package/@neutrinojs/chunk) |
+| `neutrino-middleware-clean` | [`@neutrinojs/clean`](https://www.npmjs.com/package/@neutrinojs/clean) |
+| `neutrino-middleware-compile-loader` | [`@neutrinojs/compile-loader`](https://www.npmjs.com/package/@neutrinojs/compile-loader) |
+| `neutrino-middleware-copy` | [`@neutrinojs/copy`](https://www.npmjs.com/package/@neutrinojs/copy) |
+| `neutrino-middleware-dev-server` | [`@neutrinojs/dev-server`](https://www.npmjs.com/package/@neutrinojs/dev-server) |
+| `neutrino-middleware-env` | [`@neutrinojs/env`](https://www.npmjs.com/package/@neutrinojs/env) |
+| `neutrino-middleware-eslint` | [`@neutrinojs/eslint`](https://www.npmjs.com/package/@neutrinojs/eslint) |
+| `neutrino-middleware-font-loader` | [`@neutrinojs/font-loader`](https://www.npmjs.com/package/@neutrinojs/font-loader) |
+| `neutrino-middleware-hot` | [`@neutrinojs/hot`](https://www.npmjs.com/package/@neutrinojs/hot) |
+| `neutrino-middleware-html-loader` | [`@neutrinojs/html-loader`](https://www.npmjs.com/package/@neutrinojs/html-loader) |
+| `neutrino-middleware-html-template` | [`@neutrinojs/html-template`](https://www.npmjs.com/package/@neutrinojs/html-template) |
+| `neutrino-middleware-image-loader` | [`@neutrinojs/image-loader`](https://www.npmjs.com/package/@neutrinojs/image-loader) |
+| `neutrino-middleware-loader-merge` | [`@neutrinojs/loader-merge`](https://www.npmjs.com/package/@neutrinojs/loader-merge) |
+| `neutrino-middleware-minify` | [`@neutrinojs/minify`](https://www.npmjs.com/package/@neutrinojs/minify) |
+| `neutrino-middleware-pwa` | [`@neutrinojs/pwa`](https://www.npmjs.com/package/@neutrinojs/pwa) |
+| `neutrino-middleware-start-server` | [`@neutrinojs/start-server`](https://www.npmjs.com/package/@neutrinojs/start-server) |
+| `neutrino-middleware-style-loader` | [`@neutrinojs/style-loader`](https://www.npmjs.com/package/@neutrinojs/style-loader) |
+| `neutrino-preset-airbnb-base` | [`@neutrinojs/airbnb-base`](https://www.npmjs.com/package/@neutrinojs/airbnb-base) |
+| `neutrino-preset-jest` | [`@neutrinojs/jest`](https://www.npmjs.com/package/@neutrinojs/jest) |
+| `neutrino-preset-karma` | [`@neutrinojs/karma`](https://www.npmjs.com/package/@neutrinojs/karma) |
+| `neutrino-preset-mocha` | [`@neutrinojs/mocha`](https://www.npmjs.com/package/@neutrinojs/mocha) |
+| `neutrino-preset-node` | [`@neutrinojs/node`](https://www.npmjs.com/package/@neutrinojs/node) |
+| `neutrino-preset-react` | [`@neutrinojs/react`](https://www.npmjs.com/package/@neutrinojs/react) |
+| `neutrino-preset-web` | [`@neutrinojs/web`](https://www.npmjs.com/package/@neutrinojs/web) |
 
 ## Neutrino v6 to v7
 
