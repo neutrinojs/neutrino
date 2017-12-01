@@ -19,6 +19,7 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const { optimize } = require('webpack');
 
 const MODULES = join(__dirname, 'node_modules');
+const NEUTRINO_MODULES = join(__dirname, '../../node_modules');
 
 module.exports = (neutrino, opts = {}) => {
   const publicPath = './';
@@ -36,7 +37,8 @@ module.exports = (neutrino, opts = {}) => {
       publicPath: resolve('/', publicPath)
     },
     style: {
-      hot: opts.hot !== false
+      hot: opts.hot !== false,
+      extract: opts.extract || process.env.NODE_ENV === 'production' && {}
     },
     manifest: opts.html === false ? {} : false,
     minify: {},
@@ -119,6 +121,7 @@ module.exports = (neutrino, opts = {}) => {
         .add('node_modules')
         .add(neutrino.options.node_modules)
         .add(MODULES)
+        .add(NEUTRINO_MODULES)
         .end()
       .extensions
         .merge(neutrino.options.extensions.map(ext => `.${ext}`))
@@ -128,6 +131,7 @@ module.exports = (neutrino, opts = {}) => {
       .modules
         .add(neutrino.options.node_modules)
         .add(MODULES)
+        .add(NEUTRINO_MODULES)
         .end()
       .end()
     .node

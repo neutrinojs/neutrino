@@ -15,6 +15,7 @@ const {
 } = require('ramda');
 
 const MODULES = join(__dirname, 'node_modules');
+const NEUTRINO_MODULES = join(__dirname, '../../node_modules');
 const getPackageJson = (root) => {
   try {
     return require(join(root, 'package.json')); // eslint-disable-line
@@ -96,6 +97,7 @@ module.exports = (neutrino, opts = {}) => {
         .add('node_modules')
         .add(neutrino.options.node_modules)
         .add(MODULES)
+        .add(NEUTRINO_MODULES)
         .end()
       .extensions
         .merge(neutrino.options.extensions.map(ext => `.${ext}`))
@@ -105,6 +107,7 @@ module.exports = (neutrino, opts = {}) => {
       .modules
         .add(neutrino.options.node_modules)
         .add(MODULES)
+        .add(NEUTRINO_MODULES)
         .end()
       .end()
     .when(neutrino.options.debug, (config) => {

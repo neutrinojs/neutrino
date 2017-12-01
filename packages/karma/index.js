@@ -56,11 +56,19 @@ module.exports = (neutrino, opts = {}) => {
     });
   }
 
-  neutrino.on('test', ({ files, watch }) => new Promise((resolve, reject) =>
-    new Server(merge.all([
+  neutrino.on('test', ({ files, watch }) => new Promise((resolve, reject) => {
+    const karmaOptions = merge.all([
       opts.override ? opts : merge(defaults, opts),
-      { singleRun: !watch, autoWatch: watch, webpack: omit(['plugins'], neutrino.config.toConfig()) },
+      {
+        singleRun: !watch,
+        autoWatch: watch,
+        webpack: omit(['plugins'], neutrino.config.toConfig())
+      },
       files && files.length ? { files } : {}
-    ]), exitCode => (exitCode !== 0 ? reject() : resolve()))
-      .start()));
+    ]);
+
+    const server = new Server(karmaOptions, exitCode => (exitCode !== 0 ? reject() : resolve()));
+
+    return server.start();
+  }));
 };

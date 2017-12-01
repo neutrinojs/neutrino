@@ -31,8 +31,13 @@
     "deepmerge": "^1.5.2",
     "fs-extra": "^4.0.2",
     "javascript-stringify": "^1.6.0",
+    "ramda": "^0.25.0",
     "yargs": "^10.0.3",
     "yeoman-environment": "^2.0.5",
     "yeoman-generator": "^2.0.1"
+  },
+  "devDependencies": {
+    "yeoman-assert": "^3.1.0",
+    "yeoman-test": "^1.7.0"
   }
 }

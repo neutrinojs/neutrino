@@ -1,4 +1,4 @@
-import React from 'react';
+/* eslint-disable import/no-extraneous-dependencies */
 import { render } from 'react-dom';
 import { Stories, Story, Props } from '@neutrinojs/react-components/lib';
 import HelloWorld from './components/HelloWorld';

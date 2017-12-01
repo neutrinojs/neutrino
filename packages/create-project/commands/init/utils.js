@@ -1,74 +1,100 @@
+const LINTING = 'linting';
+const PROJECT = 'project';
+const TESTING = 'testing';
+const N = 'neutrino';
+const REACT = '@neutrinojs/react';
+const PREACT = '@neutrinojs/preact';
+const VUE = '@neutrinojs/vue';
+const WEB = '@neutrinojs/web';
+const NODE = '@neutrinojs/node';
+const WEB_NODE_LIBRARY = '@neutrinojs/library';
+const REACT_COMPONENTS = '@neutrinojs/react-components';
+const JEST = '@neutrinojs/jest';
+const KARMA = '@neutrinojs/karma';
+const MOCHA = '@neutrinojs/mocha';
+const AIRBNB = '@neutrinojs/airbnb';
+const AIRBNB_BASE = '@neutrinojs/airbnb-base';
+const STANDARDJS = '@neutrinojs/standardjs';
+
 const projects = {
-  '@neutrinojs/airbnb': {
-    devDependencies: [
-      '@neutrinojs/airbnb'
-    ]
+  [AIRBNB]: {
+    type: LINTING,
+    devDependencies: [AIRBNB]
   },
-  '@neutrinojs/airbnb-base': {
-    devDependencies: [
-      '@neutrinojs/airbnb-base'
-    ]
+  [AIRBNB_BASE]: {
+    type: LINTING,
+    devDependencies: [AIRBNB_BASE]
   },
-  '@neutrinojs/library': {
-    devDependencies: [
-      '@neutrinojs/library'
-    ]
+  [WEB_NODE_LIBRARY]: {
+    type: PROJECT,
+    devDependencies: [WEB_NODE_LIBRARY, N]
   },
-  '@neutrinojs/node': {
-    devDependencies: [
-      '@neutrinojs/node'
-    ]
+  [NODE]: {
+    type: PROJECT,
+    devDependencies: [NODE, N]
   },
-  '@neutrinojs/preact': {
-    dependencies: [
-      'preact',
-      'preact-compat'
-    ],
-    devDependencies: [
-      '@neutrinojs/preact'
-    ]
+  [PREACT]: {
+    type: PROJECT,
+    dependencies: ['preact', 'preact-compat'],
+    devDependencies: [PREACT, N]
   },
-  '@neutrinojs/react': {
-    dependencies: [
-      'react',
-      'react-dom',
-      'react-hot-loader'
-    ],
-    devDependencies: [
-      '@neutrinojs/react'
-    ]
+  [REACT]: {
+    type: PROJECT,
+    dependencies: ['prop-types', 'react', 'react-dom', 'react-hot-loader'],
+    devDependencies: [REACT, N]
   },
-  '@neutrinojs/react-components': {
-    devDependencies: [
-      '@neutrinojs/react',
-      'react',
-      'react-dom',
-      'react-addons-css-transition-group'
-    ]
+  [REACT_COMPONENTS]: {
+    type: PROJECT,
+    devDependencies: [REACT_COMPONENTS, N, 'prop-types', 'react', 'react-addons-css-transition-group', 'react-dom']
   },
-  '@neutrinojs/standardjs': {
-    devDependencies: [
-      '@neutrinojs/standardjs'
-    ]
+  [STANDARDJS]: {
+    type: LINTING,
+    devDependencies: [STANDARDJS]
   },
-  '@neutrinojs/vue': {
-    dependencies: [
-      'vue'
-    ],
-    devDependencies: [
-      '@neutrinojs/vue'
-    ]
+  [VUE]: {
+    type: PROJECT,
+    dependencies: ['vue'],
+    devDependencies: [VUE, N]
   },
-  '@neutrinojs/web': {
-    devDependencies: [
-      '@neutrinojs/web'
-    ]
+  [WEB]: {
+    type: PROJECT,
+    devDependencies: [WEB, N]
+  },
+  [JEST]: {
+    type: TESTING,
+    devDependencies: [JEST]
+  },
+  [KARMA]: {
+    type: TESTING,
+    devDependencies: [KARMA]
+  },
+  [MOCHA]: {
+    type: TESTING,
+    devDependencies: [MOCHA]
   }
+};
+
+const packages = {
+  NEUTRINO: N,
+  REACT,
+  PREACT,
+  VUE,
+  WEB,
+  NODE,
+  WEB_NODE_LIBRARY,
+  REACT_COMPONENTS,
+  JEST,
+  KARMA,
+  MOCHA,
+  AIRBNB,
+  AIRBNB_BASE,
+  STANDARDJS
 };
 
 const isYarn = process.env.npm_config_user_agent && process.env.npm_config_user_agent.includes('yarn');
 
 module.exports = {
+  packages,
   projects,
   isYarn
 };

@@ -9,6 +9,7 @@ const nodeExternals = require('webpack-node-externals');
 const { join } = require('path');
 
 const MODULES = join(__dirname, 'node_modules');
+const NEUTRINO_MODULES = join(__dirname, '../../node_modules');
 
 module.exports = (neutrino, opts = {}) => {
   if (!opts.name) {
@@ -59,9 +60,6 @@ module.exports = (neutrino, opts = {}) => {
     );
   }
 
-  neutrino.config.resolve.modules.add(MODULES);
-  neutrino.config.resolveLoader.modules.add(MODULES);
-
   try {
     const pkg = require(join(neutrino.options.root, 'package.json')); // eslint-disable-line global-require
     const hasSourceMap = (pkg.dependencies && 'source-map-support' in pkg.dependencies) ||
@@ -99,6 +97,7 @@ module.exports = (neutrino, opts = {}) => {
         .add('node_modules')
         .add(neutrino.options.node_modules)
         .add(MODULES)
+        .add(NEUTRINO_MODULES)
         .end()
       .extensions
         .merge(neutrino.options.extensions.map(ext => `.${ext}`))
@@ -108,6 +107,7 @@ module.exports = (neutrino, opts = {}) => {
       .modules
         .add(neutrino.options.node_modules)
         .add(MODULES)
+        .add(NEUTRINO_MODULES)
         .end()
       .end()
     .node

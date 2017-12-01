@@ -9,7 +9,7 @@
 
 <template>
   <div :class="$style.App">
-    <h1>Welcome to <%= data.directory %></h1>
+    <h1>Welcome to <%= data.name %></h1>
   </div>
 </template>
 
