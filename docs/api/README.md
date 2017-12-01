@@ -387,7 +387,7 @@ This method is typically used internally by the Neutrino API to attempt to requi
 before failing. Takes a String `moduleId` and returns the first exports of the module it is able to require. This
 will throw an exception if Neutrino is unable to require the specified module ID in any of its know paths.
 
-### `call(commandName, middleware)`
+### `call(commandName)`
 
 This API method will invoke a command function that has been previously defined by the `register` method.
 The `commandName` argument should be a String. Any necessary middleware should be used prior to invoking `call`.

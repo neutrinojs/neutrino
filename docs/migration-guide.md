@@ -12,28 +12,44 @@
 Neutrino v8 introduces a number of changes, with some of them being breaking changes. To upgrade from Neutrino v7
 to v8, be sure to check this list for tasks you may need to perform to use this latest version:
 
-- **BREAKING CHANGE** The karma preset now uses Headless Chrome to run tests. To that end,
-you will need Chrome 60+ installed. ([#283](https://github.com/mozilla-neutrino/neutrino-dev/pull/283))
-- **BREAKING CHANGE** Removed `entry` option in order to support multiple entry points via new `mains` options.
-([#487](https://github.com/mozilla-neutrino/neutrino-dev/pull/487))
-- **BREAKING CHANGE** Support building multiple configurations from a single project with fork middleware
-([#425](https://github.com/mozilla-neutrino/neutrino-dev/pull/425))
-- **BREAKING CHANGE** Core packages have been migrated and scoped under the
+- **BREAKING CHANGE** Middleware and preset packages have been migrated and scoped under the new
 [@neutrinojs](https://www.npmjs.com/org/neutrinojs) organization. See [Migrated Packages](#migrated-packages)
-for the full list of migrated packages along with their scoped modules.
+for the full list of deprecated packages and the new scoped packages to migrate to. The core `neutrino` package
+remains available as is.
+- **BREAKING CHANGE** Removed `entry` option in order to support multiple main entry points via new `mains` options.
+See [Customization](https://neutrino.js.org/customization/#optionsmains) for usage of `mains` in
+`.neutrinorc.js`. See [API](https://neutrino.js.org/api/#optionsmains) for usage of `mains` from the API.
+([#487](https://github.com/mozilla-neutrino/neutrino-dev/pull/487))
+- **BREAKING CHANGE** `*.css` files in mains chunks are no longer inlined into the JS bundle by default.
+They are moved into a separate CSS file. To disable CSS extraction, pass `options.extract = false` to
+the style-loader middleware, or `options.style.extract = false` to the web preset.
+([#443](https://github.com/mozilla-neutrino/neutrino-dev/pull/443))
+- **BREAKING CHANGE** The Karma preset now uses Headless Chrome by default to run tests. To that end,
+you will need Chrome 60+ installed. ([#283](https://github.com/mozilla-neutrino/neutrino-dev/pull/283))
+- **BREAKING CHANGE** The API methods `.call()` and `.run()` no longer accept additional middleware to load
+prior to running their registered handler. If you wish to load middleware prior, use the `.use()` method first.
+Also, these methods no longer automatically load `.neutrinorc.js` either, you must load this using `.use()` as well.
+([#425](https://github.com/mozilla-neutrino/neutrino-dev/pull/425))
 ([#424](https://github.com/mozilla-neutrino/neutrino-dev/pull/424))
-- **BREAKING CHANGE** `*.css` modules in entry chunks are no longer inlined into the JS bundle by default.
-They are moved into a separate CSS file. `options.extract = false` needs to be passed
-if extracting is unwanted. ([#443](https://github.com/mozilla-neutrino/neutrino-dev/pull/443))
+For a concrete example, `.eslintrc.js`, which utilizes these changes, would migrate to the following:
+
+```js
+const { Neutrino } = require('neutrino');
+
+module.exports = Neutrino()
+  .use('.neutrinorc.js')
+  .call('eslintrc');
+```
+
 - **BREAKING CHANGE** When building, `file-loader` and `url-loader` will generate file names with pattern
 `[name].[hash].[ext]` instead of `[hash].[ext]`. ([#435](https://github.com/mozilla-neutrino/neutrino-dev/pull/435))
-- **BREAKING CHANGE** The web preset no longer uses the `script-ext` plugin. It was unneeded and had problems.
-([#500](https://github.com/mozilla-neutrino/neutrino-dev/pull/500))
+- **BREAKING CHANGE** The web preset no longer uses the `script-ext` plugin. It was never functional and did not
+serve a purpose at this time. ([#500](https://github.com/mozilla-neutrino/neutrino-dev/pull/500))
 
 ### Migrated Packages
 
 | Deprecated Preset/Middleware | New Scoped Package |
-|---|---|
+| --- | --- |
 | `neutrino-middleware-banner` | [`@neutrinojs/banner`](https://www.npmjs.com/package/@neutrinojs/banner) |
 | `neutrino-middleware-chunk` | [`@neutrinojs/chunk`](https://www.npmjs.com/package/@neutrinojs/chunk) |
 | `neutrino-middleware-clean` | [`@neutrinojs/clean`](https://www.npmjs.com/package/@neutrinojs/clean) |
