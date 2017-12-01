@@ -44,7 +44,8 @@ module.exports = (neutrino, opts = {}) => {
       extractId: `${options.extractId}${options.modulesSuffix}`,
       css: {
         modules: options.modules,
-        importLoaders: 1
+        importLoaders: 1,
+        ignoreOrder: true
       }
     }));
   }
