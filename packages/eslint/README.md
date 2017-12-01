@@ -166,7 +166,10 @@ module.exports = Neutrino()
 ```
 
 If you are able, only use a `.eslintrc.js` file for editor hints, and use the Neutrino `lint` command for one-off linting
-or fixes.
+or fixes. **Loading ESLint configuration from `.eslintrc.js` that is not `.neutrinorc.js` or uses configuration that
+differs from `.neutrinorc.js` could lead to unintended consequences such as linting not failing or passing when expected,
+or working differently when running different commands. Closely evaluate whether you _actually_ need to make these rule
+changes in `.eslintrc.js` over `.neutrinorc.js`.**
 
 Projects may face a problem when their editor or IDE lints all files and highlights errors that were normally excluded
 from source, i.e. Neutrino's `include` and `exclude` options. This is because the ESLint CLI does not have a way to
