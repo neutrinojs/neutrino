@@ -28,7 +28,8 @@ module.exports = (neutrino, opts = {}) => {
     extract: {
       plugin: {
         filename: neutrino.options.command === 'build' ? '[name].[contenthash].css' : '[name].css',
-        ignoreOrder: opts.modules !== false
+        ignoreOrder: opts.modules !== false,
+        allChunks: true
       }
     }
   }, opts);
