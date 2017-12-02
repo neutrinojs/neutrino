@@ -43,7 +43,11 @@ const server = require('@neutrinojs/start-server');
 neutrino.use(server);
 
 // Usage with custom server file to start
-neutrino.use(server, { name: 'custom.js' });
+neutrino.use(server, {
+  name: 'custom.js',
+  // Override pluginId to add an additional start-server plugin instance
+  pluginId: 'start-server'
+});
 ```
 
 ```js
@@ -59,7 +63,9 @@ module.exports = {
 module.exports = {
   use: [
     ['@neutrinojs/start-server', {
-      name: 'custom.js'
+      name: 'custom.js',
+      // Override pluginId to add an additional start-server plugin instance
+      pluginId: 'start-server'
     }]
   ]
 };

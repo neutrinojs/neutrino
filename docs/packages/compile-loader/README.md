@@ -41,7 +41,9 @@ const compile = require('@neutrinojs/compile-loader');
 neutrino.use(compile, {
   include: [],
   exclude: [],
-  babel: {}
+  babel: {},
+  ruleId: 'compile',
+  useId: 'babel'
 });
 ```
 
@@ -53,7 +55,9 @@ module.exports = {
     ['@neutrinojs/compile-loader', {
       include: [],
       exclude: [],
-      babel: {}
+      babel: {},
+      ruleId: 'compile',
+      useId: 'babel'
     }]
   ]
 };
@@ -65,6 +69,8 @@ module.exports = {
 [`Rule.exclude`](https://webpack.js.org/configuration/module/#rule-exclude)
 - `babel` is a [Babel configuration object](https://babeljs.io/docs/usage/api/#options), consumed by babel-loader. Use
 this to set properties such as `presets`, `plugins`, and `env`.
+- `ruleId` is the identifier to the compiler loader rule. Override this to add an additional compile-loader instance
+- `useId` is the identifier for the babel loader. Override this to change the identifier.
 
 ## Merging Babel Configuration
 

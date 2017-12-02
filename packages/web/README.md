@@ -15,7 +15,7 @@
 - Automatic creation of HTML pages, no templating necessary
 - Hot Module Replacement support
 - Tree-shaking to create smaller bundles
-- Production-optimized bundles with Babili minification, easy chunking, and scope-hoisted modules for faster execution
+- Production-optimized bundles with Babel minification, easy chunking, and scope-hoisted modules for faster execution
 - Easily extensible to customize your project as needed
 
 ## Requirements
@@ -235,7 +235,6 @@ module.exports = {
       image: false,
       style: false,
       font: false,
-      image: false,
       manifest: false,
 
       // Example: Remove console and debugger from output
@@ -340,7 +339,7 @@ _Note: Some plugins are only available in certain environments. To override them
 | `env` | Inject environment variables into source code at `process.env`, defaults to only inject `NODE_ENV`. From `@neutrinojs/env`. | all |
 | `extract` | Extracts CSS from JS bundle into a separate stylesheet file. From `@neutrinojs/style-loader`. | all |
 | `extract-modules` | Extracts CSS from JS bundle into a separate stylesheet file. From `@neutrinojs/style-loader`. | all |
-| `html` | Automatically generates HTML files for configured entry points. From `@neutrinojs/html-template` | all |
+| `html-{MAIN_NAME}` | Automatically generates HTML files for configured entry points. `{MAIN_NAME}` corresponds to the entry point of each page. By default, there is only a single `index` main, so this would generate a plugin named `html-index`. From `@neutrinojs/html-template` | all |
 | `named-modules` | Enables named modules for improved debugging and console output. From `@neutrinojs/chunk` and `@neutrinojs/hot`. | `NODE_ENV production`, `start` command |
 | `named-chunks` | Enables named chunks for improved debugging and console output. From `@neutrinojs/chunk`. | `NODE_ENV production` |
 | `vendor-chunk` | Creates a separate file/chunk consisting of common modules shared between multiple entry points. From `@neutrinojs/chunk`. | `NODE_ENV production` |
@@ -349,7 +348,7 @@ _Note: Some plugins are only available in certain environments. To override them
 | `hot` | Enables Hot Module Replacement. From `@neutrinojs/hot`. | `start` command |
 | `copy` | Copies files during build, defaults from `src/static` to `build/static`. From `@neutrinojs/copy` | `build` command |
 | `clean` | Removes the `build` directory prior to building. From `@neutrinojs/clean`. | `build` command |
-| `minify` | Minifies source code using `BabiliWebpackPlugin`. From `@neutrinojs/minify`. | `NODE_ENV production` |
+| `minify` | Minifies source code using `BabelMinifyWebpackPlugin`. From `@neutrinojs/minify`. | `NODE_ENV production` |
 | `module-concat` | Concatenate the scope of all your modules into one closure and allow for your code to have a faster execution time in the browser. | `NODE_ENV production` |
 | `manifest` | Create a manifest file, via webpack-manifest-plugin. | `build` command |
 

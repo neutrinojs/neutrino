@@ -108,7 +108,6 @@ module.exports = (neutrino, opts = {}) => {
     .when(options.style, () => neutrino.use(styleLoader, options.style))
     .when(options.font, () => neutrino.use(fontLoader, options.font))
     .when(options.image, () => neutrino.use(imageLoader, options.image))
-    .when(options.html, () => neutrino.use(htmlTemplate, options.html))
     .target('web')
     .context(neutrino.options.root)
     .output
@@ -165,6 +164,12 @@ module.exports = (neutrino, opts = {}) => {
           Object
             .keys(neutrino.options.mains)
             .forEach(key => {
+              neutrino.use(htmlTemplate, merge({
+                pluginId: `html-${key}`,
+                filename: `${key}.html`,
+                chunks: [key, 'vendor', 'runtime']
+              }, options.html));
+
               config
                 .entry(key)
                   .batch(entry => {

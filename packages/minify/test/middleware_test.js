@@ -2,7 +2,7 @@ import test from 'ava';
 import { Neutrino } from 'neutrino';
 
 const mw = () => require('..');
-const options = { overrides: { test: /\.js$/ }, babili: { removeConsole: true } };
+const options = { overrides: { test: /\.js$/ }, minify: { removeConsole: true } };
 
 test('loads middleware', t => {
   t.notThrows(mw);

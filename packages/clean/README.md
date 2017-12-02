@@ -43,7 +43,9 @@ neutrino.use(clean);
 // Usage shows the default values of this middleware:
 neutrino.use(clean, {
   paths: [],
-  root: neutrino.options.root
+  root: neutrino.options.root,
+  // Override pluginId to add an additional clean plugin instance
+  pluginId: 'clean'
 });
 ```
 
@@ -60,7 +62,9 @@ module.exports = {
   use: [
     ['@neutrinojs/clean', {
       paths: [],
-      root: neutrino.options.root
+      root: neutrino.options.root,
+      // Override pluginId to add an additional banner plugin instance
+      pluginId: 'clean'
     }]
   ]
 };

@@ -43,7 +43,9 @@ neutrino.use(pwa);
 
 // Usage showing overriding options
 neutrino.use(pwa, {
-  relativePaths: true
+  relativePaths: true,
+  // Override pluginId to add an additional pwa plugin instance
+  pluginId: 'pwa'
 });
 ```
 
@@ -58,7 +60,11 @@ module.exports = {
 // Usage showing overriding options
 module.exports = {
   use: [
-    ['@neutrinojs/pwa', { relativePaths: true }]
+    ['@neutrinojs/pwa', {
+      relativePaths: true,
+      // Override pluginId to add an additional pwa plugin instance
+      pluginId: 'pwa'
+    }]
   ]
 };
 ```

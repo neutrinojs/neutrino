@@ -27,20 +27,22 @@ module.exports = (neutrino, opts = {}) => {
     rules: ['svg', 'img']
   }, opts);
 
-  const test = options.rules.map((ruleId) => {
+  const tests = options.rules.map((ruleId) => {
+    const test = neutrino.regexFromExtensions([ruleId]);
+
     neutrino.config.module
       .rule(ruleId)
+      .test(test)
       .use(options.useId)
         .loader(imageminLoader)
         .options(options.imagemin);
 
-    return neutrino.config.module.rule(ruleId).get('test');
-  })
-  .join('|');
+    return test;
+  });
 
   options.plugin = merge({
     imageminOptions: options.imagemin,
-    test
+    test: tests
   }, options.plugin);
 
   neutrino.config
