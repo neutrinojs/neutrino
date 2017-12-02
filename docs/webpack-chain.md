@@ -1032,7 +1032,7 @@ neutrino.config
   .when(process.env.NODE_ENV === 'production', config => {
     config
       .plugin('minify')
-      .use(BabiliWebpackPlugin);
+      .use(BabelMinifyWebpackPlugin);
   });
 ```
 
@@ -1041,7 +1041,7 @@ neutrino.config
 // otherwise set devtool to source-map
 neutrino.config
   .when(process.env.NODE_ENV === 'production',
-    config => config.plugin('minify').use(BabiliWebpackPlugin),
+    config => config.plugin('minify').use(BabelMinifyWebpackPlugin),
     config => config.devtool('source-map')
   );
 ```

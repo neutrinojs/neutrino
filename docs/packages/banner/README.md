@@ -47,7 +47,9 @@ neutrino.use(banner);
 neutrino.use(banner, {
   banner: `require('source-map-support').install();`,
   raw: true,
-  entryOnly: true
+  entryOnly: true,
+  // Override pluginId to add an additional banner plugin instance
+  pluginId: 'banner'
 });
 ```
 
@@ -69,7 +71,9 @@ module.exports = {
     ['@neutrinojs/banner', {
       banner: `require('source-map-support').install();`,
       raw: true,
-      entryOnly: true
+      entryOnly: true,
+      // Override pluginId to add an additional banner plugin instance
+      pluginId: 'banner'
     }]
   ]
 };

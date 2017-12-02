@@ -51,7 +51,9 @@ neutrino.use(template, {
     keepClosingSlash: true,
     collapseWhitespace: true,
     preserveLineBreaks: true
-  }
+  },
+  // Override pluginId to add an additional html-template plugin instance
+  pluginId: 'html'
 });
 
 // Most commonly, you will want to override the initial page title:
@@ -78,7 +80,9 @@ module.exports = {
         keepClosingSlash: true,
         collapseWhitespace: true,
         preserveLineBreaks: true
-      }
+      },
+      // Override pluginId to add an additional html-template plugin instance
+      pluginId: 'html'
     }]
   ]
 };

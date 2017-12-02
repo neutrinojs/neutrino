@@ -43,7 +43,8 @@ neutrino.use(copy);
 // Usage shows the default values of this middleware:
 neutrino.use(copy, {
   patterns: [],
-  options: {}
+  options: {},
+  pluginId: 'copy'
 });
 ```
 
@@ -60,7 +61,8 @@ module.exports = {
   use: [
     ['@neutrinojs/copy', {
       patterns: [],
-      options: {}
+      options: {},
+      pluginId: 'copy'
     }]
   ]
 };
@@ -71,6 +73,7 @@ See their docs for details on valid values to specify.
 
 - `patterns`: An array of patterns specifying copy operations.
 - `options`: An object specifying copy options.
+- `pluginId`: The plugin identifier. Override this to add an additional copy plugin instance.
 
 ## Customization
 

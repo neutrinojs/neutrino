@@ -15,7 +15,7 @@
   - Automatic creation of HTML pages, no templating necessary
   - Hot Module Replacement support
   - Tree-shaking to create smaller bundles
-  - Production-optimized bundles with Babili minification, easy chunking, and scope-hoisted modules for faster execution
+  - Production-optimized bundles with Babel minification, easy chunking, and scope-hoisted modules for faster execution
   - Easily extensible to customize your project as needed
 
 ## Requirements

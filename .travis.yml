@@ -22,4 +22,4 @@ script:
 - yarn validate:eslintrc
 - yarn lint
 - yarn build
-- yarn test
+- yarn test:all
