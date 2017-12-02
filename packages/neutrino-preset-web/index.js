@@ -30,7 +30,10 @@ module.exports = (neutrino, opts = {}) => {
     polyfills: {
       async: true
     },
-    babel: {}
+    babel: {},
+    clean: {
+      paths: [neutrino.options.output]
+    }
   }, opts);
 
   Object.assign(options, {
@@ -52,6 +55,11 @@ module.exports = (neutrino, opts = {}) => {
       ]
     }, options.babel)
   });
+
+  Object.assign(options.clean, opts.clean || {});
+  if (!options.clean.paths.includes(neutrino.options.output)) {
+    options.clean.paths.push(neutrino.options.output);
+  }
 
   const staticDir = join(neutrino.options.source, 'static');
   const presetEnvOptions = options.babel.presets[0][1];
@@ -143,7 +151,7 @@ module.exports = (neutrino, opts = {}) => {
         .use(optimize.ModuleConcatenationPlugin);
     })
     .when(neutrino.options.command === 'build', (config) => {
-      neutrino.use(clean, { paths: [neutrino.options.output] });
+      neutrino.use(clean, options.clean);
       neutrino.use(copy, {
         patterns: [{
           context: staticDir,
