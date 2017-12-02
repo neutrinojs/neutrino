@@ -2,6 +2,7 @@ const Future = require('fluture');
 const merge = require('deepmerge');
 const clone = require('lodash.clonedeep');
 const { CLIEngine } = require('eslint');
+const codeframe = require('eslint/lib/formatters/codeframe');
 const {
   assoc, curry, evolve, keys, omit, pipe, prop, reduce
 } = require('ramda');
@@ -21,7 +22,16 @@ const getEslintRcConfig = pipe(
   // anything we add that does not comply with ESLint's schemas.
   // https://github.com/eslint/eslint/blob/9d1df92628dd4dd1e70fbb19454008e146387435/conf/config-schema.js
   // https://github.com/eslint/eslint/blob/9d1df92628dd4dd1e70fbb19454008e146387435/lib/config/config-validator.js#L167
-  omit(['failOnError', 'emitWarning', 'emitError', 'cwd', 'useEslintrc', 'fix', 'extensions']),
+  omit([
+    'failOnError',
+    'emitWarning',
+    'emitError',
+    'cwd',
+    'useEslintrc',
+    'fix',
+    'extensions',
+    'formatter'
+  ]),
   renameKeys({ envs: 'env', baseConfig: 'extends' }),
   evolve({
     extends: prop('extends'),
@@ -60,6 +70,7 @@ module.exports = (neutrino, opts = {}) => {
             cwd: neutrino.options.root,
             useEslintrc: false,
             root: true,
+            formatter: codeframe,
             // eslint-loader uses executeOnText(), which ignores the `extensions` setting.
             // However it's still needed for the lint command, as it uses executeOnFiles().
             extensions: neutrino.options.extensions,
@@ -97,7 +108,7 @@ module.exports = (neutrino, opts = {}) => {
       .map(options => new CLIEngine(options))
       .chain(cli => Future.both(
         Future.of(cli.executeOnFiles(options.include)),
-        Future.of(cli.getFormatter())
+        Future.of(cli.getFormatter('codeframe'))
       ))
       .map(([report, formatter]) => {
         if (fix) {
@@ -107,8 +118,8 @@ module.exports = (neutrino, opts = {}) => {
         return [report, formatter];
       })
       .chain(([report, formatter]) => {
-        const errors = CLIEngine.getErrorResults(report.results);
         const formatted = formatter(report.results);
+        const errors = CLIEngine.getErrorResults(report.results);
 
         return errors.length ? Future.reject(formatted) : Future.of(formatted);
       });
