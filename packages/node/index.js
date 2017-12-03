@@ -46,6 +46,9 @@ module.exports = (neutrino, opts = {}) => {
     },
     targets: {
       node: '6.10'
+    },
+    clean: opts.clean !== false && {
+      paths: [neutrino.options.output]
     }
   }, opts);
 
@@ -138,8 +141,8 @@ module.exports = (neutrino, opts = {}) => {
         .plugin('module-concat')
           .use(optimize.ModuleConcatenationPlugin);
     })
-    .when(neutrino.options.command === 'build', () => {
-      neutrino.use(clean, { paths: [neutrino.options.output] });
+    .when(neutrino.options.command === 'build', (config) => {
+      config.when(options.clean, () => neutrino.use(clean, options.clean));
       neutrino.use(copy, {
         patterns: [{
           context: staticDir,
