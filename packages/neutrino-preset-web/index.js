@@ -145,13 +145,8 @@ module.exports = (neutrino, opts = {}) => {
       neutrino.config.plugin('module-concat')
         .use(optimize.ModuleConcatenationPlugin);
     })
+    .when(options.clean, neutrino.use(clean, options.clean))
     .when(neutrino.options.command === 'build', (config) => {
-      if (options.clean) {
-        if (!options.clean.paths.includes(neutrino.options.output)) {
-          options.clean.paths.push(neutrino.options.output);
-        }
-        neutrino.use(clean, options.clean);
-      }
       neutrino.use(copy, {
         patterns: [{
           context: staticDir,
