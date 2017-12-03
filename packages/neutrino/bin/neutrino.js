@@ -58,7 +58,13 @@ const args = yargs
     default: false,
     global: true
   })
-  .command('start', 'Build a project in development mode')
+  .command('start', 'Build a project in development mode', {
+    dashboard: {
+      description: 'Use webpack-dashboard',
+      boolean: true,
+      default: false
+    }
+  })
   .command('build', 'Compile the source directory to a bundled build')
   .command('test [files..]', 'Run all suites from the test directory or provided files', {
     coverage: {

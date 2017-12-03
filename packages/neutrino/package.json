@@ -34,6 +34,7 @@
     "ramda": "^0.25.0",
     "webpack": "^3.6.0",
     "webpack-chain": "^4.5.0",
+    "webpack-dashboard": "^1.0.2",
     "webpack-dev-server": "^2.9.4",
     "yargs": "^10.0.0"
   }

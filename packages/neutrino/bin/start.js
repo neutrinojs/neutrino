@@ -2,9 +2,16 @@ const ora = require('ora');
 const debounce = require('lodash.debounce');
 const { start } = require('../src');
 const base = require('./base');
+const DashboardPlugin = require("webpack-dashboard/plugin");
 
 module.exports = (middleware, args) => {
   const spinner = ora({ text: 'Building project' });
+
+  if (args.dashboard) {
+    middleware.push(neutrino => {
+      neutrino.config.plugin('dashboard').use(DashboardPlugin, [{ port: 5000 }]);
+    });
+  }
 
   return base({
     middleware,
