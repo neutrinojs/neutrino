@@ -52,7 +52,7 @@ function normalizeJestOptions(opts, neutrino, usingBabel) {
       bail: true,
       coveragePathIgnorePatterns: [neutrino.options.node_modules],
       collectCoverageFrom: [join(basename(neutrino.options.source), '**/*.js')],
-      testRegex: join(basename(neutrino.options.tests), '.*(_test|_spec|\\.test|\\.spec)\\.jsx?$'),
+      testRegex: join(basename(neutrino.options.tests), '.*(_test|_spec|\\.test|\\.spec)\\.jsx?$').replace('test\\', '(test\\)'),
       transform: { [jsNames]: require.resolve('./transformer') },
       globals: {
         BABEL_OPTIONS: usingBabel
