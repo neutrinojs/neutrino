@@ -236,7 +236,9 @@ module.exports = {
 
       // Remove the contents of the output directory prior to building.
       // Set to false to disable cleaning this directory
-      clean: [neutrino.options.output],
+      clean: {
+        paths: [neutrino.options.output]
+      },
 
       // Add additional Babel plugins, presets, or env options
       babel: {

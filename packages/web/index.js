@@ -42,6 +42,9 @@ module.exports = (neutrino, opts = {}) => {
         (process.env.NODE_ENV === 'production' && {})
     },
     manifest: opts.html === false ? {} : false,
+    clean: opts.clean !== false && {
+      paths: [neutrino.options.output]
+    },
     minify: {
       babel: true,
       image: false
@@ -174,6 +177,8 @@ module.exports = (neutrino, opts = {}) => {
               neutrino.use(htmlTemplate, merge({
                 pluginId: `html-${key}`,
                 filename: `${key}.html`,
+                // When using the chunk middleware, the names in use by default there
+                // need to be kept in sync with the additional values used here
                 chunks: [key, 'vendor', 'runtime']
               }, options.html));
 
@@ -198,7 +203,7 @@ module.exports = (neutrino, opts = {}) => {
           .use(optimize.ModuleConcatenationPlugin);
     })
     .when(neutrino.options.command === 'build', (config) => {
-      neutrino.use(clean, { paths: [neutrino.options.output] });
+      config.when(options.clean, () => neutrino.use(clean, options.clean));
       neutrino.use(copy, {
         patterns: [{
           context: staticDir,

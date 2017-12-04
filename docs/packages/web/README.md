@@ -239,6 +239,12 @@ module.exports = {
       font: false,
       manifest: false,
 
+      // Remove the contents of the output directory prior to building.
+      // Set to false to disable cleaning this directory
+      clean: {
+        paths: [neutrino.options.output]
+      },
+
       // Example: Remove console and debugger from output
       minify: {
         removeConsole: true,
