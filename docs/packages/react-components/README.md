@@ -16,7 +16,7 @@ Minimal code is needed to generate stories previewer.
 - Modern Babel compilation adding JSX, object rest spread syntax, and class properties.
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
-- Support for importing web workers with `.worker.js` file extensions
+- Support for importing web workers with `.worker.*` file extensions
 - Extends from [@neutrinojs/web](../web)
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
   - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
