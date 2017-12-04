@@ -1,5 +1,5 @@
-const BabelMinify = require('babel-minify-webpack-plugin');
+const BabelMinifyPlugin = require('babel-minify-webpack-plugin');
 
 module.exports = ({ config }, options = {}) => config
   .plugin('babel-minify')
-  .use(BabelMinify, [options.minify, options.plugin]);
+  .use(BabelMinifyPlugin, [options.minify, options.plugin]);
