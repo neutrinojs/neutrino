@@ -43,6 +43,7 @@ module.exports = (neutrino, opts = {}) => {
     },
     manifest: opts.html === false ? {} : false,
     minify: {
+      babel: true,
       image: false
     },
     babel: {},
@@ -72,6 +73,10 @@ module.exports = (neutrino, opts = {}) => {
   }
 
   Object.assign(options, {
+    minify: {
+      babel: options.minify.babel !== true && options.minify.babel || {},
+      image: options.minify.image !== true && options.minify.image || {}
+    },
     babel: compileLoader.merge({
       plugins: [
         ...(options.polyfills.async ? [[require.resolve('fast-async'), { spec: true }]] : []),
