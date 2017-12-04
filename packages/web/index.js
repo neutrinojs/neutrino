@@ -46,10 +46,7 @@ module.exports = (neutrino, opts = {}) => {
       paths: [neutrino.options.output]
     },
     minify: {
-<<<<<<< HEAD
       babel: true,
-=======
->>>>>>> Allow excluding presets by passing false in `minify`
       image: false
     },
     babel: {},
