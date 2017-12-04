@@ -2,6 +2,7 @@ const Config = require('webpack-chain');
 const merge = require('deepmerge');
 const Future = require('fluture');
 const mitt = require('mitt');
+const path = require('path');
 const {
   defaultTo, is, map, omit, replace
 } = require('ramda');
@@ -48,6 +49,8 @@ class Api {
         }
       });
     });
+
+    options.packageJson = require(path.join(options.root, 'package.json')); // eslint-disable-line global-require
 
     Object.defineProperty(options, 'extensions', {
       enumerable: true,

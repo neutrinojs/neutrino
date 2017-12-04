@@ -16,13 +16,6 @@ const {
 
 const MODULES = join(__dirname, 'node_modules');
 const NEUTRINO_MODULES = join(__dirname, '../../node_modules');
-const getPackageJson = (root) => {
-  try {
-    return require(join(root, 'package.json')); // eslint-disable-line
-  } catch (err) {
-    return {};
-  }
-};
 const getOutputForEntry = pipe(
   parse,
   omit(['base']),
@@ -32,7 +25,7 @@ const getOutputForEntry = pipe(
 );
 
 module.exports = (neutrino, opts = {}) => {
-  const pkg = getPackageJson(neutrino.options.root);
+  const pkg = neutrino.options.packageJson;
   const staticDir = join(neutrino.options.source, 'static');
   const sourceMap = pathOr(
     pathOr(false, ['dependencies', 'source-map-support'], pkg),
