@@ -73,7 +73,7 @@ See their docs for details on valid values to specify.
 
 - `patterns`: An array of patterns specifying copy operations.
 - `options`: An object specifying copy options.
-- `pluginId`: The plugin identifier. Override this to add an additional copy plugin instance. 
+- `pluginId`: The plugin identifier. Override this to add an additional copy plugin instance.
 
 ## Customization
 

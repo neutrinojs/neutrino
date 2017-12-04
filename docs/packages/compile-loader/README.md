@@ -2,9 +2,9 @@
 
 `@neutrinojs/compile-loader` is Neutrino middleware for compiling source code with Babel.
 
-[![NPM version][npm-image]]
-[npm-url][![NPM downloads][npm-downloads]]
-[npm-url][![Join the Neutrino community on Spectrum][spectrum-image]][spectrum-url]
+[![NPM version][npm-image]][npm-url]
+[![NPM downloads][npm-downloads]][npm-url]
+[![Join the Neutrino community on Spectrum][spectrum-image]][spectrum-url]
 
 ## Requirements
 

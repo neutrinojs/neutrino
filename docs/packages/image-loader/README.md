@@ -1,10 +1,10 @@
 # Neutrino Image Loader Middleware
 
+`@neutrinojs/image-loader` is Neutrino middleware for loading and importing image files from modules.
+
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
 [![Join the Neutrino community on Spectrum][spectrum-image]][spectrum-url]
-
-`@neutrinojs/image-loader` is Neutrino middleware for loading and importing image files from modules.
 
 ## Requirements
 

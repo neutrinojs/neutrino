@@ -299,7 +299,7 @@ _Note: Some plugins are only available in certain environments. To override them
 
 | Name | Description | Environments |
 | ---- | ----------- | ------------ |
-| `banner` | Injects source-map-support into the entry point of your application if detected in `dependencies` or `devDependencies` of your package.json. | all but `development` |
+| `banner` | Injects source-map-support into the mains (entry points) of your application if detected in `dependencies` or `devDependencies` of your package.json. | all but `development` |
 
 By following the [customization guide](../../customization) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also
