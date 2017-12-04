@@ -17,6 +17,9 @@ module.exports = ({ config }) => config
       )
     ])
     .end()
+  // When other middleware uses this chunk middleware, the names in use by default here
+  // need to be kept in sync with the additional values used there.
+  // Currently "vendor" and "runtime" as defined below.
   .plugin('vendor-chunk')
     .use(optimize.CommonsChunkPlugin, [{
       name: 'vendor',

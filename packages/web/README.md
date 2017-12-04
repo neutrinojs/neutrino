@@ -245,6 +245,12 @@ module.exports = {
         removeDebugger: true,
       },
 
+      // Remove the contents of the output directory prior to building.
+      // Set to false to disable cleaning this directory
+      clean: {
+        paths: [neutrino.options.output]
+      },
+
       // Example: change the page title
       html: {
         title: 'Epic Web App'
