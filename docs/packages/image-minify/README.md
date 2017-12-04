@@ -1,6 +1,6 @@
-# Neutrino Imagemin Middleware
+# Neutrino Image Minify Middleware
 
-`@neutrinojs/imagemin` is Neutrino middleware for optimizing images with imagemin.
+`@neutrinojs/image-minify` is Neutrino middleware for optimizing images with imagemin.
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
@@ -14,29 +14,29 @@
 
 ## Installation
 
-`@neutrinojs/imagemin` can be installed via the Yarn or npm clients.
+`@neutrinojs/image-minify` can be installed via the Yarn or npm clients.
 
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/imagemin
+❯ yarn add @neutrinojs/image-minify
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/imagemin
+❯ npm install --save @neutrinojs/image-minify
 ```
 
 ## Usage
 
-`@neutrinojs/imagemin` can be consumed from the Neutrino API, middleware, or presets. Require this package
+`@neutrinojs/image-minify` can be consumed from the Neutrino API, middleware, or presets. Require this package
 and plug it into Neutrino:
 
 ```js
 // Using function middleware format
 const images = require('@neutrinojs/image-loader');
-const imagemin = require('@neutrinojs/imagemin');
+const imagemin = require('@neutrinojs/image-minify');
 
 // Use with default options
 neutrino.use(images);
@@ -68,13 +68,13 @@ neutrino.use(imagemin, {
 
 // Use with default options
 module.exports = {
-  use: ['@neutrinojs/imagemin']
+  use: ['@neutrinojs/image-minify']
 };
 
 // Usage showing default options
 module.exports = {
   use: [
-    ['@neutrinojs/imagemin', {
+    ['@neutrinojs/image-minify', {
       imagemin: {},
       plugin: {
         name: '[path][name].[ext]',
@@ -94,7 +94,7 @@ module.exports = {
 
 ## Customization
 
-`@neutrinojs/imagemin` creates some conventions to make overriding the configuration easier once you are
+`@neutrinojs/image-minify` creates some conventions to make overriding the configuration easier once you are
 ready to make changes.
 
 ### Rules
@@ -118,10 +118,10 @@ The following is a list of plugins and their identifiers which can be overridden
 
 This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](../../contributing) for details.
+[contributing guide](https://neutrino.js.org/contributing) for details.
 
-[npm-image]: https://img.shields.io/npm/v/@neutrinojs/imagemin.svg
-[npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/imagemin.svg
-[npm-url]: https://npmjs.org/package/@neutrinojs/imagemin
+[npm-image]: https://img.shields.io/npm/v/@neutrinojs/image-minify.svg
+[npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/image-minify.svg
+[npm-url]: https://npmjs.org/package/@neutrinojs/image-minify
 [spectrum-image]: https://withspectrum.github.io/badge/badge.svg
 [spectrum-url]: https://spectrum.chat/neutrino

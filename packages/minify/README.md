@@ -4,7 +4,7 @@
 
 - [@neutrinojs/babel-minify](../../packages/babel-minify/README.md)
 - [@neutrinojs/image-minify](../../packages/image-minify/README.md)
- 
+
 This middleware is usually only added during production builds.
 
 [![NPM version][npm-image]][npm-url]
