@@ -5,7 +5,6 @@ module.exports = (neutrino, options = {
   babel: {},
   image: {}
 }) => {
-
   neutrino.config
     .when(options.babel, () => neutrino.use(babelMinify, options.babel))
     .when(options.image, () => neutrino.use(imageMinify, options.image));
