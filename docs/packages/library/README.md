@@ -206,7 +206,7 @@ module.exports = {
       // Configure how the library will be exposed. Keeping this set
       // to 'umd' ensures compatibility with a large number of module
       // systems, but you can override if you want to produce a smaller
-      // bundle targeted to specific module systems like "commonjs2" (CJS).
+      // bundle targeted to specific module systems like 'commonjs2' (CJS).
       libraryTarget: 'umd',
 
       // Override options passed to webpack-node-externals,
@@ -264,7 +264,19 @@ module.exports = {
 };
 ```
 
-## External dependencies
+## Customizing
+
+To override the build configuration, start with the documentation on [customization](https://neutrino.js.org/customization).
+`@neutrinojs/library` creates some conventions to make overriding the configuration easier once you are ready to make
+changes.
+
+By default Neutrino, and therefore this preset, creates a single **main** `index` entry point to your library, and this
+maps to the `index.*` file in the `src` directory. This means that this preset is optimized toward a single main entry
+to your library. Code not imported in the hierarchy of the `index` entry will not be output to the bundle. To overcome
+this you must either define more mains via [`options.mains`](https://neutrino.js.org/customization#optionsmains), import
+the code path somewhere along the `index` hierarchy, or define multiple configurations in your `.neutrinorc.js`.
+
+### External dependencies
 
 This preset automatically marks all dependencies as external to your library, meaning that
 any dependencies you import **will not be bundled** with your library. This helps prevent

@@ -14,7 +14,6 @@
 - Automatic import of `Preact.h`, no need to import `h` or `createElement` yourself
 - Compatibility and pre-configured aliasing for React-based modules and packages
 - Extends from [@neutrinojs/web](https://neutrino.js.org/packages/web)
-  - Zero upfront configuration necessary to start developing and building a web app
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
   - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
   - webpack Dev Server during development
@@ -186,7 +185,7 @@ module.exports = {
       html: {
         title: 'Epic Preact App'
       },
-      
+
       // Target specific browsers with babel-preset-env
       targets: {
         browsers: [
@@ -238,7 +237,7 @@ module.exports = {
     (neutrino) => {
       neutrino.config
         .entry('vendor')
-          .add('preact')
+          .add('preact');
     }
   ]
 };
@@ -276,7 +275,7 @@ load(App);
 ## Preact Devtools
 
 To use the React Devtools for your Preact project, require the preact devtools during the `development` environment
-within your `entry` file:
+within your main entry file (typically `src/index`):
 
 ```js
 if (process.env.NODE_ENV === 'development') {

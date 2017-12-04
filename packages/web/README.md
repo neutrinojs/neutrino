@@ -13,7 +13,9 @@
 - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
 - webpack Dev Server during development
 - Automatic creation of HTML pages, no templating necessary
-- Hot Module Replacement support
+- Automatic stylesheet extraction; importing stylesheets into modules creates bundled external stylesheets
+- Pre-configured to support CSS Modules via `*.module.css` file extensions
+- Hot Module Replacement support including CSS
 - Tree-shaking to create smaller bundles
 - Production-optimized bundles with Babel minification, easy chunking, and scope-hoisted modules for faster execution
 - Easily extensible to customize your project as needed

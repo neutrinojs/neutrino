@@ -267,7 +267,6 @@ global.requestAnimationFrame = (callback) => {
   
 </details>
 
-
 ## Customizing
 
 To override the test configuration, start with the documentation on [customization](../../customization/README.md).
