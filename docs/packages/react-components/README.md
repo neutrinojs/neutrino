@@ -1,29 +1,32 @@
 # Neutrino React Components Preset
 
-`@neutrinojs/react-components` is a Neutrino preset for building sets of React components.
+`@neutrinojs/react-components` is a Neutrino preset that supports creating generic React components and previewing
+them without the need to embed in an application. Plays nicely with other Neutrino middleware, so you can build, test,
+preview, and publish multiple React components from a single repository.
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
 [![Join the Neutrino community on Spectrum][spectrum-image]][spectrum-url]
-
-`@neutrinojs/react-components` is a Neutrino preset that supports creating generic React components and previewing
-them without the need to embed in an application. Plays nicely with other Neutrino middleware, so you can build, test,
-preview, and publish multiple React components from a single repository.
 
 ## Features
 
 - Extends partially from [@neutrinojs/react](../react)
 - Zero upfront configuration necessary to start developing, building, and visually previewing a React component.
 Minimal code is needed to generate stories previewer.
-- Modern Babel compilation adding JSX and object rest spread syntax.
+- Modern Babel compilation adding JSX, object rest spread syntax, and class properties.
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
 - Support for importing web workers with `.worker.js` file extensions
 - Extends from [@neutrinojs/web](../web)
-  - Modern Babel compilation supporting ES modules, **latest** major browser versions, async functions, and dynamic imports
+  - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
   - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
   - webpack Dev Server during development
-  - Hot module replacement support
+  - Automatic creation of HTML pages, no templating necessary
+  - Automatic stylesheet extraction; importing stylesheets into modules creates bundled external stylesheets
+  - Pre-configured to support CSS Modules via `*.module.css` file extensions
+  - Hot Module Replacement support including CSS
+  - Tree-shaking to create smaller bundles
+  - Production-optimized bundles with Babel minification, easy chunking, and scope-hoisted modules for faster execution
   - Easily extensible to customize your project as needed
 
 **Important! This preset does not include babel-polyfill for size reasons. If you need
@@ -299,7 +302,7 @@ _Note: Some plugins are only available in certain environments. To override them
 
 | Name | Description | Environments |
 | ---- | ----------- | ------------ |
-| `banner` | Injects source-map-support into the entry point of your application if detected in `dependencies` or `devDependencies` of your package.json. | all but `development` |
+| `banner` | Injects source-map-support into the mains (entry points) of your application if detected in `dependencies` or `devDependencies` of your package.json. | all but `development` |
 
 By following the [customization guide](../../customization) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also

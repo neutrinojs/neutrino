@@ -13,7 +13,9 @@
 - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
 - webpack Dev Server during development
 - Automatic creation of HTML pages, no templating necessary
-- Hot Module Replacement support
+- Automatic stylesheet extraction; importing stylesheets into modules creates bundled external stylesheets
+- Pre-configured to support CSS Modules via `*.module.css` file extensions
+- Hot Module Replacement support including CSS
 - Tree-shaking to create smaller bundles
 - Production-optimized bundles with Babel minification, easy chunking, and scope-hoisted modules for faster execution
 - Easily extensible to customize your project as needed
@@ -119,7 +121,6 @@ Version: webpack 3.5.6
 Time: 4145ms
                            Asset       Size    Chunks             Chunk Names
    index.523b6da56c6363aaf056.js    10.1 kB     index  [emitted]  index
-polyfill.57dabda41992eba7552f.js    69.2 kB  polyfill  [emitted]  polyfill
  runtime.ce4090a4e87f82940ff0.js    1.51 kB   runtime  [emitted]  runtime
                       index.html  846 bytes            [emitted]
 ```
@@ -340,7 +341,7 @@ _Note: Some plugins are only available in certain environments. To override them
 | `env` | Inject environment variables into source code at `process.env`, defaults to only inject `NODE_ENV`. From `@neutrinojs/env`. | all |
 | `extract` | Extracts CSS from JS bundle into a separate stylesheet file. From `@neutrinojs/style-loader`. | all |
 | `extract-modules` | Extracts CSS from JS bundle into a separate stylesheet file. From `@neutrinojs/style-loader`. | all |
-| `html` | Automatically generates HTML files for configured main entry points. From `@neutrinojs/html-template` | all |
+| `html-{MAIN_NAME}` | Automatically generates HTML files for configured entry points. `{MAIN_NAME}` corresponds to the entry point of each page. By default, there is only a single `index` main, so this would generate a plugin named `html-index`. From `@neutrinojs/html-template` | all |
 | `named-modules` | Enables named modules for improved debugging and console output. From `@neutrinojs/chunk` and `@neutrinojs/hot`. | `NODE_ENV production`, `start` command |
 | `named-chunks` | Enables named chunks for improved debugging and console output. From `@neutrinojs/chunk`. | `NODE_ENV production` |
 | `vendor-chunk` | Creates a separate file/chunk consisting of common modules shared between multiple entry points. From `@neutrinojs/chunk`. | `NODE_ENV production` |
@@ -351,6 +352,7 @@ _Note: Some plugins are only available in certain environments. To override them
 | `clean` | Removes the `build` directory prior to building. From `@neutrinojs/clean`. | `build` command |
 | `minify` | Minifies source code using `BabelMinifyWebpackPlugin`. From `@neutrinojs/minify`. | `NODE_ENV production` |
 | `module-concat` | Concatenate the scope of all your modules into one closure and allow for your code to have a faster execution time in the browser. | `NODE_ENV production` |
+| `manifest` | Create a manifest file, via webpack-manifest-plugin. | `build` command |
 
 ### Override configuration
 

@@ -14,7 +14,6 @@
 - Write JSX in .js or .jsx files
 - Automatic import of `React.createElement`, no need to import `react` or `React.createElement` yourself
 - Extends from [@neutrinojs/web](https://neutrino.js.org/packages/web)
-  - Zero upfront configuration necessary to start developing and building a web app
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
   - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
   - webpack Dev Server during development
@@ -149,6 +148,10 @@ The `@neutrinojs/web` preset loads assets relative to the path of your applicati
 assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
 override `output.publicPath`. See the [Customizing](#Customizing) section below.
 
+For details on merging and overriding Babel configuration, such as supporting decorator syntax, read more
+about using the [`compile-loader` `merge`](../compile-loader#advanced-merging) once you
+are comfortable customizing your build.
+
 ## Preset options
 
 You can provide custom options and have them merged with this preset's default options to easily affect how this
@@ -171,7 +174,7 @@ module.exports = {
       html: {
         title: 'Epic React App'
       },
-      
+
       // Target specific browsers with babel-preset-env
       targets: {
         browsers: [
@@ -218,7 +221,7 @@ this maps to the `index.*` file in the `src` directory. The extension is resolve
 `neutrino.options.mains` at `neutrino.options.mains.index`. This means that the Web preset is optimized toward the use
 case of single-page applications over multi-page applications. If you wish to output multiple pages, you can detail
 all your mains in your `.neutrinorc.js`.
- 
+
 ```js
 module.exports = {
   options: {
@@ -272,7 +275,7 @@ First, install `react-hot-loader` as a dependency, this **must** be React Hot Lo
 
 ---
 
-- From your `index` entry point (defaults to `src/index.*` from `neutrino.options.mains.index`), import an `AppContainer`
+From your main entry point (defaults to `src/index.*` from `neutrino.options.mains.index`), import an `AppContainer`
 from `react-hot-loader`. The main file may be named `index.js` or `index.jsx`. The extension is resolved by webpack.
 - Wrap your top-level React component in the `AppContainer`.
 - Perform the application render in a reusable function for initial load and subsequent reloads.

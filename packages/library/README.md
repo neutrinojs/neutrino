@@ -78,7 +78,7 @@ export default class Logger {
     this.level = level;
     this.debug = debug;
   }
-  
+
   log(...args) {
     if (this.debug) {
       console[level](...args);
@@ -198,21 +198,21 @@ module.exports = {
       // REQUIRED. Sets the name of the library, along with its
       // output filename.
       name: '<YOUR_LIBRARY_NAME>',
-      
+
       // Compile the library for use in a specific environment.
       // Defaults to 'web', but can be switched to 'node' as well
       target: 'web',
-      
+
       // Configure how the library will be exposed. Keeping this set
       // to 'umd' ensures compatibility with a large number of module
       // systems, but you can override if you want to produce a smaller
-      // bundle targeted to specific module systems like commonjs2 (CJS).
+      // bundle targeted to specific module systems like 'commonjs2' (CJS).
       libraryTarget: 'umd',
-      
+
       // Override options passed to webpack-node-externals,
       // such as whitelisting dependencies for bundling.
       externals: {},
-      
+
       polyfills: {
         // Enables fast-async polyfill. Set to false to disable
         async: true
@@ -239,7 +239,7 @@ module.exports = {
 };
 ```
 
-_Example: Override the library Babel compilation target to Node.js v8:_
+_Example: Override the library Babel compilation target to Node.js v8 and commonjs2 module:_
 
 ```js
 module.exports = {
@@ -247,6 +247,7 @@ module.exports = {
     ['@neutrinojs/library', {
       name: 'Logger',
       target: 'node',
+      libraryTarget: 'commonjs2',
       // Add additional Babel plugins, presets, or env options
       babel: {
         // Override options for babel-preset-env
@@ -363,15 +364,54 @@ require(['redux', 'redux-example'], ({ createStore }, reduxExample) => {
 </script>
 ```
 
+## Generating multiple builds
+
+The `@neutrinojs/library` middleware can be used in conjunction with the
+[`@neutrinojs/fork` middleware](https://neutrinojs.org/packages/fork) to generate multiple library outputs
+when building. Follow the instructions to install the fork middleware, and change your `.neutrinorc.js`
+format as follows:
+
+```js
+const name = 'Logger';
+
+module.exports = {
+  use: [
+    (neutrino) => {
+      neutrino.on('prebuild', () => neutrino.use('@neutrinojs/clean'));
+    },
+    ['@neutrinojs/fork', {
+      configs: {
+        // Create a named entry for each build type.
+        // You will most likely want to disable cleaning
+        // the output directory until prior to building
+        umd: ['@neutrinojs/library', { name, clean: false }],
+        commonjs2: ['@neutrinojs/library', { name, clean: false }]
+      }
+    }]
+  ]
+};
+```
+
+## Customizing
+
+To override the build configuration, start with the documentation on [customization](../../customization).
+`@neutrinojs/library` creates some conventions to make overriding the configuration easier once you are ready to make
+changes.
+
+By default Neutrino, and therefore this preset, creates a single **main** `index` entry point to your library, and this
+maps to the `index.*` file in the `src` directory. This means that this preset is optimized toward a single main entry
+to your library. Code not imported in the hierarchy of the `index` entry will not be output to the bundle. To overcome
+this you must either define more mains via [`options.mains`](../../customization#optionsmains), import the code path
+somewhere along the `index` hierarchy, or define multiple configurations in your `.neutrinorc.js`.
+
 ### Rules
 
 The following is a list of rules and their identifiers which can be overridden:
 
-<!-- TODO -->
-
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
 | `compile` | Compiles JS files from the `src` directory using Babel. Contains a single loader named `babel` | all |
+| `worker` | Allows importing Web Workers automatically with `.worker.js` extensions. Contains a single loader named `worker`. | all |
 
 ### Plugins
 
@@ -379,12 +419,11 @@ The following is a list of plugins and their identifiers which can be overridden
 
 _Note: Some plugins are only available in certain environments. To override them, they should be modified conditionally._
 
-<!-- TODO -->
-
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
-| `banner` | Injects source-map-support into the entry point of your application if detected in `dependencies` or `devDependencies` of your package.json. | Only when `source-map-support` is installed |
+| `banner` | Injects source-map-support into the main entry points of your application if detected in `dependencies` or `devDependencies` of your package.json. | Only when `source-map-support` is installed |
 | `clean` | Clears the contents of `build` prior to creating a production bundle. | `build` command |
+| `minify` | Minifies source code using `BabelMinifyWebpackPlugin`. From `@neutrinojs/minify`. | `NODE_ENV production` |
 | `module-concat` | Concatenate the scope of all your modules into one closure and allow for your code to have a faster execution time in the browser. | `NODE_ENV production` |
 
 ### Override configuration
@@ -393,15 +432,15 @@ By following the [customization guide](https://neutrino.js.org/customization) an
 you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also
 make these changes from the Neutrino API in custom middleware.
 
-<!-- TODO -->
-
 _Example: Allow importing modules with a `.mjs` extension._
 
 ```js
 module.exports = {
   use: [
     ['@neutrinojs/library', { /* ... */ }],
-    (neutrino) => neutrino.config.resolve.extensions.add('.mjs')
+    (neutrino) => {
+      neutrino.config.resolve.extensions.add('.mjs')
+    }
   ]
 };
 ```
@@ -412,8 +451,8 @@ This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/ne
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](https://neutrino.js.org/contributing) for details.
 
-[npm-image]: https://img.shields.io/npm/v/neutrino-preset-node.svg
-[npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-node.svg
-[npm-url]: https://npmjs.org/package/neutrino-preset-node
+[npm-image]: https://img.shields.io/npm/v/@neutrinojs/library.svg
+[npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/library.svg
+[npm-url]: https://npmjs.org/package/@neutrinojs/library
 [spectrum-image]: https://withspectrum.github.io/badge/badge.svg
 [spectrum-url]: https://spectrum.chat/neutrino

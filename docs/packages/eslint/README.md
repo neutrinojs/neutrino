@@ -46,7 +46,7 @@ neutrino.use(eslint, {
     cwd: neutrino.options.root,
     useEslintrc: false,
     root: true,
-    extensions: ['js', 'jsx'],
+    extensions: neutrino.options.extensions,
     plugins: ['babel'],
     baseConfig: {},
     envs: ['es6'],
