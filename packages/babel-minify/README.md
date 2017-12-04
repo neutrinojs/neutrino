@@ -1,11 +1,8 @@
 # Neutrino Minify Middleware
 
-`@neutrinojs/minify` is Neutrino middleware for minifying assets. It is an aggregate of the following middlewares:
-
-- [@neutrinojs/babel-minify](../../packages/babel-minify/README.md)
-- [@neutrinojs/image-minify](../../packages/image-minify/README.md)
- 
-This middleware is usually only added during production builds.
+`@neutrinojs/minify` is Neutrino middleware for minifying source code using
+[`BabelMinifyWebpackPlugin`](https://www.npmjs.com/package/babel-minify-webpack-plugin). This middleware is usually only
+added during production builds.
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
@@ -45,10 +42,10 @@ const minify = require('@neutrinojs/minify');
 // Use with default options
 neutrino.use(minify);
 
-// Usage showing overriding middleware options
+// Usage showing overriding minification options
 neutrino.use(minify, {
-  babel: {},
-  image: {}
+  minify: {},
+  plugin: {}
 });
 ```
 
@@ -60,26 +57,32 @@ module.exports = {
   use: ['@neutrinojs/minify']
 };
 
-// Usage showing overriding middleware options
+// Usage showing overriding minification options
 module.exports = {
   use: [
     ['@neutrinojs/minify', {
-      babel: {},
-      image: {}
+      minify: {},
+      plugin: {}
     }]
   ]
 };
 ```
+
+The `minify` and `plugin` properties map to the options defined by
+[babel-minify-webpack-plugin](https://github.com/webpack-contrib/babel-minify-webpack-plugin#options).
 
 ## Customization
 
 `@neutrinojs/minify` creates some conventions to make overriding the configuration easier once you are ready to
 make changes.
 
-See the following middlewares for added plugins and rules:
+### Plugins
 
-- [@neutrinojs/babel-minify](../../packages/babel-minify/README.md)
-- [@neutrinojs/image-minify](../../packages/image-minify/README.md)
+The following is a list of plugins and their identifiers which can be overridden:
+
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
+| `babel-minify` | Minifies source code using `BabelMinifyWebpackPlugin`. | all |
 
 ## Contributing
 

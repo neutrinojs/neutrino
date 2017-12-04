@@ -1,5 +1,6 @@
-const BabelMinify = require('babel-minify-webpack-plugin');
+const babelMinify = require('@neutrinojs/babel-minify');
+const imageMinify = require('@neutrinojs/image-minify');
 
-module.exports = ({ config }, options = {}) => config
-  .plugin('minify')
-  .use(BabelMinify, [options.minify, options.overrides]);
+module.exports = (neutrino, options = {}) => neutrino
+  .use(babelMinify, options.babel || {})
+  .use(imageMinify, options.image || {});
