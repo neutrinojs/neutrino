@@ -42,7 +42,9 @@ module.exports = (neutrino, opts = {}) => {
         (process.env.NODE_ENV === 'production' && {})
     },
     manifest: opts.html === false ? {} : false,
-    minify: {},
+    minify: {
+      image: false
+    },
     babel: {},
     targets: {},
     font: {},
