@@ -530,9 +530,9 @@ auto-bind@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/auto-bind/-/auto-bind-1.1.0.tgz#93b864dc7ee01a326281775d5c75ca0a751e5961"
 
-auto-changelog@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/auto-changelog/-/auto-changelog-1.1.0.tgz#4f042b3b05d0dbdf247daf7436bd41803bbf6598"
+auto-changelog@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/auto-changelog/-/auto-changelog-1.2.1.tgz#4004c94e70d8ac48115af6bd7d13336ee004ef75"
   dependencies:
     babel-polyfill "^6.26.0"
     commander "^2.9.0"
