@@ -58,7 +58,8 @@ function normalizeJestOptions(opts, neutrino, usingBabel) {
         BABEL_OPTIONS: usingBabel
           ? omit(['cacheDirectory'], neutrino.config.module.rule('compile').use('babel').get('options'))
           : {}
-      }
+      },
+      verbose: neutrino.options.debug
     },
     opts
   ]);
