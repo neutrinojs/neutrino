@@ -51,9 +51,9 @@ class Api {
     });
 
     try {
-      options.pkgJson = require(path.join(options.root, 'package.json')); // eslint-disable-line global-require
+      options.packageJson = require(path.join(options.root, 'package.json')); // eslint-disable-line global-require
     } catch (err) {
-      options.pkgJson = undefined;
+      options.packageJson = undefined;
     }
 
     Object.defineProperty(options, 'extensions', {
