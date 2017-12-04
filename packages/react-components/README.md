@@ -15,15 +15,20 @@ preview, and publish multiple React components from a single repository.
 - Extends partially from [@neutrinojs/react](https://neutrino.js.org/presets/@neutrinojs/react)
 - Zero upfront configuration necessary to start developing, building, and visually previewing a React component.
 Minimal code is needed to generate stories previewer.
-- Modern Babel compilation adding JSX and object rest spread syntax.
+- Modern Babel compilation adding JSX, object rest spread syntax, and class properties.
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
 - Support for importing web workers with `.worker.js` file extensions
 - Extends from [@neutrinojs/web](https://neutrino.js.org/presets/@neutrinojs/web)
-  - Modern Babel compilation supporting ES modules, **latest** major browser versions, async functions, and dynamic imports
+  - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
   - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
   - webpack Dev Server during development
-  - Hot module replacement support
+  - Automatic creation of HTML pages, no templating necessary
+  - Automatic stylesheet extraction; importing stylesheets into modules creates bundled external stylesheets
+  - Pre-configured to support CSS Modules via `*.module.css` file extensions
+  - Hot Module Replacement support including CSS
+  - Tree-shaking to create smaller bundles
+  - Production-optimized bundles with Babel minification, easy chunking, and scope-hoisted modules for faster execution
   - Easily extensible to customize your project as needed
 
 **Important! This preset does not include babel-polyfill for size reasons. If you need
