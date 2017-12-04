@@ -52,6 +52,9 @@ module.exports = (neutrino, opts = {}) => {
     neutrino.use(loaderMerge('lint', 'eslint'), {
       plugins: ['react'],
       rules: {
+        // Shutting this off allows ESLint to not fail when using JSX without an explicit
+        // "react" import when coupled with the "jsx-pragmatic" and "transform-react-js"
+        // babel plugins above
         'react/react-in-jsx-scope': 'off'
       }
     });
