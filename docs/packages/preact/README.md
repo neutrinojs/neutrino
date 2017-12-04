@@ -14,7 +14,6 @@
 - Automatic import of `Preact.h`, no need to import `h` or `createElement` yourself
 - Compatibility and pre-configured aliasing for React-based modules and packages
 - Extends from [@neutrinojs/web](../web)
-  - Zero upfront configuration necessary to start developing and building a web app
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
   - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
   - webpack Dev Server during development
