@@ -30,7 +30,10 @@ module.exports = (neutrino, opts = {}) => {
     polyfills: {
       async: true
     },
-    babel: {}
+    babel: {},
+    clean: opts.clean !== false && {
+      paths: [neutrino.options.output]
+    }
   }, opts);
 
   Object.assign(options, {
@@ -143,7 +146,7 @@ module.exports = (neutrino, opts = {}) => {
         .use(optimize.ModuleConcatenationPlugin);
     })
     .when(neutrino.options.command === 'build', (config) => {
-      neutrino.use(clean, { paths: [neutrino.options.output] });
+      config.when(options.clean, () => neutrino.use(clean, options.clean));
       neutrino.use(copy, {
         patterns: [{
           context: staticDir,
