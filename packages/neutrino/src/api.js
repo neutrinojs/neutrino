@@ -50,7 +50,11 @@ class Api {
       });
     });
 
-    options.packageJson = require(path.join(options.root, 'package.json')); // eslint-disable-line global-require
+    try {
+      options.pkgJson = require(path.join(options.root, 'package.json')); // eslint-disable-line global-require
+    } catch (err) {
+      options.pkgJson = undefined;
+    }
 
     Object.defineProperty(options, 'extensions', {
       enumerable: true,

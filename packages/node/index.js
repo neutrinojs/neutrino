@@ -25,7 +25,7 @@ const getOutputForEntry = pipe(
 );
 
 module.exports = (neutrino, opts = {}) => {
-  const pkg = neutrino.options.packageJson;
+  const pkg = neutrino.options.pkgJson;
   const staticDir = join(neutrino.options.source, 'static');
   const sourceMap = pathOr(
     pathOr(false, ['dependencies', 'source-map-support'], pkg),
