@@ -1,14 +1,12 @@
 # Neutrino React Components Preset
 
-`@neutrinojs/react-components` is a Neutrino preset for building sets of React components.
+`@neutrinojs/react-components` is a Neutrino preset that supports creating generic React components and previewing
+them without the need to embed in an application. Plays nicely with other Neutrino middleware, so you can build, test,
+preview, and publish multiple React components from a single repository.
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
 [![Join the Neutrino community on Spectrum][spectrum-image]][spectrum-url]
-
-`@neutrinojs/react-components` is a Neutrino preset that supports creating generic React components and previewing
-them without the need to embed in an application. Plays nicely with other Neutrino middleware, so you can build, test,
-preview, and publish multiple React components from a single repository.
 
 ## Features
 
