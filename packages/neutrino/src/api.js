@@ -13,6 +13,7 @@ class Api {
     this.listeners = {};
     this.emitter = mitt(this.listeners);
     this.commands = {};
+    this.commandDescriptions = {};
     this.config = new Config();
   }
 
@@ -161,9 +162,10 @@ class Api {
     ]);
   }
 
-  // register :: String commandName -> Function handler -> Api
-  register(commandName, handler) {
+  // register :: (String commandName -> Function handler -> String? description) -> Api
+  register(commandName, handler, description = '') {
     this.commands[commandName] = handler;
+    this.commandDescriptions[commandName] = description;
     return this;
   }
 

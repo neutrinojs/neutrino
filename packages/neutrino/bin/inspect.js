@@ -8,7 +8,8 @@ const envs = {
   test: 'test'
 };
 
-module.exports = (middleware, args) => base({
+module.exports = (middleware, args, cli) => base({
+  cli,
   middleware,
   args,
   NODE_ENV: defaultTo('development', envs[args._[0]]),

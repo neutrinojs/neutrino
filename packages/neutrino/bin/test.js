@@ -1,7 +1,8 @@
 const { test } = require('../src');
 const base = require('./base');
 
-module.exports = (middleware, args) => base({
+module.exports = (middleware, args, cli) => base({
+  cli,
   middleware,
   args,
   NODE_ENV: 'test',
