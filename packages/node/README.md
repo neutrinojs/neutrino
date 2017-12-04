@@ -137,9 +137,6 @@ quick start example above as a reference:
 ```bash
 ❯ yarn build
 
-clean-webpack-plugin: /node/build has been removed.
-Build completed in 0.419s
-
 Hash: 89e4fb250fc535920ba4
 Version: webpack 3.5.6
 Time: 424ms
@@ -235,7 +232,11 @@ module.exports = {
       // Target specific versions via babel-preset-env
       targets: {
         node: '6.10'
-      }
+      },
+
+      // Remove the contents of the output directory prior to building.
+      // Set to false to disable cleaning this directory
+      clean: [neutrino.options.output],
 
       // Add additional Babel plugins, presets, or env options
       babel: {
