@@ -83,13 +83,11 @@ module.exports = (neutrino, opts = {}) => {
 
     neutrino.config.when(usingBabel, () => {
       neutrino.use(loaderMerge('compile', 'babel'), {
-        env: {
-          test: {
-            retainLines: true,
-            presets: [require.resolve('babel-preset-jest')],
-            plugins: [require.resolve('babel-plugin-transform-es2015-modules-commonjs')]
-          }
-        }
+        retainLines: true,
+        presets: [require.resolve('babel-preset-jest')],
+        plugins: [
+          require.resolve('babel-plugin-transform-es2015-modules-commonjs')
+        ]
       });
     });
 
