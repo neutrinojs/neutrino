@@ -1,8 +1,11 @@
 # Neutrino Minify Middleware
 
-`@neutrinojs/minify` is Neutrino middleware for minifying source code using
-[`BabelMinifyWebpackPlugin`](https://www.npmjs.com/package/babel-minify-webpack-plugin). This middleware is usually only
-added during production builds.
+`@neutrinojs/minify` is Neutrino middleware for minifying assets. It is an aggregate of the following middlewares:
+
+- [@neutrinojs/babel-minify](https://neutrino.js.org/packages/babel-minify/README.md)
+- [@neutrinojs/image-minify](https://neutrino.js.org/packages/image-minify/README.md)
+
+This middleware is usually only added during production builds.
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
@@ -42,10 +45,10 @@ const minify = require('@neutrinojs/minify');
 // Use with default options
 neutrino.use(minify);
 
-// Usage showing overriding minification options
+// Usage showing overriding middleware options
 neutrino.use(minify, {
-  minify: {},
-  plugin: {}
+  babel: {},
+  image: {}
 });
 ```
 
@@ -57,32 +60,26 @@ module.exports = {
   use: ['@neutrinojs/minify']
 };
 
-// Usage showing overriding minification options
+// Usage showing overriding middleware options
 module.exports = {
   use: [
     ['@neutrinojs/minify', {
-      minify: {},
-      plugin: {}
+      babel: {},
+      image: {}
     }]
   ]
 };
 ```
-
-The `minify` and `plugin` properties map to the options defined by
-[babel-minify-webpack-plugin](https://github.com/webpack-contrib/babel-minify-webpack-plugin#options).
 
 ## Customization
 
 `@neutrinojs/minify` creates some conventions to make overriding the configuration easier once you are ready to
 make changes.
 
-### Plugins
+See the following middlewares for added plugins and rules:
 
-The following is a list of plugins and their identifiers which can be overridden:
-
-| Name | Description | Environments and Commands |
-| --- | --- | --- |
-| `minify` | Minifies source code using `BabelMinifyWebpackPlugin`. | all |
+- [@neutrinojs/babel-minify](https://neutrino.js.org/packages/babel-minify/README.md)
+- [@neutrinojs/image-minify](https://neutrino.js.org/packages/image-minify/README.md)
 
 ## Contributing
 

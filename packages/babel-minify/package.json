@@ -1,24 +1,24 @@
 {
-  "name": "@neutrinojs/minify",
+  "name": "@neutrinojs/babel-minify",
   "version": "7.3.2",
-  "description": "Neutrino middleware for minifying assets",
+  "description": "Neutrino middleware for minifying source code",
   "main": "index.js",
   "keywords": [
     "neutrino",
     "neutrino-middleware",
     "minify",
     "babel",
-    "imagemin"
+    "uglify",
+    "babili",
+    "compress"
   ],
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
-  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/minify",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/babel-minify",
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
-    "deepmerge": "^1.5.2",
-    "@neutrinojs/babel-minify": "^7.3.2",
-    "@neutrinojs/image-minify": "^7.3.2"
+    "babel-minify-webpack-plugin": "^0.2.0"
   },
   "peerDependencies": {
     "neutrino": "^7.0.0"

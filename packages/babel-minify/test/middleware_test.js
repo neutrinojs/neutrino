@@ -2,7 +2,7 @@ import test from 'ava';
 import { Neutrino } from 'neutrino';
 
 const mw = () => require('..');
-const options = { limit: 1024, img: { limit: 2048 }, svg: { limit: 4096 }, ico: { limit: 8192 } };
+const options = { overrides: { test: /\.js$/ }, minify: { removeConsole: true } };
 
 test('loads middleware', t => {
   t.notThrows(mw);

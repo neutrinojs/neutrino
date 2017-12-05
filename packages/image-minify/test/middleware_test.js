@@ -2,7 +2,7 @@ import test from 'ava';
 import { Neutrino } from 'neutrino';
 
 const mw = () => require('..');
-const options = { image: false };
+const options = { rules: ['img'] };
 
 test('loads middleware', t => {
   t.notThrows(mw);
