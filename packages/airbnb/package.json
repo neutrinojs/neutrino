@@ -22,6 +22,6 @@
     "eslint-plugin-jsx-a11y": "^6.0.2"
   },
   "peerDependencies": {
-    "neutrino": "^7.0.0"
+    "neutrino": "^8.0.0"
   }
 }

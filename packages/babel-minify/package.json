@@ -21,6 +21,6 @@
     "babel-minify-webpack-plugin": "^0.2.0"
   },
   "peerDependencies": {
-    "neutrino": "^7.0.0"
+    "neutrino": "^8.0.0"
   }
 }

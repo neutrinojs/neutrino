@@ -24,6 +24,6 @@
     "webpack-dev-server": "^2.9.4"
   },
   "peerDependencies": {
-    "neutrino": "^7.0.0"
+    "neutrino": "^8.0.0"
   }
 }

@@ -21,6 +21,6 @@
     "@neutrinojs/image-minify": "^7.3.2"
   },
   "peerDependencies": {
-    "neutrino": "^7.0.0"
+    "neutrino": "^8.0.0"
   }
 }
