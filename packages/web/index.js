@@ -191,7 +191,7 @@ module.exports = (neutrino, opts = {}) => {
     })
     .when(process.env.NODE_ENV === 'production', (config) => {
       neutrino.use(chunk);
-      console.log(options.minify);
+
       config
         .when(options.minify, () => neutrino.use(minify, options.minify))
         .plugin('module-concat')
