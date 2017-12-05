@@ -2,8 +2,8 @@
 
 `@neutrinojs/minify` is Neutrino middleware for minifying assets. It is an aggregate of the following middlewares:
 
-- [@neutrinojs/babel-minify](../../packages/babel-minify/README.md)
-- [@neutrinojs/image-minify](../../packages/image-minify/README.md)
+- [@neutrinojs/babel-minify](https://neutrino.js.org/packages/babel-minify/README.md)
+- [@neutrinojs/image-minify](https://neutrino.js.org/packages/image-minify/README.md)
 
 This middleware is usually only added during production builds.
 
@@ -78,8 +78,8 @@ make changes.
 
 See the following middlewares for added plugins and rules:
 
-- [@neutrinojs/babel-minify](../../packages/babel-minify/README.md)
-- [@neutrinojs/image-minify](../../packages/image-minify/README.md)
+- [@neutrinojs/babel-minify](https://neutrino.js.org/packages/babel-minify/README.md)
+- [@neutrinojs/image-minify](https://neutrino.js.org/packages/image-minify/README.md)
 
 ## Contributing
 
