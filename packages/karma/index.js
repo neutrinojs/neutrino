@@ -48,11 +48,7 @@ module.exports = (neutrino, opts = {}) => {
 
   if (neutrino.config.module.rules.has('compile')) {
     neutrino.use(loaderMerge('compile', 'babel'), {
-      env: {
-        test: {
-          plugins: [require.resolve('babel-plugin-istanbul')]
-        }
-      }
+      plugins: [require.resolve('babel-plugin-istanbul')]
     });
   }
 
