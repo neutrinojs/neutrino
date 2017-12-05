@@ -94,6 +94,7 @@ module.exports = (neutrino, opts = {}) => {
         .add(neutrino.options.node_modules)
         .add(MODULES)
         .add(NEUTRINO_MODULES)
+        .add(neutrino.options.source)
         .end()
       .extensions
         .merge(neutrino.options.extensions.concat('json').map(ext => `.${ext}`))
