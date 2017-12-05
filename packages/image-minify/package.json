@@ -24,6 +24,6 @@
     "imagemin-webpack": "^1.1.2"
   },
   "peerDependencies": {
-    "neutrino": "^7.0.0"
+    "neutrino": "^8.0.0"
   }
 }

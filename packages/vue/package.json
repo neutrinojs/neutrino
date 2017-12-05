@@ -23,6 +23,6 @@
     "vue-template-compiler": "^2.5.6"
   },
   "peerDependencies": {
-    "neutrino": "^7.0.0"
+    "neutrino": "^8.0.0"
   }
 }
