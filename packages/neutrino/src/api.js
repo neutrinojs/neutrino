@@ -18,7 +18,7 @@ class Api {
 
   // getOptions :: Object? -> IO Object
   getOptions(opts = {}) {
-    let moduleExtensions = new Set(['js', 'jsx', 'vue', 'ts', 'mjs', 'json']);
+    let moduleExtensions = new Set(['js', 'jsx', 'vue', 'ts', 'mjs']);
     const options = merge.all([
       {
         env: {

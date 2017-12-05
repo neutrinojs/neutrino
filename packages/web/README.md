@@ -334,7 +334,7 @@ The following is a list of rules and their identifiers which can be overridden:
 | `img`, `svg`, `ico` | Allows import image files from modules. Each contains a single loader named `url`. From `@neutrinojs/image-loader`. | all |
 | `woff`, `ttf` | Allows importing WOFF and TTF font files from modules. Each contains a single loader named `url`. From `@neutrinojs/font-loader`. | all |
 | `eot` | Allows importing EOT font files from modules. Contains a single loader named `file`. From `@neutrinojs/font-loader`. | all |
-| `worker` | Allows importing Web Workers automatically with `.worker.js` extensions. Contains a single loader named `worker`. | all |
+| `worker` | Allows importing Web Workers automatically with `.worker.*` extensions. Contains a single loader named `worker`. | all |
 
 ### Plugins
 

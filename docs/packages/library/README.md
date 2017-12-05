@@ -417,7 +417,7 @@ The following is a list of rules and their identifiers which can be overridden:
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
 | `compile` | Compiles JS files from the `src` directory using Babel. Contains a single loader named `babel` | all |
-| `worker` | Allows importing Web Workers automatically with `.worker.js` extensions. Contains a single loader named `worker`. | all |
+| `worker` | Allows importing Web Workers automatically with `.worker.*` extensions. Contains a single loader named `worker`. | all |
 
 ### Plugins
 
@@ -438,14 +438,14 @@ By following the [customization guide](../../customization) and knowing the rule
 you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also
 make these changes from the Neutrino API in custom middleware.
 
-_Example: Allow importing modules with a `.mjs` extension._
+_Example: Allow importing modules with a `.esm` extension._
 
 ```js
 module.exports = {
   use: [
     ['@neutrinojs/library', { /* ... */ }],
     (neutrino) => {
-      neutrino.config.resolve.extensions.add('.mjs')
+      neutrino.config.resolve.extensions.add('.esm')
     }
   ]
 };

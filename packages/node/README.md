@@ -330,13 +330,13 @@ By following the [customization guide](https://neutrino.js.org/customization) an
 you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also
 make these changes from the Neutrino API in custom middleware.
 
-_Example: Allow importing modules with a `.mjs` extension._
+_Example: Allow importing modules with a `.esm` extension._
 
 ```js
 module.exports = {
   use: [
     '@neutrinojs/node',
-    (neutrino) => neutrino.config.resolve.extensions.add('.mjs')
+    (neutrino) => neutrino.config.resolve.extensions.add('.esm')
   ]
 };
 ```
