@@ -64,7 +64,7 @@ module.exports = (neutrino, opts = {}) => {
   }
 
   try {
-    const pkg = require(join(neutrino.options.root, 'package.json')); // eslint-disable-line global-require
+    const pkg = neutrino.options.packageJson;
     const hasSourceMap = (pkg.dependencies && 'source-map-support' in pkg.dependencies) ||
       (pkg.devDependencies && 'source-map-support' in pkg.devDependencies);
 
