@@ -6,7 +6,6 @@ const { extname, join, basename } = require('path');
 const { readdirSync } = require('fs');
 
 const MODULES = join(__dirname, 'node_modules');
-const NEUTRINO_MODULES = join(__dirname, '../../node_modules');
 
 module.exports = (neutrino, options = {}) => {
   const reactOptions = merge({
@@ -19,10 +18,16 @@ module.exports = (neutrino, options = {}) => {
 
   neutrino.config.resolve.modules
     .add(MODULES)
-    .add(NEUTRINO_MODULES);
+    .when(__dirname.includes('neutrino-dev'), modules => {
+      // Add monorepo node_modules to webpack module resolution
+      modules.add(join(__dirname, '../../node_modules'));
+    });
   neutrino.config.resolveLoader.modules
     .add(MODULES)
-    .add(NEUTRINO_MODULES);
+    .when(__dirname.includes('neutrino-dev'), modules => {
+      // Add monorepo node_modules to webpack module resolution
+      modules.add(join(__dirname, '../../node_modules'));
+    });
 
   neutrino.config.when(
     process.env.NODE_ENV === 'development',
