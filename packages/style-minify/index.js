@@ -1,7 +1,10 @@
 const OptimizeCssPlugin = require('optimize-css-assets-webpack-plugin');
 
-module.exports = ({ config }, options = {}) => {
+module.exports = ({ config }, options = {
+  pluginUseId: 'style-minify',
+  plugin: {}
+}) => {
   config
-    .plugin('style-minify')
-    .use(OptimizeCssPlugin, [options]);
+    .plugin(options.pluginUseId)
+    .use(OptimizeCssPlugin, [options.plugin]);
 }

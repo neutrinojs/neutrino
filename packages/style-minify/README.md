@@ -37,14 +37,19 @@ and plug it into Neutrino:
 
 ```js
 // Using function middleware format
-const minify = require('@neutrinojs/style-minify');
+const styleMinify = require('@neutrinojs/style-minify');
 
 // Use with default options
-neutrino.use(minify);
+neutrino.use(styleMinify);
 
-// Usage showing overriding minification options
-neutrino.use(minify, {
-  minify: {}
+// Usage showing overriding options
+neutrino.use(styleMinify, {
+  pluginUseId: 'style-minify',
+  plugin: {
+    assetNameRegExp: /\.css$/g,
+    cssProcessorOptions: {},
+    canPrint: true,
+  }
 });
 ```
 
@@ -56,7 +61,7 @@ module.exports = {
   use: ['@neutrinojs/style-minify']
 };
 
-// Usage showing overriding minification options
+// Usage showing overriding options
 module.exports = {
   use: [
     ['@neutrinojs/style-minify', {
@@ -64,6 +69,10 @@ module.exports = {
   ]
 };
 ```
+
+The `plugin` property is passed to [optimize-css-assets-webpack-plugin
+](https://github.com/NMFR/optimize-css-assets-webpack-plugin#configuration).
+
 
 ## Customization
 
