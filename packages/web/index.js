@@ -74,8 +74,8 @@ module.exports = (neutrino, opts = {}) => {
 
   Object.assign(options, {
     minify: {
-      babel: options.minify.babel !== true && options.minify.babel || {},
-      image: options.minify.image !== true && options.minify.image || {}
+      babel: options.minify.babel === true ? {} : options.minify.babel,
+      image: options.minify.image === true ? {} : options.minify.image
     },
     babel: compileLoader.merge({
       plugins: [
@@ -191,7 +191,7 @@ module.exports = (neutrino, opts = {}) => {
     })
     .when(process.env.NODE_ENV === 'production', (config) => {
       neutrino.use(chunk);
-
+      console.log(options.minify);
       config
         .when(options.minify, () => neutrino.use(minify, options.minify))
         .plugin('module-concat')
