@@ -15,7 +15,6 @@ const {
 } = require('ramda');
 
 const MODULES = join(__dirname, 'node_modules');
-const NEUTRINO_MODULES = join(__dirname, '../../node_modules');
 const getOutputForEntry = pipe(
   parse,
   omit(['base']),
@@ -93,7 +92,10 @@ module.exports = (neutrino, opts = {}) => {
         .add('node_modules')
         .add(neutrino.options.node_modules)
         .add(MODULES)
-        .add(NEUTRINO_MODULES)
+        .when(__dirname.includes('neutrino-dev'), modules => {
+          // Add monorepo node_modules to webpack module resolution
+          modules.add(join(__dirname, '../../node_modules'));
+        })
         .end()
       .extensions
         .merge(neutrino.options.extensions.concat('json').map(ext => `.${ext}`))
@@ -103,7 +105,10 @@ module.exports = (neutrino, opts = {}) => {
       .modules
         .add(neutrino.options.node_modules)
         .add(MODULES)
-        .add(NEUTRINO_MODULES)
+        .when(__dirname.includes('neutrino-dev'), modules => {
+          // Add monorepo node_modules to webpack module resolution
+          modules.add(join(__dirname, '../../node_modules'));
+        })
         .end()
       .end()
     .when(neutrino.options.debug, (config) => {
