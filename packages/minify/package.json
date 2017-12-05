@@ -16,8 +16,10 @@
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
+    "deepmerge": "^1.5.2",
     "@neutrinojs/babel-minify": "^7.3.2",
-    "@neutrinojs/image-minify": "^7.3.2"
+    "@neutrinojs/image-minify": "^7.3.2",
+    "@neutrinojs/style-minify": "^7.3.2"
   },
   "peerDependencies": {
     "neutrino": "^7.0.0"
