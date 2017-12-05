@@ -65,7 +65,6 @@ module.exports = (neutrino, opts = {}) => {
 
   try {
     const pkg = neutrino.options.packageJson;
-
     const hasSourceMap = (pkg.dependencies && 'source-map-support' in pkg.dependencies) ||
       (pkg.devDependencies && 'source-map-support' in pkg.devDependencies);
 

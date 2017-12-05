@@ -2,7 +2,7 @@ const Config = require('webpack-chain');
 const merge = require('deepmerge');
 const Future = require('fluture');
 const mitt = require('mitt');
-const path = require('path');
+const { join } = require('path');
 const {
   defaultTo, is, map, omit, replace
 } = require('ramda');
@@ -51,9 +51,9 @@ class Api {
     });
 
     try {
-      options.packageJson = require(path.join(options.root, 'package.json')); // eslint-disable-line global-require
+      options.packageJson = require(join(options.root, 'package.json')); // eslint-disable-line global-require
     } catch (err) {
-      options.packageJson = undefined;
+      options.packageJson = null;
     }
 
     Object.defineProperty(options, 'extensions', {
