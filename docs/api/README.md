@@ -219,6 +219,10 @@ middleware to determine when to augment the configuration with certain functiona
 Informs interested middleware the preferred list of module extensions to support.
 By default, `options.extensions` is set to `['js', 'jsx', 'vue', 'ts', 'mjs']`.
 
+### `options.packageJson`
+
+Returns the `package.json` object defined at the root level of the project.
+
 ## Neutrino API
 
 When creating a Neutrino instance, you have the option of providing an object which can be passed as options to
