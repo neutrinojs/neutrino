@@ -16,7 +16,15 @@ const execute = require('./execute');
 const { exists, req } = require('../src/utils');
 
 const cwd = process.cwd();
-const args = yargs
+const cli = yargs
+  .usage('Usage: $0 <command> [options]')
+  .help(false)
+  .option('help', {
+    description: 'Show help',
+    boolean: true,
+    default: false,
+    global: true
+  })
   .option('inspect', {
     description: 'Output a string representation of the configuration used by webpack and exit',
     boolean: true,
@@ -72,19 +80,9 @@ const args = yargs
       default: false
     }
   })
-  .command('*')
-  .recommendCommands()
-  .argv;
-
-global.interactive = !args.noTty && (process.stderr && process.stderr.isTTY) && !process.env.CI;
-
+  .wrap(null);
+const args = cli.argv;
 const command = args._[0];
-
-if (!command) {
-  console.error('You must specify a command for Neutrino to run.\nUSAGE:  neutrino <command>');
-  process.exit(1);
-}
-
 const rc = '.neutrinorc.js';
 const cmd = args.inspect ? 'inspect' : command;
 const hasRc = exists(process.cwd(), rc);
@@ -93,6 +91,8 @@ const middleware = [...new Set(hasRc ? [rc] : args.use)];
 if (!middleware.length) {
   throw new Error('No middleware was found. Specify middleware with --use or create a .neutrinorc.js file.');
 }
+
+global.interactive = !args.noTty && (process.stderr && process.stderr.isTTY) && !process.env.CI;
 
 // Merge CLI config options as last piece of middleware, e.g. options.config.devServer.port 4000
 if (args.options) {
@@ -122,9 +122,9 @@ const promises = map((moduleId) => {
 Promise
   .all(promises)
   .then(() => cond([
-    [equals('build'), () => build(middleware, args)],
-    [equals('start'), () => start(middleware, args)],
-    [equals('test'), () => test(middleware, args)],
-    [equals('inspect'), () => inspect(middleware, args)],
-    [T, () => execute(middleware, args)]
+    [equals('build'), () => build(middleware, args, cli)],
+    [equals('start'), () => start(middleware, args, cli)],
+    [equals('test'), () => test(middleware, args, cli)],
+    [equals('inspect'), () => inspect(middleware, args, cli)],
+    [T, () => execute(middleware, args, cli)]
   ])(cmd));

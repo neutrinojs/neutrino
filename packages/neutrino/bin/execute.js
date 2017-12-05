@@ -1,11 +1,12 @@
 const ora = require('ora');
 const base = require('./base');
 
-module.exports = (middleware, args) => {
+module.exports = (middleware, args, cli) => {
   const commandName = args._[0];
   const spinner = ora({ text: `Running ${commandName}` });
 
   return base({
+    cli,
     middleware,
     args,
     NODE_ENV: 'production',

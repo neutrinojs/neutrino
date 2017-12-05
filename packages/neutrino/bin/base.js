@@ -1,7 +1,9 @@
 const merge = require('deepmerge');
+const yargs = require('yargs');
 const { Neutrino } = require('../src');
 
 module.exports = ({
+  cli,
   middleware,
   args,
   NODE_ENV,
@@ -20,8 +22,29 @@ module.exports = ({
   }, args.options);
   const api = Neutrino(options);
 
-  api.register(commandName, commandHandler);
   middleware.forEach(middleware => api.use(middleware));
+
+  if (!apiCommand || args.help) {
+    Object
+      .keys(api.commands)
+      .forEach(command => {
+        switch (command) {
+          case 'start':
+          case 'test':
+          case 'build': {
+            return;
+          }
+          default: {
+            cli.command(command, api.commandDescriptions[command]);
+          }
+        }
+      });
+
+    yargs.showHelp();
+    process.exit(1);
+  }
+
+  api.register(commandName, commandHandler);
 
   api
     .run(commandName)
