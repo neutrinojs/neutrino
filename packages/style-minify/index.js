@@ -8,6 +8,6 @@ module.exports = ({ config }, opts = {}) => {
   }, opts);
 
   config
-    .plugin(options.pluginUseId)
+    .plugin(options.pluginId)
     .use(OptimizeCssPlugin, [options.plugin]);
 }
