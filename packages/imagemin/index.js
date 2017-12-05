@@ -36,7 +36,7 @@ module.exports = (neutrino, opts = {}) => {
 
     return neutrino.config.module.rule(ruleId).get('test');
   })
-  .filter(test => !!test);
+  .filter(Boolean);
 
   options.plugin = merge({
     imageminOptions: options.imagemin,
