@@ -92,36 +92,45 @@ module.exports = (neutrino, opts = {}) => {
             rules: {}
           }, options.eslint || {}));
 
-  neutrino.register('eslintrc', () => getEslintRcConfig(neutrino.config));
-  neutrino.register('lint', () => {
-    const { fix = false } = neutrino.options.args;
-    const ignorePattern = (options.exclude || [])
-      .map(exclude => join(
-        basename(neutrino.options.source),
-        basename(exclude),
-        '**/*'
-      ));
-    const eslintConfig = merge(getEslintOptions(neutrino.config), { ignorePattern, fix });
+  neutrino.register(
+    'eslintrc',
+    () => getEslintRcConfig(neutrino.config),
+    'Return an object of accumulated ESLint configuration suitable for use by .eslintrc.js'
+  );
 
-    return Future
-      .of(eslintConfig)
-      .map(options => new CLIEngine(options))
-      .chain(cli => Future.both(
-        Future.of(cli.executeOnFiles(options.include)),
-        Future.of(cli.getFormatter('codeframe'))
-      ))
-      .map(([report, formatter]) => {
-        if (fix) {
-          CLIEngine.outputFixes(report);
-        }
+  neutrino.register(
+    'lint',
+    () => {
+      const { fix = false } = neutrino.options.args;
+      const ignorePattern = (options.exclude || [])
+        .map(exclude => join(
+          basename(neutrino.options.source),
+          basename(exclude),
+          '**/*'
+        ));
+      const eslintConfig = merge(getEslintOptions(neutrino.config), { ignorePattern, fix });
 
-        return [report, formatter];
-      })
-      .chain(([report, formatter]) => {
-        const formatted = formatter(report.results);
-        const errors = CLIEngine.getErrorResults(report.results);
+      return Future
+        .of(eslintConfig)
+        .map(options => new CLIEngine(options))
+        .chain(cli => Future.both(
+          Future.of(cli.executeOnFiles(options.include)),
+          Future.of(cli.getFormatter('codeframe'))
+        ))
+        .map(([report, formatter]) => {
+          if (fix) {
+            CLIEngine.outputFixes(report);
+          }
 
-        return errors.length ? Future.reject(formatted) : Future.of(formatted);
-      });
-  });
+          return [report, formatter];
+        })
+        .chain(([report, formatter]) => {
+          const formatted = formatter(report.results);
+          const errors = CLIEngine.getErrorResults(report.results);
+
+          return errors.length ? Future.reject(formatted) : Future.of(formatted);
+        });
+    },
+    'Perform a one-time lint using ESLint. Apply available automatic fixes with --fix'
+  );
 };

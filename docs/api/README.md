@@ -361,11 +361,12 @@ a configuration object readable directly by webpack.
 api.config.toConfig(); // -> { ... }
 ```
 
-### `register(command, handler)`
+### `register(command, handler, description = '')`
 
-This method registers a new command which can be run from the API at a later time. This function takes two
-arguments: a String command name, and a Function which accepts a webpack configuration and the API. The return value of
-`handler` depends on the expected usage of the command.
+This method registers a new command which can be run from the API at a later time. This function takes three
+arguments: a String command name, a Function which accepts a webpack configuration and the API, and an optional string
+description. The return value of `handler` depends on the expected usage of the command. The description is optional,
+but useful when using `--help` from the command line to view available commands.
 
 The handler function can accept two arguments:
 
@@ -376,7 +377,11 @@ webpack-usable object
 _Example: add a new runnable command which resolves with a JSON-formatted webpack configuration:`
 
 ```js
-api.register('jsonify', config => JSON.stringify(config, null, 2));
+api.register(
+  'jsonify',
+  config => JSON.stringify(config, null, 2),
+  'Output a JSON representation of the accumulated webpack configuration'
+);
 ```
 
 The registered command can be triggered from `call()`, `run()`, or via the CLI.
