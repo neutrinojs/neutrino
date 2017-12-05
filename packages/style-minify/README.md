@@ -44,7 +44,7 @@ neutrino.use(styleMinify);
 
 // Usage showing overriding options
 neutrino.use(styleMinify, {
-  pluginUseId: 'style-minify',
+  pluginId: 'style-minify',
   plugin: {
     assetNameRegExp: /\.css$/g,
     cssProcessorOptions: {},
@@ -65,14 +65,18 @@ module.exports = {
 module.exports = {
   use: [
     ['@neutrinojs/style-minify', {
+      pluginId: 'style-minify',
+      plugin: {
+        assetNameRegExp: /\.css$/g,
+        cssProcessorOptions: {},
+        canPrint: true,
+      }
     }]
   ]
 };
 ```
 
-The `plugin` property is passed to [optimize-css-assets-webpack-plugin
-](https://github.com/NMFR/optimize-css-assets-webpack-plugin#configuration).
-
+The `plugin` property is passed to [optimize-css-assets-webpack-plugin](https://github.com/NMFR/optimize-css-assets-webpack-plugin#configuration).
 
 ## Customization
 

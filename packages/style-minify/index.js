@@ -3,7 +3,7 @@ const OptimizeCssPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = ({ config }, opts = {}) => {
   const options = merge({
-    pluginUseId: 'style-minify',
+    pluginId: 'style-minify',
     plugin: {}
   }, opts);
 
