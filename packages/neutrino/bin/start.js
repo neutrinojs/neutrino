@@ -3,22 +3,32 @@ const debounce = require('lodash.debounce');
 const { start } = require('../src');
 const base = require('./base');
 const DashboardPlugin = require("webpack-dashboard/plugin");
+const { spawn } = require('child_process');
 
 module.exports = (middleware, args) => {
   const spinner = ora({ text: 'Building project' });
+  const argsClone = Object.assign({}, args);
 
-  if (args.dashboard) {
+  if (argsClone.dashboard) {
+    argsClone.quiet = true;
+
     middleware.push(neutrino => {
-      neutrino.config.plugin('dashboard').use(DashboardPlugin, [{ port: 5000 }]);
+      neutrino.config.plugin('dashboard').use(DashboardPlugin);
     });
+
+    const child = spawn(`${__dirname  }/../../../node_modules/.bin/webpack-dashboard`, [], { stdio: 'inherit' });
+
+    process.on('exit', () => {
+      child.kill();
+    })
   }
 
   return base({
     middleware,
-    args,
+    argsClone,
     NODE_ENV: 'development',
     commandHandler(config, neutrino) {
-      if (!args.start) {
+      if (!argsClone.start && !argsClone.dashboard) {
         spinner.enabled = global.interactive;
         spinner.start();
       }
@@ -29,7 +39,7 @@ module.exports = (middleware, args) => {
       spinner.fail('Building project failed');
     },
     successHandler(compiler) {
-      if (args.quiet || !compiler) {
+      if (argsClone.quiet || !compiler) {
         return;
       }
 
