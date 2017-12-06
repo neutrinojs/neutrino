@@ -1,9 +1,6 @@
 # Neutrino Minify Middleware
 
-`@neutrinojs/minify` is Neutrino middleware for minifying assets. It is an aggregate of the following middlewares:
-
-- [@neutrinojs/babel-minify](../../packages/babel-minify/README.md)
-- [@neutrinojs/image-minify](../../packages/image-minify/README.md)
+`@neutrinojs/minify` is Neutrino middleware for minifying babel, css, and image assets.
 
 This middleware is usually only added during production builds.
 
@@ -48,7 +45,8 @@ neutrino.use(minify);
 // Usage showing overriding middleware options
 neutrino.use(minify, {
   babel: {},
-  image: {}
+  image: {},
+  style: {}
 });
 ```
 
@@ -65,7 +63,8 @@ module.exports = {
   use: [
     ['@neutrinojs/minify', {
       babel: {},
-      image: {}
+      image: {},
+      style: {}
     }]
   ]
 };
@@ -76,10 +75,21 @@ module.exports = {
 `@neutrinojs/minify` creates some conventions to make overriding the configuration easier once you are ready to
 make changes.
 
-See the following middlewares for added plugins and rules:
+### Options
 
-- [@neutrinojs/babel-minify](../../packages/babel-minify/README.md)
-- [@neutrinojs/image-minify](../../packages/image-minify/README.md)
+- `babel`: Set options for [@neutrinojs/babel-minify](../../packages/babel-minify/README.md).
+- `image`: Set options for [@neutrinojs/image-minify](../../packages/image-minify/README.md).
+- `style`: Set options for [@neutrinojs/style-minify](../../packages/style-minify/README.md).
+
+### Plugins
+
+The following is a list of plugins and their identifiers which can be overridden:
+
+| Name | Description | Environments and Commands |
+| --- | --- | --- |
+| `babel-minify` | Minifies source code using `BabelMinifyWebpackPlugin`. From `@neutrinojs/babel-minify`. | all |
+| `imagemin` | Optimize any images added by other webpack plugins (e.g. `copy-webpack-plugin`). From `@neutrinojs/image-minify`. | all |
+| `optimize-css` | Minifies css using `OptimizeCssAssetsPlugin`. From `@neutrinojs/style-minify`. | all |
 
 ## Contributing
 
