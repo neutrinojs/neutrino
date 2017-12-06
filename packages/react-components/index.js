@@ -7,14 +7,14 @@ const { readdirSync } = require('fs');
 
 const MODULES = join(__dirname, 'node_modules');
 
-module.exports = (neutrino, options = {}) => {
-  const reactOptions = merge({
+module.exports = (neutrino, opts = {}) => {
+  const options = merge({
     html: process.env.NODE_ENV === 'development' && {
       title: 'React Preview'
     },
     manifest: process.env.NODE_ENV === 'development',
-    externals: {}
-  }, options);
+    externals: opts.externals !== false && {}
+  }, opts);
 
   neutrino.config.resolve.modules
     .add(MODULES)
@@ -33,7 +33,7 @@ module.exports = (neutrino, options = {}) => {
     process.env.NODE_ENV === 'development',
     () => {
       neutrino.options.mains.index = 'stories'; // eslint-disable-line no-param-reassign
-      neutrino.use(react, reactOptions);
+      neutrino.use(react, options);
     },
     () => {
       const components = join(neutrino.options.source, options.components || 'components');
@@ -62,14 +62,14 @@ module.exports = (neutrino, options = {}) => {
         hasSourceMap && neutrino.use(banner);
       } catch (ex) {} // eslint-disable-line
 
-      neutrino.use(react, reactOptions);
+      neutrino.use(react, options);
 
       neutrino.config
+        .when(options.externals, config => config.externals([nodeExternals(options.externals)]))
         .devtool('source-map')
         .performance
           .hints('error')
           .end()
-        .externals([nodeExternals(options.externals)])
         .output
           .filename('[name].js')
           .library('[name]')
