@@ -8,18 +8,22 @@ const MODULES = path.join(__dirname, 'node_modules');
 module.exports = (neutrino, options = {}) => {
   neutrino.use(web, options);
 
-  const babel = neutrino.config.module.rule('compile').use('babel');
-  const html = neutrino.config.module.rule('html').use('html');
+  const babelLoader = neutrino.config.module.rule('compile').use('babel');
+  const htmlRule = neutrino.config.module.rule('html');
+  const htmlLoader = htmlRule.use('html');
+
+  htmlRule.test(neutrino.regexFromExtensions(['html', 'vue']));
+
   const vueOptions = merge({
     extractCss: options.extract !== false,
     loaders: {
       js: {
-        loader: babel.get('loader'),
-        options: babel.get('options')
+        loader: babelLoader.get('loader'),
+        options: babelLoader.get('options')
       },
       html: {
-        loader: html.get('loader'),
-        options: babel.get('options')
+        loader: htmlLoader.get('loader'),
+        options: htmlLoader.get('options')
       }
     }
   }, options.vue || {});
