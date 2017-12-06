@@ -15,7 +15,7 @@
   "dependencies": {
     "@neutrinojs/loader-merge": "^7.3.2",
     "@neutrinojs/web": "^7.3.2",
-    "babel-preset-vue": "^1.2.1",
+    "babel-preset-vue": "^2.0.0",
     "deepmerge": "^1.5.2",
     "eslint-plugin-vue": "^4.0.0-beta.0",
     "stylelint-processor-html": "^1.0.0",
