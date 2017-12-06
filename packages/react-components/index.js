@@ -54,18 +54,15 @@ module.exports = (neutrino, opts = {}) => {
         'lib' :
         neutrino.options.output;
 
-      try {
-        const pkg = neutrino.options.packageJson;
-        const hasSourceMap = (pkg.dependencies && 'source-map-support' in pkg.dependencies) ||
-          (pkg.devDependencies && 'source-map-support' in pkg.devDependencies);
-
-        hasSourceMap && neutrino.use(banner);
-      } catch (ex) {} // eslint-disable-line
+      const pkg = neutrino.options.packageJson;
+      const hasSourceMap = (pkg.dependencies && 'source-map-support' in pkg.dependencies) ||
+        (pkg.devDependencies && 'source-map-support' in pkg.devDependencies);
 
       neutrino.use(react, options);
 
       neutrino.config
         .when(options.externals, config => config.externals([nodeExternals(options.externals)]))
+        .when(hasSourceMap, () => neutrino.use(banner))
         .devtool('source-map')
         .performance
           .hints('error')

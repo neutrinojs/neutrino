@@ -62,15 +62,9 @@ module.exports = (neutrino, opts = {}) => {
     );
   }
 
-  try {
-    const pkg = neutrino.options.packageJson;
-    const hasSourceMap = (pkg.dependencies && 'source-map-support' in pkg.dependencies) ||
-      (pkg.devDependencies && 'source-map-support' in pkg.devDependencies);
-
-    if (hasSourceMap) {
-      neutrino.use(banner);
-    }
-  } catch (ex) {} // eslint-disable-line
+  const pkg = neutrino.options.packageJson;
+  const hasSourceMap = (pkg.dependencies && 'source-map-support' in pkg.dependencies) ||
+    (pkg.devDependencies && 'source-map-support' in pkg.devDependencies);
 
   neutrino.use(compileLoader, {
     include: [
@@ -85,9 +79,10 @@ module.exports = (neutrino, opts = {}) => {
     .forEach(key => neutrino.config.entry(key).add(neutrino.options.mains[key]));
 
   neutrino.config
+    .when(hasSourceMap, () => neutrino.use(banner))
+    .devtool('source-map')
     .target(options.target)
     .context(neutrino.options.root)
-    .devtool('source-map')
     .output
       .library(options.name)
       .filename('[name].js')
