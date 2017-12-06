@@ -1,0 +1,26 @@
+{
+  "name": "@neutrinojs/style-minify",
+  "version": "7.3.2",
+  "description": "Neutrino middleware for minifying styles",
+  "main": "index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-middleware",
+    "minify",
+    "style",
+    "css",
+    "cssnano"
+  ],
+  "author": "Tim Kelty <timkelty@gmail.com>",
+  "license": "MPL-2.0",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/style-minify",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "dependencies": {
+    "deepmerge": "^1.5.2",
+    "optimize-css-assets-webpack-plugin": "^3.2.0"
+  },
+  "peerDependencies": {
+    "neutrino": "^7.0.0"
+  }
+}

@@ -308,7 +308,7 @@ this maps to the `index.*` file in the `src` directory. The extension is resolve
 `neutrino.options.mains` at `neutrino.options.mains.index`. This means that the Web preset is optimized toward the use
 case of single-page applications over multi-page applications. If you wish to output multiple pages, you can detail
 all your mains in your `.neutrinorc.js`.
- 
+
 ```js
 module.exports = {
   options: {
@@ -356,7 +356,9 @@ _Note: Some plugins are only available in certain environments. To override them
 | `hot` | Enables Hot Module Replacement. From `@neutrinojs/hot`. | `start` command |
 | `copy` | Copies files during build, defaults from `src/static` to `build/static`. From `@neutrinojs/copy` | `build` command |
 | `clean` | Removes the `build` directory prior to building. From `@neutrinojs/clean`. | `build` command |
-| `minify` | Minifies source code using `BabelMinifyWebpackPlugin`. From `@neutrinojs/minify`. | `NODE_ENV production` |
+| `babel-minify` | Minifies source code using `BabelMinifyWebpackPlugin`. From `@neutrinojs/minify`. | `NODE_ENV production` |
+| `imagemin` | Optimize any images added by other webpack plugins (e.g. `copy-webpack-plugin`). From `@neutrinojs/minify`. | `NODE_ENV production` |
+| `optimize-css` | Minifies css using `OptimizeCssAssetsPlugin`. | `NODE_ENV production` From `@neutrinojs/minify`. |
 | `module-concat` | Concatenate the scope of all your modules into one closure and allow for your code to have a faster execution time in the browser. | `NODE_ENV production` |
 | `manifest` | Create a manifest file, via webpack-manifest-plugin. | `build` command |
 

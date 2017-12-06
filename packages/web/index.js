@@ -45,7 +45,8 @@ module.exports = (neutrino, opts = {}) => {
       paths: [neutrino.options.output]
     },
     minify: {
-      babel: true,
+      babel: {},
+      style: {},
       image: false
     },
     babel: {},
@@ -77,6 +78,7 @@ module.exports = (neutrino, opts = {}) => {
   Object.assign(options, {
     minify: {
       babel: options.minify.babel === true ? {} : options.minify.babel,
+      style: options.minify.style === true ? {} : options.minify.style,
       image: options.minify.image === true ? {} : options.minify.image
     },
     babel: compileLoader.merge({

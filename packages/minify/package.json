@@ -18,7 +18,8 @@
   "dependencies": {
     "deepmerge": "^1.5.2",
     "@neutrinojs/babel-minify": "^7.3.2",
-    "@neutrinojs/image-minify": "^7.3.2"
+    "@neutrinojs/image-minify": "^7.3.2",
+    "@neutrinojs/style-minify": "^7.3.2"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"
