@@ -28,7 +28,7 @@ module.exports = (middleware, args) => {
     args: argsClone,
     NODE_ENV: 'development',
     commandHandler(config, neutrino) {
-      if (!argsClone.quiet && !argsClone.dashboard) {
+      if (!argsClone.quiet) {
         spinner.enabled = global.interactive;
         spinner.start();
       }
