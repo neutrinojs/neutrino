@@ -44,7 +44,7 @@ neutrino.use(styleMinify);
 
 // Usage showing overriding options
 neutrino.use(styleMinify, {
-  pluginId: 'style-minify',
+  pluginId: 'optimize-css',
   plugin: {
     assetNameRegExp: /\.css$/g,
     cssProcessorOptions: {},
@@ -65,7 +65,7 @@ module.exports = {
 module.exports = {
   use: [
     ['@neutrinojs/style-minify', {
-      pluginId: 'style-minify',
+      pluginId: 'optimize-css',
       plugin: {
         assetNameRegExp: /\.css$/g,
         cssProcessorOptions: {},
@@ -89,7 +89,7 @@ The following is a list of plugins and their identifiers which can be overridden
 
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
-| `style-minify` | Minifies styles using `OptimizeCssAssetsPlugin`. | all |
+| `optimize-css` | Minifies css using `OptimizeCssAssetsPlugin`. | all |
 
 ## Contributing
 
