@@ -7,10 +7,9 @@ const base = require('./base');
 
 module.exports = (middleware, args) => {
   const spinner = ora({ text: 'Building project' });
-  const argsClone = Object.assign({}, args);
 
-  if (argsClone.dashboard) {
-    argsClone.quiet = true;
+  if (args.dashboard) {
+    args.quiet = true; // eslint-disable-line no-param-reassign
 
     middleware.push(neutrino => {
       neutrino.config.plugin('dashboard').use(DashboardPlugin);
@@ -25,10 +24,10 @@ module.exports = (middleware, args) => {
 
   return base({
     middleware,
-    args: argsClone,
+    args,
     NODE_ENV: 'development',
     commandHandler(config, neutrino) {
-      if (!argsClone.quiet) {
+      if (!args.quiet) {
         spinner.enabled = global.interactive;
         spinner.start();
       }
@@ -39,7 +38,7 @@ module.exports = (middleware, args) => {
       spinner.fail('Building project failed');
     },
     successHandler(compiler) {
-      if (argsClone.quiet || !compiler) {
+      if (args.quiet || !compiler) {
         return;
       }
 
