@@ -16,6 +16,7 @@
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
+    "@neutrinojs/compile-loader": "^7.3.2",
     "@neutrinojs/loader-merge": "^7.3.2",
     "@neutrinojs/web": "^7.3.2",
     "babel-plugin-jsx-pragmatic": "^1.0.2",
