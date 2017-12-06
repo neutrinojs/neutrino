@@ -24,6 +24,7 @@ module.exports = (neutrino, opts = {}) => {
     modules: true,
     modulesSuffix: '-modules',
     modulesTest: cssModulesTest,
+    loaders: [],
     extractId: 'extract',
     extract: {
       plugin: {
@@ -52,16 +53,25 @@ module.exports = (neutrino, opts = {}) => {
   }
 
   rules.forEach(options => {
-    neutrino.config.module
-      .rule(options.ruleId)
-        .test(options.test)
-        .use(options.styleUseId)
-           .loader(require.resolve('style-loader'))
-           .when(options.style, use => use.options(options.style))
-           .end()
-        .use(options.cssUseId)
-          .loader(require.resolve('css-loader'))
-          .when(options.css, use => use.options(options.css));
+    options.loaders.unshift({
+      loader: require.resolve('style-loader'),
+      options: options.style,
+      useId: options.styleUseId
+    },
+    {
+      loader: require.resolve('css-loader'),
+      options: options.css,
+      useId: options.cssUseId
+    });
+
+    options.loaders.forEach(loader => {
+      neutrino.config.module
+        .rule(options.ruleId)
+          .test(options.test)
+          .use(loader.useId)
+            .loader(loader.loader)
+            .when(loader.options, use => use.options(loader.options));
+    });
 
     if (options.extract) {
       const styleRule = neutrino.config.module.rule(options.ruleId);
