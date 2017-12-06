@@ -1,9 +1,9 @@
 const ora = require('ora');
 const debounce = require('lodash.debounce');
+const DashboardPlugin = require('webpack-dashboard/plugin');
+const { spawn } = require('child_process');
 const { start } = require('../src');
 const base = require('./base');
-const DashboardPlugin = require("webpack-dashboard/plugin");
-const { spawn } = require('child_process');
 
 module.exports = (middleware, args) => {
   const spinner = ora({ text: 'Building project' });
@@ -16,19 +16,19 @@ module.exports = (middleware, args) => {
       neutrino.config.plugin('dashboard').use(DashboardPlugin);
     });
 
-    const child = spawn(`${__dirname  }/../../../node_modules/.bin/webpack-dashboard`, [], { stdio: 'inherit' });
+    const child = spawn(require.resolve('webpack-dashboard/bin/webpack-dashboard.js'), [], { stdio: 'inherit' });
 
     process.on('exit', () => {
       child.kill();
-    })
+    });
   }
 
   return base({
     middleware,
-    argsClone,
+    args: argsClone,
     NODE_ENV: 'development',
     commandHandler(config, neutrino) {
-      if (!argsClone.start && !argsClone.dashboard) {
+      if (!argsClone.quiet && !argsClone.dashboard) {
         spinner.enabled = global.interactive;
         spinner.start();
       }
