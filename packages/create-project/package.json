@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Scaffold new Neutrino projects with a CLI helper",
   "bin": {
-    "create-neutrino-project": "./bin/create-neutrino-project.js"
+    "create-project": "./bin/create-project.js"
   },
   "scripts": {
-    "start": "./bin/create-neutrino-project init"
+    "start": "./bin/create-project init"
   },
   "files": [
     "bin",
