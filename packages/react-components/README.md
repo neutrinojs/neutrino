@@ -1,8 +1,7 @@
 # Neutrino React Components Preset
 
-`@neutrinojs/react-components` is a Neutrino preset that supports creating generic React components and previewing
-them without the need to embed in an application. Plays nicely with other Neutrino middleware, so you can build, test,
-preview, and publish multiple React components from a single repository.
+`@neutrinojs/react-components` is a Neutrino preset that supports creating generic React components. Plays nicely with
+other Neutrino middleware, so you can build, test, and publish multiple React components from a single repository.
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
@@ -10,18 +9,16 @@ preview, and publish multiple React components from a single repository.
 
 ## Features
 
-- Extends partially from [@neutrinojs/react](https://neutrino.js.org/presets/@neutrinojs/react)
-- Zero upfront configuration necessary to start developing, building, and visually previewing a React component.
-Minimal code is needed to generate stories previewer.
+- Extends partially from [@neutrinojs/react](https://neutrino.js.org/packages/@neutrinojs/react)
+- Zero upfront configuration necessary to start developing and building React components.
 - Modern Babel compilation adding JSX, object rest spread syntax, and class properties.
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
 - Support for importing web workers with `.worker.*` file extensions
-- Extends from [@neutrinojs/web](https://neutrino.js.org/presets/@neutrinojs/web)
+- Extends partially from [@neutrinojs/web](https://neutrino.js.org/packages/@neutrinojs/web)
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
   - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
   - webpack Dev Server during development
-  - Automatic creation of HTML pages, no templating necessary
   - Automatic stylesheet extraction; importing stylesheets into modules creates bundled external stylesheets
   - Pre-configured to support CSS Modules via `*.module.css` file extensions
   - Hot Module Replacement support including CSS
@@ -37,7 +34,7 @@ polyfills in your library code, consider importing babel-polyfill, core-js, or o
 - Node.js v6.10+
 - Yarn or npm client
 - Neutrino v7
-- React, React DOM, and React Addons CSS Transition Group
+- React, React DOM
 
 ## Installation
 
@@ -49,14 +46,14 @@ for actual component development.
 
 ```bash
 ❯ yarn add --dev neutrino @neutrinojs/react-components
-❯ yarn add react react-dom react-addons-css-transition-group
+❯ yarn add react react-dom
 ```
 
 #### npm
 
 ```bash
 ❯ npm install --save-dev neutrino @neutrinojs/react-components
-❯ npm install --save react react-dom react-addons-css-transition-group
+❯ npm install --save react react-dom
 ```
 
 If you want to have automatically wired sourcemaps added to your project, add `source-map-support`:
@@ -84,34 +81,34 @@ All components should be their own module within a directory named `components` 
 ## Quickstart
 
 After installing Neutrino and this preset, add a new directory named `src` in the root of the project, with
-a single JS file named `stories.js` in it.
+a single JS file named `index.js` in it. This `index` file can be used to render any components you
+wish to the browser to preview and.
 
 ```bash
-❯ mkdir src && touch src/stories.js
+❯ mkdir src && touch src/index.js
 ```
 
-Edit your `src/stories.js` file with the following:
+Your components will go in a `components` directory inside `src`:
+
+```bash
+❯ mkdir src/components
+```
+
+Edit your `src/index.js` file with the following:
 
 ```js
 import React from 'react';
 import { render } from 'react-dom';
-import { Stories, Story, Props } from '@neutrinojs/react-components/lib';
 import YourCustomComponent from './components/YourCustomComponent';
 
 const root = document.getElementById('root');
 
 render((
-  <Stories>
-    <Story component={YourCustomComponent}>
-      <Props name="Default" />
-      <Props name="State A" someProp="alpha" />
-      <Props name="State B w/ children">Child!</Props>
-    </Story>
-  </Stories>
+  <YourCustomComponent />
 ), root);
 ```
 
-Now edit your project's package.json to add commands for starting the preview app, or building the components.
+Now edit your project's package.json to add commands for starting the development server, or building the components.
 
 ```json
 {
@@ -136,6 +133,7 @@ Start the app, then open a browser to http://localhost:5000 to preview your comp
 
 ```bash
 ❯ yarn start
+
 ✔ Development server running on: http://localhost:5000
 ✔ Build completed
 ```
@@ -144,13 +142,14 @@ Start the app, then open a browser to http://localhost:5000 to preview your comp
 
 ```bash
 ❯ npm start
+
 ✔ Development server running on: http://localhost:5000
 ✔ Build completed
 ```
 
 ## Building
 
-`@neutrinojs/react-components` builds components to the `lib` directory by default when running `neutrino build`.
+`@neutrinojs/react-components` builds components to the `build` directory by default when running `neutrino build`.
 Using the quick start example above as a reference:
 
 ```bash
@@ -158,7 +157,7 @@ Using the quick start example above as a reference:
 
 ✔ Building project completed
 Hash: 453804a130a959d313a1
-Version: webpack 2.6.1
+Version: webpack 3.6.1
 Time: 350ms
                      Asset     Size  Chunks             Chunk Names
     YourCustomComponent.js  4.12 kB       0  [emitted]  YourCustomComponent
@@ -167,8 +166,8 @@ YourCustomComponent.js.map  4.11 kB       0  [emitted]  YourCustomComponent
 ```
 
 You can then publish these components to npm. When publishing your project to npm, consider excluding your `src`
-directory by using the `files` property to whitelist `lib`, or via `.npmignore` to blacklist `src`. Components are
-generated as UMD named modules, with the name corresponding to the component file name. e.g.
+directory in `package.json` by using the `files` property to whitelist `build`, or via `.npmignore` to blacklist `src`.
+Components are generated as UMD named modules, with the name corresponding to the component file name. e.g.
 `src/components/Custom/index.js` maps to `Custom`, as well as `src/components/Custom.js` mapping to `Custom`.
 
 These modules are ES-compatible modules, so they can be `import`ed as expected. If you want to use them with CJS
@@ -180,92 +179,6 @@ const YourCustomComponent = require('your-custom-component').default;
 
 By default this preset creates an individual entry point for every top-level component found in `src/components`. These
 are set and accessible via the API at [`neutrino.options.mains`](https://neutrino.js.org/api#optionsmains).
-
-## Previewer Components
-
-This preset exposes 3 React components from `@neutrinojs/react-components/lib` to generate a component previewer
-interface:
-
-### Stories
-
-The `<Stories />` component is the container for how a series of components should be rendered. It is responsible
-for rendering the navigation menu, switching between components and component states, and rendering the selected
-component.
-
-The `<Stories />` component should be given 1 or more `<Story />` components as children.
-
-```js
-import React from 'react';
-import { render } from 'react-dom';
-import { Stories } from '@neutrinojs/react-components/lib';
-
-const root = document.getElementById('root');
-
-render((
-  <Stories>
-    ...
-  </Stories>
-), root);
-```
-
-### Story
-
-The `<Story />` component defines how a particular component is previewed. It accepts a `component` property which
-is the component to preview.
-
-The `<Story />` component should be given 1 or more `<Props />` components as children which will be used to
-render the specified component upon selection.
-
-```js
-import React from 'react';
-import { render } from 'react-dom';
-import { Stories, Story } from '@neutrinojs/react-components/lib';
-
-const root = document.getElementById('root');
-
-class Example extends React.Component {}
-
-render((
-  <Stories>
-    <Story component={Example}>
-      ...
-    </Story>
-  </Stories>
-), root);
-```
-
-### Props
-
-The `<Props />` component defines what props are passed to the `<Story />`'s component when this story is
-selected. All props and children passed to this `Props` will be passed as props to the component.
-
-The `<Props />` component should be given a `name` property for displaying in the `Stories` UI.
-
-```js
-import React from 'react';
-import { render } from 'react-dom';
-import { Stories, Story, Props } from '@neutrinojs/react-components/lib';
-
-const root = document.getElementById('root');
-
-class Example extends React.Component {
-  render() {
-    return <h1>Hello {this.props.message || 'world'}</h1>;
-  }
-}
-
-render((
-  <Stories>
-    <Story component={Example}>
-      <Props name="Default" />
-      <Props name="With 'Internet'" message="Internet" />
-      <Props name="With emphasis" message="WORLD!!!" />
-    </Story>
-  </Stories>
-), root);
-```
-
-![example gif](example.gif)
 
 ## Hot Module Replacement
 
@@ -286,12 +199,8 @@ are set and accessible via the API at [`neutrino.options.mains`](https://neutrin
 
 ### Rules
 
-The following is a list of rules and their identifiers which can be overridden, in addition to the ones from the Web preset:
-
-| Name | Description | Environments |
-| ---- | ----------- | ------------ |
-| `style` | Allows importing CSS stylesheets. Contains two loaders named `style` and `css`. | all |
-| `css-modules` | Allows importing modules from project CSS stylesheets named `*.module.css`. Contains two loaders named `style` and `css`. | all |
+This plugin does not define any additional rules or loaders in addition to those already used
+by `@neutrinojs/web` and `@neutrinojs/react`.
 
 ### Plugins
 

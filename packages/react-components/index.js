@@ -32,7 +32,6 @@ module.exports = (neutrino, opts = {}) => {
   neutrino.config.when(
     process.env.NODE_ENV === 'development',
     () => {
-      neutrino.options.mains.index = 'stories'; // eslint-disable-line no-param-reassign
       neutrino.use(react, options);
     },
     () => {
@@ -49,16 +48,17 @@ module.exports = (neutrino, opts = {}) => {
         neutrino.options.mains[basename(component, extname(component))] = join(components, component);
       });
 
-      // eslint-disable-next-line no-param-reassign
-      neutrino.options.output = neutrino.options.output.endsWith('build') ?
-        'lib' :
-        neutrino.options.output;
-
       const pkg = neutrino.options.packageJson;
       const hasSourceMap = (pkg.dependencies && 'source-map-support' in pkg.dependencies) ||
         (pkg.devDependencies && 'source-map-support' in pkg.devDependencies);
 
       neutrino.use(react, options);
+
+      Object
+        .keys(neutrino.options.mains)
+        .forEach(key => {
+          neutrino.config.plugins.delete(`html-${key}`);
+        });
 
       neutrino.config
         .when(options.externals, config => config.externals([nodeExternals(options.externals)]))
@@ -74,19 +74,6 @@ module.exports = (neutrino, opts = {}) => {
           .umdNamedDefine(true);
     }
   );
-
-  neutrino.config.module
-    .rule('css-modules')
-      .test(/\.module.css$/)
-      .include
-        .add(neutrino.options.source)
-        .end()
-    .use('style')
-      .loader(require.resolve('style-loader'))
-      .end()
-    .use('css')
-      .loader(require.resolve('css-loader'))
-      .options({ modules: true });
 
   neutrino.config.when(
     neutrino.config.plugins.has('runtime-chunk'),
