@@ -13,6 +13,9 @@
   "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/font-loader",
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "deepmerge": "^1.5.2",
     "file-loader": "^1.0.0",

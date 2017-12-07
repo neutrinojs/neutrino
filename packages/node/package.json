@@ -14,6 +14,9 @@
   "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/node",
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@neutrinojs/banner": "^7.3.2",
     "@neutrinojs/clean": "^7.3.2",

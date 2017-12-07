@@ -12,6 +12,9 @@
     "web",
     "hot module replacement"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@neutrinojs/loader-merge": "^7.3.2",
     "@neutrinojs/web": "^7.3.2",
