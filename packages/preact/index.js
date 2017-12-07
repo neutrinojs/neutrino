@@ -50,7 +50,7 @@ module.exports = (neutrino, opts = {}) => {
     neutrino.use(loaderMerge('lint', 'eslint'), {
       rules: {
         // Shutting this off allows ESLint to not fail when using JSX without an explicit
-        // "preact" import when coupled with the "jsx-pragmatic" and "transform-react-js"
+        // "preact" import when coupled with the "jsx-pragmatic" and "transform-react-jsx"
         // babel plugins above
         'react/react-in-jsx-scope': 'off'
       }
