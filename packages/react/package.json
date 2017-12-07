@@ -15,6 +15,9 @@
   "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/react",
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@neutrinojs/compile-loader": "^7.3.2",
     "@neutrinojs/loader-merge": "^7.3.2",

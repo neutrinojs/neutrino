@@ -14,6 +14,9 @@
   "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/compile-loader",
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",

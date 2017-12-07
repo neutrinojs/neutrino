@@ -13,6 +13,9 @@
   "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/jest",
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@neutrinojs/loader-merge": "^7.3.2",
     "babel-core": "^6.26.0",

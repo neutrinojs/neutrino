@@ -11,6 +11,9 @@
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
   "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/mocha",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@neutrinojs/loader-merge": "^7.3.2",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",

@@ -13,6 +13,9 @@
   "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/clean",
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "clean-webpack-plugin": "^0.1.17",
     "deepmerge": "^1.5.2"

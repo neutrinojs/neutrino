@@ -14,6 +14,9 @@
   "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/image-minify",
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "deepmerge": "^1.5.2",
     "imagemin-gifsicle": "5.2.0",

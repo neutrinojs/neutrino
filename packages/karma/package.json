@@ -13,6 +13,9 @@
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
   "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/karma",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@neutrinojs/loader-merge": "^7.3.2",
     "babel-plugin-istanbul": "^4.1.5",

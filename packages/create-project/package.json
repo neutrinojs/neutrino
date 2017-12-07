@@ -26,6 +26,9 @@
     "vue",
     "node"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "chalk": "^2.3.0",
     "deepmerge": "^1.5.2",

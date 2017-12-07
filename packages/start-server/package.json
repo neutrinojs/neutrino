@@ -14,6 +14,9 @@
   "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/start-server",
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "start-server-webpack-plugin": "^2.2.0"
   },
