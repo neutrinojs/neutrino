@@ -19,6 +19,8 @@ module.exports = (neutrino, opts = {}) => {
     ruleId: 'style',
     styleUseId: 'style',
     cssUseId: 'css',
+    css: { importLoaders: 0 },
+    style: {},
     hot: true,
     hotUseId: 'hot',
     modules: true,
@@ -53,32 +55,33 @@ module.exports = (neutrino, opts = {}) => {
   }
 
   rules.forEach(options => {
-    options.loaders.unshift({
+    const styleRule = neutrino.config.module.rule(options.ruleId);
+    const loaders = [{
       loader: require.resolve('style-loader'),
       options: options.style,
       useId: options.styleUseId
     },
     {
       loader: require.resolve('css-loader'),
-      options: options.css,
+      options: Object.assign(options.css, {
+        importLoaders: options.css.importLoaders + options.loaders.length
+      }),
       useId: options.cssUseId
-    });
+    }, ...options.loaders];
 
-    options.loaders.forEach(loader => {
-      neutrino.config.module
-        .rule(options.ruleId)
-          .test(options.test)
-          .use(loader.useId)
-            .loader(loader.loader)
-            .when(loader.options, use => use.options(loader.options));
+    loaders.forEach(loader => {
+      styleRule
+        .test(options.test)
+        .use(loader.useId)
+          .loader(loader.loader)
+          .when(loader.options, use => use.options(loader.options));
     });
 
     if (options.extract) {
-      const styleRule = neutrino.config.module.rule(options.ruleId);
       const styleEntries = styleRule.uses.entries();
-      const useKeys = Object.keys(styleEntries).filter(key => key !== options.styleUseId);
+      const useIds = Object.keys(styleEntries).filter(key => key !== options.styleUseId);
       const extractLoader = Object.assign({
-        use: useKeys.map(key => ({
+        use: useIds.map(key => ({
           loader: styleEntries[key].get('loader'),
           options: styleEntries[key].get('options')
         })),
