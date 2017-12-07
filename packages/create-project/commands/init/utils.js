@@ -45,7 +45,7 @@ const projects = {
   },
   [REACT_COMPONENTS]: {
     type: PROJECT,
-    devDependencies: [REACT_COMPONENTS, N, 'prop-types', 'react', 'react-addons-css-transition-group', 'react-dom']
+    devDependencies: [REACT_COMPONENTS, N, 'prop-types', 'react', 'react-dom']
   },
   [STANDARDJS]: {
     type: LINTING,
