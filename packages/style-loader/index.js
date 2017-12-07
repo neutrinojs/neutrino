@@ -67,7 +67,14 @@ module.exports = (neutrino, opts = {}) => {
         importLoaders: options.css.importLoaders + options.loaders.length
       }),
       useId: options.cssUseId
-    }, ...options.loaders];
+    }, ...options.loaders]
+    .map((loader, index) => {
+      const obj = typeof loader === 'object' ? loader : { loader };
+
+      return Object.assign(obj, {
+        useId: obj.useId || `${options.cssUseId}-${index}`
+      });
+    });
 
     loaders.forEach(loader => {
       styleRule
