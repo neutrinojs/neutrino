@@ -19,7 +19,7 @@
     "access": "public"
   },
   "dependencies": {
-    "css-hot-loader": "^1.3.3",
+    "css-hot-loader": "^1.3.4",
     "css-loader": "^0.28.7",
     "deepmerge": "^1.5.2",
     "extract-text-webpack-plugin": "^3.0.2",

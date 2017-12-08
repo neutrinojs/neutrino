@@ -29,7 +29,7 @@
     "deepmerge": "^1.5.2",
     "fast-async": "^6.3.0",
     "ramda": "^0.25.0",
-    "webpack": "^3.6.0",
+    "webpack": "^3.10.0",
     "webpack-node-externals": "^1.6.0"
   },
   "peerDependencies": {

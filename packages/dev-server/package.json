@@ -23,8 +23,8 @@
   "dependencies": {
     "deepmerge": "^1.5.2",
     "opn": "^5.1.0",
-    "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.9.4"
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.9.7"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"
