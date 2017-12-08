@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/fork",
-  "version": "8.0.1",
+  "version": "8.0.2",
   "description": "Neutrino middleware for forking the usage of other middleware into separate processes",
   "main": "index.js",
   "keywords": [
