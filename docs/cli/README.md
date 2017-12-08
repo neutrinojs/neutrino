@@ -38,7 +38,7 @@ Using `--version` will output the current version of the Neutrino CLI to the con
 
 ```bash
 ❯ neutrino --version
-7.0.0
+8.0.0
 ```
 
 ## `--use`

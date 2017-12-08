@@ -24,7 +24,7 @@
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v7
+- Neutrino v8
 
 ## Installation
 

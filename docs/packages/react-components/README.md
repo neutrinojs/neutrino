@@ -33,7 +33,7 @@ polyfills in your library code, consider importing babel-polyfill, core-js, or o
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v7
+- Neutrino v8
 - React, React DOM
 
 ## Installation
