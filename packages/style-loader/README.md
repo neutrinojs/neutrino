@@ -52,6 +52,7 @@ neutrino.use(styles);
 neutrino.use(styles, {
   style: {},
   css: {},
+  loaders: [],
   test: /\.css$/,
   ruleId: 'style',
   styleUseId: 'style',
@@ -83,6 +84,7 @@ module.exports = {
     ['@neutrinojs/style-loader', {
       style: {},
       css: {},
+      loaders: [],
       test: /\.css$/,
       ruleId: 'style',
       styleUseId: 'style',
@@ -104,6 +106,7 @@ module.exports = {
 
 - `style`: Set options for the style-loader used when loading CSS files.
 - `css`: Set options for the css-loader used when loading CSS files.
+- `loaders`: Provide an array of custom loaders used when loading stylesheets
 - `test`: File extensions which support stylesheets
 - `ruleId`: The ID of the webpack-chain rule used to identify the stylesheet loaders
 - `styleUseId`: The ID of the webpack-chain `use` used to identify the style-loader
@@ -118,6 +121,62 @@ modules-related rules. For example, the default `-modules` suffix will generate 
 - `extractId`: The ID of the webpack-chain plugin used to identify the `ExtractTextPlugin`
 - `extract`: Options relating to the `ExtractTextPlugin` instance. Override `extract.plugin` to override plugin options.
 Override `extract.loader` to override the loader options. Set to `false` to disable stylesheet extraction.
+
+## Custom Loaders
+
+You may wish to perform custom loading on your stylesheets by using SASS, LESS, postcss, and more. You can do this
+by providing an array of custom loaders to the `loaders` options to this middleware. Each item in the `loaders` array
+corresponds to a webpack loader to use, and can be defined as an object  or as a string.
+
+Using an object to define loaders is preferred since it allows options to be overridable in the future, and
+by other consuming middleware. Each loader object can specify 3 properties:
+
+- `loader`: A string referencing the path to the loader to use, e.g. `sass-loader` or `require.resolve('less-loader')`.
+- `options`: An object specifying any options needed by the loader.
+- `useId`: A string identified for the loader, used to reference the loader in the future for overrides or customization by other middleware.
+
+Using a string to define loaders will cause `@neutrinojs/style-loader` to still generate a loader object. The string
+will be used as the `loader` property, `options` will be left blank, and the `useId` will be derived from
+`cssUseId` option above plus the index of this loader within the `loaders` array.
+
+**Important: The `useId` for string-defined loaders will start at `2`, since all loaders are preceded by the included
+`style-loader` and `css-loader`.**
+
+```js
+module.exports = {
+  use: ['@neutrinojs/style-loader', {
+    loaders: [
+      // Define loaders as objects
+      {
+        loader: 'sass-loader',
+        useId: 'sass',
+        options: {
+          includePaths: ['absolute/path/a', 'absolute/path/b']
+        }
+      }  
+    ]
+  }]
+}
+```
+
+```js
+module.exports = {
+  use: ['@neutrinojs/style-loader', {
+    loaders: [
+      // Define loaders as strings
+      // This will cause this middleware to generate a
+      // loader with a useId of `css-2`.
+      'sass-loader'
+      
+      // Adding any other loaders will increment the useId
+      // to `css-3`, `css-4`, etc.
+    ]
+  }]
+}
+```
+
+Due to the inferred loader names, we highly recommend you stick to using objects
+to define loaders.
 
 ## Customization
 
