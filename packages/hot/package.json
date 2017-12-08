@@ -20,7 +20,7 @@
     "access": "public"
   },
   "dependencies": {
-    "webpack": "^3.6.0"
+    "webpack": "^3.10.0"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"
