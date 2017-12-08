@@ -19,7 +19,7 @@
     "access": "public"
   },
   "dependencies": {
-    "deepmerge": "^1.5.2"
+    "deepmerge": "^2.0.0"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"

@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "babel-eslint": "^8.0.3",
-    "deepmerge": "^1.5.2",
+    "deepmerge": "^2.0.0",
     "eslint": "^4.12.1",
     "eslint-loader": "^1.9.0",
     "eslint-plugin-babel": "^4.1.2",

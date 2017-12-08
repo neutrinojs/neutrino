@@ -20,7 +20,7 @@
     "webpack-sources": "1.0.1"
   },
   "dependencies": {
-    "deepmerge": "^1.5.2",
+    "deepmerge": "^2.0.0",
     "webpack": "^3.10.0",
     "webpack-sources": "1.0.1"
   },

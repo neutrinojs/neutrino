@@ -22,7 +22,7 @@
   "dependencies": {
     "@neutrinojs/loader-merge": "^8.0.8",
     "babel-plugin-istanbul": "^4.1.5",
-    "deepmerge": "^1.5.2",
+    "deepmerge": "^2.0.0",
     "karma": "^1.7.1",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.1",

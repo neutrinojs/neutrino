@@ -17,7 +17,7 @@
     "access": "public"
   },
   "dependencies": {
-    "deepmerge": "^1.5.2",
+    "deepmerge": "^2.0.0",
     "html-loader": "^0.5.1"
   },
   "peerDependencies": {

@@ -21,7 +21,7 @@
     "access": "public"
   },
   "dependencies": {
-    "deepmerge": "^1.5.2",
+    "deepmerge": "^2.0.0",
     "offline-plugin": "^4.8.5"
   },
   "peerDependencies": {

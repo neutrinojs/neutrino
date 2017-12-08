@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@neutrinojs/eslint": "^8.0.8",
-    "deepmerge": "^1.5.2",
+    "deepmerge": "^2.0.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-config-standard-jsx": "^4.0.2",
     "eslint-plugin-import": "^2.8.0",
