@@ -22,7 +22,7 @@
     "@neutrinojs/babel-minify": "^8.0.8",
     "@neutrinojs/image-minify": "^8.0.8",
     "@neutrinojs/style-minify": "^8.0.8",
-    "deepmerge": "^1.5.2"
+    "deepmerge": "^2.0.0"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"

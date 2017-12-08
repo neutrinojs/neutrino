@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "copy-webpack-plugin": "^4.2.3",
-    "deepmerge": "^1.5.2"
+    "deepmerge": "^2.0.0"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"
