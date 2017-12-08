@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/image-minify",
-  "version": "8.0.7",
+  "version": "8.0.8",
   "description": "Neutrino middleware for optimizing images with imagemin",
   "main": "index.js",
   "keywords": [

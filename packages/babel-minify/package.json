@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/babel-minify",
-  "version": "8.0.7",
+  "version": "8.0.8",
   "description": "Neutrino middleware for minifying source code",
   "main": "index.js",
   "keywords": [
@@ -21,7 +21,7 @@
     "access": "public"
   },
   "dependencies": {
-    "babel-minify-webpack-plugin": "^0.2.0"
+    "@neutrinojs/babel-minify-webpack-plugin": "^0.2.0"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"
