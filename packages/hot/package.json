@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/hot",
-  "version": "8.0.4",
+  "version": "8.0.5",
   "description": "Neutrino middleware for plugging Hot Module Replacement",
   "main": "index.js",
   "keywords": [

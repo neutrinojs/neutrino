@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/banner",
-  "version": "8.0.4",
+  "version": "8.0.5",
   "description": "Neutrino middleware for injecting a banner into bundled files",
   "main": "index.js",
   "keywords": [
