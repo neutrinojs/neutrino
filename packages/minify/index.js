@@ -14,4 +14,4 @@ module.exports = (neutrino, opts = {}) => {
     .when(options.babel, () => neutrino.use(babelMinify, options.babel))
     .when(options.image, () => neutrino.use(imageMinify, options.image))
     .when(options.style, () => neutrino.use(styleMinify, options.style));
-}
+};
