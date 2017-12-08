@@ -86,15 +86,27 @@ class Api {
           return;
         }
 
+        const value = newOptions[key];
+
         if (paths.includes(key)) {
-          options[key] = newOptions[key];
+          options[key] = value;
           return;
         }
 
-        if (!options[key]) {
-          options[key] = newOptions[key];
-        } else {
+        // Only merge values if there is an existing value to merge with,
+        // and if the value types match, and if the value types are both
+        // objects or both arrays. Otherwise just replace the old value
+        // with the new value.
+        if (
+          options[key] &&
+          (
+            is(Object, options[key]) && is(Object, value) ||
+            is(Array, options[key]) && is(Array, value)
+          )
+        ) {
           options[key] = merge(options[key], newOptions[key]);
+        } else {
+          options[key] = newOptions[key];
         }
       });
 

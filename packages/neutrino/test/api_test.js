@@ -19,6 +19,18 @@ test('initialization stores options', t => {
   t.is(api.options.gamma, options.gamma);
 });
 
+test('merges custom primitive option properties', t => {
+  const options = { alpha: 'a', beta: {}, gamma: 4, delta: [] };
+  const api = Neutrino(options);
+
+  api.options = api.mergeOptions(api.options, { alpha: 'd', beta: 3, gamma: /.*/, delta: true });
+
+  t.is(api.options.alpha, 'd');
+  t.is(api.options.beta, 3);
+  t.deepEqual(api.options.gamma, /.*/);
+  t.is(api.options.delta, true);
+});
+
 test('options.root', t => {
   const api = Neutrino();
 
