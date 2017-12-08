@@ -12,7 +12,7 @@ use) available inside your project. Always injects `process.env.NODE_ENV`, unles
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v7
+- Neutrino v8
 
 ## Installation
 
