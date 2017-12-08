@@ -3,14 +3,9 @@
   "packages": [
     "packages/*"
   ],
-  "version": "7.3.2",
+  "version": "8.0.4",
   "gitRemote": "upstream",
   "npmClient": "yarn",
   "registry": "https://registry.npmjs.org/",
-  "useWorkspaces": true,
-  "command": {
-    "publish": {
-      "allowBranch": "release/v*"
-    }
-  }
+  "useWorkspaces": true
 }

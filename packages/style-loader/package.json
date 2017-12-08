@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/style-loader",
-  "version": "7.3.2",
+  "version": "8.0.4",
   "description": "Neutrino middleware for importing and loading stylesheets from modules",
   "main": "index.js",
   "keywords": [
