@@ -24,7 +24,7 @@
     "deepmerge": "^1.5.2",
     "html-webpack-plugin": "^2.30.1",
     "html-webpack-template": "^6.1.0",
-    "webpack-sources": "1.0.1"
+    "webpack-sources": "1.1.0"
   },
   "devDependencies": {
     "webpack": "^3.10.0"
