@@ -1,0 +1,23 @@
+{
+  "name": "@neutrinojs/webextension",
+  "version": "7.3.2",
+  "description": "Neutrino preset for building WebExtensions",
+  "main": "index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-preset",
+    "web-extension"
+  ],
+  "author": "Hassan Ali <helfi92@gmail.com>",
+  "license": "MPL-2.0",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/webextension",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "dependencies": {
+    "@neutrinojs/web": "^7.3.2",
+    "web-ext": "^2.2.2"
+  },
+  "peerDependencies": {
+    "neutrino": "^8.0.0"
+  }
+}
