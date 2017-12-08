@@ -56,18 +56,21 @@ module.exports = (neutrino, opts = {}) => {
 
   rules.forEach(options => {
     const styleRule = neutrino.config.module.rule(options.ruleId);
-    const loaders = [{
-      loader: require.resolve('style-loader'),
-      options: options.style,
-      useId: options.styleUseId
-    },
-    {
-      loader: require.resolve('css-loader'),
-      options: Object.assign(options.css, {
-        importLoaders: options.css.importLoaders + options.loaders.length
-      }),
-      useId: options.cssUseId
-    }, ...options.loaders]
+    const loaders = [
+      {
+        loader: require.resolve('style-loader'),
+        options: options.style,
+        useId: options.styleUseId
+      },
+      {
+        loader: require.resolve('css-loader'),
+        options: Object.assign(options.css, {
+          importLoaders: options.css.importLoaders + options.loaders.length
+        }),
+        useId: options.cssUseId
+      },
+      ...options.loaders
+    ]
     .map((loader, index) => {
       const obj = typeof loader === 'object' ? loader : { loader };
 
