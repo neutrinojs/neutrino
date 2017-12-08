@@ -21,7 +21,7 @@
     "access": "public"
   },
   "dependencies": {
-    "babili-webpack-plugin": "^0.1.2"
+    "babel-minify-webpack-plugin": "^0.2.0"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"
