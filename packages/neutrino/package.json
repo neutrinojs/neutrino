@@ -28,7 +28,6 @@
     "immutable": "^3.8.1",
     "immutable-ext": "^1.1.2",
     "javascript-stringify": "^1.6.0",
-    "lodash.debounce": "^4.0.8",
     "mitt": "^1.1.2",
     "ora": "^1.2.0",
     "ramda": "^0.25.0",
