@@ -32,7 +32,7 @@ module.exports = (neutrino, opts = {}) => {
         ...(
           process.env.NODE_ENV === 'development'
             ? [
-              ...(options.hot ? [require.resolve('react-hot-loader/babel')] : null),
+              ...(options.hot ? [require.resolve('react-hot-loader/babel')] : []),
               [require.resolve('babel-plugin-transform-class-properties'), { spec: true }],
               require.resolve('babel-plugin-transform-es2015-classes')
             ]
