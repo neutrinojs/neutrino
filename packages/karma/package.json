@@ -33,7 +33,7 @@
     "mocha-coverage-reporter": "^0.0.1",
     "ramda": "^0.25.0",
     "webpack": "^3.10.0",
-    "webpack-sources": "1.0.1"
+    "webpack-sources": "1.1.0"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"

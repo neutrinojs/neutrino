@@ -28,7 +28,7 @@
     "opn": "^5.1.0",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.7",
-    "webpack-sources": "1.0.1"
+    "webpack-sources": "1.1.0"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"
