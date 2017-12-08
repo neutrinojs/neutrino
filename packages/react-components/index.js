@@ -52,15 +52,7 @@ module.exports = (neutrino, opts = {}) => {
       const hasSourceMap = (pkg.dependencies && 'source-map-support' in pkg.dependencies) ||
         (pkg.devDependencies && 'source-map-support' in pkg.devDependencies);
 
-      neutrino.use(react, merge(options, {
-        minify: {
-          babel: {
-            plugin: {
-              sourceMap: null
-            }
-          }
-        }
-      }));
+      neutrino.use(react, options);
 
       Object
         .keys(neutrino.options.mains)

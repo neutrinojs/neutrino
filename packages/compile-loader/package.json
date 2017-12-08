@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/compile-loader",
-  "version": "8.0.6",
+  "version": "8.0.7",
   "description": "Neutrino middleware for compiling JavaScript using Babel configuration",
   "main": "index.js",
   "keywords": [
@@ -24,7 +24,8 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-merge": "^1.1.0",
-    "deepmerge": "^1.5.2"
+    "deepmerge": "^1.5.2",
+    "webpack-sources": "1.0.1"
   },
   "devDependencies": {
     "webpack": "^3.10.0"

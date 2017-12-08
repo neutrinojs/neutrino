@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/html-template",
-  "version": "8.0.6",
+  "version": "8.0.7",
   "description": "Neutrino middleware for automatic HTML file generation from metadata",
   "main": "index.js",
   "keywords": [
@@ -23,7 +23,8 @@
   "dependencies": {
     "deepmerge": "^1.5.2",
     "html-webpack-plugin": "^2.30.1",
-    "html-webpack-template": "^6.1.0"
+    "html-webpack-template": "^6.1.0",
+    "webpack-sources": "1.0.1"
   },
   "devDependencies": {
     "webpack": "^3.10.0"

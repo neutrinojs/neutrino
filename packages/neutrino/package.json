@@ -1,6 +1,6 @@
 {
   "name": "neutrino",
-  "version": "8.0.6",
+  "version": "8.0.7",
   "description": "Create and build JS applications with managed configurations",
   "main": "src/index.js",
   "bin": {
@@ -37,6 +37,7 @@
     "webpack": "^3.10.0",
     "webpack-chain": "^4.5.0",
     "webpack-dev-server": "^2.9.7",
+    "webpack-sources": "1.0.1",
     "yargs": "^10.0.0"
   }
 }

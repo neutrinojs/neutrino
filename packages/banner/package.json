@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/banner",
-  "version": "8.0.6",
+  "version": "8.0.7",
   "description": "Neutrino middleware for injecting a banner into bundled files",
   "main": "index.js",
   "keywords": [
@@ -16,9 +16,13 @@
   "publishConfig": {
     "access": "public"
   },
+  "resolutions": {
+    "webpack-sources": "1.0.1"
+  },
   "dependencies": {
     "deepmerge": "^1.5.2",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "webpack-sources": "1.0.1"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"

@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/dev-server",
-  "version": "8.0.6",
+  "version": "8.0.7",
   "description": "Neutrino middleware for starting a webpack-dev-server",
   "main": "index.js",
   "keywords": [
@@ -27,7 +27,8 @@
     "deepmerge": "^1.5.2",
     "opn": "^5.1.0",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.9.7"
+    "webpack-dev-server": "^2.9.7",
+    "webpack-sources": "1.0.1"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"
