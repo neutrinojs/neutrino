@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/chunk",
-  "version": "8.0.5",
+  "version": "8.0.6",
   "description": "Neutrino middleware for chunking bundle assets",
   "main": "index.js",
   "keywords": [
@@ -15,6 +15,9 @@
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "publishConfig": {
     "access": "public"
+  },
+  "resolutions": {
+    "webpack-sources": "1.0.1"
   },
   "dependencies": {
     "name-all-modules-plugin": "^1.0.1",

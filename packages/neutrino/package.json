@@ -1,6 +1,6 @@
 {
   "name": "neutrino",
-  "version": "8.0.5",
+  "version": "8.0.6",
   "description": "Create and build JS applications with managed configurations",
   "main": "src/index.js",
   "bin": {
@@ -20,6 +20,9 @@
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "scripts": {
     "test": "ava test"
+  },
+  "resolutions": {
+    "webpack-sources": "1.0.1"
   },
   "dependencies": {
     "deep-sort-object": "^1.0.2",
