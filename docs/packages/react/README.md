@@ -13,7 +13,7 @@
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
 - Automatic import of `React.createElement`, no need to import `react` or `React.createElement` yourself
-- Extends from [@neutrinojs/web](../@neutrinojs/web/README.md)
+- Extends from [@neutrinojs/web](../../packages/web/README.md)
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
   - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
   - webpack Dev Server during development
@@ -157,9 +157,9 @@ are comfortable customizing your build.
 You can provide custom options and have them merged with this preset's default options to easily affect how this
 preset builds. You can modify React preset settings from `.neutrinorc.js` by overriding with an options object. Use
 an array pair instead of a string to supply these options in `.neutrinorc.js`.
-
+http://localhost:4000/packages/web/#customizing
 The following shows how you can pass an options object to the React preset and override its options. See the
-[Web documentation](../@neutrinojs/web#preset-options) for specific options you can override with this object.
+[Web documentation](../../packages/web#preset-options) for specific options you can override with this object.
 
 ```js
 module.exports = {
@@ -203,7 +203,7 @@ module.exports = {
 
 To override the build configuration, start with the documentation on [customization](../../customization/README.md).
 `@neutrinojs/react` does not use any additional named rules, loaders, or plugins that aren't already in use by the
-Web preset. See the [Web documentation customization](../@neutrinojs/web#customizing)
+Web preset. See the [Web documentation customization](../../packages/web#customizing)
 for preset-specific configuration to override.
 
 For details on merging and overriding Babel configuration, such as supporting decorator syntax, read more
