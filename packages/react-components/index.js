@@ -68,6 +68,7 @@ module.exports = (neutrino, opts = {}) => {
           .hints('error')
           .end()
         .output
+          .path(neutrino.options.output)
           .filename('[name].js')
           .library('[name]')
           .libraryTarget('umd')
