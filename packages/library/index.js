@@ -84,6 +84,7 @@ module.exports = (neutrino, opts = {}) => {
     .target(options.target)
     .context(neutrino.options.root)
     .output
+      .path(neutrino.options.output)
       .library(options.name)
       .filename('[name].js')
       .libraryTarget(options.libraryTarget)
