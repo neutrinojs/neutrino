@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/vue",
-  "version": "8.0.8",
+  "version": "8.0.9",
   "description": "Neutrino preset adding Vue.js support.",
   "main": "src/index.js",
   "author": "Capi Etheriel <barraponto@gmail.com> (https://barraponto.blog.br)",
@@ -16,8 +16,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@neutrinojs/loader-merge": "^8.0.8",
-    "@neutrinojs/web": "^8.0.8",
+    "@neutrinojs/loader-merge": "^8.0.9",
+    "@neutrinojs/web": "^8.0.9",
     "babel-preset-vue": "^2.0.0",
     "deepmerge": "^1.5.2",
     "eslint-plugin-vue": "^4.0.0-beta.2",

@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/minify",
-  "version": "8.0.8",
+  "version": "8.0.9",
   "description": "Neutrino middleware for minifying assets",
   "main": "index.js",
   "keywords": [
@@ -19,9 +19,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@neutrinojs/babel-minify": "^8.0.8",
-    "@neutrinojs/image-minify": "^8.0.8",
-    "@neutrinojs/style-minify": "^8.0.8",
+    "@neutrinojs/babel-minify": "^8.0.9",
+    "@neutrinojs/image-minify": "^8.0.9",
+    "@neutrinojs/style-minify": "^8.0.9",
     "deepmerge": "^1.5.2"
   },
   "peerDependencies": {
