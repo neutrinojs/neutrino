@@ -26,12 +26,3 @@ community, file an issue or submit a pull request.
 
 * [Bootstrap a Zero Configuration React App with Neutrino](https://egghead.io/lessons/react-bootstrap-a-zero-configuration-react-app-with-neutrino) by [@markshust](https://twitter.com/markshust)
 * [Empower and Simplify JavaScript Development](https://www.youtube.com/watch?v=fz5jMdmKmRI) by [@eliperelman](https://twitter.com/eliperelman) at [@nebraskajs](http://nebraskajs.com)
-
-## Starter Kit Repositories
-
-* [mozilla-neutrino/node-starter](https://github.com/mozilla-neutrino/node-starter)
-* [mozilla-neutrino/express-starter](https://github.com/mozilla-neutrino/express-starter)
-* [mozilla-neutrino/react-starter](https://github.com/mozilla-neutrino/react-starter)
-* [mozilla-neutrino/react-router-starter](https://github.com/mozilla-neutrino/react-router-starter)
-* [mozilla-neutrino/web-starter](https://github.com/mozilla-neutrino/web-starter)
-* [jerolimov/feathers-starter](https://github.com/jerolimov/feathers-starter)
