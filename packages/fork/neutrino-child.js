@@ -40,7 +40,7 @@ process.on('message', ([rawMiddleware, args]) => {
     middleware.use.push(({ config }) => config.merge(args.options.config));
   }
 
-  const api = runnable(command, middleware, args);
+  const api = runnable(command, [middleware], args);
 
   api.on('*', (type, ...args) => {
     process.send([type, args]);
