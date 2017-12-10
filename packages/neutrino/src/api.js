@@ -267,9 +267,8 @@ class Api {
   // run :: String commandName -> Future
   run(commandName) {
     const emitForAll = this.emitForAll.bind(this);
-    const command = this.commands[commandName];
 
-    return Future((reject, resolve) => (command ?
+    return Future((reject, resolve) => (this.commands[commandName] ?
       resolve() :
       reject(new Error(`A command with the name "${commandName}" was not registered`))
     ))
@@ -279,7 +278,7 @@ class Api {
     .chain(() => Future.encaseP2(emitForAll, 'prerun', this.options.args))
     // Execute the command
     .chain(() => {
-      const result = command(this.config.toConfig(), this);
+      const result = this.commands[commandName](this.config.toConfig(), this);
 
       return Future.isFuture(result) ?
         result :
