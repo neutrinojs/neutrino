@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/preact",
-  "version": "8.0.9",
+  "version": "8.0.10",
   "description": "Neutrino preset for building Preact web applications",
   "main": "index.js",
   "keywords": [
@@ -19,9 +19,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@neutrinojs/compile-loader": "^8.0.9",
-    "@neutrinojs/loader-merge": "^8.0.9",
-    "@neutrinojs/web": "^8.0.9",
+    "@neutrinojs/compile-loader": "^8.0.10",
+    "@neutrinojs/loader-merge": "^8.0.10",
+    "@neutrinojs/web": "^8.0.10",
     "babel-plugin-jsx-pragmatic": "^1.0.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-classes": "^6.24.1",
