@@ -111,20 +111,22 @@ module.exports = (neutrino, opts = {}) => {
     babel: options.babel
   });
 
-  Object
-    .keys(neutrino.options.mains)
-    .forEach(key => {
-      neutrino.config.entry(key).add(neutrino.options.mains[key]);
-      neutrino.use(htmlTemplate, merge({
-        pluginId: `html-${key}`,
-        filename: `${key}.html`,
-        // When using the chunk middleware, the names in use by default there
-        // need to be kept in sync with the additional values used here
-        chunks: [key, 'vendor', 'runtime']
-      }, options.html));
-    });
 
   neutrino.config
+    .when(options.html, config => {
+      Object
+        .keys(neutrino.options.mains)
+        .forEach(key => {
+          config.entry(key).add(neutrino.options.mains[key]);
+          neutrino.use(htmlTemplate, merge({
+            pluginId: `html-${key}`,
+            filename: `${key}.html`,
+            // When using the chunk middleware, the names in use by default there
+            // need to be kept in sync with the additional values used here
+            chunks: [key, 'vendor', 'runtime']
+          }, options.html));
+        });
+    })
     .when(options.style, () => neutrino.use(styleLoader, options.style))
     .when(options.font, () => neutrino.use(fontLoader, options.font))
     .when(options.image, () => neutrino.use(imageLoader, options.image))
