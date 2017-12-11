@@ -241,8 +241,15 @@ module.exports = {
 
       // Example: Remove console and debugger from output
       minify: {
-        removeConsole: true,
-        removeDebugger: true,
+        babel: {
+          removeConsole: true,
+          removeDebugger: true,
+        }
+      },
+
+      // Example: Use a .browserslistrc file with babel-env
+      targets: {
+        browsers: require('browserslist')()
       },
 
       // Remove the contents of the output directory prior to building.
