@@ -1,3 +1,5 @@
+const commandExists = require('command-exists');
+
 const LINTING = 'linting';
 const PROJECT = 'project';
 const TESTING = 'testing';
@@ -91,7 +93,7 @@ const packages = {
   STANDARDJS
 };
 
-const isYarn = process.env.npm_config_user_agent && process.env.npm_config_user_agent.includes('yarn');
+const isYarn = commandExists.sync('yarnpkg');
 
 module.exports = {
   packages,
