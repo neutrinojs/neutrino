@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/jest",
-  "version": "8.0.10",
+  "version": "8.0.11",
   "description": "Neutrino preset for testing Neutrino projects with Jest",
   "main": "src/index.js",
   "keywords": [
@@ -17,7 +17,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@neutrinojs/loader-merge": "^8.0.10",
+    "@neutrinojs/loader-merge": "^8.0.11",
     "babel-core": "^6.26.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "babel-preset-jest": "^21.0.2",
