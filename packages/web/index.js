@@ -75,9 +75,9 @@ module.exports = (neutrino, opts = {}) => {
   }
 
   Object.assign(options, {
-    style: options.style && merge({
+    style: options.style && merge(options.style, {
       extract: options.style.extract === true ? {} : options.style.extract
-    }, options.style),
+    }),
     minify: options.minify && merge(options.minify, {
       babel: options.minify.babel === true ? {} : options.minify.babel,
       style: options.minify.style === true ? {} : options.minify.style,
