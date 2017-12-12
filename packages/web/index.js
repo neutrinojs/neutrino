@@ -21,7 +21,7 @@ const { optimize } = require('webpack');
 const MODULES = join(__dirname, 'node_modules');
 
 module.exports = (neutrino, opts = {}) => {
-  const publicPath = './';
+  const publicPath = opts.publicPath || './';
   const options = merge({
     publicPath,
     env: [],
