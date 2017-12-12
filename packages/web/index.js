@@ -44,7 +44,7 @@ module.exports = (neutrino, opts = {}) => {
     clean: opts.clean !== false && {
       paths: [neutrino.options.output]
     },
-    minify: process.env.NODE_ENV === 'production' && {
+    minify: {
       babel: {},
       style: {},
       image: false
@@ -209,10 +209,10 @@ module.exports = (neutrino, opts = {}) => {
       neutrino.use(chunk);
 
       config
+        .when(options.minify, () => neutrino.use(minify, options.minify))
         .plugin('module-concat')
           .use(optimize.ModuleConcatenationPlugin);
     })
-    .when(options.minify, () => neutrino.use(minify, options.minify))
     .when(neutrino.options.command === 'build', (config) => {
       config.when(options.clean, () => neutrino.use(clean, options.clean));
       neutrino.use(copy, {
