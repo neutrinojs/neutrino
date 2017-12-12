@@ -38,7 +38,7 @@ module.exports = (neutrino, opts = {}) => {
     style: {
       hot: opts.hot !== false,
       extract: (opts.style && opts.style.extract) ||
-        (process.env.NODE_ENV === 'production' && {})
+        (neutrino.options.command === 'build' && {})
     },
     manifest: opts.html === false ? {} : false,
     clean: opts.clean !== false && {
