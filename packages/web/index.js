@@ -44,7 +44,7 @@ module.exports = (neutrino, opts = {}) => {
     clean: opts.clean !== false && {
       paths: [neutrino.options.output]
     },
-    minify: {
+    minify: process.env.NODE_ENV === 'production' && {
       babel: {},
       style: {},
       image: false
@@ -76,11 +76,14 @@ module.exports = (neutrino, opts = {}) => {
   }
 
   Object.assign(options, {
-    minify: {
+    style: options.style && merge({
+      extract: options.style.extract === true ? {} : options.style.extract
+    }, options.style),
+    minify: options.minify && merge(options.minify, {
       babel: options.minify.babel === true ? {} : options.minify.babel,
       style: options.minify.style === true ? {} : options.minify.style,
       image: options.minify.image === true ? {} : options.minify.image
-    },
+    }),
     babel: compileLoader.merge({
       plugins: [
         ...(options.polyfills.async ? [[require.resolve('fast-async'), { spec: true }]] : []),
@@ -206,10 +209,10 @@ module.exports = (neutrino, opts = {}) => {
       neutrino.use(chunk);
 
       config
-        .when(options.minify, () => neutrino.use(minify, options.minify))
         .plugin('module-concat')
           .use(optimize.ModuleConcatenationPlugin);
     })
+    .when(options.minify, () => neutrino.use(minify, options.minify))
     .when(neutrino.options.command === 'build', (config) => {
       config.when(options.clean, () => neutrino.use(clean, options.clean));
       neutrino.use(copy, {
