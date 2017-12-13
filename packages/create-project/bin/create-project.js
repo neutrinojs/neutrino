@@ -11,6 +11,7 @@ const dir = resolve(__dirname, '../commands/init');
 env.register(require.resolve(dir), 'create-project');
 
 const cli = yargs.command('<project-directory>')
+  .option('debug', { describe: 'Run in debug mode' })
   .demandCommand(1, 'Only <project-directory> is required')
   .help()
   .argv;
