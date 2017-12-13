@@ -14,7 +14,7 @@
 * [Creating presets](./creating-presets.md)
 * [Migration Guide](./migration-guide.md)
 * [Presets](./presets/README.md)
-  * [Community presets](./packages/community-presets.md)
+  * [Community presets](./presets/community-presets.md)
 * [Middleware](./middleware/README.md)
   * [Community middleware](./middleware/community-middleware.md)
 * [Packages](./packages/README.md)
