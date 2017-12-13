@@ -11,9 +11,10 @@ const dir = resolve(__dirname, '../commands/init');
 env.register(require.resolve(dir), 'create-project');
 
 const cli = yargs.command('<project-directory>')
-  .option('debug', { describe: 'Run in debug mode' })
+  .option('debug', { description: 'Run in debug mode' })
   .demandCommand(1, 'Only <project-directory> is required')
   .help()
+  .wrap(null)
   .argv;
 const directory = isAbsolute(cli._[0]) ? cli._[0] : join(process.cwd(), cli._[0]);
 const name = basename(directory);
