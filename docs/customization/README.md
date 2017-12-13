@@ -169,9 +169,16 @@ Instead, it is _always recommended_ to pass an `options` object to ensure proper
 // Paths will not be relative to `neutrino.options.root` as expected.
 module.exports = neutrino => {
   Object.assign(neutrino.options, {
-    source: 'lib'
+    source: 'lib',
+    output: 'dist'
   });
+}
+```
 
+```js
+// Good: Using function format, setting `neutrino.options.*` properties directly.
+module.exports = neutrino => {
+  neutrino.options.source = 'lib';
   neutrino.options.output = 'dist';
 }
 ```
