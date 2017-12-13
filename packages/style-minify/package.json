@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/style-minify",
-  "version": "8.0.11",
+  "version": "8.0.12",
   "description": "Neutrino middleware for minifying styles",
   "main": "index.js",
   "keywords": [
