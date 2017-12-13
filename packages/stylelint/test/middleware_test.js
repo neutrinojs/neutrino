@@ -2,7 +2,7 @@ import test from 'ava';
 import { Neutrino } from 'neutrino';
 
 const mw = () => require('..');
-const options = { eslint: { rules: { semi: false } } };
+const options = { stylelint: { rules: { 'rule-empty-line-before': true } } };
 
 test('loads middleware', t => {
   t.notThrows(mw);
@@ -32,14 +32,6 @@ test('instantiates with options', t => {
   t.notThrows(() => api.config.toConfig());
 });
 
-test('exposes lint command', t => {
-  const api = Neutrino();
-
-  api.use(mw());
-
-  t.is(typeof api.commands.lint, 'function');
-});
-
-test('exposes eslintrc config', t => {
-  t.is(typeof Neutrino().use(mw()).call('eslintrc'), 'object');
+test('exposes stylelintrc config', t => {
+  t.is(typeof Neutrino().use(mw()).call('stylelintrc'), 'object');
 });
