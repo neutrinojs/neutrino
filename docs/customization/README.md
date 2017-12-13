@@ -17,7 +17,7 @@ by making them as simple as `neutrino start` or `neutrino build`. If you do all 
 ### Middleware formats
 
 Before we delve into making customizations in `.neutrinorc.js`, it's important to note that this file can be in any
-valid [middleware format](../middleware#formats) that Neutrino accepts. For project-based customization, it is
+valid [middleware format](../middleware/README.md#formats) that Neutrino accepts. For project-based customization, it is
 recommended to use the object format, and that will be the format we focus on for the remainder of this guide. Should
 you need a lot of API customization, you may still opt to write your `.neutrinorc.js` file in the function format.
 
@@ -163,7 +163,7 @@ module.exports = {
 
 By specifying a `use` array in your `.neutrinorc.js`, you can inform Neutrino to load additional middleware when it
 runs, including any additional files you wish to include as middleware. Each item in this `use` array can be any
-Neutrino-supported [middleware format](../middleware#formats).
+Neutrino-supported [middleware format](../middleware/README.md#formats).
 
 In its simplest form, each item can be the string module name or path to middleware you wish Neutrino to require and
 use for you:
