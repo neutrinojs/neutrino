@@ -24,35 +24,28 @@ module.exports = (neutrino, opts = {}) => {
       }
     }
   }, opts);
-
-  Object.assign(options, {
-    test: (input) => {
-      const isCssModule = options.modulesTest.test(input);
-      const isRegularCss = options.test.test(input);
-
-      if (options.modules !== false && isCssModule) {
-        return false;
-      }
-
-      return isRegularCss;
-    }
-  });
-
-  const rules = [options];
+  const rules = [];
 
   if (options.modules) {
-    rules.push(merge(options, {
-      test: options.modulesTest,
-      ruleId: `${options.ruleId}${options.modulesSuffix}`,
-      styleUseId: `${options.styleUseId}${options.modulesSuffix}`,
-      cssUseId: `${options.cssUseId}${options.modulesSuffix}`,
-      hotUseId: `${options.hotUseId}${options.modulesSuffix}`,
-      extractId: `${options.extractId}${options.modulesSuffix}`,
-      css: {
-        modules: options.modules,
-        importLoaders: 1
-      }
-    }));
+    rules.push(
+      merge(options, {
+        exclude: options.modulesTest
+      }),
+      merge(options, {
+        test: options.modulesTest,
+        ruleId: `${options.ruleId}${options.modulesSuffix}`,
+        styleUseId: `${options.styleUseId}${options.modulesSuffix}`,
+        cssUseId: `${options.cssUseId}${options.modulesSuffix}`,
+        hotUseId: `${options.hotUseId}${options.modulesSuffix}`,
+        extractId: `${options.extractId}${options.modulesSuffix}`,
+        css: {
+          modules: options.modules,
+          importLoaders: 1
+        }
+      })
+    );
+  } else {
+    rules.push(options);
   }
 
   rules.forEach(options => {
@@ -83,6 +76,7 @@ module.exports = (neutrino, opts = {}) => {
     loaders.forEach(loader => {
       styleRule
         .test(options.test)
+        .when(options.exclude, rule => rule.exclude.add(options.exclude))
         .use(loader.useId)
           .loader(loader.loader)
           .when(loader.options, use => use.options(loader.options));
