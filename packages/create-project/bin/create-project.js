@@ -20,5 +20,5 @@ const name = basename(directory);
 env.run('create-project', {
   directory,
   name,
-  stdio: 'ignore'
+  stdio: cli.debug ? 'inherit' : 'ignore'
 }, done);
