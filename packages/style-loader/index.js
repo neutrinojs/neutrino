@@ -2,20 +2,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const merge = require('deepmerge');
 
 module.exports = (neutrino, opts = {}) => {
-  const cssTest = neutrino.regexFromExtensions(['css']);
-  const cssModulesTest = neutrino.regexFromExtensions(['module.css']);
-
   const options = merge({
-    test: (input) => {
-      const isCssModule = cssModulesTest.test(input);
-      const isRegularCss = cssTest.test(input);
-
-      if (opts.modules !== false && isCssModule) {
-        return false;
-      }
-
-      return isRegularCss;
-    },
+    test: neutrino.regexFromExtensions(['css']),
     ruleId: 'style',
     styleUseId: 'style',
     cssUseId: 'css',
@@ -25,7 +13,7 @@ module.exports = (neutrino, opts = {}) => {
     hotUseId: 'hot',
     modules: true,
     modulesSuffix: '-modules',
-    modulesTest: cssModulesTest,
+    modulesTest: neutrino.regexFromExtensions(['module.css']),
     loaders: [],
     extractId: 'extract',
     extract: {
@@ -36,6 +24,19 @@ module.exports = (neutrino, opts = {}) => {
       }
     }
   }, opts);
+
+  Object.assign(options, {
+    test: (input) => {
+      const isCssModule = options.modulesTest.test(input);
+      const isRegularCss = options.test.test(input);
+
+      if (options.modules !== false && isCssModule) {
+        return false;
+      }
+
+      return isRegularCss;
+    }
+  });
 
   const rules = [options];
 
