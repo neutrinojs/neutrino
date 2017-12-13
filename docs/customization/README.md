@@ -159,6 +159,47 @@ module.exports = {
 };
 ```
 
+## Mutating `neutrino.options`
+
+While it is possible to mutate `neutrino.options` directly, this should be avoided.
+Instead, it is _always recommended_ to pass an `options` object to ensure proper normalization.
+
+```js
+// Bad: Using function format, overriding `neutrino.options` properites.
+// Paths will not be relative to `neutrino.options.root` as expected.
+module.exports = neutrino => {
+  Object.assign(neutrino.options, {
+    source: 'lib'
+  });
+
+  neutrino.options.output = 'dist';
+}
+```
+
+```js
+// Good: Use object format w/ `use` array
+module.exports = {
+  options: {
+    source: 'lib',
+    output: 'dist'
+  },
+  use: [/* ... */]
+}
+```
+
+```js
+// Good: Use object format w/ `use` function
+module.exports = {
+  options: {
+    source: 'lib',
+    output: 'dist'
+  },
+  use: neutrino => {
+    neutrino.use(/* ... */);
+  }
+}
+```
+
 ## Using middleware
 
 By specifying a `use` array in your `.neutrinorc.js`, you can inform Neutrino to load additional middleware when it
