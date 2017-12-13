@@ -26,6 +26,7 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-classes": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
     "deepmerge": "^1.5.2",
     "eslint-plugin-react": "^7.5.1"
   },
