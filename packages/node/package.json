@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/node",
-  "version": "8.0.12",
+  "version": "8.0.13",
   "description": "Neutrino preset for building Node.js projects",
   "main": "index.js",
   "keywords": [
@@ -21,12 +21,12 @@
     "webpack-sources": "1.0.1"
   },
   "dependencies": {
-    "@neutrinojs/banner": "^8.0.12",
-    "@neutrinojs/clean": "^8.0.12",
-    "@neutrinojs/compile-loader": "^8.0.12",
-    "@neutrinojs/copy": "^8.0.12",
-    "@neutrinojs/hot": "^8.0.12",
-    "@neutrinojs/start-server": "^8.0.12",
+    "@neutrinojs/banner": "^8.0.13",
+    "@neutrinojs/clean": "^8.0.13",
+    "@neutrinojs/compile-loader": "^8.0.13",
+    "@neutrinojs/copy": "^8.0.13",
+    "@neutrinojs/hot": "^8.0.13",
+    "@neutrinojs/start-server": "^8.0.13",
     "babel-plugin-dynamic-import-node": "^1.2.0",
     "babel-preset-env": "^1.6.0",
     "deepmerge": "^1.5.2",
