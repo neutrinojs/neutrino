@@ -10,6 +10,9 @@
     "stylelint"
   ],
   "author": "Tim Kelty <timkelty@gmail.com>",
+  "contributors": [
+    "Capi Etheriel <barraponto@gmail.com> (https://barraponto.blog.br)"
+  ],
   "license": "MPL-2.0",
   "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/stylelint",
   "homepage": "https://neutrino.js.org",
