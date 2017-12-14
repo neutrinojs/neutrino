@@ -118,7 +118,7 @@ Set the main entry points for the application. If the option is not set, Neutrin
   index: 'index'
 }
 ```
- 
+
 Notice the entry point has no extension; the extension is resolved by webpack. If relative paths are specified,
 they will be computed and resolved relative to `options.source`; absolute paths will be used as-is.
 
@@ -128,13 +128,13 @@ module.exports = {
     mains: {
       // If not specified, defaults to options.source + index
       index: 'index',
-      
+
       // Override to relative, resolves to options.source + entry.*
       index: 'entry',
-    
+
       // Override to absolute path
       index: '/code/website/src/entry.js',
-      
+
       // Add additional main, resolves to options.source + admin.*
       admin: 'admin'
     }
@@ -157,6 +157,54 @@ module.exports = {
     node_modules: '/code/website/modules'
   }
 };
+```
+
+## Mutating `neutrino.options`
+
+While it is possible to mutate `neutrino.options` directly, this should be avoided.
+Instead, it is _always recommended_ to pass an `options` object to ensure proper normalization.
+
+```js
+// Bad: Using function format, overriding `neutrino.options` properites.
+// Paths will not be relative to `neutrino.options.root` as expected.
+module.exports = neutrino => {
+  Object.assign(neutrino.options, {
+    source: 'lib',
+    output: 'dist'
+  });
+}
+```
+
+```js
+// Good: Using function format, setting `neutrino.options.*` properties directly.
+module.exports = neutrino => {
+  neutrino.options.source = 'lib';
+  neutrino.options.output = 'dist';
+}
+```
+
+```js
+// Good: Use object format w/ `use` array
+module.exports = {
+  options: {
+    source: 'lib',
+    output: 'dist'
+  },
+  use: [/* ... */]
+}
+```
+
+```js
+// Good: Use object format w/ `use` function
+module.exports = {
+  options: {
+    source: 'lib',
+    output: 'dist'
+  },
+  use: neutrino => {
+    neutrino.use(/* ... */);
+  }
+}
 ```
 
 ## Using middleware
