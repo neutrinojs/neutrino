@@ -118,7 +118,7 @@ Set the main entry points for the application. If the option is not set, Neutrin
   index: 'index'
 }
 ```
- 
+
 Notice the entry point has no extension; the extension is resolved by webpack. If relative paths are specified,
 they will be computed and resolved relative to `options.source`; absolute paths will be used as-is.
 
@@ -128,13 +128,13 @@ module.exports = {
     mains: {
       // If not specified, defaults to options.source + index
       index: 'index',
-      
+
       // Override to relative, resolves to options.source + entry.*
       index: 'entry',
-    
+
       // Override to absolute path
       index: '/code/website/src/entry.js',
-      
+
       // Add additional main, resolves to options.source + admin.*
       admin: 'admin'
     }
