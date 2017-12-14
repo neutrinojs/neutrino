@@ -211,7 +211,7 @@ module.exports = class Project extends Generator {
     }
 
     this.log('\nNow change your directory to the following to get started:');
-    this.log(`  ${chalk.cyan(relative(process.cwd(), this.options.directory))}`);
+    this.log(`  ${chalk.cyan('cd')} ${chalk.cyan(relative(process.cwd(), this.options.directory))}`);
     this.log(`\n❤️  ${chalk.white.bold('Neutrino')}`);
   }
 };
