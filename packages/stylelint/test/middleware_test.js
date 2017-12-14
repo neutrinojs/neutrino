@@ -33,5 +33,5 @@ test('instantiates with options', t => {
 });
 
 test('exposes stylelintrc config', t => {
-  t.is(typeof Neutrino().use(mw()).call('stylelintrc'), 'object');
+  t.is(typeof Neutrino().use(mw(), options).call('stylelintrc'), 'object');
 });
