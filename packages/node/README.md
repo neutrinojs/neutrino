@@ -277,7 +277,12 @@ module.exports = {
             }
           }]
         ]
-      }
+      },
+
+      // Example: add paths to `resolve.modules`
+      modules: [
+        neutrino.options.source,
+      ]
     }]
   ]
 };

@@ -262,6 +262,11 @@ module.exports = {
       html: {
         title: 'Epic Web App'
       }
+
+      // Example: add paths to `resolve.modules`
+      modules: [
+        neutrino.options.source,
+      ]
     }]
   ]
 };
