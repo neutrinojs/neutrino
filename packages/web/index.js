@@ -19,10 +19,9 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const { optimize } = require('webpack');
 
 const MODULES = join(__dirname, 'node_modules');
-const NEUTRINO_MODULES = join(__dirname, '../../node_modules');
 
 module.exports = (neutrino, opts = {}) => {
-  const publicPath = './';
+  const publicPath = opts.publicPath || './';
   const options = merge({
     publicPath,
     env: [],
@@ -42,7 +41,14 @@ module.exports = (neutrino, opts = {}) => {
         (process.env.NODE_ENV === 'production' && {})
     },
     manifest: opts.html === false ? {} : false,
-    minify: {},
+    clean: opts.clean !== false && {
+      paths: [neutrino.options.output]
+    },
+    minify: {
+      babel: {},
+      style: {},
+      image: false
+    },
     babel: {},
     targets: {},
     font: {},
@@ -70,6 +76,11 @@ module.exports = (neutrino, opts = {}) => {
   }
 
   Object.assign(options, {
+    minify: {
+      babel: options.minify.babel === true ? {} : options.minify.babel,
+      style: options.minify.style === true ? {} : options.minify.style,
+      image: options.minify.image === true ? {} : options.minify.image
+    },
     babel: compileLoader.merge({
       plugins: [
         ...(options.polyfills.async ? [[require.resolve('fast-async'), { spec: true }]] : []),
@@ -102,7 +113,20 @@ module.exports = (neutrino, opts = {}) => {
 
   Object
     .keys(neutrino.options.mains)
-    .forEach(key => neutrino.config.entry(key).add(neutrino.options.mains[key]));
+    .forEach(key => {
+      neutrino.config
+        .entry(key)
+          .add(neutrino.options.mains[key])
+          .when(options.html, () => {
+            neutrino.use(htmlTemplate, merge({
+              pluginId: `html-${key}`,
+              filename: `${key}.html`,
+              // When using the chunk middleware, the names in use by default there
+              // need to be kept in sync with the additional values used here
+              chunks: [key, 'vendor', 'runtime']
+            }, options.html));
+          });
+    });
 
   neutrino.config
     .when(options.style, () => neutrino.use(styleLoader, options.style))
@@ -121,17 +145,23 @@ module.exports = (neutrino, opts = {}) => {
         .add('node_modules')
         .add(neutrino.options.node_modules)
         .add(MODULES)
-        .add(NEUTRINO_MODULES)
+        .when(__dirname.includes('neutrino-dev'), modules => {
+          // Add monorepo node_modules to webpack module resolution
+          modules.add(join(__dirname, '../../node_modules'));
+        })
         .end()
       .extensions
-        .merge(neutrino.options.extensions.map(ext => `.${ext}`))
+        .merge(neutrino.options.extensions.concat('json').map(ext => `.${ext}`))
         .end()
       .end()
     .resolveLoader
       .modules
         .add(neutrino.options.node_modules)
         .add(MODULES)
-        .add(NEUTRINO_MODULES)
+        .when(__dirname.includes('neutrino-dev'), modules => {
+          // Add monorepo node_modules to webpack module resolution
+          modules.add(join(__dirname, '../../node_modules'));
+        })
         .end()
       .end()
     .node
@@ -164,12 +194,6 @@ module.exports = (neutrino, opts = {}) => {
           Object
             .keys(neutrino.options.mains)
             .forEach(key => {
-              neutrino.use(htmlTemplate, merge({
-                pluginId: `html-${key}`,
-                filename: `${key}.html`,
-                chunks: [key, 'vendor', 'runtime']
-              }, options.html));
-
               config
                 .entry(key)
                   .batch(entry => {
@@ -191,7 +215,7 @@ module.exports = (neutrino, opts = {}) => {
           .use(optimize.ModuleConcatenationPlugin);
     })
     .when(neutrino.options.command === 'build', (config) => {
-      neutrino.use(clean, { paths: [neutrino.options.output] });
+      config.when(options.clean, () => neutrino.use(clean, options.clean));
       neutrino.use(copy, {
         patterns: [{
           context: staticDir,

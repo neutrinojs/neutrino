@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/react",
-  "version": "7.3.2",
+  "version": "8.0.13",
   "description": "Neutrino preset for building React web applications",
   "main": "index.js",
   "keywords": [
@@ -15,10 +15,13 @@
   "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/react",
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
-    "@neutrinojs/compile-loader": "^7.3.2",
-    "@neutrinojs/loader-merge": "^7.3.2",
-    "@neutrinojs/web": "^7.3.2",
+    "@neutrinojs/compile-loader": "^8.0.13",
+    "@neutrinojs/loader-merge": "^8.0.13",
+    "@neutrinojs/web": "^8.0.13",
     "babel-plugin-jsx-pragmatic": "^1.0.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-classes": "^6.24.1",
@@ -30,6 +33,6 @@
     "react-hot-loader": "^3.1.3"
   },
   "peerDependencies": {
-    "neutrino": "^7.0.0"
+    "neutrino": "^8.0.0"
   }
 }

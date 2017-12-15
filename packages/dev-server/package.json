@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/dev-server",
-  "version": "7.3.2",
+  "version": "8.0.13",
   "description": "Neutrino middleware for starting a webpack-dev-server",
   "main": "index.js",
   "keywords": [
@@ -17,13 +17,20 @@
   "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/dev-server",
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "publishConfig": {
+    "access": "public"
+  },
+  "resolutions": {
+    "webpack-sources": "1.0.1"
+  },
   "dependencies": {
     "deepmerge": "^1.5.2",
     "opn": "^5.1.0",
-    "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.9.4"
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.9.7",
+    "webpack-sources": "1.0.1"
   },
   "peerDependencies": {
-    "neutrino": "^7.0.0"
+    "neutrino": "^8.0.0"
   }
 }

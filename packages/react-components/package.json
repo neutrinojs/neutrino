@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/react-components",
-  "version": "3.0.0",
+  "version": "8.0.13",
   "description": "Neutrino preset for building sets of React components",
   "main": "index.js",
   "files": [
@@ -11,24 +11,16 @@
   "author": "Eli Perelman <eli@eliperelman.com>",
   "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/react-components",
   "license": "MPL-2.0",
-  "scripts": {
-    "build": "neutrino build --use ./index.js --options.config.performance.hints warning"
-  },
-  "devDependencies": {
-    "react": "^16.0.0",
-    "react-addons-css-transition-group": "^15.6.2",
-    "react-dom": "^16.1.1"
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {
-    "@blueprintjs/core": "^1.31.0",
-    "@neutrinojs/banner": "^7.1.1",
-    "@neutrinojs/react": "^7.1.1",
+    "@neutrinojs/banner": "^8.0.13",
+    "@neutrinojs/react": "^8.0.13",
     "deepmerge": "^1.5.2",
-    "normalize.css": "^7.0.0",
-    "prop-types": "^15.6.0",
     "webpack-node-externals": "^1.6.0"
   },
   "peerDependencies": {
-    "neutrino": "^7.0.0"
+    "neutrino": "^8.0.0"
   }
 }

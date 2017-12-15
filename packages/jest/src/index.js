@@ -8,9 +8,7 @@ const { isAbsolute, basename, join } = require('path');
 const { tmpdir } = require('os');
 const { writeFileSync } = require('fs');
 
-const mediaNames = '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$';
-const styleNames = '\\.(css|less|sass|scss)$';
-const jsNames = '\\.(js|jsx)$';
+const mediaExtensions = ['jpg', 'jpeg', 'png', 'gif', 'eot', 'otf', 'webp', 'svg', 'ttf', 'woff', 'woff2', 'mp4', 'webm', 'wav', 'mp3', 'm4a', 'aac', 'oga'];
 
 function getFinalPath(path) {
   if (isAbsolute(path)) {
@@ -23,6 +21,9 @@ function getFinalPath(path) {
 }
 
 function normalizeJestOptions(opts, neutrino, usingBabel) {
+  const mediaNames = `\\.(${mediaExtensions.join('|')})`;
+  const styleNames = `\\.(${['css', 'less', 'sass', 'scss'].join('|')})`;
+  const jsNames = neutrino.regexFromExtensions(['js', 'jsx']);
   const aliases = neutrino.config.resolve.alias.entries() || {};
   const moduleNames = Object
     .keys(aliases)
@@ -42,6 +43,10 @@ function normalizeJestOptions(opts, neutrino, usingBabel) {
     ...(opts.moduleFileExtensions || []),
     ...neutrino.config.resolve.extensions.values().map(e => e.replace('.', ''))
   ])];
+  const testRegex = join(
+    basename(neutrino.options.tests),
+    `.*(_test|_spec|\\.test|\\.spec)\\.(${neutrino.options.extensions.join('|')})$`
+  );
 
   return merge.all([
     {
@@ -52,13 +57,14 @@ function normalizeJestOptions(opts, neutrino, usingBabel) {
       bail: true,
       coveragePathIgnorePatterns: [neutrino.options.node_modules],
       collectCoverageFrom: [join(basename(neutrino.options.source), '**/*.js')],
-      testRegex: join(basename(neutrino.options.tests), '.*(_test|_spec|\\.test|\\.spec)\\.jsx?$'),
+      testRegex,
       transform: { [jsNames]: require.resolve('./transformer') },
       globals: {
         BABEL_OPTIONS: usingBabel
           ? omit(['cacheDirectory'], neutrino.config.module.rule('compile').use('babel').get('options'))
           : {}
-      }
+      },
+      verbose: neutrino.options.debug
     },
     opts
   ]);
@@ -82,13 +88,11 @@ module.exports = (neutrino, opts = {}) => {
 
     neutrino.config.when(usingBabel, () => {
       neutrino.use(loaderMerge('compile', 'babel'), {
-        env: {
-          test: {
-            retainLines: true,
-            presets: [require.resolve('babel-preset-jest')],
-            plugins: [require.resolve('babel-plugin-transform-es2015-modules-commonjs')]
-          }
-        }
+        retainLines: true,
+        presets: [require.resolve('babel-preset-jest')],
+        plugins: [
+          require.resolve('babel-plugin-transform-es2015-modules-commonjs')
+        ]
       });
     });
 

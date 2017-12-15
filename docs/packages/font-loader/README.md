@@ -1,16 +1,16 @@
 # Neutrino Font Loader Middleware
 
+`@neutrinojs/font-loader` is Neutrino middleware for loading and importing font files from modules.
+
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
 [![Join the Neutrino community on Spectrum][spectrum-image]][spectrum-url]
-
-`@neutrinojs/font-loader` is Neutrino middleware for loading and importing font files from modules.
 
 ## Requirements
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v7
+- Neutrino v8
 
 ## Installation
 

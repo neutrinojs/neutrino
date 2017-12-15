@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/airbnb",
-  "version": "7.3.2",
+  "version": "8.0.13",
   "description": "Neutrino preset for adding Airbnb's JS ESLint config for React, following the Airbnb styleguide",
   "main": "index.js",
   "keywords": [
@@ -14,14 +14,17 @@
   "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/airbnb",
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
-    "@neutrinojs/eslint": "^7.3.2",
+    "@neutrinojs/eslint": "^8.0.13",
     "deepmerge": "^1.5.2",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^6.0.2"
   },
   "peerDependencies": {
-    "neutrino": "^7.0.0"
+    "neutrino": "^8.0.0"
   }
 }

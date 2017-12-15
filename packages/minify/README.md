@@ -1,8 +1,8 @@
 # Neutrino Minify Middleware
 
-`@neutrinojs/minify` is Neutrino middleware for minifying source code using
-[`BabelMinifyWebpackPlugin`](https://www.npmjs.com/package/babel-minify-webpack-plugin). This middleware is usually only
-added during production builds.
+`@neutrinojs/minify` is Neutrino middleware for minifying babel, css, and image assets.
+
+This middleware is usually only added during production builds.
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
@@ -12,7 +12,7 @@ added during production builds.
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v7
+- Neutrino v8
 
 ## Installation
 
@@ -42,10 +42,11 @@ const minify = require('@neutrinojs/minify');
 // Use with default options
 neutrino.use(minify);
 
-// Usage showing overriding minification options
+// Usage showing overriding middleware options
 neutrino.use(minify, {
-  minify: {},
-  plugin: {}
+  babel: {},
+  image: {},
+  style: {}
 });
 ```
 
@@ -57,24 +58,28 @@ module.exports = {
   use: ['@neutrinojs/minify']
 };
 
-// Usage showing overriding minification options
+// Usage showing overriding middleware options
 module.exports = {
   use: [
     ['@neutrinojs/minify', {
-      minify: {},
-      plugin: {}
+      babel: {},
+      image: {},
+      style: {}
     }]
   ]
 };
 ```
 
-The `minify` and `plugin` properties map to the options defined by
-[babel-minify-webpack-plugin](https://github.com/webpack-contrib/babel-minify-webpack-plugin#options).
-
 ## Customization
 
 `@neutrinojs/minify` creates some conventions to make overriding the configuration easier once you are ready to
 make changes.
+
+### Options
+
+- `babel`: Set options for [@neutrinojs/babel-minify](https://neutrino.js.org/packages/babel-minify/README.md).
+- `image`: Set options for [@neutrinojs/image-minify](https://neutrino.js.org/packages/image-minify/README.md).
+- `style`: Set options for [@neutrinojs/style-minify](https://neutrino.js.org/packages/style-minify/README.md).
 
 ### Plugins
 
@@ -82,7 +87,9 @@ The following is a list of plugins and their identifiers which can be overridden
 
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
-| `minify` | Minifies source code using `BabelMinifyWebpackPlugin`. | all |
+| `babel-minify` | Minifies source code using `BabelMinifyWebpackPlugin`. From `@neutrinojs/babel-minify`. | all |
+| `imagemin` | Optimize any images added by other webpack plugins (e.g. `copy-webpack-plugin`). From `@neutrinojs/image-minify`. | all |
+| `optimize-css` | Minifies css using `OptimizeCssAssetsPlugin`. From `@neutrinojs/style-minify`. | all |
 
 ## Contributing
 

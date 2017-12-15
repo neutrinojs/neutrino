@@ -24,6 +24,10 @@ See [Customization](https://neutrino.js.org/customization/#optionsmains) for usa
 They are moved into a separate CSS file. To disable CSS extraction, pass `options.extract = false` to
 the style-loader middleware, or `options.style.extract = false` to the web preset.
 ([#443](https://github.com/mozilla-neutrino/neutrino-dev/pull/443))
+- **BREAKING CHANGE** There is no longer a plugin named `minify` when using the `minify` middleware. This is due
+to the `minify` middleware now being a composition of three different middleware. The associated plugins are
+`babel-minify`, `style-minify`, and `image-minify`, from their associated individual middleware, which can also be
+used separately.
 - **BREAKING CHANGE** The Karma preset now uses Headless Chrome by default to run tests. To that end,
 you will need Chrome 60+ installed. ([#283](https://github.com/mozilla-neutrino/neutrino-dev/pull/283))
 - **BREAKING CHANGE** The API methods `.call()` and `.run()` no longer accept additional middleware to load

@@ -18,7 +18,7 @@
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v7, Neutrino build preset
+- Neutrino v8, Neutrino build preset
 
 ## Installation
 
@@ -266,7 +266,6 @@ global.requestAnimationFrame = (callback) => {
 ```
   
 </details>
-
 
 ## Customizing
 

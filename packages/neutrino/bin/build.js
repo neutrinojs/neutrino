@@ -3,10 +3,11 @@ const ora = require('ora');
 const { build } = require('../src');
 const base = require('./base');
 
-module.exports = (middleware, args) => {
+module.exports = (middleware, args, cli) => {
   const spinner = ora({ text: 'Building project' });
 
   return base({
+    cli,
     middleware,
     args,
     NODE_ENV: 'production',

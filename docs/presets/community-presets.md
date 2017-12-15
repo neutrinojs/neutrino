@@ -14,7 +14,7 @@ In addition, your preset should also:
 ```json
 {
   "peerDependencies": {
-    "neutrino": "^7.0.0"
+    "neutrino": "^8.0.0"
   }
 }
 ```

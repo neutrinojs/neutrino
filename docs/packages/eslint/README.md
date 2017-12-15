@@ -10,7 +10,7 @@
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v7
+- Neutrino v8
 
 ## Installation
 
@@ -46,7 +46,7 @@ neutrino.use(eslint, {
     cwd: neutrino.options.root,
     useEslintrc: false,
     root: true,
-    extensions: ['js', 'jsx'],
+    extensions: neutrino.options.extensions,
     plugins: ['babel'],
     baseConfig: {},
     envs: ['es6'],

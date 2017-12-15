@@ -5,7 +5,7 @@ const { spawn } = require('child_process');
 const { start } = require('../src');
 const base = require('./base');
 
-module.exports = (middleware, args) => {
+module.exports = (middleware, args, cli) => {
   const spinner = ora({ text: 'Building project' });
 
   if (args.dashboard) {
@@ -23,6 +23,7 @@ module.exports = (middleware, args) => {
   }
 
   return base({
+    cli,
     middleware,
     args,
     NODE_ENV: 'development',
@@ -70,10 +71,10 @@ module.exports = (middleware, args) => {
         compiler.plugin('done', () => {
           building.succeed('Build completed');
         });
-        compiler.plugin('compile', debounce(() => {
+        compiler.plugin('compile', () => {
           building.text = 'Source changed, re-compiling';
           building.start();
-        }, 1000, { leading: true, maxWait: 1000 }));
+        });
       }
     }
   });

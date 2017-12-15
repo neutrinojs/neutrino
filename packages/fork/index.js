@@ -4,19 +4,22 @@ const { join } = require('path');
 const { createInterface } = require('readline');
 
 module.exports = (neutrino, options = {}) => {
-  const registeredCommand = neutrino.commands[neutrino.options.command];
-
   global.interactive = false;
 
-  neutrino.register(neutrino.options.command, (config, neutrino) =>
-    // The fork middleware was the only middleware used by Neutrino prior
-    // to running anything. We need to now prevent the default actions from
-    // doing anything else.
-    (Object.keys(config).length !== 0 ?
-      registeredCommand(config, neutrino) :
-      Promise.resolve()));
+  neutrino.on(`pre${neutrino.options.command}`, () => {
+    const registeredCommand = neutrino.commands[neutrino.options.command];
 
-  neutrino.on('prerun', () => {
+    neutrino.register(neutrino.options.command, (config, neutrino) => {
+      if (Object.keys(config).length === 0) {
+        // The fork middleware was the only middleware used by Neutrino prior
+        // to running anything. We need to now prevent the default actions from
+        // doing anything else.
+        return Promise.resolve();
+      }
+
+      return registeredCommand(config, neutrino);
+    });
+
     const children = Object
       .keys(options.configs || {})
       .map((namespace) => {

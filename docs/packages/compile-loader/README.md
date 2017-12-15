@@ -2,15 +2,15 @@
 
 `@neutrinojs/compile-loader` is Neutrino middleware for compiling source code with Babel.
 
-[![NPM version][npm-image]]
-[npm-url][![NPM downloads][npm-downloads]]
-[npm-url][![Join the Neutrino community on Spectrum][spectrum-image]][spectrum-url]
+[![NPM version][npm-image]][npm-url]
+[![NPM downloads][npm-downloads]][npm-url]
+[![Join the Neutrino community on Spectrum][spectrum-image]][spectrum-url]
 
 ## Requirements
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v7
+- Neutrino v8
 
 ## Installation
 
@@ -132,22 +132,17 @@ const { merge } = require('@neutrinojs/compile-loader');
 // Decorators generally need to be enabled *before* other
 // syntax which exists in both normal plugins, and
 // development environment plugins.
-const decorators = require.resolve('babel-plugin-transform-decorators-legacy');
-const classes = require.resolve('babel-plugin-transform-class-properties');
-
-// Now tap into the existing Babel options and merge our
+// Tap into the existing Babel options and merge our
 // decorator options *before* the rest of the existing
 // Babel options
 config.module
   .rule('compile')
     .use('babel')
       .tap(options => merge({
-        plugins: [decorators, classes],
-        env: {
-          development: {
-            plugins: [decorators, classes]
-          }
-        }
+        plugins: [
+          require.resolve('babel-plugin-transform-decorators-legacy'),
+          require.resolve('babel-plugin-transform-class-properties')
+        ]
       }, options));
 ```
 

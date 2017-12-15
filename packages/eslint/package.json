@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/eslint",
-  "version": "7.3.2",
+  "version": "8.0.13",
   "description": "Neutrino middleware for linting source code using ESLint",
   "main": "index.js",
   "keywords": [
@@ -14,10 +14,13 @@
   "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/eslint",
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
-    "babel-eslint": "^8.0.2",
+    "babel-eslint": "^8.0.3",
     "deepmerge": "^1.5.2",
-    "eslint": "^4.11.0",
+    "eslint": "^4.12.1",
     "eslint-loader": "^1.9.0",
     "eslint-plugin-babel": "^4.1.2",
     "fluture": "^7.2.2",
@@ -25,6 +28,6 @@
     "ramda": "^0.25.0"
   },
   "peerDependencies": {
-    "neutrino": "^7.0.0"
+    "neutrino": "^8.0.0"
   }
 }

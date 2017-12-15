@@ -1,6 +1,6 @@
 {
-  "name": "@neutrinojs/imagemin",
-  "version": "7.3.2",
+  "name": "@neutrinojs/image-minify",
+  "version": "8.0.13",
   "description": "Neutrino middleware for optimizing images with imagemin",
   "main": "index.js",
   "keywords": [
@@ -11,9 +11,12 @@
   ],
   "author": "Tim Kelty <timkelty@gmail.com>",
   "license": "MPL-2.0",
-  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/imagemin",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/image-minify",
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "deepmerge": "^1.5.2",
     "imagemin-gifsicle": "5.2.0",
@@ -24,6 +27,6 @@
     "imagemin-webpack": "^1.1.2"
   },
   "peerDependencies": {
-    "neutrino": "^7.0.0"
+    "neutrino": "^8.0.0"
   }
 }

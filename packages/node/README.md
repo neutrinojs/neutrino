@@ -20,7 +20,7 @@
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v7
+- Neutrino v8
 
 ## Installation
 
@@ -137,9 +137,6 @@ quick start example above as a reference:
 ```bash
 ❯ yarn build
 
-clean-webpack-plugin: /node/build has been removed.
-Build completed in 0.419s
-
 Hash: 89e4fb250fc535920ba4
 Version: webpack 3.5.6
 Time: 424ms
@@ -235,7 +232,13 @@ module.exports = {
       // Target specific versions via babel-preset-env
       targets: {
         node: '6.10'
-      }
+      },
+
+      // Remove the contents of the output directory prior to building.
+      // Set to false to disable cleaning this directory
+      clean: {
+        paths: [neutrino.options.output]
+      },
 
       // Add additional Babel plugins, presets, or env options
       babel: {
@@ -316,7 +319,7 @@ _Note: Some plugins are only available in certain environments. To override them
 | `banner` | Injects source-map-support into the mains (entry points) of your application if detected in `dependencies` or `devDependencies` of your package.json. | Only when `source-map-support` is installed |
 | `copy` | Copies all files from `src/static` to `build` when using `neutrino build`. | `build` command |
 | `clean` | Clears the contents of `build` prior to creating a production bundle. | `build` command |
-| `start-server` | Start a Node.js for a configured entry point or specified file. | `start` command |
+| `start-server` | Start a Node.js for the first configured main entry point. | `start` command |
 | `hot` | Enables Hot Module Replacement. | `start` command |
 | `named-modules` | Enables named modules for improved debugging and console output. From `@neutrinojs/hot`. | `start` command |
 | `module-concat` | Concatenate the scope of all your modules into one closure and allow for your code to have a faster execution time in the browser. | `NODE_ENV production` |
@@ -327,13 +330,13 @@ By following the [customization guide](https://neutrino.js.org/customization) an
 you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also
 make these changes from the Neutrino API in custom middleware.
 
-_Example: Allow importing modules with a `.mjs` extension._
+_Example: Allow importing modules with a `.esm` extension._
 
 ```js
 module.exports = {
   use: [
     '@neutrinojs/node',
-    (neutrino) => neutrino.config.resolve.extensions.add('.mjs')
+    (neutrino) => neutrino.config.resolve.extensions.add('.esm')
   ]
 };
 ```

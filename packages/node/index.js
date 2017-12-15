@@ -15,14 +15,6 @@ const {
 } = require('ramda');
 
 const MODULES = join(__dirname, 'node_modules');
-const NEUTRINO_MODULES = join(__dirname, '../../node_modules');
-const getPackageJson = (root) => {
-  try {
-    return require(join(root, 'package.json')); // eslint-disable-line
-  } catch (err) {
-    return {};
-  }
-};
 const getOutputForEntry = pipe(
   parse,
   omit(['base']),
@@ -32,7 +24,7 @@ const getOutputForEntry = pipe(
 );
 
 module.exports = (neutrino, opts = {}) => {
-  const pkg = getPackageJson(neutrino.options.root);
+  const pkg = neutrino.options.packageJson;
   const staticDir = join(neutrino.options.source, 'static');
   const sourceMap = pathOr(
     pathOr(false, ['dependencies', 'source-map-support'], pkg),
@@ -46,6 +38,9 @@ module.exports = (neutrino, opts = {}) => {
     },
     targets: {
       node: '6.10'
+    },
+    clean: opts.clean !== false && {
+      paths: [neutrino.options.output]
     }
   }, opts);
 
@@ -97,17 +92,23 @@ module.exports = (neutrino, opts = {}) => {
         .add('node_modules')
         .add(neutrino.options.node_modules)
         .add(MODULES)
-        .add(NEUTRINO_MODULES)
+        .when(__dirname.includes('neutrino-dev'), modules => {
+          // Add monorepo node_modules to webpack module resolution
+          modules.add(join(__dirname, '../../node_modules'));
+        })
         .end()
       .extensions
-        .merge(neutrino.options.extensions.map(ext => `.${ext}`))
+        .merge(neutrino.options.extensions.concat('json').map(ext => `.${ext}`))
         .end()
       .end()
     .resolveLoader
       .modules
         .add(neutrino.options.node_modules)
         .add(MODULES)
-        .add(NEUTRINO_MODULES)
+        .when(__dirname.includes('neutrino-dev'), modules => {
+          // Add monorepo node_modules to webpack module resolution
+          modules.add(join(__dirname, '../../node_modules'));
+        })
         .end()
       .end()
     .when(neutrino.options.debug, (config) => {
@@ -138,8 +139,8 @@ module.exports = (neutrino, opts = {}) => {
         .plugin('module-concat')
           .use(optimize.ModuleConcatenationPlugin);
     })
-    .when(neutrino.options.command === 'build', () => {
-      neutrino.use(clean, { paths: [neutrino.options.output] });
+    .when(neutrino.options.command === 'build', (config) => {
+      config.when(options.clean, () => neutrino.use(clean, options.clean));
       neutrino.use(copy, {
         patterns: [{
           context: staticDir,

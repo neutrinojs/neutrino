@@ -20,7 +20,7 @@
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v7
+- Neutrino v8
 
 ## Installation
 
@@ -206,7 +206,7 @@ module.exports = {
       // Configure how the library will be exposed. Keeping this set
       // to 'umd' ensures compatibility with a large number of module
       // systems, but you can override if you want to produce a smaller
-      // bundle targeted to specific module systems like "commonjs2" (CJS).
+      // bundle targeted to specific module systems like 'commonjs2' (CJS).
       libraryTarget: 'umd',
 
       // Override options passed to webpack-node-externals,
@@ -216,6 +216,12 @@ module.exports = {
       polyfills: {
         // Enables fast-async polyfill. Set to false to disable
         async: true
+      },
+
+      // Remove the contents of the output directory prior to building.
+      // Set to false to disable cleaning this directory
+      clean: {
+        paths: [neutrino.options.output]
       },
 
       // Add additional Babel plugins, presets, or env options
@@ -264,7 +270,19 @@ module.exports = {
 };
 ```
 
-## External dependencies
+## Customizing
+
+To override the build configuration, start with the documentation on [customization](https://neutrino.js.org/customization).
+`@neutrinojs/library` creates some conventions to make overriding the configuration easier once you are ready to make
+changes.
+
+By default Neutrino, and therefore this preset, creates a single **main** `index` entry point to your library, and this
+maps to the `index.*` file in the `src` directory. This means that this preset is optimized toward a single main entry
+to your library. Code not imported in the hierarchy of the `index` entry will not be output to the bundle. To overcome
+this you must either define more mains via [`options.mains`](https://neutrino.js.org/customization#optionsmains), import
+the code path somewhere along the `index` hierarchy, or define multiple configurations in your `.neutrinorc.js`.
+
+### External dependencies
 
 This preset automatically marks all dependencies as external to your library, meaning that
 any dependencies you import **will not be bundled** with your library. This helps prevent
@@ -399,7 +417,7 @@ The following is a list of rules and their identifiers which can be overridden:
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
 | `compile` | Compiles JS files from the `src` directory using Babel. Contains a single loader named `babel` | all |
-| `worker` | Allows importing Web Workers automatically with `.worker.js` extensions. Contains a single loader named `worker`. | all |
+| `worker` | Allows importing Web Workers automatically with `.worker.*` extensions. Contains a single loader named `worker`. | all |
 
 ### Plugins
 
@@ -420,14 +438,14 @@ By following the [customization guide](../../customization) and knowing the rule
 you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also
 make these changes from the Neutrino API in custom middleware.
 
-_Example: Allow importing modules with a `.mjs` extension._
+_Example: Allow importing modules with a `.esm` extension._
 
 ```js
 module.exports = {
   use: [
     ['@neutrinojs/library', { /* ... */ }],
     (neutrino) => {
-      neutrino.config.resolve.extensions.add('.mjs')
+      neutrino.config.resolve.extensions.add('.esm')
     }
   ]
 };

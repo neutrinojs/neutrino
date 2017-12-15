@@ -17,7 +17,7 @@ by making them as simple as `neutrino start` or `neutrino build`. If you do all 
 ### Middleware formats
 
 Before we delve into making customizations in `.neutrinorc.js`, it's important to note that this file can be in any
-valid [middleware format](../middleware#formats) that Neutrino accepts. For project-based customization, it is
+valid [middleware format](../middleware/README.md#formats) that Neutrino accepts. For project-based customization, it is
 recommended to use the object format, and that will be the format we focus on for the remainder of this guide. Should
 you need a lot of API customization, you may still opt to write your `.neutrinorc.js` file in the function format.
 
@@ -118,7 +118,7 @@ Set the main entry points for the application. If the option is not set, Neutrin
   index: 'index'
 }
 ```
- 
+
 Notice the entry point has no extension; the extension is resolved by webpack. If relative paths are specified,
 they will be computed and resolved relative to `options.source`; absolute paths will be used as-is.
 
@@ -128,13 +128,13 @@ module.exports = {
     mains: {
       // If not specified, defaults to options.source + index
       index: 'index',
-      
+
       // Override to relative, resolves to options.source + entry.*
       index: 'entry',
-    
+
       // Override to absolute path
       index: '/code/website/src/entry.js',
-      
+
       // Add additional main, resolves to options.source + admin.*
       admin: 'admin'
     }
@@ -159,11 +159,59 @@ module.exports = {
 };
 ```
 
+## Mutating `neutrino.options`
+
+While it is possible to mutate `neutrino.options` directly, this should be avoided.
+Instead, it is _always recommended_ to pass an `options` object to ensure proper normalization.
+
+```js
+// Bad: Using function format, overriding `neutrino.options` properites.
+// Paths will not be relative to `neutrino.options.root` as expected.
+module.exports = neutrino => {
+  Object.assign(neutrino.options, {
+    source: 'lib',
+    output: 'dist'
+  });
+}
+```
+
+```js
+// Good: Using function format, setting `neutrino.options.*` properties directly.
+module.exports = neutrino => {
+  neutrino.options.source = 'lib';
+  neutrino.options.output = 'dist';
+}
+```
+
+```js
+// Good: Use object format w/ `use` array
+module.exports = {
+  options: {
+    source: 'lib',
+    output: 'dist'
+  },
+  use: [/* ... */]
+}
+```
+
+```js
+// Good: Use object format w/ `use` function
+module.exports = {
+  options: {
+    source: 'lib',
+    output: 'dist'
+  },
+  use: neutrino => {
+    neutrino.use(/* ... */);
+  }
+}
+```
+
 ## Using middleware
 
 By specifying a `use` array in your `.neutrinorc.js`, you can inform Neutrino to load additional middleware when it
 runs, including any additional files you wish to include as middleware. Each item in this `use` array can be any
-Neutrino-supported [middleware format](../middleware#formats).
+Neutrino-supported [middleware format](../middleware/README.md#formats).
 
 In its simplest form, each item can be the string module name or path to middleware you wish Neutrino to require and
 use for you:

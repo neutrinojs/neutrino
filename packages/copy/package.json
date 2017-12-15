@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/copy",
-  "version": "7.3.2",
+  "version": "8.0.13",
   "description": "Neutrino middleware for copying files to a bundle output directory",
   "main": "index.js",
   "keywords": [
@@ -14,11 +14,14 @@
   "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/copy",
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
-    "copy-webpack-plugin": "^4.2.1",
+    "copy-webpack-plugin": "^4.2.3",
     "deepmerge": "^1.5.2"
   },
   "peerDependencies": {
-    "neutrino": "^7.0.0"
+    "neutrino": "^8.0.0"
   }
 }

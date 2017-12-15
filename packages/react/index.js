@@ -29,20 +29,19 @@ module.exports = (neutrino, opts = {}) => {
           }
         ],
         require.resolve('babel-plugin-transform-object-rest-spread'),
-        ...(process.env.NODE_ENV !== 'development' ?
-          [[require.resolve('babel-plugin-transform-class-properties'), { spec: true }]] :
-          [])
+        ...(
+          process.env.NODE_ENV === 'development'
+            ? [
+              ...(options.hot ? [require.resolve('react-hot-loader/babel')] : []),
+              [require.resolve('babel-plugin-transform-class-properties'), { spec: true }],
+              require.resolve('babel-plugin-transform-es2015-classes')
+            ]
+            : [
+              [require.resolve('babel-plugin-transform-class-properties'), { spec: true }]
+            ]
+        )
       ],
-      presets: [require.resolve('babel-preset-react')],
-      env: {
-        development: {
-          plugins: [
-            ...(options.hot ? [require.resolve('react-hot-loader/babel')] : []),
-            [require.resolve('babel-plugin-transform-class-properties'), { spec: true }],
-            require.resolve('babel-plugin-transform-es2015-classes')
-          ]
-        }
-      }
+      presets: [require.resolve('babel-preset-react')]
     }, options.babel)
   });
 
@@ -52,6 +51,9 @@ module.exports = (neutrino, opts = {}) => {
     neutrino.use(loaderMerge('lint', 'eslint'), {
       plugins: ['react'],
       rules: {
+        // Shutting this off allows ESLint to not fail when using JSX without an explicit
+        // "react" import when coupled with the "jsx-pragmatic" and "transform-react-jsx"
+        // babel plugins above
         'react/react-in-jsx-scope': 'off'
       }
     });

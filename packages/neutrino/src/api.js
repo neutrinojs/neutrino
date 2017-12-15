@@ -2,6 +2,7 @@ const Config = require('webpack-chain');
 const merge = require('deepmerge');
 const Future = require('fluture');
 const mitt = require('mitt');
+const { join } = require('path');
 const {
   defaultTo, is, map, omit, replace
 } = require('ramda');
@@ -13,12 +14,13 @@ class Api {
     this.listeners = {};
     this.emitter = mitt(this.listeners);
     this.commands = {};
+    this.commandDescriptions = {};
     this.config = new Config();
   }
 
   // getOptions :: Object? -> IO Object
   getOptions(opts = {}) {
-    let moduleExtensions = new Set(['js', 'jsx', 'vue', 'ts', 'mjs', 'json']);
+    let moduleExtensions = new Set(['js', 'jsx', 'vue', 'ts', 'mjs']);
     const options = merge.all([
       {
         env: {
@@ -49,6 +51,12 @@ class Api {
       });
     });
 
+    try {
+      options.packageJson = require(join(options.root, 'package.json')); // eslint-disable-line global-require
+    } catch (err) {
+      options.packageJson = null;
+    }
+
     Object.defineProperty(options, 'extensions', {
       enumerable: true,
       get() {
@@ -78,15 +86,27 @@ class Api {
           return;
         }
 
+        const value = newOptions[key];
+
         if (paths.includes(key)) {
-          options[key] = newOptions[key];
+          options[key] = value;
           return;
         }
 
-        if (!options[key]) {
-          options[key] = newOptions[key];
-        } else {
+        // Only merge values if there is an existing value to merge with,
+        // and if the value types match, and if the value types are both
+        // objects or both arrays. Otherwise just replace the old value
+        // with the new value.
+        if (
+          options[key] &&
+          (
+            is(Object, options[key]) && is(Object, value) ||
+            is(Array, options[key]) && is(Array, value)
+          )
+        ) {
           options[key] = merge(options[key], newOptions[key]);
+        } else {
+          options[key] = newOptions[key];
         }
       });
 
@@ -135,7 +155,7 @@ class Api {
 
   // regexFromExtensions :: Array extensions -> RegExp
   regexFromExtensions(extensions = this.options.extensions) {
-    return new RegExp(`.(${extensions.join('|')})$`);
+    return new RegExp(String.raw`\.(${extensions.join('|')})$`);
   }
 
   // emit :: Any -> IO
@@ -161,9 +181,10 @@ class Api {
     ]);
   }
 
-  // register :: String commandName -> Function handler -> Api
-  register(commandName, handler) {
+  // register :: (String commandName -> Function handler -> String? description) -> Api
+  register(commandName, handler, description = '') {
     this.commands[commandName] = handler;
+    this.commandDescriptions[commandName] = description;
     return this;
   }
 
@@ -246,9 +267,8 @@ class Api {
   // run :: String commandName -> Future
   run(commandName) {
     const emitForAll = this.emitForAll.bind(this);
-    const command = this.commands[commandName];
 
-    return Future((reject, resolve) => (command ?
+    return Future((reject, resolve) => (this.commands[commandName] ?
       resolve() :
       reject(new Error(`A command with the name "${commandName}" was not registered`))
     ))
@@ -258,7 +278,7 @@ class Api {
     .chain(() => Future.encaseP2(emitForAll, 'prerun', this.options.args))
     // Execute the command
     .chain(() => {
-      const result = command(this.config.toConfig(), this);
+      const result = this.commands[commandName](this.config.toConfig(), this);
 
       return Future.isFuture(result) ?
         result :

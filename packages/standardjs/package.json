@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/standardjs",
-  "version": "7.3.2",
+  "version": "8.0.13",
   "description": "Neutrino preset for linting projects using the StandardJS ESLint config",
   "main": "index.js",
   "keywords": [
@@ -15,8 +15,11 @@
   "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/standardjs",
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
-    "@neutrinojs/eslint": "^7.3.2",
+    "@neutrinojs/eslint": "^8.0.13",
     "deepmerge": "^1.5.2",
     "eslint-config-standard": "^10.2.1",
     "eslint-config-standard-jsx": "^4.0.2",
@@ -26,6 +29,6 @@
     "eslint-plugin-standard": "^3.0.1"
   },
   "peerDependencies": {
-    "neutrino": "^7.0.0"
+    "neutrino": "^8.0.0"
   }
 }

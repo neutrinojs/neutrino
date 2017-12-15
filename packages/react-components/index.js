@@ -6,29 +6,33 @@ const { extname, join, basename } = require('path');
 const { readdirSync } = require('fs');
 
 const MODULES = join(__dirname, 'node_modules');
-const NEUTRINO_MODULES = join(__dirname, '../../node_modules');
 
-module.exports = (neutrino, options = {}) => {
-  const reactOptions = merge({
+module.exports = (neutrino, opts = {}) => {
+  const options = merge({
     html: process.env.NODE_ENV === 'development' && {
       title: 'React Preview'
     },
     manifest: process.env.NODE_ENV === 'development',
-    externals: {}
-  }, options);
+    externals: opts.externals !== false && {}
+  }, opts);
 
   neutrino.config.resolve.modules
     .add(MODULES)
-    .add(NEUTRINO_MODULES);
+    .when(__dirname.includes('neutrino-dev'), modules => {
+      // Add monorepo node_modules to webpack module resolution
+      modules.add(join(__dirname, '../../node_modules'));
+    });
   neutrino.config.resolveLoader.modules
     .add(MODULES)
-    .add(NEUTRINO_MODULES);
+    .when(__dirname.includes('neutrino-dev'), modules => {
+      // Add monorepo node_modules to webpack module resolution
+      modules.add(join(__dirname, '../../node_modules'));
+    });
 
   neutrino.config.when(
     process.env.NODE_ENV === 'development',
     () => {
-      neutrino.options.mains.index = 'stories'; // eslint-disable-line no-param-reassign
-      neutrino.use(react, reactOptions);
+      neutrino.use(react, options);
     },
     () => {
       const components = join(neutrino.options.source, options.components || 'components');
@@ -44,27 +48,25 @@ module.exports = (neutrino, options = {}) => {
         neutrino.options.mains[basename(component, extname(component))] = join(components, component);
       });
 
-      // eslint-disable-next-line no-param-reassign
-      neutrino.options.output = neutrino.options.output.endsWith('build') ?
-        'lib' :
-        neutrino.options.output;
+      const pkg = neutrino.options.packageJson;
+      const hasSourceMap = (pkg.dependencies && 'source-map-support' in pkg.dependencies) ||
+        (pkg.devDependencies && 'source-map-support' in pkg.devDependencies);
 
-      try {
-        const pkg = require(join(neutrino.options.root, 'package.json')); // eslint-disable-line global-require
-        const hasSourceMap = (pkg.dependencies && 'source-map-support' in pkg.dependencies) ||
-          (pkg.devDependencies && 'source-map-support' in pkg.devDependencies);
+      neutrino.use(react, options);
 
-        hasSourceMap && neutrino.use(banner);
-      } catch (ex) {} // eslint-disable-line
-
-      neutrino.use(react, reactOptions);
+      Object
+        .keys(neutrino.options.mains)
+        .forEach(key => {
+          neutrino.config.plugins.delete(`html-${key}`);
+        });
 
       neutrino.config
+        .when(options.externals, config => config.externals([nodeExternals(options.externals)]))
+        .when(hasSourceMap, () => neutrino.use(banner))
         .devtool('source-map')
         .performance
           .hints('error')
           .end()
-        .externals([nodeExternals(options.externals)])
         .output
           .filename('[name].js')
           .library('[name]')
@@ -72,19 +74,6 @@ module.exports = (neutrino, options = {}) => {
           .umdNamedDefine(true);
     }
   );
-
-  neutrino.config.module
-    .rule('css-modules')
-      .test(/\.module.css$/)
-      .include
-        .add(neutrino.options.source)
-        .end()
-    .use('style')
-      .loader(require.resolve('style-loader'))
-      .end()
-    .use('css')
-      .loader(require.resolve('css-loader'))
-      .options({ modules: true });
 
   neutrino.config.when(
     neutrino.config.plugins.has('runtime-chunk'),

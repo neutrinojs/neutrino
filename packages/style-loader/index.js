@@ -19,11 +19,14 @@ module.exports = (neutrino, opts = {}) => {
     ruleId: 'style',
     styleUseId: 'style',
     cssUseId: 'css',
+    css: { importLoaders: 0 },
+    style: {},
     hot: true,
     hotUseId: 'hot',
     modules: true,
     modulesSuffix: '-modules',
     modulesTest: cssModulesTest,
+    loaders: [],
     extractId: 'extract',
     extract: {
       plugin: {
@@ -52,23 +55,43 @@ module.exports = (neutrino, opts = {}) => {
   }
 
   rules.forEach(options => {
-    neutrino.config.module
-      .rule(options.ruleId)
+    const styleRule = neutrino.config.module.rule(options.ruleId);
+    const loaders = [
+      {
+        loader: require.resolve('style-loader'),
+        options: options.style,
+        useId: options.styleUseId
+      },
+      {
+        loader: require.resolve('css-loader'),
+        options: Object.assign(options.css, {
+          importLoaders: options.css.importLoaders + options.loaders.length
+        }),
+        useId: options.cssUseId
+      },
+      ...options.loaders
+    ]
+    .map((loader, index) => {
+      const obj = typeof loader === 'object' ? loader : { loader };
+
+      return Object.assign(obj, {
+        useId: obj.useId || `${options.cssUseId}-${index}`
+      });
+    });
+
+    loaders.forEach(loader => {
+      styleRule
         .test(options.test)
-        .use(options.styleUseId)
-           .loader(require.resolve('style-loader'))
-           .when(options.style, use => use.options(options.style))
-           .end()
-        .use(options.cssUseId)
-          .loader(require.resolve('css-loader'))
-          .when(options.css, use => use.options(options.css));
+        .use(loader.useId)
+          .loader(loader.loader)
+          .when(loader.options, use => use.options(loader.options));
+    });
 
     if (options.extract) {
-      const styleRule = neutrino.config.module.rule(options.ruleId);
       const styleEntries = styleRule.uses.entries();
-      const useKeys = Object.keys(styleEntries).filter(key => key !== options.styleUseId);
+      const useIds = Object.keys(styleEntries).filter(key => key !== options.styleUseId);
       const extractLoader = Object.assign({
-        use: useKeys.map(key => ({
+        use: useIds.map(key => ({
           loader: styleEntries[key].get('loader'),
           options: styleEntries[key].get('options')
         })),

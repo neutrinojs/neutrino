@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/env",
-  "version": "7.3.2",
+  "version": "8.0.13",
   "description": "Neutrino middleware for injecting environment variables into source code",
   "main": "index.js",
   "keywords": [
@@ -15,10 +15,17 @@
   "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/env",
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "publishConfig": {
+    "access": "public"
+  },
+  "resolutions": {
+    "webpack-sources": "1.0.1"
+  },
   "dependencies": {
-    "webpack": "^3.6.0"
+    "webpack": "^3.10.0",
+    "webpack-sources": "1.0.1"
   },
   "peerDependencies": {
-    "neutrino": "^7.0.0"
+    "neutrino": "^8.0.0"
   }
 }

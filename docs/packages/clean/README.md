@@ -10,7 +10,7 @@
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v7
+- Neutrino v8
 
 ## Installation
 
@@ -44,7 +44,7 @@ neutrino.use(clean);
 neutrino.use(clean, {
   paths: [],
   root: neutrino.options.root,
-  // Override pluginId to add an additional banner plugin instance
+  // Override pluginId to add an additional clean plugin instance
   pluginId: 'clean'
 });
 ```

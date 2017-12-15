@@ -9,7 +9,6 @@ const nodeExternals = require('webpack-node-externals');
 const { join } = require('path');
 
 const MODULES = join(__dirname, 'node_modules');
-const NEUTRINO_MODULES = join(__dirname, '../../node_modules');
 
 module.exports = (neutrino, opts = {}) => {
   if (!opts.name) {
@@ -22,7 +21,10 @@ module.exports = (neutrino, opts = {}) => {
     polyfills: {
       async: true
     },
-    babel: {}
+    babel: {},
+    clean: opts.clean !== false && {
+      paths: [neutrino.options.output]
+    }
   }, opts);
 
   Object.assign(options, {
@@ -60,15 +62,9 @@ module.exports = (neutrino, opts = {}) => {
     );
   }
 
-  try {
-    const pkg = require(join(neutrino.options.root, 'package.json')); // eslint-disable-line global-require
-    const hasSourceMap = (pkg.dependencies && 'source-map-support' in pkg.dependencies) ||
-      (pkg.devDependencies && 'source-map-support' in pkg.devDependencies);
-
-    if (hasSourceMap) {
-      neutrino.use(banner);
-    }
-  } catch (ex) {} // eslint-disable-line
+  const pkg = neutrino.options.packageJson;
+  const hasSourceMap = (pkg.dependencies && 'source-map-support' in pkg.dependencies) ||
+    (pkg.devDependencies && 'source-map-support' in pkg.devDependencies);
 
   neutrino.use(compileLoader, {
     include: [
@@ -83,10 +79,12 @@ module.exports = (neutrino, opts = {}) => {
     .forEach(key => neutrino.config.entry(key).add(neutrino.options.mains[key]));
 
   neutrino.config
+    .when(hasSourceMap, () => neutrino.use(banner))
+    .devtool('source-map')
     .target(options.target)
     .context(neutrino.options.root)
-    .devtool('source-map')
     .output
+      .path(neutrino.options.output)
       .library(options.name)
       .filename('[name].js')
       .libraryTarget(options.libraryTarget)
@@ -97,17 +95,23 @@ module.exports = (neutrino, opts = {}) => {
         .add('node_modules')
         .add(neutrino.options.node_modules)
         .add(MODULES)
-        .add(NEUTRINO_MODULES)
+        .when(__dirname.includes('neutrino-dev'), modules => {
+          // Add monorepo node_modules to webpack module resolution
+          modules.add(join(__dirname, '../../node_modules'));
+        })
         .end()
       .extensions
-        .merge(neutrino.options.extensions.map(ext => `.${ext}`))
+        .merge(neutrino.options.extensions.concat('json').map(ext => `.${ext}`))
         .end()
       .end()
     .resolveLoader
       .modules
         .add(neutrino.options.node_modules)
         .add(MODULES)
-        .add(NEUTRINO_MODULES)
+        .when(__dirname.includes('neutrino-dev'), modules => {
+          // Add monorepo node_modules to webpack module resolution
+          modules.add(join(__dirname, '../../node_modules'));
+        })
         .end()
       .end()
     .node
@@ -153,7 +157,7 @@ module.exports = (neutrino, opts = {}) => {
         .plugin('module-concat')
           .use(optimize.ModuleConcatenationPlugin);
     })
-    .when(neutrino.options.command === 'build', () => {
-      neutrino.use(clean, { paths: [neutrino.options.output] });
+    .when(neutrino.options.command === 'build', (config) => {
+      config.when(options.clean, () => neutrino.use(clean, options.clean));
     });
 };

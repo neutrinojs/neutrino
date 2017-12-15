@@ -1,3 +1,5 @@
+const commandExists = require('command-exists');
+
 const LINTING = 'linting';
 const PROJECT = 'project';
 const TESTING = 'testing';
@@ -45,7 +47,7 @@ const projects = {
   },
   [REACT_COMPONENTS]: {
     type: PROJECT,
-    devDependencies: [REACT_COMPONENTS, N, 'prop-types', 'react', 'react-addons-css-transition-group', 'react-dom']
+    devDependencies: [REACT_COMPONENTS, N, 'prop-types', 'react', 'react-dom']
   },
   [STANDARDJS]: {
     type: LINTING,
@@ -91,7 +93,7 @@ const packages = {
   STANDARDJS
 };
 
-const isYarn = process.env.npm_config_user_agent && process.env.npm_config_user_agent.includes('yarn');
+const isYarn = commandExists.sync('yarnpkg');
 
 module.exports = {
   packages,

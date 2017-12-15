@@ -13,7 +13,9 @@
 - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
 - webpack Dev Server during development
 - Automatic creation of HTML pages, no templating necessary
-- Hot Module Replacement support
+- Automatic stylesheet extraction; importing stylesheets into modules creates bundled external stylesheets
+- Pre-configured to support CSS Modules via `*.module.css` file extensions
+- Hot Module Replacement support including CSS
 - Tree-shaking to create smaller bundles
 - Production-optimized bundles with Babel minification, easy chunking, and scope-hoisted modules for faster execution
 - Easily extensible to customize your project as needed
@@ -22,7 +24,7 @@
 
 - Node.js v6.10+
 - Yarn or npm client
-- Neutrino v7
+- Neutrino v8
 
 ## Installation
 
@@ -119,7 +121,6 @@ Version: webpack 3.5.6
 Time: 4145ms
                            Asset       Size    Chunks             Chunk Names
    index.523b6da56c6363aaf056.js    10.1 kB     index  [emitted]  index
-polyfill.57dabda41992eba7552f.js    69.2 kB  polyfill  [emitted]  polyfill
  runtime.ce4090a4e87f82940ff0.js    1.51 kB   runtime  [emitted]  runtime
                       index.html  846 bytes            [emitted]
 ```
@@ -240,8 +241,21 @@ module.exports = {
 
       // Example: Remove console and debugger from output
       minify: {
-        removeConsole: true,
-        removeDebugger: true,
+        babel: {
+          removeConsole: true,
+          removeDebugger: true,
+        }
+      },
+
+      // Example: Use a .browserslistrc file with babel-env
+      targets: {
+        browsers: require('browserslist')()
+      },
+
+      // Remove the contents of the output directory prior to building.
+      // Set to false to disable cleaning this directory
+      clean: {
+        paths: [neutrino.options.output]
       },
 
       // Example: change the page title
@@ -301,7 +315,7 @@ this maps to the `index.*` file in the `src` directory. The extension is resolve
 `neutrino.options.mains` at `neutrino.options.mains.index`. This means that the Web preset is optimized toward the use
 case of single-page applications over multi-page applications. If you wish to output multiple pages, you can detail
 all your mains in your `.neutrinorc.js`.
- 
+
 ```js
 module.exports = {
   options: {
@@ -323,11 +337,12 @@ The following is a list of rules and their identifiers which can be overridden:
 | --- | --- | --- |
 | `compile` | Compiles JS files from the `src` directory using Babel. Contains a single loader named `babel`. From `@neutrinojs/compile-loader`. | all |
 | `html` | Allows importing HTML files from modules. Contains a single loader named `html`. From `@neutrinojs/html-loader`. | all |
-| `style` | Allows importing CSS stylesheets from modules. Contains two loaders named `style` and `css`. From `@neutrinojs/style-loader`. | all |
+| `style` | Allows importing CSS stylesheets from modules. Contains two loaders named `style` and `css` which use `style-loader` and `css-loader`, respectively. From `@neutrinojs/style-loader`. | all |
+| `style-modules` | Allows importing CSS Modules styles from modules. Contains two loaders named `style-modules` and `css-modules` which use `style-loader` and `css-loader`, respectively. From `@neutrinojs/style-loader`. | all |
 | `img`, `svg`, `ico` | Allows import image files from modules. Each contains a single loader named `url`. From `@neutrinojs/image-loader`. | all |
 | `woff`, `ttf` | Allows importing WOFF and TTF font files from modules. Each contains a single loader named `url`. From `@neutrinojs/font-loader`. | all |
 | `eot` | Allows importing EOT font files from modules. Contains a single loader named `file`. From `@neutrinojs/font-loader`. | all |
-| `worker` | Allows importing Web Workers automatically with `.worker.js` extensions. Contains a single loader named `worker`. | all |
+| `worker` | Allows importing Web Workers automatically with `.worker.*` extensions. Contains a single loader named `worker`. | all |
 
 ### Plugins
 
@@ -340,7 +355,7 @@ _Note: Some plugins are only available in certain environments. To override them
 | `env` | Inject environment variables into source code at `process.env`, defaults to only inject `NODE_ENV`. From `@neutrinojs/env`. | all |
 | `extract` | Extracts CSS from JS bundle into a separate stylesheet file. From `@neutrinojs/style-loader`. | all |
 | `extract-modules` | Extracts CSS from JS bundle into a separate stylesheet file. From `@neutrinojs/style-loader`. | all |
-| `html` | Automatically generates HTML files for configured main entry points. From `@neutrinojs/html-template` | all |
+| `html-{MAIN_NAME}` | Automatically generates HTML files for configured entry points. `{MAIN_NAME}` corresponds to the entry point of each page. By default, there is only a single `index` main, so this would generate a plugin named `html-index`. From `@neutrinojs/html-template` | all |
 | `named-modules` | Enables named modules for improved debugging and console output. From `@neutrinojs/chunk` and `@neutrinojs/hot`. | `NODE_ENV production`, `start` command |
 | `named-chunks` | Enables named chunks for improved debugging and console output. From `@neutrinojs/chunk`. | `NODE_ENV production` |
 | `vendor-chunk` | Creates a separate file/chunk consisting of common modules shared between multiple entry points. From `@neutrinojs/chunk`. | `NODE_ENV production` |
@@ -349,8 +364,11 @@ _Note: Some plugins are only available in certain environments. To override them
 | `hot` | Enables Hot Module Replacement. From `@neutrinojs/hot`. | `start` command |
 | `copy` | Copies files during build, defaults from `src/static` to `build/static`. From `@neutrinojs/copy` | `build` command |
 | `clean` | Removes the `build` directory prior to building. From `@neutrinojs/clean`. | `build` command |
-| `minify` | Minifies source code using `BabelMinifyWebpackPlugin`. From `@neutrinojs/minify`. | `NODE_ENV production` |
+| `babel-minify` | Minifies source code using `BabelMinifyWebpackPlugin`. From `@neutrinojs/minify`. | `NODE_ENV production` |
+| `imagemin` | Optimize any images added by other webpack plugins (e.g. `copy-webpack-plugin`). From `@neutrinojs/minify`. | Enable with `options.minify.style`. |
+| `optimize-css` | Minifies css using `OptimizeCssAssetsPlugin`. | `NODE_ENV production` From `@neutrinojs/minify`. |
 | `module-concat` | Concatenate the scope of all your modules into one closure and allow for your code to have a faster execution time in the browser. | `NODE_ENV production` |
+| `manifest` | Create a manifest file, via webpack-manifest-plugin. | `build` command |
 
 ### Override configuration
 
