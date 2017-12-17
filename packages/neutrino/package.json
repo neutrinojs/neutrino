@@ -37,7 +37,7 @@
     "webpack": "^3.10.0",
     "webpack-chain": "^4.5.0",
     "webpack-dev-server": "^2.9.7",
-    "webpack-sources": "1.0.1",
+    "webpack-sources": "1.1.0",
     "yargs": "^10.0.0"
   }
 }
