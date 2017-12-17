@@ -20,7 +20,7 @@
 * [Packages](./packages/README.md)
   * [Web](./packages/web/README.md)
   * [React](./packages/react/README.md)
-  * [Preact](./packages/react/README.md)
+  * [Preact](./packages/preact/README.md)
   * [Vue](./packages/vue/README.md)
   * [Node.js](./packages/node/README.md)
   * [Library](./packages/library/README.md)
