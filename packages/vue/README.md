@@ -42,7 +42,7 @@ Vue development.
 ```bash
 ❯ npm install --save-dev neutrino @neutrinojs/vue
 ❯ npm install --save vue
-
+```
 
 ## Project Layout
 
