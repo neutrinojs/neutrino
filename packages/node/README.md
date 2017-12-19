@@ -61,6 +61,38 @@ project. This includes JavaScript files that would be available to your compiled
 
 ## Quickstart
 
+The fastest way to get started is by using the `create-project` scaffolding tool.
+Don’t want to use the CLI helper? No worries, we have you covered with the [manual installation](#manual-installation).
+
+### create-project
+
+Run the following command to start the process. Substitute `<directory-name>` with the directory name you wish to create
+for this project.
+
+
+#### Yarn
+
+```
+❯ yarn create @neutrinojs/project <directory-name>
+```
+
+_Note: The `create` command is a shorthand that helps you do two things at once. See the [Yarn create docs](https://yarnpkg.com/lang/en/docs/cli/create) for more details._
+
+#### npm/npx
+
+[`npx`](https://github.com/zkat/npx) comes pre-installed with `npm`. If you’re running an older version of `npm`, then
+`npm install -g npm` to update to the latest version.
+
+```
+❯ npx @neutrinojs/create-project <directory-name>
+```
+
+The CLI helper will prompt for the project to scaffold, and will offer to set
+up a test runner as well as linting to your project. Refer to the [Create new project](../../create-new-project) section
+for details on all available options.
+
+### Manual Installation
+
 After installing Neutrino and the Node.js preset, add a new directory named `src` in the root of the project, with
 a single JS file named `index.js` in it.
 
