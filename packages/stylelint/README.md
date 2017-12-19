@@ -40,18 +40,12 @@ const stylelint = require('@neutrinojs/stylelint');
 // Usage shows default values
 neutrino.use(stylelint, {
   pluginId: 'stylelint',
-  plugin: {
-    files: '**/*.+(css|scss|sass|less)',
-    context: neutrino.options.source,
-    failOnError: neutrino.options.command !== 'start'
-  }
+  files: '**/*.+(css|scss|sass|less)',
+  context: neutrino.options.source,
+  failOnError: neutrino.options.command !== 'start'
 });
 ```
-
-- `stylelint`: An stylelint configuration object.
-  - Use this to configure rules, plugins, and other [stylelint options](https://stylelint.io/user-guide/configuration).
-  - This option is _not set_ by default, causing stylelint to search for a [config file](https://stylelint.io/user-guide/configuration/#loading-the-configuration-object).
-- `plugin`: Options passed to `stylelint-webpack-plugin`. See the [stylelint Node API](https://stylelint.io/user-guide/node-api/#options) for all available options.
+Options are passed to `stylelint-webpack-plugin`. See the [stylelint Node API](https://stylelint.io/user-guide/node-api/#options) for all available options.
 
 ## Information
 
