@@ -21,9 +21,9 @@ function getFinalPath(path) {
 }
 
 function normalizeJestOptions(opts, neutrino, usingBabel) {
-  const mediaNames = `\\.(${mediaExtensions.join('|')})`;
-  const styleNames = `\\.(${['css', 'less', 'sass', 'scss'].join('|')})`;
-  const jsNames = neutrino.regexFromExtensions(['js', 'jsx']);
+  const mediaNames = `\\.(${mediaExtensions.join('|')})$`;
+  const styleNames = `\\.(${['css', 'less', 'sass', 'scss'].join('|')})$`;
+  const jsNames = `\\.(${['js', 'jsx'].join('|')})$`;
   const aliases = neutrino.config.resolve.alias.entries() || {};
   const moduleNames = Object
     .keys(aliases)
