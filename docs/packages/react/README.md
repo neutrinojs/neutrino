@@ -60,8 +60,8 @@ to import your compiled project.
 
 ## Quickstart
 
-The fasted way to get started is by using the `create-project` scaffolding tool.
-Don’t want to use the CLI helper? No worries, we got you covered with the [manual installation](#manual-installation).
+The fastest way to get started is by using the `create-project` scaffolding tool.
+Don’t want to use the CLI helper? No worries, we have you covered with the [manual installation](#manual-installation).
 
 ### create-project
 
@@ -80,8 +80,7 @@ _Note: The `create` command is a shorthand that helps you do two things at once.
 #### npm/npx
 
 [`npx`](https://github.com/zkat/npx) comes pre-installed with `npm`. If you’re running an older version of `npm`, then
-`npm install -g npm` to update to the latest version. Long story short, `npx` allows you to keep your
-globals clean.
+`npm install -g npm` to update to the latest version.
 
 ```
 ❯ npx @neutrinojs/create-project <directory-name>
