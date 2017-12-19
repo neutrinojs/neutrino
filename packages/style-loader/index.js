@@ -2,6 +2,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const merge = require('deepmerge');
 
 module.exports = (neutrino, opts = {}) => {
+  const modules = opts.modules || true;
+  const modulesTest = opts.modulesTest || neutrino.regexFromExtensions(['module.css']);
   const options = merge({
     test: neutrino.regexFromExtensions(['css']),
     ruleId: 'style',
@@ -11,9 +13,10 @@ module.exports = (neutrino, opts = {}) => {
     style: {},
     hot: true,
     hotUseId: 'hot',
-    modules: true,
+    modules,
+    modulesTest,
     modulesSuffix: '-modules',
-    modulesTest: neutrino.regexFromExtensions(['module.css']),
+    exclude: modules && modulesTest,
     loaders: [],
     extractId: 'extract',
     extract: {
@@ -24,15 +27,14 @@ module.exports = (neutrino, opts = {}) => {
       }
     }
   }, opts);
-  const rules = [];
+
+  const rules = [options];
 
   if (options.modules) {
     rules.push(
       merge(options, {
-        exclude: options.modulesTest
-      }),
-      merge(options, {
         test: options.modulesTest,
+        exclude: options.modulesExclude,
         ruleId: `${options.ruleId}${options.modulesSuffix}`,
         styleUseId: `${options.styleUseId}${options.modulesSuffix}`,
         cssUseId: `${options.cssUseId}${options.modulesSuffix}`,
@@ -44,9 +46,7 @@ module.exports = (neutrino, opts = {}) => {
         }
       })
     );
-  } else {
-    rules.push(options);
-  }
+  };
 
   rules.forEach(options => {
     const styleRule = neutrino.config.module.rule(options.ruleId);
