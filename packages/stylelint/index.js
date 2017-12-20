@@ -9,7 +9,8 @@ module.exports = (neutrino, opts = {}) => {
     files: '**/*.+(css|scss|sass|less)',
     context: neutrino.options.source,
     failOnError: neutrino.options.command !== 'start',
-    quiet: neutrino.options.command === 'start'
+    quiet: neutrino.options.command === 'start',
+    formatter: 'string'
   }, opts);
 
   const getStylelintRcConfig = config => config
@@ -22,7 +23,8 @@ module.exports = (neutrino, opts = {}) => {
       const { fix = false } = neutrino.options.args;
       const files = join(options.context, options.files);
 
-      return lint(merge(options, { fix, files }));
+      return lint(merge(options, { fix, files }))
+        .then(result => Promise[result.errored ? 'reject' : 'resolve'](result.output));
     },
     'Perform a one-time lint using stylelint. Apply available automatic fixes with --fix'
   );
@@ -31,6 +33,20 @@ module.exports = (neutrino, opts = {}) => {
     'stylelintrc',
     () => getStylelintRcConfig(neutrino.config),
     'Return an object of accumulated stylelint configuration suitable for use by .stylelintrc.js'
+  );
+
+  neutrino.register(
+    'lint',
+    (...args) => {
+      const lintCommand = neutrino.commands.lint;
+
+      if (lintCommand) {
+        lintCommand(...args);
+      }
+
+      neutrino.commands.stylelint(...args);
+    },
+    'Perform a one-time lint using stylelint. Apply available automatic fixes with --fix'
   );
 
   neutrino.config
