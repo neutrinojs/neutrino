@@ -35,20 +35,6 @@ module.exports = (neutrino, opts = {}) => {
     'Return an object of accumulated stylelint configuration suitable for use by .stylelintrc.js'
   );
 
-  neutrino.register(
-    'lint',
-    (...args) => {
-      const lintCommand = neutrino.commands.lint;
-
-      if (lintCommand) {
-        lintCommand(...args);
-      }
-
-      neutrino.commands.stylelint(...args);
-    },
-    'Perform a one-time lint using stylelint. Apply available automatic fixes with --fix'
-  );
-
   neutrino.config
     .plugin(options.pluginId)
     .use(StylelintPlugin, [options]);
