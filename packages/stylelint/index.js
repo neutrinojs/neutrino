@@ -1,7 +1,7 @@
 const merge = require('deepmerge');
 const { join } = require('path');
 const StylelintPlugin = require('stylelint-webpack-plugin');
-const { lint } = require('stylelint');
+const { lint, formatters } = require('stylelint');
 
 module.exports = (neutrino, opts = {}) => {
   const options = merge({
@@ -10,7 +10,7 @@ module.exports = (neutrino, opts = {}) => {
     context: neutrino.options.source,
     failOnError: neutrino.options.command !== 'start',
     quiet: neutrino.options.command === 'start',
-    formatter: 'string'
+    formatter: formatters.string
   }, opts);
 
   const getStylelintRcConfig = config => config
