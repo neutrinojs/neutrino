@@ -1,10 +1,24 @@
 const web = require('@neutrinojs/web');
 const webExt = require('web-ext').default;
 const { join } = require('path');
+const merge = require('deepmerge');
 
 const MODULES = join(__dirname, 'node_modules');
 
-module.exports = (neutrino, options = {}) => {
+module.exports = (neutrino, opts = {}) => {
+  const handlePromiseRejection = err => {
+    console.error(err);
+    process.exit(1);
+  };
+
+  const options = merge({
+    webExtRun: {
+      noInput: true,
+      sourceDir: neutrino.options.output
+    },
+    minify: {}
+  }, opts);
+
   neutrino.use(web, options);
 
   if (neutrino.options.debug) {
@@ -39,10 +53,9 @@ module.exports = (neutrino, options = {}) => {
         .end()
       .end()
     .when(neutrino.options.command === 'start', () => {
-      webExt.cmd.run({
-        noInput: true,
-        sourceDir: neutrino.options.output
-      }, { shouldExitProgram: false });
+      webExt.cmd
+        .run(options.webExtRun, { shouldExitProgram: false })
+        .catch(handlePromiseRejection);
     })
     .when(neutrino.options.command === 'build', (config) => {
       config
