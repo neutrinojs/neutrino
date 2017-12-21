@@ -9,7 +9,9 @@ module.exports = (neutrino, opts = {}) => {
     ruleId: 'style',
     styleUseId: 'style',
     cssUseId: 'css',
-    css: { importLoaders: 0 },
+    css: {
+      importLoaders: opts.loaders ? opts.loaders.length : 0
+    },
     style: {},
     hot: true,
     hotUseId: 'hot',
@@ -57,9 +59,6 @@ module.exports = (neutrino, opts = {}) => {
       },
       {
         loader: require.resolve('css-loader'),
-        options: Object.assign(options.css, {
-          importLoaders: options.css.importLoaders + options.loaders.length
-        }),
         useId: options.cssUseId
       },
       ...options.loaders
