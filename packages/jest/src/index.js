@@ -21,9 +21,13 @@ function getFinalPath(path) {
 }
 
 function normalizeJestOptions(opts, neutrino, usingBabel) {
-  const mediaNames = `\\.(${mediaExtensions.join('|')})`;
-  const styleNames = `\\.(${['css', 'less', 'sass', 'scss'].join('|')})`;
-  const jsNames = neutrino.regexFromExtensions(['js', 'jsx']);
+  const mediaNames = `\\.(${mediaExtensions.join('|')})$`;
+  const styleNames = `\\.(${['css', 'less', 'sass', 'scss'].join('|')})$`;
+
+  // neutrino.options.extensions should be used instead of neutrino.regexFromExtensions()
+  // because transformNames is used as a property name where a Regex object will cause issues.
+  // e.g., https://github.com/mozilla-neutrino/neutrino-dev/issues/638.
+  const transformNames = `\\.(${neutrino.options.extensions.join('|')})$`;
   const aliases = neutrino.config.resolve.alias.entries() || {};
   const moduleNames = Object
     .keys(aliases)
@@ -58,7 +62,7 @@ function normalizeJestOptions(opts, neutrino, usingBabel) {
       coveragePathIgnorePatterns: [neutrino.options.node_modules],
       collectCoverageFrom: [join(basename(neutrino.options.source), '**/*.js')],
       testRegex,
-      transform: { [jsNames]: require.resolve('./transformer') },
+      transform: { [transformNames]: require.resolve('./transformer') },
       globals: {
         BABEL_OPTIONS: usingBabel
           ? omit(['cacheDirectory'], neutrino.config.module.rule('compile').use('babel').get('options'))
