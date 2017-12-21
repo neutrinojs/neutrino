@@ -59,6 +59,7 @@ module.exports = (neutrino, opts = {}) => {
       },
       {
         loader: require.resolve('css-loader'),
+        options: options.css,
         useId: options.cssUseId
       },
       ...options.loaders
