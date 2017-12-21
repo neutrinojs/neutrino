@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/env",
-  "version": "8.0.13",
+  "version": "8.0.14",
   "description": "Neutrino middleware for injecting environment variables into source code",
   "main": "index.js",
   "keywords": [
