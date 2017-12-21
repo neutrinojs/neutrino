@@ -122,10 +122,9 @@ module.exports = (neutrino, opts = {}) => {
 
       writeFileSync(configFile, `${JSON.stringify(options, null, 2)}\n`);
 
-      jest.runCLI(cliOptions, options.roots || [options.rootDir], result =>
-        (result.numFailedTests || result.numFailedTestSuites ?
-          reject() :
-          resolve()));
+      jest.runCLI(cliOptions, options.roots || [options.rootDir])
+        .then(results => results.success ? resolve() : reject())
+        .catch(error => reject(error));
     });
   });
 };
