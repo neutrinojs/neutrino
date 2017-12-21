@@ -16,6 +16,11 @@
   "publishConfig": {
     "access": "public"
   },
+  "engines": {
+    "node": "^6.9.0 || ^8 || >=9",
+    "npm": ">=5.4.0",
+    "yarn": ">=1.2.1"
+  },
   "dependencies": {
     "clean-webpack-plugin": "^0.1.17",
     "deepmerge": "^1.5.2"

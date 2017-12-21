@@ -19,6 +19,11 @@
   "resolutions": {
     "webpack-sources": "1.0.1"
   },
+  "engines": {
+    "node": "^6.9.0 || ^8 || >=9",
+    "npm": ">=5.4.0",
+    "yarn": ">=1.2.1"
+  },
   "dependencies": {
     "deepmerge": "^1.5.2",
     "webpack": "^3.10.0",

@@ -18,6 +18,11 @@
   "publishConfig": {
     "access": "public"
   },
+  "engines": {
+    "node": "^6.9.0 || ^8 || >=9",
+    "npm": ">=5.4.0",
+    "yarn": ">=1.2.1"
+  },
   "dependencies": {
     "@neutrinojs/babel-minify": "^8.0.13",
     "@neutrinojs/image-minify": "^8.0.13",

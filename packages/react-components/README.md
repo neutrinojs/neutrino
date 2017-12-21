@@ -31,8 +31,8 @@ polyfills in your library code, consider importing babel-polyfill, core-js, or o
 
 ## Requirements
 
-- Node.js v6.10+
-- Yarn or npm client
+- Node.js v6 LTS, v8, v9
+- Yarn v1.2.1+, or npm v5.4+
 - Neutrino v8
 - React, React DOM
 
