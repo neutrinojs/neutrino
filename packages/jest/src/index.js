@@ -100,31 +100,29 @@ module.exports = (neutrino, opts = {}) => {
       });
     });
 
-    return new Promise((resolve, reject) => {
-      // We need to parse argv separately in order to identify files
-      // and jest-related options since root neutrino does not know about
-      // jest options and will provide wrong/incomplete `args.files`
-      const jestArgs = yargs
-        .command('test [files..]', 'Run tests', jestOptions)
-        .argv;
-      const configFile = join(tmpdir(), 'config.json');
-      const options = normalizeJestOptions(opts, neutrino, usingBabel);
-      const cliOptions = Object.assign(
-        jestArgs,
-        {
-          // Jest is looking for Array of files in `argv._`. Providing them
-          _: jestArgs.files,
-          config: configFile,
-          coverage: args.coverage,
-          watch: args.watch
-        }
-      );
+    // We need to parse argv separately in order to identify files
+    // and jest-related options since root neutrino does not know about
+    // jest options and will provide wrong/incomplete `args.files`
+    const jestArgs = yargs
+      .command('test [files..]', 'Run tests', jestOptions)
+      .argv;
+    const configFile = join(tmpdir(), 'config.json');
+    const options = normalizeJestOptions(opts, neutrino, usingBabel);
+    const cliOptions = Object.assign(
+      jestArgs,
+      {
+        // Jest is looking for Array of files in `argv._`. Providing them
+        _: jestArgs.files,
+        config: configFile,
+        coverage: args.coverage,
+        watch: args.watch
+      }
+    );
 
-      writeFileSync(configFile, `${JSON.stringify(options, null, 2)}\n`);
+    writeFileSync(configFile, `${JSON.stringify(options, null, 2)}\n`);
 
-      jest.runCLI(cliOptions, options.roots || [options.rootDir])
-        .then(results => results.success ? resolve() : reject())
-        .catch(error => reject(error));
-    });
+    return jest
+      .runCLI(cliOptions, options.roots || [options.rootDir])
+      .then(({ results }) => results.success ? Promise.resolve() : Promise.reject());
   });
 };
