@@ -149,6 +149,9 @@ module.exports = (neutrino, opts = {}) => {
           // Add monorepo node_modules to webpack module resolution
           modules.add(join(__dirname, '../../node_modules'));
         })
+        .when(options.modules, modules => {
+          options.modules.map(module => modules.add(module));
+        })
         .end()
       .extensions
         .merge(neutrino.options.extensions.concat('json').map(ext => `.${ext}`))

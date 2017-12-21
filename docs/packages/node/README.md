@@ -213,7 +213,7 @@ if (module.hot) {
 }
 
 createServer((req, res) => {
-  res.end(app('example'));  
+  res.end(app('example'));
 }).listen(/* */);
 ```
 
@@ -228,7 +228,7 @@ if (module.hot) {
 }
 
 createServer((req, res) => {
-  res.end(app('example'));  
+  res.end(app('example'));
 }).listen(/* */);
 ```
 
@@ -309,7 +309,12 @@ module.exports = {
             }
           }]
         ]
-      }
+      },
+
+      // Example: add paths to `resolve.modules`
+      modules: [
+        neutrino.options.source,
+      ]
     }]
   ]
 };
