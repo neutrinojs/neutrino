@@ -7,8 +7,8 @@ npm. At a minimum, you will be installing Neutrino and Neutrino middleware, such
 
 ## Create New Project
 
-See [`@neutrinojs/create-project`](./create-new-project.md) for an automated quick start for new projects.
-Alternatively, proceed below for a manual installation.
+The fastest way to get started is by using the [`@neutrinojs/create-project`](./create-new-project.md) scaffolding tool.
+If you don’t want to use the CLI helper, proceed below for manual installation instructions.
 
 ## Yarn Installation
 
