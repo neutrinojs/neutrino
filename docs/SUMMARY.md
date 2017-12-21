@@ -1,12 +1,12 @@
 # Summary
 
 * [Introduction](./README.md)
-* [Installation](./installation.md)
+* [Installation](./installation/README.md)
+  * [Create new project](./installation/create-new-project.md)
 * [Usage](./usage.md)
 * [Project Layout](./project-layout.md)
 * [FAQ](./FAQ.md)
 * [Learning Resources](./learning-resources.md)
-* [Create new project](create-new-project/README.md)
 * [CLI](./cli/README.md)
 * [API](./api/README.md)
 * [Configuration API - webpack-chain](./webpack-chain.md)

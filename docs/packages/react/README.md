@@ -87,7 +87,7 @@ _Note: The `create` command is a shorthand that helps you do two things at once.
 ```
 
 The CLI helper will prompt for the project to scaffold, and will offer to set
-up a test runner as well as linting to your project. Refer to the [Create new project](../../create-new-project) section
+up a test runner as well as linting to your project. Refer to the [Create new project](../../installation/create-new-project.md) section
 for details on all available options.
 
 ### Manual Installation
