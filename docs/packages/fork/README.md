@@ -43,6 +43,12 @@ _This middleware must be used in conjunction with a `.neutrinorc.js` file to inf
 middleware should be split into another process. See the [customization docs](../../customization/)
 for details on setting up a `.neutrinorc.js` file in your project if you do not already have one._
 
+_Important: The configuration options provided to the fork middleware needs to be serializable across
+Node.js processes, which is includes Strings, Numbers, Arrays, Booleans, Objects, Arrays, and more. Using
+functions or class instances may not be serializable across processes, such as is the case with some
+webpack plugins. If you need to provide these to fork middleware configuration, see the section on serialization
+workarounds below._
+
 ## Quickstart
 
 After installing Neutrino, your other build middleware, and the fork middleware, open your `.neutrinorc.js` file.
@@ -129,6 +135,72 @@ This has the potential to lead to difficult bugs. As such, it is recommended to 
 options to avoid this situation altogether, which the example above demonstrates. If you are certain you want from
 and to the same directories, such as when building libraries, ensure you follow any project cleanup instructions
 outlined by your middleware.
+
+## Serialization
+
+The configuration options provided to the fork middleware needs to be serializable across
+Node.js processes, which is includes Strings, Numbers, Arrays, Booleans, Objects, Arrays, and more. Using
+functions or class instances may not be serializable across processes, such as is the case with some
+webpack plugins.
+
+For example, let's say you wanted to consume the `webpack-assets-plugin` in your fork middleware options:
+
+```js
+// .neutrinorc.js
+const AssetsPlugin = require('assets-webpack-plugin');
+
+module.exports = {
+  use: [
+    ['@neutrinojs/fork', {
+      configs: {
+        react: {
+          use: [
+            '@neutrinojs/react',
+            (neutrino) => {
+              neutrino.config
+                .plugin('asset')
+                  .use(AssetsPlugin, [/* ... */]);
+            }
+          ]
+        }
+      }
+    }]
+  ]
+};
+```
+
+This would not work as-is, since the middleware function consuming the `AssetsPlugin` would not be serializable as-is.
+To work around this, you can move this middleware function to a separate file, and reference it in the middleware,
+which would then get forked and used:
+
+```js
+// .neutrinorc.js
+module.exports = {
+  use: [
+    ['@neutrinojs/fork', {
+      configs: {
+        react: {
+          use: [
+            '@neutrinojs/react',
+            'assets-middleware.js'
+          ]
+        }
+      }
+    }]
+  ]
+};
+```
+
+```js
+// assets-middleware.js
+const AssetsPlugin = require('assets-webpack-plugin');
+
+module.exports = (neutrino) => {
+  neutrino.config
+    .plugin('asset')
+      .use(AssetsPlugin, [/* ... */]);
+};
+```
 
 ## Events
 
