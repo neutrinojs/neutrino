@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/image-minify",
-  "version": "8.0.13",
+  "version": "8.0.14",
   "description": "Neutrino middleware for optimizing images with imagemin",
   "main": "index.js",
   "keywords": [
@@ -16,6 +16,11 @@
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "publishConfig": {
     "access": "public"
+  },
+  "engines": {
+    "node": "^6.9.0 || ^8 || >=9",
+    "npm": ">=5.4.0",
+    "yarn": ">=1.2.1"
   },
   "dependencies": {
     "deepmerge": "^1.5.2",

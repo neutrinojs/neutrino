@@ -10,18 +10,20 @@
 - Modern Babel compilation.
 - Extends from [@neutrinojs/web](https://neutrino.js.org/packages/web)
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
-  - Webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
-  - Webpack Dev Server during development
+  - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
+  - webpack Dev Server during development
   - Automatic creation of HTML pages, no templating necessary
-  - Hot Module Replacement support
+  - Automatic stylesheet extraction; importing stylesheets into modules creates bundled external stylesheets
+  - Pre-configured to support CSS Modules via `*.module.css` file extensions
+  - Hot Module Replacement support including CSS
   - Tree-shaking to create smaller bundles
   - Production-optimized bundles with Babel minification, easy chunking, and scope-hoisted modules for faster execution
   - Easily extensible to customize your project as needed
 
 ## Requirements
 
-- Node.js v6.10+
-- Yarn or npm client
+- Node.js v6 LTS, v8, v9
+- Yarn v1.2.1+, or npm v5.4+
 - Neutrino v8
 
 ## Installation
@@ -42,7 +44,7 @@ Vue development.
 ```bash
 ❯ npm install --save-dev neutrino @neutrinojs/vue
 ❯ npm install --save vue
-
+```
 
 ## Project Layout
 
@@ -52,6 +54,38 @@ project. This includes JavaScript files, CSS stylesheets, images, and any other 
 to import your compiled project.
 
 ## Quickstart
+
+The fastest way to get started is by using the `create-project` scaffolding tool.
+Don’t want to use the CLI helper? No worries, we have you covered with the [manual installation](#manual-installation).
+
+### create-project
+
+Run the following command to start the process. Substitute `<directory-name>` with the directory name you wish to create
+for this project.
+
+
+#### Yarn
+
+```
+❯ yarn create @neutrinojs/project <directory-name>
+```
+
+_Note: The `create` command is a shorthand that helps you do two things at once. See the [Yarn create docs](https://yarnpkg.com/lang/en/docs/cli/create) for more details._
+
+#### npm/npx
+
+[`npx`](https://github.com/zkat/npx) comes pre-installed with `npm`. If you’re running an older version of `npm`, then
+`npm install -g npm` to update to the latest version.
+
+```
+❯ npx @neutrinojs/create-project <directory-name>
+```
+
+The CLI helper will prompt for the project to scaffold, and will offer to set
+up a test runner as well as linting to your project. Refer to the [Create new project](../create-project) section
+for details on all available options.
+
+### Manual Installation
 
 After installing Neutrino and the Vue preset, add a new directory named `src` in the root of the project, with
 two files `index.js` and `App.vue` in it.

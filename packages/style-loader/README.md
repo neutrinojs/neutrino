@@ -16,8 +16,8 @@
 
 ## Requirements
 
-- Node.js v6.10+
-- Yarn or npm client
+- Node.js v6 LTS, v8, v9
+- Yarn v1.2.1+, or npm v5.4+
 - Neutrino v8
 
 ## Installation

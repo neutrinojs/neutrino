@@ -2,8 +2,13 @@
 
 ## Requirements
 
-Installing Neutrino requires Node.js v6.10+, and either [Yarn](https://yarnpkg.com/lang/en/docs/install/) or
+Installing Neutrino requires Node.js v6.9+, and either [Yarn](https://yarnpkg.com/lang/en/docs/install/) or
 npm. At a minimum, you will be installing Neutrino and Neutrino middleware, such as `@neutrinojs/react`.
+
+## Create New Project
+
+The fastest way to get started is by using the [`@neutrinojs/create-project`](./create-new-project.md) scaffolding tool.
+If you don’t want to use the CLI helper, proceed below for manual installation instructions.
 
 ## Yarn Installation
 

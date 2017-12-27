@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/karma",
-  "version": "8.0.13",
+  "version": "8.0.14",
   "description": "Neutrino preset for testing Neutrino projects with Karma",
   "main": "index.js",
   "keywords": [
@@ -19,8 +19,13 @@
   "resolutions": {
     "webpack-sources": "1.0.1"
   },
+  "engines": {
+    "node": "^6.9.0 || ^8 || >=9",
+    "npm": ">=5.4.0",
+    "yarn": ">=1.2.1"
+  },
   "dependencies": {
-    "@neutrinojs/loader-merge": "^8.0.13",
+    "@neutrinojs/loader-merge": "^8.0.14",
     "babel-plugin-istanbul": "^4.1.5",
     "deepmerge": "^1.5.2",
     "karma": "^1.7.1",

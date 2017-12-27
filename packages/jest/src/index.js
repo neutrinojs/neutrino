@@ -21,9 +21,13 @@ function getFinalPath(path) {
 }
 
 function normalizeJestOptions(opts, neutrino, usingBabel) {
-  const mediaNames = `\\.(${mediaExtensions.join('|')})`;
-  const styleNames = `\\.(${['css', 'less', 'sass', 'scss'].join('|')})`;
-  const jsNames = neutrino.regexFromExtensions(['js', 'jsx']);
+  const mediaNames = `\\.(${mediaExtensions.join('|')})$`;
+  const styleNames = `\\.(${['css', 'less', 'sass', 'scss'].join('|')})$`;
+
+  // neutrino.options.extensions should be used instead of neutrino.regexFromExtensions()
+  // because transformNames is used as a property name where a Regex object will cause issues.
+  // e.g., https://github.com/mozilla-neutrino/neutrino-dev/issues/638.
+  const transformNames = `\\.(${neutrino.options.extensions.join('|')})$`;
   const aliases = neutrino.config.resolve.alias.entries() || {};
   const moduleNames = Object
     .keys(aliases)
@@ -58,7 +62,7 @@ function normalizeJestOptions(opts, neutrino, usingBabel) {
       coveragePathIgnorePatterns: [neutrino.options.node_modules],
       collectCoverageFrom: [join(basename(neutrino.options.source), '**/*.js')],
       testRegex,
-      transform: { [jsNames]: require.resolve('./transformer') },
+      transform: { [transformNames]: require.resolve('./transformer') },
       globals: {
         BABEL_OPTIONS: usingBabel
           ? omit(['cacheDirectory'], neutrino.config.module.rule('compile').use('babel').get('options'))
@@ -96,31 +100,29 @@ module.exports = (neutrino, opts = {}) => {
       });
     });
 
-    return new Promise((resolve, reject) => {
-      // We need to parse argv separately in order to identify files
-      // and jest-related options since root neutrino does not know about
-      // jest options and will provide wrong/incomplete `args.files`
-      const jestArgs = yargs
-        .command('test [files..]', 'Run tests', jestOptions)
-        .argv;
-      const configFile = join(tmpdir(), 'config.json');
-      const options = normalizeJestOptions(opts, neutrino, usingBabel);
-      const cliOptions = Object.assign(
-        jestArgs,
-        {
-          // Jest is looking for Array of files in `argv._`. Providing them
-          _: jestArgs.files,
-          config: configFile,
-          coverage: args.coverage,
-          watch: args.watch
-        }
-      );
+    // We need to parse argv separately in order to identify files
+    // and jest-related options since root neutrino does not know about
+    // jest options and will provide wrong/incomplete `args.files`
+    const jestArgs = yargs
+      .command('test [files..]', 'Run tests', jestOptions)
+      .argv;
+    const configFile = join(tmpdir(), 'config.json');
+    const options = normalizeJestOptions(opts, neutrino, usingBabel);
+    const cliOptions = Object.assign(
+      jestArgs,
+      {
+        // Jest is looking for Array of files in `argv._`. Providing them
+        _: jestArgs.files,
+        config: configFile,
+        coverage: args.coverage,
+        watch: args.watch
+      }
+    );
 
-      writeFileSync(configFile, `${JSON.stringify(options, null, 2)}\n`);
+    writeFileSync(configFile, `${JSON.stringify(options, null, 2)}\n`);
 
-      jest.runCLI(cliOptions, options.roots || [options.rootDir])
-        .then(results => results.success ? resolve() : reject())
-        .catch(error => reject(error));
-    });
+    return jest
+      .runCLI(cliOptions, options.roots || [options.rootDir])
+      .then(({ results }) => results.success ? Promise.resolve() : Promise.reject());
   });
 };
