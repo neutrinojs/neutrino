@@ -4510,14 +4510,14 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.1"
     readable-stream "^2.0.4"
 
-fluture@^7.2.2:
-  version "7.2.2"
-  resolved "https://registry.yarnpkg.com/fluture/-/fluture-7.2.2.tgz#6e1cc88e42dace967822d543b86bb9b9396b585a"
+fluture@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/fluture/-/fluture-8.0.0.tgz#b8de768c2abf2e21859bd50735ee379e68d0621b"
   dependencies:
     concurrify "^1.0.0"
     denque "^1.1.1"
     inspect-f "^1.2.0"
-    sanctuary-type-classes "^6.0.0"
+    sanctuary-type-classes "^7.1.1"
     sanctuary-type-identifiers "^2.0.0"
 
 fn-name@^2.0.0:
@@ -10122,6 +10122,12 @@ samsam@1.x, samsam@^1.1.3:
 sanctuary-type-classes@^6.0.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/sanctuary-type-classes/-/sanctuary-type-classes-6.1.0.tgz#6bd67044358c8440d561e6e2556ab88dd8cd8001"
+  dependencies:
+    sanctuary-type-identifiers "1.0.x"
+
+sanctuary-type-classes@^7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/sanctuary-type-classes/-/sanctuary-type-classes-7.1.1.tgz#084bbd3168d72e60a059f6f78f5b7e391e68ffbb"
   dependencies:
     sanctuary-type-identifiers "1.0.x"
 
