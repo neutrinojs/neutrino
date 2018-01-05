@@ -19,7 +19,7 @@ const getPublic = (neutrino, options) => {
 
 
 module.exports = (neutrino, opts = {}) => {
-  const port = opts.port || 5000;
+  const port = neutrino.options.port || opts.port || 5000;
   const publicHost = getPublic(neutrino, opts);
   const host = getHost(publicHost);
 
