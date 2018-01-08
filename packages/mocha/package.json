@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/mocha",
-  "version": "8.0.14",
+  "version": "8.0.15",
   "description": "Neutrino preset for testing Neutrino projects with Mocha",
   "main": "src/index.js",
   "keywords": [
@@ -20,7 +20,7 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@neutrinojs/loader-merge": "^8.0.14",
+    "@neutrinojs/loader-merge": "^8.0.15",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "babel-register": "^6.26.0",
     "change-case": "^3.0.1",
