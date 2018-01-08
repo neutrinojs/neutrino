@@ -4,7 +4,7 @@ const jestOptions = require('jest-cli/build/cli/args').options;
 const { omit } = require('ramda');
 const merge = require('deepmerge');
 const loaderMerge = require('@neutrinojs/loader-merge');
-const { isAbsolute, basename, join } = require('path');
+const { isAbsolute, basename, join, relative } = require('path');
 const { tmpdir } = require('os');
 const { writeFileSync } = require('fs');
 
@@ -47,20 +47,24 @@ function normalizeJestOptions(opts, neutrino, usingBabel) {
     ...(opts.moduleFileExtensions || []),
     ...neutrino.config.resolve.extensions.values().map(e => e.replace('.', ''))
   ])];
+
+  const { extensions, source, tests, root } = neutrino.options
+  const collectCoverageFrom = [join(relative(root, source), `**/*.{${extensions.join(',')}}`)]
+
   const testRegex = join(
-    basename(neutrino.options.tests),
-    `.*(_test|_spec|\\.test|\\.spec)\\.(${neutrino.options.extensions.join('|')})$`
+    basename(tests),
+    `.*(_test|_spec|\\.test|\\.spec)\\.(${extensions.join('|')})$`
   );
 
   return merge.all([
     {
-      rootDir: neutrino.options.root,
+      rootDir: root,
       moduleDirectories,
       moduleFileExtensions,
       moduleNameMapper,
       bail: true,
       coveragePathIgnorePatterns: [neutrino.options.node_modules],
-      collectCoverageFrom: [join(basename(neutrino.options.source), '**/*.js')],
+      collectCoverageFrom,
       testRegex,
       transform: { [transformNames]: require.resolve('./transformer') },
       globals: {
