@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/library",
-  "version": "8.0.15",
+  "version": "8.0.16",
   "description": "Neutrino preset for building distributable libraries",
   "main": "index.js",
   "keywords": [
@@ -33,11 +33,11 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@neutrinojs/banner": "^8.0.15",
-    "@neutrinojs/clean": "^8.0.15",
-    "@neutrinojs/compile-loader": "^8.0.15",
-    "@neutrinojs/loader-merge": "^8.0.15",
-    "@neutrinojs/minify": "^8.0.15",
+    "@neutrinojs/banner": "^8.0.16",
+    "@neutrinojs/clean": "^8.0.16",
+    "@neutrinojs/compile-loader": "^8.0.16",
+    "@neutrinojs/loader-merge": "^8.0.16",
+    "@neutrinojs/minify": "^8.0.16",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-preset-env": "^1.6.0",
     "deepmerge": "^1.5.2",
