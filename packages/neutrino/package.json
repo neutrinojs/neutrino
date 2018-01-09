@@ -32,7 +32,7 @@
   "dependencies": {
     "deep-sort-object": "^1.0.2",
     "deepmerge": "^1.5.2",
-    "fluture": "^7.2.2",
+    "fluture": "^8.0.0",
     "immutable": "^3.8.1",
     "immutable-ext": "^1.1.2",
     "javascript-stringify": "^1.6.0",
