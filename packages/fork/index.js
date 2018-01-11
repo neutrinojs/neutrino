@@ -2,6 +2,7 @@ const { gray } = require('chalk');
 const { fork } = require('child_process');
 const { join } = require('path');
 const { createInterface } = require('readline');
+const serialize = require('serialize-javascript');
 
 module.exports = (neutrino, options = {}) => {
   global.interactive = false;
@@ -32,7 +33,7 @@ module.exports = (neutrino, options = {}) => {
         stdout.on('line', message => console.log(gray(`[${namespace}]`), message));
         stderr.on('line', message => console.error(gray(`[${namespace}]`), message));
         child.on('message', ([type, args]) => neutrino.emit(`${namespace}:${type}`, ...args));
-        child.send([middleware, neutrino.options.args]);
+        child.send(serialize([middleware, neutrino.options.args]));
 
         return child;
       });

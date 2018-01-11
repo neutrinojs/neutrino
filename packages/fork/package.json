@@ -27,7 +27,8 @@
   },
   "dependencies": {
     "chalk": "^2.3.0",
-    "ramda": "^0.25.0"
+    "ramda": "^0.25.0",
+    "serialize-javascript": "^1.4.0"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"
