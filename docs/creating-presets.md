@@ -330,11 +330,11 @@ module.exports = {
 ### `options.extensions`
 
 Set the preferred list of module extensions to inform interested middleware. If the option is not set,
-Neutrino defaults it to `['js', 'jsx', 'vue', 'ts', 'mjs']`.
+Neutrino defaults it to `['js', 'jsx', 'vue', 'ts', 'tsx', 'mjs']`.
 
 ```js
 module.exports = neutrino => {
-  // if not specified, defaults to ['js', 'jsx', 'vue', 'ts', 'mjs']
+  // if not specified, defaults to ['js', 'jsx', 'vue', 'ts', 'tsx', 'mjs']
   neutrino.options.extensions;
 
   // overwrites the default list
@@ -343,7 +343,7 @@ module.exports = neutrino => {
 
 module.exports = {
   options: {
-    // extends the default list to ['js', 'jsx', 'vue', 'ts', 'mjs', 'elm']
+    // extends the default list to ['js', 'jsx', 'vue', 'ts', 'tsx', 'mjs', 'elm']
     extensions: ['elm']
   }
 };
