@@ -20,7 +20,9 @@ const runnable = (command, middleware, args) => cond([
   [T, () => execute(middleware, args)]
 ])(command);
 
-process.on('message', ([rawMiddleware, args]) => {
+process.on('message', (payload) => {
+  const [rawMiddleware, args] = eval(`(${payload})`); // eslint-disable-line no-eval
+
   process.on('unhandledRejection', (err) => {
     if (!args.quiet) {
       console.error('');
