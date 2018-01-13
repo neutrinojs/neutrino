@@ -17,7 +17,6 @@ const getPublic = (neutrino, options) => {
     options.host;
 };
 
-
 module.exports = (neutrino, opts = {}) => {
   const port = neutrino.options.port || opts.port || 5000;
   const publicHost = getPublic(neutrino, opts);
@@ -33,7 +32,7 @@ module.exports = (neutrino, opts = {}) => {
       historyApiFallback: true,
       publicPath: '/',
       headers: {
-        host: `${publicHost}:${port}`
+        host: publicHost
       },
       stats: {
         assets: false,
@@ -51,7 +50,7 @@ module.exports = (neutrino, opts = {}) => {
       }
     },
     opts,
-    { host, public: `${publicHost}:${port}` },
+    { host, public: publicHost },
     neutrino.options.port ? { port: neutrino.options.port } : {},
     neutrino.options.https ? { https: neutrino.options.https } : {}
   ]);
