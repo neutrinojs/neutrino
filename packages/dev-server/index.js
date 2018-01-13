@@ -3,9 +3,14 @@ const merge = require('deepmerge');
 
 const isLocal = host => host === 'localhost' || host === '127.0.0.1';
 const getHost = publicHost => (isLocal(publicHost) ? 'localhost' : '0.0.0.0');
+const getPort = (neutrino, opts) => neutrino.options.port || opts.port || 5000;
 const getPublic = (neutrino, options) => {
   if (options.public) {
-    return options.public;
+    const normalizedPath = options.public.split(':');
+
+    return normalizedPath.length === 2 ?
+      options.public :
+      `${normalizedPath[0]}:${getPort(neutrino, options)}`;
   }
 
   if (neutrino.options.host) {
@@ -18,7 +23,7 @@ const getPublic = (neutrino, options) => {
 };
 
 module.exports = (neutrino, opts = {}) => {
-  const port = neutrino.options.port || opts.port || 5000;
+  const port = getPort(neutrino, opts);
   const publicHost = getPublic(neutrino, opts);
   const host = getHost(publicHost);
 
