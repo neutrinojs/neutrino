@@ -3,9 +3,14 @@ const merge = require('deepmerge');
 
 const isLocal = host => host === 'localhost' || host === '127.0.0.1';
 const getHost = publicHost => (isLocal(publicHost) ? 'localhost' : '0.0.0.0');
+const getPort = (neutrino, opts) => neutrino.options.port || opts.port || 5000;
 const getPublic = (neutrino, options) => {
   if (options.public) {
-    return options.public;
+    const normalizedPath = options.public.split(':');
+
+    return normalizedPath.length === 2 ?
+      options.public :
+      `${normalizedPath[0]}:${getPort(neutrino, options)}`;
   }
 
   if (neutrino.options.host) {
@@ -17,9 +22,8 @@ const getPublic = (neutrino, options) => {
     options.host;
 };
 
-
 module.exports = (neutrino, opts = {}) => {
-  const port = neutrino.options.port || opts.port || 5000;
+  const port = getPort(neutrino, opts);
   const publicHost = getPublic(neutrino, opts);
   const host = getHost(publicHost);
 
@@ -33,7 +37,7 @@ module.exports = (neutrino, opts = {}) => {
       historyApiFallback: true,
       publicPath: '/',
       headers: {
-        host: `${publicHost}:${port}`
+        host: publicHost
       },
       stats: {
         assets: false,
@@ -51,7 +55,7 @@ module.exports = (neutrino, opts = {}) => {
       }
     },
     opts,
-    { host, public: `${publicHost}:${port}` },
+    { host, public: publicHost },
     neutrino.options.port ? { port: neutrino.options.port } : {},
     neutrino.options.https ? { https: neutrino.options.https } : {}
   ]);
