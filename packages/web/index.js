@@ -37,8 +37,7 @@ module.exports = (neutrino, opts = {}) => {
     },
     style: {
       hot: opts.hot !== false,
-      extract: (opts.style && opts.style.extract) ||
-        (process.env.NODE_ENV === 'production' && {})
+      extract: process.env.NODE_ENV === 'production'
     },
     manifest: opts.html === false ? {} : false,
     clean: opts.clean !== false && {
@@ -76,11 +75,14 @@ module.exports = (neutrino, opts = {}) => {
   }
 
   Object.assign(options, {
-    minify: {
+    style: options.style && merge(options.style, {
+      extract: options.style.extract === true ? {} : options.style.extract
+    }),
+    minify: options.minify && merge(options.minify, {
       babel: options.minify.babel === true ? {} : options.minify.babel,
       style: options.minify.style === true ? {} : options.minify.style,
       image: options.minify.image === true ? {} : options.minify.image
-    },
+    }),
     babel: compileLoader.merge({
       plugins: [
         ...(options.polyfills.async ? [[require.resolve('fast-async'), { spec: true }]] : []),
