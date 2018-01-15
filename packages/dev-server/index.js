@@ -5,12 +5,14 @@ const isLocal = host => host === 'localhost' || host === '127.0.0.1';
 const getHost = publicHost => (isLocal(publicHost) ? 'localhost' : '0.0.0.0');
 const getPort = (neutrino, opts) => neutrino.options.port || opts.port || 5000;
 const getPublic = (neutrino, options) => {
+  const port = getPort(neutrino, options);
+
   if (options.public) {
     const normalizedPath = options.public.split(':');
 
     return normalizedPath.length === 2 ?
       options.public :
-      `${normalizedPath[0]}:${getPort(neutrino, options)}`;
+      `${normalizedPath[0]}:${port}`;
   }
 
   if (neutrino.options.host) {
@@ -18,8 +20,8 @@ const getPublic = (neutrino, options) => {
   }
 
   return !options.host || isLocal(options.host) ?
-    'localhost' :
-    options.host;
+    `localhost:${port}` :
+    `${options.host}:${port}`;
 };
 
 module.exports = (neutrino, opts = {}) => {
