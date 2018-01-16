@@ -265,12 +265,13 @@ module.exports = {
 
 ### Dev Server Proxy
 
-If your are integrating Neutrino into an existing app, you may want to set up a proxy for development. See Webpack's [`devServer.proxy`](https://webpack.js.org/configuration/dev-server/#devserver-proxy) for all available options.
+If you are handling requests with a server, you may want to set up a proxy for development. See webpack's [`devServer.proxy`](https://webpack.js.org/configuration/dev-server/#devserver-proxy) for all available options.
 
 Optionally, you may pass a url string (instead of an object) to `devServer.proxy`.
 This will proxy **all requests** through the given url, and set some sensible defaults.
 
 For example:
+
 ```js
 ['@neutrinojs/web', {
   devServer: {
@@ -280,6 +281,7 @@ For example:
 ```
 
 Is equivalent to:
+
 ```js
 ['@neutrinojs/web', {
   devServer: {
@@ -296,7 +298,7 @@ Is equivalent to:
 }
 ```
 
-The `X-Dev-Server-Proxy` header can be useful for detecting if your existing app is being request through the proxy.
+The `X-Dev-Server-Proxy` header can be useful for detecting if your existing app is being requested through the proxy.
 
 ## Hot Module Replacement
 
