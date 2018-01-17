@@ -53,6 +53,7 @@
   * [start-server](./packages/start-server/README.md)
   * [style-loader](./packages/style-loader/README.md)
   * [style-minify](./packages/style-minify/README.md)
+  * [stylelint](./packages/stylelint/README.md)
 * [v6 Documentation](https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v6/docs)
 * [v5 Documentation](https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v5/docs)
 * [v4 Documentation](https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v4/docs)
