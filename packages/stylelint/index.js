@@ -8,8 +8,6 @@ module.exports = (neutrino, opts = {}) => {
     pluginId: 'stylelint',
     files: '**/*.+(css|scss|sass|less)',
     context: neutrino.options.source,
-    failOnError: neutrino.options.command !== 'start',
-    quiet: neutrino.options.command === 'start',
     formatter: formatters.string
   }, opts);
 
