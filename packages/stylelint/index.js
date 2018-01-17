@@ -6,6 +6,7 @@ const { lint, formatters } = require('stylelint');
 module.exports = (neutrino, opts = {}) => {
   const options = merge({
     pluginId: 'stylelint',
+    configBasedir: neutrino.options.root,
     files: '**/*.+(css|scss|sass|less)',
     context: neutrino.options.source,
     formatter: formatters.string
