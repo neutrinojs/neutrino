@@ -24,7 +24,9 @@ module.exports = (neutrino, opts = {}) => {
       const files = join(options.context, options.files);
 
       return lint(merge(options, { fix, files }))
-        .then(result => Promise[result.errored ? 'reject' : 'resolve'](result.output));
+        .then(result => result.errored ?
+          Promise.reject(result.output) :
+          Promise.resolve(result.output));
     },
     'Perform a one-time lint using stylelint. Apply available automatic fixes with --fix'
   );
