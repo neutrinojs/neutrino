@@ -51,10 +51,7 @@ function normalizeJestOptions(opts, neutrino, usingBabel) {
   const { extensions, source, tests, root } = neutrino.options
   const collectCoverageFrom = [join(relative(root, source), `**/*.{${extensions.join(',')}}`)]
 
-  const testRegex = join(
-    basename(tests),
-    `.*(_test|_spec|\\.test|\\.spec)\\.(${extensions.join('|')})$`
-  );
+  const testRegex = `${basename(tests)}/.*(_test|_spec|\\.test|\\.spec)\\.(${extensions.join('|')})$`;
 
   return merge.all([
     {
