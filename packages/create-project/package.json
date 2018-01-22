@@ -41,7 +41,7 @@
     "fs-extra": "^5.0.0",
     "javascript-stringify": "^1.6.0",
     "ramda": "^0.25.0",
-    "yargs": "^10.0.3",
+    "yargs": "^11.0.0",
     "yeoman-environment": "^2.0.5",
     "yeoman-generator": "^2.0.1"
   },
