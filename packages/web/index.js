@@ -58,7 +58,10 @@ module.exports = (neutrino, opts = {}) => {
     options.devServer.proxy = {
       '**': {
         target: options.devServer.proxy,
-        changeOrigin: true
+        changeOrigin: true,
+        headers: {
+          'X-Dev-Server-Proxy': options.devServer.proxy
+        }
       }
     };
   }

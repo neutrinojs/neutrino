@@ -222,8 +222,6 @@ module.exports = {
       html: {},
 
       // Change options related to starting a webpack-dev-server
-      // See @neutrinojs/html-template for the defaults
-      // used by the Web preset
       devServer: {
         // Disabling options.hot will also disable devServer.hot
         hot: options.hot
@@ -293,11 +291,53 @@ module.exports = {
       // Example: change the page title
       html: {
         title: 'Epic Web App'
+      },
+
+      // Example: Proxy webpack-dev-server requests to http://localhost:3000
+      devServer: {
+        proxy: 'http://localhost:3000'
       }
     }]
   ]
 };
 ```
+
+### Dev Server Proxy
+
+If you are handling requests with a server, you may want to set up a proxy for development. See webpack's [`devServer.proxy`](https://webpack.js.org/configuration/dev-server/#devserver-proxy) for all available options.
+
+Optionally, you may pass a url string (instead of an object) to `devServer.proxy`.
+This will proxy **all requests** through the given url, and set some sensible defaults.
+
+For example:
+
+```js
+['@neutrinojs/web', {
+  devServer: {
+    proxy: 'http://localhost:3000'
+  }
+}
+```
+
+Is equivalent to:
+
+```js
+['@neutrinojs/web', {
+  devServer: {
+    proxy: {
+      '**': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        headers: {
+          'X-Dev-Server-Proxy': 'http://localhost:3000'
+        }
+      }
+    }
+  }
+}
+```
+
+The `X-Dev-Server-Proxy` header can be useful for detecting if your existing app is being requested through the proxy.
 
 ## Hot Module Replacement
 
