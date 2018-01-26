@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "auto-changelog": "^1.2.2",
-    "ava": "^0.24.0",
+    "ava": "^0.25.0",
     "codecov": "^3.0.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.3.1",
