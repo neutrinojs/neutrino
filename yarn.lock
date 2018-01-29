@@ -5274,9 +5274,9 @@ gitbook-plugin-github@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/gitbook-plugin-github/-/gitbook-plugin-github-2.0.0.tgz#5166e763cfcc402d432880b7a6c85c1c54b56a8d"
 
-gitbook-plugin-npmsearchlist@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/gitbook-plugin-npmsearchlist/-/gitbook-plugin-npmsearchlist-1.0.0.tgz#b3672d7b511c340fb4464d542671aa977c81bde4"
+gitbook-plugin-npmsearchlist@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/gitbook-plugin-npmsearchlist/-/gitbook-plugin-npmsearchlist-2.0.0.tgz#56677543f68f1cdefec559e9c8d4a8e70d39eab8"
 
 gitbook-plugin-prism@^2.3.0:
   version "2.3.0"
