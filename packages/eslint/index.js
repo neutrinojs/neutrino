@@ -1,10 +1,9 @@
 const Future = require('fluture');
-const merge = require('deepmerge');
+const deepmerge = require('deepmerge');
 const clone = require('lodash.clonedeep');
 const { CLIEngine } = require('eslint');
-const codeframe = require('eslint/lib/formatters/codeframe');
 const {
-  assoc, curry, evolve, keys, omit, pipe, prop, reduce
+  assoc, curry, evolve, keys, omit, pathOr, pipe, prop, reduce
 } = require('ramda');
 const { basename, join } = require('path');
 
@@ -40,11 +39,52 @@ const getEslintRcConfig = pipe(
   })
 );
 
+const merge = (source, destination) => {
+  const sourceRules = pathOr({}, ['eslint', 'rules'], source);
+  const destinationRules = pathOr({}, ['eslint', 'rules'], destination);
+  const rules = deepmerge(sourceRules, destinationRules, {
+    arrayMerge(source, destination) {
+      return destination;
+    }
+  });
+  const options = deepmerge(source, destination);
+
+  Object.assign(options.eslint, { rules });
+
+  return options;
+};
+
 module.exports = (neutrino, opts = {}) => {
-  const options = merge.all([
-    opts,
-    !opts.include ? { include: [neutrino.options.source] } : {}
-  ]);
+  const defaults = {
+    include: !opts.include ? [neutrino.options.source] : undefined,
+    eslint: {
+      failOnError: neutrino.options.command !== 'start',
+      cwd: neutrino.options.root,
+      useEslintrc: false,
+      root: true,
+      formatter: 'codeframe',
+      // eslint-loader uses executeOnText(), which ignores the `extensions` setting.
+      // However it's still needed for the lint command, as it uses executeOnFiles().
+      extensions: neutrino.options.extensions,
+      plugins: ['babel'],
+      baseConfig: {},
+      envs: ['es6'],
+      parser: 'babel-eslint',
+      parserOptions: {
+        ecmaVersion: 2017,
+        sourceType: 'module',
+        ecmaFeatures: {
+          objectLiteralDuplicateProperties: false,
+          generators: true,
+          impliedStrict: true
+        }
+      },
+      settings: {},
+      globals: ['process'],
+      rules: {}
+    }
+  };
+  const options = merge(defaults, opts);
 
   neutrino.config
     .resolve
@@ -65,32 +105,7 @@ module.exports = (neutrino, opts = {}) => {
         .when(options.exclude, rule => rule.exclude.merge(options.exclude))
         .use('eslint')
           .loader(require.resolve('eslint-loader'))
-          .options(merge({
-            failOnError: neutrino.options.command !== 'start',
-            cwd: neutrino.options.root,
-            useEslintrc: false,
-            root: true,
-            formatter: codeframe,
-            // eslint-loader uses executeOnText(), which ignores the `extensions` setting.
-            // However it's still needed for the lint command, as it uses executeOnFiles().
-            extensions: neutrino.options.extensions,
-            plugins: ['babel'],
-            baseConfig: {},
-            envs: ['es6'],
-            parser: 'babel-eslint',
-            parserOptions: {
-              ecmaVersion: 2017,
-              sourceType: 'module',
-              ecmaFeatures: {
-                objectLiteralDuplicateProperties: false,
-                generators: true,
-                impliedStrict: true
-              }
-            },
-            settings: {},
-            globals: ['process'],
-            rules: {}
-          }, options.eslint || {}));
+          .options(options.eslint);
 
   neutrino.register(
     'eslintrc',
@@ -108,14 +123,14 @@ module.exports = (neutrino, opts = {}) => {
           basename(exclude),
           '**/*'
         ));
-      const eslintConfig = merge(getEslintOptions(neutrino.config), { ignorePattern, fix });
+      const eslintConfig = deepmerge(getEslintOptions(neutrino.config), { ignorePattern, fix });
 
       return Future
         .of(eslintConfig)
         .map(options => new CLIEngine(options))
         .chain(cli => Future.both(
           Future.of(cli.executeOnFiles(options.include)),
-          Future.of(cli.getFormatter('codeframe'))
+          Future.of(cli.getFormatter(options.eslint.formatter))
         ))
         .map(([report, formatter]) => {
           if (fix) {
@@ -134,3 +149,5 @@ module.exports = (neutrino, opts = {}) => {
     'Perform a one-time lint using ESLint. Apply available automatic fixes with --fix'
   );
 };
+
+module.exports.merge = merge;
