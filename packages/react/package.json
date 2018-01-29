@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/react",
-  "version": "8.0.18",
+  "version": "8.1.0",
   "description": "Neutrino preset for building React web applications",
   "main": "index.js",
   "keywords": [
@@ -24,9 +24,9 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@neutrinojs/compile-loader": "^8.0.18",
-    "@neutrinojs/loader-merge": "^8.0.18",
-    "@neutrinojs/web": "^8.0.18",
+    "@neutrinojs/compile-loader": "^8.1.0",
+    "@neutrinojs/loader-merge": "^8.1.0",
+    "@neutrinojs/web": "^8.1.0",
     "babel-plugin-jsx-pragmatic": "^1.0.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-classes": "^6.24.1",
