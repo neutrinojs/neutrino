@@ -35,31 +35,29 @@ and plug it into Neutrino:
 
 ```js
 // Using function middleware format
-const images = require('@neutrinojs/image-loader');
 const imagemin = require('@neutrinojs/image-minify');
 
 // Use with default options
-neutrino.use(images);
 neutrino.use(imagemin);
 
 // Usage showing default options
 neutrino.use(imagemin, {
   imagemin: {
     plugins: [
+      optipng(),
       gifsicle(),
+      jpegtran(),
       svgo(),
-      pngquant(),
-      mozjpeg(),
       webp()
-    ]
+    ],
+    optipng: {},
+    gifsicle: {},
+    jpegtran: {},
+    svgo: {},
+    pngquant: null,
+    webp: {}
   },
-  plugin: {
-    name: '[path][name].[ext]',
-    test: /\.(png|jpg|jpeg|gif|webp)$/
-  },
-  useId: 'imagemin',
-  rules: ['svg', 'img'],
-  pluginId: 'imagemin',
+  pluginId: 'imagemin'
 });
 ```
 
@@ -75,36 +73,67 @@ module.exports = {
 module.exports = {
   use: [
     ['@neutrinojs/image-minify', {
-      imagemin: {},
-      plugin: {
-        name: '[path][name].[ext]',
-        test: /\.(png|jpg|jpeg|gif|webp)$/
+      imagemin: {
+        plugins: [
+          optipng(),
+          gifsicle(),
+          jpegtran(),
+          svgo(),
+          webp()
+        ],
+        optipng: {},
+        gifsicle: {},
+        jpegtran: {},
+        svgo: {},
+        pngquant: null,
+        webp: {}
       },
-      rules: ['svg', 'img'],
       pluginId: 'imagemin'
     }]
   ]
 };
 ```
 
-- `imagemin`: Set options for [imagemin](https://github.com/imagemin/imagemin#options).
-- `plugin`: Set options for [imagemin-webpack](https://github.com/itgalaxy/imagemin-webpack#standalone-plugin)'s ImageminWebpackPlugin.
-- `rules`: Specify rules for the application of imagemin.
-- `pluginId`: The imagemin plugin identifier. Override this to add an additional imagemin plugin instance.
+- `imagemin`: Set options for [imagemin](https://github.com/Klathmon/imagemin-webpack-plugin). See below for specific options.
+- `pluginId`: The `imagemin` plugin identifier. Override this to add an additional imagemin plugin instance.
 
 ## Customization
 
 `@neutrinojs/image-minify` creates some conventions to make overriding the configuration easier once you are
 ready to make changes.
 
-### Rules
+### Imagemin Options
 
-The following is a list of rules and their identifiers which can be overridden:
+The `imagemin` option can accept options related to the
+[`ImageminWebpackPlugin`](https://github.com/Klathmon/imagemin-webpack-plugin). Typically this includes an array of
+additional plugins you wish to add beyond the defaults, or setting options for the default plugins this middleware
+uses. This middleware uses all the default settings for `imagemin-webpack-plugin`, and adds the following
+_additional option_:
 
-| Name | Description | Environments and Commands |
-| --- | --- | --- |
-| `img` | Optimize JPEG, PNG, GIF, and WEBP files imported from modules. Contains a single loader named `imagemin`. | all |
-| `svg` | Optimize SVG files imported from modules. Contains a single loader named `imagemin`. | all |
+- `imagemin.webp`: Passes the given object to [`imagemin-webp`](https://github.com/imagemin/imagemin-webp). Set to null
+to disable `webp` optimization.
+
+If you wish to add additional plugins, you can pass an instance of the plugin to the `imagemin.plugins` array.
+
+_Example: Use `imagemin-zopfli` with `8bit` option_:
+
+```js
+const zopfli = require('imagemin-zopfli');
+
+module.exports = {
+  use: [
+    ['@neutrinojs/image-minify', {
+      imagemin: {
+        plugins: [
+          zopfli({
+            '8bit': true
+          })
+        ],
+      },
+    }]
+  ]
+};
+```
 
 ### Plugins
 
@@ -112,7 +141,7 @@ The following is a list of plugins and their identifiers which can be overridden
 
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
-| `imagemin` | Optimize any images added by other webpack plugins (e.g. `copy-webpack-plugin`). | all |
+| `imagemin` | Optimize any images used by your project. | all |
 
 ## Contributing
 
