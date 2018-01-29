@@ -49,7 +49,7 @@
     "gitbook-plugin-anchorjs": "^1.1.1",
     "gitbook-plugin-edit-link": "^2.0.2",
     "gitbook-plugin-github": "^2.0.0",
-    "gitbook-plugin-npmsearchlist": "^1.0.0",
+    "gitbook-plugin-npmsearchlist": "^2.0.0",
     "gitbook-plugin-prism": "^2.3.0",
     "husky": "^0.14.3",
     "lerna": "^2.5.1",
