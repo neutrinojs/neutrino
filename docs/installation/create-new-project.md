@@ -35,13 +35,13 @@ of that project to scaffold. Each project type harnesses the power of middleware
 
 | Project | Project Type | Middleware |
 | --- | --- | --- |
-| React | Application | [`@neutrinojs/react`](../react) |
-| Preact | Application | [`@neutrinojs/preact`](../preact) |
-| Vue | Application | [`@neutrinojs/vue`](../vue) |
-| Web | Application | [`@neutrinojs/web`](../web) |
-| Node.js | Application | [`@neutrinojs/node`](../node) |
-| Web | Library | [`@neutrinojs/library`](../node) |
-| React Components | Components | [`@neutrinojs/react-components`](../react-components) |
+| React | Application | [`@neutrinojs/react`](../packages/react) |
+| Preact | Application | [`@neutrinojs/preact`](../packages/preact) |
+| Vue | Application | [`@neutrinojs/vue`](../packages/vue) |
+| Web | Application | [`@neutrinojs/web`](../packages/web) |
+| Node.js | Application | [`@neutrinojs/node`](../packages/node) |
+| Web | Library | [`@neutrinojs/library`](../packages/node) |
+| React Components | Components | [`@neutrinojs/react-components`](../packages/react-components) |
 
 ## Test Runners
 
@@ -50,9 +50,9 @@ the scaffolding phase.
 
 | Test Runner | Middleware |
 | --- | --- |
-| Jest | [`@neutrinojs/jest`](../jest) |
-| Karma | [`@neutrinojs/karma`](../karma) |
-| Mocha | [`@neutrinojs/mocha`](../mocha) |
+| Jest | [`@neutrinojs/jest`](../packages/jest) |
+| Karma | [`@neutrinojs/karma`](../pakages/karma) |
+| Mocha | [`@neutrinojs/mocha`](../packages/mocha) |
 
 Be sure to check out the test runner preset to get more information on its features and how files should be named.
 
@@ -63,8 +63,8 @@ process. `@neutrinojs/create-project` currently offers two linting middleware ch
 
 | Linting style | Middleware |
 | --- | --- |
-| Airbnb | With React/Preact: [`@neutrinojs/airbnb`](../airbnb) <br /> Other projects: [`@neutrinojs/airbnb-base`](../airbnb-base) |
-| StandardJS | [`@neutrinojs/standardjs`](../standardjs) |
+| Airbnb | With React/Preact: [`@neutrinojs/airbnb`](../airbnb) <br /> Other projects: [`@neutrinojs/airbnb-base`](../packages/airbnb-base) |
+| StandardJS | [`@neutrinojs/standardjs`](../packages/standardjs) |
 
 ## Project Layout
 
