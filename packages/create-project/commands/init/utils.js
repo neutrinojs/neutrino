@@ -13,6 +13,7 @@ const WEB_NODE_LIBRARY = '@neutrinojs/library';
 const REACT_COMPONENTS = '@neutrinojs/react-components';
 const JEST = '@neutrinojs/jest';
 const KARMA = '@neutrinojs/karma';
+const KARMATIC = '@neutrinojs/karmatic';
 const MOCHA = '@neutrinojs/mocha';
 const AIRBNB = '@neutrinojs/airbnb';
 const AIRBNB_BASE = '@neutrinojs/airbnb-base';
@@ -70,6 +71,10 @@ const projects = {
     type: TESTING,
     devDependencies: [KARMA]
   },
+  [KARMATIC]: {
+    type: TESTING,
+    devDependencies: [KARMATIC]
+  },
   [MOCHA]: {
     type: TESTING,
     devDependencies: [MOCHA]
@@ -87,6 +92,7 @@ const packages = {
   REACT_COMPONENTS,
   JEST,
   KARMA,
+  KARMATIC,
   MOCHA,
   AIRBNB,
   AIRBNB_BASE,

@@ -13,6 +13,7 @@ const WEB_NODE_LIBRARY = { name: 'Web and/or Node.js', value: packages.WEB_NODE_
 const REACT_COMPONENTS = { name: 'React Components', value: packages.REACT_COMPONENTS };
 const JEST = { name: 'Jest', value: packages.JEST };
 const KARMA = { name: 'Karma', value: packages.KARMA };
+const KARMATIC = { name: 'Karmatic', value: packages.KARMATIC };
 const MOCHA = { name: 'Mocha', value: packages.MOCHA };
 const AIRBNB = { name: 'Airbnb style rules', value: packages.AIRBNB };
 const AIRBNB_BASE = { name: 'Airbnb style rules', value: packages.AIRBNB_BASE };
@@ -51,7 +52,7 @@ module.exports = () => [
     type: 'list',
     message: '🤔  Would you like to add a test runner to your project?',
     when: data => !data.project.includes('node'),
-    choices: [JEST, KARMA, MOCHA, NONE]
+    choices: [JEST, KARMA, KARMATIC, MOCHA, NONE]
   },
   {
     name: 'testRunner',
