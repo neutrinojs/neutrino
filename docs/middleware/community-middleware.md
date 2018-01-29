@@ -22,4 +22,4 @@ In addition, your middleware should also:
 It should also have a relevant description. If you prefer, you can also add your middleware to the
 [neutrino-dev wiki](https://github.com/mozilla-neutrino/neutrino-dev/wiki/Community-Middleware).
 
-{% npmsearchlist "keywords:neutrino-middleware%20not:deprecated" %}{% endnpmsearchlist %}
+{% npmsearchlist "keywords:neutrino-middleware%20not:deprecated&size=250" %}{% endnpmsearchlist %}
