@@ -1,0 +1,36 @@
+{
+  "name": "@neutrinojs/stylelint",
+  "version": "8.0.11",
+  "description": "Neutrino middleware for linting styles with stylelint",
+  "main": "index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-middleware",
+    "lint",
+    "stylelint"
+  ],
+  "author": "Tim Kelty <timkelty@gmail.com>",
+  "contributors": [
+    "Capi Etheriel <barraponto@gmail.com> (https://barraponto.blog.br)"
+  ],
+  "license": "MPL-2.0",
+  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/stylelint",
+  "homepage": "https://neutrino.js.org",
+  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": "^6.9.0 || ^8 || >=9",
+    "npm": ">=5.4.0",
+    "yarn": ">=1.2.1"
+  },
+  "dependencies": {
+    "deepmerge": "^1.5.2",
+    "stylelint": "^8.0.0",
+    "stylelint-webpack-plugin": "^0.9.0"
+  },
+  "peerDependencies": {
+    "neutrino": "^8.0.0"
+  }
+}
