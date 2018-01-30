@@ -8,7 +8,7 @@ module.exports = (neutrino, opts = {}) => {
     imagemin: {
       plugins: [],
       optipng: null,
-      gifsicle: null,
+      gifsicle: {},
       jpegtran: null,
       svgo: {},
       pngquant: {},
