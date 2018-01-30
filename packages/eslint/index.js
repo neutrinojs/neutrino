@@ -105,7 +105,12 @@ module.exports = (neutrino, opts = {}) => {
         .when(options.exclude, rule => rule.exclude.merge(options.exclude))
         .use('eslint')
           .loader(require.resolve('eslint-loader'))
-          .options(options.eslint);
+          .options(typeof options.eslint.formatter === 'string'
+            ? deepmerge(options.eslint, {
+              // eslint-disable-next-line global-require
+              formatter: require(`eslint/lib/formatters/${options.eslint.formatter}`)
+            })
+            : options.eslint);
 
   neutrino.register(
     'eslintrc',
