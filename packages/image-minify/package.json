@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "deepmerge": "^1.5.2",
+    "imagemin-mozjpeg": "^7.0.0",
     "imagemin-webp": "^4.1.0",
     "imagemin-webpack-plugin": "^1.6.0"
   },
