@@ -7,9 +7,9 @@ module.exports = (neutrino, opts = {}) => {
   const options = merge({
     imagemin: {
       plugins: [],
-      optipng: {},
-      gifsicle: {},
-      jpegtran: {},
+      optipng: null,
+      gifsicle: null,
+      jpegtran: null,
       svgo: {},
       pngquant: {},
       webp: {}
