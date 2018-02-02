@@ -259,7 +259,7 @@ const { Neutrino } = require('neutrino');
 // Even if using .neutrinorc.js, you must specify it when using
 // the API
 module.exports = Neutrino()
-  .use('.neutrinorc.js')
+  .use(__dirname + '/.neutrinorc.js')
   .call('eslintrc');
 ```
 
