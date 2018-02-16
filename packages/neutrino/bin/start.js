@@ -9,7 +9,7 @@ module.exports = (middleware, args, cli) => {
     cli,
     middleware,
     args,
-    NODE_ENV: 'development',
+    NODE_ENV: process.env.NODE_ENV || 'development',
     commandHandler(config, neutrino) {
       if (!args.start) {
         spinner.enabled = global.interactive;
