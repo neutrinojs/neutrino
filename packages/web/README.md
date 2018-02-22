@@ -26,30 +26,6 @@
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino v8
 
-## Installation
-
-`@neutrinojs/web` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `@neutrinojs/web` are development dependencies.
-
-#### Yarn
-
-```bash
-❯ yarn add --dev neutrino @neutrinojs/web
-```
-
-#### npm
-
-```bash
-❯ npm install --save-dev neutrino @neutrinojs/web
-```
-
-## Project Layout
-
-`@neutrinojs/web` follows the standard [project layout](https://neutrino.js.org/project-layout) specified by Neutrino. This
-means that by default all project source code should live in a directory named `src` in the root of the
-project. This includes JavaScript files, CSS stylesheets, images, and any other assets that would be available
-to your compiled project.
-
 ## Quickstart
 
 The fastest way to get started is by using the `create-project` scaffolding tool.
@@ -83,6 +59,21 @@ up a test runner as well as linting to your project. Refer to the [Create new pr
 for details on all available options.
 
 ### Manual Installation
+
+`@neutrinojs/web` can be installed via the Yarn or npm clients. Inside your project, make sure
+`neutrino` and `@neutrinojs/web` are development dependencies.
+
+#### Yarn
+
+```bash
+❯ yarn add --dev neutrino @neutrinojs/web
+```
+
+#### npm
+
+```bash
+❯ npm install --save-dev neutrino @neutrinojs/web
+```
 
 After installing Neutrino and the Web preset, add a new directory named `src` in the root of the project, with
 a single JS file named `index.js` in it.
@@ -158,6 +149,13 @@ Time: 4145ms
 ```
 
 You can either serve or deploy the contents of this `build` directory as a static site.
+
+## Project Layout
+
+`@neutrinojs/web` follows the standard [project layout](https://neutrino.js.org/project-layout) specified by Neutrino. This
+means that by default all project source code should live in a directory named `src` in the root of the
+project. This includes JavaScript files, CSS stylesheets, images, and any other assets that would be available
+to your compiled project.
 
 ## Static assets
 
