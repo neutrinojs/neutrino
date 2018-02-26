@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/babel-minify",
-  "version": "8.1.1",
+  "version": "8.1.2",
   "description": "Neutrino middleware for minifying source code",
   "main": "index.js",
   "keywords": [

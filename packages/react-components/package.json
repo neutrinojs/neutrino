@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/react-components",
-  "version": "8.1.1",
+  "version": "8.1.2",
   "description": "Neutrino preset for building sets of React components",
   "main": "index.js",
   "files": [
@@ -20,8 +20,8 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@neutrinojs/banner": "^8.1.1",
-    "@neutrinojs/react": "^8.1.1",
+    "@neutrinojs/banner": "^8.1.2",
+    "@neutrinojs/react": "^8.1.2",
     "deepmerge": "^1.5.2",
     "webpack-node-externals": "^1.6.0"
   },

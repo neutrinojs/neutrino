@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/minify",
-  "version": "8.1.1",
+  "version": "8.1.2",
   "description": "Neutrino middleware for minifying assets",
   "main": "index.js",
   "keywords": [
@@ -24,9 +24,9 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@neutrinojs/babel-minify": "^8.1.1",
-    "@neutrinojs/image-minify": "^8.1.1",
-    "@neutrinojs/style-minify": "^8.1.1",
+    "@neutrinojs/babel-minify": "^8.1.2",
+    "@neutrinojs/image-minify": "^8.1.2",
+    "@neutrinojs/style-minify": "^8.1.2",
     "deepmerge": "^1.5.2"
   },
   "peerDependencies": {
