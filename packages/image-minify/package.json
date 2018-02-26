@@ -25,7 +25,7 @@
   "dependencies": {
     "deepmerge": "^1.5.2",
     "imagemin-gifsicle": "5.2.0",
-    "imagemin-mozjpeg": "^6.0.0",
+    "imagemin-mozjpeg": "^7.0.0",
     "imagemin-pngquant": "^5.0.0",
     "imagemin-svgo": "^6.0.0",
     "imagemin-webp": "^4.0.0",
