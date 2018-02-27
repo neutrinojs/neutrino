@@ -5262,9 +5262,9 @@ gitbook-cli@^2.3.2:
     tmp "0.0.31"
     user-home "2.0.0"
 
-gitbook-plugin-anchorjs@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/gitbook-plugin-anchorjs/-/gitbook-plugin-anchorjs-1.1.1.tgz#728e0471ba7427fcde2149227c29fe172b5eecdd"
+gitbook-plugin-anchorjs@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/gitbook-plugin-anchorjs/-/gitbook-plugin-anchorjs-2.0.0.tgz#00f279d4f33ac177b432ce38fd73f3834d7dd4c0"
 
 gitbook-plugin-edit-link@^2.0.2:
   version "2.0.2"
