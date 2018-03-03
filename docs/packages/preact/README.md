@@ -95,7 +95,7 @@ _Note: The `create` command is a shorthand that helps you do two things at once.
 #### npm/npx
 
 [`npx`](https://github.com/zkat/npx) comes pre-installed with `npm`. If you’re running an older version of `npm`, then
-`npm install -g npm` to update to the latest version.
+`npm install -g npx` to update to the latest version.
 
 ```
 ❯ npx @neutrinojs/create-project <directory-name>
