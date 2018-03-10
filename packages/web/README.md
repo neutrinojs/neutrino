@@ -185,6 +185,9 @@ The following shows how you can pass an options object to the Web preset and ove
 module.exports = {
   use: [
     ['@neutrinojs/web', {
+      // Change options for @neutrinojs/env
+      env: [],
+
       // Enables Hot Module Replacement. Set to false to disable
       hot: true,
 
@@ -201,7 +204,9 @@ module.exports = {
       // Change options for @neutrinojs/style-loader
       style: {
         // Disabling options.hot will also disable style.hot
-        hot: true
+        hot: true,
+        // Extract CSS to a separate file in production.
+        extract: process.env.NODE_ENV === 'production'
       },
 
       // Change options for @neutrinojs/font-loader
@@ -211,7 +216,11 @@ module.exports = {
       image: {},
 
       // Change options for @neutrinojs/minify
-      minify: {},
+      minify: {
+        babel: {},
+        style: {},
+        image: false
+      },
 
       // Change options for `webpack-manifest-plugin`
       manifest: {},
@@ -224,7 +233,9 @@ module.exports = {
       // Change options related to starting a webpack-dev-server
       devServer: {
         // Disabling options.hot will also disable devServer.hot
-        hot: options.hot
+        hot: options.hot,
+        // Proxy requests that don't match a known file to the specified backend.
+        proxy: 'https://localhost:8000/api/'
       },
 
       // Target specific browsers with babel-preset-env
