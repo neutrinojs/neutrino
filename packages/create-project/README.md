@@ -40,7 +40,7 @@ of that project to scaffold. Each project type harnesses the power of middleware
 | Vue | Application | [`@neutrinojs/vue`](https://neutrino.js.org/packages/vue) |
 | Web | Application | [`@neutrinojs/web`](https://neutrino.js.org/packages/web) |
 | Node.js | Application | [`@neutrinojs/node`](https://neutrino.js.org/packages/node) |
-| Web | Library | [`@neutrinojs/library`](https://neutrino.js.org/packages/node) |
+| Web | Library | [`@neutrinojs/library`](https://neutrino.js.org/packages/library) |
 | React Components | Components | [`@neutrinojs/react-components`](https://neutrino.js.org/packages/react-components) |
 
 ## Test Runners
