@@ -1,6 +1,9 @@
 {
   "extends": [
-    "config:base"
+    "config:base",
+    ":maintainLockFilesWeekly",
+    ":prNotPending",
+    ":unpublishSafe"
   ],
   "reviewers": [
     "mozilla-neutrino/core-contributors"
