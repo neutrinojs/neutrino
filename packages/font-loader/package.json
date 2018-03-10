@@ -24,7 +24,7 @@
   "dependencies": {
     "deepmerge": "^1.5.2",
     "file-loader": "^1.0.0",
-    "url-loader": "^0.6.0"
+    "url-loader": "^1.0.0"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"
