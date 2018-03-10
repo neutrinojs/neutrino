@@ -153,7 +153,19 @@ module.exports = {
         options: {
           includePaths: ['absolute/path/a', 'absolute/path/b']
         }
-      }  
+      },
+      {
+        loader: 'postcss-loader',
+        useId: 'postcss',
+        options: {
+          config: {
+
+            // Where to look for config (postcss.config.js)
+            // https://github.com/postcss/postcss-loader#path
+            path: neutrino.options.root
+          }
+        }
+      }
     ]
   }]
 }
@@ -167,7 +179,7 @@ module.exports = {
       // This will cause this middleware to generate a
       // loader with a useId of `css-2`.
       'sass-loader'
-      
+
       // Adding any other loaders will increment the useId
       // to `css-3`, `css-4`, etc.
     ]
