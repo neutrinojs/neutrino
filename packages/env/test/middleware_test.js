@@ -3,6 +3,7 @@ import { Neutrino } from 'neutrino';
 
 const mw = () => require('..');
 const options = ['ALPHA_BETA'];
+const objectOptions = {'ALPHA_BETA': false};
 
 test('loads middleware', t => {
   t.notThrows(mw);
@@ -32,6 +33,14 @@ test('instantiates with options', t => {
   const api = Neutrino();
 
   api.use(mw(), options);
+
+  t.notThrows(() => api.config.toConfig());
+});
+
+test('instantiates with object as options', t => {
+  const api = Neutrino();
+
+  api.use(mw(), objectOptions);
 
   t.notThrows(() => api.config.toConfig());
 });
