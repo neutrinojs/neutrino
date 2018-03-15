@@ -44,6 +44,9 @@ neutrino.use(env);
 
 // Usage with additional environment variables
 neutrino.use(env, ['SECRET_KEY']);
+
+// Usage with default values
+neutrino.use(env, {'SECRET_KEY': 'abc'});
 ```
 
 ```js
