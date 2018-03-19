@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "deepmerge": "^1.5.2",
-    "stylelint": "^8.0.0",
+    "stylelint": "^9.0.0",
     "stylelint-webpack-plugin": "^0.10.0",
     "webpack": "^3.10.0"
   },
