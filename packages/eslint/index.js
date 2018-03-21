@@ -1,7 +1,6 @@
 const Future = require('fluture');
 const deepmerge = require('deepmerge');
 const clone = require('lodash.clonedeep');
-const { CLIEngine } = require('eslint');
 const {
   assoc, curry, evolve, keys, omit, pathOr, pipe, prop, reduce
 } = require('ramda');
@@ -121,6 +120,16 @@ module.exports = (neutrino, opts = {}) => {
   neutrino.register(
     'lint',
     () => {
+      if (neutrino.options.debug) {
+        // Inspired by the ESLint CLI `--debug` implementation (but with less verbose output):
+        // https://github.com/eslint/eslint/blob/v4.19.0/bin/eslint.js#L21-L23
+        // eslint-disable-next-line global-require
+        require('debug').enable('eslint:cli-engine');
+      }
+      // Must be imported after configuring debug.
+      // eslint-disable-next-line global-require
+      const { CLIEngine } = require('eslint');
+
       const { fix = false } = neutrino.options.args;
       const ignorePattern = (options.exclude || [])
         .map(exclude => join(

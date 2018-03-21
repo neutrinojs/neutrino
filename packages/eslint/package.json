@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "babel-eslint": "^8.0.3",
+    "debug": "^3.1.0",
     "deepmerge": "^1.5.2",
     "eslint": "^4.12.1",
     "eslint-loader": "^2.0.0",
