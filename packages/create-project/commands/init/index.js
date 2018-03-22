@@ -10,7 +10,7 @@ const { projects, packages, isYarn } = require('./utils');
 
 /* eslint-disable no-underscore-dangle */
 module.exports = class Project extends Generator {
-  _logo() {
+  static _logo() {
     return `                          _          _
       _ __    ___  _   _ | |_  _ __ (_) _ __    ___
      | '_ \\  / _ \\| | | || __|| '__|| || '_ \\  / _ \\
@@ -101,7 +101,7 @@ module.exports = class Project extends Generator {
   prompting() {
     const done = this.async();
 
-    this.log(chalk.cyan.bold(this._logo()));
+    this.log(chalk.cyan.bold(Project._logo()));
     this.log(chalk.white.bold('Welcome to Neutrino! 👋'));
     this.log(chalk.cyan('To help you create your new project, I am going to ask you a few questions.\n'));
 
