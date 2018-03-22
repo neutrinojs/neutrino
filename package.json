@@ -59,8 +59,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "yarn lint --fix",
-      "git add"
+      "yarn lint"
     ]
   }
 }
