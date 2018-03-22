@@ -28,7 +28,7 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "webpack": "^3.10.0",
+    "webpack": "^4.0.0",
     "webpack-sources": "1.0.1"
   },
   "peerDependencies": {

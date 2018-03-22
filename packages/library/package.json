@@ -42,7 +42,7 @@
     "babel-preset-env": "^1.6.0",
     "deepmerge": "^1.5.2",
     "fast-async": "^6.3.0",
-    "webpack": "^3.10.0",
+    "webpack": "^4.0.0",
     "webpack-node-externals": "^1.6.0",
     "webpack-sources": "1.0.1",
     "worker-loader": "^1.0.0"
