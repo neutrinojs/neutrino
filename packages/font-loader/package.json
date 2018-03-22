@@ -26,6 +26,9 @@
     "file-loader": "^1.0.0",
     "url-loader": "^1.0.0"
   },
+  "devDependencies": {
+    "webpack": "^3.10.0"
+  },
   "peerDependencies": {
     "neutrino": "^8.0.0"
   }

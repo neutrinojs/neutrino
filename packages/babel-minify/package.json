@@ -28,6 +28,9 @@
   "dependencies": {
     "@neutrinojs/babel-minify-webpack-plugin": "^0.2.0"
   },
+  "devDependencies": {
+    "webpack": "^3.10.0"
+  },
   "peerDependencies": {
     "neutrino": "^8.0.0"
   }
