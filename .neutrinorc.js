@@ -11,15 +11,12 @@ module.exports = {
       eslint: {
         baseConfig: {
           extends: [
-            'plugin:react/recommended',
-            'prettier',
-            'prettier/react'
+            'prettier'
           ]
         },
         envs: ['browser', 'commonjs', 'node'],
         plugins: [
-          'eslint-plugin-prettier',
-          'eslint-plugin-react'
+          'prettier'
         ],
         rules: {
           // Algebraic and functional types should allow capital constructors without new
