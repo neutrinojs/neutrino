@@ -31,6 +31,9 @@
     "imagemin-webp": "^4.0.0",
     "imagemin-webpack": "^1.1.2"
   },
+  "devDependencies": {
+    "webpack": "^3.10.0"
+  },
   "peerDependencies": {
     "neutrino": "^8.0.0"
   }

@@ -33,6 +33,9 @@
     "lodash.clonedeep": "^4.5.0",
     "ramda": "^0.25.0"
   },
+  "devDependencies": {
+    "webpack": "^3.10.0"
+  },
   "peerDependencies": {
     "neutrino": "^8.0.0"
   }
