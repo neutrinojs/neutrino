@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/create-project",
-  "version": "8.1.2",
+  "version": "8.2.0",
   "description": "Scaffold new Neutrino projects with a CLI helper",
   "bin": {
     "create-project": "./bin/create-project.js"
