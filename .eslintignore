@@ -1,0 +1,6 @@
+packages/**/node_modules/
+# TODO: Fix lint errors in our tests and remove this line
+packages/**/test/
+# The templates have any lint errors fixed during project creation,
+# since we don't know which ESLint preset the user will choose.
+packages/create-project/commands/init/templates/
