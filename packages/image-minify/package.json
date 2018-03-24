@@ -29,7 +29,7 @@
     "imagemin-pngquant": "^5.0.0",
     "imagemin-svgo": "^6.0.0",
     "imagemin-webp": "^4.0.0",
-    "imagemin-webpack": "^1.1.2"
+    "imagemin-webpack": "^2.0.0"
   },
   "devDependencies": {
     "webpack": "^3.10.0"

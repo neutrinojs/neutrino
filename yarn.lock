@@ -6407,9 +6407,9 @@ imagemin-webp@^4.0.0:
     exec-buffer "^3.0.0"
     is-cwebp-readable "^2.0.1"
 
-imagemin-webpack@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/imagemin-webpack/-/imagemin-webpack-1.1.2.tgz#8fb173fa972516e8f43ea21758f74500e238ab99"
+imagemin-webpack@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/imagemin-webpack/-/imagemin-webpack-2.0.0.tgz#6a949eed7030c9eccd8d62b3cfc2491537d879b7"
   dependencies:
     async-throttle "^1.1.0"
     imagemin "^5.3.1"
