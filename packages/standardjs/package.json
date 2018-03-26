@@ -27,7 +27,7 @@
     "@neutrinojs/eslint": "^8.2.0",
     "eslint": "^4.12.1",
     "eslint-config-standard": "^11.0.0",
-    "eslint-config-standard-jsx": "^4.0.2",
+    "eslint-config-standard-jsx": "^5.0.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-node": "^6.0.0",
     "eslint-plugin-promise": "^3.6.0",
