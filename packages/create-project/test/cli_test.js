@@ -1,23 +1,27 @@
 import test from 'ava';
-import { xprod } from 'ramda';
 import assert from 'yeoman-assert';
 import helpers from 'yeoman-test';
 import { join } from 'path';
 import { spawn } from 'child_process';
-import { packages } from '../commands/init/utils'
 
-if (process.env.NODE_ENV !== 'test') {
-  process.env.NODE_ENV = 'test';
-}
+const REGISTRY = 'http://localhost:4873';
 
 const project = (prompts) => helpers
   .run(require.resolve(join(__dirname, '../commands/init')))
   .inTmpDir(function(dir) {
-    this.withOptions({ directory: dir, name: 'testable', stdio: 'ignore' });
+    this.withOptions({
+      directory: dir,
+      name: 'testable',
+      registry: REGISTRY,
+    });
   })
   .withPrompts(prompts)
   .toPromise();
-const usable = (dir, files) => assert.file(files.map(f => join(dir, f)));
+const usable = (dir, files) => {
+  files.forEach(file => {
+    assert.file(join(dir, file));
+  });
+};
 const spawnP = (cmd, args, options) => new Promise((resolve, reject) => {
   const child = spawn(cmd, args, options);
   let output = '';
@@ -52,107 +56,58 @@ const lintable = async (t, dir) => {
     t.fail(`Failed to lint project:\n\n${output}`);
   }
 };
-const tests = [packages.JEST, packages.KARMA, packages.MOCHA];
-const matrix = {
-  react: [
-    [packages.REACT],
-    [packages.AIRBNB, packages.STANDARDJS],
-    tests
-  ],
-  preact: [
-    [packages.PREACT],
-    [packages.AIRBNB, packages.STANDARDJS],
-    tests
-  ],
-  node: [
-    [packages.NODE],
-    [packages.AIRBNB_BASE, packages.STANDARDJS],
-    tests.filter(t => t !== packages.KARMA)
-  ],
-  'react-components': [
-    [packages.REACT_COMPONENTS],
-    [packages.AIRBNB, packages.STANDARDJS],
-    tests
-  ],
-  vue: [
-    [packages.VUE],
-    [packages.AIRBNB_BASE, packages.STANDARDJS],
-    tests
-  ],
-  web: [
-    [packages.WEB],
-    [packages.AIRBNB_BASE, packages.STANDARDJS],
-    tests
-  ],
-};
 
-Object
-  .keys(matrix)
-  .forEach((key) => {
-    const [presets, linters, tests] = matrix[key];
-    const [preset] = presets;
+if (!process.env.PROJECT || process.env.PROJECT === 'all') {
+  throw new Error('Missing valid $PROJECT environment for create-project test');
+}
 
-    test.serial(preset, async t => {
-      const dir = await project({
-        projectType: 'application',
-        project: preset,
-        testRunner: false,
-        linter: false
-      });
-
-      usable(dir, [
-        'package.json',
-        '.neutrinorc.js'
-      ]);
-
-      await buildable(t, dir);
+if (process.env.LINTER) {
+  test(`${process.env.PROJECT} + ${process.env.LINTER}`, async t => {
+    const dir = await project({
+      projectType: 'application',
+      project: process.env.PROJECT,
+      testRunner: false,
+      linter: process.env.LINTER
     });
 
-    xprod(presets, tests).forEach(([preset, testRunner]) => {
-      const testName = testRunner ? `${preset} + ${testRunner}` : preset;
+    t.truthy(dir);
+    assert.file(join(dir, 'package.json'));
+    assert.file(join(dir, '.neutrinorc.js'));
+    assert.file(join(dir, '.eslintrc.js'));
 
-      test.serial(testName, async t => {
-        const dir = await project({
-          projectType: 'application',
-          project: preset,
-          testRunner,
-          linter: false
-        });
-
-        usable(dir, [
-          'package.json',
-          '.neutrinorc.js',
-          'test/simple_test.js'
-        ]);
-
-        await Promise.all([
-          buildable(t, dir),
-          testable(t, dir)
-        ]);
-      });
-    });
-
-    xprod(presets, linters).forEach(([preset, linter]) => {
-      const testName = `${preset} + ${linter}`;
-
-      test.serial(testName, async t => {
-        const dir = await project({
-          projectType: 'application',
-          project: preset,
-          testRunner: false,
-          linter
-        });
-
-        usable(dir, [
-          'package.json',
-          '.neutrinorc.js',
-          '.eslintrc.js'
-        ]);
-
-        await Promise.all([
-          buildable(t, dir),
-          lintable(t, dir)
-        ]);
-      });
-    });
+    await lintable(t, dir);
+    await buildable(t, dir);
   });
+} else if (process.env.TEST_RUNNER) {
+  test(`${process.env.PROJECT} + ${process.env.TEST_RUNNER}`, async t => {
+    const dir = await project({
+      projectType: 'application',
+      project: process.env.PROJECT,
+      testRunner: process.env.TEST_RUNNER,
+      linter: false
+    });
+
+    t.truthy(dir);
+    assert.file(join(dir, 'package.json'));
+    assert.file(join(dir, '.neutrinorc.js'));
+    assert.file(join(dir, 'test/simple_test.js'));
+
+    await testable(t, dir);
+    await buildable(t, dir);
+  });
+} else {
+  test(process.env.PROJECT, async t => {
+    const dir = await project({
+      projectType: 'application',
+      project: process.env.PROJECT,
+      testRunner: false,
+      linter: false
+    });
+
+    t.truthy(dir);
+    assert.file(join(dir, 'package.json'));
+    assert.file(join(dir, '.neutrinorc.js'));
+
+    await buildable(t, dir);
+  });
+}

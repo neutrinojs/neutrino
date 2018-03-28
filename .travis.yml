@@ -5,11 +5,86 @@
 sudo: required
 dist: trusty
 language: node_js
-cache: yarn
-node_js:
-- '8'
-- '9'
-- '10'
+cache:
+  yarn: true
+  directories:
+  - node_modules
+matrix:
+  include:
+  - node_js: '8'
+    env: PROJECT="all"
+  - node_js: '10'
+    env: PROJECT="all"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/react"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/react" TEST_RUNNER="@neutrinojs/jest"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/react" TEST_RUNNER="@neutrinojs/karma"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/react" TEST_RUNNER="@neutrinojs/mocha"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/react" LINTER="@neutrinojs/airbnb"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/react" LINTER="@neutrinojs/standardjs"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/preact"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/preact" TEST_RUNNER="@neutrinojs/jest"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/preact" TEST_RUNNER="@neutrinojs/karma"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/preact" TEST_RUNNER="@neutrinojs/mocha"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/preact" LINTER="@neutrinojs/airbnb"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/preact" LINTER="@neutrinojs/standardjs"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/node"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/node" TEST_RUNNER="@neutrinojs/jest"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/node" TEST_RUNNER="@neutrinojs/mocha"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/node" LINTER="@neutrinojs/airbnb-base"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/node" LINTER="@neutrinojs/standardjs"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/react-components"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/react-components" TEST_RUNNER="@neutrinojs/jest"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/react-components" TEST_RUNNER="@neutrinojs/karma"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/react-components" TEST_RUNNER="@neutrinojs/mocha"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/react-components" LINTER="@neutrinojs/airbnb"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/react-components" LINTER="@neutrinojs/standardjs"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/vue"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/vue" TEST_RUNNER="@neutrinojs/jest"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/vue" TEST_RUNNER="@neutrinojs/karma"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/vue" TEST_RUNNER="@neutrinojs/mocha"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/vue" LINTER="@neutrinojs/airbnb-base"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/vue" LINTER="@neutrinojs/standardjs"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/web"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/web" TEST_RUNNER="@neutrinojs/jest"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/web" TEST_RUNNER="@neutrinojs/karma"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/web" TEST_RUNNER="@neutrinojs/mocha"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/web" LINTER="@neutrinojs/airbnb-base"
+  - node_js: '10'
+    env: PROJECT="@neutrinojs/web" LINTER="@neutrinojs/standardjs"
 before_install:
 # Use newer yarn than that pre-installed in the Travis image.
 - curl -sSfL https://yarnpkg.com/install.sh | bash
@@ -18,7 +93,6 @@ install:
 # Remove --ignore-engines when this fixed:
 # https://github.com/anodynos/upath/issues/14
 - yarn install --frozen-lockfile --ignore-engines
-- yarn link:all
 script:
 - yarn validate:eslintrc
 - yarn lint
