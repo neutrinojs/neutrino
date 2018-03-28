@@ -1,21 +1,45 @@
 const web = require('@neutrinojs/web');
+const copy = require('@neutrinojs/copy');
+const clean = require('@neutrinojs/clean');
 const webExt = require('web-ext').default;
-const { join } = require('path');
+const { join, basename } = require('path');
 const merge = require('deepmerge');
 
 const MODULES = join(__dirname, 'node_modules');
 
 module.exports = (neutrino, opts = {}) => {
+  const DEV_FOLDER = join(neutrino.options.root, 'dev');
+  const BUILD_FOLDER = join(neutrino.options.root, 'build');
+  const staticDir = join(neutrino.options.source, 'static');
+  const locales = join(neutrino.options.source, '_locales');
+
+  const copyWebExtensionPaths = {
+    patterns: [
+      { context: neutrino.options.source, from: 'manifest.json' },
+      { context: staticDir, from: '**/*', to: basename(staticDir) },
+      { context: locales, from: '**/*', to: basename(locales) }
+    ]
+  };
+
   const handlePromiseRejection = err => {
     console.error(err);
     process.exit(1);
   };
 
+  const webExtOptions = merge({
+    noInput: true,
+    sourceDir: DEV_FOLDER
+  }, neutrino.options.webExtRun || {} );
+
+  if ( webExtOptions.config ) {
+    webExtOptions.config = join(neutrino.options.root, webExtOptions.config)
+  }
+
   const options = merge({
-    webExtRun: {
-      noInput: true,
-      sourceDir: neutrino.options.output
-    },
+    hot: false,
+    devServer: false,
+    webExtRun: webExtOptions,
+    // TODO Is It necessary ??
     minify: {}
   }, opts);
 
@@ -52,20 +76,37 @@ module.exports = (neutrino, opts = {}) => {
         .add(MODULES)
         .end()
       .end()
-    .when(neutrino.options.command === 'start', () => {
-      webExt.cmd
-        .run(options.webExtRun, { shouldExitProgram: false })
-        .catch(handlePromiseRejection);
-    })
-    .when(neutrino.options.command === 'build', (config) => {
+    .when(neutrino.options.command === 'start', (config) => {
       config
         .output
+          .path(DEV_FOLDER)
+          .end();
+      neutrino.use(clean, {
+        paths: [DEV_FOLDER]
+      })
+      neutrino.use(copy, copyWebExtensionPaths);
+    })
+    .when(neutrino.options.command === 'build', (config) => {
+      neutrino.use(clean, {
+        paths: [BUILD_FOLDER]
+      });
+      config
+        .output
+          .path(BUILD_FOLDER)
           .delete('filename')
           .end()
-        .plugin(options.pluginId || 'copy')
-          .tap(([, ...args]) => [[{
-            context: neutrino.options.source,
-            from: '**/*'
-          }], ...args]);
+      neutrino.use(copy, copyWebExtensionPaths);
+        // TODO Is it better ??
+        // .plugin(options.pluginId || 'copy')
+        //  .tap(([, ...args]) => [[{
+        //    context: neutrino.options.source,
+        //    from: '**/*'
+        //  }], ...args]);
     });
+
+  neutrino.on('start', () => {
+    webExt.cmd
+      .run(options.webExtRun, { shouldExitProgram: false })
+      .catch(handlePromiseRejection);
+  });
 };

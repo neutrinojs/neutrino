@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/webextension",
-  "version": "7.3.2",
+  "version": "8.2.0",
   "description": "Neutrino preset for building WebExtensions",
   "main": "index.js",
   "keywords": [
@@ -14,9 +14,11 @@
   "homepage": "https://neutrino.js.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "dependencies": {
-    "@neutrinojs/web": "^7.3.2",
+    "@neutrinojs/web": "^8.0.0",
+    "@neutrinojs/copy": "^8.0.0",
+    "@neutrinojs/clean": "^8.0.0",
     "deepmerge": "^1.5.2",
-    "web-ext": "^2.2.2"
+    "web-ext": "^2.5"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"
