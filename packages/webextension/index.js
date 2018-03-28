@@ -3,6 +3,7 @@ const copy = require('@neutrinojs/copy');
 const clean = require('@neutrinojs/clean');
 const webExt = require('web-ext').default;
 const { join, basename } = require('path');
+const fs = require('fs');
 const merge = require('deepmerge');
 
 const MODULES = join(__dirname, 'node_modules');
@@ -10,6 +11,7 @@ const MODULES = join(__dirname, 'node_modules');
 module.exports = (neutrino, opts = {}) => {
   const DEV_FOLDER = join(neutrino.options.root, 'dev');
   const BUILD_FOLDER = join(neutrino.options.root, 'build');
+  const BUILD_EXT_FOLDER = join(BUILD_FOLDER, 'extension');
   const staticDir = join(neutrino.options.source, 'static');
   const locales = join(neutrino.options.source, '_locales');
 
@@ -26,19 +28,28 @@ module.exports = (neutrino, opts = {}) => {
     process.exit(1);
   };
 
-  const webExtOptions = merge({
+  const webExtRun = merge({
     noInput: true,
-    sourceDir: DEV_FOLDER
+    sourceDir: DEV_FOLDER,
+    startUrl: "about:debugging"
   }, neutrino.options.webExtRun || {} );
 
-  if ( webExtOptions.config ) {
-    webExtOptions.config = join(neutrino.options.root, webExtOptions.config)
+  const webExtBuild = merge({
+    sourceDir: BUILD_EXT_FOLDER,
+    overwriteDest: true,
+    artifactsDir: BUILD_FOLDER,
+  }, neutrino.options.webExtBuild || {} );
+
+  // TODO seems like config is not taken in account
+  if ( webExtRun.config ) {
+    webExtRun.config = join(neutrino.options.root, webExtRun.config)
   }
 
   const options = merge({
     hot: false,
     devServer: false,
-    webExtRun: webExtOptions,
+    webExtRun: webExtRun,
+    webExtBuild: webExtBuild,
     // TODO Is It necessary ??
     minify: {}
   }, opts);
@@ -92,7 +103,7 @@ module.exports = (neutrino, opts = {}) => {
       });
       config
         .output
-          .path(BUILD_FOLDER)
+          .path(BUILD_EXT_FOLDER)
           .delete('filename')
           .end()
       neutrino.use(copy, copyWebExtensionPaths);
@@ -109,4 +120,16 @@ module.exports = (neutrino, opts = {}) => {
       .run(options.webExtRun, { shouldExitProgram: false })
       .catch(handlePromiseRejection);
   });
+
+  neutrino.on('build', () => {
+    webExt.cmd
+      .build(options.webExtBuild, { shouldExitProgram: false })
+      .then(({extensionPath})=>{
+        fs.copyFileSync(
+          extensionPath,
+          extensionPath.replace('zip', 'xpi')
+        );
+      })
+      .catch(handlePromiseRejection);
+  })
 };
