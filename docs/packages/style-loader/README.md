@@ -139,8 +139,8 @@ Using a string to define loaders will cause `@neutrinojs/style-loader` to still 
 will be used as the `loader` property, `options` will be left blank, and the `useId` will be derived from
 `cssUseId` option above plus the index of this loader within the `loaders` array.
 
-**Important: The `useId` for string-defined loaders will start at `2`, since all loaders are preceded by the included
-`style-loader` and `css-loader`.**
+**Important:** The `useId` for string-defined loaders will start at `2`, since all loaders are preceded by the included
+`style-loader` and `css-loader`.
 
 ```js
 module.exports = {
@@ -156,14 +156,8 @@ module.exports = {
       },
       {
         loader: 'postcss-loader',
-        useId: 'postcss',
         options: {
-          config: {
-
-            // Where to look for config (postcss.config.js)
-            // https://github.com/postcss/postcss-loader#path
-            path: neutrino.options.root
-          }
+          plugins: [require('autoprefixer')]
         }
       }
     ]
@@ -189,6 +183,45 @@ module.exports = {
 
 Due to the inferred loader names, we highly recommend you stick to using objects
 to define loaders.
+
+### Loader Configuration
+
+You can configure loaders directly by passing `options`.
+For PostCSS, if you want to use an [external config file](https://github.com/michael-ciniawsky/postcss-load-config),
+you need to pass `options.config`:
+
+```js
+// .neutrinorc.js
+module.exports = {
+  use: ['@neutrinojs/style-loader', {
+    loaders: [
+      {
+        loader: 'postcss-loader',
+        useId: 'postcss',
+        options: {
+          config: {
+
+            // Where to look for config (postcss.config.js)
+            // https://github.com/postcss/postcss-loader#path
+            // See "Loader Configuration" below
+            path: neutrino.options.root
+          }
+        }
+      }
+    ]
+  }]
+}
+```
+
+```js
+// .postcssrc.js
+// Example: load tailwindcss plugin
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+  }
+};
+```
 
 ## Customization
 
