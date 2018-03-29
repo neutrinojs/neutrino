@@ -2,20 +2,23 @@
 
 ## Commands
 
-- `yarn start`: 
-  - build & watch the extension in `dev`
-  - load the extension with web-ext in Firefox
-- `yarn build`: 
-  - build an optimized version in `build/extension`
-  - build a ZIP and a XPI files from `build/extension` in `build/` 
+- `start`: 
+  - Build & watch the extension in `dev`
+  - Apply web-ext lint on `dev`
+  - Load the extension with web-ext in Firefox
+- `build`: 
+  - Build an optimized version in `build/extension`
+  - Apply web-ext lint on `build/extension`
+  - Build a ZIP and a XPI files from `build/extension` in `build/` 
+- `lint`: 
+  - Apply web-ext lint on `src`
+
 
 ## Build
-
 - All entries in main are bundle at the root (JS + HTML)
 - All other files are copied
 
 ## To Do
- - Add web-ext lint support
  - Read manifest and only creates XPI if applications.gecko.id is present ([source](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Getting_started_with_web-ext))
  - Read manifest to find the entries automatically
  - Avoid creating useless HTML for content scripts & background.js

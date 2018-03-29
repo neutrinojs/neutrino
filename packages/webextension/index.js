@@ -28,6 +28,12 @@ module.exports = (neutrino, opts = {}) => {
     process.exit(1);
   };
 
+  const lintWithWebExt = async (webExtLint, sourceDir) => {
+    await webExt.cmd
+      .lint(merge(webExtLint, { sourceDir }), { shouldExitProgram: false })
+      .catch(handlePromiseRejection);
+  }
+
   const webExtRun = merge({
     noInput: true,
     sourceDir: DEV_FOLDER,
@@ -37,8 +43,15 @@ module.exports = (neutrino, opts = {}) => {
   const webExtBuild = merge({
     sourceDir: BUILD_EXT_FOLDER,
     overwriteDest: true,
-    artifactsDir: BUILD_FOLDER,
+    artifactsDir: BUILD_FOLDER
   }, neutrino.options.webExtBuild || {} );
+
+  const webExtLint = merge({
+    output: "text",
+    pretty: "true",
+    selfHosted: false,
+    warningsAsErrors: false
+  }, neutrino.options.webExtLint || {})
 
   // TODO seems like config is not taken in account
   if ( webExtRun.config ) {
@@ -48,8 +61,8 @@ module.exports = (neutrino, opts = {}) => {
   const options = merge({
     hot: false,
     devServer: false,
-    webExtRun: webExtRun,
-    webExtBuild: webExtBuild,
+    webExtRun,
+    webExtBuild,
     // TODO Is It necessary ??
     minify: {}
   }, opts);
@@ -87,6 +100,10 @@ module.exports = (neutrino, opts = {}) => {
         .add(MODULES)
         .end()
       .end()
+    // TODO what about async code ???
+    .when(neutrino.options.command === 'lint', async () => {
+      await lintWithWebExt(webExtLint, neutrino.options.source);
+    })
     .when(neutrino.options.command === 'start', (config) => {
       config
         .output
@@ -115,21 +132,25 @@ module.exports = (neutrino, opts = {}) => {
         //  }], ...args]);
     });
 
-  neutrino.on('start', () => {
-    webExt.cmd
+  neutrino.on('start', async () => {
+    await lintWithWebExt(webExtLint, DEV_FOLDER);
+
+    await webExt.cmd
       .run(options.webExtRun, { shouldExitProgram: false })
       .catch(handlePromiseRejection);
   });
 
-  neutrino.on('build', () => {
-    webExt.cmd
+  neutrino.on('build', async () => {
+    await lintWithWebExt(webExtLint, BUILD_EXT_FOLDER);
+
+    await webExt.cmd
       .build(options.webExtBuild, { shouldExitProgram: false })
-      .then(({extensionPath})=>{
+      .then(({ extensionPath }) => {
         fs.copyFileSync(
           extensionPath,
           extensionPath.replace('zip', 'xpi')
         );
       })
       .catch(handlePromiseRejection);
-  })
+  });
 };
