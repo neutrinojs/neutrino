@@ -13,28 +13,49 @@
 - `lint`: 
   - Apply web-ext lint on `src`
 
+## Output
 
-## Build
-- All entries in main are bundle at the root (JS + HTML)
-- All other files are copied
+### Create entries find in the Manifest
+
+#### Entries
+  - `background.scripts` (JS)
+  - `background.page` (HTML)
+  - `content_scripts` (JS)
+  - `browser_action.default_popup` (HTML)
+  - `options_ui.page` (HTML)
+  - `sidebar_action.default_panel` (HTML)
+  - `devtools_page` (HTML)
+
+#### Notes
+There are 2 cases for HTML entries:
+ 1. The file exists and is copied.
+ 2. Else a template HTML file is created. 
+In both cases, the bundle is generated.
+
+Some entries are only bundled in JavaScript.
+
+### Create entries find in `options.mains` in neutrinorc.js 
+See `@neutrinojs/Web`.
+
+### Copy files
+  - `manifest.json`
+  - `_locales/` (All)
+  - `static/` (All) 
 
 ## To Do
  - Read manifest and only creates XPI if applications.gecko.id is present ([source](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Getting_started_with_web-ext))
- - Read manifest to find the entries automatically
- - Avoid creating useless HTML for content scripts & background.js
- - Keep entry structure `popup/popup.js -> popup/popup.html`
  - Remove `dev/` folder when start command ends
- - What about pages in tab
- - What about the tests
+ - Ignore Files on build 
+ - Options
+   - Boolean: Create XPI on build (For FF only)
+   - Boolean: Use web-ext on start (For FF only, one's can start manually with another browser)
 
 ## Problems
  - Copied files are not removed in ./dev if removed from ./src
  - New files in ./src don't trigger a rebuild (but are copied after a rebuild due to a modification on another file)
- - `start` only:
-    - Bundle files contain eval() function that can't be load (Not any more... ???)
-      - For Extension Page: "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-      - For content scripts, rely on the page CSP and can't be overwritten so most of the time won't work...
-- `build` content script is not working
+ - Lots of warnings due to `eval`
+- `build`
+  - All js target (without HTML) are not working because `runtime.js` is not imported...
 - Both: Lots of error in bundled files
 ```
    ReferenceError: reference to undefined property "disabled"[Learn More]  CustomizableUI.jsm:2480:5
