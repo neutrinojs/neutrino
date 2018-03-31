@@ -1,9 +1,26 @@
 const ora = require('ora');
+const debounce = require('lodash.debounce');
+const DashboardPlugin = require('webpack-dashboard/plugin');
+const { spawn } = require('child_process');
 const { start } = require('../src');
 const base = require('./base');
 
 module.exports = (middleware, args, cli) => {
   const spinner = ora({ text: 'Building project' });
+
+  if (args.dashboard) {
+    args.quiet = true; // eslint-disable-line no-param-reassign
+
+    middleware.push(neutrino => {
+      neutrino.config.plugin('dashboard').use(DashboardPlugin);
+    });
+
+    const child = spawn(require.resolve('webpack-dashboard/bin/webpack-dashboard.js'), [], { stdio: 'inherit' });
+
+    process.on('exit', () => {
+      child.kill();
+    });
+  }
 
   return base({
     cli,
@@ -11,7 +28,7 @@ module.exports = (middleware, args, cli) => {
     args,
     NODE_ENV: 'development',
     commandHandler(config, neutrino) {
-      if (!args.start) {
+      if (!args.quiet) {
         spinner.enabled = global.interactive;
         spinner.start();
       }

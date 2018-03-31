@@ -150,6 +150,8 @@ Using the command `neutrino start` builds a project in development mode, also st
 watcher depending on the middleware or configuration used. This command sets the `NODE_ENV` environment variable to
 `development` by default.
 
+This command also receives a flag `--dashboard` to add the [webpack-dashboard](https://github.com/FormidableLabs/webpack-dashboard) plugin.
+
 ## `neutrino build`
 
 Using the command `neutrino build` builds a project in production mode, rendering static assets to the configured build
