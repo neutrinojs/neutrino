@@ -28,7 +28,7 @@
     "deepmerge": "^1.5.2",
     "eslint": "^4.12.1",
     "eslint-loader": "^2.0.0",
-    "eslint-plugin-babel": "^4.1.2",
+    "eslint-plugin-babel": "^5.0.0",
     "fluture": "^8.0.0",
     "lodash.clonedeep": "^4.5.0",
     "ramda": "^0.25.0"
