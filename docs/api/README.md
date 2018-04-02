@@ -412,7 +412,7 @@ command. The results of this command can be returned with `call`, which is loade
 ```js
 const { Neutrino } = require('neutrino');
 
-const eslintConfig = Neutrino()
+const eslintConfig = Neutrino({ root: __dirname })
   .use('.neutrinorc.js')
   .call('eslintrc');
 ```

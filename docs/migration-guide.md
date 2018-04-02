@@ -40,7 +40,7 @@ For a concrete example, `.eslintrc.js`, which utilizes these changes, would migr
 ```js
 const { Neutrino } = require('neutrino');
 
-module.exports = Neutrino()
+module.exports = Neutrino({ root: __dirname })
   .use('.neutrinorc.js')
   .call('eslintrc');
 ```
