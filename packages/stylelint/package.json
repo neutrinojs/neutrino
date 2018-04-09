@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/stylelint",
-  "version": "8.2.1",
+  "version": "8.2.2",
   "description": "Neutrino middleware for linting styles with stylelint",
   "main": "index.js",
   "keywords": [
