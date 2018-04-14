@@ -42,7 +42,7 @@ module.exports = (neutrino, opts = {}) => {
           useBuiltIns: true,
           exclude: options.polyfills.async ? ['transform-regenerator', 'transform-async-to-generator'] : [],
           targets: options.target === 'node' ?
-            { node: '6.10' } :
+            { node: '8.0' } :
             { browsers: [] }
         }]
       ]

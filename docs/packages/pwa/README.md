@@ -9,7 +9,7 @@ Application capabilities. This middleware is usually only added during productio
 
 ## Requirements
 
-- Node.js v6 LTS, v8, v9
+- Node.js v8+
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino v8
 

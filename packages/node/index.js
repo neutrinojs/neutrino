@@ -37,7 +37,7 @@ module.exports = (neutrino, opts = {}) => {
       async: true
     },
     targets: {
-      node: '6.10'
+      node: '8.0'
     },
     clean: opts.clean !== false && {
       paths: [neutrino.options.output]
