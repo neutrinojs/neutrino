@@ -245,11 +245,6 @@ module.exports = {
       // such as whitelisting dependencies for bundling.
       externals: {},
 
-      polyfills: {
-        // Enables fast-async polyfill. Set to false to disable
-        async: true
-      },
-
       // Remove the contents of the output directory prior to building.
       // Set to false to disable cleaning this directory
       clean: {

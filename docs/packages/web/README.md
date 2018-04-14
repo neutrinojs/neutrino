@@ -191,11 +191,6 @@ module.exports = {
       // Enables Hot Module Replacement. Set to false to disable
       hot: true,
 
-      polyfills: {
-        // Enables fast-async polyfill. Set to false to disable
-        async: true
-      },
-
       // Sets webpack's `output.publicPath` and
       // `devServer.publicPath` settings. Useful if you want to
       // serve assets from a non-root location (e.g. `/assets/`)
@@ -253,7 +248,6 @@ module.exports = {
           ['babel-preset-env', {
             modules: false,
             useBuiltIns: true,
-            exclude: ['transform-regenerator', 'transform-async-to-generator'],
           }]
         ]
       }

@@ -28,9 +28,6 @@ module.exports = (neutrino, opts = {}) => {
     hot: true,
     hotEntries: [],
     html: {},
-    polyfills: {
-      async: true
-    },
     devServer: {
       hot: opts.hot !== false,
       publicPath: resolve('/', publicPath)
@@ -88,7 +85,6 @@ module.exports = (neutrino, opts = {}) => {
     }),
     babel: compileLoader.merge({
       plugins: [
-        ...(options.polyfills.async ? [[require.resolve('fast-async'), { spec: true }]] : []),
         require.resolve('babel-plugin-syntax-dynamic-import')
       ],
       presets: [
@@ -96,7 +92,6 @@ module.exports = (neutrino, opts = {}) => {
           debug: neutrino.options.debug,
           modules: false,
           useBuiltIns: true,
-          exclude: options.polyfills.async ? ['transform-regenerator', 'transform-async-to-generator'] : [],
           targets: options.targets
         }]
       ]

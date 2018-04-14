@@ -242,7 +242,6 @@ module.exports = {
     }],
 
     ['@neutrinojs/react', {
-      polyfills: { async: false },
       html: { title: 'Epic React App' }
     }],
 

@@ -237,7 +237,6 @@ module.exports = {
           ['babel-preset-env', {
             modules: false,
             useBuiltIns: true,
-            exclude: ['transform-regenerator', 'transform-async-to-generator'],
           }]
         ]
       }
