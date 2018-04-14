@@ -68,13 +68,6 @@
   dependencies:
     "@babel/types" "7.0.0-beta.40"
 
-"@babel/helper-module-imports@^7.0.0-beta.39":
-  version "7.0.0-beta.40"
-  resolved "https://registry.yarnpkg.com/@babel/helper-module-imports/-/helper-module-imports-7.0.0-beta.40.tgz#251cbb6404599282e8f7356a5b32c9381bef5d2d"
-  dependencies:
-    "@babel/types" "7.0.0-beta.40"
-    lodash "^4.2.0"
-
 "@babel/highlight@7.0.0-beta.40":
   version "7.0.0-beta.40"
   resolved "https://registry.yarnpkg.com/@babel/highlight/-/highlight-7.0.0-beta.40.tgz#b43d67d76bf46e1d10d227f68cddcd263786b255"
@@ -198,10 +191,6 @@ acorn-node@^1.2.0:
     acorn "^5.4.1"
     xtend "^4.0.1"
 
-acorn@>=2.5.2, acorn@^5.0.0, acorn@^5.2.1, acorn@^5.3.0, acorn@^5.4.1, acorn@^5.5.0:
-  version "5.5.3"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.5.3.tgz#f473dd47e0277a08e28e9bec5aeeb04751f0b8c9"
-
 acorn@^3.0.4:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-3.3.0.tgz#45e37fb39e8da3f25baee3ff5369e2bb5f22017a"
@@ -209,6 +198,10 @@ acorn@^3.0.4:
 acorn@^4.0.3, acorn@^4.0.4:
   version "4.0.13"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-4.0.13.tgz#105495ae5361d697bd195c825192e1ad7f253787"
+
+acorn@^5.0.0, acorn@^5.2.1, acorn@^5.3.0, acorn@^5.4.1, acorn@^5.5.0, acorn@^5.5.3:
+  version "5.5.3"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.5.3.tgz#f473dd47e0277a08e28e9bec5aeeb04751f0b8c9"
 
 add-stream@^1.0.0:
   version "1.0.0"
@@ -4889,13 +4882,12 @@ fancy-log@^1.1.0:
     color-support "^1.1.3"
     time-stamp "^1.0.0"
 
-fast-async@6.3.1:
-  version "6.3.1"
-  resolved "https://registry.yarnpkg.com/fast-async/-/fast-async-6.3.1.tgz#53383a651be5e4f7aa2d4cc38e3520fd1460b4ad"
+fast-async@^6.3.4:
+  version "6.3.4"
+  resolved "https://registry.yarnpkg.com/fast-async/-/fast-async-6.3.4.tgz#eedac29557146fa2643255756c807bb154fb1604"
   dependencies:
-    "@babel/helper-module-imports" "^7.0.0-beta.39"
-    nodent-compiler ">=3.1.7"
-    nodent-runtime ">=3.2.0"
+    nodent-compiler ">=3.1.8"
+    nodent-runtime ">=3.2.1"
 
 fast-deep-equal@^1.0.0:
   version "1.1.0"
@@ -9334,15 +9326,15 @@ nodemailer@^2.5.0:
     nodemailer-smtp-transport "2.7.2"
     socks "1.1.9"
 
-nodent-compiler@>=3.1.7:
-  version "3.1.7"
-  resolved "https://registry.yarnpkg.com/nodent-compiler/-/nodent-compiler-3.1.7.tgz#78198d9baacc491b0065b8c65bc0ca83d3fcd2a2"
+nodent-compiler@>=3.1.8:
+  version "3.1.8"
+  resolved "https://registry.yarnpkg.com/nodent-compiler/-/nodent-compiler-3.1.8.tgz#2171b805c394c1ddeaf87f8347bba7edd29b3090"
   dependencies:
-    acorn ">=2.5.2"
+    acorn "^5.5.3"
     acorn-es7-plugin ">=1.1.6"
     source-map "^0.5.6"
 
-nodent-runtime@>=3.2.0:
+nodent-runtime@>=3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/nodent-runtime/-/nodent-runtime-3.2.1.tgz#9e2755d85e39f764288f0d4752ebcfe3e541e00e"
 
