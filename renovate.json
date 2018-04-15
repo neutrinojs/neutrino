@@ -9,7 +9,11 @@
     "mozilla-neutrino/core-contributors"
   ],
   "pinVersions": false,
-  "excludedPackageNames": [
-    "gitbook-plugin-github"
+  "packageRules": [
+    {
+      "excludedPackageNames": [
+        "gitbook-plugin-github"
+      ]
+    }
   ]
 }
