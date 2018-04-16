@@ -18,7 +18,7 @@
 
 ## Requirements
 
-- Node.js v6 LTS, v8, v9
+- Node.js v8+
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino v8
 
@@ -277,7 +277,7 @@ module.exports = {
 };
 ```
 
-_Example: Override the library Babel compilation target to Node.js v8 and commonjs2 module:_
+_Example: Override the library Babel compilation target to Node.js v6 and commonjs2 module:_
 
 ```js
 module.exports = {
@@ -292,7 +292,7 @@ module.exports = {
         presets: [
           ['babel-preset-env', {
             targets: {
-              node: '8.0'
+              node: '6.0'
             }
           }]
         ]

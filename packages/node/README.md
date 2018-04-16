@@ -9,7 +9,7 @@
 ## Features
 
 - Zero upfront configuration necessary to start developing and building a Node.js project
-- Modern Babel compilation supporting ES modules, Node.js 6.10+, async functions, and dynamic imports
+- Modern Babel compilation supporting ES modules, Node.js 8+, async functions, and dynamic imports
 - Supports automatically-wired sourcemaps
 - Tree-shaking to create smaller bundles
 - Hot Module Replacement with source-watching during development
@@ -18,7 +18,7 @@
 
 ## Requirements
 
-- Node.js v6 LTS, v8, v9
+- Node.js v8+
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino v8
 
@@ -263,7 +263,7 @@ module.exports = {
 
       // Target specific versions via babel-preset-env
       targets: {
-        node: '6.10'
+        node: '8.0'
       },
 
       // Remove the contents of the output directory prior to building.
@@ -277,7 +277,7 @@ module.exports = {
         // Override options for babel-preset-env, showing defaults:
         presets: [
           ['babel-preset-env', {
-            targets: { node: '6.10' },
+            targets: { node: '8.0' },
             modules: false,
             useBuiltIns: true,
             // These are excluded when using polyfills.async. Disabling the async polyfill
@@ -291,24 +291,15 @@ module.exports = {
 };
 ```
 
-_Example: Override the Node.js Babel compilation target to Node.js v8:_
+_Example: Override the Node.js Babel compilation target to Node.js v6:_
 
 ```js
 module.exports = {
   use: [
     ['@neutrinojs/node', {
-      // Add additional Babel plugins, presets, or env options
-      babel: {
-        // Override options for babel-preset-env
-        presets: [
-          ['babel-preset-env', {
-            // Passing in targets to babel-preset-env will replace them
-            // instead of merging them
-            targets: {
-              node: '8.0'
-            }
-          }]
-        ]
+      // Target specific versions via babel-preset-env
+      targets: {
+        node: '6.0'
       }
     }]
   ]
