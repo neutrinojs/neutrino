@@ -33,9 +33,6 @@ module.exports = (neutrino, opts = {}) => {
   );
   const options = merge({
     hot: true,
-    polyfills: {
-      async: true
-    },
     targets: {
       node: '8.0'
     },
@@ -49,7 +46,6 @@ module.exports = (neutrino, opts = {}) => {
     exclude: [staticDir],
     babel: compile.merge({
       plugins: [
-        ...(options.polyfills.async ? [[require.resolve('fast-async'), { spec: true }]] : []),
         require.resolve('babel-plugin-dynamic-import-node')
       ],
       presets: [
@@ -57,8 +53,7 @@ module.exports = (neutrino, opts = {}) => {
           debug: neutrino.options.debug,
           targets: options.targets,
           modules: false,
-          useBuiltIns: true,
-          exclude: options.polyfills.async ? ['transform-regenerator', 'transform-async-to-generator'] : []
+          useBuiltIns: true
         }]
       ]
     }, options.babel)

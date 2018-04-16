@@ -256,11 +256,6 @@ module.exports = {
       // Enables Hot Module Replacement. Set to false to disable
       hot: true,
 
-      polyfills: {
-        // Enables fast-async polyfill. Set to false to disable
-        async: true
-      },
-
       // Target specific versions via babel-preset-env
       targets: {
         node: '8.0'
@@ -280,9 +275,6 @@ module.exports = {
             targets: { node: '8.0' },
             modules: false,
             useBuiltIns: true,
-            // These are excluded when using polyfills.async. Disabling the async polyfill
-            // will remove these from the exclusion list
-            exclude: ['transform-regenerator', 'transform-async-to-generator']
           }]
         ]
       }

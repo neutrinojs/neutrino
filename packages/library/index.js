@@ -18,9 +18,6 @@ module.exports = (neutrino, opts = {}) => {
   const options = merge({
     target: 'web',
     libraryTarget: 'umd',
-    polyfills: {
-      async: true
-    },
     babel: {},
     clean: opts.clean !== false && {
       paths: [neutrino.options.output]
@@ -30,7 +27,6 @@ module.exports = (neutrino, opts = {}) => {
   Object.assign(options, {
     babel: compileLoader.merge({
       plugins: [
-        ...(options.polyfills.async ? [[require.resolve('fast-async'), { spec: true }]] : []),
         options.target === 'node' ?
           require.resolve('babel-plugin-dynamic-import-node') :
           require.resolve('babel-plugin-syntax-dynamic-import')
@@ -40,7 +36,6 @@ module.exports = (neutrino, opts = {}) => {
           debug: neutrino.options.debug,
           modules: false,
           useBuiltIns: true,
-          exclude: options.polyfills.async ? ['transform-regenerator', 'transform-async-to-generator'] : [],
           targets: options.target === 'node' ?
             { node: '8.0' } :
             { browsers: [] }

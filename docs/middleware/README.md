@@ -172,7 +172,7 @@ module.exports = {
     '@neutrinojs/airbnb-base',
     
     // array format
-    ['@neutrinojs/react', { polyfills: { async: false } }],
+    ['@neutrinojs/react', html: { title: 'Epic React App' } }],
     
     // function format
     (neutrino) => {
