@@ -249,7 +249,7 @@ test('fails when trying to run() a non-registered command', async t => {
   await t.throws(Neutrino().run('non-registered').promise());
 });
 
-test('throws when trying to validate config with no entry point', async t => {
+test('throws when trying to validate config with non-existent entry point', async t => {
   const api = Neutrino();
 
   api.register('build', build);
@@ -257,5 +257,5 @@ test('throws when trying to validate config with no entry point', async t => {
 
   const [err] = await t.throws(result);
 
-  t.true(err.message.includes(`configuration misses the property 'entry'`));
+  t.true(err.includes(`Entry module not found: Error: Can't resolve './src'`));
 });
