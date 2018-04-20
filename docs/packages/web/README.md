@@ -17,7 +17,7 @@
 - Pre-configured to support CSS Modules via `*.module.css` file extensions
 - Hot Module Replacement support including CSS
 - Tree-shaking to create smaller bundles
-- Production-optimized bundles with Babel minification, easy chunking, and scope-hoisted modules for faster execution
+- Production-optimized bundles with minification, easy chunking, and scope-hoisted modules for faster execution
 - Easily extensible to customize your project as needed
 
 ## Requirements
@@ -210,7 +210,9 @@ module.exports = {
 
       minify: {
         // Change options for @neutrinojs/babel-minify
-        babel: {},
+        // babel-minify is disabled by default since webpack 4 automatically enables the faster
+        // uglify-es in production. Setting `babel` to `true` or `{...}` will disable uglify-es.
+        babel: false,
         // Change options for @neutrinojs/style-minify
         style: {}
       },
@@ -272,7 +274,8 @@ module.exports = {
       font: false,
       manifest: false,
 
-      // Example: Remove console and debugger from output
+      // Example: Switch from uglify-es to babel-minify,
+      // and configure it to remove console and debugger from output
       minify: {
         babel: {
           removeConsole: true,
@@ -434,7 +437,7 @@ _Note: Some plugins are only available in certain environments. To override them
 | `html-{MAIN_NAME}` | Automatically generates HTML files for configured entry points. `{MAIN_NAME}` corresponds to the entry point of each page. By default, there is only a single `index` main, so this would generate a plugin named `html-index`. From `@neutrinojs/html-template` | all |
 | `hot` | Enables Hot Module Replacement. From `@neutrinojs/hot`. | `start` command |
 | `clean` | Removes the `build` directory prior to building. From `@neutrinojs/clean`. | `build` command |
-| `babel-minify` | Minifies source code using `BabelMinifyWebpackPlugin`. From `@neutrinojs/babel-minify`. | `NODE_ENV production` |
+| `babel-minify` | Minifies source code using `BabelMinifyWebpackPlugin`. From `@neutrinojs/babel-minify`. | `NODE_ENV production` when `minify.babel: true` |
 | `optimize-css` | Minifies css using `OptimizeCssAssetsPlugin`. From `@neutrinojs/style-minify`. | `NODE_ENV production` |
 | `manifest` | Create a manifest file, via webpack-manifest-plugin. | `build` command |
 

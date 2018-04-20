@@ -40,7 +40,13 @@ module.exports = (neutrino, opts = {}) => {
       paths: [neutrino.options.output]
     },
     minify: {
-      babel: {},
+      // babel-minify is disabled by default since webpack 4 automatically enables the faster
+      // uglify-es in production. Setting `babel` to `true` or `{...}` will disable uglify-es.
+      // TODO: Decide which minifier we want to use:
+      // https://github.com/mozilla-neutrino/neutrino-dev/issues/748
+      // ...or else try out the new minimizer-webpack-plugin once it exists:
+      // https://github.com/webpack-contrib/babel-minify-webpack-plugin/issues/68#issuecomment-379210998
+      babel: false,
       style: {}
     },
     babel: {},

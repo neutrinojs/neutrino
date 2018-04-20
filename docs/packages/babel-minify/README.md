@@ -71,19 +71,6 @@ module.exports = {
 The `minify` and `plugin` properties map to the options defined by
 [babel-minify-webpack-plugin](https://github.com/webpack-contrib/babel-minify-webpack-plugin#options).
 
-## Customization
-
-`@neutrinojs/babel-minify` creates some conventions to make overriding the configuration easier once you are ready to
-make changes.
-
-### Plugins
-
-The following is a list of plugins and their identifiers which can be overridden:
-
-| Name | Description | Environments and Commands |
-| --- | --- | --- |
-| `babel-minify` | Minifies source code using `BabelMinifyWebpackPlugin`. | all |
-
 ## Contributing
 
 This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
