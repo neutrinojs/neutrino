@@ -74,6 +74,7 @@ module.exports = (neutrino, opts = {}) => {
     .forEach(key => neutrino.config.entry(key).add(neutrino.options.mains[key]));
 
   neutrino.config
+    .mode(process.env.NODE_ENV === 'production' ? 'production' : 'development')
     .when(hasSourceMap, () => neutrino.use(banner))
     .devtool('source-map')
     .target(options.target)

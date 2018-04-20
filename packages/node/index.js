@@ -61,6 +61,7 @@ module.exports = (neutrino, opts = {}) => {
     .forEach(key => neutrino.config.entry(key).add(neutrino.options.mains[key]));
 
   neutrino.config
+    .mode(process.env.NODE_ENV === 'production' ? 'production' : 'development')
     .when(sourceMap, () => neutrino.use(banner))
     .performance
       .hints(false)

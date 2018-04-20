@@ -128,6 +128,7 @@ module.exports = (neutrino, opts = {}) => {
     });
 
   neutrino.config
+    .mode(process.env.NODE_ENV === 'production' ? 'production' : 'development')
     .when(options.style, () => neutrino.use(styleLoader, options.style))
     .when(options.font, () => neutrino.use(fontLoader, options.font))
     .when(options.image, () => neutrino.use(imageLoader, options.image))
