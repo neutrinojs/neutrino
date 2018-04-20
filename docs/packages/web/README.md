@@ -430,12 +430,8 @@ _Note: Some plugins are only available in certain environments. To override them
 | `env` | Inject environment variables into source code at `process.env`, defaults to only inject `NODE_ENV`. From `@neutrinojs/env`. | all |
 | `extract` | Extracts CSS from JS bundle into a separate stylesheet file. From `@neutrinojs/style-loader`. | all |
 | `extract-modules` | Extracts CSS from JS bundle into a separate stylesheet file. From `@neutrinojs/style-loader`. | all |
+| `html-sibling-chunks` | Works around `html-webpack-plugin` not supporting `splitChunks` when using multiple entrypoints, via `html-webpack-include-sibling-chunks-plugin`. | all |
 | `html-{MAIN_NAME}` | Automatically generates HTML files for configured entry points. `{MAIN_NAME}` corresponds to the entry point of each page. By default, there is only a single `index` main, so this would generate a plugin named `html-index`. From `@neutrinojs/html-template` | all |
-| `named-modules` | Enables named modules for improved debugging and console output. From `@neutrinojs/chunk` and `@neutrinojs/hot`. | `NODE_ENV production`, `start` command |
-| `named-chunks` | Enables named chunks for improved debugging and console output. From `@neutrinojs/chunk`. | `NODE_ENV production` |
-| `vendor-chunk` | Creates a separate file/chunk consisting of common modules shared between multiple entry points. From `@neutrinojs/chunk`. | `NODE_ENV production` |
-| `runtime-chunk` | Creates a separate file/chunk consisting of the webpack manifest-specific code. From `@neutrinojs/chunk`. | `NODE_ENV production` |
-| `name-all` | Names all remaining modules that do not get named via `named-modules`. From `@neutrinojs/chunk`. | `NODE_ENV production` |
 | `hot` | Enables Hot Module Replacement. From `@neutrinojs/hot`. | `start` command |
 | `clean` | Removes the `build` directory prior to building. From `@neutrinojs/clean`. | `build` command |
 | `babel-minify` | Minifies source code using `BabelMinifyWebpackPlugin`. From `@neutrinojs/babel-minify`. | `NODE_ENV production` |
@@ -450,19 +446,24 @@ make these changes from the Neutrino API in custom middleware.
 
 #### Vendoring
 
-By defining an entry point named `vendor` you can split out external dependencies into a chunk separate
-from your application code.
+External dependencies are automatically split into separate chunks from the application code,
+by the new webpack [SplitChunksPlugin](https://webpack.js.org/plugins/split-chunks-plugin/).
 
-_Example: Put lodash into a separate "vendor" chunk:_
+_Example: The splitChunks settings can be adjusted like so:_
 
 ```js
 module.exports = {
   use: [
     '@neutrinojs/web',
-    neutrino => {
+    (neutrino) => {
       neutrino.config
-        .entry('vendor')
-          .add('lodash');
+        .optimization
+          .merge({
+            splitChunks: {
+              // Decrease the minimum size before extra chunks are created, to 10KB
+              minSize: 10000
+            }
+          });
     }
   ]
 };

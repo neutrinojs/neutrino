@@ -266,19 +266,25 @@ module.exports = {
 
 #### Vendoring
 
-By defining an entry point named `vendor` you can split out external dependencies into a chunk separate
-from your application code.
+External dependencies are automatically split into separate chunks from the application code,
+by the new webpack [SplitChunksPlugin](https://webpack.js.org/plugins/split-chunks-plugin/).
 
-_Example: Put React and React DOM into a separate "vendor" chunk:_
+_Example: The splitChunks settings can be adjusted like so:_
 
 ```js
 module.exports = {
   use: [
     '@neutrinojs/react',
-    (neutrino) => neutrino.config
-      .entry('vendor')
-        .add('react')
-        .add('react-dom')
+    (neutrino) => {
+      neutrino.config
+        .optimization
+          .merge({
+            splitChunks: {
+              // Decrease the minimum size before extra chunks are created, to 10KB
+              minSize: 10000
+            }
+          });
+    }
   ]
 };
 ```
