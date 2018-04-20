@@ -336,7 +336,6 @@ _Note: Some plugins are only available in certain environments. To override them
 | `start-server` | Start a Node.js for the first configured main entry point. | `start` command |
 | `hot` | Enables Hot Module Replacement. | `start` command |
 | `named-modules` | Enables named modules for improved debugging and console output. From `@neutrinojs/hot`. | `start` command |
-| `module-concat` | Concatenate the scope of all your modules into one closure and allow for your code to have a faster execution time in the browser. | `NODE_ENV production` |
 
 ### Override configuration
 

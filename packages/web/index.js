@@ -16,7 +16,6 @@ const { join } = require('path');
 const { resolve } = require('url');
 const merge = require('deepmerge');
 const ManifestPlugin = require('webpack-manifest-plugin');
-const { optimize } = require('webpack');
 
 const MODULES = join(__dirname, 'node_modules');
 
@@ -211,9 +210,7 @@ module.exports = (neutrino, opts = {}) => {
 
       config
         .when(options.minify.babel, () => neutrino.use(babelMinify, options.minify.babel))
-        .when(options.minify.style, () => neutrino.use(styleMinify, options.minify.style))
-        .plugin('module-concat')
-          .use(optimize.ModuleConcatenationPlugin);
+        .when(options.minify.style, () => neutrino.use(styleMinify, options.minify.style));
     })
     .when(neutrino.options.command === 'build', (config) => {
       config.when(options.clean, () => neutrino.use(clean, options.clean));

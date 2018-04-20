@@ -440,7 +440,6 @@ _Note: Some plugins are only available in certain environments. To override them
 | `clean` | Removes the `build` directory prior to building. From `@neutrinojs/clean`. | `build` command |
 | `babel-minify` | Minifies source code using `BabelMinifyWebpackPlugin`. From `@neutrinojs/babel-minify`. | `NODE_ENV production` |
 | `optimize-css` | Minifies css using `OptimizeCssAssetsPlugin`. From `@neutrinojs/style-minify`. | `NODE_ENV production` |
-| `module-concat` | Concatenate the scope of all your modules into one closure and allow for your code to have a faster execution time in the browser. | `NODE_ENV production` |
 | `manifest` | Create a manifest file, via webpack-manifest-plugin. | `build` command |
 
 ### Override configuration
