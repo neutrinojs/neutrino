@@ -58,7 +58,17 @@ module.exports = (neutrino, opts = {}) => {
       {
         singleRun: !watch,
         autoWatch: watch,
-        webpack: omit(['plugins'], neutrino.config.toConfig())
+        webpack: merge(
+          omit(['plugins'], neutrino.config.toConfig()),
+          // Work around `yarn test` hanging under webpack 4:
+          // https://github.com/webpack-contrib/karma-webpack/issues/322
+          { 
+            optimization: {
+              splitChunks: false,
+              runtimeChunk: false
+            }
+          }
+        )
       },
       files && files.length ? { files } : {}
     ]);
