@@ -415,8 +415,8 @@ The following is a list of rules and their identifiers which can be overridden:
 | --- | --- | --- |
 | `compile` | Compiles JS files from the `src` directory using Babel. Contains a single loader named `babel`. From `@neutrinojs/compile-loader`. | all |
 | `html` | Allows importing HTML files from modules. Contains a single loader named `html`. From `@neutrinojs/html-loader`. | all |
-| `style` | Allows importing CSS stylesheets from modules. Contains two loaders named `style` and `css` which use `style-loader` and `css-loader`, respectively. From `@neutrinojs/style-loader`. | all |
-| `style-modules` | Allows importing CSS Modules styles from modules. Contains two loaders named `style-modules` and `css-modules` which use `style-loader` and `css-loader`, respectively. From `@neutrinojs/style-loader`. | all |
+| `style` | Allows importing CSS stylesheets from modules. In production contains two loaders named `extract` and `css` which use `MiniCssExtractPlugin.loader` and `css-loader`, respectively. In development the `extract` loader is replaced by `style`, which uses `style-loader`. From `@neutrinojs/style-loader`. | all |
+| `style-modules` | Allows importing CSS Modules styles from modules. In production contains two loaders named `extract` and `css` which use `MiniCssExtractPlugin.loader` and `css-loader`, respectively. In development the `extract` loader is replaced by `style`, which uses `style-loader`. From `@neutrinojs/style-loader`. | all |
 | `img`, `svg`, `ico` | Allows import image files from modules. Each contains a single loader named `url`. From `@neutrinojs/image-loader`. | all |
 | `woff`, `ttf` | Allows importing WOFF and TTF font files from modules. Each contains a single loader named `url`. From `@neutrinojs/font-loader`. | all |
 | `eot` | Allows importing EOT font files from modules. Contains a single loader named `file`. From `@neutrinojs/font-loader`. | all |
@@ -432,7 +432,6 @@ _Note: Some plugins are only available in certain environments. To override them
 | --- | --- | --- |
 | `env` | Inject environment variables into source code at `process.env`, defaults to only inject `NODE_ENV`. From `@neutrinojs/env`. | all |
 | `extract` | Extracts CSS from JS bundle into a separate stylesheet file. From `@neutrinojs/style-loader`. | all |
-| `extract-modules` | Extracts CSS from JS bundle into a separate stylesheet file. From `@neutrinojs/style-loader`. | all |
 | `html-sibling-chunks` | Works around `html-webpack-plugin` not supporting `splitChunks` when using multiple entrypoints, via `html-webpack-include-sibling-chunks-plugin`. | all |
 | `html-{MAIN_NAME}` | Automatically generates HTML files for configured entry points. `{MAIN_NAME}` corresponds to the entry point of each page. By default, there is only a single `index` main, so this would generate a plugin named `html-index`. From `@neutrinojs/html-template` | all |
 | `hot` | Enables Hot Module Replacement. From `@neutrinojs/hot`. | `start` command |
