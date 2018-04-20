@@ -250,4 +250,13 @@ module.exports = (neutrino, opts = {}) => {
 
       config.output.filename('[name].[chunkhash].js');
     });
+
+  neutrino.on('prerun', () => {
+    if (neutrino.config.entryPoints.has('vendor')) {
+      return Promise.reject(
+        new Error('Vendor chunks are now automatically generated. Remove the manual `vendor` entrypoint.')
+      );
+    }
+    return Promise.resolve();
+  })
 };
