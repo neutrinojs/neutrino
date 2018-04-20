@@ -98,17 +98,6 @@ module.exports = {
 ```
 
 ```js
-// Array format being used within an object-format .neutrinorc.js
-module.exports = {
-  use: [
-    ['@neutrinojs/react', {
-      devServer: { port: 3000 }
-    }]
-  ]
-};
-```
-
-```js
 // Array format being used within function format
 module.exports = neutrino => {
   neutrino.use(['@neutrinojs/react']);
