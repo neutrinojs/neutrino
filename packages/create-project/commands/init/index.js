@@ -67,20 +67,26 @@ module.exports = class Project extends Generator {
     return {};
   }
 
+  _createCliCommand(command) {
+    const installer = isYarn ? 'yarn' : 'npm';
+
+    return `$(${installer} bin)/${command}`;
+  }
+
   _initialPackageJson() {
     const installer = isYarn ? 'yarn' : 'npm';
-    const scripts = { build: `${packages.NEUTRINO} build` };
+    const scripts = { build: this._createCliCommand(`${packages.NEUTRINO} build`) };
 
     if (this.data.projectType !== 'library') {
-      scripts.start = `${packages.NEUTRINO} start`;
+      scripts.start = this._createCliCommand(`${packages.NEUTRINO} start`);
     }
 
     if (this.data.linter) {
-      scripts.lint = `${packages.NEUTRINO} lint`;
+      scripts.lint = this._createCliCommand(`${packages.NEUTRINO} lint`);
     }
 
     if (this.data.testRunner) {
-      scripts.test = `${packages.NEUTRINO} test`;
+      scripts.test = this._createCliCommand(`${packages.NEUTRINO} test`);
     }
 
     ensureDirSync(this.options.directory);
@@ -185,7 +191,7 @@ module.exports = class Project extends Generator {
 
     if (this.data.linter) {
       this.log(`${chalk.green('⏳  Performing one-time lint')}`);
-      this.spawnCommandSync(packages.NEUTRINO, ['lint', '--fix'], {
+      this.spawnCommandSync(this._createCliCommand(`${packages.NEUTRINO}`), ['lint', '--fix'], {
         stdio: this.options.stdio === 'inherit' ? 'ignore' : this.options.stdio,
         cwd: this.options.directory
       });
