@@ -244,7 +244,7 @@ module.exports = (neutrino, additionalVars = []) => neutrino.config
 ```
 
 ```js
-// react preset (which is also middleware)
+// env preset (which is also middleware)
 const env = require('@neutrinojs/env');
 
 module.exports = neutrino => {
