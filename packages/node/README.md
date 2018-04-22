@@ -332,7 +332,6 @@ _Note: Some plugins are only available in certain environments. To override them
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
 | `banner` | Injects source-map-support into the mains (entry points) of your application if detected in `dependencies` or `devDependencies` of your package.json. | Only when `source-map-support` is installed |
-| `copy` | Copies all files from `src/static` to `build` when using `neutrino build`. | `build` command |
 | `clean` | Clears the contents of `build` prior to creating a production bundle. | `build` command |
 | `start-server` | Start a Node.js for the first configured main entry point. | `start` command |
 | `hot` | Enables Hot Module Replacement. | `start` command |

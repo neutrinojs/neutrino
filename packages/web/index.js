@@ -7,12 +7,11 @@ const env = require('@neutrinojs/env');
 const hot = require('@neutrinojs/hot');
 const htmlTemplate = require('@neutrinojs/html-template');
 const chunk = require('@neutrinojs/chunk');
-const copy = require('@neutrinojs/copy');
 const clean = require('@neutrinojs/clean');
 const minify = require('@neutrinojs/minify');
 const loaderMerge = require('@neutrinojs/loader-merge');
 const devServer = require('@neutrinojs/dev-server');
-const { join, basename } = require('path');
+const { join } = require('path');
 const { resolve } = require('url');
 const merge = require('deepmerge');
 const ManifestPlugin = require('webpack-manifest-plugin');
@@ -98,8 +97,6 @@ module.exports = (neutrino, opts = {}) => {
     }, options.babel)
   });
 
-  const staticDir = join(neutrino.options.source, 'static');
-
   neutrino.use(env, options.env);
   neutrino.use(htmlLoader);
   neutrino.use(compileLoader, {
@@ -107,7 +104,6 @@ module.exports = (neutrino, opts = {}) => {
       neutrino.options.source,
       neutrino.options.tests
     ],
-    exclude: [staticDir],
     babel: options.babel
   });
 
@@ -216,13 +212,6 @@ module.exports = (neutrino, opts = {}) => {
     })
     .when(neutrino.options.command === 'build', (config) => {
       config.when(options.clean, () => neutrino.use(clean, options.clean));
-      neutrino.use(copy, {
-        patterns: [{
-          context: staticDir,
-          from: '**/*',
-          to: basename(staticDir)
-        }]
-      });
 
       if (options.manifest) {
         neutrino.config.plugin('manifest')

@@ -161,10 +161,8 @@ You can either serve or deploy the contents of this `build` directory as a stati
 
 ## Static assets
 
-If you wish to copy files to the build directory that are not imported from application code, you can place
-them in a directory within `src` called `static`. All files in this directory will be copied from `src/static`
-to `build/static`. To change this behavior, specify your own patterns with
-[@neutrinojs/copy](https://neutrino.js.org/packages/copy/README.md).
+If you wish to copy files to the build directory that are not imported from application code,
+use the [@neutrinojs/copy](https://neutrino.js.org/packages/copy) preset alongside this one.
 
 ## Paths
 
@@ -439,7 +437,6 @@ _Note: Some plugins are only available in certain environments. To override them
 | `runtime-chunk` | Creates a separate file/chunk consisting of the webpack manifest-specific code. From `@neutrinojs/chunk`. | `NODE_ENV production` |
 | `name-all` | Names all remaining modules that do not get named via `named-modules`. From `@neutrinojs/chunk`. | `NODE_ENV production` |
 | `hot` | Enables Hot Module Replacement. From `@neutrinojs/hot`. | `start` command |
-| `copy` | Copies files during build, defaults from `src/static` to `build/static`. From `@neutrinojs/copy` | `build` command |
 | `clean` | Removes the `build` directory prior to building. From `@neutrinojs/clean`. | `build` command |
 | `babel-minify` | Minifies source code using `BabelMinifyWebpackPlugin`. From `@neutrinojs/minify`. | `NODE_ENV production` |
 | `imagemin` | Optimize any images added by other webpack plugins (e.g. `copy-webpack-plugin`). From `@neutrinojs/minify`. | Enable with `options.minify.style`. |

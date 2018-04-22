@@ -29,7 +29,6 @@
     "@neutrinojs/chunk": "^8.2.0",
     "@neutrinojs/clean": "^8.2.0",
     "@neutrinojs/compile-loader": "^8.2.0",
-    "@neutrinojs/copy": "^8.2.0",
     "@neutrinojs/dev-server": "^8.2.0",
     "@neutrinojs/env": "^8.2.0",
     "@neutrinojs/font-loader": "^8.2.0",

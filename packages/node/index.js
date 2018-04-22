@@ -1,6 +1,5 @@
 const banner = require('@neutrinojs/banner');
 const compile = require('@neutrinojs/compile-loader');
-const copy = require('@neutrinojs/copy');
 const clean = require('@neutrinojs/clean');
 const startServer = require('@neutrinojs/start-server');
 const hot = require('@neutrinojs/hot');
@@ -25,7 +24,6 @@ const getOutputForEntry = pipe(
 
 module.exports = (neutrino, opts = {}) => {
   const pkg = neutrino.options.packageJson;
-  const staticDir = join(neutrino.options.source, 'static');
   const sourceMap = pathOr(
     pathOr(false, ['dependencies', 'source-map-support'], pkg),
     ['devDependencies', 'source-map-support'],
@@ -43,7 +41,6 @@ module.exports = (neutrino, opts = {}) => {
 
   neutrino.use(compile, {
     include: [neutrino.options.source, neutrino.options.tests],
-    exclude: [staticDir],
     babel: compile.merge({
       plugins: [
         require.resolve('babel-plugin-dynamic-import-node')
@@ -136,12 +133,5 @@ module.exports = (neutrino, opts = {}) => {
     })
     .when(neutrino.options.command === 'build', (config) => {
       config.when(options.clean, () => neutrino.use(clean, options.clean));
-      neutrino.use(copy, {
-        patterns: [{
-          context: staticDir,
-          from: '**/*',
-          to: basename(staticDir)
-        }]
-      });
     });
 };
