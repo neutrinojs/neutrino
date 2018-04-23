@@ -13,7 +13,8 @@ module.exports = (neutrino, opts = {}) => {
       title: 'React Preview'
     },
     manifest: process.env.NODE_ENV === 'development',
-    externals: opts.externals !== false && {}
+    externals: opts.externals !== false && {},
+    style: { extract: { plugin: { filename: '[name].css' } } }
   }, opts);
 
   neutrino.config.resolve.modules
