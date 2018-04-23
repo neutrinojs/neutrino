@@ -29,7 +29,6 @@
     "@neutrinojs/banner": "^8.2.0",
     "@neutrinojs/clean": "^8.2.0",
     "@neutrinojs/compile-loader": "^8.2.0",
-    "@neutrinojs/copy": "^8.2.0",
     "@neutrinojs/hot": "^8.2.0",
     "@neutrinojs/start-server": "^8.2.0",
     "babel-plugin-dynamic-import-node": "^1.2.0",

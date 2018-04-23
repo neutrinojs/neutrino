@@ -25,9 +25,7 @@ necessary for creating your builds.
 ## Build Assets
 
 When creating a build bundle, a preset will put the compiled assets, including any generated
-JavaScript files, into a directory named `build` by default. Typically your Neutrino preset will copy
-any files from the `static` directory over to the build directory, allowing you to maintain
-the same relative path structure for static assets as is used for the source files.
+JavaScript files, into a directory named `build` by default.
 
 Normally most projects will exclude checking in this build directory to source control.
 Be sure to add this directory to your project's `.gitignore`, `.hgignore`, or similar file.
