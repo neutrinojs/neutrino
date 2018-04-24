@@ -130,8 +130,8 @@ module.exports = {
   // be any middleware format
   env: {
     NODE_ENV: {
-      // Require minify middleware during production
-      production: '@neutrinojs/minify',
+      // Require style-minify middleware during production
+      production: '@neutrinojs/style-minify',
       
       // Use dev-server during development
       development: ['@neutrinojs/dev-server', { port: 3000 }],

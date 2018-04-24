@@ -44,6 +44,7 @@ neutrino.use(imagemin);
 
 // Usage showing default options
 neutrino.use(imagemin, {
+  enabled: process.env.NODE_ENV === 'production',
   imagemin: {
     plugins: [
       gifsicle(),
@@ -75,6 +76,7 @@ module.exports = {
 module.exports = {
   use: [
     ['@neutrinojs/image-minify', {
+      enabled: process.env.NODE_ENV === 'production',
       imagemin: {},
       plugin: {
         name: '[path][name].[ext]',

@@ -26,6 +26,7 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
+    "@neutrinojs/babel-minify": "^8.2.0",
     "@neutrinojs/chunk": "^8.2.0",
     "@neutrinojs/clean": "^8.2.0",
     "@neutrinojs/compile-loader": "^8.2.0",
@@ -37,8 +38,8 @@
     "@neutrinojs/html-template": "^8.2.0",
     "@neutrinojs/image-loader": "^8.2.0",
     "@neutrinojs/loader-merge": "^8.2.0",
-    "@neutrinojs/minify": "^8.2.0",
     "@neutrinojs/style-loader": "^8.2.0",
+    "@neutrinojs/style-minify": "^8.2.0",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-preset-env": "^1.6.0",
     "deepmerge": "^1.5.2",
