@@ -5,7 +5,7 @@ config, following the [Airbnb styleguide](https://github.com/airbnb/javascript).
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
-[![Join the Neutrino community on Spectrum][spectrum-image]][spectrum-url] 
+[![Join the Neutrino community on Spectrum][spectrum-image]][spectrum-url]
 
 ## Features
 
