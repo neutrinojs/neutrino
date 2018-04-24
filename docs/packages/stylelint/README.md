@@ -95,7 +95,7 @@ const { Neutrino } = require('neutrino');
 // Specify middleware to Neutrino prior to calling stylelintrc.
 // Even if using .neutrinorc.js, you must specify it when using
 // the API
-module.exports = Neutrino()
+module.exports = Neutrino({ root: __dirname })
   .use('.neutrinorc.js')
   .call('stylelintrc');
 ```
@@ -106,7 +106,7 @@ _Example: Create a .stylelintrc.js file in the root of the project, using specif
 // .stylelintrc.js
 const { Neutrino } = require('neutrino');
 
-module.exports = Neutrino()
+module.exports = Neutrino({ root: __dirname })
   .use('@neutrinojs/stylelint', {
     config: {
       rules: { 'max-empty-lines': 2 }

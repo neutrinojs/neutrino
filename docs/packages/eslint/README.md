@@ -145,7 +145,7 @@ const { Neutrino } = require('neutrino');
 // Specify middleware to Neutrino prior to calling eslintrc.
 // Even if using .neutrinorc.js, you must specify it when using
 // the API
-module.exports = Neutrino()
+module.exports = Neutrino({ root: __dirname })
   .use('.neutrinorc.js')
   .call('eslintrc');
 ```
@@ -156,7 +156,7 @@ _Example: Create a .eslintrc.js file in the root of the project, using specified
 // .eslintrc.js
 const { Neutrino } = require('neutrino');
 
-module.exports = Neutrino()
+module.exports = Neutrino({ root: __dirname })
   .use('@neutrinojs/eslint', {
     eslint: {
       rules: { semi: 'off' }
