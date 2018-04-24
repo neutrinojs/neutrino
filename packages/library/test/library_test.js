@@ -32,7 +32,7 @@ test('valid preset production', t => {
   // Common
   t.is(config.target, 'web');
   t.deepEqual(config.resolve.extensions, expectedExtensions);
-  t.not(config.optimization, undefined);
+  t.is(config.optimization, undefined);
   t.is(config.devServer, undefined);
 
   // NODE_ENV/command specific

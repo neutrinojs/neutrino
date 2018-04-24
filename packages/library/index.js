@@ -2,7 +2,6 @@ const banner = require('@neutrinojs/banner');
 const compileLoader = require('@neutrinojs/compile-loader');
 const clean = require('@neutrinojs/clean');
 const loaderMerge = require('@neutrinojs/loader-merge');
-const babelMinify = require('@neutrinojs/babel-minify');
 const merge = require('deepmerge');
 const nodeExternals = require('webpack-node-externals');
 const { join } = require('path');
@@ -145,9 +144,6 @@ module.exports = (neutrino, opts = {}) => {
       } else if (options.target === 'web') {
         neutrino.use(loaderMerge('lint', 'eslint'), { envs: ['browser', 'commonjs'] });
       }
-    })
-    .when(process.env.NODE_ENV === 'production', () => {
-      neutrino.use(babelMinify);
     })
     .when(neutrino.options.command === 'build', (config) => {
       config.when(options.clean, () => neutrino.use(clean, options.clean));

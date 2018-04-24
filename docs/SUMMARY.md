@@ -31,7 +31,6 @@
   * [Karma](./packages/karma/README.md)
   * [Mocha](./packages/mocha/README.md)
   * [Jest](./packages/jest/README.md)
-  * [babel-minify](./packages/babel-minify/README.md)
   * [banner](./packages/banner/README.md)
   * [clean](./packages/clean/README.md)
   * [compile-loader](./packages/compile-loader/README.md)

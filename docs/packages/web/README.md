@@ -209,10 +209,9 @@ module.exports = {
       image: {},
 
       minify: {
-        // Change options for @neutrinojs/babel-minify
-        // babel-minify is disabled by default since webpack 4 automatically enables the faster
-        // uglify-es in production. Setting `babel` to `true` or `{...}` will disable uglify-es.
-        babel: false,
+        // Javascript minification occurs only in production by default.
+        // To change uglify-es options or switch to another minifier, see below.
+        source: process.env.NODE_ENV === 'production',
         // Change options for @neutrinojs/style-minify
         style: {}
       },
@@ -274,13 +273,9 @@ module.exports = {
       font: false,
       manifest: false,
 
-      // Example: Switch from uglify-es to babel-minify,
-      // and configure it to remove console and debugger from output
+      // Disable javascript minification entirely
       minify: {
-        babel: {
-          removeConsole: true,
-          removeDebugger: true,
-        }
+        source: false
       },
 
       // Example: Use a .browserslistrc file with babel-env
@@ -436,7 +431,6 @@ _Note: Some plugins are only available in certain environments. To override them
 | `html-{MAIN_NAME}` | Automatically generates HTML files for configured entry points. `{MAIN_NAME}` corresponds to the entry point of each page. By default, there is only a single `index` main, so this would generate a plugin named `html-index`. From `@neutrinojs/html-template` | all |
 | `hot` | Enables Hot Module Replacement. From `@neutrinojs/hot`. | `start` command |
 | `clean` | Removes the `build` directory prior to building. From `@neutrinojs/clean`. | `build` command |
-| `babel-minify` | Minifies source code using `BabelMinifyWebpackPlugin`. From `@neutrinojs/babel-minify`. | `NODE_ENV production` when `minify.babel: true` |
 | `optimize-css` | Minifies css using `OptimizeCssAssetsPlugin`. From `@neutrinojs/style-minify`. | `NODE_ENV production` |
 | `manifest` | Create a manifest file, via webpack-manifest-plugin. | `build` command |
 
@@ -466,6 +460,63 @@ module.exports = {
               minSize: 10000
             }
           });
+    }
+  ]
+};
+```
+
+#### Source minification
+
+By default script sources are minified in production only, and using webpack's default of
+[uglifyjs-webpack-plugin](https://github.com/webpack-contrib/uglifyjs-webpack-plugin)
+(which internally uses `uglify-es`). To customise the options passed to `UglifyJsPlugin`
+or even use a different minifier, override `optimization.minimizer`.
+
+_Example: Use different options with `uglify-es`:_
+
+```js
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
+module.exports = {
+  use: [
+    '@neutrinojs/web',
+    (neutrino) => {
+      neutrino.config
+        .optimization
+          .minimizer([
+            // Based on:
+            // https://github.com/webpack/webpack/blob/v4.6.0/lib/WebpackOptionsDefaulter.js#L277-L285
+            new UglifyJsPlugin({
+              cache: true,
+              parallel: true,
+              sourceMap: neutrino.config.devtool && /source-?map/.test(neutrino.config.devtool),
+              uglifyOptions: {
+                // Custom uglify-es options here. See:
+                // https://github.com/mishoo/UglifyJS2/tree/harmony#minify-options
+              }
+            })
+          ]);
+    }
+  ]
+};
+```
+
+_Example: Use `babel-minify` instead:_
+
+```js
+const BabelMinifyPlugin = require('babel-minify-webpack-plugin');
+
+module.exports = {
+  use: [
+    '@neutrinojs/web',
+    (neutrino) => {
+      neutrino.config
+        .optimization
+          .minimizer([
+            // For available options, see:
+            // https://github.com/webpack-contrib/babel-minify-webpack-plugin#usage
+            new BabelMinifyPlugin()
+          ]);
     }
   ]
 };

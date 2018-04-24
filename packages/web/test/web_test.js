@@ -28,6 +28,7 @@ test('valid preset production', t => {
 
   // NODE_ENV/command specific
   t.is(config.mode, 'production');
+  t.true(config.optimization.minimize);
   t.false(config.optimization.splitChunks.name);
   t.is(config.devtool, undefined);
   t.is(config.devServer, undefined);
@@ -52,6 +53,7 @@ test('valid preset development', t => {
 
   // NODE_ENV/command specific
   t.is(config.mode, 'development');
+  t.false(config.optimization.minimize);
   t.true(config.optimization.splitChunks.name);
   t.is(config.devtool, 'cheap-module-eval-source-map');
   t.not(config.devServer, undefined);
@@ -80,12 +82,20 @@ test('valid preset test', t => {
 
   // NODE_ENV/command specific
   t.is(config.mode, 'development');
+  t.false(config.optimization.minimize);
   t.true(config.optimization.splitChunks.name);
   t.is(config.devtool, undefined);
   t.is(config.devServer, undefined);
 
   const errors = validate(config);
   t.is(errors.length, 0);
+});
+
+test('throws when minify.babel defined', async t => {
+  const api = Neutrino();
+
+  const err = t.throws(() => api.use(require('..'), { minify: { babel: {} } }));
+  t.true(err.message.includes('The minify.babel option has been removed'));
 });
 
 test('throws when minify.image defined', async t => {

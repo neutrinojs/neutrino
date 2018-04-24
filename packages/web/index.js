@@ -7,7 +7,6 @@ const env = require('@neutrinojs/env');
 const hot = require('@neutrinojs/hot');
 const htmlTemplate = require('@neutrinojs/html-template');
 const clean = require('@neutrinojs/clean');
-const babelMinify = require('@neutrinojs/babel-minify');
 const styleMinify = require('@neutrinojs/style-minify');
 const loaderMerge = require('@neutrinojs/loader-merge');
 const devServer = require('@neutrinojs/dev-server');
@@ -40,13 +39,7 @@ module.exports = (neutrino, opts = {}) => {
       paths: [neutrino.options.output]
     },
     minify: {
-      // babel-minify is disabled by default since webpack 4 automatically enables the faster
-      // uglify-es in production. Setting `babel` to `true` or `{...}` will disable uglify-es.
-      // TODO: Decide which minifier we want to use:
-      // https://github.com/mozilla-neutrino/neutrino-dev/issues/748
-      // ...or else try out the new minimizer-webpack-plugin once it exists:
-      // https://github.com/webpack-contrib/babel-minify-webpack-plugin/issues/68#issuecomment-379210998
-      babel: false,
+      source: process.env.NODE_ENV === 'production',
       style: {}
     },
     babel: {},
@@ -54,6 +47,10 @@ module.exports = (neutrino, opts = {}) => {
     font: {},
     image: {}
   }, opts);
+
+  if (options.minify.babel) {
+    throw new Error('The minify.babel option has been removed. See the web preset docs for how to customise source minification.');
+  }
 
   if (options.minify.image) {
     throw new Error('The minify.image option has been removed. To enable image minification use the @neutrinojs/image-minify preset.');
@@ -142,6 +139,7 @@ module.exports = (neutrino, opts = {}) => {
   neutrino.config
     .mode(process.env.NODE_ENV === 'production' ? 'production' : 'development')
     .optimization
+      .minimize(options.minify.source)
       .splitChunks({
         // By default SplitChunksPlugin only splits out the async chunks (to avoid the
         // ever-changing file list breaking users who don't auto-generate their HTML):
@@ -237,7 +235,6 @@ module.exports = (neutrino, opts = {}) => {
     })
     .when(process.env.NODE_ENV === 'production', (config) => {
       config
-        .when(options.minify.babel, () => neutrino.use(babelMinify, options.minify.babel))
         .when(options.minify.style, () => neutrino.use(styleMinify, options.minify.style));
     })
     .when(neutrino.options.command === 'build', (config) => {
