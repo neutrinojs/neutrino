@@ -30,7 +30,7 @@
     "babel-loader": "^7.1.2",
     "babel-merge": "^1.1.0",
     "deepmerge": "^1.5.2",
-    "webpack": "^3.10.0"
+    "webpack": "^4.0.0"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"

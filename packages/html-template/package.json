@@ -31,7 +31,7 @@
     "html-webpack-template": "^6.1.0"
   },
   "devDependencies": {
-    "webpack": "^3.10.0"
+    "webpack": "^4.0.0"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"
