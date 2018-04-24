@@ -48,7 +48,6 @@
   * [image-loader](./packages/image-loader/README.md)
   * [image-minify](./packages/image-minify/README.md)
   * [loader-merge](./packages/loader-merge/README.md)
-  * [minify](./packages/minify/README.md)
   * [pwa](./packages/pwa/README.md)
   * [start-server](./packages/start-server/README.md)
   * [style-loader](./packages/style-loader/README.md)

@@ -363,14 +363,14 @@ your use cases.
 
 ### Conditional configuration
 
-Some plugins and rules are only available in certain environments. For example, the Web preset only exposes a minify
+Some plugins and rules are only available in certain environments. For example, the Web preset only exposes a `optimize-css`
 plugin during production, leading to issues when trying to modify its settings, but throws an exception during
 development.
 
-_Example: Remove all arguments to the `minify` plugin when using the Web preset._
+_Example: Remove all arguments to the `optimize-css` plugin when using the Web preset._
 
 ```js
 config.when(process.env.NODE_ENV === 'production', config => {
-  config.plugin('minify').tap(args => []);
+  config.plugin('optimize-css').tap(args => []);
 });
 ```

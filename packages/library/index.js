@@ -2,7 +2,7 @@ const banner = require('@neutrinojs/banner');
 const compileLoader = require('@neutrinojs/compile-loader');
 const clean = require('@neutrinojs/clean');
 const loaderMerge = require('@neutrinojs/loader-merge');
-const minify = require('@neutrinojs/minify');
+const babelMinify = require('@neutrinojs/babel-minify');
 const merge = require('deepmerge');
 const { optimize } = require('webpack');
 const nodeExternals = require('webpack-node-externals');
@@ -147,7 +147,7 @@ module.exports = (neutrino, opts = {}) => {
       }
     })
     .when(process.env.NODE_ENV === 'production', (config) => {
-      neutrino.use(minify);
+      neutrino.use(babelMinify);
       config
         .plugin('module-concat')
           .use(optimize.ModuleConcatenationPlugin);

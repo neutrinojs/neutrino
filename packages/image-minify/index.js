@@ -10,6 +10,7 @@ const imageminLoader = require.resolve('imagemin-webpack/imagemin-loader');
 
 module.exports = (neutrino, opts = {}) => {
   const options = merge({
+    enabled: process.env.NODE_ENV === 'production',
     imagemin: {
       plugins: [
         gifsicle(),
@@ -26,6 +27,10 @@ module.exports = (neutrino, opts = {}) => {
     useId: 'imagemin',
     rules: ['svg', 'img']
   }, opts);
+
+  if (!options.enabled) {
+    return;
+  }
 
   const test = options.rules.map((ruleId) => {
     neutrino.config.module

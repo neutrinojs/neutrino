@@ -208,11 +208,11 @@ module.exports = {
       // Change options for @neutrinojs/image-loader
       image: {},
 
-      // Change options for @neutrinojs/minify
       minify: {
+        // Change options for @neutrinojs/babel-minify
         babel: {},
-        style: {},
-        image: false
+        // Change options for @neutrinojs/style-minify
+        style: {}
       },
 
       // Change options for `webpack-manifest-plugin`
@@ -438,9 +438,8 @@ _Note: Some plugins are only available in certain environments. To override them
 | `name-all` | Names all remaining modules that do not get named via `named-modules`. From `@neutrinojs/chunk`. | `NODE_ENV production` |
 | `hot` | Enables Hot Module Replacement. From `@neutrinojs/hot`. | `start` command |
 | `clean` | Removes the `build` directory prior to building. From `@neutrinojs/clean`. | `build` command |
-| `babel-minify` | Minifies source code using `BabelMinifyWebpackPlugin`. From `@neutrinojs/minify`. | `NODE_ENV production` |
-| `imagemin` | Optimize any images added by other webpack plugins (e.g. `copy-webpack-plugin`). From `@neutrinojs/minify`. | Enable with `options.minify.style`. |
-| `optimize-css` | Minifies css using `OptimizeCssAssetsPlugin`. From `@neutrinojs/minify`. | `NODE_ENV production` |
+| `babel-minify` | Minifies source code using `BabelMinifyWebpackPlugin`. From `@neutrinojs/babel-minify`. | `NODE_ENV production` |
+| `optimize-css` | Minifies css using `OptimizeCssAssetsPlugin`. From `@neutrinojs/style-minify`. | `NODE_ENV production` |
 | `module-concat` | Concatenate the scope of all your modules into one closure and allow for your code to have a faster execution time in the browser. | `NODE_ENV production` |
 | `manifest` | Create a manifest file, via webpack-manifest-plugin. | `build` command |
 
