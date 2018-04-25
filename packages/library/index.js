@@ -2,9 +2,7 @@ const banner = require('@neutrinojs/banner');
 const compileLoader = require('@neutrinojs/compile-loader');
 const clean = require('@neutrinojs/clean');
 const loaderMerge = require('@neutrinojs/loader-merge');
-const babelMinify = require('@neutrinojs/babel-minify');
 const merge = require('deepmerge');
-const { optimize } = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const { join } = require('path');
 
@@ -74,6 +72,7 @@ module.exports = (neutrino, opts = {}) => {
     .forEach(key => neutrino.config.entry(key).add(neutrino.options.mains[key]));
 
   neutrino.config
+    .mode(process.env.NODE_ENV === 'production' ? 'production' : 'development')
     .when(hasSourceMap, () => neutrino.use(banner))
     .devtool('source-map')
     .target(options.target)
@@ -145,12 +144,6 @@ module.exports = (neutrino, opts = {}) => {
       } else if (options.target === 'web') {
         neutrino.use(loaderMerge('lint', 'eslint'), { envs: ['browser', 'commonjs'] });
       }
-    })
-    .when(process.env.NODE_ENV === 'production', (config) => {
-      neutrino.use(babelMinify);
-      config
-        .plugin('module-concat')
-          .use(optimize.ModuleConcatenationPlugin);
     })
     .when(neutrino.options.command === 'build', (config) => {
       config.when(options.clean, () => neutrino.use(clean, options.clean));

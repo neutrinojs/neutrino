@@ -1,7 +1,7 @@
 # webpack-chain: Neutrino configuration API
 
 Use a chaining API to generate and simplify the modification of
-webpack 2 and 3 configurations.
+webpack configurations.
 
 This documentation corresponds to v4 of webpack-chain, which Neutrino utilizes.
 
@@ -302,6 +302,7 @@ neutrino.config
   .context(context)
   .externals(externals)
   .loader(loader)
+  .mode(mode)
   .parallelism(parallelism)
   .profile(profile)
   .recordsPath(recordsPath)
@@ -526,6 +527,32 @@ neutrino.config.performance
   .maxEntrypointSize(maxEntrypointSize)
   .maxAssetSize(maxAssetSize)
   .assetFilter(assetFilter)
+```
+
+#### Configuring optimizations: shorthand methods
+
+```js
+neutrino.config.optimization : ChainedMap
+
+neutrino.config.optimization
+  .concatenateModules(concatenateModules)
+  .flagIncludedChunks(flagIncludedChunks)
+  .mergeDuplicateChunks(mergeDuplicateChunks)
+  .minimize(minimize)
+  .minimizer(minimizer)
+  .namedChunks(namedChunks)
+  .namedModules(namedModules)
+  .nodeEnv(nodeEnv)
+  .noEmitOnErrors(noEmitOnErrors)
+  .occurrenceOrder(occurrenceOrder)
+  .portableRecords(portableRecords)
+  .providedExports(providedExports)
+  .removeAvailableModules(removeAvailableModules)
+  .removeEmptyChunks(removeEmptyChunks)
+  .runtimeChunk(runtimeChunk)
+  .sideEffects(sideEffects)
+  .splitChunks(splitChunks)
+  .usedExports(usedExports)
 ```
 
 #### Config plugins
@@ -888,10 +915,12 @@ neutrino.config.merge({
   amd,
   bail,
   cache,
-  devtool,
   context,
+  devtool,
   externals,
   loader,
+  mode,
+  parallelism,
   profile,
   recordsPath,
   recordsInputPath,
@@ -941,6 +970,27 @@ neutrino.config.merge({
 
   node: {
     [key]: value
+  },
+
+  optimizations: {
+    concatenateModules,
+    flagIncludedChunks,
+    mergeDuplicateChunks,
+    minimize,
+    minimizer,
+    namedChunks,
+    namedModules,
+    nodeEnv,
+    noEmitOnErrors,
+    occurrenceOrder,
+    portableRecords,
+    providedExports,
+    removeAvailableModules,
+    removeEmptyChunks,
+    runtimeChunk,
+    sideEffects,
+    splitChunks,
+    usedExports,
   },
 
   performance: {

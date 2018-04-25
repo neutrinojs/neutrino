@@ -57,15 +57,15 @@ neutrino.use(styles, {
   ruleId: 'style',
   styleUseId: 'style',
   cssUseId: 'css',
-  hotUseId: 'hot',
-  hot: true,
   modules: true,
   modulesSuffix: '-modules',
   modulesTest: /\.module.css$/,
   extractId: 'extract',
   extract: {
     plugin: {},
-    loader: {}
+    loader: {
+      filename: neutrino.options.command === 'build' ? '[name].[contenthash].css' : '[name].css'
+    }
   }
 });
 ```
@@ -89,15 +89,15 @@ module.exports = {
       ruleId: 'style',
       styleUseId: 'style',
       cssUseId: 'css',
-      hotUseId: 'hot',
-      hot: true,
       modules: true,
       modulesSuffix: '-modules',
       modulesTest: /\.module.css$/,
       extractId: 'extract',
       extract: {
         plugin: {},
-        loader: {}
+        loader: {
+          filename: neutrino.options.command === 'build' ? '[name].[contenthash].css' : '[name].css'
+        }
       }
     }]
   ]
@@ -111,8 +111,6 @@ module.exports = {
 - `ruleId`: The ID of the webpack-chain rule used to identify the stylesheet loaders
 - `styleUseId`: The ID of the webpack-chain `use` used to identify the style-loader
 - `cssUseId`: The ID of the webpack-chain `use` used to identify the css-loader
-- `hotUseId`: The ID of the  webpack-chain `use` used to identify the css-hot-loader
-- `hot`: Enable usage of CSS Hot Module Replacement. Set to `false` to disable.
 - `modules`: Enable usage of CSS modules via `*.module.css` files. Set to `false` to disable and skip defining these rules.
 - `modulesSuffix`: A suffix added to `ruleId`, `styleUseId`, `cssUseId`, `hotUseId`, and `extractId` to derive names for
 modules-related rules. For example, the default `-modules` suffix will generate a rule ID for the CSS modules rules of
@@ -234,8 +232,8 @@ The following is a list of default rules and their identifiers which can be over
 
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
-| `style` | Allows importing CSS stylesheets from modules. Contains two loaders named `style` and `css` which use `style-loader` and `css-loader`, respectively. | all |
-| `style-modules` | Allows importing CSS Modules styles from modules. Contains two loaders named `style-modules` and `css-modules` which use `style-loader` and `css-loader`, respectively. | all |
+| `style` | Allows importing CSS stylesheets from modules. By default contains two loaders named `extract` and `css` which use `MiniCssExtractPlugin.loader` and `css-loader`, respectively. If `options.extract` is `false`, then the `extract` loader is replaced by `style`, which uses `style-loader`. | all |
+| `style-modules` | Allows importing CSS Modules styles from modules. By default contains two loaders named `extract` and `css` which use `MiniCssExtractPlugin.loader` and `css-loader`, respectively. If `options.extract` is `false`, then the `extract` loader is replaced by `style`, which uses `style-loader`. | all |
 
 ### Plugins
 
@@ -246,7 +244,6 @@ _Note: Some plugins may be only available in certain environments. To override t
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
 | `extract` | Extracts CSS from JS bundle into a separate stylesheet file. | all |
-| `extract-modules` | Extracts CSS from JS bundle into a separate stylesheet file. | all |
 
 ## Contributing
 

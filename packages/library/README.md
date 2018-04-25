@@ -456,8 +456,6 @@ _Note: Some plugins are only available in certain environments. To override them
 | --- | --- | --- |
 | `banner` | Injects source-map-support into the main entry points of your application if detected in `dependencies` or `devDependencies` of your package.json. | Only when `source-map-support` is installed |
 | `clean` | Clears the contents of `build` prior to creating a production bundle. | `build` command |
-| `babel-minify` | Minifies source code using `BabelMinifyWebpackPlugin`. From `@neutrinojs/babel-minify`. | `NODE_ENV production` |
-| `module-concat` | Concatenate the scope of all your modules into one closure and allow for your code to have a faster execution time in the browser. | `NODE_ENV production` |
 
 ### Override configuration
 

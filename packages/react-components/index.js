@@ -55,6 +55,8 @@ module.exports = (neutrino, opts = {}) => {
 
       neutrino.use(react, options);
 
+      // Remove the html generation plugins added by the react preset
+      neutrino.config.plugins.delete('html-sibling-chunks');
       Object
         .keys(neutrino.options.mains)
         .forEach(key => {
@@ -68,23 +70,16 @@ module.exports = (neutrino, opts = {}) => {
         .performance
           .hints('error')
           .end()
+        // Disable the chunking behaviour inherited from the react preset
+        .optimization
+          .splitChunks(false)
+          .runtimeChunk(false)
+          .end()
         .output
           .filename('[name].js')
           .library('[name]')
           .libraryTarget('umd')
           .umdNamedDefine(true);
-    }
-  );
-
-  neutrino.config.when(
-    neutrino.config.plugins.has('runtime-chunk'),
-    (config) => {
-      config.plugins
-        .delete('runtime-chunk')
-        .delete('vendor-chunk')
-        .delete('named-modules')
-        .delete('named-chunks')
-        .delete('name-all');
     }
   );
 };
