@@ -185,10 +185,15 @@ module.exports = class Project extends Generator {
 
     if (this.data.linter) {
       this.log(`${chalk.green('⏳  Performing one-time lint')}`);
-      this.spawnCommandSync(packages.NEUTRINO, ['lint', '--fix'], {
-        stdio: this.options.stdio === 'inherit' ? 'ignore' : this.options.stdio,
-        cwd: this.options.directory
-      });
+      this.spawnCommandSync(packageManager,
+        isYarn
+          ? ['lint', '--fix']
+          : ['run', 'lint', '--fix'],
+        {
+          stdio: this.options.stdio === 'inherit' ? 'ignore' : this.options.stdio,
+          env: process.env,
+          cwd: this.options.directory
+        });
     }
   }
 
