@@ -84,7 +84,6 @@ module.exports = (neutrino, opts = {}) => {
       extract: options.style.extract === true ? {} : options.style.extract
     }),
     minify: options.minify && merge(options.minify, {
-      babel: options.minify.babel === true ? {} : options.minify.babel,
       style: options.minify.style === true ? {} : options.minify.style
     }),
     babel: compileLoader.merge({
