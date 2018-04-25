@@ -472,6 +472,9 @@ By default script sources are minified in production only, and using webpack's d
 (which internally uses `uglify-es`). To customise the options passed to `UglifyJsPlugin`
 or even use a different minifier, override `optimization.minimizer`.
 
+Note: If switching to [babel-minify-webpack-plugin](https://github.com/webpack-contrib/babel-minify-webpack-plugin)
+ensure that sourcemaps are disabled in production to avoid [this bug](https://github.com/webpack-contrib/babel-minify-webpack-plugin/issues/68).
+
 _Example: Use different options with `uglify-es`:_
 
 ```js
@@ -495,27 +498,6 @@ module.exports = {
                 // https://github.com/mishoo/UglifyJS2/tree/harmony#minify-options
               }
             })
-          ]);
-    }
-  ]
-};
-```
-
-_Example: Use `babel-minify` instead:_
-
-```js
-const BabelMinifyPlugin = require('babel-minify-webpack-plugin');
-
-module.exports = {
-  use: [
-    '@neutrinojs/web',
-    (neutrino) => {
-      neutrino.config
-        .optimization
-          .minimizer([
-            // For available options, see:
-            // https://github.com/webpack-contrib/babel-minify-webpack-plugin#usage
-            new BabelMinifyPlugin()
           ]);
     }
   ]
