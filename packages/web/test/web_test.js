@@ -94,7 +94,7 @@ test('valid preset test', t => {
 test('throws when minify.babel defined', async t => {
   const api = Neutrino();
 
-  const err = t.throws(() => api.use(require('..'), { minify: { babel: {} } }));
+  const err = t.throws(() => api.use(require('..'), { minify: { babel: false } }));
   t.true(err.message.includes('The minify.babel option has been removed'));
 });
 

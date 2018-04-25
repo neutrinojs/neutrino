@@ -48,11 +48,11 @@ module.exports = (neutrino, opts = {}) => {
     image: {}
   }, opts);
 
-  if (options.minify.babel) {
+  if ('babel' in options.minify) {
     throw new Error('The minify.babel option has been removed. See the web preset docs for how to customise source minification.');
   }
 
-  if (options.minify.image) {
+  if ('image' in options.minify) {
     throw new Error('The minify.image option has been removed. To enable image minification use the @neutrinojs/image-minify preset.');
   }
 
