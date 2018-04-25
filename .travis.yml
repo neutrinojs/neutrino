@@ -9,12 +9,15 @@ cache: yarn
 node_js:
 - '8'
 - '9'
+- '10'
 before_install:
 # Use newer yarn than that pre-installed in the Travis image.
 - curl -sSfL https://yarnpkg.com/install.sh | bash
 - export PATH="$HOME/.yarn/bin:$PATH"
 install:
-- yarn install --frozen-lockfile
+# Remove --ignore-engines when this fixed:
+# https://github.com/anodynos/upath/issues/14
+- yarn install --frozen-lockfile --ignore-engines
 - yarn link:all
 script:
 - yarn validate:eslintrc
