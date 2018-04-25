@@ -335,7 +335,6 @@ _Note: Some plugins are only available in certain environments. To override them
 | `clean` | Clears the contents of `build` prior to creating a production bundle. | `build` command |
 | `start-server` | Start a Node.js for the first configured main entry point. | `start` command |
 | `hot` | Enables Hot Module Replacement. | `start` command |
-| `named-modules` | Enables named modules for improved debugging and console output. From `@neutrinojs/hot`. | `start` command |
 
 ### Override configuration
 

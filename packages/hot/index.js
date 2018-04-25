@@ -1,8 +1,5 @@
-const { HotModuleReplacementPlugin, NamedModulesPlugin } = require('webpack');
+const { HotModuleReplacementPlugin } = require('webpack');
 
 module.exports = ({ config }) => config
   .plugin('hot')
-    .use(HotModuleReplacementPlugin)
-    .end()
-  .plugin('named-modules')
-    .use(NamedModulesPlugin);
+    .use(HotModuleReplacementPlugin);

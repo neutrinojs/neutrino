@@ -60,7 +60,6 @@ The following is a list of plugins and their identifiers which can be overridden
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
 | `hot` | Enables Hot Module Replacement. | all |
-| `named-modules` | Enables named modules for improved debugging and console output. | all |
 
 ## Contributing
 
