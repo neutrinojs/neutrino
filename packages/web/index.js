@@ -101,7 +101,10 @@ module.exports = (neutrino, opts = {}) => {
     }, options.babel)
   });
 
-  neutrino.use(env, options.env);
+  if (options.env.length) {
+    neutrino.use(env, options.env);
+  }
+
   neutrino.use(htmlLoader);
   neutrino.use(compileLoader, {
     include: [
