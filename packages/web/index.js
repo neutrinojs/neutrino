@@ -13,7 +13,7 @@ const devServer = require('@neutrinojs/dev-server');
 const { join } = require('path');
 const { resolve } = require('url');
 const merge = require('deepmerge');
-const HtmlWebpackIncludeSiblingChunksPlugin = require('html-webpack-include-sibling-chunks-plugin')
+const HtmlWebpackIncludeSiblingChunksPlugin = require('html-webpack-include-sibling-chunks-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 
 const MODULES = join(__dirname, 'node_modules');
