@@ -25,11 +25,11 @@
     "@neutrinojs/loader-merge": "^8.2.0",
     "babel-core": "^6.26.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
-    "babel-preset-jest": "^21.0.2",
+    "babel-preset-jest": "^22.0.0",
     "deepmerge": "^1.5.2",
     "eslint": "^4.12.1",
     "eslint-plugin-jest": "^21.4.2",
-    "jest-cli": "^21.0.2",
+    "jest-cli": "^22.0.0",
     "ramda": "^0.25.0",
     "yargs": "^11.0.0"
   },
