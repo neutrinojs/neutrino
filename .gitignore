@@ -39,6 +39,4 @@ node_modules
 # Webstorm project metadata
 .idea
 
-# Gitbook docs
-_book
 /.vscode
