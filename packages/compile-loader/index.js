@@ -8,6 +8,9 @@ module.exports = (neutrino, options = {}) => neutrino.config.module
     .when(options.exclude, rule => rule.exclude.merge(options.exclude))
     .use(options.useId || 'babel')
       .loader(require.resolve('babel-loader'))
-      .options(merge({ cacheDirectory: true }, options.babel || {}));
+      .options(merge({
+        cacheDirectory: true,
+        babelrc: false
+      }, options.babel || {}));
 
 module.exports.merge = babelMerge;
