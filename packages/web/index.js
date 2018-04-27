@@ -177,6 +177,9 @@ module.exports = (neutrino, opts = {}) => {
         .when(__dirname.includes('neutrino-dev'), modules => {
           // Add monorepo node_modules to webpack module resolution
           modules.add(join(__dirname, '../../node_modules'));
+          // Work around test failures when using Jest with Preact
+          // https://github.com/mozilla-neutrino/neutrino-dev/issues/822
+          modules.delete(neutrino.options.node_modules);
         })
         .end()
       .extensions
