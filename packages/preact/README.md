@@ -11,7 +11,6 @@
 - Zero upfront configuration necessary to start developing and building a Preact web app
 - Modern Babel compilation adding JSX, object rest spread syntax, and class properties.
 - Write JSX in .js or .jsx files
-- Automatic import of `Preact.h`, no need to import `h` or `createElement` yourself
 - Compatibility and pre-configured aliasing for React-based modules and packages
 - Extends from [@neutrinojs/web](https://neutrino.js.org/packages/web)
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports

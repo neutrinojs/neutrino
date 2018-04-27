@@ -1,4 +1,4 @@
-import { PureComponent } from 'react'; // eslint-disable-line import/no-extraneous-dependencies
+import React, { PureComponent } from 'react'; // eslint-disable-line import/no-extraneous-dependencies
 import { string } from 'prop-types'; // eslint-disable-line import/no-extraneous-dependencies
 
 const generateColor = () => `#${

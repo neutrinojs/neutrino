@@ -16,11 +16,6 @@ module.exports = (neutrino, opts = {}) => {
     babel: compileLoader.merge({
       plugins: [
         [require.resolve('babel-plugin-transform-react-jsx'), { pragma: 'h' }],
-        [require.resolve('babel-plugin-jsx-pragmatic'), {
-          module: 'preact',
-          export: 'h',
-          import: 'h'
-        }],
         require.resolve('babel-plugin-transform-object-rest-spread'),
         [require.resolve('babel-plugin-transform-class-properties'), { spec: true }],
         process.env.NODE_ENV === 'development'
@@ -48,12 +43,7 @@ module.exports = (neutrino, opts = {}) => {
 
   neutrino.config.when(neutrino.config.module.rules.has('lint'), () => {
     neutrino.use(loaderMerge('lint', 'eslint'), {
-      rules: {
-        // Shutting this off allows ESLint to not fail when using JSX without an explicit
-        // "preact" import when coupled with the "jsx-pragmatic" and "transform-react-jsx"
-        // babel plugins above
-        'react/react-in-jsx-scope': 'off'
-      }
+      // TODO: Enable the React ESLint plugin
     });
   });
 };
