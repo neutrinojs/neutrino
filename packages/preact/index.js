@@ -43,7 +43,14 @@ module.exports = (neutrino, opts = {}) => {
 
   neutrino.config.when(neutrino.config.module.rules.has('lint'), () => {
     neutrino.use(loaderMerge('lint', 'eslint'), {
-      // TODO: Enable the React ESLint plugin
+      plugins: ['react'],
+      baseConfig: {
+        settings: {
+          react: {
+            pragma: 'h'
+          }
+        }
+      }
     });
   });
 };
