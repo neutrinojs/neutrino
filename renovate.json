@@ -8,12 +8,5 @@
   "reviewers": [
     "mozilla-neutrino/core-contributors"
   ],
-  "pinVersions": false,
-  "packageRules": [
-    {
-      "excludedPackageNames": [
-        "gitbook-plugin-github"
-      ]
-    }
-  ]
+  "pinVersions": false
 }

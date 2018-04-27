@@ -67,38 +67,6 @@ Generates a changelog for the `mozilla-neutrino/neutrino-dev` GitHub repository.
 ❯ yarn changelog
 ```
 
----
-
-`docs:serve`
-
-Starts a local development server which builds the documentation in `docs` to a gitbook running on port 4000.
-
-```bash
-❯ yarn docs:serve
-```
-
----
-
-`docs:build`
-
-Generates a static site by building the documentation in `docs` to a gitbook to the `_book` directory.
-
-```bash
-❯ yarn docs:build
-```
-
----
-
-`docs:deploy`
-
-Generates a static site by building the documentation in `docs` to a gitbook to the `_book` directory, then pushing the
-contents of `_book` to a `gh-pages` branch on GitHub. In order to run this command, you must have an `upstream` remote
-configured pointing to the root neutrino-dev repo, and have sufficient rights to push to the repository.
-
-```bash
-❯ yarn docs:deploy
-```
-
 ## Making changes
 
 When you make changes to neutrino-dev, you should make them in a branch separate from `master`. Start from the
