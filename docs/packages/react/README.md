@@ -12,7 +12,6 @@
 - Modern Babel compilation adding JSX, object rest spread syntax, and class properties.
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
-- Automatic import of `React.createElement`, no need to import `react` or `React.createElement` yourself
 - Extends from [@neutrinojs/web](../@neutrinojs/web/README.md)
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
   - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
