@@ -43,7 +43,6 @@ See `@neutrinojs/Web`.
   - `static/` (All) 
 
 ## To Do
- - Read manifest and only creates XPI if applications.gecko.id is present ([source](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Getting_started_with_web-ext))
  - Remove `dev/` folder when start command ends
  - Ignore Files on build 
  - Options
@@ -51,12 +50,11 @@ See `@neutrinojs/Web`.
    - Boolean: Use web-ext on start (For FF only, one's can start manually with another browser)
 
 ## Problems
- - Copied files are not removed in ./dev if removed from ./src
- - New files in ./src don't trigger a rebuild (but are copied after a rebuild due to a modification on another file)
- - Lots of warnings due to `eval`
-- `build`
-  - All js target (without HTML) are not working because `runtime.js` is not imported...
-- Both: Lots of error in bundled files
+ - [ ] Copied files are not removed in ./dev if removed from ./src
+ - [ ] New files in ./src don't trigger a rebuild (but are copied after a rebuild due to a modification on another file)
+ - [ ]  Lots of warnings due to the use of `eval`
+ - [ ] When building, all js target (without HTML: content scripts and background.js) are not working because `runtime.js` is not imported...
+ - [ ]  Lots of error reported in Firefox console from the bundled files. Example below.
 ```
    ReferenceError: reference to undefined property "disabled"[Learn More]  CustomizableUI.jsm:2480:5
    TypeError: cannot use 'in' operator to search for 'canGoBack' in 'browser'[Learn More]  tabbrowser.xml:2473:1
