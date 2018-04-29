@@ -244,10 +244,14 @@ module.exports = (neutrino, opts = {}) => {
     await webExt.cmd
       .build(options.webExtBuild, { shouldExitProgram: false })
       .then(({ extensionPath }) => {
-        fs.copyFileSync(
-          extensionPath,
-          extensionPath.replace('zip', 'xpi')
-        );
+        if ( getManifestEntry("applications.gecko.id") !== undefined ) {
+          fs.copyFileSync(
+            extensionPath,
+            extensionPath.replace('zip', 'xpi')
+          );
+        } else {
+          console.log('WARNING: XPI file not created as the application as no `applications.gecko.id`. See https://developer.mozilla.org/en-US/Add-ons/WebExtensions/Getting_started_with_web-ext.')
+        }
       })
       .catch(handlePromiseRejection);
   });
