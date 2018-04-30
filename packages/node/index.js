@@ -31,7 +31,7 @@ module.exports = (neutrino, opts = {}) => {
   const options = merge({
     hot: true,
     targets: {
-      node: '8.0'
+      node: '8.3'
     },
     clean: opts.clean !== false && {
       paths: [neutrino.options.output]
