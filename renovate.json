@@ -3,6 +3,7 @@
     "config:base",
     ":maintainLockFilesWeekly",
     ":prNotPending",
+    ":semanticCommitsDisabled",
     ":unpublishSafe"
   ],
   "reviewers": [
