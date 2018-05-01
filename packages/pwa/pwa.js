@@ -1,6 +1,6 @@
-import runtime from 'offline-plugin/runtime';
+import * as OfflinePluginRuntime from 'offline-plugin/runtime';
 
-runtime.install({
-  onUpdateReady: () => runtime.applyUpdate(),
+OfflinePluginRuntime.install({
+  onUpdateReady: () => OfflinePluginRuntime.applyUpdate(),
   onUpdated: () => window.location.reload()
 });

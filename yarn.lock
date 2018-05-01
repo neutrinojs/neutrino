@@ -8650,9 +8650,9 @@ obuf@^1.0.0, obuf@^1.1.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/obuf/-/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
 
-offline-plugin@^4.8.5:
-  version "4.9.1"
-  resolved "https://registry.yarnpkg.com/offline-plugin/-/offline-plugin-4.9.1.tgz#e97a6be3118b4dc360e06ed4bc473f10f2de73b6"
+offline-plugin@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/offline-plugin/-/offline-plugin-5.0.2.tgz#67b429c31158ecd2161a1ef4145759d463f887ba"
   dependencies:
     deep-extend "^0.4.0"
     ejs "^2.3.4"

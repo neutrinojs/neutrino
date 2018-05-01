@@ -13,7 +13,6 @@ module.exports = (neutrino, options = {}) => {
         ServiceWorker: {
           events: true
         },
-        AppCache: false,
         relativePaths: false,
         excludes: ['_redirects'],
         cacheMaps: [{ match: /.*/, to: '/', requestTypes: ['navigate'] }],
