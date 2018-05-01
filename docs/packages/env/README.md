@@ -10,7 +10,7 @@ use) available inside your project. Always injects `process.env.NODE_ENV`, unles
 
 ## Requirements
 
-- Node.js v8+
+- Node.js v8.3+
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino v8
 

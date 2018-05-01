@@ -9,7 +9,7 @@ a named rule and named loader in a Neutrino configuration.
 
 ## Requirements
 
-- Node.js v8+
+- Node.js v8.3+
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino v8
 

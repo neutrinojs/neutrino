@@ -21,7 +21,7 @@
     "access": "public"
   },
   "engines": {
-    "node": ">=8",
+    "node": ">=8.3",
     "npm": ">=5.4.0",
     "yarn": ">=1.2.1"
   },
