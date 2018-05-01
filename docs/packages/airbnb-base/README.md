@@ -5,7 +5,6 @@ config, following the [Airbnb styleguide](https://github.com/airbnb/javascript).
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
-[![Join the Neutrino community on Spectrum][spectrum-image]][spectrum-url] 
 
 ## Features
 
@@ -320,5 +319,3 @@ containing all resources for developing Neutrino and its core presets and middle
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/airbnb-base.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/airbnb-base.svg
 [npm-url]: https://npmjs.org/package/@neutrinojs/airbnb-base
-[spectrum-image]: https://withspectrum.github.io/badge/badge.svg
-[spectrum-url]: https://spectrum.chat/neutrino

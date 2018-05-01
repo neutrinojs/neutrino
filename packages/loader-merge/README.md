@@ -5,7 +5,6 @@ a named rule and named loader in a Neutrino configuration.
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
-[![Join the Neutrino community on Spectrum][spectrum-image]][spectrum-url]
 
 ## Requirements
 
@@ -76,5 +75,3 @@ containing all resources for developing Neutrino and its core presets and middle
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/loader-merge.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/loader-merge.svg
 [npm-url]: https://npmjs.org/package/@neutrinojs/loader-merge
-[spectrum-image]: https://withspectrum.github.io/badge/badge.svg
-[spectrum-url]: https://spectrum.chat/neutrino
