@@ -5,7 +5,6 @@ other Neutrino middleware, so you can build, test, and publish multiple React co
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
-[![Join the Neutrino community on Spectrum][spectrum-image]][spectrum-url]
 
 ## Features
 
@@ -264,5 +263,3 @@ module.exports = {
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/react-components.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/react-components.svg
 [npm-url]: https://npmjs.org/package/@neutrinojs/react-components
-[spectrum-image]: https://withspectrum.github.io/badge/badge.svg
-[spectrum-url]: https://spectrum.chat/neutrino

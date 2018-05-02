@@ -48,8 +48,6 @@ Neutrino or its core presets, please consider asking on our Spectrum channel, St
 filing issues. We would prefer to keep our GitHub issues clear for bugs, feature requests, discussions, and
 relevant information related to its development.
 
-[![Join the Neutrino community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/neutrino)
-
 ## Guidelines
 
 - Please make a good-faith effort to ensure that code that goes into neutrino-dev follows the existing patterns and

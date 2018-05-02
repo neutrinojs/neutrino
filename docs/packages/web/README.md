@@ -4,7 +4,6 @@
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
-[![Join the Neutrino community on Spectrum][spectrum-image]][spectrum-url]
 
 ## Features
 
@@ -513,5 +512,3 @@ containing all resources for developing Neutrino and its core presets and middle
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/web.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/web.svg
 [npm-url]: https://npmjs.org/package/@neutrinojs/web
-[spectrum-image]: https://withspectrum.github.io/badge/badge.svg
-[spectrum-url]: https://spectrum.chat/neutrino
