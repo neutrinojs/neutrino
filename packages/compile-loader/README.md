@@ -82,7 +82,7 @@ const { merge } = require('@neutrinojs/compile-loader');
 const together = merge(
   {
     presets: [
-      ['babel-preset-env', {
+      ['@babel/preset-env', {
         targets: {
           browsers: ['latest 1 Chrome']
         }
@@ -91,7 +91,7 @@ const together = merge(
   },
   {
     presets: [
-      ['babel-preset-env', {
+      ['@babel/preset-env', {
         targets: {
           browsers: ['latest 1 Firefox']
         }
@@ -105,7 +105,7 @@ console.log(together);
 // Logs:
 {
   presets: [
-    ['babel-preset-env', {
+    ['@babel/preset-env', {
       targets: {
         browsers: [
           'latest 1 Chrome',
@@ -139,8 +139,8 @@ config.module
     .use('babel')
       .tap(options => merge({
         plugins: [
-          require.resolve('babel-plugin-transform-decorators-legacy'),
-          require.resolve('babel-plugin-transform-class-properties')
+          require.resolve('@babel/plugin-proposal-decorators'),
+          require.resolve('@babel/plugin-proposal-class-properties')
         ]
       }, options));
 ```

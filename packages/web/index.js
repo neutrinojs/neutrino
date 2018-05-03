@@ -88,13 +88,13 @@ module.exports = (neutrino, opts = {}) => {
     }),
     babel: compileLoader.merge({
       plugins: [
-        require.resolve('babel-plugin-syntax-dynamic-import')
+        require.resolve('@babel/plugin-syntax-dynamic-import')
       ],
       presets: [
-        [require.resolve('babel-preset-env'), {
+        [require.resolve('@babel/preset-env'), {
           debug: neutrino.options.debug,
           modules: false,
-          useBuiltIns: true,
+          useBuiltIns: 'entry',
           targets: options.targets
         }]
       ]

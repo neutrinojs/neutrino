@@ -25,15 +25,13 @@ module.exports = (neutrino, opts = {}) => {
   Object.assign(options, {
     babel: compileLoader.merge({
       plugins: [
-        options.target === 'node' ?
-          require.resolve('babel-plugin-dynamic-import-node') :
-          require.resolve('babel-plugin-syntax-dynamic-import')
+        require.resolve('@babel/plugin-syntax-dynamic-import')
       ],
       presets: [
-        [require.resolve('babel-preset-env'), {
+        [require.resolve('@babel/preset-env'), {
           debug: neutrino.options.debug,
           modules: false,
-          useBuiltIns: true,
+          useBuiltIns: 'entry',
           targets: options.target === 'node' ?
             { node: '8.3' } :
             { browsers: [] }

@@ -203,7 +203,7 @@ module.exports = {
         title: 'Epic React App'
       },
 
-      // Target specific browsers with babel-preset-env
+      // Target specific browsers with @babel/preset-env
       targets: {
         browsers: [
           'last 1 Chrome versions',
@@ -213,9 +213,9 @@ module.exports = {
 
       // Add additional Babel plugins, presets, or env options
       babel: {
-        // Override options for babel-preset-env:
+        // Override options for @babel/preset-env:
         presets: [
-          ['babel-preset-env', {
+          ['@babel/preset-env', {
             modules: false,
             useBuiltIns: true,
           }]

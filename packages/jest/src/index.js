@@ -94,9 +94,15 @@ module.exports = (neutrino, opts = {}) => {
     neutrino.config.when(usingBabel, () => {
       neutrino.use(loaderMerge('compile', 'babel'), {
         retainLines: true,
-        presets: [require.resolve('babel-preset-jest')],
         plugins: [
-          require.resolve('babel-plugin-transform-es2015-modules-commonjs')
+          // Once babel-preset-jest has better Babel 7 support we should switch back to it
+          // (or even use babel-jest, which will allow simplifying the transformer too):
+          // https://github.com/facebook/jest/issues/6126
+          // For now this plugin is taken from here (we don't need object-rest-spread since node >=8.3):
+          // https://github.com/facebook/jest/blob/v22.4.2/packages/babel-preset-jest/index.js#L11-L12
+          require.resolve('babel-plugin-jest-hoist'),
+          // Since the tests will be run by node which doesn't yet support ES2015 modules
+          require.resolve('@babel/plugin-transform-modules-commonjs')
         ]
       });
     });

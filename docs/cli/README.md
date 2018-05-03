@@ -88,8 +88,8 @@ index 3356802..d4d82ef 100644
    devtool: 'source-map',
    entry: {
      index: [
--      'babel-polyfill',
-       '/node/src/index.js'
+-      '/node/src/index.js'
++      '/node/src/app.js'
      ]
    },
 ```
