@@ -31,9 +31,7 @@
     "eslint-plugin-babel": "^5.0.0",
     "fluture": "^8.0.0",
     "lodash.clonedeep": "^4.5.0",
-    "ramda": "^0.25.0"
-  },
-  "devDependencies": {
+    "ramda": "^0.25.0",
     "webpack": "^4.6.0"
   },
   "peerDependencies": {

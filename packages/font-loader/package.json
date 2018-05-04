@@ -24,9 +24,7 @@
   "dependencies": {
     "deepmerge": "^1.5.2",
     "file-loader": "^1.0.0",
-    "url-loader": "^1.0.0"
-  },
-  "devDependencies": {
+    "url-loader": "^1.0.0",
     "webpack": "^4.6.0"
   },
   "peerDependencies": {
