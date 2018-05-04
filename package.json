@@ -35,17 +35,17 @@
     "version": "yarn changelog --package && git add CHANGELOG.md"
   },
   "devDependencies": {
-    "auto-changelog": "^1.2.2",
+    "auto-changelog": "^1.4.6",
     "ava": "^0.25.0",
-    "codecov": "^3.0.0",
-    "eslint": "^4.12.1",
+    "codecov": "^3.0.1",
+    "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-prettier": "^2.6.0",
     "husky": "^0.14.3",
-    "lerna": "^2.5.1",
-    "lint-staged": "^7.0.0",
-    "nyc": "^11.2.1",
-    "prettier": "^1.9.1"
+    "lerna": "^2.11.0",
+    "lint-staged": "^7.0.5",
+    "nyc": "^11.7.1",
+    "prettier": "^1.12.1"
   },
   "lint-staged": {
     "*.js": [

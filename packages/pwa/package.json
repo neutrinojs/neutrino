@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "deepmerge": "^1.5.2",
-    "offline-plugin": "^5.0.2"
+    "offline-plugin": "^5.0.3"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"

@@ -23,18 +23,18 @@
   },
   "dependencies": {
     "@neutrinojs/loader-merge": "^8.2.0",
-    "babel-plugin-istanbul": "^4.1.5",
+    "babel-plugin-istanbul": "^4.1.6",
     "deepmerge": "^1.5.2",
-    "karma": "^2.0.0",
+    "karma": "^2.0.2",
     "karma-chrome-launcher": "^2.2.0",
-    "karma-coverage": "^1.1.1",
+    "karma-coverage": "^1.1.2",
     "karma-mocha": "^1.3.0",
-    "karma-mocha-reporter": "^2.2.4",
+    "karma-mocha-reporter": "^2.2.5",
     "karma-webpack": "^3.0.0",
-    "mocha": "^5.0.0",
+    "mocha": "^5.1.1",
     "mocha-coverage-reporter": "^0.0.1",
     "ramda": "^0.25.0",
-    "webpack": "^4.6.0"
+    "webpack": "^4.7.0"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"

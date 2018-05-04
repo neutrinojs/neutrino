@@ -23,9 +23,9 @@
   },
   "dependencies": {
     "deepmerge": "^1.5.2",
-    "file-loader": "^1.0.0",
-    "url-loader": "^1.0.0",
-    "webpack": "^4.6.0"
+    "file-loader": "^1.1.11",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.7.0"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"
