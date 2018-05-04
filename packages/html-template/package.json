@@ -25,9 +25,7 @@
   "dependencies": {
     "deepmerge": "^1.5.2",
     "html-webpack-plugin": "^3.0.0",
-    "html-webpack-template": "^6.1.0"
-  },
-  "devDependencies": {
+    "html-webpack-template": "^6.1.0",
     "webpack": "^4.6.0"
   },
   "peerDependencies": {

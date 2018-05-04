@@ -26,7 +26,8 @@
   },
   "dependencies": {
     "deepmerge": "^1.5.2",
-    "optimize-css-assets-webpack-plugin": "^4.0.0"
+    "optimize-css-assets-webpack-plugin": "^4.0.0",
+    "webpack": "^4.6.0"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"
