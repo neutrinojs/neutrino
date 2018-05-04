@@ -424,18 +424,6 @@ module.exports = {
 };
 ```
 
-## Customizing
-
-To override the build configuration, start with the documentation on [customization](../../customization).
-`@neutrinojs/library` creates some conventions to make overriding the configuration easier once you are ready to make
-changes.
-
-By default Neutrino, and therefore this preset, creates a single **main** `index` entry point to your library, and this
-maps to the `index.*` file in the `src` directory. This means that this preset is optimized toward a single main entry
-to your library. Code not imported in the hierarchy of the `index` entry will not be output to the bundle. To overcome
-this you must either define more mains via [`options.mains`](../../customization#optionsmains), import the code path
-somewhere along the `index` hierarchy, or define multiple configurations in your `.neutrinorc.js`.
-
 ### Rules
 
 The following is a list of rules and their identifiers which can be overridden:
