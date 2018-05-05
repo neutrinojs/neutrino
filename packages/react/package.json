@@ -30,10 +30,10 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-classes": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-react": "^6.24.0",
+    "babel-preset-react": "^6.24.1",
     "deepmerge": "^1.5.2",
-    "eslint": "^4.12.1",
-    "eslint-plugin-react": "^7.5.1",
+    "eslint": "^4.19.1",
+    "eslint-plugin-react": "^7.7.0",
     "react-hot-loader": "^3.1.3"
   },
   "devDependencies": {

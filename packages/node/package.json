@@ -29,11 +29,11 @@
     "@neutrinojs/hot": "^8.2.0",
     "@neutrinojs/start-server": "^8.2.0",
     "babel-plugin-dynamic-import-node": "^1.2.0",
-    "babel-preset-env": "^1.6.0",
+    "babel-preset-env": "^1.6.1",
     "deepmerge": "^1.5.2",
     "ramda": "^0.25.0",
-    "webpack": "^4.6.0",
-    "webpack-node-externals": "^1.6.0"
+    "webpack": "^4.7.0",
+    "webpack-node-externals": "^1.7.2"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"

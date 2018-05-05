@@ -23,11 +23,11 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-merge": "^1.1.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-merge": "^1.1.1",
     "deepmerge": "^1.5.2",
-    "webpack": "^4.6.0"
+    "webpack": "^4.7.0"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"

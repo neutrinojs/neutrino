@@ -23,16 +23,16 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "babel-eslint": "^8.0.3",
+    "babel-eslint": "^8.2.3",
     "debug": "^3.1.0",
     "deepmerge": "^1.5.2",
-    "eslint": "^4.12.1",
+    "eslint": "^4.19.1",
     "eslint-loader": "^2.0.0",
-    "eslint-plugin-babel": "^5.0.0",
-    "fluture": "^8.0.0",
+    "eslint-plugin-babel": "^5.1.0",
+    "fluture": "^8.0.2",
     "lodash.clonedeep": "^4.5.0",
     "ramda": "^0.25.0",
-    "webpack": "^4.6.0"
+    "webpack": "^4.7.0"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"

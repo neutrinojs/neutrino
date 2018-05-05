@@ -36,12 +36,12 @@
     "@neutrinojs/style-loader": "^8.2.0",
     "@neutrinojs/style-minify": "^8.2.0",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "babel-preset-env": "^1.6.0",
+    "babel-preset-env": "^1.6.1",
     "deepmerge": "^1.5.2",
     "html-webpack-include-sibling-chunks-plugin": "^0.1.4",
-    "webpack": "^4.6.0",
-    "webpack-manifest-plugin": "^2.0.0",
-    "worker-loader": "^1.0.0"
+    "webpack": "^4.7.0",
+    "webpack-manifest-plugin": "^2.0.2",
+    "worker-loader": "^1.1.1"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"

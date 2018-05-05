@@ -35,18 +35,18 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "chalk": "^2.3.0",
-    "command-exists": "^1.2.2",
+    "chalk": "^2.4.1",
+    "command-exists": "^1.2.6",
     "deepmerge": "^1.5.2",
     "fs-extra": "^6.0.0",
     "javascript-stringify": "^1.6.0",
     "ramda": "^0.25.0",
     "yargs": "^11.0.0",
-    "yeoman-environment": "^2.0.5",
-    "yeoman-generator": "^2.0.1"
+    "yeoman-environment": "^2.0.6",
+    "yeoman-generator": "^2.0.5"
   },
   "devDependencies": {
-    "yeoman-assert": "^3.1.0",
+    "yeoman-assert": "^3.1.1",
     "yeoman-test": "^1.7.0"
   }
 }
