@@ -7,7 +7,7 @@ types, but anyone can inherit, extend, and modify these presets and tailor them 
 team, or company preferences. You can even create your own presets from scratch.
 
 If you are familiar with Babel presets, Neutrino presets work similarly. For example,
-given the Babel preset `babel-preset-react`, you can compile React code with JSX
+given the Babel preset `@babel/preset-react`, you can compile React code with JSX
 to vanilla JavaScript calls. Neutrino adopts this same concept by adapting webpack into
 a tool that understands configurations-as-packages, i.e. presets. Many more aspects of
 development surround building a complete React project, for which webpack is commonly used.

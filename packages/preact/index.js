@@ -15,12 +15,10 @@ module.exports = (neutrino, opts = {}) => {
   Object.assign(options, {
     babel: compileLoader.merge({
       plugins: [
-        [require.resolve('babel-plugin-transform-react-jsx'), { pragma: 'h' }],
-        require.resolve('babel-plugin-transform-object-rest-spread'),
-        [require.resolve('babel-plugin-transform-class-properties'), { spec: true }],
-        process.env.NODE_ENV === 'development'
-          ? require.resolve('babel-plugin-transform-es2015-classes')
-          : {}
+        [require.resolve('@babel/plugin-transform-react-jsx'), { pragma: 'h' }],
+        // Using loose for the reasons here:
+        // https://github.com/facebook/create-react-app/issues/4263
+        [require.resolve('@babel/plugin-proposal-class-properties'), { loose: true }]
       ]
     }, options.babel)
   });

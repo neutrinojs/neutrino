@@ -16,20 +16,26 @@ module.exports = (neutrino, opts = {}) => {
   Object.assign(options, {
     babel: compileLoader.merge({
       plugins: [
-        require.resolve('babel-plugin-transform-object-rest-spread'),
         ...(
-          process.env.NODE_ENV === 'development'
-            ? [
-              ...(options.hot ? [require.resolve('react-hot-loader/babel')] : []),
-              [require.resolve('babel-plugin-transform-class-properties'), { spec: true }],
-              require.resolve('babel-plugin-transform-es2015-classes')
-            ]
-            : [
-              [require.resolve('babel-plugin-transform-class-properties'), { spec: true }]
-            ]
-        )
+          process.env.NODE_ENV === 'development' && options.hot
+            ? [require.resolve('react-hot-loader/babel')]
+            : []
+        ),
+        // Using loose for the reasons here:
+        // https://github.com/facebook/create-react-app/issues/4263
+        [require.resolve('@babel/plugin-proposal-class-properties'), { loose: true }]
       ],
-      presets: [require.resolve('babel-preset-react')]
+      presets: [
+        [
+          require.resolve('@babel/preset-react'),
+          {
+            // Enable development helpers both in development and testing.
+            development: process.env.NODE_ENV !== 'production',
+            // Use the native built-in instead of polyfilling.
+            useBuiltIns: true
+          }
+        ]
+      ]
     }, options.babel)
   });
 

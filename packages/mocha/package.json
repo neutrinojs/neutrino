@@ -20,9 +20,10 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
+    "@babel/core": "^7.0.0-beta.46",
+    "@babel/plugin-transform-modules-commonjs": "^7.0.0-beta.46",
+    "@babel/register": "^7.0.0-beta.46",
     "@neutrinojs/loader-merge": "^8.2.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
-    "babel-register": "^6.26.0",
     "change-case": "^3.0.2",
     "deepmerge": "^1.5.2",
     "mocha": "^5.1.1",

@@ -255,7 +255,7 @@ module.exports = {
       // Enables Hot Module Replacement. Set to false to disable
       hot: true,
 
-      // Target specific versions via babel-preset-env
+      // Target specific versions via @babel/preset-env
       targets: {
         node: '8.3'
       },
@@ -268,9 +268,9 @@ module.exports = {
 
       // Add additional Babel plugins, presets, or env options
       babel: {
-        // Override options for babel-preset-env, showing defaults:
+        // Override options for @babel/preset-env, showing defaults:
         presets: [
-          ['babel-preset-env', {
+          ['@babel/preset-env', {
             targets: { node: '8.3' },
             modules: false,
             useBuiltIns: true,
@@ -288,7 +288,7 @@ _Example: Override the Node.js Babel compilation target to Node.js v6:_
 module.exports = {
   use: [
     ['@neutrinojs/node', {
-      // Target specific versions via babel-preset-env
+      // Target specific versions via @babel/preset-env
       targets: {
         node: '6.0'
       }

@@ -22,10 +22,10 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
+    "@babel/core": "^7.0.0-beta.46",
+    "@babel/plugin-transform-modules-commonjs": "^7.0.0-beta.46",
     "@neutrinojs/loader-merge": "^8.2.0",
-    "babel-core": "^6.26.3",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
-    "babel-preset-jest": "^22.4.3",
+    "babel-plugin-jest-hoist": "^22.4.3",
     "deepmerge": "^1.5.2",
     "eslint": "^4.19.1",
     "eslint-plugin-jest": "^21.15.1",

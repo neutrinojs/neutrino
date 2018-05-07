@@ -23,13 +23,14 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
+    "@babel/core": "^7.0.0-beta.46",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0-beta.46",
+    "@babel/preset-env": "^7.0.0-beta.46",
     "@neutrinojs/banner": "^8.2.0",
     "@neutrinojs/clean": "^8.2.0",
     "@neutrinojs/compile-loader": "^8.2.0",
     "@neutrinojs/hot": "^8.2.0",
     "@neutrinojs/start-server": "^8.2.0",
-    "babel-plugin-dynamic-import-node": "^1.2.0",
-    "babel-preset-env": "^1.6.1",
     "deepmerge": "^1.5.2",
     "ramda": "^0.25.0",
     "webpack": "^4.7.0",

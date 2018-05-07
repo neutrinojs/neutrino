@@ -14,7 +14,7 @@ module.exports = (neutrino, opts = {}) => {
 
     neutrino.config.when(usingBabel, () => {
       neutrino.use(loaderMerge('compile', 'babel'), {
-        plugins: [require.resolve('babel-plugin-transform-es2015-modules-commonjs')]
+        plugins: [require.resolve('@babel/plugin-transform-modules-commonjs')]
       });
     });
 

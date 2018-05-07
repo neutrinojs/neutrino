@@ -23,8 +23,8 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.4",
+    "@babel/core": "^7.0.0-beta.46",
+    "babel-loader": "^8.0.0-beta.2",
     "babel-merge": "^1.1.1",
     "deepmerge": "^1.5.2",
     "webpack": "^4.7.0"

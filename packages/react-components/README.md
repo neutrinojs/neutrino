@@ -25,8 +25,8 @@ other Neutrino middleware, so you can build, test, and publish multiple React co
   - Production-optimized bundles with minification, easy chunking, and scope-hoisted modules for faster execution
   - Easily extensible to customize your project as needed
 
-**Important! This preset does not include babel-polyfill for size reasons. If you need
-polyfills in your library code, consider importing babel-polyfill, core-js, or other alternative.**
+**Important! This preset does not include @babel/polyfill for size reasons. If you need
+polyfills in your library code, consider importing @babel/polyfill, core-js, or other alternative.**
 
 ## Requirements
 
