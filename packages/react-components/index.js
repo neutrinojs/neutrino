@@ -8,11 +8,12 @@ const { readdirSync } = require('fs');
 const MODULES = join(__dirname, 'node_modules');
 
 module.exports = (neutrino, opts = {}) => {
+  const mode = neutrino.config.get('mode');
   const options = merge({
-    html: process.env.NODE_ENV === 'development' && {
+    html: mode === 'development' && {
       title: 'React Preview'
     },
-    manifest: process.env.NODE_ENV === 'development',
+    manifest: mode === 'development',
     externals: opts.externals !== false && {},
     style: { extract: { plugin: { filename: '[name].css' } } }
   }, opts);
@@ -31,7 +32,7 @@ module.exports = (neutrino, opts = {}) => {
     });
 
   neutrino.config.when(
-    process.env.NODE_ENV === 'development',
+    mode === 'development',
     () => {
       neutrino.use(react, options);
     },
@@ -49,7 +50,7 @@ module.exports = (neutrino, opts = {}) => {
         neutrino.options.mains[basename(component, extname(component))] = join(components, component);
       });
 
-      const pkg = neutrino.options.packageJson;
+      const pkg = neutrino.options.packageJson || {};
       const hasSourceMap = (pkg.dependencies && 'source-map-support' in pkg.dependencies) ||
         (pkg.devDependencies && 'source-map-support' in pkg.devDependencies);
 

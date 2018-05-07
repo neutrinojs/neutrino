@@ -4,6 +4,7 @@ const chalk = require('chalk');
 const stringify = require('javascript-stringify');
 const merge = require('deepmerge');
 const Generator = require('yeoman-generator');
+const { source } = require('neutrino/extensions');
 const questions = require('./questions');
 const { projects, packages, isYarn } = require('./utils');
 
@@ -41,7 +42,9 @@ module.exports = class Project extends Generator {
       use: [
         this.data.linter,
         this._getProjectMiddleware(),
-        this.data.testRunner
+        this.data.testRunner && this.data.testRunner.startsWith('@')
+          ? this.data.testRunner
+          : null
       ].filter(Boolean)
     };
 
@@ -68,18 +71,31 @@ module.exports = class Project extends Generator {
 
   _initialPackageJson() {
     const installer = isYarn ? 'yarn' : 'npm';
-    const scripts = { build: `${packages.NEUTRINO} build` };
+    const scripts = { build: 'webpack --mode production' };
 
     if (this.data.projectType !== 'library') {
-      scripts.start = `${packages.NEUTRINO} start`;
+      scripts.start = this.data.project === '@neutrinojs/node'
+        ? 'webpack --watch --mode development'
+        : 'webpack-serve --mode development';
     }
 
-    if (this.data.linter) {
-      scripts.lint = `${packages.NEUTRINO} lint`;
-    }
+    const lint = `eslint --ext ${source.join(',')} src`;
 
     if (this.data.testRunner) {
-      scripts.test = `${packages.NEUTRINO} test`;
+      if (this.data.testRunner.includes('jest')) {
+        scripts.test = 'jest';
+      } else if (this.data.testRunner.includes('karma')) {
+        scripts.test = 'karma start --single-run';
+      } else if (this.data.testRunner.includes('mocha')) {
+        scripts.test =
+          'mocha --require mocha.config.js --recursive';
+      }
+
+      if (this.data.linter) {
+        scripts.lint = `${lint} test`;
+      }
+    } else if (this.data.linter) {
+      scripts.lint = lint;
     }
 
     ensureDirSync(this.options.directory);

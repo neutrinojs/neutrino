@@ -32,11 +32,11 @@
     "@neutrinojs/hot": "^8.2.0",
     "@neutrinojs/start-server": "^8.2.0",
     "deepmerge": "^1.5.2",
-    "ramda": "^0.25.0",
-    "webpack": "^4.7.0",
+    "lodash.omit": "^4.5.0",
     "webpack-node-externals": "^1.7.2"
   },
   "peerDependencies": {
-    "neutrino": "^8.0.0"
+    "neutrino": "^8.0.0",
+    "webpack": "^4.0.0"
   }
 }

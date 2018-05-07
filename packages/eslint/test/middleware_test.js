@@ -1,5 +1,6 @@
 import test from 'ava';
-import { Neutrino } from 'neutrino';
+import Neutrino from '../../neutrino/Neutrino';
+import neutrino from '../../neutrino';
 
 const mw = () => require('..');
 const options = { eslint: { rules: { semi: false } } };
@@ -9,15 +10,15 @@ test('loads middleware', t => {
 });
 
 test('uses middleware', t => {
-  t.notThrows(() => Neutrino().use(mw()));
+  t.notThrows(() => new Neutrino().use(mw()));
 });
 
 test('uses with options', t => {
-  t.notThrows(() => Neutrino().use(mw(), options));
+  t.notThrows(() => new Neutrino().use(mw(), options));
 });
 
 test('instantiates', t => {
-  const api = Neutrino();
+  const api = new Neutrino();
 
   api.use(mw());
 
@@ -25,21 +26,33 @@ test('instantiates', t => {
 });
 
 test('instantiates with options', t => {
-  const api = Neutrino();
+  const api = new Neutrino();
 
   api.use(mw(), options);
 
   t.notThrows(() => api.config.toConfig());
 });
 
-test('exposes lint command', t => {
-  const api = Neutrino();
+test('exposes eslintrc output handler', t => {
+  const api = new Neutrino();
 
   api.use(mw());
 
-  t.is(typeof api.commands.lint, 'function');
+  const handler = api.outputHandlers.get('eslintrc');
+
+  t.is(typeof handler, 'function');
 });
 
-test('exposes eslintrc config', t => {
-  t.is(typeof Neutrino().use(mw()).call('eslintrc'), 'object');
+test('exposes eslintrc config from output', t => {
+  const config = neutrino(mw()).output('eslintrc');
+
+  t.is(typeof config, 'object');
+});
+
+test('exposes eslintrc method', t => {
+  t.is(typeof neutrino(mw()).eslintrc, 'function');
+});
+
+test('exposes eslintrc config from method', t => {
+  t.is(typeof neutrino(mw()).eslintrc(), 'object');
 });

@@ -1,28 +1,50 @@
 import test from 'ava';
-import { Neutrino } from 'neutrino';
+import Neutrino from '../../neutrino/Neutrino';
+import neutrino from '../../neutrino';
 
 const mw = () => require('..');
 
-test('loads preset', t => {
+test('loads middleware', t => {
   t.notThrows(mw);
 });
 
-test('uses preset', t => {
-  const api = Neutrino();
+test('uses middleware', t => {
+  t.notThrows(() => {
+    const api = new Neutrino();
 
-  t.notThrows(() => api.use(mw()));
+    api.config.mode('production');
+    api.use(mw());
+  });
 });
 
-test('uses preset in test environment', t => {
-  const api = Neutrino({ env: { NODE_ENV: 'test' } });
+test('instantiates', t => {
+  const api = new Neutrino();
 
-  t.notThrows(() => api.use(mw()));
-});
-
-test('instantiates in test environment', t => {
-  const api = Neutrino({ env: { NODE_ENV: 'test' } });
-
+  api.config.mode('production');
   api.use(mw());
 
   t.notThrows(() => api.config.toConfig());
+});
+
+test('instantiates in development', t => {
+  const api = new Neutrino();
+
+  api.config.mode('development');
+  api.use(mw());
+
+  t.notThrows(() => api.config.toConfig());
+});
+
+test('exposes mocha output handler', t => {
+  const api = new Neutrino();
+
+  api.use(mw());
+
+  const handler = api.outputHandlers.get('mocha');
+
+  t.is(typeof handler, 'function');
+});
+
+test('exposes mocha method', t => {
+  t.is(typeof neutrino(mw()).mocha, 'function');
 });

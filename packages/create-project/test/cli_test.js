@@ -100,12 +100,21 @@ Object.keys(tests).forEach(projectName => {
     t.truthy(dir);
     assert.file(join(dir, 'package.json'));
     assert.file(join(dir, '.neutrinorc.js'));
+    assert.file(join(dir, 'webpack.config.js'));
     assert.file(join(dir, '.eslintrc.js'));
 
     await lintable(t, dir);
     await buildable(t, dir);
 
     if (tester) {
+      if (tester === packages.JEST) {
+        assert.file(join(dir, 'jest.config.js'));
+      } else if (tester === packages.KARMA) {
+        assert.file(join(dir, 'karma.conf.js'));
+      } else if (tester === packages.MOCHA) {
+        assert.file(join(dir, 'mocha.config.js'));
+      }
+
       assert.file(join(dir, 'test/simple_test.js'));
       await testable(t, dir);
     }

@@ -17,7 +17,7 @@
   "scripts": {
     "changelog": "auto-changelog --remote upstream --commit-limit false",
     "link:all": "lerna exec yarn link",
-    "lint": "node packages/neutrino/bin/neutrino lint",
+    "lint": "eslint packages .neutrinorc.js",
     "precommit": "lint-staged",
     "release": "lerna publish --force-publish=*",
     "release:preview": "lerna publish --force-publish=* --skip-git --skip-npm",
@@ -38,12 +38,16 @@
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
     "husky": "^0.14.3",
+    "jest": "^22.4.3",
     "lerna": "^2.11.0",
     "lint-staged": "^7.0.5",
     "nyc": "^11.7.1",
     "prettier": "^1.12.1",
+    "stylelint": "^8.4.0",
     "verdaccio": "3.0.0-beta.10",
-    "verdaccio-memory": "^1.0.1"
+    "verdaccio-memory": "^1.0.1",
+    "webpack": "^4.8.3",
+    "webpack-dev-server": "^3.1.4"
   },
   "lint-staged": {
     "*.js": [

@@ -10,7 +10,7 @@ const imageminLoader = require.resolve('imagemin-webpack/imagemin-loader');
 
 module.exports = (neutrino, opts = {}) => {
   const options = merge({
-    enabled: process.env.NODE_ENV === 'production',
+    enabled: neutrino.config.get('mode') === 'production',
     imagemin: {
       plugins: [
         gifsicle(),

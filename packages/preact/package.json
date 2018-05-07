@@ -30,10 +30,10 @@
     "@neutrinojs/compile-loader": "^8.2.0",
     "@neutrinojs/loader-merge": "^8.2.0",
     "@neutrinojs/web": "^8.2.0",
-    "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.7.0"
   },
   "peerDependencies": {
-    "neutrino": "^8.0.0"
+    "neutrino": "^8.0.0",
+    "webpack": "^4.0.0"
   }
 }

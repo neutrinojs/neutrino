@@ -69,10 +69,12 @@ module.exports = (neutrino, opts = {}) => {
     .keys(neutrino.options.mains)
     .forEach(key => neutrino.config.entry(key).add(neutrino.options.mains[key]));
 
+  const mode = neutrino.config.get('mode');
+
   neutrino.config
-    .mode(process.env.NODE_ENV === 'production' ? 'production' : 'development')
     .when(hasSourceMap, () => neutrino.use(banner))
     .devtool('source-map')
+    .externals([nodeExternals()])
     .target(options.target)
     .context(neutrino.options.root)
     .output
@@ -135,7 +137,6 @@ module.exports = (neutrino, opts = {}) => {
         }
       });
     })
-    .when(process.env.NODE_ENV !== 'test', config => config.externals([nodeExternals()]))
     .when(neutrino.config.module.rules.has('lint'), () => {
       if (options.target === 'node') {
         neutrino.use(loaderMerge('lint', 'eslint'), { envs: ['commonjs'] });
@@ -143,7 +144,7 @@ module.exports = (neutrino, opts = {}) => {
         neutrino.use(loaderMerge('lint', 'eslint'), { envs: ['browser', 'commonjs'] });
       }
     })
-    .when(neutrino.options.command === 'build', (config) => {
+    .when(mode === 'production', (config) => {
       config.when(options.clean, () => neutrino.use(clean, options.clean));
     });
 };

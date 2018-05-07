@@ -20,13 +20,12 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@babel/core": "^7.0.0-beta.46",
-    "@babel/plugin-transform-modules-commonjs": "^7.0.0-beta.46",
-    "@babel/register": "^7.0.0-beta.46",
+    "@babel/core": "^7.0.0-beta.47",
+    "@babel/plugin-transform-modules-commonjs": "^7.0.0-beta.47",
+    "@babel/register": "^7.0.0-beta.47",
     "@neutrinojs/loader-merge": "^8.2.0",
-    "change-case": "^3.0.2",
-    "mocha": "^5.1.1",
-    "ramda": "^0.25.0"
+    "babel-merge": "^1.1.1",
+    "lodash.omit": "^4.5.0"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"

@@ -1,6 +1,6 @@
 import test from 'ava';
 import { validate } from 'webpack';
-import { Neutrino, build } from 'neutrino';
+import Neutrino from '../../neutrino/Neutrino';
 
 const expectedExtensions = ['.js', '.jsx', '.vue', '.ts', '.tsx', '.mjs', '.json'];
 
@@ -9,14 +9,13 @@ test('loads preset', t => {
 });
 
 test('uses preset', t => {
-  t.notThrows(() => Neutrino().use(require('..')));
+  t.notThrows(() => new Neutrino().use(require('..')));
 });
 
 test('valid preset production', t => {
-  const api = Neutrino({
-    command: 'build',
-    env: { NODE_ENV: 'production' }
-  });
+  const api = new Neutrino();
+
+  api.config.mode('production');
   api.use(require('..'));
   const config = api.config.toConfig();
 
@@ -38,10 +37,9 @@ test('valid preset production', t => {
 });
 
 test('valid preset development', t => {
-  const api = Neutrino({
-    command: 'start',
-    env: { NODE_ENV: 'development' }
-  });
+  const api = new Neutrino();
+
+  api.config.mode('development');
   api.use(require('..'));
   const config = api.config.toConfig();
 
@@ -66,52 +64,16 @@ test('valid preset development', t => {
   t.is(errors.length, 0);
 });
 
-test('valid preset test', t => {
-  const api = Neutrino({
-    command: 'test',
-    env: { NODE_ENV: 'test' }
-  });
-  api.use(require('..'));
-  const config = api.config.toConfig();
-
-  // Common
-  t.is(config.target, 'web');
-  t.deepEqual(config.resolve.extensions, expectedExtensions);
-  t.is(config.optimization.runtimeChunk, 'single');
-  t.is(config.optimization.splitChunks.chunks, 'all');
-
-  // NODE_ENV/command specific
-  t.is(config.mode, 'development');
-  t.false(config.optimization.minimize);
-  t.true(config.optimization.splitChunks.name);
-  t.is(config.devtool, undefined);
-  t.is(config.devServer, undefined);
-
-  const errors = validate(config);
-  t.is(errors.length, 0);
-});
-
 test('throws when minify.babel defined', async t => {
-  const api = Neutrino();
+  const api = new Neutrino();
 
   const err = t.throws(() => api.use(require('..'), { minify: { babel: false } }));
   t.true(err.message.includes('The minify.babel option has been removed'));
 });
 
 test('throws when minify.image defined', async t => {
-  const api = Neutrino();
+  const api = new Neutrino();
 
   const err = t.throws(() => api.use(require('..'), { minify: { image: true } }));
   t.true(err.message.includes('The minify.image option has been removed'));
-});
-
-test('throws when vendor entrypoint defined', async t => {
-  const api = Neutrino();
-  api
-    .register('build', build)
-    .use(require('..'))
-    .config.entry('vendor').add('lodash');
-
-  const [err] = await t.throws(api.run('build').promise());
-  t.true(err.message.includes('Remove the manual `vendor` entrypoint'));
 });

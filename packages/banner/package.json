@@ -21,10 +21,8 @@
     "npm": ">=5.4.0",
     "yarn": ">=1.2.1"
   },
-  "dependencies": {
-    "webpack": "^4.7.0"
-  },
   "peerDependencies": {
-    "neutrino": "^8.0.0"
+    "neutrino": "^8.0.0",
+    "webpack": "^4.0.0"
   }
 }

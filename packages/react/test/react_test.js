@@ -1,18 +1,19 @@
 import test from 'ava';
 import { validate } from 'webpack';
-import { Neutrino } from 'neutrino';
+import Neutrino from '../../neutrino/Neutrino';
 
 test('loads preset', t => {
   t.notThrows(() => require('..'));
 });
 
 test('uses preset', t => {
-  t.notThrows(() => Neutrino().use(require('..')));
+  t.notThrows(() => new Neutrino().use(require('..')));
 });
 
 test('valid preset production', t => {
-  const api = Neutrino({ env: { NODE_ENV: 'production' } });
-  
+  const api = new Neutrino();
+
+  api.config.mode('production');
   api.use(require('..'));
 
   const errors = validate(api.config.toConfig());
@@ -21,8 +22,9 @@ test('valid preset production', t => {
 });
 
 test('valid preset development', t => {
-  const api = Neutrino({ 'env': { NODE_ENV: 'development' } });
+  const api = new Neutrino();
 
+  api.config.mode('development');
   api.use(require('..'));
 
   const errors = validate(api.config.toConfig());
