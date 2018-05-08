@@ -208,11 +208,12 @@ module.exports = {
     (neutrino) => neutrino.config.module
       .rule('lint')
       .use('eslint')
-      .tap(options => Object.assign({}, options, {
+      .tap(options => {
+        ...options,
         rules: {
           semi: 'off'
         }
-      }))
+      })
   ]
 };
 ```

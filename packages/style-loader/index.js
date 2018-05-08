@@ -63,9 +63,10 @@ module.exports = (neutrino, opts = {}) => {
     .map((loader, index) => {
       const obj = typeof loader === 'object' ? loader : { loader };
 
-      return Object.assign(obj, {
+      return {
+        ...obj,
         useId: obj.useId || `${options.cssUseId}-${index}`
-      });
+      };
     });
 
     loaders.forEach(loader => {
