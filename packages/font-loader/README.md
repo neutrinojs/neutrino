@@ -41,10 +41,7 @@ neutrino.use(fonts);
 
 // Usage showing default options
 neutrino.use(fonts, {
-  limit: '10000',
-  woff: {},
-  ttf: {},
-  eot: {}
+  name: neutrino.options.command === 'build' ? '[name].[hash].[ext]' : '[name].[ext]'
 });
 ```
 
@@ -60,19 +57,13 @@ module.exports = {
 module.exports = {
   use: [
     ['@neutrinojs/font-loader', {
-      limit: '10000',
-      woff: {},
-      ttf: {},
-      eot: {}
+      name: neutrino.options.command === 'build' ? '[name].[hash].[ext]' : '[name].[ext]'
     }]
   ]
 };
 ```
 
-- `limit`: Return a Data URL if the file is smaller than a byte limit.
-- `woff`: Set options for the url-loader used when loading woff files.
-- `tff`: Set options for the url-loader used when loading ttf files.
-- `eot`: Set options for the file-loader used when loading eot files.
+- `name`: The template used by `file-loader` to determine the output filename.
 
 ## Customization
 
@@ -85,9 +76,7 @@ The following is a list of rules and their identifiers which can be overridden:
 
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
-| `woff` | Allows importing WOFF font files from modules. Contains a single loader named `url`. | all |
-| `ttf` | Allows importing TTF font files from modules. Contains a single loader named `url`. | all |
-| `eot` | Allows importing EOT font files from modules. Contains a single loader named `file`. | all |
+| `font` | Allows importing EOT, TTF, WOFF and WOFF2 font files from modules. Contains a single loader named `file`. | all |
 
 ## Contributing
 

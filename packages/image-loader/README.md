@@ -42,9 +42,7 @@ neutrino.use(images);
 // Usage showing default options
 neutrino.use(images, {
   limit: 8192,
-  svg: {},
-  img: {},
-  ico: {}
+  name: neutrino.options.command === 'build' ? '[name].[hash].[ext]' : '[name].[ext]'
 });
 ```
 
@@ -61,18 +59,14 @@ module.exports = {
   use: [
     ['@neutrinojs/image-loader', {
       limit: 8192,
-      svg: {},
-      img: {},
-      ico: {}
+      name: neutrino.options.command === 'build' ? '[name].[hash].[ext]' : '[name].[ext]'
     }]
   ]
 };
 ```
 
-- `limit`: Return a Data URL if the file is smaller than a byte limit.
-- `svg`: Set options for the url-loader used when loading svg files.
-- `img`: Set options for the url-loader used when loading png, jpeg, gif, and webp files.
-- `ico`: Set options for the url-loader used when loading ico files.
+- `limit`: Return a Data URL instead of outputting a file, if the file is smaller than a byte limit.
+- `name`: The template used by `file-loader` to determine the output filename.
 
 ## Customization
 
@@ -85,9 +79,7 @@ The following is a list of rules and their identifiers which can be overridden:
 
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
-| `img` | Allows importing JPEG, PNG, GIF, and WEBP files from modules. Contains a single loader named `url`. | all |
-| `svg` | Allows importing SVG files from modules. Contains a single loader named `url`. | all |
-| `ico` | Allows importing ICO files from modules. Contains a single loader named `url`. | all |
+| `image` | Allows importing ICO, JPEG, PNG, GIF, SVG and WEBP files from modules. Contains a single loader named `url`. | all |
 
 ## Contributing
 

@@ -4,7 +4,7 @@ import { Neutrino } from 'neutrino';
 const mw = () => require('..');
 const prodEnv = { env: { NODE_ENV: 'production' } };
 const devEnv = { env: { NODE_ENV: 'development' } };
-const options = { rules: ['img'] };
+const options = { rules: ['image'] };
 
 test('loads middleware', t => {
   t.notThrows(mw);
