@@ -25,7 +25,7 @@ module.exports = (neutrino, opts = {}) => {
     },
     pluginId: 'imagemin',
     useId: 'imagemin',
-    rules: ['svg', 'img']
+    rules: ['image']
   }, opts);
 
   if (!options.enabled) {

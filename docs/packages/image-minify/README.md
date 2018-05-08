@@ -55,10 +55,10 @@ neutrino.use(imagemin, {
   },
   plugin: {
     name: '[path][name].[ext]',
-    test: /\.(png|jpg|jpeg|gif|webp)$/
+    test: /\.(ico|png|jpg|jpeg|gif|svg|webp)$/
   },
   useId: 'imagemin',
-  rules: ['svg', 'img'],
+  rules: ['image'],
   pluginId: 'imagemin',
 });
 ```
@@ -79,9 +79,9 @@ module.exports = {
       imagemin: {},
       plugin: {
         name: '[path][name].[ext]',
-        test: /\.(png|jpg|jpeg|gif|webp)$/
+        test: /\.(ico|png|jpg|jpeg|gif|svg|webp)$/
       },
-      rules: ['svg', 'img'],
+      rules: ['image'],
       pluginId: 'imagemin'
     }]
   ]
@@ -104,8 +104,7 @@ The following is a list of rules and their identifiers which can be overridden:
 
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
-| `img` | Optimize JPEG, PNG, GIF, and WEBP files imported from modules. Contains a single loader named `imagemin`. | all |
-| `svg` | Optimize SVG files imported from modules. Contains a single loader named `imagemin`. | all |
+| `image` | Optimize JPEG, PNG, GIF, SVG and WEBP files imported from modules. Contains a single loader named `imagemin`. | all |
 
 ### Plugins
 
