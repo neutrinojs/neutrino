@@ -22,7 +22,6 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "deepmerge": "^1.5.2",
     "webpack": "^4.7.0"
   },
   "peerDependencies": {

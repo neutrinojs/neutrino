@@ -137,10 +137,11 @@ _Example:_
 
 ```js
 module.exports = (neutrino, opts = {}) => {
-  const options = Object.assign({
+  const options = {
     quiet: false,
-    logLevel: 'warn'
-  }, opts);
+    logLevel: 'warn',
+    ...opts
+  };
   
   // ...
 };

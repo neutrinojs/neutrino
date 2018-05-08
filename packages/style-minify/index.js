@@ -1,11 +1,11 @@
-const merge = require('deepmerge');
 const OptimizeCssPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = ({ config }, opts = {}) => {
-  const options = merge({
+  const options = {
     pluginId: 'optimize-css',
-    plugin: {}
-  }, opts);
+    plugin: {},
+    ...opts
+  };
 
   config
     .plugin(options.pluginId)

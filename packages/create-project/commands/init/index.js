@@ -92,7 +92,7 @@ module.exports = class Project extends Generator {
 
     const jsonPath = join(this.options.directory, 'package.json');
     const json = readJsonSync(jsonPath);
-    const packageJson = Object.assign(json, { scripts });
+    const packageJson = { ...json, scripts };
 
     writeJsonSync(jsonPath, packageJson, { spaces: 2 });
     this.log(`   ${chalk.green('create')} ${join(basename(this.options.directory), 'package.json')}`);

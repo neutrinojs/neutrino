@@ -2,17 +2,13 @@ const compileLoader = require('@neutrinojs/compile-loader');
 const loaderMerge = require('@neutrinojs/loader-merge');
 const web = require('@neutrinojs/web');
 const { join } = require('path');
-const merge = require('deepmerge');
 
 const MODULES = join(__dirname, 'node_modules');
 
 module.exports = (neutrino, opts = {}) => {
-  const options = merge({
+  const options = {
     hot: true,
-    babel: {}
-  }, opts);
-
-  Object.assign(options, {
+    ...opts,
     babel: compileLoader.merge({
       plugins: [
         [require.resolve('@babel/plugin-transform-react-jsx'), { pragma: 'h' }],
@@ -20,8 +16,8 @@ module.exports = (neutrino, opts = {}) => {
         // https://github.com/facebook/create-react-app/issues/4263
         [require.resolve('@babel/plugin-proposal-class-properties'), { loose: true }]
       ]
-    }, options.babel)
-  });
+    }, opts.babel || {})
+  };
 
   neutrino.use(web, options);
 
