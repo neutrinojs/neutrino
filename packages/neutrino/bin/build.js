@@ -1,4 +1,3 @@
-const merge = require('deepmerge');
 const ora = require('ora');
 const { build } = require('../src');
 const base = require('./base');
@@ -32,12 +31,13 @@ module.exports = (middleware, args, cli) => {
       spinner.succeed('Building project completed');
 
       if (stats) {
-        console.log(stats.toString(merge({
+        console.log(stats.toString({
           modules: false,
           colors: true,
           chunks: false,
-          children: false
-        }, stats.compilation.compiler.options.stats || {})));
+          children: false,
+          ...(stats.compilation.compiler.options.stats || {})
+        }));
       }
     }
   });

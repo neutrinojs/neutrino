@@ -2,15 +2,15 @@ const compileLoader = require('@neutrinojs/compile-loader');
 const loaderMerge = require('@neutrinojs/loader-merge');
 const web = require('@neutrinojs/web');
 const { join } = require('path');
-const merge = require('deepmerge');
 
 const MODULES = join(__dirname, 'node_modules');
 
 module.exports = (neutrino, opts = {}) => {
-  const options = merge({
+  const options = {
     hot: true,
-    babel: {}
-  }, opts);
+    babel: {},
+    ...opts
+  };
 
   Object.assign(options, {
     babel: compileLoader.merge({

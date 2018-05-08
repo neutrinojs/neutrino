@@ -4,13 +4,14 @@ const StylelintPlugin = require('stylelint-webpack-plugin');
 const { lint, formatters } = require('stylelint');
 
 module.exports = (neutrino, opts = {}) => {
-  const options = merge({
+  const options = {
     pluginId: 'stylelint',
     configBasedir: neutrino.options.root,
     files: '**/*.+(css|scss|sass|less)',
     context: neutrino.options.source,
-    formatter: formatters.string
-  }, opts);
+    formatter: formatters.string,
+    ...opts
+  };
 
   const getStylelintRcConfig = config => config
     .plugin(options.pluginId)

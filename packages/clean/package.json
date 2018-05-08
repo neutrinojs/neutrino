@@ -22,8 +22,7 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "clean-webpack-plugin": "^0.1.19",
-    "deepmerge": "^1.5.2"
+    "clean-webpack-plugin": "^0.1.19"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"

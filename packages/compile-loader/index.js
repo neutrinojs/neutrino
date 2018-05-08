@@ -1,4 +1,3 @@
-const merge = require('deepmerge');
 const babelMerge = require('babel-merge');
 
 module.exports = (neutrino, options = {}) => neutrino.config.module
@@ -8,9 +7,10 @@ module.exports = (neutrino, options = {}) => neutrino.config.module
     .when(options.exclude, rule => rule.exclude.merge(options.exclude))
     .use(options.useId || 'babel')
       .loader(require.resolve('babel-loader'))
-      .options(merge({
+      .options({
         cacheDirectory: true,
-        babelrc: false
-      }, options.babel || {}));
+        babelrc: false,
+        ...(options.babel || {})
+      });
 
 module.exports.merge = babelMerge;
