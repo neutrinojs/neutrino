@@ -23,7 +23,6 @@
   "dependencies": {
     "@neutrinojs/loader-merge": "^8.2.0",
     "@neutrinojs/web": "^8.2.0",
-    "babel-preset-vue": "^2.0.2",
     "css-loader": "^0.28.11",
     "deepmerge": "^1.5.2",
     "eslint": "^4.19.1",
