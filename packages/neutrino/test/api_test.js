@@ -258,11 +258,12 @@ test('throws when trying to validate config with non-existent entry point', asyn
   const [err] = await t.throws(result);
 
   t.true(err.includes(`Entry module not found: Error: Can't resolve './src'`));
-})
+});
 
-test('get a regex expression using regexFromExtensions', t => {
+test('regexFromExtensions', t => {
   const api = Neutrino();
 
   t.is(String(api.regexFromExtensions(['js'])), '/\\.js$/');
   t.is(String(api.regexFromExtensions(['js', 'css'])), '/\\.(js|css)$/');
+  t.is(String(api.regexFromExtensions(['worker.js', 'worker.jsx'])), '/\\.(worker\\.js|worker\\.jsx)$/');
 });
