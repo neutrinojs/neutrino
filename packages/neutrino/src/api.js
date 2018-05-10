@@ -155,7 +155,13 @@ class Api {
 
   // regexFromExtensions :: Array extensions -> RegExp
   regexFromExtensions(extensions = this.options.extensions) {
-    return new RegExp(String.raw`\.(${extensions.join('|')})$`);
+    const exts = extensions.map(ext => ext.replace('.', '\\.'));
+
+    return new RegExp(
+      extensions.length === 1 ?
+        String.raw`\.${exts[0]}$` :
+        String.raw`\.(${exts.join('|')})$`
+    );
   }
 
   // emit :: Any -> IO
