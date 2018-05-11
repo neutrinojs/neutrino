@@ -5,7 +5,7 @@ const stringify = require('javascript-stringify');
 const merge = require('deepmerge');
 const Generator = require('yeoman-generator');
 const questions = require('./questions');
-const { projects, packages, isYarn } = require('./utils');
+const { projects, packages, isYarn, sortPackages } = require('./utils');
 
 /* eslint-disable no-underscore-dangle */
 module.exports = class Project extends Generator {
@@ -157,11 +157,13 @@ module.exports = class Project extends Generator {
     const install = isYarn ? 'add' : 'install';
     const devFlag = isYarn ? '--dev' : '--save-dev';
     const { dependencies, devDependencies } = this._getDependencies();
+    const sortedDependencies = dependencies && dependencies.sort(sortPackages);
+    const sortedDevDependencies = devDependencies && devDependencies.sort(sortPackages);
 
     this.log('');
 
     if (dependencies) {
-      this.log(`${chalk.green('⏳  Installing dependencies:')} ${chalk.yellow(dependencies.join(', '))}`);
+      this.log(`${chalk.green('⏳  Installing dependencies:')} ${chalk.yellow(sortedDependencies.join(', '))}`);
       this.spawnCommandSync(
         packageManager,
         [
@@ -171,7 +173,7 @@ module.exports = class Project extends Generator {
               ? ['--registry', this.options.registry] :
               []
           ),
-          ...dependencies
+          ...sortedDependencies
         ],
         {
           cwd: this.options.directory,
@@ -182,7 +184,7 @@ module.exports = class Project extends Generator {
     }
 
     if (devDependencies) {
-      this.log(`${chalk.green('⏳  Installing devDependencies:')} ${chalk.yellow(devDependencies.join(', '))}`);
+      this.log(`${chalk.green('⏳  Installing devDependencies:')} ${chalk.yellow(sortedDevDependencies.join(', '))}`);
       this.spawnCommandSync(
         packageManager,
         [
@@ -193,7 +195,7 @@ module.exports = class Project extends Generator {
               ? ['--registry', this.options.registry] :
               []
           ),
-          ...devDependencies
+          ...sortedDevDependencies
         ],
         {
           cwd: this.options.directory,
