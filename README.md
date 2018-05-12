@@ -6,8 +6,6 @@
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
 [![Build Status][travis-image]][travis-url]
-[![Codacy][codacy-image]][codacy-url]
-[![codecov][codecov-image]][codecov-url]
 
 [https://github.com/mozilla-neutrino/neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev)
 
@@ -42,7 +40,3 @@ community.
 [npm-url]: https://npmjs.org/package/neutrino
 [travis-image]: https://travis-ci.org/mozilla-neutrino/neutrino-dev.svg?branch=master
 [travis-url]: https://travis-ci.org/mozilla-neutrino/neutrino-dev
-[codacy-image]: https://api.codacy.com/project/badge/Grade/8717707007704c929de39ec20b7b0542
-[codacy-url]: https://www.codacy.com/app/Neutrino/neutrino-dev?utm_source=github.com&utm_medium=referral&utm_content=mozilla-neutrino/neutrino-dev&utm_campaign=badger
-[codecov-image]: https://codecov.io/gh/mozilla-neutrino/neutrino-dev/branch/master/graph/badge.svg
-[codecov-url]: https://codecov.io/gh/mozilla-neutrino/neutrino-dev
