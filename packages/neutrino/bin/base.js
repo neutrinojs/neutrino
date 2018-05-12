@@ -44,6 +44,12 @@ module.exports = ({
     process.exit(1);
   }
 
+  if (commandName === 'test' && !api.listeners.test) {
+    console.error('There isn\'t any registered events for test.');
+
+    process.exit(1);
+  }
+
   api.register(commandName, commandHandler);
 
   api
