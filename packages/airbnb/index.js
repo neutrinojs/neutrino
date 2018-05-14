@@ -17,7 +17,7 @@ module.exports = (neutrino, opts = {}) => {
         'babel/new-cap': ['error', { newIsCap: true }],
         // require padding inside curly braces
         'babel/object-curly-spacing': ['error', 'always'],
-        // support for JSX Fragment syntax
+        // require single quotes for strings (with support for JSX Fragment syntax)
         'babel/quotes': ['error', 'single', { avoidEscape: true }]
       }
     }
