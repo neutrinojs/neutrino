@@ -12,6 +12,7 @@ env.register(require.resolve(dir), 'create-project');
 
 const cli = yargs.command('<project-directory>')
   .option('debug', { description: 'Run in debug mode' })
+  .option('registry', { description: 'Specify an alternate npm registry' })
   .demandCommand(1, 'Only <project-directory> is required')
   .help()
   .wrap(null)
@@ -22,5 +23,6 @@ const name = basename(directory);
 env.run('create-project', {
   directory,
   name,
+  registry: cli.registry,
   stdio: cli.debug ? 'inherit' : 'ignore'
 }, done);

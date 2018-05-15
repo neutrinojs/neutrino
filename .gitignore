@@ -33,6 +33,10 @@ node_modules
 # Optional npm cache directory
 .npm
 
+# Verdaccio
+storage
+htpasswd
+
 # Optional REPL history
 .node_repl_history
 

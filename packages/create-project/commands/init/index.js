@@ -3,7 +3,6 @@ const { basename, join, relative } = require('path');
 const chalk = require('chalk');
 const stringify = require('javascript-stringify');
 const merge = require('deepmerge');
-const { contains, partition } = require('ramda');
 const Generator = require('yeoman-generator');
 const questions = require('./questions');
 const { projects, packages, isYarn } = require('./utils');
@@ -145,42 +144,37 @@ module.exports = class Project extends Generator {
 
     if (dependencies) {
       this.log(`${chalk.green('⏳  Installing dependencies:')} ${chalk.yellow(dependencies.join(', '))}`);
-      this.spawnCommandSync(packageManager, [install, ...dependencies], {
-        cwd: this.options.directory,
-        stdio: this.options.stdio,
-        env: process.env
-      });
+      this.spawnCommandSync(
+        packageManager,
+        [
+          install,
+          ...(this.options.registry ? ['--registry', this.options.registry] : []),
+          ...dependencies
+        ],
+        {
+          cwd: this.options.directory,
+          stdio: this.options.stdio,
+          env: process.env
+        }
+      );
     }
 
     if (devDependencies) {
-      if (process.env.NODE_ENV === 'test') {
-        const [local, remote] = partition(contains(packages.NEUTRINO), devDependencies);
-
-        if (remote.length) {
-          this.log(`${chalk.green('⏳  Installing remote devDependencies:')} ${chalk.yellow(remote.join(', '))}`);
-          this.spawnCommandSync(packageManager, [install, devFlag, ...remote], {
-            stdio: this.options.stdio,
-            env: process.env,
-            cwd: this.options.directory
-          });
-        }
-
-        if (local.length) {
-          this.log(`${chalk.green('⏳  Linking local devDependencies:')} ${chalk.yellow(local.join(', '))}`);
-          this.spawnCommandSync('yarn', ['link', ...local], {
-            stdio: this.options.stdio,
-            env: process.env,
-            cwd: this.options.directory
-          });
-        }
-      } else {
-        this.log(`${chalk.green('⏳  Installing devDependencies:')} ${chalk.yellow(devDependencies.join(', '))}`);
-        this.spawnCommandSync(packageManager, [install, devFlag, ...devDependencies], {
+      this.log(`${chalk.green('⏳  Installing devDependencies:')} ${chalk.yellow(devDependencies.join(', '))}`);
+      this.spawnCommandSync(
+        packageManager,
+        [
+          install,
+          devFlag,
+          ...(this.options.registry ? ['--registry', this.options.registry] : []),
+          ...devDependencies
+        ],
+        {
           stdio: this.options.stdio,
           env: process.env,
           cwd: this.options.directory
-        });
-      }
+        }
+      );
     }
 
     if (this.data.linter) {
