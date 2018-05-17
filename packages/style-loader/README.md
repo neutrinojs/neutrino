@@ -142,6 +142,9 @@ will be used as the `loader` property, `options` will be left blank, and the `us
 ```js
 module.exports = {
   use: ['@neutrinojs/style-loader', {
+    // Override the default file extension of `.css` if needed
+    test: /\.(css|sass|scss)$/,
+    moduleTest: /\.module\.(css|sass|scss)$/,
     loaders: [
       // Define loaders as objects
       {
