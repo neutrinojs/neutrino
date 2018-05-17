@@ -20,7 +20,7 @@
     "lint": "node packages/neutrino/bin/neutrino lint",
     "precommit": "lint-staged",
     "random": "node -e \"process.stdout.write(require('crypto').randomBytes(8).toString('hex'))\"",
-    "release": "SKIP_CHANGELOG=true lerna publish --force-publish=*",
+    "release": "lerna publish --force-publish=*",
     "release:preview": "lerna publish --force-publish=* --skip-git --skip-npm",
     "test": "ava --fail-fast packages/*/test \"!packages/create-project/test\"",
     "test:create-project": "ava --verbose packages/create-project/test",
