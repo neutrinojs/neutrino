@@ -15,24 +15,22 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "lerna run build",
     "changelog": "auto-changelog --remote upstream --commit-limit false",
-    "cnp": "NODE_ENV=test packages/create-project/bin/create-neutrino-project.js $(yarn random)",
     "link:all": "lerna exec yarn link",
     "lint": "node packages/neutrino/bin/neutrino lint",
     "precommit": "lint-staged",
     "random": "node -e \"process.stdout.write(require('crypto').randomBytes(8).toString('hex'))\"",
-    "release": "yarn build && lerna publish --force-publish=*",
-    "release:preview": "yarn build && lerna publish --force-publish=* --skip-git --skip-npm",
-    "test": "yarn test:all --no-verbose --match '!*@neutrinojs*'",
-    "test:all": "nyc --reporter lcov ava --verbose --fail-fast packages/*/test",
+    "release": "lerna publish --force-publish=*",
+    "release:preview": "lerna publish --force-publish=* --skip-git --skip-npm",
+    "test": "ava --fail-fast packages/*/test \"!packages/create-project/test\"",
+    "test:create-project": "ava --verbose packages/create-project/test",
     "validate:eslintrc:root": "eslint --no-eslintrc --print-config . -c ./.eslintrc.js > /dev/null",
     "validate:eslintrc:eslint": "eslint --no-eslintrc --print-config . -c ./packages/eslint/eslintrc.js > /dev/null",
     "validate:eslintrc:airbnb": "eslint --no-eslintrc --print-config . -c ./packages/airbnb/eslintrc.js > /dev/null",
     "validate:eslintrc:airbnb-base": "eslint --no-eslintrc --print-config . -c ./packages/airbnb-base/eslintrc.js > /dev/null",
     "validate:eslintrc:standardjs": "eslint --no-eslintrc --print-config . -c ./packages/standardjs/eslintrc.js > /dev/null",
     "validate:eslintrc": "yarn validate:eslintrc:eslint && yarn validate:eslintrc:airbnb-base && yarn validate:eslintrc:airbnb && yarn validate:eslintrc:standardjs && yarn validate:eslintrc:root",
-    "version": "yarn changelog --package && git add CHANGELOG.md"
+    "version": "test -v SKIP_CHANGELOG || yarn changelog --package && git add CHANGELOG.md"
   },
   "devDependencies": {
     "auto-changelog": "^1.4.6",
@@ -44,7 +42,9 @@
     "lerna": "^2.11.0",
     "lint-staged": "^7.0.5",
     "nyc": "^11.7.1",
-    "prettier": "^1.12.1"
+    "prettier": "^1.12.1",
+    "verdaccio": "3.0.0-beta.10",
+    "verdaccio-memory": "^1.0.1"
   },
   "lint-staged": {
     "*.js": [

@@ -18,9 +18,8 @@ install:
 # Remove --ignore-engines when this fixed:
 # https://github.com/anodynos/upath/issues/14
 - yarn install --frozen-lockfile --ignore-engines
-- yarn link:all
 script:
 - yarn validate:eslintrc
 - yarn lint
-- yarn build
-- yarn test:all
+- yarn test
+- scripts/test-create-project-ci.sh

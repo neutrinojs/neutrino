@@ -1,23 +1,48 @@
 import test from 'ava';
-import { xprod } from 'ramda';
 import assert from 'yeoman-assert';
 import helpers from 'yeoman-test';
 import { join } from 'path';
 import { spawn } from 'child_process';
-import { packages } from '../commands/init/utils'
+import { packages } from '../commands/init/matrix';
 
-if (process.env.NODE_ENV !== 'test') {
-  process.env.NODE_ENV = 'test';
-}
-
+const REGISTRY = 'http://localhost:4873';
+const tests = {
+  [packages.REACT]: {
+    linter: packages.AIRBNB,
+    tester: packages.JEST
+  },
+  [packages.PREACT]: {
+    linter: packages.AIRBNB,
+    tester: packages.KARMA
+  },
+  [packages.VUE]: {
+    linter: packages.AIRBNB_BASE
+  },
+  [packages.NODE]: {
+    linter: packages.AIRBNB_BASE,
+    tester: packages.MOCHA
+  },
+  [packages.REACT_COMPONENTS]: {
+    linter: packages.STANDARDJS
+  },
+  [packages.WEB_NODE_LIBRARY]: {
+    linter: packages.STANDARDJS
+  },
+  [packages.WEB]: {
+    linter: packages.AIRBNB_BASE
+  }
+};
 const project = (prompts) => helpers
   .run(require.resolve(join(__dirname, '../commands/init')))
   .inTmpDir(function(dir) {
-    this.withOptions({ directory: dir, name: 'testable', stdio: 'ignore' });
+    this.withOptions({
+      directory: dir,
+      name: 'testable',
+      registry: REGISTRY
+    });
   })
   .withPrompts(prompts)
   .toPromise();
-const usable = (dir, files) => assert.file(files.map(f => join(dir, f)));
 const spawnP = (cmd, args, options) => new Promise((resolve, reject) => {
   const child = spawn(cmd, args, options);
   let output = '';
@@ -52,107 +77,37 @@ const lintable = async (t, dir) => {
     t.fail(`Failed to lint project:\n\n${output}`);
   }
 };
-const tests = [packages.JEST, packages.KARMA, packages.MOCHA];
-const matrix = {
-  react: [
-    [packages.REACT],
-    [packages.AIRBNB, packages.STANDARDJS],
-    tests
-  ],
-  preact: [
-    [packages.PREACT],
-    [packages.AIRBNB, packages.STANDARDJS],
-    tests
-  ],
-  node: [
-    [packages.NODE],
-    [packages.AIRBNB_BASE, packages.STANDARDJS],
-    tests.filter(t => t !== packages.KARMA)
-  ],
-  'react-components': [
-    [packages.REACT_COMPONENTS],
-    [packages.AIRBNB, packages.STANDARDJS],
-    tests
-  ],
-  vue: [
-    [packages.VUE],
-    [packages.AIRBNB_BASE, packages.STANDARDJS],
-    tests
-  ],
-  web: [
-    [packages.WEB],
-    [packages.AIRBNB_BASE, packages.STANDARDJS],
-    tests
-  ],
-};
 
-Object
-  .keys(matrix)
-  .forEach((key) => {
-    const [presets, linters, tests] = matrix[key];
-    const [preset] = presets;
+Object.keys(tests).forEach(projectName => {
+  const { linter, tester } = tests[projectName];
+  const projectType = projectName.includes('library')
+    ? 'library'
+    : projectName.includes('components')
+      ? 'components'
+      : 'application';
+  const testName = tester
+    ? `${projectName} + ${linter} + ${tester}`
+    : `${projectName} + ${linter}`;
 
-    test.serial(preset, async t => {
-      const dir = await project({
-        projectType: 'application',
-        project: preset,
-        testRunner: false,
-        linter: false
-      });
-
-      usable(dir, [
-        'package.json',
-        '.neutrinorc.js'
-      ]);
-
-      await buildable(t, dir);
+  test.serial(testName, async t => {
+    const dir = await project({
+      projectType,
+      linter,
+      project: projectName,
+      testRunner: tester || false
     });
 
-    xprod(presets, tests).forEach(([preset, testRunner]) => {
-      const testName = testRunner ? `${preset} + ${testRunner}` : preset;
+    t.truthy(dir);
+    assert.file(join(dir, 'package.json'));
+    assert.file(join(dir, '.neutrinorc.js'));
+    assert.file(join(dir, '.eslintrc.js'));
 
-      test.serial(testName, async t => {
-        const dir = await project({
-          projectType: 'application',
-          project: preset,
-          testRunner,
-          linter: false
-        });
+    await lintable(t, dir);
+    await buildable(t, dir);
 
-        usable(dir, [
-          'package.json',
-          '.neutrinorc.js',
-          'test/simple_test.js'
-        ]);
-
-        await Promise.all([
-          buildable(t, dir),
-          testable(t, dir)
-        ]);
-      });
-    });
-
-    xprod(presets, linters).forEach(([preset, linter]) => {
-      const testName = `${preset} + ${linter}`;
-
-      test.serial(testName, async t => {
-        const dir = await project({
-          projectType: 'application',
-          project: preset,
-          testRunner: false,
-          linter
-        });
-
-        usable(dir, [
-          'package.json',
-          '.neutrinorc.js',
-          '.eslintrc.js'
-        ]);
-
-        await Promise.all([
-          buildable(t, dir),
-          lintable(t, dir)
-        ]);
-      });
-    });
+    if (tester) {
+      assert.file(join(dir, 'test/simple_test.js'));
+      await testable(t, dir);
+    }
   });
+});
