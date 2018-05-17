@@ -50,7 +50,7 @@ the scaffolding phase.
 | Test Runner | Middleware |
 | --- | --- |
 | Jest | [`@neutrinojs/jest`](../packages/jest) |
-| Karma | [`@neutrinojs/karma`](../pakages/karma) |
+| Karma | [`@neutrinojs/karma`](../packages/karma) |
 | Mocha | [`@neutrinojs/mocha`](../packages/mocha) |
 
 Be sure to check out the test runner preset to get more information on its features and how files should be named.
@@ -62,7 +62,7 @@ process. `@neutrinojs/create-project` currently offers two linting middleware ch
 
 | Linting style | Middleware |
 | --- | --- |
-| Airbnb | With React/Preact: [`@neutrinojs/airbnb`](../airbnb) <br /> Other projects: [`@neutrinojs/airbnb-base`](../packages/airbnb-base) |
+| Airbnb | With React/Preact: [`@neutrinojs/airbnb`](../packages/airbnb) <br /> Other projects: [`@neutrinojs/airbnb-base`](../packages/airbnb-base) |
 | StandardJS | [`@neutrinojs/standardjs`](../packages/standardjs) |
 
 ## Project Layout
@@ -83,7 +83,7 @@ No two JavaScript projects are ever the same, and as such there may be times whe
 to the way your Neutrino presets are building your project. Neutrino provides a mechanism to augment presets and
 middleware in the context of a project without resorting to creating and publishing an entirely independent preset.
 To override the build configuration, start with the documentation
-on [customization](../../customization).
+on [customization](../customization/README.md).
 
 ## Contributing
 
