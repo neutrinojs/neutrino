@@ -21,7 +21,7 @@
     "precommit": "lint-staged",
     "random": "node -e \"process.stdout.write(require('crypto').randomBytes(8).toString('hex'))\"",
     "release": "SKIP_CHANGELOG=true lerna publish --force-publish=*",
-    "release:preview": "yarn build && lerna publish --force-publish=* --skip-git --skip-npm",
+    "release:preview": "lerna publish --force-publish=* --skip-git --skip-npm",
     "test": "ava --fail-fast packages/*/test \"!packages/create-project/test\"",
     "test:create-project": "ava --verbose packages/create-project/test",
     "validate:eslintrc:root": "eslint --no-eslintrc --print-config . -c ./.eslintrc.js > /dev/null",

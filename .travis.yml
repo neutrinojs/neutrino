@@ -21,6 +21,5 @@ install:
 script:
 - yarn validate:eslintrc
 - yarn lint
-- yarn build
 - yarn test
 - scripts/test-create-project-ci.sh
