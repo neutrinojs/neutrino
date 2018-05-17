@@ -15,15 +15,14 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "lerna run build",
     "changelog": "auto-changelog --remote upstream --commit-limit false",
     "link:all": "lerna exec yarn link",
     "lint": "node packages/neutrino/bin/neutrino lint",
     "precommit": "lint-staged",
     "random": "node -e \"process.stdout.write(require('crypto').randomBytes(8).toString('hex'))\"",
-    "release": "yarn build && NEUTRINO_RELEASE=true lerna publish --force-publish=*",
+    "release": "SKIP_CHANGELOG=true lerna publish --force-publish=*",
     "release:preview": "yarn build && lerna publish --force-publish=* --skip-git --skip-npm",
-    "test": "ava --fail-fast packages/*/test '!packages/create-project/test'",
+    "test": "ava --fail-fast packages/*/test \"!packages/create-project/test\"",
     "test:create-project": "ava --verbose packages/create-project/test",
     "validate:eslintrc:root": "eslint --no-eslintrc --print-config . -c ./.eslintrc.js > /dev/null",
     "validate:eslintrc:eslint": "eslint --no-eslintrc --print-config . -c ./packages/eslint/eslintrc.js > /dev/null",
@@ -31,7 +30,7 @@
     "validate:eslintrc:airbnb-base": "eslint --no-eslintrc --print-config . -c ./packages/airbnb-base/eslintrc.js > /dev/null",
     "validate:eslintrc:standardjs": "eslint --no-eslintrc --print-config . -c ./packages/standardjs/eslintrc.js > /dev/null",
     "validate:eslintrc": "yarn validate:eslintrc:eslint && yarn validate:eslintrc:airbnb-base && yarn validate:eslintrc:airbnb && yarn validate:eslintrc:standardjs && yarn validate:eslintrc:root",
-    "version": "([[ -n \"$NEUTRINO_RELEASE\" ]] && yarn changelog --package && git add CHANGELOG.md) || exit 0"
+    "version": "test -v SKIP_CHANGELOG || yarn changelog --package && git add CHANGELOG.md"
   },
   "devDependencies": {
     "auto-changelog": "^1.4.6",

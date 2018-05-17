@@ -12,5 +12,13 @@ packages:
     access: $all
     publish: $all
     proxy: npmjs
+'neutrino':
+  access: $anonymous
+  publish: $anonymous
+  proxy: npmjs
+'@neutrinojs':
+  access: $anonymous
+  publish: $anonymous
+  proxy: npmjs
 logs:
   - {type: stdout, format: pretty, level: warn}

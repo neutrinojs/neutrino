@@ -85,42 +85,30 @@ Object.keys(tests).forEach(projectName => {
     : projectName.includes('components')
       ? 'components'
       : 'application';
+  const testName = tester
+    ? `${projectName} + ${linter} + ${tester}`
+    : `${projectName} + ${linter}`;
 
-  if (tester) {
-    test.serial(`${projectName} + ${linter} + ${tester}`, async t => {
-      const dir = await project({
-        projectType,
-        linter,
-        project: projectName,
-        testRunner: tester
-      });
+  test.serial(testName, async t => {
+    const dir = await project({
+      projectType,
+      linter,
+      project: projectName,
+      testRunner: tester || false
+    });
 
-      t.truthy(dir);
-      assert.file(join(dir, 'package.json'));
-      assert.file(join(dir, '.neutrinorc.js'));
+    t.truthy(dir);
+    assert.file(join(dir, 'package.json'));
+    assert.file(join(dir, '.neutrinorc.js'));
+    assert.file(join(dir, 'test/simple_test.js'));
+    assert.file(join(dir, '.eslintrc.js'));
+
+    await lintable(t, dir);
+    await buildable(t, dir);
+
+    if (tester) {
       assert.file(join(dir, 'test/simple_test.js'));
-      assert.file(join(dir, '.eslintrc.js'));
-
-      await lintable(t, dir);
-      await buildable(t, dir);
       await testable(t, dir);
-    });
-  } else {
-    test.serial(`${projectName} + ${linter}`, async t => {
-      const dir = await project({
-        projectType,
-        linter,
-        project: projectName,
-        testRunner: false
-      });
-
-      t.truthy(dir);
-      assert.file(join(dir, 'package.json'));
-      assert.file(join(dir, '.neutrinorc.js'));
-      assert.file(join(dir, '.eslintrc.js'));
-
-      await lintable(t, dir);
-      await buildable(t, dir);
-    });
-  }
+    }
+  });
 });
