@@ -83,7 +83,7 @@ No two JavaScript projects are ever the same, and as such there may be times whe
 to the way your Neutrino presets are building your project. Neutrino provides a mechanism to augment presets and
 middleware in the context of a project without resorting to creating and publishing an entirely independent preset.
 To override the build configuration, start with the documentation
-on [customization](https://neutrino.js.org/customization).
+on [customization](https://neutrino.js.org/customization/).
 
 ## Contributing
 

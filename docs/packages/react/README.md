@@ -11,7 +11,7 @@
 - Modern Babel compilation adding JSX, object rest spread syntax, and class properties.
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
-- Extends from [@neutrinojs/web](../@neutrinojs/web/README.md)
+- Extends from [@neutrinojs/web](../web/README.md)
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
   - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
   - webpack Dev Server during development
@@ -187,7 +187,7 @@ preset builds. You can modify React preset settings from `.neutrinorc.js` by ove
 an array pair instead of a string to supply these options in `.neutrinorc.js`.
 
 The following shows how you can pass an options object to the React preset and override its options. See the
-[Web documentation](../@neutrinojs/web#preset-options) for specific options you can override with this object.
+[Web documentation](../web/README.md#preset-options) for specific options you can override with this object.
 
 ```js
 module.exports = {
@@ -230,7 +230,7 @@ module.exports = {
 
 To override the build configuration, start with the documentation on [customization](../../customization/README.md).
 `@neutrinojs/react` does not use any additional named rules, loaders, or plugins that aren't already in use by the
-Web preset. See the [Web documentation customization](../@neutrinojs/web#customizing)
+Web preset. See the [Web documentation customization](../web/README.md#customizing)
 for preset-specific configuration to override.
 
 For details on merging and overriding Babel configuration, such as supporting decorator syntax, read more
@@ -239,7 +239,7 @@ are comfortable customizing your build.
 
 ### Advanced configuration
 
-By following the [customization guide](../../customization/advanced.md) and knowing the rule, loader, and plugin IDs from
+By following the [customization guide](../../customization/README.md) and knowing the rule, loader, and plugin IDs from
 `@neutrinojs/web`, you can override and augment the build by providing a function to your `.neutrinorc.js` use
 array. You can also make these changes from the Neutrino API in custom middleware.
 

@@ -6,7 +6,7 @@ scripts defined in your project's `package.json`.
 
 ## Setup
 
-After completing the [installation](./installation.md) of Neutrino and your Neutrino preset, you will
+After completing the [installation](./installation/README.md) of Neutrino and your Neutrino preset, you will
 want to define some scripts in your project's `package.json` in order to more simply build your project.
 In a typical project:
 
