@@ -36,7 +36,10 @@ node_modules
 # Optional REPL history
 .node_repl_history
 
-# Webstorm project metadata
+# Project metadata
 .idea
-
 /.vscode
+
+# Verdaccio
+storage
+htpasswd
