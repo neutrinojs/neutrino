@@ -13,5 +13,5 @@ yarn lerna publish \
   --skip-git \
   --registry http://localhost:4873/ \
   --yes \
-  --cd-version patch
+  --cd-version major
 yarn test:create-project
