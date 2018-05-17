@@ -100,7 +100,6 @@ Object.keys(tests).forEach(projectName => {
     t.truthy(dir);
     assert.file(join(dir, 'package.json'));
     assert.file(join(dir, '.neutrinorc.js'));
-    assert.file(join(dir, 'test/simple_test.js'));
     assert.file(join(dir, '.eslintrc.js'));
 
     await lintable(t, dir);
