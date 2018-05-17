@@ -58,6 +58,33 @@ anywhere on your system for neutrino-dev packages, making testing of the package
 
 ---
 
+`test`
+
+Runs the unit test suite against all packages in the monorepo. For the most part
+the intent of the unit tests is to ensure that packages do not throw errors
+when being required or used as middleware by Neutrino. These tests typically
+do not ensure that their middleware produces the expected output, instead
+leaving this functionality for integration tests via `test:create-project`.
+
+---
+
+`test:create-project`
+
+Runs the integration test suite by determining correct output of the
+`create-project` CLI tool and ensuring that package.json scripts do not throw.
+This test requires a local [verdaccio](https://www.verdaccio.org/) instance
+to be running, and this is ensured in CI via the
+`scripts/test-create-project-ci.sh` script. Typically this command is only used
+in CI, with the unit tests being run locally via `yarn test`. If you do run
+this command locally by setting up verdaccio locally as well, ensure that
+you revert back any changes you make to your local registry when finished with:
+
+```bash
+yarn config set registry https://registry.yarnpkg.com
+``` 
+
+---
+
 `changelog`
 
 Generates a changelog for the `mozilla-neutrino/neutrino-dev` GitHub repository. This changelog is output to a
