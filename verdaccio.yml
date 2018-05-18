@@ -1,22 +1,21 @@
 store:
   memory:
     limit: 10000
-auth:
-  htpasswd:
-    file: ./htpasswd
 uplinks:
   npmjs:
     url: https://registry.npmjs.org/
+    # Make request fail sooner if NPM being flaky (default is 30s).
+    timeout: 10s
+    # Increase number of failed requests before disabling uplink (default 2).
+    max_fails: 20
 packages:
-  '**':
-    access: $all
-    publish: $all
-    proxy: npmjs
   'neutrino':
     access: $anonymous
     publish: $anonymous
-    proxy: npmjs
-  '@neutrinojs':
+  '@neutrinojs/*':
+    access: $anonymous
+    publish: $anonymous
+  '**':
     access: $anonymous
     publish: $anonymous
     proxy: npmjs
