@@ -25,3 +25,9 @@ yarn release \
 # Run the integration tests, which will install packages
 # from the verdaccio registry
 yarn test:create-project
+
+# Remove cached Neutrino packages to avoid Travis cache churn.
+# Not using `yarn cache clean` since it doesn't support globs,
+# and does nothing more than call `fs.unlink(dir)` anyway.
+YARN_CACHE_DIR="$(yarn cache dir)"
+rm -rf "${YARN_CACHE_DIR}"/*-neutrino-*/ "${YARN_CACHE_DIR}"/*-@neutrinojs/
