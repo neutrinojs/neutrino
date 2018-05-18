@@ -1,4 +1,6 @@
 packages/**/node_modules/
+# Remove ignore of neutrinorc since ESLint ignores dotfiles by default
+!.neutrinorc.js
 # TODO: Fix lint errors in our tests and remove this line
 packages/**/test/
 # The templates have any lint errors fixed during project creation,

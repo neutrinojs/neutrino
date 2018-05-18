@@ -39,7 +39,3 @@ node_modules
 # Project metadata
 .idea
 /.vscode
-
-# Verdaccio
-storage
-htpasswd
