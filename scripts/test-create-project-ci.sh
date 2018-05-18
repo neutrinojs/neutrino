@@ -11,13 +11,16 @@ yarn verdaccio --config verdaccio.yml &
 # Verdaccio isn't ready to immediately accept connections, so we need to wait
 while ! nc -zw 1 localhost 4873; do sleep 1; done
 
-# Publish all monorepo packages to the verdaccio registry
-yarn lerna publish \
-  --force-publish=* \
-  --skip-git \
+# Publish all monorepo packages to the verdaccio registry.
+# Canary mode ensures no git or working directory changes are made, but we
+# have to override the tag from `canary` to `latest` so create-project works.
+# The minor version will be bumped and a `-alpha.GIT_SHA` suffix added, which
+# should help avoid errors from clashing with an already-published version.
+yarn release \
   --registry http://localhost:4873/ \
   --yes \
-  --cd-version major
+  --canary \
+  --npm-tag latest
 
 # Run the integration tests, which will install packages
 # from the verdaccio registry
