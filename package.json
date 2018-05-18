@@ -19,7 +19,6 @@
     "link:all": "lerna exec yarn link",
     "lint": "node packages/neutrino/bin/neutrino lint",
     "precommit": "lint-staged",
-    "random": "node -e \"process.stdout.write(require('crypto').randomBytes(8).toString('hex'))\"",
     "release": "lerna publish --force-publish=*",
     "release:preview": "lerna publish --force-publish=* --skip-git --skip-npm",
     "test": "ava --fail-fast packages/*/test \"!packages/create-project/test\"",
