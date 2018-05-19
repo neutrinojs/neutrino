@@ -350,7 +350,7 @@ neutrino.config.module
   .rule('compile')
   .loader('babel', 'babel-loader', {
     options: {
-      plugins: ['object-rest-spread']
+      plugins: ['your-babel-plugin']
     }
   });
 
@@ -359,7 +359,7 @@ neutrino.config.module
   .rule('compile')
   .use('babel')
     .loader('babel-loader')
-    .options({ plugins: ['object-rest-spread'] });
+    .options({ plugins: ['your-babel-plugin'] });
 ```
 
 - Updates to config for modifying loaders (from webpack-chain v3 upgrade). The function now gets its options directly
@@ -371,7 +371,7 @@ neutrino.config.module
   .rule('compile')
   .loader('babel', props => merge(props, {
     options: {
-      plugins: ['object-rest-spread']
+      plugins: ['your-babel-plugin']
     }
   }));
 
@@ -379,7 +379,7 @@ neutrino.config.module
 neutrino.config.module
   .rule('compile')
     .use('babel')
-      .tap(options => merge(options, { plugins: ['object-rest-spread'] }));
+      .tap(options => merge(options, { plugins: ['your-babel-plugin'] }));
 ```
 
 - Updates to `include` and `exclude` for rules (from webpack-chain v3). In the previous webpack-chain
