@@ -40,6 +40,13 @@ module.exports = neutrino => {
         included: true,
         served: true
       }],
+      plugins: [
+        require.resolve('karma-webpack'),
+        require.resolve('karma-chrome-launcher'),
+        require.resolve('karma-coverage'),
+        require.resolve('karma-mocha'),
+        require.resolve('karma-mocha-reporter')
+      ],
       preprocessors: {
         [tests]: ['webpack'],
         [sources]: ['webpack']

@@ -81,13 +81,7 @@ const projects = {
       KARMA,
       'karma',
       'karma-cli',
-      'karma-webpack',
-      'karma-chrome-launcher',
-      'karma-coverage',
-      'karma-mocha',
-      'karma-mocha-reporter',
-      'mocha',
-      'mocha-coverage-reporter'
+      'mocha'
     ]
   },
   [MOCHA]: {
