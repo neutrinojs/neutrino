@@ -25,7 +25,7 @@ module.exports = (middleware = { use: ['.neutrinorc.js'] }, options = {}) => {
   const adapter = {
     output(name, override = IDENTITY) {
       if (name === 'inspect') {
-        console.log(stringify(sort(neutrino.config.toConfig())));
+        console.log(stringify(sort(neutrino.config.toConfig()), null, 2));
         process.exit();
       }
 

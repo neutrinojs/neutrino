@@ -220,9 +220,6 @@ module.exports = (neutrino, opts = {}) => {
       config.when(options.hot, () => {
         neutrino.use(hot);
         config.when(options.hotEntries, (config) => {
-          const protocol = config.devServer.get('https') ? 'https' : 'http';
-          const url = `${protocol}://${config.devServer.get('public')}`;
-
           Object
             .keys(neutrino.options.mains)
             .forEach(key => {
@@ -230,9 +227,6 @@ module.exports = (neutrino, opts = {}) => {
                 .entry(key)
                   .batch(entry => {
                     options.hotEntries.forEach(hotEntry => entry.prepend(hotEntry));
-                    entry
-                      .prepend(require.resolve('webpack/hot/dev-server'))
-                      .prepend(`${require.resolve('webpack-dev-server/client')}?${url}`);
                   });
             });
         });
