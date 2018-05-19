@@ -28,9 +28,7 @@
     "css-loader": "^0.28.11",
     "deepmerge": "^1.5.2",
     "extract-text-webpack-plugin": "^3.0.2",
-    "style-loader": "^0.20.3"
-  },
-  "devDependencies": {
+    "style-loader": "^0.20.3",
     "webpack": "^3.12.0"
   },
   "peerDependencies": {

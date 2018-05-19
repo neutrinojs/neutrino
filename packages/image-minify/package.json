@@ -29,9 +29,7 @@
     "imagemin-pngquant": "^5.1.0",
     "imagemin-svgo": "^6.0.0",
     "imagemin-webp": "^4.1.0",
-    "imagemin-webpack": "^1.1.2"
-  },
-  "devDependencies": {
+    "imagemin-webpack": "^1.1.2",
     "webpack": "^3.12.0"
   },
   "peerDependencies": {
