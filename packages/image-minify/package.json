@@ -26,13 +26,13 @@
     "deepmerge": "^1.5.2",
     "imagemin-gifsicle": "5.2.0",
     "imagemin-mozjpeg": "^6.0.0",
-    "imagemin-pngquant": "^5.0.0",
+    "imagemin-pngquant": "^5.1.0",
     "imagemin-svgo": "^6.0.0",
-    "imagemin-webp": "^4.0.0",
+    "imagemin-webp": "^4.1.0",
     "imagemin-webpack": "^1.1.2"
   },
   "devDependencies": {
-    "webpack": "^3.10.0"
+    "webpack": "^3.12.0"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"

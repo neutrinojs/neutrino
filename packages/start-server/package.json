@@ -23,7 +23,7 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "start-server-webpack-plugin": "^2.2.0"
+    "start-server-webpack-plugin": "^2.2.5"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0"
