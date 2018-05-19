@@ -9,8 +9,13 @@ const IDENTITY = a => a;
 module.exports = (middleware = { use: ['.neutrinorc.js'] }, options = {}) => {
   const neutrino = new Neutrino(options);
   const args = yargs.parse(process.argv);
+  const mode = args.mode || 'production';
 
-  neutrino.config.mode(args.mode || 'production');
+  if (!process.env.NODE_ENV) {
+    process.env.NODE_ENV = mode;
+  }
+
+  neutrino.config.mode(mode);
   neutrino.register('webpack', webpack);
 
   if (middleware) {

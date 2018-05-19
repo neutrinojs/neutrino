@@ -31,6 +31,12 @@ const eslintrc = (neutrino, override) => {
         .use('eslint')
         .get('options')
     ),
+    // We remove these keys since they are needed when running the lint command
+    // but not the eslintrc command. The lint command uses ESLint's CLIEngine,
+    // but the ESLint RC format does not match the CLIEngine format exactly. We
+    // must remove anything we add that does not comply with ESLint's schemas.
+    // https://github.com/eslint/eslint/blob/9d1df92628dd4dd1e70fbb19454008e146387435/conf/config-schema.js
+    // https://github.com/eslint/eslint/blob/9d1df92628dd4dd1e70fbb19454008e146387435/lib/config/config-validator.js#L167
     [
       'failOnError',
       'emitWarning',

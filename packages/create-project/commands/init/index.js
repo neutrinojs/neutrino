@@ -4,7 +4,6 @@ const chalk = require('chalk');
 const stringify = require('javascript-stringify');
 const merge = require('deepmerge');
 const Generator = require('yeoman-generator');
-const { source } = require('neutrino/extensions');
 const questions = require('./questions');
 const { projects, packages, isYarn } = require('./utils');
 
@@ -42,9 +41,7 @@ module.exports = class Project extends Generator {
       use: [
         this.data.linter,
         this._getProjectMiddleware(),
-        this.data.testRunner && this.data.testRunner.startsWith('@')
-          ? this.data.testRunner
-          : null
+        this.data.testRunner
       ].filter(Boolean)
     };
 
@@ -76,10 +73,15 @@ module.exports = class Project extends Generator {
     if (this.data.projectType !== 'library') {
       scripts.start = this.data.project === '@neutrinojs/node'
         ? 'webpack --watch --mode development'
-        : 'webpack-serve --mode development';
+        : 'webpack-dev-server --mode development';
     }
 
-    const lint = `eslint --ext ${source.join(',')} src`;
+    // The list of extensions here needs to be kept in sync with the
+    // extension list defined by neutrino/extensions.source. Modifying a value
+    // here should have an accompanying change there as well. We can't pull
+    // in neutrino here as that would potentially give us conflicting versions
+    // in node_modules.
+    const lint = `eslint --ext js,jsx,vue,ts,tsx,mjs src`;
 
     if (this.data.testRunner) {
       if (this.data.testRunner.includes('jest')) {

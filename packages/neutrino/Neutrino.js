@@ -42,7 +42,10 @@ module.exports = class Neutrino {
 
   getOptions(opts = {}) {
     let moduleExtensions = new Set(source);
-    const options = clone(opts);
+    const options = {
+      debug: false,
+      ...clone(opts)
+    };
 
     if (!options.mains) {
       Object.assign(options, {

@@ -1,4 +1,4 @@
-#! /usr/bin/env node
+#!/usr/bin/env node
 
 console.error(`
 The "neutrino" command has been removed starting with v9.

@@ -18,7 +18,7 @@ const STANDARDJS = '@neutrinojs/standardjs';
 const ESLINT = 'eslint';
 const WEBPACK = 'webpack';
 const WEBPACK_CLI = 'webpack-cli';
-const WEBPACK_SERVE = 'webpack-serve';
+const WEBPACK_DEV_SERVER = 'webpack-dev-server';
 
 const projects = {
   [AIRBNB]: {
@@ -31,7 +31,13 @@ const projects = {
   },
   [WEB_NODE_LIBRARY]: {
     type: PROJECT,
-    devDependencies: [WEB_NODE_LIBRARY, N, WEBPACK, WEBPACK_CLI, WEBPACK_SERVE]
+    devDependencies: [
+      WEB_NODE_LIBRARY,
+      N,
+      WEBPACK,
+      WEBPACK_CLI,
+      WEBPACK_DEV_SERVER
+    ]
   },
   [NODE]: {
     type: PROJECT,
@@ -40,12 +46,12 @@ const projects = {
   [PREACT]: {
     type: PROJECT,
     dependencies: ['preact', 'preact-compat'],
-    devDependencies: [PREACT, N, WEBPACK, WEBPACK_CLI, WEBPACK_SERVE]
+    devDependencies: [PREACT, N, WEBPACK, WEBPACK_CLI, WEBPACK_DEV_SERVER]
   },
   [REACT]: {
     type: PROJECT,
     dependencies: ['prop-types', 'react', 'react-dom', 'react-hot-loader'],
-    devDependencies: [REACT, N, WEBPACK, WEBPACK_CLI, WEBPACK_SERVE]
+    devDependencies: [REACT, N, WEBPACK, WEBPACK_CLI, WEBPACK_DEV_SERVER]
   },
   [REACT_COMPONENTS]: {
     type: PROJECT,
@@ -65,11 +71,11 @@ const projects = {
   [VUE]: {
     type: PROJECT,
     dependencies: ['vue'],
-    devDependencies: [VUE, N, WEBPACK, WEBPACK_CLI, WEBPACK_SERVE]
+    devDependencies: [VUE, N, WEBPACK, WEBPACK_CLI, WEBPACK_DEV_SERVER]
   },
   [WEB]: {
     type: PROJECT,
-    devDependencies: [WEB, N, WEBPACK, WEBPACK_CLI, WEBPACK_SERVE]
+    devDependencies: [WEB, N, WEBPACK, WEBPACK_CLI, WEBPACK_DEV_SERVER]
   },
   [JEST]: {
     type: TESTING,
