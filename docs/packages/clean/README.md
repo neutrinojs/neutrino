@@ -69,6 +69,23 @@ module.exports = {
 };
 ```
 
+## Usage to clean directories outside of the project root
+
+By setting the value of allowExternal to true, clean middleware can be used to remove directories outside of the project directory. This option is set to false by default to avoid unintended deletion of directories.
+
+```js
+
+module.exports = {
+  options: {
+    // override the output directory
+    output: '../build'
+  },
+  // set allowExternal to true 
+  allowExternal: true,
+  use: ['neutrino-preset-react']
+};
+```
+
 ## Customization
 
 `@neutrinojs/clean` creates some conventions to make overriding the configuration easier once you are ready to
