@@ -29,7 +29,7 @@
     "validate:eslintrc:airbnb-base": "eslint --no-eslintrc --print-config . -c ./packages/airbnb-base/eslintrc.js > /dev/null",
     "validate:eslintrc:standardjs": "eslint --no-eslintrc --print-config . -c ./packages/standardjs/eslintrc.js > /dev/null",
     "validate:eslintrc": "yarn validate:eslintrc:eslint && yarn validate:eslintrc:airbnb-base && yarn validate:eslintrc:airbnb && yarn validate:eslintrc:standardjs && yarn validate:eslintrc:root",
-    "version": "[[ -n \"SKIP_CHANGELOG\" ]] || yarn changelog --package && git add CHANGELOG.md"
+    "version": "[[ -z \"$SKIP_CHANGELOG\" ]] || yarn changelog --package && git add CHANGELOG.md"
   },
   "devDependencies": {
     "auto-changelog": "^1.4.6",

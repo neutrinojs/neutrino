@@ -15,7 +15,7 @@ const getOutputForEntry = entry => basename(
   format(
     merge(
       omit(parse(entry), ['base']),
-      { ext: '.js ' }
+      { ext: '.js' }
     )
   )
 );
