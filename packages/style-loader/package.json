@@ -27,10 +27,10 @@
     "css-loader": "^0.28.11",
     "deepmerge": "^1.5.2",
     "mini-css-extract-plugin": "^0.4.0",
-    "style-loader": "^0.21.0",
-    "webpack": "^4.7.0"
+    "style-loader": "^0.21.0"
   },
   "peerDependencies": {
-    "neutrino": "^8.0.0"
+    "neutrino": "^8.0.0",
+    "webpack": "^4.0.0"
   }
 }

@@ -25,10 +25,10 @@
   "dependencies": {
     "@babel/core": "^7.0.0-beta.46",
     "babel-loader": "^8.0.0-beta.2",
-    "babel-merge": "^1.1.1",
-    "webpack": "^4.7.0"
+    "babel-merge": "^1.1.1"
   },
   "peerDependencies": {
-    "neutrino": "^8.0.0"
+    "neutrino": "^8.0.0",
+    "webpack": "^4.0.0"
   }
 }

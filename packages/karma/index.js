@@ -1,80 +1,78 @@
-const { Server, constants: { LOG_DEBUG, LOG_INFO } } = require('karma');
-const merge = require('deepmerge');
-const { join } = require('path');
-const { omit } = require('ramda');
+const { merge: babelMerge } = require('@neutrinojs/compile-loader');
 const loaderMerge = require('@neutrinojs/loader-merge');
+const merge = require('deepmerge');
+const omit = require('lodash.omit');
+const { join } = require('path');
 
-module.exports = (neutrino, opts = {}) => {
-  const tests = join(neutrino.options.tests, '**/*_test.js');
-  const sources = join(neutrino.options.source, '**/*.js*');
-  const defaults = {
-    plugins: [
-      require.resolve('karma-webpack'),
-      require.resolve('karma-chrome-launcher'),
-      require.resolve('karma-coverage'),
-      require.resolve('karma-mocha'),
-      require.resolve('karma-mocha-reporter')
-    ],
-    basePath: neutrino.options.root,
-    logLevel: neutrino.options.debug ? LOG_DEBUG : LOG_INFO,
-    browsers: [process.env.CI ? 'ChromeCI' : 'ChromeHeadless'],
-    customLaunchers: {
-      ChromeCI: {
-        base: 'ChromeHeadless',
-        flags: ['--no-sandbox']
-      }
-    },
-    frameworks: ['mocha'],
-    files: [{
-      pattern: tests,
-      watched: false,
-      included: true,
-      served: true
-    }],
-    preprocessors: {
-      [tests]: ['webpack'],
-      [sources]: ['webpack']
-    },
-    webpackMiddleware: { noInfo: true },
-    reporters: ['mocha', 'coverage'],
-    coverageReporter: {
-      dir: '.coverage',
-      reporters: [
-        { type: 'html', subdir: 'report-html' },
-        { type: 'lcov', subdir: 'report-lcov' }
-      ]
-    }
-  };
-
-  if (neutrino.config.module.rules.has('compile')) {
-    neutrino.use(loaderMerge('compile', 'babel'), {
-      plugins: [require.resolve('babel-plugin-istanbul')]
+module.exports = neutrino => {
+  if (neutrino.config.module.rules.has('lint')) {
+    neutrino.use(loaderMerge('lint', 'eslint'), {
+      envs: ['mocha']
     });
   }
 
-  neutrino.on('test', ({ files, watch }) => new Promise((resolve, reject) => {
-    const karmaOptions = merge.all([
-      opts.override ? opts : merge(defaults, opts),
-      {
-        singleRun: !watch,
-        autoWatch: watch,
-        webpack: merge(
-          omit(['plugins'], neutrino.config.toConfig()),
-          // Work around `yarn test` hanging under webpack 4:
-          // https://github.com/webpack-contrib/karma-webpack/issues/322
-          { 
-            optimization: {
-              splitChunks: false,
-              runtimeChunk: false
-            }
-          }
-        )
+  neutrino.register('karma', (neutrino, override) => config => {
+    if (neutrino.config.module.rules.has('compile')) {
+      neutrino.config.module
+        .rule('compile')
+        .use('babel')
+        .tap(options => babelMerge(options, {
+          plugins: [require.resolve('babel-plugin-istanbul')]
+        }));
+    }
+
+    const tests = join(neutrino.options.tests, '**/*_test.js');
+    const sources = join(neutrino.options.source, '**/*.js*');
+
+    config.set({
+      basePath: neutrino.options.root,
+      browsers: [process.env.CI ? 'ChromeCI' : 'ChromeHeadless'],
+      customLaunchers: {
+        ChromeCI: {
+          base: 'ChromeHeadless',
+          flags: ['--no-sandbox']
+        }
       },
-      files && files.length ? { files } : {}
-    ]);
+      frameworks: ['mocha'],
+      files: [{
+        pattern: tests,
+        watched: false,
+        included: true,
+        served: true
+      }],
+      plugins: [
+        require.resolve('karma-webpack'),
+        require.resolve('karma-chrome-launcher'),
+        require.resolve('karma-coverage'),
+        require.resolve('karma-mocha'),
+        require.resolve('karma-mocha-reporter')
+      ],
+      preprocessors: {
+        [tests]: ['webpack'],
+        [sources]: ['webpack']
+      },
+      webpackMiddleware: { noInfo: true },
+      webpack: merge(
+        omit(neutrino.config.toConfig(), ['plugins', 'entry']),
+        // Work around `yarn test` hanging under webpack 4:
+        // https://github.com/webpack-contrib/karma-webpack/issues/322
+        {
+          optimization: {
+            splitChunks: false,
+            runtimeChunk: false
+          }
+        }
+      ),
+      reporters: ['mocha', 'coverage'],
+      coverageReporter: {
+        dir: '.coverage',
+        reporters: [
+          { type: 'html', subdir: 'report-html' },
+          { type: 'lcov', subdir: 'report-lcov' }
+        ]
+      }
+    });
 
-    const server = new Server(karmaOptions, exitCode => (exitCode !== 0 ? reject() : resolve()));
-
-    return server.start();
-  }));
+    return override(config);
+  });
 };

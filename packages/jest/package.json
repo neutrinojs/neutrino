@@ -24,16 +24,14 @@
   "dependencies": {
     "@babel/core": "^7.0.0-beta.46",
     "@babel/plugin-transform-modules-commonjs": "^7.0.0-beta.46",
+    "@neutrinojs/compile-loader": "^8.2.0",
     "@neutrinojs/loader-merge": "^8.2.0",
     "babel-plugin-jest-hoist": "^22.4.3",
-    "deepmerge": "^1.5.2",
-    "eslint": "^4.19.1",
     "eslint-plugin-jest": "^21.15.1",
-    "jest-cli": "^22.4.3",
-    "ramda": "^0.25.0",
-    "yargs": "^11.0.0"
+    "lodash.omit": "^4.5.0"
   },
   "peerDependencies": {
+    "jest": "^22.0.0",
     "neutrino": "^8.0.0"
   }
 }

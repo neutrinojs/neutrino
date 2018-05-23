@@ -8,26 +8,23 @@ const {
   basename, join, parse, format
 } = require('path');
 const merge = require('deepmerge');
-const {
-  omit, partialRight, pathOr, pipe
-} = require('ramda');
+const omit = require('lodash.omit');
 
 const MODULES = join(__dirname, 'node_modules');
-const getOutputForEntry = pipe(
-  parse,
-  omit(['base']),
-  partialRight(merge, [{ ext: '.js' }]),
-  format,
-  basename
+const getOutputForEntry = entry => basename(
+  format(
+    merge(
+      omit(parse(entry), ['base']),
+      { ext: '.js' }
+    )
+  )
 );
 
 module.exports = (neutrino, opts = {}) => {
   const pkg = neutrino.options.packageJson;
-  const sourceMap = pathOr(
-    pathOr(false, ['dependencies', 'source-map-support'], pkg),
-    ['devDependencies', 'source-map-support'],
-    pkg
-  );
+  const sourceMap = (pkg && pkg.dependencies && pkg.dependencies['source-map-support']) ||
+    pkg && pkg.devDependencies && pkg.devDependencies['source-map-support'] ||
+    false;
   const options = merge({
     hot: true,
     targets: {
@@ -59,8 +56,9 @@ module.exports = (neutrino, opts = {}) => {
     .keys(neutrino.options.mains)
     .forEach(key => neutrino.config.entry(key).add(neutrino.options.mains[key]));
 
+  const mode = neutrino.config.get('mode');
+
   neutrino.config
-    .mode(process.env.NODE_ENV === 'production' ? 'production' : 'development')
     .when(sourceMap, () => neutrino.use(banner))
     .performance
       .hints(false)
@@ -111,22 +109,27 @@ module.exports = (neutrino, opts = {}) => {
         }
       });
     })
-    .when(neutrino.options.command === 'start', (config) => {
+    .when(mode === 'development', (config) => {
       const mainKeys = Object.keys(neutrino.options.mains);
 
       neutrino.use(startServer, {
         name: getOutputForEntry(neutrino.options.mains[mainKeys[0]])
       });
-      config.when(options.hot, () => {
-        neutrino.use(hot);
-        mainKeys.forEach(key => neutrino.config.entry(key).add(`${require.resolve('webpack/hot/poll')}?1000`));
-      });
+      config
+        .devtool('inline-sourcemap')
+        .output
+          .devtoolModuleFilenameTemplate('[absolute-resource-path]')
+          .end()
+        .when(options.hot, () => {
+          neutrino.use(hot);
+          mainKeys.forEach(key => {
+            neutrino.config
+              .entry(key)
+                .add(`${require.resolve('webpack/hot/poll')}?1000`);
+          });
+        });
     })
-    .when(neutrino.options.env.NODE_ENV === 'development', (config) => {
-      config.devtool('inline-sourcemap');
-      config.output.devtoolModuleFilenameTemplate('[absolute-resource-path]');
-    })
-    .when(neutrino.options.command === 'build', (config) => {
+    .when(mode === 'production', (config) => {
       config.when(options.clean, () => neutrino.use(clean, options.clean));
     });
 };

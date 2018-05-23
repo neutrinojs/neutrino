@@ -1,35 +1,30 @@
-const open = require('opn');
 const merge = require('deepmerge');
 
 const isLocal = host => host === 'localhost' || host === '127.0.0.1';
 const getHost = publicHost => (isLocal(publicHost) ? 'localhost' : '0.0.0.0');
-const getPort = (neutrino, opts) => neutrino.options.port || opts.port || 5000;
-const getPublic = (neutrino, options) => {
-  const port = getPort(neutrino, options);
+const getPort = opts => opts.port || 5000;
+const getPublic = options => {
+  const port = getPort(options);
 
   if (options.public) {
     const normalizedPath = options.public.split(':');
 
-    return normalizedPath.length === 2 ?
-      options.public :
-      `${normalizedPath[0]}:${port}`;
+    return normalizedPath.length === 2
+      ? options.public
+      : `${normalizedPath[0]}:${port}`;
   }
 
-  if (neutrino.options.host) {
-    return isLocal(neutrino.options.host) ? 'localhost' : neutrino.options.host;
-  }
-
-  return !options.host || isLocal(options.host) ?
-    `localhost:${port}` :
-    `${options.host}:${port}`;
+  return !options.host || isLocal(options.host)
+    ? `localhost:${port}`
+    : `${options.host}:${port}`;
 };
 
 module.exports = (neutrino, opts = {}) => {
-  const port = getPort(neutrino, opts);
-  const publicHost = getPublic(neutrino, opts);
+  const port = getPort(opts);
+  const publicHost = getPublic(opts);
   const host = getHost(publicHost);
 
-  const options = merge.all([
+  neutrino.config.devServer.merge(merge.all([
     {
       port,
       https: false,
@@ -57,17 +52,6 @@ module.exports = (neutrino, opts = {}) => {
       }
     },
     opts,
-    { host, public: publicHost },
-    neutrino.options.port ? { port: neutrino.options.port } : {},
-    neutrino.options.https ? { https: neutrino.options.https } : {}
-  ]);
-  const protocol = options.https ? 'https' : 'http';
-  const url = `${protocol}://${publicHost}:${options.port}`;
-
-  neutrino.config
-    .devServer
-      .merge(options)
-      .when(options.open, () => {
-        neutrino.on('start', () => open(url, { wait: false }));
-      });
+    { host, public: publicHost }
+  ]));
 };

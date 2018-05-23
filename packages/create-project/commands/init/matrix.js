@@ -15,62 +15,84 @@ const MOCHA = '@neutrinojs/mocha';
 const AIRBNB = '@neutrinojs/airbnb';
 const AIRBNB_BASE = '@neutrinojs/airbnb-base';
 const STANDARDJS = '@neutrinojs/standardjs';
+const ESLINT = 'eslint';
+const WEBPACK = 'webpack';
+const WEBPACK_CLI = 'webpack-cli';
+const WEBPACK_DEV_SERVER = 'webpack-dev-server';
 
 const projects = {
   [AIRBNB]: {
     type: LINTING,
-    devDependencies: [AIRBNB]
+    devDependencies: [AIRBNB, ESLINT]
   },
   [AIRBNB_BASE]: {
     type: LINTING,
-    devDependencies: [AIRBNB_BASE]
+    devDependencies: [AIRBNB_BASE, ESLINT]
   },
   [WEB_NODE_LIBRARY]: {
     type: PROJECT,
-    devDependencies: [WEB_NODE_LIBRARY, N]
+    devDependencies: [
+      WEB_NODE_LIBRARY,
+      N,
+      WEBPACK,
+      WEBPACK_CLI,
+      WEBPACK_DEV_SERVER
+    ]
   },
   [NODE]: {
     type: PROJECT,
-    devDependencies: [NODE, N]
+    devDependencies: [NODE, N, WEBPACK, WEBPACK_CLI]
   },
   [PREACT]: {
     type: PROJECT,
     dependencies: ['preact', 'preact-compat'],
-    devDependencies: [PREACT, N]
+    devDependencies: [PREACT, N, WEBPACK, WEBPACK_CLI, WEBPACK_DEV_SERVER]
   },
   [REACT]: {
     type: PROJECT,
     dependencies: ['prop-types', 'react', 'react-dom', 'react-hot-loader'],
-    devDependencies: [REACT, N]
+    devDependencies: [REACT, N, WEBPACK, WEBPACK_CLI, WEBPACK_DEV_SERVER]
   },
   [REACT_COMPONENTS]: {
     type: PROJECT,
-    devDependencies: [REACT_COMPONENTS, N, 'prop-types', 'react', 'react-dom']
+    devDependencies: [
+      REACT_COMPONENTS,
+      N,
+      'prop-types',
+      'react',
+      'react-dom',
+      WEBPACK, WEBPACK_CLI
+    ]
   },
   [STANDARDJS]: {
     type: LINTING,
-    devDependencies: [STANDARDJS]
+    devDependencies: [STANDARDJS, ESLINT]
   },
   [VUE]: {
     type: PROJECT,
     dependencies: ['vue'],
-    devDependencies: [VUE, N]
+    devDependencies: [VUE, N, WEBPACK, WEBPACK_CLI, WEBPACK_DEV_SERVER]
   },
   [WEB]: {
     type: PROJECT,
-    devDependencies: [WEB, N]
+    devDependencies: [WEB, N, WEBPACK, WEBPACK_CLI, WEBPACK_DEV_SERVER]
   },
   [JEST]: {
     type: TESTING,
-    devDependencies: [JEST]
+    devDependencies: [JEST, 'jest']
   },
   [KARMA]: {
     type: TESTING,
-    devDependencies: [KARMA]
+    devDependencies: [
+      KARMA,
+      'karma',
+      'karma-cli',
+      'mocha'
+    ]
   },
   [MOCHA]: {
     type: TESTING,
-    devDependencies: [MOCHA]
+    devDependencies: [MOCHA, 'mocha']
   }
 };
 

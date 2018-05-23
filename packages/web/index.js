@@ -19,6 +19,7 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const MODULES = join(__dirname, 'node_modules');
 
 module.exports = (neutrino, opts = {}) => {
+  const mode = neutrino.config.get('mode');
   const publicPath = opts.publicPath || './';
   const options = merge({
     publicPath,
@@ -32,14 +33,14 @@ module.exports = (neutrino, opts = {}) => {
     },
     style: {
       hot: opts.hot !== false,
-      extract: process.env.NODE_ENV === 'production'
+      extract: mode === 'production'
     },
     manifest: opts.html === false ? {} : false,
     clean: opts.clean !== false && {
       paths: [neutrino.options.output]
     },
     minify: {
-      source: process.env.NODE_ENV === 'production',
+      source: mode === 'production',
       style: {}
     },
     babel: {},
@@ -139,7 +140,6 @@ module.exports = (neutrino, opts = {}) => {
     });
 
   neutrino.config
-    .mode(process.env.NODE_ENV === 'production' ? 'production' : 'development')
     .optimization
       .minimize(options.minify.source)
       .splitChunks({
@@ -152,7 +152,7 @@ module.exports = (neutrino, opts = {}) => {
         // `vendors~index~page2.b694ee990c08e6be6a33.js`. Setting to `false` causes them to
         // use the chunk ID instead (eg `1.ceddedc0defa56bec89f.js`), which prevents cache-
         // busting when a new page is added with the same shared vendor dependencies.
-        name: process.env.NODE_ENV !== 'production'
+        name: mode !== 'production'
       })
       // Create a separate chunk for the webpack runtime, so it can be cached separately
       // from the more frequently-changing entrypoint chunks.
@@ -214,15 +214,12 @@ module.exports = (neutrino, opts = {}) => {
         envs: ['browser', 'commonjs']
       });
     })
-    .when(process.env.NODE_ENV === 'development', config => config.devtool('cheap-module-eval-source-map'))
-    .when(neutrino.options.command === 'start', (config) => {
+    .when(mode === 'development', config => {
       neutrino.use(devServer, options.devServer);
+      config.devtool('cheap-module-eval-source-map');
       config.when(options.hot, () => {
         neutrino.use(hot);
         config.when(options.hotEntries, (config) => {
-          const protocol = config.devServer.get('https') ? 'https' : 'http';
-          const url = `${protocol}://${config.devServer.get('public')}`;
-
           Object
             .keys(neutrino.options.mains)
             .forEach(key => {
@@ -230,19 +227,13 @@ module.exports = (neutrino, opts = {}) => {
                 .entry(key)
                   .batch(entry => {
                     options.hotEntries.forEach(hotEntry => entry.prepend(hotEntry));
-                    entry
-                      .prepend(require.resolve('webpack/hot/dev-server'))
-                      .prepend(`${require.resolve('webpack-dev-server/client')}?${url}`);
                   });
             });
         });
       });
     })
-    .when(process.env.NODE_ENV === 'production', (config) => {
-      config
-        .when(options.minify.style, () => neutrino.use(styleMinify, options.minify.style));
-    })
-    .when(neutrino.options.command === 'build', (config) => {
+    .when(mode === 'production', (config) => {
+      config.when(options.minify.style, () => neutrino.use(styleMinify, options.minify.style));
       config.when(options.clean, () => neutrino.use(clean, options.clean));
 
       if (options.manifest) {
@@ -252,13 +243,4 @@ module.exports = (neutrino, opts = {}) => {
 
       config.output.filename('[name].[chunkhash].js');
     });
-
-  neutrino.on('prerun', () => {
-    if (neutrino.config.entryPoints.has('vendor')) {
-      return Promise.reject(
-        new Error('Vendor chunks are now automatically generated. Remove the manual `vendor` entrypoint.')
-      );
-    }
-    return Promise.resolve();
-  })
 };

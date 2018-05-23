@@ -25,10 +25,10 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "optimize-css-assets-webpack-plugin": "^4.0.1",
-    "webpack": "^4.7.0"
+    "optimize-css-assets-webpack-plugin": "^4.0.1"
   },
   "peerDependencies": {
-    "neutrino": "^8.0.0"
+    "neutrino": "^8.0.0",
+    "webpack": "^4.0.0"
   }
 }

@@ -1,9 +1,7 @@
 import test from 'ava';
-import { Neutrino } from 'neutrino';
+import Neutrino from '../../neutrino/Neutrino';
 
 const mw = () => require('..');
-const prodEnv = { env: { NODE_ENV: 'production' } };
-const devEnv = { env: { NODE_ENV: 'development' } };
 const options = { rules: ['image'] };
 
 test('loads middleware', t => {
@@ -11,15 +9,27 @@ test('loads middleware', t => {
 });
 
 test('uses middleware', t => {
-  t.notThrows(() => Neutrino(prodEnv).use(mw()));
+  t.notThrows(() => {
+    const api = new Neutrino();
+
+    api.config.mode('production');
+    api.use(mw());
+  });
 });
 
 test('uses with options', t => {
-  t.notThrows(() => Neutrino(prodEnv).use(mw(), options));
+  t.notThrows(() => {
+    const api = new Neutrino();
+
+    api.config.mode('production');
+    api.use(mw(), options)
+  });
 });
 
 test('instantiates', t => {
-  const api = Neutrino(prodEnv);
+  const api = new Neutrino();
+
+  api.config.mode('production');
   api.use(mw());
 
   t.true(api.config.plugins.has('imagemin'));
@@ -27,7 +37,9 @@ test('instantiates', t => {
 });
 
 test('instantiates with options', t => {
-  const api = Neutrino(prodEnv);
+  const api = new Neutrino();
+
+  api.config.mode('production');
   api.use(mw(), options);
 
   t.true(api.config.plugins.has('imagemin'));
@@ -35,7 +47,9 @@ test('instantiates with options', t => {
 });
 
 test('disabled in development', t => {
-  const api = Neutrino(devEnv);
+  const api = new Neutrino();
+
+  api.config.mode('development');
   api.use(mw(), options);
 
   t.false(api.config.plugins.has('imagemin'));

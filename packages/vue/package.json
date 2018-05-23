@@ -25,7 +25,6 @@
     "@neutrinojs/web": "^8.2.0",
     "css-loader": "^0.28.11",
     "deepmerge": "^1.5.2",
-    "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.7.0",
     "eslint-plugin-vue": "^4.5.0",
     "stylelint-processor-html": "^1.0.0",
@@ -33,6 +32,7 @@
     "vue-template-compiler": "^2.5.16"
   },
   "peerDependencies": {
-    "neutrino": "^8.0.0"
+    "neutrino": "^8.0.0",
+    "webpack": "^4.0.0"
   }
 }

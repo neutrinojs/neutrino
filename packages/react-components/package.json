@@ -26,6 +26,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "peerDependencies": {
-    "neutrino": "^8.0.0"
+    "neutrino": "^8.0.0",
+    "webpack": "^4.0.0"
   }
 }

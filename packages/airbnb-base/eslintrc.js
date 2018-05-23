@@ -1,5 +1,3 @@
-const { Neutrino } = require('../neutrino');
+const neutrino = require('../neutrino');
 
-module.exports = Neutrino({ cwd: __dirname })
-  .use(require('.')) // eslint-disable-line global-require
-  .call('eslintrc');
+module.exports = neutrino(require('.')).eslintrc();

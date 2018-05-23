@@ -1,7 +1,7 @@
 module.exports = (neutrino, options = {}) => {
-  const isBuild = neutrino.options.command === 'build';
+  const isProduction = neutrino.config.get('mode') === 'production';
   const defaultOptions = {
-    name: isBuild ? '[name].[hash].[ext]' : '[name].[ext]'
+    name: isProduction ? '[name].[hash].[ext]' : '[name].[ext]'
   };
 
   neutrino.config.module

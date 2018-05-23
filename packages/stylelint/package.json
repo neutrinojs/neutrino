@@ -26,12 +26,11 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "deepmerge": "^1.5.2",
-    "stylelint": "^8.4.0",
-    "stylelint-webpack-plugin": "^0.10.4",
-    "webpack": "^4.7.0"
+    "stylelint-webpack-plugin": "^0.10.4"
   },
   "peerDependencies": {
-    "neutrino": "^8.0.0"
+    "neutrino": "^8.0.0",
+    "stylelint": "^8.0.0",
+    "webpack": "^4.0.0"
   }
 }

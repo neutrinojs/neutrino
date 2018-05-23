@@ -1,5 +1,5 @@
 import test from 'ava';
-import { Neutrino } from 'neutrino';
+import Neutrino from '../../neutrino/Neutrino';
 
 const options = { alpha: 'beta' };
 
@@ -8,7 +8,7 @@ test('loads middleware', t => {
 });
 
 test('uses with options', t => {
-  const api = Neutrino();
+  const api = new Neutrino();
 
   api.config.module.rule('alpha').use('beta').options(options);
 
@@ -16,7 +16,7 @@ test('uses with options', t => {
 });
 
 test('throws without options', t => {
-  const api = Neutrino();
+  const api = new Neutrino();
 
   api.config.module.rule('alpha').use('beta').options(options);
 
@@ -24,7 +24,7 @@ test('throws without options', t => {
 });
 
 test('instantiates with options', t => {
-  const api = Neutrino();
+  const api = new Neutrino();
 
   api.config.module.rule('alpha').use('beta').options(options);
   api.use(require('..')('alpha', 'beta'), options);

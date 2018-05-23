@@ -1,28 +1,32 @@
-const mocha = require('./mocha');
-const { omit } = require('ramda');
 const loaderMerge = require('@neutrinojs/loader-merge');
+const merge = require('babel-merge');
+const omit = require('lodash.omit');
 
-module.exports = (neutrino, opts = {}) => {
-  neutrino.on('test', ({ files }) => {
-    const usingBabel = neutrino.config.module.rules.has('compile');
-    const options = {
-      reporter: 'spec',
-      ui: 'tdd',
-      bail: true,
-      ...opts,
-      ...(files && files.length ? { recursive: true } : {})
-    };
-
-    neutrino.config.when(usingBabel, () => {
-      neutrino.use(loaderMerge('compile', 'babel'), {
-        plugins: [require.resolve('@babel/plugin-transform-modules-commonjs')]
-      });
+module.exports = neutrino => {
+  if (neutrino.config.module.rules.has('lint')) {
+    neutrino.use(loaderMerge('lint', 'eslint'), {
+      envs: ['mocha']
     });
+  }
 
-    const babelOptions = usingBabel
-      ? omit(['cacheDirectory'], neutrino.config.module.rule('compile').use('babel').get('options'))
+  neutrino.register('mocha', (neutrino, override) => {
+    const baseOptions = neutrino.config.module.rules.has('compile')
+      ? neutrino.config.module.rule('compile').use('babel').get('options')
       : {};
+    const options = omit(
+      merge(
+        baseOptions,
+        {
+          extensions: neutrino.options.extensions.map(ext => `.${ext}`),
+          plugins: [
+            require.resolve('@babel/plugin-transform-modules-commonjs')
+          ]
+        }
+      ),
+      ['cacheDirectory']
+    );
 
-    return mocha(options, babelOptions, files);
+    // eslint-disable-next-line global-require
+    require('@babel/register')(override(options));
   });
 };

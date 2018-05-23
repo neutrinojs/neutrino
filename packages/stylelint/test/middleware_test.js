@@ -1,5 +1,6 @@
 import test from 'ava';
-import { Neutrino } from 'neutrino';
+import Neutrino from '../../neutrino/Neutrino';
+import neutrino from '../../neutrino';
 
 const mw = () => require('..');
 const options = { stylelint: { rules: { 'rule-empty-line-before': true } } };
@@ -9,15 +10,15 @@ test('loads middleware', t => {
 });
 
 test('uses middleware', t => {
-  t.notThrows(() => Neutrino().use(mw()));
+  t.notThrows(() => new Neutrino().use(mw()));
 });
 
 test('uses with options', t => {
-  t.notThrows(() => Neutrino().use(mw(), options));
+  t.notThrows(() => new Neutrino().use(mw(), options));
 });
 
 test('instantiates', t => {
-  const api = Neutrino();
+  const api = new Neutrino();
 
   api.use(mw());
 
@@ -25,13 +26,33 @@ test('instantiates', t => {
 });
 
 test('instantiates with options', t => {
-  const api = Neutrino();
+  const api = new Neutrino();
 
   api.use(mw(), options);
 
   t.notThrows(() => api.config.toConfig());
 });
 
-test('exposes stylelintrc config', t => {
-  t.is(typeof Neutrino().use(mw(), options).call('stylelintrc'), 'object');
+test('exposes stylelintrc output handler', t => {
+  const api = new Neutrino();
+
+  api.use(mw());
+
+  const handler = api.outputHandlers.get('stylelintrc');
+
+  t.is(typeof handler, 'function');
+});
+
+test('exposes stylelintrc config from output', t => {
+  const config = neutrino(mw()).output('stylelintrc');
+
+  t.is(typeof config, 'object');
+});
+
+test('exposes stylelintrc method', t => {
+  t.is(typeof neutrino(mw()).stylelintrc, 'function');
+});
+
+test('exposes stylelintrc config from method', t => {
+  t.is(typeof neutrino(mw()).stylelintrc(), 'object');
 });

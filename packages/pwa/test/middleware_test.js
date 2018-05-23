@@ -1,5 +1,5 @@
 import test from 'ava';
-import { Neutrino } from 'neutrino';
+import Neutrino from '../../neutrino/Neutrino';
 
 const mw = () => require('..');
 const options = { responseStrategy: 'network-first', AppCache: {} };
@@ -9,19 +9,19 @@ test('loads middleware', t => {
 });
 
 test('uses middleware', t => {
-  const api = Neutrino();
+  const api = new Neutrino();
 
   t.notThrows(() => api.use(mw()));
 });
 
 test('uses with options', t => {
-  const api = Neutrino();
+  const api = new Neutrino();
 
   t.notThrows(() => api.use(mw(), options));
 });
 
 test('instantiates', t => {
-  const api = Neutrino();
+  const api = new Neutrino();
 
   api.use(mw());
 
@@ -29,7 +29,7 @@ test('instantiates', t => {
 });
 
 test('instantiates with options', t => {
-  const api = Neutrino();
+  const api = new Neutrino();
 
   api.use(mw(), options);
 

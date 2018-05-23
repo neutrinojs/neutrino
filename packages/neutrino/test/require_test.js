@@ -1,8 +1,7 @@
 import { join } from 'path';
 import test from 'ava';
-import { Neutrino } from '../src';
+import Neutrino from '../Neutrino';
 
-const cwd = process.cwd();
 const testModulePath = join(__dirname, 'fixtures', 'test-module');
 
 test.before(t => {
@@ -10,17 +9,17 @@ test.before(t => {
 });
 
 test('requires middleware relative to root', t => {
-  t.notThrows(() => Neutrino().use('middleware'));
+  t.notThrows(() => new Neutrino().use('middleware'));
 });
 
 test('requires middleware from root/node_modules', t => {
-  t.notThrows(() => Neutrino().use('alpha'));
+  t.notThrows(() => new Neutrino().use('alpha'));
 });
 
 test('forks with error middleware contains error', (t) => {
-  t.throws(() => Neutrino().use('errorMiddleware'));
+  t.throws(() => new Neutrino().use('errorMiddleware'));
 });
 
 test('throws if middleware cannot be found', (t) => {
-  t.throws(() => Neutrino().use('nonExistent'));
+  t.throws(() => new Neutrino().use('nonExistent'));
 });

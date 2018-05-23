@@ -68,18 +68,36 @@ module.exports = class Project extends Generator {
 
   _initialPackageJson() {
     const installer = isYarn ? 'yarn' : 'npm';
-    const scripts = { build: `${packages.NEUTRINO} build` };
+    const scripts = { build: 'webpack --mode production' };
 
     if (this.data.projectType !== 'library') {
-      scripts.start = `${packages.NEUTRINO} start`;
+      scripts.start = this.data.project === '@neutrinojs/node'
+        ? 'webpack --watch --mode development'
+        : 'webpack-dev-server --mode development';
     }
 
-    if (this.data.linter) {
-      scripts.lint = `${packages.NEUTRINO} lint`;
-    }
+    // The list of extensions here needs to be kept in sync with the
+    // extension list defined by neutrino/extensions.source. Modifying a value
+    // here should have an accompanying change there as well. We can't pull
+    // in neutrino here as that would potentially give us conflicting versions
+    // in node_modules.
+    const lint = 'eslint --ext js,jsx,vue,ts,tsx,mjs src';
 
     if (this.data.testRunner) {
-      scripts.test = `${packages.NEUTRINO} test`;
+      if (this.data.testRunner.includes('jest')) {
+        scripts.test = 'jest';
+      } else if (this.data.testRunner.includes('karma')) {
+        scripts.test = 'karma start --single-run';
+      } else if (this.data.testRunner.includes('mocha')) {
+        scripts.test =
+          'mocha --require mocha.config.js --recursive';
+      }
+
+      if (this.data.linter) {
+        scripts.lint = `${lint} test`;
+      }
+    } else if (this.data.linter) {
+      scripts.lint = lint;
     }
 
     ensureDirSync(this.options.directory);
