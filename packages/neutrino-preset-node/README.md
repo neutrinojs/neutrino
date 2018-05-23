@@ -55,7 +55,7 @@ If you want to have automatically wired sourcemaps added to your project, add `s
 
 ## Project Layout
 
-`neutrino-preset-node` follows the standard [project layout](https://neutrino.js.org/project-layout) specified by Neutrino. This
+`neutrino-preset-node` follows the standard [project layout](https://neutrinojs.org/project-layout) specified by Neutrino. This
 means that by default all project source code should live in a directory named `src` in the root of the
 project. This includes JavaScript files that would be available to your compiled project.
 
@@ -209,7 +209,7 @@ modification during development.
 ## Debugging
 
 You can start the Node.js server in `inspect` mode to debug the process by setting `neutrino.options.debug` to `true`.
-This can be done from the [API](https://neutrino.js.org/api#optionsdebug) or the [CLI using `--debug`](https://neutrino.js.org/cli#-debug).
+This can be done from the [API](https://neutrinojs.org/api#optionsdebug) or the [CLI using `--debug`](https://neutrinojs.org/cli#-debug).
 
 ## Preset options
 
@@ -277,7 +277,7 @@ module.exports = {
 
 ## Customizing
 
-To override the build configuration, start with the documentation on [customization](https://neutrino.js.org/customization).
+To override the build configuration, start with the documentation on [customization](https://neutrinojs.org/customization).
 `neutrino-preset-node` creates some conventions to make overriding the configuration easier once you are ready to make
 changes.
 
@@ -317,7 +317,7 @@ _Note: Some plugins are only available in certain environments. To override them
 
 ### Override configuration
 
-By following the [customization guide](https://neutrino.js.org/customization) and knowing the rule, loader, and plugin IDs above,
+By following the [customization guide](https://neutrinojs.org/customization) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also
 make these changes from the Neutrino API in custom middleware.
 
@@ -336,7 +336,7 @@ module.exports = {
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](https://neutrino.js.org/contributing) for details.
+[contributing guide](https://neutrinojs.org/contributing) for details.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino-preset-node.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino-preset-node.svg
