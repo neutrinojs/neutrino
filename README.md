@@ -33,7 +33,7 @@ this guide to help you get started. We want to do our best to help you make succ
 community.
 
 - [Contributing to Neutrino](https://neutrino.js.org/contributing/)
-- [Participation Guidelines](https://neutrino.js.org/contributing/code-of-conduct.html)
+- [Participation Guidelines](https://neutrino.js.org/contributing/code-of-conduct/)
 
 [npm-image]: https://img.shields.io/npm/v/neutrino.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino.svg

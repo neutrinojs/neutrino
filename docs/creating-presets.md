@@ -10,7 +10,7 @@ configuration and dependencies necessary to accomplish those use cases:
 
 ## Getting Started
 
-Neutrino middleware are Node.js modules or packages that export a [middleware format](./middleware/README.md#formats).
+Neutrino middleware are Node.js modules or packages that export a [middleware format](./middleware.md#formats).
 We call these Neutrino middleware because they sit in the middle of Neutrino and webpack, modifying a configuration with
 each subsequent middleware call. When using the function middleware formats, you can use the Neutrino instance provided
 to the middleware function to modify the configuration, provide your own configuration, expose custom options for your
@@ -89,7 +89,7 @@ module.exports = neutrino => {
 ## Sample Preset: JavaScript Standard Style
 
 Let's create a preset from scratch which allows users to augment their project with
-[JavaScript Standard Style](http://standardjs.com/). For this sample preset we are using
+[JavaScript Standard Style](https://standardjs.com/). For this sample preset we are using
 [Yarn](https://yarnpkg.com) for managing dependencies, but you may use the npm client if you desire.
 
 **Important: this preset is not meant to be functional; rather it is used to demonstrate the concepts of creating

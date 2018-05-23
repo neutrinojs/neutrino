@@ -177,7 +177,7 @@ assets instead from a CDN, or if you wish to change to an absolute path for your
 override `output.publicPath`. See the [Customizing](#Customizing) section below.
 
 For details on merging and overriding Babel configuration, such as supporting decorator syntax, read more
-about using the [`compile-loader` `merge`](../compile-loader#advanced-merging) once you
+about using the [`compile-loader` `merge`](https://neutrinojs.org/packages/compile-loader/#advanced-merging) once you
 are comfortable customizing your build.
 
 ## Preset options
