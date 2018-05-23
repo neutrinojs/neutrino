@@ -10,16 +10,21 @@ module.exports = (neutrino, opts = {}) => {
   const mode = neutrino.config.get('mode');
   const options = merge({
     hot: true,
-    hotEntries: [require.resolve('react-hot-loader/patch')],
     babel: {}
   }, opts);
+  let reactHotLoader;
+
+  try {
+    // Attempt to load react-hot-loader from the user's installation.
+    reactHotLoader = require.resolve('react-hot-loader/babel');
+  } catch (err) {} // eslint-disable-line no-empty
 
   Object.assign(options, {
     babel: compileLoader.merge({
       plugins: [
         ...(
-          mode === 'development' && options.hot
-            ? [require.resolve('react-hot-loader/babel')]
+          mode === 'development' && options.hot && reactHotLoader
+            ? [reactHotLoader]
             : []
         ),
         // Using loose for the reasons here:

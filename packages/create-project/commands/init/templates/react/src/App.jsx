@@ -1,7 +1,8 @@
+import { hot } from 'react-hot-loader';
 import React, { Component } from 'react';
 import './App.css';
 
-export default class App extends Component {
+class App extends Component {
   state = {
     name: '<%= data.name %>'
   };
@@ -14,3 +15,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default hot(module)(App);
