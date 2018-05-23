@@ -94,6 +94,26 @@ Generates a changelog for the `mozilla-neutrino/neutrino-dev` GitHub repository.
 ❯ yarn changelog
 ```
 
+---
+
+`docs:bootstrap`
+
+Installs the Python dependencies required to build the documentation. You may wish to active a virtualenv first.
+
+```bash
+❯ yarn docs:bootstrap
+```
+
+---
+
+`docs:serve`
+
+Starts a local development server which builds the documentation in `docs` and serves it on port 8000.
+
+```bash
+❯ yarn docs:serve
+```
+
 ## Making changes
 
 When you make changes to neutrino-dev, you should make them in a branch separate from `master`. Start from the
@@ -122,7 +142,7 @@ in order to add files that should be committed. Give your changes a descriptive 
 
 Now if you open the GitHub page for your repository, GitHub should display a button to open a pull request for
 the branch and commit you just pushed. When filling out the details of the pull request, try to be as descriptive
-as possible, following our detailed [contribution guidelines](./README.md).
+as possible, following our detailed [contribution guidelines](./index.md).
 
 ### Congrats!
 

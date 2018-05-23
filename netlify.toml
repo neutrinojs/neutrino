@@ -1,0 +1,42 @@
+[build]
+  # Using a non-root base directory combined with `cd ..` to prevent
+  # Netlify from finding package.json and trying to install that:
+  # https://github.com/netlify/build-image/issues/141
+  base    = "docs"
+  publish = "build"
+  command = "cd .. && mkdocs build"
+
+# External links aren't supported in the sidebar, so we use
+# placeholder pages that are then HTTP 301 redirected below.
+
+[[redirects]]
+  from = "/v4/"
+  to = "https://github.com/mozilla-neutrino/neutrino-dev/tree/release/v4/docs"
+
+[[redirects]]
+  from = "/v5/"
+  to = "https://github.com/mozilla-neutrino/neutrino-dev/tree/release/v5/docs"
+
+[[redirects]]
+  from = "/v6/"
+  to = "https://github.com/mozilla-neutrino/neutrino-dev/tree/release/v6/docs"
+
+[[redirects]]
+  from = "/v7/"
+  to = "https://release-v7.neutrinojs.org/"
+
+[[redirects]]
+  from = "/v8/"
+  to = "https://neutrinojs.org/"
+
+# Redirect requests to domain aliases to the primary domain.
+
+[[redirects]]
+  from = "https://neutrino.js.org/*"
+  to = "https://neutrinojs.org/:splat"
+  force = true
+
+[[redirects]]
+  from = "https://neutrinojs.netlify.com/*"
+  to = "https://neutrinojs.org/:splat"
+  force = true

@@ -16,6 +16,8 @@
   ],
   "scripts": {
     "changelog": "auto-changelog --remote upstream --commit-limit false",
+    "docs:bootstrap": "pip install -r docs/requirements.txt",
+    "docs:serve": "mkdocs serve",
     "link:all": "lerna exec yarn link",
     "lint": "node packages/neutrino/bin/neutrino lint",
     "precommit": "lint-staged",

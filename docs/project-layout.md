@@ -10,7 +10,7 @@ development process for new projects as quick as possible. This is broken up int
 
 Each of these directories is set up via convention by a Neutrino preset, but each can be customized as
 desired by overriding the preset's configuration or using a different preset. See
-[Custom Configuration](./customization/README.md) for detailed instructions.
+[Custom Configuration](./customization.md) for detailed instructions.
 
 ## Source Code
 

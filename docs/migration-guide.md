@@ -17,8 +17,8 @@ to v8, be sure to check this list for tasks you may need to perform to use this 
 for the full list of deprecated packages and the new scoped packages to migrate to. The core `neutrino` package
 remains available as is.
 - **BREAKING CHANGE** Removed `entry` option in order to support multiple main entry points via new `mains` options.
-See [Customization](https://neutrino.js.org/customization/#optionsmains) for usage of `mains` in
-`.neutrinorc.js`. See [API](https://neutrino.js.org/api/#optionsmains) for usage of `mains` from the API.
+See [Customization](./customization.md#optionsmains) for usage of `mains` in
+`.neutrinorc.js`. See [API](./api.md#optionsmains) for usage of `mains` from the API.
 ([#487](https://github.com/mozilla-neutrino/neutrino-dev/pull/487))
 - **BREAKING CHANGE** `*.css` files in mains chunks are no longer inlined into the JS bundle by default.
 They are moved into a separate CSS file. To disable CSS extraction, pass `options.extract = false` to
@@ -223,7 +223,7 @@ Neutrino()
   .fork(errorHandler, successHandler);
 ```
 
-See the [Neutrino API](./api) for details on the updated API.
+See the [Neutrino API](./api.md) for details on the updated API.
 
 - **BREAKING CHANGE** Since the Neutrino API has changed, creating a `.eslintrc.js` file has also changed. If you have
 your middleware defined in `.neutrinorc.js`, your `.eslintrc.js` file can be as simple as:

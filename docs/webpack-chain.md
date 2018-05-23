@@ -27,8 +27,8 @@ This is easier explained through the examples following.
 
 In the Neutrino API, the `config` property is an instance of webpack-chain. For this guide,
 our example base configuration will be `.neutrinorc.js` in the root of our project directory.
-This can utilize either the [Object format](./middleware/README.md#object-format) or
-[Function format](./middleware/README.md#function-format) to access the Neutrino API:
+This can utilize either the [Object format](./middleware.md#object-format) or
+[Function format](./middleware.md#function-format) to access the Neutrino API:
 
 ```js
 // .neutrinorc.js

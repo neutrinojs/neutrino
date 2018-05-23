@@ -8,7 +8,7 @@ also bake in build configuration into this process, causing a lot of duplication
 need to make a change to your build steps, you are forced to make that change across all
 your similar projects. Using a preset rather than a boilerplate keeps this process DRY.
 
-Tools like [Create React App](https://github.com/facebookincubator/create-react-app) have
+Tools like [Create React App](https://github.com/facebook/create-react-app) have
 been fantastic improvements to the tooling ecosystem, but unfortunately only work on specific
 environments like React, and do not allow simple extensibility of the build configuration. To
 answer this, new and similar projects are cropping up to build different types of projects,
