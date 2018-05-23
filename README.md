@@ -1,4 +1,4 @@
-<h1><p align="center"><a href="https://neutrino.js.org"><img src="https://raw.githubusercontent.com/mozilla-neutrino/neutrino-dev/master/docs/assets/logo.png" height="150"></a></p></h1>
+<h1><p align="center"><a href="https://neutrinojs.org"><img src="https://raw.githubusercontent.com/mozilla-neutrino/neutrino-dev/release/v7/docs/assets/logo.png" height="150"></a></p></h1>
 
 ### Create and build modern JavaScript applications with zero initial configuration
 #### Neutrino combines the power of Webpack with the simplicity of presets.
@@ -6,8 +6,6 @@
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
 [![Build Status][travis-image]][travis-url]
-[![Codacy][codacy-image]][codacy-url]
-[![codecov][codecov-image]][codecov-url]
 [![Join the Neutrino community on Spectrum][spectrum-image]][spectrum-url]
 
 [https://github.com/mozilla-neutrino/neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev)
@@ -26,7 +24,7 @@ cover.
 
 ## Documentation
 
-See the [Neutrino docs](https://neutrino.js.org/)
+See the [Neutrino docs](https://neutrinojs.org/)
 for details on installation, getting started, usage, and customizing.
 
 ### Contributing
@@ -35,8 +33,8 @@ Thank you for wanting to help out with Neutrino! We are very happy that you want
 this guide to help you get started. We want to do our best to help you make successful contributions and be part of our
 community.
 
-- [Contributing to Neutrino](https://neutrino.js.org/contributing/)
-- [Participation Guidelines](https://neutrino.js.org/contributing/code-of-conduct.html)
+- [Contributing to Neutrino](https://neutrinojs.org/contributing/)
+- [Participation Guidelines](https://neutrinojs.org/contributing/code-of-conduct.html)
 
 [npm-image]: https://img.shields.io/npm/v/neutrino.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino.svg
@@ -45,7 +43,3 @@ community.
 [travis-url]: https://travis-ci.org/mozilla-neutrino/neutrino-dev
 [spectrum-image]: https://withspectrum.github.io/badge/badge.svg
 [spectrum-url]: https://spectrum.chat/neutrino
-[codacy-image]: https://api.codacy.com/project/badge/Grade/8717707007704c929de39ec20b7b0542
-[codacy-url]: https://www.codacy.com/app/Neutrino/neutrino-dev?utm_source=github.com&utm_medium=referral&utm_content=mozilla-neutrino/neutrino-dev&utm_campaign=badger
-[codecov-image]: https://codecov.io/gh/mozilla-neutrino/neutrino-dev/branch/master/graph/badge.svg
-[codecov-url]: https://codecov.io/gh/mozilla-neutrino/neutrino-dev
