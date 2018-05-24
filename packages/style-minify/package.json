@@ -14,7 +14,7 @@
   "author": "Tim Kelty <timkelty@gmail.com>",
   "license": "MPL-2.0",
   "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/style-minify",
-  "homepage": "https://neutrino.js.org",
+  "homepage": "https://neutrinojs.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "publishConfig": {
     "access": "public"
