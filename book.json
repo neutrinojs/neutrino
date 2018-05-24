@@ -4,7 +4,7 @@
   "plugins": ["edit-link", "prism", "-highlight", "github", "anchorjs", "npmsearchlist"],
   "pluginsConfig": {
     "edit-link": {
-      "base": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs",
+      "base": "https://github.com/mozilla-neutrino/neutrino-dev/tree/release/v8/docs",
       "label": "Edit page"
     },
     "github": {

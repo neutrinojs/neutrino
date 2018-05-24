@@ -93,7 +93,7 @@ Putting this into your `package.json` will allow you to test your project using 
 ```
 
 Using the command `neutrino test` will execute every test file located in your
-[testing directory](./project-layout#Testing). You may also provide to this command the specific test files you wish
+[testing directory](./project-layout.md#testing). You may also provide to this command the specific test files you wish
 to run individually. It is important to note that when combined with the `--use` parameter, you should use two
 dashes after the last middleware to denote the end of the middleware and the beginning of the test files.
 

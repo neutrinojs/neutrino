@@ -238,7 +238,7 @@ modification during development.
 ## Debugging
 
 You can start the Node.js server in `inspect` mode to debug the process by setting `neutrino.options.debug` to `true`.
-This can be done from the [API](../../api#optionsdebug) or the [CLI using `--debug`](../../cli#-debug).
+This can be done from the [API](../../api/README.md#optionsdebug) or the [CLI using `--debug`](../../cli/README.md#-debug).
 
 ## Preset options
 
@@ -324,7 +324,7 @@ changes.
 By default Neutrino, and therefore this preset, creates a single **main** `index` entry point to your application, and this
 maps to the `index.*` file in the `src` directory. This means that this preset is optimized toward a single main entry
 to your application. Code not imported in the hierarchy of the `index` entry will not be output to the bundle. To overcome
-this you must either define more mains via [`options.mains`](../../customization#optionsmains), import the code path
+this you must either define more mains via [`options.mains`](../../customization/README.md#optionsmains), import the code path
 somewhere along the `index` hierarchy, or define multiple configurations in your `.neutrinorc.js`.
 
 ### Vendoring
@@ -358,7 +358,7 @@ _Note: Some plugins are only available in certain environments. To override them
 
 ### Override configuration
 
-By following the [customization guide](../../customization) and knowing the rule, loader, and plugin IDs above,
+By following the [customization guide](../../customization/README.md) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also
 make these changes from the Neutrino API in custom middleware.
 
@@ -377,7 +377,7 @@ module.exports = {
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](https://neutrino.js.org/contributing) for details.
+[contributing guide](https://neutrinojs.org/contributing/) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/node.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/node.svg

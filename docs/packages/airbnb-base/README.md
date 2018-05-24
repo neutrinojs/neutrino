@@ -153,7 +153,7 @@ module.exports = {
 
 ## Middleware options
 
-This preset uses the same middleware options as [@neutrinojs/eslint](../../packages/eslint).
+This preset uses the same middleware options as [@neutrinojs/eslint](../eslint/README.md).
 If you wish to customize what is included, excluded, or any ESLint options, you can provide an options object with the
 middleware and this will be merged with our internal defaults for this preset. Use an array pair instead of a string
 to supply these options.
@@ -315,7 +315,7 @@ in the [ESLint user guide](http://eslint.org/docs/user-guide/configuring#ignorin
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](https://neutrino.js.org/contributing) for details.
+[contributing guide](https://neutrinojs.org/contributing/) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/airbnb-base.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/airbnb-base.svg

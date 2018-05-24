@@ -174,7 +174,7 @@ The following is a list of rules and their identifiers which can be overridden:
 
 ### Override configuration
 
-By following the [customization guide](../../customization) and knowing the rule, and loader IDs above,
+By following the [customization guide](../../customization/README.md) and knowing the rule, and loader IDs above,
 you can override and augment testing by providing a function to your `.neutrinorc.js` use array. You can also
 make this change from the Neutrino API when using the `use` method.
 
@@ -211,7 +211,7 @@ module.exports = {
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](https://neutrino.js.org/contributing) for details.
+[contributing guide](https://neutrinojs.org/contributing/) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/mocha.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/mocha.svg

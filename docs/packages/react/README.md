@@ -178,10 +178,10 @@ to `build/static`. To change this behavior, specify your own patterns with
 The `@neutrinojs/web` preset loads assets relative to the path of your application by setting webpack's
 [`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath) to `./`. If you wish to load
 assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
-override `output.publicPath`. See the [Customizing](#Customizing) section below.
+override `output.publicPath`. See the [Customizing](#customizing) section below.
 
 For details on merging and overriding Babel configuration, such as supporting decorator syntax, read more
-about using the [`compile-loader` `merge`](../compile-loader#advanced-merging) once you
+about using the [`compile-loader` `merge`](../compile-loader/README.md#advanced-merging) once you
 are comfortable customizing your build.
 
 ## Preset options
@@ -239,7 +239,7 @@ Web preset. See the [Web documentation customization](../web/README.md#customizi
 for preset-specific configuration to override.
 
 For details on merging and overriding Babel configuration, such as supporting decorator syntax, read more
-about using the [`compile-loader` `merge`](../compile-loader#advanced-merging) once you
+about using the [`compile-loader` `merge`](../compile-loader/README.md#advanced-merging) once you
 are comfortable customizing your build.
 
 ### Advanced configuration
@@ -337,7 +337,7 @@ load();
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](https://neutrino.js.org/contributing) for details.
+[contributing guide](https://neutrinojs.org/contributing/) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/react.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/react.svg

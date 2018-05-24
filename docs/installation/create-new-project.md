@@ -2,8 +2,8 @@
 
 Neutrino can help you quickly start new projects by scaffolding your initial project structure.
 `@neutrinojs/create-project` uses middleware and presets behind the scene to build projects. If you are not
-familiar with them, take a moment to explore [middleware](../../middleware)
-and [presets](../../presets).
+familiar with them, take a moment to explore [middleware](../middleware/README.md)
+and [presets](../presets/README.md).
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
@@ -35,13 +35,13 @@ of that project to scaffold. Each project type harnesses the power of middleware
 
 | Project | Project Type | Middleware |
 | --- | --- | --- |
-| React | Application | [`@neutrinojs/react`](../packages/react) |
-| Preact | Application | [`@neutrinojs/preact`](../packages/preact) |
-| Vue | Application | [`@neutrinojs/vue`](../packages/vue) |
-| Web | Application | [`@neutrinojs/web`](../packages/web) |
-| Node.js | Application | [`@neutrinojs/node`](../packages/node) |
-| Web | Library | [`@neutrinojs/library`](../packages/library) |
-| React Components | Components | [`@neutrinojs/react-components`](../packages/react-components) |
+| React | Application | [`@neutrinojs/react`](../packages/react/README.md) |
+| Preact | Application | [`@neutrinojs/preact`](../packages/preact/README.md) |
+| Vue | Application | [`@neutrinojs/vue`](../packages/vue/README.md) |
+| Web | Application | [`@neutrinojs/web`](../packages/web/README.md) |
+| Node.js | Application | [`@neutrinojs/node`](../packages/node/README.md) |
+| Web | Library | [`@neutrinojs/library`](../packages/library/README.md) |
+| React Components | Components | [`@neutrinojs/react-components`](../packages/react-components/README.md) |
 
 ## Test Runners
 
@@ -50,9 +50,9 @@ the scaffolding phase.
 
 | Test Runner | Middleware |
 | --- | --- |
-| Jest | [`@neutrinojs/jest`](../packages/jest) |
-| Karma | [`@neutrinojs/karma`](../packages/karma) |
-| Mocha | [`@neutrinojs/mocha`](../packages/mocha) |
+| Jest | [`@neutrinojs/jest`](../packages/jest/README.md) |
+| Karma | [`@neutrinojs/karma`](../packages/karma/README.md) |
+| Mocha | [`@neutrinojs/mocha`](../packages/mocha/README.md) |
 
 Be sure to check out the test runner preset to get more information on its features and how files should be named.
 
@@ -63,12 +63,12 @@ process. `@neutrinojs/create-project` currently offers two linting middleware ch
 
 | Linting style | Middleware |
 | --- | --- |
-| Airbnb | With React/Preact: [`@neutrinojs/airbnb`](../packages/airbnb) <br /> Other projects: [`@neutrinojs/airbnb-base`](../packages/airbnb-base) |
-| StandardJS | [`@neutrinojs/standardjs`](../packages/standardjs) |
+| Airbnb | With React/Preact: [`@neutrinojs/airbnb`](../packages/airbnb/README.md) <br /> Other projects: [`@neutrinojs/airbnb-base`](../packages/airbnb-base/README.md) |
+| StandardJS | [`@neutrinojs/standardjs`](../packages/standardjs/README.md) |
 
 ## Project Layout
 
-`@neutrinojs/create-project` follows the standard [project layout](../../project-layout) specified by Neutrino. This
+`@neutrinojs/create-project` follows the standard [project layout](../project-layout.md) specified by Neutrino. This
 means that by default all project source code should live in a directory named `src` in the root of the
 project. This includes JavaScript files, CSS stylesheets, images, and any other assets that would be available
 to import your compiled project. Neutrino will scaffold the project with the initial package.json, Neutrino set up,
@@ -90,7 +90,7 @@ on [customization](../customization/README.md).
 
 This project is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](../../contributing) for details.
+[contributing guide](https://neutrinojs.org/contributing/) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/create-project.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/create-project.svg

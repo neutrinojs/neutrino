@@ -77,9 +77,9 @@ make changes.
 
 ### Options
 
-- `babel`: Set options for [@neutrinojs/babel-minify](https://neutrino.js.org/packages/babel-minify/README.md).
-- `image`: Set options for [@neutrinojs/image-minify](https://neutrino.js.org/packages/image-minify/README.md).
-- `style`: Set options for [@neutrinojs/style-minify](https://neutrino.js.org/packages/style-minify/README.md).
+- `babel`: Set options for [@neutrinojs/babel-minify](https://neutrinojs.org/packages/babel-minify/).
+- `image`: Set options for [@neutrinojs/image-minify](https://neutrinojs.org/packages/image-minify/).
+- `style`: Set options for [@neutrinojs/style-minify](https://neutrinojs.org/packages/style-minify/).
 
 ### Plugins
 
@@ -95,7 +95,7 @@ The following is a list of plugins and their identifiers which can be overridden
 
 This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](https://neutrino.js.org/contributing) for details.
+[contributing guide](https://neutrinojs.org/contributing/) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/minify.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/minify.svg
