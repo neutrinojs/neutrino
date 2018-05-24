@@ -102,7 +102,7 @@ _Note: The `create` command is a shorthand that helps you do two things at once.
 ```
 
 The CLI helper will prompt for the project to scaffold, and will offer to set
-up a test runner as well as linting to your project. Refer to the [Create new project](../create-project) section
+up a test runner as well as linting to your project. Refer to the [Create new project](../create-project/README.md) section
 for details on all available options.
 
 ### Manual Installation
@@ -193,7 +193,7 @@ to `build/static`. To change this behavior, specify your own patterns with
 The `@neutrinojs/preact` preset loads assets relative to the path of your application by setting webpack's
 [`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath) to `./`. If you wish to load
 assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
-override `output.publicPath`. See the [Customizing](#Customizing) section below.
+override `output.publicPath`. See the [Customizing](#customizing) section below.
 
 ## Preset options
 

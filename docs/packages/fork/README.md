@@ -40,7 +40,7 @@ can be run simultaneously. Some typical use cases:
 - Generate multiple targets when building libraries
 
 _This middleware must be used in conjunction with a `.neutrinorc.js` file to inform Neutrino of which
-middleware should be split into another process. See the [customization docs](../../customization/)
+middleware should be split into another process. See the [customization docs](../../customization/README.md)
 for details on setting up a `.neutrinorc.js` file in your project if you do not already have one._
 
 _Important: The configuration options provided to the fork middleware needs to be serializable across
@@ -124,7 +124,7 @@ each running in their own process. Quitting Neutrino will cause all forked proce
 
 ## Paths
 
-Most middleware attempt to follow the standard [Neutrino project layout](../../project-layout)
+Most middleware attempt to follow the standard [Neutrino project layout](../../project-layout.md)
 to output their compiled output, but building multiple projects at once is bound to cause clashes with
 the directories each project uses. This could lead to:
 
@@ -234,7 +234,7 @@ module.exports = {
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](../../contributing) for details.
+[contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/fork.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/fork.svg

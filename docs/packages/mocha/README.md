@@ -174,7 +174,7 @@ The following is a list of rules and their identifiers which can be overridden:
 
 ### Override configuration
 
-By following the [customization guide](../../customization) and knowing the rule, and loader IDs above,
+By following the [customization guide](../../customization/README.md) and knowing the rule, and loader IDs above,
 you can override and augment testing by providing a function to your `.neutrinorc.js` use array. You can also
 make this change from the Neutrino API when using the `use` method.
 

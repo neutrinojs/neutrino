@@ -171,7 +171,7 @@ to `build/static`. To change this behavior, specify your own patterns with
 The `@neutrinojs/web` preset loads assets relative to the path of your application by setting webpack's
 [`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath) to `./`. If you wish to load
 assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
-override `output.publicPath`. See the [Customizing](#Customizing) section below.
+override `output.publicPath`. See the [Customizing](#customizing) section below.
 
 ## Preset options
 
@@ -455,7 +455,7 @@ _Note: Some plugins are only available in certain environments. To override them
 
 ### Override configuration
 
-By following the [customization guide](../../customization) and knowing the rule, loader, and plugin IDs above,
+By following the [customization guide](../../customization/README.md) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also
 make these changes from the Neutrino API in custom middleware.
 

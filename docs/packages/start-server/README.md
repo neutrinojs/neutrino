@@ -91,7 +91,7 @@ The following is a list of plugins and their identifiers which can be overridden
 ### Debugging
 
 You can start the Node.js server in `inspect` mode to debug the process by setting `neutrino.options.debug` to `true`.
-This can be done from the [API](../../api#optionsdebug) or the [CLI using `--debug`](../../cli#-debug).
+This can be done from the [API](../../api/README.md#optionsdebug) or the [CLI using `--debug`](../../cli/README.md#-debug).
 
 ## Contributing
 

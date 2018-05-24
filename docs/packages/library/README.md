@@ -55,7 +55,7 @@ If you want to have automatically wired sourcemaps added to your project, add `s
 
 ## Project Layout
 
-`@neutrinojs/library` follows the standard [project layout](../../project-layout) specified by Neutrino. This
+`@neutrinojs/library` follows the standard [project layout](../../project-layout.md) specified by Neutrino. This
 means that by default all library source code should live in a directory named `src` in the root of the
 project. This includes JavaScript files that would be available to your compiled project.
 
@@ -454,7 +454,7 @@ _Note: Some plugins are only available in certain environments. To override them
 
 ### Override configuration
 
-By following the [customization guide](../../customization) and knowing the rule, loader, and plugin IDs above,
+By following the [customization guide](../../customization/README.md) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also
 make these changes from the Neutrino API in custom middleware.
 
@@ -475,7 +475,7 @@ module.exports = {
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](../../contributing) for details.
+[contributing guide](../../contributing/README.md) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/library.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/library.svg

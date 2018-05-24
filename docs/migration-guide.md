@@ -223,7 +223,7 @@ Neutrino()
   .fork(errorHandler, successHandler);
 ```
 
-See the [Neutrino API](./api) for details on the updated API.
+See the [Neutrino API](./api/README.md) for details on the updated API.
 
 - **BREAKING CHANGE** Since the Neutrino API has changed, creating a `.eslintrc.js` file has also changed. If you have
 your middleware defined in `.neutrinorc.js`, your `.eslintrc.js` file can be as simple as:
