@@ -316,4 +316,4 @@ containing all resources for developing Neutrino and its core presets and middle
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/airbnb.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/airbnb.svg
-[npm-url]: https://npmjs.org/package/@neutrinojs/airbnb
+[npm-url]: https://www.npmjs.com/package/@neutrinojs/airbnb

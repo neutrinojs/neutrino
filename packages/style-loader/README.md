@@ -255,4 +255,4 @@ containing all resources for developing Neutrino and its core presets and middle
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/style-loader.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/style-loader.svg
-[npm-url]: https://npmjs.org/package/@neutrinojs/style-loader
+[npm-url]: https://www.npmjs.com/package/@neutrinojs/style-loader

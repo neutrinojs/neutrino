@@ -321,4 +321,4 @@ containing all resources for developing Neutrino and its core presets and middle
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/vue.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/vue.svg
-[npm-url]: https://npmjs.org/package/@neutrinojs/vue
+[npm-url]: https://www.npmjs.com/package/@neutrinojs/vue

@@ -262,4 +262,4 @@ module.exports = {
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/react-components.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/react-components.svg
-[npm-url]: https://npmjs.org/package/@neutrinojs/react-components
+[npm-url]: https://www.npmjs.com/package/@neutrinojs/react-components

@@ -214,4 +214,4 @@ containing all resources for developing Neutrino and its core presets and middle
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/mocha.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/mocha.svg
-[npm-url]: https://npmjs.org/package/@neutrinojs/mocha
+[npm-url]: https://www.npmjs.com/package/@neutrinojs/mocha

@@ -137,4 +137,4 @@ containing all resources for developing Neutrino and its core presets and middle
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/dev-server.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/dev-server.svg
-[npm-url]: https://npmjs.org/package/@neutrinojs/dev-server
+[npm-url]: https://www.npmjs.com/package/@neutrinojs/dev-server

@@ -342,4 +342,4 @@ containing all resources for developing Neutrino and its core presets and middle
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/react.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/react.svg
-[npm-url]: https://npmjs.org/package/@neutrinojs/react
+[npm-url]: https://www.npmjs.com/package/@neutrinojs/react

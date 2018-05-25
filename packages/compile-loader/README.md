@@ -166,4 +166,4 @@ containing all resources for developing Neutrino and its core presets and middle
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/compile-loader.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/compile-loader.svg
-[npm-url]: https://npmjs.org/package/@neutrinojs/compile-loader
+[npm-url]: https://www.npmjs.com/package/@neutrinojs/compile-loader
