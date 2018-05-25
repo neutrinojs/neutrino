@@ -69,7 +69,7 @@ neutrino.use(eslint, {
 - `test`: Test which files should be linted.
 - `include`: An array of paths to include in linting. Maps to webpack's [`Rule.include`](https://webpack.js.org/configuration/module/#rule-include)
 - `exclude`: An array of paths to exclude from linting. Maps to webpack's [`Rule.exclude`](https://webpack.js.org/configuration/module/#rule-exclude)
-- `eslint`: An ESLint CLIEngine configuration object for configuring ESLint. Use this to configure rules, plugins, and other [ESLint options](http://eslint.org/docs/user-guide/configuring).
+- `eslint`: An ESLint CLIEngine configuration object for configuring ESLint. Use this to configure rules, plugins, and other [ESLint options](https://eslint.org/docs/user-guide/configuring).
 
 ## Customization
 
@@ -173,8 +173,8 @@ changes in `.eslintrc.js` over `.neutrinorc.js`.**
 Projects may face a problem when their editor or IDE lints all files and highlights errors that were normally excluded
 from source, i.e. Neutrino's `include` and `exclude` options. This is because the ESLint CLI does not have a way to
 specify included and excluded files from configuration. If you still wish to use ESLint's CLI for linting, consider
-setting [CLI flags](http://eslint.org/docs/user-guide/command-line-interface#options) or using an
-[eslintignore](http://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories) to choose which files to
+setting [CLI flags](https://eslint.org/docs/user-guide/command-line-interface#options) or using an
+[eslintignore](https://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories) to choose which files to
 include or exclude from linting.
 
 Unfortunately ESLint does not provide the possibility to configure ignored paths from Neutrino configuration and exclude them
@@ -191,7 +191,7 @@ configuration and boilerplate.
 
 ESLint will exclude built files and any files in the root directory (e.g. custom Neutrino configuration) but `src` and
 `test` folders will be still checked. `node_modules` are ignored by default in ESLint. More information can be found
-in the [ESLint user guide](http://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories).
+in the [ESLint user guide](https://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories).
 
 ## Contributing
 

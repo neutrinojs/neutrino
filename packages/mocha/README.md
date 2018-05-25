@@ -118,7 +118,7 @@ To run tests against files from your source code, simply import them:
 import thingToTest from '../src/thing';
 ```
 
-For more details on specific Mocha usage, please refer to their [documentation](http://mochajs.org/).
+For more details on specific Mocha usage, please refer to their [documentation](https://mochajs.org/).
 
 ## Executing single tests
 

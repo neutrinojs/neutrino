@@ -12,7 +12,7 @@ community, file an issue or submit a pull request.
 
 #### v5
 
-* [Code Splitting for React Router with webpack and HMR](https://medium.com/@hassanhelfi/code-splitting-for-react-router-with-webpack-and-hmr-bb509968e86f) by [@hassanhelfi](https://twitter.com/hassanhelfi)
+* [Code Splitting for React Router with webpack and HMR](https://hackernoon.com/code-splitting-for-react-router-with-webpack-and-hmr-bb509968e86f) by [@hassanhelfi](https://twitter.com/hassanhelfi)
 
 #### v4
 
@@ -25,4 +25,4 @@ community, file an issue or submit a pull request.
 #### v5
 
 * [Bootstrap a Zero Configuration React App with Neutrino](https://egghead.io/lessons/react-bootstrap-a-zero-configuration-react-app-with-neutrino) by [@markshust](https://twitter.com/markshust)
-* [Empower and Simplify JavaScript Development](https://www.youtube.com/watch?v=fz5jMdmKmRI) by [@eliperelman](https://twitter.com/eliperelman) at [@nebraskajs](http://nebraskajs.com)
+* [Empower and Simplify JavaScript Development](https://www.youtube.com/watch?v=fz5jMdmKmRI) by [@eliperelman](https://twitter.com/eliperelman) at [@nebraskajs](https://nebraskajs.com)

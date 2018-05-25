@@ -55,7 +55,7 @@ higher-level abstraction such as Airbnb's Enzyme. These should be development de
 ❯ npm install --save-dev react-addons-test-utils enzyme
 ```
 
-See the [React's Test Utils documentation](https://facebook.github.io/react/docs/test-utils.html) for specifics on React
+See the [React's Test Utils documentation](https://reactjs.org/docs/test-utils.html) for specifics on React
 testing with this approach.
 
 ## Project Layout
@@ -181,7 +181,7 @@ helpful during continuous integration of your project:
 ## Additional options
 
 You can pass any additional option Jest accepts. See the
-[Jest documentation](https://facebook.github.io/jest/docs/configuration.html#collectcoveragefrom-array) for more
+[Jest documentation](https://facebook.github.io/jest/docs/en/configuration.html#options) for more
 configuration options.
 
 For example, if you want to run tests on the precommit hook with [lint-staged](https://github.com/okonet/lint-staged),
