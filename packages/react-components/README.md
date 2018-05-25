@@ -8,13 +8,13 @@ other Neutrino middleware, so you can build, test, and publish multiple React co
 
 ## Features
 
-- Extends partially from [@neutrinojs/react](https://neutrinojs.org/packages/@neutrinojs/react)
+- Extends partially from [@neutrinojs/react](https://neutrinojs.org/packages/react/)
 - Zero upfront configuration necessary to start developing and building React components.
 - Modern Babel compilation adding JSX, object rest spread syntax, and class properties.
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
 - Support for importing web workers with `.worker.*` file extensions
-- Extends partially from [@neutrinojs/web](https://neutrinojs.org/packages/@neutrinojs/web)
+- Extends partially from [@neutrinojs/web](https://neutrinojs.org/packages/web/)
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
   - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
   - webpack Dev Server during development
