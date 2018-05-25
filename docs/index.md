@@ -21,11 +21,6 @@ your own presets by extending the Neutrino core ones to be shared across your ow
 Presets can even be manipulated on a project-by-project basis to handle almost any build situation your preset doesn't
 cover.
 
-## Documentation
-
-See the [Neutrino docs](https://neutrinojs.org/)
-for details on installation, getting started, usage, and customizing.
-
 [npm-image]: https://img.shields.io/npm/v/neutrino.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino.svg
 [npm-url]: https://npmjs.org/package/neutrino
