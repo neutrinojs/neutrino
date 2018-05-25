@@ -11,7 +11,7 @@
 - Modern Babel compilation adding JSX, object rest spread syntax, and class properties.
 - Write JSX in .js or .jsx files
 - Compatibility and pre-configured aliasing for React-based modules and packages
-- Extends from [@neutrinojs/web](https://neutrinojs.org/packages/web)
+- Extends from [@neutrinojs/web](https://neutrinojs.org/packages/web/)
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
   - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
   - webpack Dev Server during development
@@ -66,7 +66,7 @@ compatibility layer:
 
 ## Project Layout
 
-`@neutrinojs/preact` follows the standard [project layout](https://neutrinojs.org/project-layout) specified by Neutrino. This
+`@neutrinojs/preact` follows the standard [project layout](https://neutrinojs.org/project-layout/) specified by Neutrino. This
 means that by default all project source code should live in a directory named `src` in the root of the
 project. This includes JavaScript files, CSS stylesheets, images, and any other assets that would be available
 to import your compiled project.
@@ -182,7 +182,7 @@ You can either serve or deploy the contents of this `build` directory as a stati
 ## Static assets
 
 If you wish to copy files to the build directory that are not imported from application code,
-use the [@neutrinojs/copy](https://neutrinojs.org/packages/copy) preset alongside this one.
+use the [@neutrinojs/copy](https://neutrinojs.org/packages/copy/) preset alongside this one.
 
 ## Paths
 
@@ -198,7 +198,7 @@ preset builds. You can modify Preact preset settings from `.neutrinorc.js` by ov
 an array pair instead of a string to supply these options in `.neutrinorc.js`.
 
 The following shows how you can pass an options object to the Preact preset and override its options. See the
-[Web documentation](https://neutrinojs.org/packages/web#preset-options) for specific options you can override with this object.
+[Web documentation](https://neutrinojs.org/packages/web/#preset-options) for specific options you can override with this object.
 
 ```js
 module.exports = {
@@ -239,14 +239,14 @@ module.exports = {
 
 ## Customizing
 
-To override the build configuration, start with the documentation on [customization](https://neutrinojs.org/customization).
+To override the build configuration, start with the documentation on [customization](https://neutrinojs.org/customization/).
 `@neutrinojs/preact` does not use any additional named rules, loaders, or plugins that aren't already in use by the
-Web preset. See the [Web documentation customization](https://neutrinojs.org/packages/web#customizing)
+Web preset. See the [Web documentation customization](https://neutrinojs.org/packages/web/#customizing)
 for preset-specific configuration to override.
 
 ### Advanced configuration
 
-By following the [customization guide](https://neutrinojs.org/customization) and knowing the rule, loader, and plugin IDs from
+By following the [customization guide](https://neutrinojs.org/customization/) and knowing the rule, loader, and plugin IDs from
 `@neutrinojs/web`, you can override and augment the build by providing a function to your `.neutrinorc.js` use
 array. You can also make these changes from the Neutrino API in custom middleware.
 
@@ -319,7 +319,7 @@ if (process.env.NODE_ENV === 'development') {
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](https://neutrinojs.org/contributing) for details.
+[contributing guide](https://neutrinojs.org/contributing/) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/preact.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/preact.svg

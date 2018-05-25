@@ -71,7 +71,7 @@ If you want to have automatically wired sourcemaps added to your project, add `s
 
 ## Project Layout
 
-`@neutrinojs/react-components` follows the standard [project layout](https://neutrinojs.org/project-layout)
+`@neutrinojs/react-components` follows the standard [project layout](https://neutrinojs.org/project-layout/)
 specified by Neutrino. This means that by default all project source code should live in a directory named `src` in the
 root of the project. This includes JavaScript files that would be available to your compiled project.
 
@@ -209,7 +209,7 @@ const YourCustomComponent = require('your-custom-component').default;
 ```
 
 By default this preset creates an individual entry point for every top-level component found in `src/components`. These
-are set and accessible via the API at [`neutrino.options.mains`](https://neutrinojs.org/api#optionsmains).
+are set and accessible via the API at [`neutrino.options.mains`](https://neutrinojs.org/api/#optionsmains).
 
 ## Hot Module Replacement
 
@@ -220,13 +220,13 @@ modules (Components) to reload using `module.hot`. See the
 
 ## Customizing
 
-To override the build configuration, start with the documentation on [customization](https://neutrinojs.org/customization).
+To override the build configuration, start with the documentation on [customization](https://neutrinojs.org/customization/).
 `@neutrinojs/react-components` uses a few rules and plugins in addition to the ones in use by the React and Web presets.
-See the [Web documentation customization](https://neutrinojs.org/packages/web#customizing)
+See the [Web documentation customization](https://neutrinojs.org/packages/web/#customizing)
 for preset-specific configuration to override.
 
 By default this preset creates an individual entry point for every top-level component found in `src/components`. These
-are set and accessible via the API at [`neutrino.options.mains`](https://neutrinojs.org/api#optionsmains).
+are set and accessible via the API at [`neutrino.options.mains`](https://neutrinojs.org/api/#optionsmains).
 
 ### Rules
 
@@ -244,7 +244,7 @@ _Note: Some plugins are only available in certain environments. To override them
 | ---- | ----------- | ------------ |
 | `banner` | Injects source-map-support into the mains (entry points) of your application if detected in `dependencies` or `devDependencies` of your package.json. | all but `development` |
 
-By following the [customization guide](https://neutrinojs.org/customization) and knowing the rule, loader, and plugin IDs above,
+By following the [customization guide](https://neutrinojs.org/customization/) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also
 make these changes from the Neutrino API in custom middleware.
 
