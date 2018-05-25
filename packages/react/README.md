@@ -174,7 +174,7 @@ use the [@neutrinojs/copy](https://neutrinojs.org/packages/copy) preset alongsid
 The `@neutrinojs/web` preset loads assets relative to the path of your application by setting webpack's
 [`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath) to `./`. If you wish to load
 assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
-override `output.publicPath`. See the [Customizing](#Customizing) section below.
+override `output.publicPath`. See the [Customizing](#customizing) section below.
 
 For details on merging and overriding Babel configuration, such as supporting decorator syntax, read more
 about using the [`compile-loader` `merge`](https://neutrinojs.org/packages/compile-loader/#advanced-merging) once you
