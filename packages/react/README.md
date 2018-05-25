@@ -73,7 +73,7 @@ for this project.
 ❯ yarn create @neutrinojs/project <directory-name>
 ```
 
-_Note: The `create` command is a shorthand that helps you do two things at once. See the [Yarn create docs](https://yarnpkg.com/lang/en/docs/cli/create) for more details._
+_Note: The `create` command is a shorthand that helps you do two things at once. See the [Yarn create docs](https://yarnpkg.com/lang/en/docs/cli/create/) for more details._
 
 #### npm/npx
 
