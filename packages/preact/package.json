@@ -13,7 +13,7 @@
   "author": "Fahad Hossain <8bit.demoncoder@gmail.com>",
   "license": "MPL-2.0",
   "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/preact",
-  "homepage": "https://neutrino.js.org",
+  "homepage": "https://neutrinojs.org",
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "publishConfig": {
     "access": "public"
