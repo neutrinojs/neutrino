@@ -5,7 +5,7 @@ const stringify = require('javascript-stringify');
 const merge = require('deepmerge');
 const Generator = require('yeoman-generator');
 const questions = require('./questions');
-const { projects, packages, isYarn, sortPackages } = require('./utils');
+const { projects, packages, isYarn } = require('./utils');
 
 /* eslint-disable no-underscore-dangle */
 module.exports = class Project extends Generator {
@@ -157,8 +157,8 @@ module.exports = class Project extends Generator {
     const install = isYarn ? 'add' : 'install';
     const devFlag = isYarn ? '--dev' : '--save-dev';
     const { dependencies, devDependencies } = this._getDependencies();
-    const sortedDependencies = dependencies && dependencies.sort(sortPackages);
-    const sortedDevDependencies = devDependencies && devDependencies.sort(sortPackages);
+    const sortedDependencies = dependencies && dependencies.sort();
+    const sortedDevDependencies = devDependencies && devDependencies.sort();
 
     this.log('');
 
