@@ -44,7 +44,7 @@
 
 ## Project Layout
 
-`@neutrinojs/web` follows the standard [project layout](https://neutrino.js.org/project-layout) specified by Neutrino. This
+`@neutrinojs/web` follows the standard [project layout](https://neutrinojs.org/project-layout/) specified by Neutrino. This
 means that by default all project source code should live in a directory named `src` in the root of the
 project. This includes JavaScript files, CSS stylesheets, images, and any other assets that would be available
 to your compiled project.
@@ -66,7 +66,7 @@ for this project.
 ❯ yarn create @neutrinojs/project <directory-name>
 ```
 
-_Note: The `create` command is a shorthand that helps you do two things at once. See the [Yarn create docs](https://yarnpkg.com/lang/en/docs/cli/create) for more details._
+_Note: The `create` command is a shorthand that helps you do two things at once. See the [Yarn create docs](https://yarnpkg.com/lang/en/docs/cli/create/) for more details._
 
 #### npm/npx
 
@@ -78,7 +78,7 @@ _Note: The `create` command is a shorthand that helps you do two things at once.
 ```
 
 The CLI helper will prompt for the project to scaffold, and will offer to set
-up a test runner as well as linting to your project. Refer to the [Create new project](https://neutrino.js.org/installation/create-new-project/) section
+up a test runner as well as linting to your project. Refer to the [Create new project](https://neutrinojs.org/installation/create-new-project/) section
 for details on all available options.
 
 ### Manual Installation
@@ -161,14 +161,14 @@ You can either serve or deploy the contents of this `build` directory as a stati
 ## Static assets
 
 If you wish to copy files to the build directory that are not imported from application code,
-use the [@neutrinojs/copy](https://neutrino.js.org/packages/copy) preset alongside this one.
+use the [@neutrinojs/copy](https://neutrinojs.org/packages/copy/) preset alongside this one.
 
 ## Paths
 
 The `@neutrinojs/web` preset loads assets relative to the path of your application by setting webpack's
 [`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath) to `./`. If you wish to load
 assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
-override `output.publicPath`. See the [Customizing](#Customizing) section below.
+override `output.publicPath`. See the [Customizing](#customizing) section below.
 
 ## Preset options
 
@@ -378,7 +378,7 @@ modification during development.
 
 ## Customizing
 
-To override the build configuration, start with the documentation on [customization](https://neutrino.js.org/customization).
+To override the build configuration, start with the documentation on [customization](https://neutrinojs.org/customization/).
 `@neutrinojs/web` creates some conventions to make overriding the configuration easier once you are ready to make
 changes.
 
@@ -434,7 +434,7 @@ _Note: Some plugins are only available in certain environments. To override them
 
 ### Override configuration
 
-By following the [customization guide](https://neutrino.js.org/customization) and knowing the rule, loader, and plugin IDs above,
+By following the [customization guide](https://neutrinojs.org/customization/) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also
 make these changes from the Neutrino API in custom middleware.
 
@@ -506,8 +506,8 @@ module.exports = {
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](https://neutrino.js.org/contributing) for details.
+[contributing guide](https://neutrinojs.org/contributing/) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/web.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/web.svg
-[npm-url]: https://npmjs.org/package/@neutrinojs/web
+[npm-url]: https://www.npmjs.com/package/@neutrinojs/web

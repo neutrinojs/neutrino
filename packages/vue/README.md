@@ -7,7 +7,7 @@
 
 - Zero upfront configuration necessary to start developing and building a Vue web app
 - Modern Babel compilation.
-- Extends from [@neutrinojs/web](https://neutrino.js.org/packages/web)
+- Extends from [@neutrinojs/web](https://neutrinojs.org/packages/web/)
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
   - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
   - webpack Dev Server during development
@@ -47,7 +47,7 @@ Vue development.
 
 ## Project Layout
 
-`@neutrinojs/vue` follows the standard [project layout](https://neutrino.js.org/project-layout) specified by Neutrino. This
+`@neutrinojs/vue` follows the standard [project layout](https://neutrinojs.org/project-layout/) specified by Neutrino. This
 means that by default all project source code should live in a directory named `src` in the root of the
 project. This includes JavaScript files, CSS stylesheets, images, and any other assets that would be available
 to import your compiled project.
@@ -69,7 +69,7 @@ for this project.
 ❯ yarn create @neutrinojs/project <directory-name>
 ```
 
-_Note: The `create` command is a shorthand that helps you do two things at once. See the [Yarn create docs](https://yarnpkg.com/lang/en/docs/cli/create) for more details._
+_Note: The `create` command is a shorthand that helps you do two things at once. See the [Yarn create docs](https://yarnpkg.com/lang/en/docs/cli/create/) for more details._
 
 #### npm/npx
 
@@ -81,7 +81,7 @@ _Note: The `create` command is a shorthand that helps you do two things at once.
 ```
 
 The CLI helper will prompt for the project to scaffold, and will offer to set
-up a test runner as well as linting to your project. Refer to the [Create new project](https://neutrino.js.org/installation/create-new-project/) section
+up a test runner as well as linting to your project. Refer to the [Create new project](https://neutrinojs.org/installation/create-new-project/) section
 for details on all available options.
 
 ### Manual Installation
@@ -186,14 +186,14 @@ You can either serve or deploy the contents of this `build` directory as a stati
 ## Static assets
 
 If you wish to copy files to the build directory that are not imported from application code,
-use the [@neutrinojs/copy](https://neutrino.js.org/packages/copy) preset alongside this one.
+use the [@neutrinojs/copy](https://neutrinojs.org/packages/copy/) preset alongside this one.
 
 ## Paths
 
 The `@neutrinojs/web` preset loads assets relative to the path of your application by setting Webpack's
 [`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath) to `./`. If you wish to load
 assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
-override `output.publicPath`. See the [Customizing](#Customizing) section below.
+override `output.publicPath`. See the [Customizing](#customizing) section below.
 
 
 ## Preset options
@@ -203,7 +203,7 @@ preset builds. You can modify Vue preset settings from `.neutrinorc.js` by overr
 an array pair instead of a string to supply these options in `.neutrinorc.js`.
 
 The following shows how you can pass an options object to the Vue preset and override its options. See the
-[Web documentation](https://neutrino.js.org/packages/web#preset-options) for specific options you can override with this object.
+[Web documentation](https://neutrinojs.org/packages/web/#preset-options) for specific options you can override with this object.
 
 ```js
 module.exports = {
@@ -244,10 +244,10 @@ module.exports = {
 
 ## Customizing
 
-To override the build configuration, start with the documentation on [customization](https://neutrino.js.org/customization).
+To override the build configuration, start with the documentation on [customization](https://neutrinojs.org/customization/).
 `@neutrinojs/vue` creates some conventions to make overriding the configuration easier once you are ready to make
 changes. Most of the configuration for `@neutrinojs/vue` is inherited from the
-[`@neutrinojs/web` preset](https://neutrino.js.org/packages/web#customizing); continue to that documentation
+[`@neutrinojs/web` preset](https://neutrinojs.org/packages/web/#customizing); continue to that documentation
 for details on customization.
 
 By default Neutrino, and therefore this preset, creates a single **main** `index` entry point to your application, and
@@ -284,7 +284,7 @@ _This preset does not define any additional plugins from those already in use by
 
 ### Advanced configuration
 
-By following the [customization guide](https://neutrino.js.org/customization) and knowing the rule, loader, and plugin IDs from
+By following the [customization guide](https://neutrinojs.org/customization/) and knowing the rule, loader, and plugin IDs from
 `@neutrinojs/web` and above, you can override and augment the build by providing a function to your `.neutrinorc.js` use
 array. You can also make these changes from the Neutrino API in custom middleware.
 
@@ -317,8 +317,8 @@ module.exports = {
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](https://neutrino.js.org/contributing) for details.
+[contributing guide](https://neutrinojs.org/contributing/) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/vue.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/vue.svg
-[npm-url]: https://npmjs.org/package/@neutrinojs/vue
+[npm-url]: https://www.npmjs.com/package/@neutrinojs/vue

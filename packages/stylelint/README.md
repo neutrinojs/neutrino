@@ -76,7 +76,7 @@ If you cannot or do not wish to use Neutrino to execute one-off linting, you can
 
 `@neutrinojs/stylelint` also provides a method for getting the stylelint configuration suitable for use in a stylelintrc
 file. Typically this is used for providing hints or fix solutions to the development environment, e.g. IDEs and text
-editors. Doing this requires [creating an instance of the Neutrino API](https://neutrino.js.org/api) and providing the
+editors. Doing this requires [creating an instance of the Neutrino API](https://neutrinojs.org/api/) and providing the
 middleware it uses. If you keep all this information in a `.neutrinorc.js`, this should be relatively straightforward. By
 providing all the middleware used to Neutrino, you can ensure all the linting options used across all middleware will be
 merged together for your development environment, without the need for copying, duplication, or loss of organization and
@@ -124,8 +124,8 @@ changes in `.stylelint.js` over `.neutrinorc.js`.**
 
 This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](https://neutrino.js.org/contributing) for details.
+[contributing guide](https://neutrinojs.org/contributing/) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/stylelint.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/stylelint.svg
-[npm-url]: https://npmjs.org/package/@neutrinojs/stylelint
+[npm-url]: https://www.npmjs.com/package/@neutrinojs/stylelint

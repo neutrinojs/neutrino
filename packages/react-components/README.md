@@ -8,13 +8,13 @@ other Neutrino middleware, so you can build, test, and publish multiple React co
 
 ## Features
 
-- Extends partially from [@neutrinojs/react](https://neutrino.js.org/packages/@neutrinojs/react)
+- Extends partially from [@neutrinojs/react](https://neutrinojs.org/packages/react/)
 - Zero upfront configuration necessary to start developing and building React components.
 - Modern Babel compilation adding JSX, object rest spread syntax, and class properties.
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
 - Support for importing web workers with `.worker.*` file extensions
-- Extends partially from [@neutrinojs/web](https://neutrino.js.org/packages/@neutrinojs/web)
+- Extends partially from [@neutrinojs/web](https://neutrinojs.org/packages/web/)
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
   - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
   - webpack Dev Server during development
@@ -71,7 +71,7 @@ If you want to have automatically wired sourcemaps added to your project, add `s
 
 ## Project Layout
 
-`@neutrinojs/react-components` follows the standard [project layout](https://neutrino.js.org/project-layout)
+`@neutrinojs/react-components` follows the standard [project layout](https://neutrinojs.org/project-layout/)
 specified by Neutrino. This means that by default all project source code should live in a directory named `src` in the
 root of the project. This includes JavaScript files that would be available to your compiled project.
 
@@ -94,7 +94,7 @@ for this project.
 ❯ yarn create @neutrinojs/project <directory-name>
 ```
 
-_Note: The `create` command is a shorthand that helps you do two things at once. See the [Yarn create docs](https://yarnpkg.com/lang/en/docs/cli/create) for more details._
+_Note: The `create` command is a shorthand that helps you do two things at once. See the [Yarn create docs](https://yarnpkg.com/lang/en/docs/cli/create/) for more details._
 
 #### npm/npx
 
@@ -106,7 +106,7 @@ _Note: The `create` command is a shorthand that helps you do two things at once.
 ```
 
 The CLI helper will prompt for the project to scaffold, and will offer to set
-up a test runner as well as linting to your project. Refer to the [Create new project](https://neutrino.js.org/installation/create-new-project/) section
+up a test runner as well as linting to your project. Refer to the [Create new project](https://neutrinojs.org/installation/create-new-project/) section
 for details on all available options.
 
 ### Manual Installation
@@ -209,24 +209,24 @@ const YourCustomComponent = require('your-custom-component').default;
 ```
 
 By default this preset creates an individual entry point for every top-level component found in `src/components`. These
-are set and accessible via the API at [`neutrino.options.mains`](https://neutrino.js.org/api#optionsmains).
+are set and accessible via the API at [`neutrino.options.mains`](https://neutrinojs.org/api/#optionsmains).
 
 ## Hot Module Replacement
 
 While `@neutrinojs/react-components` supports Hot Module Replacement for your app, it does require some
 changes to the preview app in order to operate. The preview app should define split points for which to accept
 modules (Components) to reload using `module.hot`. See the
-[React preset docs](https://neutrino.js.org/packages/react/#hot-module-replacement) for guidance.
+[React preset docs](https://neutrinojs.org/packages/react/#hot-module-replacement) for guidance.
 
 ## Customizing
 
-To override the build configuration, start with the documentation on [customization](https://neutrino.js.org/customization).
+To override the build configuration, start with the documentation on [customization](https://neutrinojs.org/customization/).
 `@neutrinojs/react-components` uses a few rules and plugins in addition to the ones in use by the React and Web presets.
-See the [Web documentation customization](https://neutrino.js.org/packages/web#customizing)
+See the [Web documentation customization](https://neutrinojs.org/packages/web/#customizing)
 for preset-specific configuration to override.
 
 By default this preset creates an individual entry point for every top-level component found in `src/components`. These
-are set and accessible via the API at [`neutrino.options.mains`](https://neutrino.js.org/api#optionsmains).
+are set and accessible via the API at [`neutrino.options.mains`](https://neutrinojs.org/api/#optionsmains).
 
 ### Rules
 
@@ -244,7 +244,7 @@ _Note: Some plugins are only available in certain environments. To override them
 | ---- | ----------- | ------------ |
 | `banner` | Injects source-map-support into the mains (entry points) of your application if detected in `dependencies` or `devDependencies` of your package.json. | all but `development` |
 
-By following the [customization guide](https://neutrino.js.org/customization) and knowing the rule, loader, and plugin IDs above,
+By following the [customization guide](https://neutrinojs.org/customization/) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also
 make these changes from the Neutrino API in custom middleware.
 
@@ -262,4 +262,4 @@ module.exports = {
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/react-components.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/react-components.svg
-[npm-url]: https://npmjs.org/package/@neutrinojs/react-components
+[npm-url]: https://www.npmjs.com/package/@neutrinojs/react-components

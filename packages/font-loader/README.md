@@ -82,8 +82,8 @@ The following is a list of rules and their identifiers which can be overridden:
 
 This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](https://neutrino.js.org/contributing) for details.
+[contributing guide](https://neutrinojs.org/contributing/) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/font-loader.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/font-loader.svg
-[npm-url]: https://npmjs.org/package/@neutrinojs/font-loader
+[npm-url]: https://www.npmjs.com/package/@neutrinojs/font-loader

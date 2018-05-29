@@ -251,8 +251,8 @@ _Note: Some plugins may be only available in certain environments. To override t
 
 This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](https://neutrino.js.org/contributing) for details.
+[contributing guide](https://neutrinojs.org/contributing/) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/style-loader.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/style-loader.svg
-[npm-url]: https://npmjs.org/package/@neutrinojs/style-loader
+[npm-url]: https://www.npmjs.com/package/@neutrinojs/style-loader

@@ -1,4 +1,4 @@
-<h1><p align="center"><a href="https://neutrino.js.org"><img src="https://raw.githubusercontent.com/mozilla-neutrino/neutrino-dev/master/docs/assets/logo.png" height="150"></a></p></h1>
+<h1><p align="center"><a href="https://neutrinojs.org"><img src="https://raw.githubusercontent.com/mozilla-neutrino/neutrino-dev/master/docs/assets/logo.png" height="150"></a></p></h1>
 
 ### Create and build modern JavaScript applications with zero initial configuration
 #### Neutrino combines the power of webpack with the simplicity of presets.
@@ -23,7 +23,7 @@ cover.
 
 ## Documentation
 
-See the [Neutrino docs](https://neutrino.js.org/)
+See the [Neutrino docs](https://neutrinojs.org/)
 for details on installation, getting started, usage, and customizing.
 
 ### Contributing
@@ -32,11 +32,11 @@ Thank you for wanting to help out with Neutrino! We are very happy that you want
 this guide to help you get started. We want to do our best to help you make successful contributions and be part of our
 community.
 
-- [Contributing to Neutrino](https://neutrino.js.org/contributing/)
-- [Participation Guidelines](https://neutrino.js.org/contributing/code-of-conduct/)
+- [Contributing to Neutrino](https://neutrinojs.org/contributing/)
+- [Participation Guidelines](https://neutrinojs.org/contributing/code-of-conduct/)
 
 [npm-image]: https://img.shields.io/npm/v/neutrino.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino.svg
-[npm-url]: https://npmjs.org/package/neutrino
+[npm-url]: https://www.npmjs.com/package/neutrino
 [travis-image]: https://travis-ci.org/mozilla-neutrino/neutrino-dev.svg?branch=master
 [travis-url]: https://travis-ci.org/mozilla-neutrino/neutrino-dev

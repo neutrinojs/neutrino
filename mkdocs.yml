@@ -25,7 +25,7 @@ pages:
     - Create new project: './installation/create-new-project.md'
   - Usage: './usage.md'
   - Project Layout: './project-layout.md'
-  - FAQ: './FAQ.md'
+  - FAQ: './faq.md'
   - Learning Resources: './learning-resources.md'
   - CLI: './cli.md'
   - API: './api.md'

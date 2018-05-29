@@ -2,8 +2,8 @@
 
 Neutrino can help you quickly start new projects by scaffolding your initial project structure.
 `@neutrinojs/create-project` uses middleware and presets behind the scene to build projects. If you are not
-familiar with them, take a moment to explore [middleware](https://neutrino.js.org/middleware)
-and [presets](https://neutrino.js.org/presets).
+familiar with them, take a moment to explore [middleware](https://neutrinojs.org/middleware/)
+and [presets](https://neutrinojs.org/presets/).
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
@@ -18,7 +18,7 @@ Run the following command to start the process. Substitute `<directory-name>` wi
 ❯ yarn create @neutrinojs/project <directory-name>
 ```
 
-_Note: The `create` command is a shorthand that helps you do two things at once. See the [Yarn create docs](https://yarnpkg.com/lang/en/docs/cli/create) for more details._
+_Note: The `create` command is a shorthand that helps you do two things at once. See the [Yarn create docs](https://yarnpkg.com/lang/en/docs/cli/create/) for more details._
 
 ### npm/npx
 
@@ -34,13 +34,13 @@ of that project to scaffold. Each project type harnesses the power of middleware
 
 | Project | Project Type | Middleware |
 | --- | --- | --- |
-| React | Application | [`@neutrinojs/react`](https://neutrino.js.org/packages/react) |
-| Preact | Application | [`@neutrinojs/preact`](https://neutrino.js.org/packages/preact) |
-| Vue | Application | [`@neutrinojs/vue`](https://neutrino.js.org/packages/vue) |
-| Web | Application | [`@neutrinojs/web`](https://neutrino.js.org/packages/web) |
-| Node.js | Application | [`@neutrinojs/node`](https://neutrino.js.org/packages/node) |
-| Web | Library | [`@neutrinojs/library`](https://neutrino.js.org/packages/library) |
-| React Components | Components | [`@neutrinojs/react-components`](https://neutrino.js.org/packages/react-components) |
+| React | Application | [`@neutrinojs/react`](https://neutrinojs.org/packages/react/) |
+| Preact | Application | [`@neutrinojs/preact`](https://neutrinojs.org/packages/preact/) |
+| Vue | Application | [`@neutrinojs/vue`](https://neutrinojs.org/packages/vue/) |
+| Web | Application | [`@neutrinojs/web`](https://neutrinojs.org/packages/web/) |
+| Node.js | Application | [`@neutrinojs/node`](https://neutrinojs.org/packages/node/) |
+| Web | Library | [`@neutrinojs/library`](https://neutrinojs.org/packages/library/) |
+| React Components | Components | [`@neutrinojs/react-components`](https://neutrinojs.org/packages/react-components/) |
 
 ## Test Runners
 
@@ -49,9 +49,9 @@ the scaffolding phase.
 
 | Test Runner | Middleware |
 | --- | --- |
-| Jest | [`@neutrinojs/jest`](https://neutrino.js.org/packages/jest) |
-| Karma | [`@neutrinojs/karma`](https://neutrino.js.org/packages/karma) |
-| Mocha | [`@neutrinojs/mocha`](https://neutrino.js.org/packages/mocha) |
+| Jest | [`@neutrinojs/jest`](https://neutrinojs.org/packages/jest/) |
+| Karma | [`@neutrinojs/karma`](https://neutrinojs.org/packages/karma/) |
+| Mocha | [`@neutrinojs/mocha`](https://neutrinojs.org/packages/mocha/) |
 
 Be sure to check out the test runner preset to get more information on its features and how files should be named.
 
@@ -62,12 +62,12 @@ process. `@neutrinojs/create-project` currently offers two linting middleware ch
 
 | Linting style | Middleware |
 | --- | --- |
-| Airbnb | With React/Preact: [`@neutrinojs/airbnb`](https://neutrino.js.org/packages/airbnb) <br /> Other projects: [`@neutrinojs/airbnb-base`](https://neutrino.js.org/packages/airbnb-base) |
-| StandardJS | [`@neutrinojs/standardjs`](https://neutrino.js.org/packages/standardjs) |
+| Airbnb | With React/Preact: [`@neutrinojs/airbnb`](https://neutrinojs.org/packages/airbnb/) <br /> Other projects: [`@neutrinojs/airbnb-base`](https://neutrinojs.org/packages/airbnb-base/) |
+| StandardJS | [`@neutrinojs/standardjs`](https://neutrinojs.org/packages/standardjs/) |
 
 ## Project Layout
 
-`@neutrinojs/create-project` follows the standard [project layout](https://neutrino.js.org/project-layout) specified by Neutrino. This
+`@neutrinojs/create-project` follows the standard [project layout](https://neutrinojs.org/project-layout/) specified by Neutrino. This
 means that by default all project source code should live in a directory named `src` in the root of the
 project. This includes JavaScript files, CSS stylesheets, images, and any other assets that would be available
 to import your compiled project. Neutrino will scaffold the project with the initial package.json, Neutrino set up,
@@ -83,14 +83,14 @@ No two JavaScript projects are ever the same, and as such there may be times whe
 to the way your Neutrino presets are building your project. Neutrino provides a mechanism to augment presets and
 middleware in the context of a project without resorting to creating and publishing an entirely independent preset.
 To override the build configuration, start with the documentation
-on [customization](https://neutrino.js.org/customization/).
+on [customization](https://neutrinojs.org/customization/).
 
 ## Contributing
 
 This project is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](https://neutrino.js.org/contributing) for details.
+[contributing guide](https://neutrinojs.org/contributing/) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/create-project.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/create-project.svg
-[npm-url]: https://npmjs.org/package/@neutrinojs/create-project
+[npm-url]: https://www.npmjs.com/package/@neutrinojs/create-project

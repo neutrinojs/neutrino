@@ -90,15 +90,15 @@ The following is a list of plugins and their identifiers which can be overridden
 ### Debugging
 
 You can start the Node.js server in `inspect` mode to debug the process by setting `neutrino.options.debug` to `true`.
-This can be done from the [API](https://neutrino.js.org/api#optionsdebug) or the
-[CLI using `--debug`](https://neutrino.js.org/cli#-debug).
+This can be done from the [API](https://neutrinojs.org/api/#optionsdebug) or the
+[CLI using `--debug`](https://neutrinojs.org/cli/#-debug).
 
 ## Contributing
 
 This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](https://neutrino.js.org/contributing) for details.
+[contributing guide](https://neutrinojs.org/contributing/) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/start-server.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/start-server.svg
-[npm-url]: https://npmjs.org/package/@neutrinojs/start-server
+[npm-url]: https://www.npmjs.com/package/@neutrinojs/start-server

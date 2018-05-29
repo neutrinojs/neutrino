@@ -1,10 +1,10 @@
 [build]
-  # Using a non-root base directory combined with `cd ..` to prevent
+  # Using a non-root base directory/requirements file to prevent
   # Netlify from finding package.json and trying to install that:
   # https://github.com/netlify/build-image/issues/141
   base    = "docs"
   publish = "build"
-  command = "cd .. && mkdocs build"
+  command = "../scripts/build-docs.sh"
 
 # External links aren't supported in the sidebar, so we use
 # placeholder pages that are then HTTP 301 redirected below.

@@ -54,7 +54,7 @@ If you want to have automatically wired sourcemaps added to your project, add `s
 
 ## Project Layout
 
-`@neutrinojs/library` follows the standard [project layout](https://neutrino.js.org/project-layout) specified by Neutrino. This
+`@neutrinojs/library` follows the standard [project layout](https://neutrinojs.org/project-layout/) specified by Neutrino. This
 means that by default all library source code should live in a directory named `src` in the root of the
 project. This includes JavaScript files that would be available to your compiled project.
 
@@ -75,7 +75,7 @@ for this project.
 ❯ yarn create @neutrinojs/project <directory-name>
 ```
 
-_Note: The `create` command is a shorthand that helps you do two things at once. See the [Yarn create docs](https://yarnpkg.com/lang/en/docs/cli/create) for more details._
+_Note: The `create` command is a shorthand that helps you do two things at once. See the [Yarn create docs](https://yarnpkg.com/lang/en/docs/cli/create/) for more details._
 
 #### npm/npx
 
@@ -87,7 +87,7 @@ _Note: The `create` command is a shorthand that helps you do two things at once.
 ```
 
 The CLI helper will prompt for the project to scaffold, and will offer to set
-up a test runner as well as linting to your project. Refer to the [Create new project](https://neutrino.js.org/installation/create-new-project/) section
+up a test runner as well as linting to your project. Refer to the [Create new project](https://neutrinojs.org/installation/create-new-project/) section
 for details on all available options.
 
 ### Manual Installation
@@ -298,14 +298,14 @@ module.exports = {
 
 ## Customizing
 
-To override the build configuration, start with the documentation on [customization](https://neutrino.js.org/customization).
+To override the build configuration, start with the documentation on [customization](https://neutrinojs.org/customization/).
 `@neutrinojs/library` creates some conventions to make overriding the configuration easier once you are ready to make
 changes.
 
 By default Neutrino, and therefore this preset, creates a single **main** `index` entry point to your library, and this
 maps to the `index.*` file in the `src` directory. This means that this preset is optimized toward a single main entry
 to your library. Code not imported in the hierarchy of the `index` entry will not be output to the bundle. To overcome
-this you must either define more mains via [`options.mains`](https://neutrino.js.org/customization#optionsmains), import
+this you must either define more mains via [`options.mains`](https://neutrinojs.org/customization/#optionsmains), import
 the code path somewhere along the `index` hierarchy, or define multiple configurations in your `.neutrinorc.js`.
 
 ### External dependencies
@@ -399,7 +399,7 @@ require(['redux', 'redux-example'], ({ createStore }, reduxExample) => {
 ## Generating multiple builds
 
 The `@neutrinojs/library` middleware can be used in conjunction with the
-[`@neutrinojs/fork` middleware](https://neutrinojs.org/packages/fork) to generate multiple library outputs
+[`@neutrinojs/fork` middleware](https://neutrinojs.org/packages/fork/) to generate multiple library outputs
 when building. Follow the instructions to install the fork middleware, and change your `.neutrinorc.js`
 format as follows:
 
@@ -446,7 +446,7 @@ _Note: Some plugins are only available in certain environments. To override them
 
 ### Override configuration
 
-By following the [customization guide](https://neutrino.js.org/customization) and knowing the rule, loader, and plugin IDs above,
+By following the [customization guide](https://neutrinojs.org/customization/) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also
 make these changes from the Neutrino API in custom middleware.
 
@@ -467,8 +467,8 @@ module.exports = {
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
-[contributing guide](https://neutrino.js.org/contributing) for details.
+[contributing guide](https://neutrinojs.org/contributing/) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/library.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/library.svg
-[npm-url]: https://npmjs.org/package/@neutrinojs/library
+[npm-url]: https://www.npmjs.com/package/@neutrinojs/library

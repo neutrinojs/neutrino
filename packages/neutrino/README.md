@@ -1,4 +1,4 @@
-<h1><p align="center"><a href="https://neutrino.js.org"><img src="https://raw.githubusercontent.com/mozilla-neutrino/neutrino-dev/master/docs/assets/logo.png" height="150"></a></p></h1>
+<h1><p align="center"><a href="https://neutrinojs.org"><img src="https://raw.githubusercontent.com/mozilla-neutrino/neutrino-dev/master/docs/assets/logo.png" height="150"></a></p></h1>
 
 ### Create and build modern JavaScript applications with zero initial configuration
 #### Neutrino combines the power of webpack with the simplicity of presets.
@@ -20,9 +20,9 @@ cover.
 
 ## Documentation
 
-See the [Neutrino docs](https://neutrino.js.org/)
+See the [Neutrino docs](https://neutrinojs.org/)
 for details on installation, getting started, usage, and customizing.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino.svg
-[npm-url]: https://npmjs.org/package/neutrino
+[npm-url]: https://www.npmjs.com/package/neutrino
