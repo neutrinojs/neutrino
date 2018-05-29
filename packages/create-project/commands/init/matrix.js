@@ -1,6 +1,7 @@
 const LINTING = 'linting';
 const PROJECT = 'project';
 const TESTING = 'testing';
+
 const N = 'neutrino';
 const REACT = '@neutrinojs/react';
 const PREACT = '@neutrinojs/preact';
@@ -15,10 +16,11 @@ const MOCHA = '@neutrinojs/mocha';
 const AIRBNB = '@neutrinojs/airbnb';
 const AIRBNB_BASE = '@neutrinojs/airbnb-base';
 const STANDARDJS = '@neutrinojs/standardjs';
-const ESLINT = 'eslint';
-const WEBPACK = 'webpack';
-const WEBPACK_CLI = 'webpack-cli';
-const WEBPACK_DEV_SERVER = 'webpack-dev-server';
+
+const ESLINT = 'eslint@^4';
+const WEBPACK = 'webpack@^4';
+const WEBPACK_CLI = 'webpack-cli@^2';
+const WEBPACK_DEV_SERVER = 'webpack-dev-server@^3';
 
 const projects = {
   [AIRBNB]: {
@@ -45,12 +47,12 @@ const projects = {
   },
   [PREACT]: {
     type: PROJECT,
-    dependencies: ['preact', 'preact-compat'],
+    dependencies: ['preact@^8', 'preact-compat@^3'],
     devDependencies: [PREACT, N, WEBPACK, WEBPACK_CLI, WEBPACK_DEV_SERVER]
   },
   [REACT]: {
     type: PROJECT,
-    dependencies: ['prop-types', 'react', 'react-dom', 'react-hot-loader'],
+    dependencies: ['prop-types@^15', 'react@^16', 'react-dom@^16', 'react-hot-loader@^3'],
     devDependencies: [REACT, N, WEBPACK, WEBPACK_CLI, WEBPACK_DEV_SERVER]
   },
   [REACT_COMPONENTS]: {
@@ -58,9 +60,9 @@ const projects = {
     devDependencies: [
       REACT_COMPONENTS,
       N,
-      'prop-types',
-      'react',
-      'react-dom',
+      'prop-types@^15',
+      'react@^16',
+      'react-dom@^16',
       WEBPACK, WEBPACK_CLI
     ]
   },
@@ -70,7 +72,7 @@ const projects = {
   },
   [VUE]: {
     type: PROJECT,
-    dependencies: ['vue'],
+    dependencies: ['vue@^2'],
     devDependencies: [VUE, N, WEBPACK, WEBPACK_CLI, WEBPACK_DEV_SERVER]
   },
   [WEB]: {
@@ -79,20 +81,20 @@ const projects = {
   },
   [JEST]: {
     type: TESTING,
-    devDependencies: [JEST, 'jest']
+    devDependencies: [JEST, 'jest@^23']
   },
   [KARMA]: {
     type: TESTING,
     devDependencies: [
       KARMA,
-      'karma',
-      'karma-cli',
-      'mocha'
+      'karma@^2',
+      'karma-cli@^1',
+      'mocha@^5'
     ]
   },
   [MOCHA]: {
     type: TESTING,
-    devDependencies: [MOCHA, 'mocha']
+    devDependencies: [MOCHA, 'mocha@^5']
   }
 };
 
