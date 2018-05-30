@@ -326,6 +326,9 @@ const App = () => <div>Hello World!</div>
 export default hot(module)(App);
 ```
 
+See the [React Hot Loader](http://gaearon.github.io/react-hot-loader/)
+docs for any API specifics on hot reloading other components.
+
 ## Contributing
 
 This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
