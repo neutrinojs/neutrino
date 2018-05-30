@@ -218,6 +218,14 @@ module.exports = (neutrino, opts = {}) => {
       config.devtool('cheap-module-eval-source-map');
       config.when(options.hot, () => {
         neutrino.use(hot);
+
+        if ('hotEntries' in options) {
+          throw new Error(
+            'The options.hotEntries option has been removed. ' +
+            'See the "neutrino.options.mains" docs for details on adding ' +
+            'custom hot entries to your bundle without importing.'
+          );
+        }
       });
     })
     .when(mode === 'production', (config) => {
