@@ -1,5 +1,7 @@
 store:
+  # Use ephemeral verdaccio-memory storage instead of the default of filesystem.
   memory:
+    # Increase maximum number of packages that can be stored (default 1000).
     limit: 10000
 uplinks:
   yarnpkg:
@@ -19,7 +21,6 @@ packages:
     publish: $anonymous
   '**':
     access: $anonymous
-    publish: $anonymous
     proxy: yarnpkg
 logs:
   - {type: stdout, format: pretty, level: warn}
