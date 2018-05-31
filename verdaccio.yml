@@ -6,6 +6,8 @@ uplinks:
     url: https://registry.yarnpkg.com/
     # Increase number of failed requests before disabling uplink (default 2).
     max_fails: 5
+    # Increase the time before cached package metadata is re-fetched (default 2m).
+    maxage: 10m
 packages:
   'neutrino':
     access: $anonymous
