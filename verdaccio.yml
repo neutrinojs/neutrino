@@ -8,6 +8,8 @@ uplinks:
     max_fails: 5
     # Increase the time before cached package metadata is re-fetched (default 2m).
     maxage: 10m
+    # Disable caching of package tarballs since it duplicates the local yarn cache.
+    cache: false
 packages:
   'neutrino':
     access: $anonymous
