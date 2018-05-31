@@ -1,13 +1,17 @@
 store:
+  # Use ephemeral verdaccio-memory storage instead of the default of filesystem.
   memory:
+    # Increase maximum number of packages that can be stored (default 1000).
     limit: 10000
 uplinks:
-  npmjs:
-    url: https://registry.npmjs.org/
-    # Make request fail sooner if NPM being flaky (default is 30s).
-    timeout: 10s
+  yarnpkg:
+    url: https://registry.yarnpkg.com/
     # Increase number of failed requests before disabling uplink (default 2).
-    max_fails: 20
+    max_fails: 5
+    # Increase the time before cached package metadata is re-fetched (default 2m).
+    maxage: 10m
+    # Disable caching of package tarballs since it duplicates the local yarn cache.
+    cache: false
 packages:
   'neutrino':
     access: $anonymous
@@ -17,7 +21,6 @@ packages:
     publish: $anonymous
   '**':
     access: $anonymous
-    publish: $anonymous
-    proxy: npmjs
+    proxy: yarnpkg
 logs:
   - {type: stdout, format: pretty, level: warn}
