@@ -4,10 +4,8 @@ store:
 uplinks:
   yarnpkg:
     url: https://registry.yarnpkg.com/
-    # Make request fail sooner if NPM being flaky (default is 30s).
-    timeout: 10s
     # Increase number of failed requests before disabling uplink (default 2).
-    max_fails: 20
+    max_fails: 5
 packages:
   'neutrino':
     access: $anonymous
