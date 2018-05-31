@@ -2,8 +2,8 @@ store:
   memory:
     limit: 10000
 uplinks:
-  npmjs:
-    url: https://registry.npmjs.org/
+  yarnpkg:
+    url: https://registry.yarnpkg.com/
     # Make request fail sooner if NPM being flaky (default is 30s).
     timeout: 10s
     # Increase number of failed requests before disabling uplink (default 2).
@@ -18,6 +18,6 @@ packages:
   '**':
     access: $anonymous
     publish: $anonymous
-    proxy: npmjs
+    proxy: yarnpkg
 logs:
   - {type: stdout, format: pretty, level: warn}
