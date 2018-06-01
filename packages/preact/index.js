@@ -1,9 +1,6 @@
 const compileLoader = require('@neutrinojs/compile-loader');
 const loaderMerge = require('@neutrinojs/loader-merge');
 const web = require('@neutrinojs/web');
-const { join } = require('path');
-
-const MODULES = join(__dirname, 'node_modules');
 
 module.exports = (neutrino, opts = {}) => {
   const options = {
@@ -22,13 +19,7 @@ module.exports = (neutrino, opts = {}) => {
   neutrino.use(web, options);
 
   neutrino.config
-    .resolveLoader
-      .modules
-        .add(MODULES)
-        .end()
-      .end()
     .resolve
-      .modules.add(MODULES).end()
       .alias
         .set('react', 'preact-compat')
         .set('react-dom', 'preact-compat')

@@ -5,8 +5,6 @@ const nodeExternals = require('webpack-node-externals');
 const { extname, join, basename } = require('path');
 const { readdirSync } = require('fs');
 
-const MODULES = join(__dirname, 'node_modules');
-
 module.exports = (neutrino, opts = {}) => {
   const mode = neutrino.config.get('mode');
   const options = merge({
@@ -17,19 +15,6 @@ module.exports = (neutrino, opts = {}) => {
     externals: opts.externals !== false && {},
     style: { extract: { plugin: { filename: '[name].css' } } }
   }, opts);
-
-  neutrino.config.resolve.modules
-    .add(MODULES)
-    .when(__dirname.includes('neutrino-dev'), modules => {
-      // Add monorepo node_modules to webpack module resolution
-      modules.add(join(__dirname, '../../node_modules'));
-    });
-  neutrino.config.resolveLoader.modules
-    .add(MODULES)
-    .when(__dirname.includes('neutrino-dev'), modules => {
-      // Add monorepo node_modules to webpack module resolution
-      modules.add(join(__dirname, '../../node_modules'));
-    });
 
   neutrino.config.when(
     mode === 'development',

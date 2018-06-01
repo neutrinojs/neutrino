@@ -5,12 +5,11 @@ const startServer = require('@neutrinojs/start-server');
 const hot = require('@neutrinojs/hot');
 const nodeExternals = require('webpack-node-externals');
 const {
-  basename, join, parse, format
+  basename, parse, format
 } = require('path');
 const merge = require('deepmerge');
 const omit = require('lodash.omit');
 
-const MODULES = join(__dirname, 'node_modules');
 const getOutputForEntry = entry => basename(
   format(
     merge(
@@ -78,27 +77,8 @@ module.exports = (neutrino, opts = {}) => {
       .chunkFilename('[id].[hash:5]-[chunkhash:7].js')
       .end()
     .resolve
-      .modules
-        .add('node_modules')
-        .add(neutrino.options.node_modules)
-        .add(MODULES)
-        .when(__dirname.includes('neutrino-dev'), modules => {
-          // Add monorepo node_modules to webpack module resolution
-          modules.add(join(__dirname, '../../node_modules'));
-        })
-        .end()
       .extensions
         .merge(neutrino.options.extensions.concat('json').map(ext => `.${ext}`))
-        .end()
-      .end()
-    .resolveLoader
-      .modules
-        .add(neutrino.options.node_modules)
-        .add(MODULES)
-        .when(__dirname.includes('neutrino-dev'), modules => {
-          // Add monorepo node_modules to webpack module resolution
-          modules.add(join(__dirname, '../../node_modules'));
-        })
         .end()
       .end()
     .when(neutrino.options.debug, (config) => {

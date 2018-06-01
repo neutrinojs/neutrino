@@ -4,9 +4,6 @@ const clean = require('@neutrinojs/clean');
 const loaderMerge = require('@neutrinojs/loader-merge');
 const merge = require('deepmerge');
 const nodeExternals = require('webpack-node-externals');
-const { join } = require('path');
-
-const MODULES = join(__dirname, 'node_modules');
 
 module.exports = (neutrino, opts = {}) => {
   if (!opts.name) {
@@ -85,27 +82,8 @@ module.exports = (neutrino, opts = {}) => {
       .when(options.libraryTarget === 'umd', (output) => output.umdNamedDefine(true))
       .end()
     .resolve
-      .modules
-        .add('node_modules')
-        .add(neutrino.options.node_modules)
-        .add(MODULES)
-        .when(__dirname.includes('neutrino-dev'), modules => {
-          // Add monorepo node_modules to webpack module resolution
-          modules.add(join(__dirname, '../../node_modules'));
-        })
-        .end()
       .extensions
         .merge(neutrino.options.extensions.concat('json').map(ext => `.${ext}`))
-        .end()
-      .end()
-    .resolveLoader
-      .modules
-        .add(neutrino.options.node_modules)
-        .add(MODULES)
-        .when(__dirname.includes('neutrino-dev'), modules => {
-          // Add monorepo node_modules to webpack module resolution
-          modules.add(join(__dirname, '../../node_modules'));
-        })
         .end()
       .end()
     .node

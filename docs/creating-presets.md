@@ -306,28 +306,6 @@ module.exports = {
 };
 ```
 
-### `options.node_modules`
-
-Set the directory which contains the Node.js modules of the project. If the option is not set, Neutrino defaults it to
-`node_modules`. If a relative path is specified, it will be resolved relative to `options.root`; absolute paths will be
-used as-is.
-
-```js
-module.exports = neutrino => {
-  // if not specified, defaults to options.root + node_modules
-  neutrino.options.node_modules;
-};
-
-module.exports = {
-  options: {
-    // relative, resolves to options.root + modules
-    node_modules: 'modules',
-    // absolute
-    node_modules: '/code/website/modules'
-  }
-};
-```
-
 ### `options.extensions`
 
 Set the preferred list of module extensions to inform interested middleware. If the option is not set,

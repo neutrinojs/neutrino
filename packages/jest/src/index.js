@@ -71,14 +71,14 @@ module.exports = neutrino => {
       source,
       tests,
       root,
-      node_modules, // eslint-disable-line camelcase
       debug
     } = neutrino.options;
+    const modulesConfig = neutrino.config.resolve.modules.values();
     const aliases = neutrino.config.resolve.alias.entries() || {};
 
     return override({
       rootDir: root,
-      moduleDirectories: neutrino.config.resolve.modules.values(),
+      moduleDirectories: modulesConfig.length ? modulesConfig : ['node_modules'],
       moduleFileExtensions: neutrino.config.resolve.extensions
         .values()
         .map(extension => extension.replace('.', '')),
@@ -93,8 +93,6 @@ module.exports = neutrino => {
             [extensionsToNames(style)]: require.resolve('./style-mock')
           }),
       bail: true,
-      // eslint-disable-next-line camelcase
-      coveragePathIgnorePatterns: [node_modules],
       collectCoverageFrom: [join(
         relative(root, source),
         `**/*.{${extensions.join(',')}}`

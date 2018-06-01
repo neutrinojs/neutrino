@@ -12,8 +12,7 @@ const pathOptions = [
   ['root', '', () => process.cwd()],
   ['source', 'src', getRoot],
   ['output', 'build', getRoot],
-  ['tests', 'test', getRoot],
-  ['node_modules', 'node_modules', getRoot]
+  ['tests', 'test', getRoot]
 ];
 const requireFromRoot = (moduleId, root) => {
   const paths = [
@@ -128,6 +127,10 @@ module.exports = class Neutrino {
           Object.assign(options, { [key]: newOptions[key] });
         }
       });
+
+    if ('node_modules' in options) {
+      throw new Error('options.node_modules has been removed. Use `neutrino.config.resolve.modules` instead.');
+    }
 
     return options;
   }
