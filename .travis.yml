@@ -8,8 +8,11 @@ language: node_js
 cache: yarn
 node_js:
 - '8'
-- '9'
 - '10'
+jobs:
+  include:
+    - if: type != pull_request AND branch = master
+      node_js: '9'
 before_install:
 # Use newer yarn than that pre-installed in the Travis image.
 - curl -sSfL https://yarnpkg.com/install.sh | bash
