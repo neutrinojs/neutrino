@@ -25,7 +25,6 @@ module.exports = (neutrino, opts = {}) => {
     publicPath,
     env: [],
     hot: true,
-    hotEntries: [],
     html: {},
     devServer: {
       hot: opts.hot !== false,
@@ -219,17 +218,14 @@ module.exports = (neutrino, opts = {}) => {
       config.devtool('cheap-module-eval-source-map');
       config.when(options.hot, () => {
         neutrino.use(hot);
-        config.when(options.hotEntries, (config) => {
-          Object
-            .keys(neutrino.options.mains)
-            .forEach(key => {
-              config
-                .entry(key)
-                  .batch(entry => {
-                    options.hotEntries.forEach(hotEntry => entry.prepend(hotEntry));
-                  });
-            });
-        });
+
+        if ('hotEntries' in options) {
+          throw new Error(
+            'The options.hotEntries option has been removed. ' +
+            'See the "neutrino.options.mains" docs for details on adding ' +
+            'custom hot entries to your bundle without importing.'
+          );
+        }
       });
     })
     .when(mode === 'production', (config) => {

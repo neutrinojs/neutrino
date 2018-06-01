@@ -52,7 +52,7 @@ const projects = {
   },
   [REACT]: {
     type: PROJECT,
-    dependencies: ['prop-types@^15', 'react@^16', 'react-dom@^16', 'react-hot-loader@^3'],
+    dependencies: ['prop-types@^15', 'react@^16', 'react-dom@^16', 'react-hot-loader@^4'],
     devDependencies: [REACT, N, WEBPACK, WEBPACK_CLI, WEBPACK_DEV_SERVER]
   },
   [REACT_COMPONENTS]: {

@@ -289,10 +289,12 @@ module.exports = {
 
 ## Hot Module Replacement
 
-While `@neutrinojs/react` supports Hot Module Replacement your app using React Hot Loader, it does require some
-application-specific changes in order to operate.
+While `@neutrinojs/react` supports Hot Module Replacement for your app using
+React Hot Loader, it does require some application-specific changes in order to
+operate.
 
-First, install `react-hot-loader` as a dependency, this **must** be React Hot Loader v3+:
+First, install `react-hot-loader` as a dependency, this **must** be
+React Hot Loader v4+:
 
 #### Yarn
 
@@ -308,31 +310,24 @@ First, install `react-hot-loader` as a dependency, this **must** be React Hot Lo
 
 ---
 
-From your main entry point (defaults to `src/index.*` from `neutrino.options.mains.index`), import an `AppContainer`
-from `react-hot-loader`. The main file may be named `index.js` or `index.jsx`. The extension is resolved by webpack.
-- Wrap your top-level React component in the `AppContainer`.
-- Perform the application render in a reusable function for initial load and subsequent reloads.
-- Add the `hot` acceptance to call this function.
+Neutrino will then automatically load React Hot Loader then next time a build
+is performed. Next, you need to mark your root component as _hot-exported_.
 
-For example:
+For example, if your `src/index` main entry renders a root component from
+`App.jsx`, then the exported component needs to have a hot export:
 
 ```jsx
-import { render } from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
-import MyApp from './MyApp';
+// src/App.jsx
+import React from 'react'
+import { hot } from 'react-hot-loader'
 
-const load = () => render((
-  <AppContainer>
-    <MyApp />
-  </AppContainer>
-), document.getElementById('root'));
+const App = () => <div>Hello World!</div>
 
-if (module.hot) {
-  module.hot.accept('./MyApp', load);
-}
-
-load();
+export default hot(module)(App);
 ```
+
+See the [React Hot Loader](http://gaearon.github.io/react-hot-loader/)
+docs for any API specifics on hot reloading other components.
 
 ## Contributing
 
