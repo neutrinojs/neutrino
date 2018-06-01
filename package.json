@@ -46,7 +46,6 @@
     "lerna": "^2.11.0",
     "lint-staged": "^7.0.5",
     "mocha": "^5.2.0",
-    "nyc": "^11.7.1",
     "prettier": "^1.12.1",
     "stylelint": "^8.4.0",
     "verdaccio": "^3.0.2",
