@@ -1,9 +1,6 @@
 const deepmerge = require('deepmerge');
 const clone = require('lodash.clonedeep');
 const omit = require('lodash.omit');
-const { join } = require('path');
-
-const MODULES = join(__dirname, 'node_modules');
 
 const merge = (source, destination) => {
   const sourceRules = (source && source.eslint && source.eslint.rules) || {};
@@ -120,8 +117,6 @@ module.exports = (neutrino, opts = {}) => {
     })
     : options.eslint;
 
-  neutrino.config.resolve.modules.add(MODULES);
-  neutrino.config.resolveLoader.modules.add(MODULES);
   neutrino.config
     .module
       .rule('lint')

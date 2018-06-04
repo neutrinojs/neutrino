@@ -10,13 +10,10 @@ const clean = require('@neutrinojs/clean');
 const styleMinify = require('@neutrinojs/style-minify');
 const loaderMerge = require('@neutrinojs/loader-merge');
 const devServer = require('@neutrinojs/dev-server');
-const { join } = require('path');
 const { resolve } = require('url');
 const merge = require('deepmerge');
 const HtmlWebpackIncludeSiblingChunksPlugin = require('html-webpack-include-sibling-chunks-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
-
-const MODULES = join(__dirname, 'node_modules');
 
 module.exports = (neutrino, opts = {}) => {
   const mode = neutrino.config.get('mode');
@@ -169,30 +166,8 @@ module.exports = (neutrino, opts = {}) => {
       .chunkFilename('[name].[chunkhash].js')
       .end()
     .resolve
-      .modules
-        .add('node_modules')
-        .add(neutrino.options.node_modules)
-        .add(MODULES)
-        .when(__dirname.includes('neutrino-dev'), modules => {
-          // Add monorepo node_modules to webpack module resolution
-          modules.add(join(__dirname, '../../node_modules'));
-          // Work around test failures when using Jest with Preact
-          // https://github.com/mozilla-neutrino/neutrino-dev/issues/822
-          modules.delete(neutrino.options.node_modules);
-        })
-        .end()
       .extensions
         .merge(neutrino.options.extensions.concat('json').map(ext => `.${ext}`))
-        .end()
-      .end()
-    .resolveLoader
-      .modules
-        .add(neutrino.options.node_modules)
-        .add(MODULES)
-        .when(__dirname.includes('neutrino-dev'), modules => {
-          // Add monorepo node_modules to webpack module resolution
-          modules.add(join(__dirname, '../../node_modules'));
-        })
         .end()
       .end()
     .node

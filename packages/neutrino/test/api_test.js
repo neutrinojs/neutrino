@@ -77,16 +77,11 @@ test('options.tests', t => {
   t.is(api.options.tests, '/alpha');
 });
 
-test('options.node_modules', t => {
+test('throws when legacy options.node_modules is set', t => {
   const api = new Neutrino();
+  const options = { node_modules: 'abc' };
 
-  t.is(api.options.node_modules, join(process.cwd(), 'node_modules'));
-  api.options.node_modules = './alpha';
-  t.is(api.options.node_modules, join(process.cwd(), 'alpha'));
-  api.options.root = '/beta';
-  t.is(api.options.node_modules, join('/beta', 'alpha'));
-  api.options.node_modules = '/alpha';
-  t.is(api.options.node_modules, '/alpha');
+  t.throws(() => api.use({ options }), /options\.node_modules has been removed/);
 });
 
 test('options.mains', t => {

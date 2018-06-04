@@ -1,9 +1,6 @@
 const loaderMerge = require('@neutrinojs/loader-merge');
 const web = require('@neutrinojs/web');
 const merge = require('deepmerge');
-const path = require('path');
-
-const MODULES = path.join(__dirname, 'node_modules');
 
 module.exports = (neutrino, options = {}) => {
   neutrino.use(web, options);
@@ -56,7 +53,4 @@ module.exports = (neutrino, options = {}) => {
           ...args
         ]);
   }
-
-  neutrino.config.resolve.modules.add(MODULES);
-  neutrino.config.resolveLoader.modules.add(MODULES);
 };

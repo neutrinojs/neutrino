@@ -1,10 +1,7 @@
 const web = require('@neutrinojs/web');
 const compileLoader = require('@neutrinojs/compile-loader');
 const loaderMerge = require('@neutrinojs/loader-merge');
-const { join } = require('path');
 const merge = require('deepmerge');
-
-const MODULES = join(__dirname, 'node_modules');
 
 module.exports = (neutrino, opts = {}) => {
   const mode = neutrino.config.get('mode');
@@ -53,14 +50,5 @@ module.exports = (neutrino, opts = {}) => {
     });
   });
 
-  neutrino.config
-    .resolve
-      .batch((resolve) => {
-        resolve.modules.add(MODULES);
-        resolve.alias.set('react-native', 'react-native-web');
-      })
-      .end()
-    .resolveLoader
-      .modules
-        .add(MODULES);
+  neutrino.config.resolve.alias.set('react-native', 'react-native-web');
 };

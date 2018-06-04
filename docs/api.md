@@ -163,24 +163,6 @@ Neutrino({
 })
 ```
 
-### `options.node_modules`
-
-Set the directory which contains the Node.js modules of the project. If the option is not set, Neutrino defaults it to
-`node_modules`. If a relative path is specified, it will be resolved relative to `options.root`; absolute paths will be
-used as-is.
-
-```js
-Neutrino({
-  // if not specified, defaults to options.root + node_modules
-
-  // relative, resolves to options.root + modules
-  node_modules: 'modules',
-
-  // absolute
-  node_modules: '/code/website/modules'
-})
-```
-
 ## Other options
 
 ### `options.debug`
