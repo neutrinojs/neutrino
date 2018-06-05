@@ -110,12 +110,16 @@ module.exports = (neutrino, opts = {}) => {
     }
   };
   const options = merge(defaults, opts);
-  const loaderOptions = typeof options.eslint.formatter === 'string'
-    ? deepmerge(options.eslint, {
-      // eslint-disable-next-line global-require
-      formatter: require(`eslint/lib/formatters/${options.eslint.formatter}`)
-    })
-    : options.eslint;
+  const loaderOptions = options.eslint;
+
+  if (typeof loaderOptions.formatter === 'string') {
+    const formatterPath = `eslint/lib/formatters/${loaderOptions.formatter}`;
+    // eslint-disable-next-line global-require
+    loaderOptions.formatter = require(formatterPath);
+    // Improve the stringified output when using --inspect.
+    // eslint-disable-next-line no-underscore-dangle
+    loaderOptions.formatter.__expression = `require('${formatterPath}')`;
+  }
 
   neutrino.config
     .module
