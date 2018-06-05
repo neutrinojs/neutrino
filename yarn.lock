@@ -64,7 +64,7 @@
     semver "^5.4.1"
     source-map "^0.5.0"
 
-"@babel/core@^7.0.0-beta.46":
+"@babel/core@7.0.0-beta.49":
   version "7.0.0-beta.49"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.0.0-beta.49.tgz#73de2081dd652489489f0cb4aa97829a1133314e"
   dependencies:
@@ -396,7 +396,7 @@
     "@babel/helper-remap-async-to-generator" "7.0.0-beta.49"
     "@babel/plugin-syntax-async-generators" "7.0.0-beta.49"
 
-"@babel/plugin-proposal-class-properties@^7.0.0-beta.46":
+"@babel/plugin-proposal-class-properties@7.0.0-beta.49":
   version "7.0.0-beta.49"
   resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-class-properties/-/plugin-proposal-class-properties-7.0.0-beta.49.tgz#527e90af75d23fd5e3bae1a218dc0a6d9236b5f1"
   dependencies:
@@ -454,7 +454,7 @@
   dependencies:
     "@babel/helper-plugin-utils" "7.0.0-beta.49"
 
-"@babel/plugin-syntax-dynamic-import@^7.0.0-beta.46":
+"@babel/plugin-syntax-dynamic-import@7.0.0-beta.49":
   version "7.0.0-beta.49"
   resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-dynamic-import/-/plugin-syntax-dynamic-import-7.0.0-beta.49.tgz#f0af7ac6b53676a496093d4a6e2a2ec655c07b78"
   dependencies:
@@ -614,7 +614,7 @@
     "@babel/helper-plugin-utils" "7.0.0-beta.44"
     "@babel/helper-simple-access" "7.0.0-beta.44"
 
-"@babel/plugin-transform-modules-commonjs@7.0.0-beta.49", "@babel/plugin-transform-modules-commonjs@^7.0.0-beta.46", "@babel/plugin-transform-modules-commonjs@^7.0.0-beta.47":
+"@babel/plugin-transform-modules-commonjs@7.0.0-beta.49":
   version "7.0.0-beta.49"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-modules-commonjs/-/plugin-transform-modules-commonjs-7.0.0-beta.49.tgz#09fb345d5927c2ba3bd89e7cdb13a55067ed39a0"
   dependencies:
@@ -677,7 +677,7 @@
     "@babel/helper-plugin-utils" "7.0.0-beta.49"
     "@babel/plugin-syntax-jsx" "7.0.0-beta.49"
 
-"@babel/plugin-transform-react-jsx@7.0.0-beta.49", "@babel/plugin-transform-react-jsx@^7.0.0-beta.46":
+"@babel/plugin-transform-react-jsx@7.0.0-beta.49":
   version "7.0.0-beta.49"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-react-jsx/-/plugin-transform-react-jsx-7.0.0-beta.49.tgz#0f2789fde305c3c14151848f8514a2af1441af58"
   dependencies:
@@ -731,7 +731,7 @@
     "@babel/helper-regex" "7.0.0-beta.49"
     regexpu-core "^4.1.3"
 
-"@babel/preset-env@^7.0.0-beta.46":
+"@babel/preset-env@7.0.0-beta.49":
   version "7.0.0-beta.49"
   resolved "https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-7.0.0-beta.49.tgz#4a8a8b92139f51fa2f90fbf6f1fad7597532aebc"
   dependencies:
@@ -775,7 +775,7 @@
     invariant "^2.2.2"
     semver "^5.3.0"
 
-"@babel/preset-react@^7.0.0-beta.46":
+"@babel/preset-react@7.0.0-beta.49":
   version "7.0.0-beta.49"
   resolved "https://registry.yarnpkg.com/@babel/preset-react/-/preset-react-7.0.0-beta.49.tgz#0c86770f6e78a49af6f86942f5980beb5feb76c5"
   dependencies:
@@ -785,7 +785,7 @@
     "@babel/plugin-transform-react-jsx-self" "7.0.0-beta.49"
     "@babel/plugin-transform-react-jsx-source" "7.0.0-beta.49"
 
-"@babel/register@^7.0.0-beta.47":
+"@babel/register@7.0.0-beta.49":
   version "7.0.0-beta.49"
   resolved "https://registry.yarnpkg.com/@babel/register/-/register-7.0.0-beta.49.tgz#57e823a5062e3ddd25548398e9f5077c17991f08"
   dependencies:
@@ -1679,7 +1679,7 @@ babel-jest@^23.0.1:
     babel-plugin-istanbul "^4.1.6"
     babel-preset-jest "^23.0.1"
 
-babel-loader@^8.0.0-beta.2:
+babel-loader@8.0.0-beta.3:
   version "8.0.0-beta.3"
   resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-8.0.0-beta.3.tgz#49efeea6e8058d5af860a18a6de88b8c1450645b"
   dependencies:

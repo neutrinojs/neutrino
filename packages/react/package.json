@@ -24,9 +24,9 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@babel/core": "^7.0.0-beta.46",
-    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.46",
-    "@babel/preset-react": "^7.0.0-beta.46",
+    "@babel/core": "7.0.0-beta.49",
+    "@babel/plugin-proposal-class-properties": "7.0.0-beta.49",
+    "@babel/preset-react": "7.0.0-beta.49",
     "@neutrinojs/compile-loader": "^8.2.0",
     "@neutrinojs/loader-merge": "^8.2.0",
     "@neutrinojs/web": "^8.2.0",
