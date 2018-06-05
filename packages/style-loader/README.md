@@ -63,7 +63,7 @@ neutrino.use(styles, {
   extract: {
     plugin: {},
     loader: {
-      filename: neutrino.options.command === 'build' ? '[name].[contenthash].css' : '[name].css'
+      filename: mode === 'production' ? '[name].[contenthash:8].css' : '[name].css'
     }
   }
 });
@@ -95,7 +95,7 @@ module.exports = {
       extract: {
         plugin: {},
         loader: {
-          filename: neutrino.options.command === 'build' ? '[name].[contenthash].css' : '[name].css'
+          filename: mode === 'production' ? '[name].[contenthash:8].css' : '[name].css'
         }
       }
     }]

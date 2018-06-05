@@ -135,6 +135,8 @@ module.exports = (neutrino, opts = {}) => {
           });
     });
 
+  const jsFilename = mode === 'production' ? '[name].[contenthash:8].js' : '[name].js';
+
   neutrino.config
     .optimization
       .minimize(options.minify.source)
@@ -145,9 +147,9 @@ module.exports = (neutrino, opts = {}) => {
         // https://github.com/webpack/webpack/issues/7064
         chunks: 'all',
         // By default the generated files use names that reference the chunk names, eg:
-        // `vendors~index~page2.b694ee990c08e6be6a33.js`. Setting to `false` causes them to
-        // use the chunk ID instead (eg `1.ceddedc0defa56bec89f.js`), which prevents cache-
-        // busting when a new page is added with the same shared vendor dependencies.
+        // `vendors~index~page2.b694ee99.js`. Setting to `false` causes them to use the
+        // chunk ID instead (eg `1.ceddedc0.js`), which prevents cache-busting when a
+        // new page is added with the same shared vendor dependencies.
         name: mode !== 'production'
       })
       // Create a separate chunk for the webpack runtime, so it can be cached separately
@@ -162,8 +164,8 @@ module.exports = (neutrino, opts = {}) => {
     .output
       .path(neutrino.options.output)
       .publicPath(options.publicPath)
-      .filename('[name].js')
-      .chunkFilename('[name].[chunkhash].js')
+      .filename(jsFilename)
+      .chunkFilename(jsFilename)
       .end()
     .resolve
       .extensions
@@ -211,7 +213,5 @@ module.exports = (neutrino, opts = {}) => {
         neutrino.config.plugin('manifest')
           .use(ManifestPlugin, [options.manifest]);
       }
-
-      config.output.filename('[name].[chunkhash].js');
     });
 };

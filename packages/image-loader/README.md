@@ -42,7 +42,7 @@ neutrino.use(images);
 // Usage showing default options
 neutrino.use(images, {
   limit: 8192,
-  name: neutrino.options.command === 'build' ? '[name].[hash].[ext]' : '[name].[ext]'
+  name: mode === 'production' ? '[name].[hash:8].[ext]' : '[name].[ext]'
 });
 ```
 
@@ -59,7 +59,7 @@ module.exports = {
   use: [
     ['@neutrinojs/image-loader', {
       limit: 8192,
-      name: neutrino.options.command === 'build' ? '[name].[hash].[ext]' : '[name].[ext]'
+      name: mode === 'production' ? '[name].[hash:8].[ext]' : '[name].[ext]'
     }]
   ]
 };
