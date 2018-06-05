@@ -25,12 +25,10 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "deep-sort-object": "^1.0.2",
     "deepmerge": "^1.5.2",
     "is-plain-object": "^2.0.4",
-    "javascript-stringify": "^1.6.0",
     "lodash.clonedeep": "^4.5.0",
-    "webpack-chain": "^4.6.0",
+    "webpack-chain": "^4.8.0",
     "yargs": "^11.0.0"
   }
 }

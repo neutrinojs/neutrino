@@ -1,10 +1,9 @@
-const stringify = require('javascript-stringify');
-const sort = require('deep-sort-object');
 const yargs = require('yargs');
 const Neutrino = require('./Neutrino');
 const webpack = require('./webpack');
 
 const IDENTITY = a => a;
+const configPrefix = 'neutrino.config';
 
 module.exports = (middleware = { use: ['.neutrinorc.js'] }, options = {}) => {
   const neutrino = new Neutrino(options);
@@ -25,7 +24,7 @@ module.exports = (middleware = { use: ['.neutrinorc.js'] }, options = {}) => {
   const adapter = {
     output(name, override = IDENTITY) {
       if (name === 'inspect') {
-        console.log(stringify(sort(neutrino.config.toConfig()), null, 2));
+        console.log(neutrino.config.toString({ configPrefix }));
         process.exit();
       }
 
