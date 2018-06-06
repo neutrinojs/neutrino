@@ -7,7 +7,6 @@ const env = require('@neutrinojs/env');
 const hot = require('@neutrinojs/hot');
 const htmlTemplate = require('@neutrinojs/html-template');
 const clean = require('@neutrinojs/clean');
-const styleMinify = require('@neutrinojs/style-minify');
 const loaderMerge = require('@neutrinojs/loader-merge');
 const devServer = require('@neutrinojs/dev-server');
 const { resolve } = require('url');
@@ -36,8 +35,7 @@ module.exports = (neutrino, opts = {}) => {
       paths: [neutrino.options.output]
     },
     minify: {
-      source: mode === 'production',
-      style: {}
+      source: mode === 'production'
     },
     babel: {},
     targets: {},
@@ -51,6 +49,10 @@ module.exports = (neutrino, opts = {}) => {
 
   if ('image' in options.minify) {
     throw new Error('The minify.image option has been removed. To enable image minification use the @neutrinojs/image-minify preset.');
+  }
+
+  if ('style' in options.minify) {
+    throw new Error('The minify.style option has been removed. To enable style minification use the @neutrinojs/style-minify preset.');
   }
 
   if (typeof options.devServer.proxy === 'string') {
@@ -79,9 +81,6 @@ module.exports = (neutrino, opts = {}) => {
   Object.assign(options, {
     style: options.style && merge(options.style, {
       extract: options.style.extract === true ? {} : options.style.extract
-    }),
-    minify: options.minify && merge(options.minify, {
-      style: options.minify.style === true ? {} : options.minify.style
     }),
     babel: compileLoader.merge({
       plugins: [
@@ -206,7 +205,6 @@ module.exports = (neutrino, opts = {}) => {
       });
     })
     .when(mode === 'production', (config) => {
-      config.when(options.minify.style, () => neutrino.use(styleMinify, options.minify.style));
       config.when(options.clean, () => neutrino.use(clean, options.clean));
 
       if (options.manifest) {

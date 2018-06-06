@@ -77,3 +77,10 @@ test('throws when minify.image defined', async t => {
   const err = t.throws(() => api.use(require('..'), { minify: { image: true } }));
   t.true(err.message.includes('The minify.image option has been removed'));
 });
+
+test('throws when minify.style defined', async t => {
+  const api = new Neutrino();
+
+  const err = t.throws(() => api.use(require('..'), { minify: { style: false } }));
+  t.true(err.message.includes('The minify.style option has been removed'));
+});

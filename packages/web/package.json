@@ -37,7 +37,6 @@
     "@neutrinojs/image-loader": "^8.2.0",
     "@neutrinojs/loader-merge": "^8.2.0",
     "@neutrinojs/style-loader": "^8.2.0",
-    "@neutrinojs/style-minify": "^8.2.0",
     "deepmerge": "^1.5.2",
     "html-webpack-include-sibling-chunks-plugin": "^0.1.4",
     "webpack-manifest-plugin": "^2.0.2",
