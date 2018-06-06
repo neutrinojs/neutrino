@@ -74,7 +74,7 @@ module.exports = (neutrino, opts = {}) => {
       .path(neutrino.options.output)
       .filename('[name].js')
       .libraryTarget('commonjs2')
-      .chunkFilename('[id].[hash:5]-[chunkhash:7].js')
+      .chunkFilename('[name].js')
       .end()
     .resolve
       .extensions

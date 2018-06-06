@@ -41,7 +41,7 @@ neutrino.use(fonts);
 
 // Usage showing default options
 neutrino.use(fonts, {
-  name: neutrino.options.command === 'build' ? '[name].[hash].[ext]' : '[name].[ext]'
+  name: mode === 'production' ? '[name].[hash:8].[ext]' : '[name].[ext]'
 });
 ```
 
@@ -57,7 +57,7 @@ module.exports = {
 module.exports = {
   use: [
     ['@neutrinojs/font-loader', {
-      name: neutrino.options.command === 'build' ? '[name].[hash].[ext]' : '[name].[ext]'
+      name: mode === 'production' ? '[name].[hash:8].[ext]' : '[name].[ext]'
     }]
   ]
 };
