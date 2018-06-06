@@ -210,9 +210,7 @@ module.exports = {
       minify: {
         // Javascript minification occurs only in production by default.
         // To change uglify-es options or switch to another minifier, see below.
-        source: process.env.NODE_ENV === 'production',
-        // Change options for @neutrinojs/style-minify
-        style: {}
+        source: process.env.NODE_ENV === 'production'
       },
 
       // Change options for `webpack-manifest-plugin`
@@ -429,7 +427,6 @@ _Note: Some plugins are only available in certain environments. To override them
 | `html-{MAIN_NAME}` | Automatically generates HTML files for configured entry points. `{MAIN_NAME}` corresponds to the entry point of each page. By default, there is only a single `index` main, so this would generate a plugin named `html-index`. From `@neutrinojs/html-template` | all |
 | `hot` | Enables Hot Module Replacement. From `@neutrinojs/hot`. | `start` command |
 | `clean` | Removes the `build` directory prior to building. From `@neutrinojs/clean`. | `build` command |
-| `optimize-css` | Minifies css using `OptimizeCssAssetsPlugin`. From `@neutrinojs/style-minify`. | `NODE_ENV production` |
 | `manifest` | Create a manifest file, via webpack-manifest-plugin. | `build` command |
 
 ### Override configuration
