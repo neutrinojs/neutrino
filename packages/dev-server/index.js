@@ -16,7 +16,9 @@ const getPublic = (neutrino, options) => {
   }
 
   if (neutrino.options.host) {
-    return isLocal(neutrino.options.host) ? 'localhost' : neutrino.options.host;
+    return isLocal(neutrino.options.host)
+      ? `localhost:${port}`
+      : `${neutrino.options.host}:${port}`;
   }
 
   return !options.host || isLocal(options.host) ?
@@ -62,7 +64,7 @@ module.exports = (neutrino, opts = {}) => {
     neutrino.options.https ? { https: neutrino.options.https } : {}
   ]);
   const protocol = options.https ? 'https' : 'http';
-  const url = `${protocol}://${publicHost}:${options.port}`;
+  const url = `${protocol}://${publicHost}`;
 
   neutrino.config
     .devServer
