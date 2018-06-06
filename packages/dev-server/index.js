@@ -16,7 +16,9 @@ const getPublic = (neutrino, options) => {
   }
 
   if (neutrino.options.host) {
-    return isLocal(neutrino.options.host) ? 'localhost' : neutrino.options.host;
+    return isLocal(neutrino.options.host)
+      ? `localhost:${port}`
+      : `${neutrino.options.host}:${port}`;
   }
 
   return !options.host || isLocal(options.host) ?
