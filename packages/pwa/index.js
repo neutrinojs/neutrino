@@ -1,13 +1,13 @@
 const OfflinePlugin = require('offline-plugin');
 const merge = require('deepmerge');
 
-module.exports = (neutrino, options = {}) => {
+module.exports = (neutrino, { pluginId = 'pwa', ...options } = {}) => {
   Object
     .keys(neutrino.options.mains)
     .forEach(key => neutrino.config.entry(key).add(require.resolve('./pwa')));
 
   neutrino.config
-    .plugin(options.pluginId || 'pwa')
+    .plugin(pluginId)
     .use(OfflinePlugin, [
       merge({
         ServiceWorker: {
