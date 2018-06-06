@@ -1,13 +1,13 @@
 const CopyPlugin = require('copy-webpack-plugin');
-const merge = require('deepmerge');
 
-module.exports = (neutrino, opts = {}) => {
-  const { patterns, options } = merge({
-    patterns: [],
-    options: { debug: neutrino.options.debug }
-  }, opts);
-
+module.exports = (neutrino, { pluginId = 'copy', patterns = [], options = {} } = {}) => {
   neutrino.config
-    .plugin(options.pluginId || 'copy')
-    .use(CopyPlugin, [patterns, options]);
+    .plugin(pluginId)
+    .use(CopyPlugin, [
+      patterns,
+      {
+        debug: neutrino.options.debug,
+        ...options
+      }
+    ]);
 };
