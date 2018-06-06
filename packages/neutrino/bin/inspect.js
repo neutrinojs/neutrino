@@ -1,5 +1,5 @@
 const { defaultTo } = require('ramda');
-const { inspect } = require('../src');
+const { inspect, inspectNew } = require('../src');
 const base = require('./base');
 
 const envs = {
@@ -13,7 +13,7 @@ module.exports = (middleware, args, cli) => base({
   middleware,
   args,
   NODE_ENV: defaultTo('development', envs[args._[0]]),
-  commandHandler: inspect,
+  commandHandler: args.inspectNew ? inspectNew : inspect,
   commandName: 'inspect',
   successHandler(output) {
     if (!args.quiet && output) {
