@@ -56,3 +56,10 @@ test('exposes eslintrc method', t => {
 test('exposes eslintrc config from method', t => {
   t.is(typeof neutrino(mw()).eslintrc(), 'object');
 });
+
+test('throws when used after a compile preset', async t => {
+  const api = new Neutrino();
+  api.use(require('../../web'))
+
+  t.throws(() => api.use(mw()), /Lint presets must be defined prior/);
+});
