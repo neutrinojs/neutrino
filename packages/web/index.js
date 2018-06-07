@@ -89,7 +89,8 @@ module.exports = (neutrino, opts = {}) => {
     babel: compileLoader.merge({
       plugins: [
         ...(options.polyfills.async ? [[require.resolve('fast-async'), { spec: true }]] : []),
-        require.resolve('babel-plugin-syntax-dynamic-import')
+        require.resolve('babel-plugin-syntax-dynamic-import'),
+        require.resolve('babel-plugin-transform-object-rest-spread')
       ],
       presets: [
         [require.resolve('babel-preset-env'), {

@@ -9,12 +9,12 @@
 ## Features
 
 - Zero upfront configuration necessary to start developing and building a React web app
-- Modern Babel compilation adding JSX, object rest spread syntax, and class properties.
+- Modern Babel compilation adding JSX and class properties support to the features provided by [@neutrinojs/web](https://neutrinojs.org/packages/web/).
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
 - Automatic import of `React.createElement`, no need to import `react` or `React.createElement` yourself
 - Extends from [@neutrinojs/web](https://neutrinojs.org/packages/web/)
-  - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
+  - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, object rest spread syntax, and dynamic imports
   - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
   - webpack Dev Server during development
   - Automatic creation of HTML pages, no templating necessary
