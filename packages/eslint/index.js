@@ -80,6 +80,10 @@ const eslintrc = (neutrino, override) => {
 };
 
 module.exports = (neutrino, opts = {}) => {
+  if (neutrino.config.module.rules.has('compile')) {
+    throw new Error('Lint presets must be defined prior to any other presets in .neutrinorc.js.');
+  }
+
   const defaults = {
     include: !opts.include ? [neutrino.options.source] : undefined,
     eslint: {
