@@ -42,7 +42,6 @@ module.exports = (neutrino, opts = {}) => {
         chunks: false,
         colors: true,
         errors: true,
-        errorDetails: true,
         hash: false,
         modules: false,
         publicPath: false,
