@@ -51,7 +51,9 @@ module.exports = neutrino => {
         [tests]: ['webpack'],
         [sources]: ['webpack']
       },
-      webpackMiddleware: { noInfo: true },
+      webpackMiddleware: {
+        stats: 'errors-only'
+      },
       webpack: merge(
         omit(neutrino.config.toConfig(), ['plugins', 'entry']),
         // Work around `yarn test` hanging under webpack 4:
