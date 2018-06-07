@@ -28,7 +28,6 @@ module.exports = (neutrino, opts = {}) => {
             import: 'createElement'
           }
         ],
-        require.resolve('babel-plugin-transform-object-rest-spread'),
         ...(
           process.env.NODE_ENV === 'development'
             ? [

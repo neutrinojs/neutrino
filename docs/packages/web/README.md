@@ -9,7 +9,7 @@
 ## Features
 
 - Zero upfront configuration necessary to start developing and building a web app
-- Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
+- Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, object rest spread syntax, and dynamic imports
 - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
 - webpack Dev Server during development
 - Automatic creation of HTML pages, no templating necessary

@@ -33,7 +33,8 @@ module.exports = (neutrino, opts = {}) => {
         ...(options.polyfills.async ? [[require.resolve('fast-async'), { spec: true }]] : []),
         options.target === 'node' ?
           require.resolve('babel-plugin-dynamic-import-node') :
-          require.resolve('babel-plugin-syntax-dynamic-import')
+          require.resolve('babel-plugin-syntax-dynamic-import'),
+        require.resolve('babel-plugin-transform-object-rest-spread')
       ],
       presets: [
         [require.resolve('babel-preset-env'), {

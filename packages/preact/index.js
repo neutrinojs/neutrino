@@ -21,7 +21,6 @@ module.exports = (neutrino, opts = {}) => {
           export: 'h',
           import: 'h'
         }],
-        require.resolve('babel-plugin-transform-object-rest-spread'),
         [require.resolve('babel-plugin-transform-class-properties'), { spec: true }],
         process.env.NODE_ENV === 'development'
           ? require.resolve('babel-plugin-transform-es2015-classes')

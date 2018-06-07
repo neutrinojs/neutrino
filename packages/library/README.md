@@ -9,7 +9,7 @@
 ## Features
 
 - Zero upfront configuration necessary to start developing and building a JavaScript library
-- Modern Babel compilation supporting ES modules, async functions, and dynamic imports
+- Modern Babel compilation supporting ES modules, async functions, object rest spread syntax, and dynamic imports
 - Defaults to UMD-based output for consumption in a variety of environments
 - Supports automatically-wired sourcemaps
 - Tree-shaking to create smaller bundles
