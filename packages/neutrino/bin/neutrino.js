@@ -31,6 +31,12 @@ const cli = yargs
     default: false,
     global: true
   })
+  .option('inspect-new', {
+    description: 'Output an improved string representation of the configuration used by webpack (will be the default in Neutrino 9+) and exit',
+    boolean: true,
+    default: false,
+    global: true
+  })
   .option('use', {
     description: 'A list of Neutrino middleware used to configure the build',
     array: true,
@@ -84,7 +90,7 @@ const cli = yargs
 const args = cli.argv;
 const command = args._[0];
 const rc = '.neutrinorc.js';
-const cmd = args.inspect ? 'inspect' : command;
+const cmd = args.inspect || args.inspectNew ? 'inspect' : command;
 const hasRc = exists(process.cwd(), rc);
 const middleware = [...new Set(hasRc ? [rc] : args.use)];
 

@@ -708,6 +708,11 @@ inspect(api.config.toConfig(), api)
   );
 ```
 
+### `inspectNew(webpackConfig, neutrinoApi)`
+
+The `inspectNew()` function is equivalent to `inspect()`, except the output is in the improved
+format that will be the default in Neutrino 9+.
+
 ## Helper Methods
 
 ### `regexFromExtensions`

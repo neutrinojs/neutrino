@@ -94,6 +94,14 @@ index 3356802..d4d82ef 100644
    },
 ```
 
+## `--inspect-new`
+
+The `--inspect-new` flag provide the same functionality as `--inspect`, except the output
+more accurately represents the actual webpack config, and also includes inline comments
+containing the Neutrino plugin and rules names, for easier customisation.
+
+This new output format will be the default in Neutrino 9.
+
 ## --require
 
 Require one or more modules prior to invoking any Neutrino commands. These can be an npm package or a relative path to

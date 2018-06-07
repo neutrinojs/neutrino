@@ -2,7 +2,7 @@ const Neutrino = require('./api');
 const build = require('./build');
 const start = require('./start');
 const test = require('./test');
-const inspect = require('./inspect');
+const { inspect, inspectNew } = require('./inspect');
 
 module.exports = {
   Neutrino,
@@ -11,5 +11,6 @@ module.exports = {
   test,
   inspect(args) {
     return args.customInspect ? this : inspect(args);
-  }
+  },
+  inspectNew
 };
