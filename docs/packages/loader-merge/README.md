@@ -39,7 +39,7 @@ and plug it into Neutrino:
 const loaderMerge = require('@neutrinojs/loader-merge');
 
 neutrino.use(loaderMerge('compile', 'babel'), {
-  plugins: ['object-rest-spread']
+  plugins: ['your-babel-plugin']
 });
 
 // Equivalent to:
@@ -47,7 +47,7 @@ neutrino.config.module
   .rule('compile')
   .use('babel')
     .tap(options => require('deepmerge')(options, {
-      plugins: ['object-rest-spread']
+      plugins: ['your-babel-plugin']
     }));
 ```
 
