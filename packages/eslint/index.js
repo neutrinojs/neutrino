@@ -95,10 +95,13 @@ module.exports = (neutrino, opts = {}) => {
       // eslint-loader uses executeOnText(), which ignores the `extensions` setting.
       // However it's still needed for the lint command, as it uses executeOnFiles().
       extensions: neutrino.options.extensions,
+      // Unfortunately we can't `require.resolve('eslint-plugin-babel')` due to:
+      // https://github.com/eslint/eslint/issues/6237
+      // ...so we have no choice but to rely on it being hoisted.
       plugins: ['babel'],
       baseConfig: {},
       envs: ['es6'],
-      parser: 'babel-eslint',
+      parser: require.resolve('babel-eslint'),
       parserOptions: {
         ecmaVersion: 2017,
         sourceType: 'module',

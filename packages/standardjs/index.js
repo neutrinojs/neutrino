@@ -5,8 +5,14 @@ module.exports = (neutrino, opts = {}) => {
   neutrino.use(lint, lint.merge({
     eslint: {
       baseConfig: {
-        extends: ['standard', 'standard-jsx']
+        extends: [
+          require.resolve('eslint-config-standard'),
+          require.resolve('eslint-config-standard-jsx')
+        ]
       },
+      // Unfortunately we can't `require.resolve('eslint-plugin-standard')` due to:
+      // https://github.com/eslint/eslint/issues/6237
+      // ...so we have no choice but to rely on it being hoisted.
       plugins: ['standard'],
       rules: {
         // Disable rules for which there are eslint-plugin-babel replacements:
