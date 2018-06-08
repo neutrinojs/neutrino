@@ -6,7 +6,7 @@ module.exports = (neutrino, opts = {}) => {
   neutrino.use(lint, lint.merge({
     eslint: {
       baseConfig: {
-        extends: ['airbnb']
+        extends: [require.resolve('eslint-config-airbnb')]
       },
       rules: {
         // Disable rules for which there are eslint-plugin-babel replacements:
