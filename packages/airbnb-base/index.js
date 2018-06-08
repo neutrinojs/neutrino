@@ -1,4 +1,6 @@
 const lint = require('@neutrinojs/eslint');
+const { rules: airbnbBaseStyle } = require('eslint-config-airbnb-base/rules/style');
+const { rules: airbnbBaseBestPractices } = require('eslint-config-airbnb-base/rules/best-practices');
 
 module.exports = (neutrino, opts = {}) => {
   neutrino.use(lint, lint.merge({
@@ -7,18 +9,21 @@ module.exports = (neutrino, opts = {}) => {
         extends: ['airbnb-base']
       },
       rules: {
-        // handled by babel rules
+        // Disable rules for which there are eslint-plugin-babel replacements:
+        // https://github.com/babel/eslint-plugin-babel#rules
         'new-cap': 'off',
-        // handled by babel rules
-        'quotes': 'off',
-        // handled by babel rules
+        'no-invalid-this': 'off',
         'object-curly-spacing': 'off',
-        // require a capital letter for constructors
-        'babel/new-cap': ['error', { newIsCap: true }],
-        // require padding inside curly braces
-        'babel/object-curly-spacing': ['error', 'always'],
-        // require single quotes for strings (with support for JSX Fragment syntax)
-        'babel/quotes': ['error', 'single', { avoidEscape: true }]
+        'quotes': 'off',
+        'semi': 'off',
+        'no-unused-expressions': 'off',
+        // Ensure the replacement rules use the options set by airbnb-base rather than ESLint defaults.
+        'babel/new-cap': airbnbBaseStyle['new-cap'],
+        'babel/no-invalid-this': airbnbBaseBestPractices['no-invalid-this'],
+        'babel/object-curly-spacing': airbnbBaseStyle['object-curly-spacing'],
+        'babel/quotes': airbnbBaseStyle.quotes,
+        'babel/semi': airbnbBaseStyle.semi,
+        'babel/no-unused-expressions': airbnbBaseBestPractices['no-unused-expressions']
       }
     }
   },
