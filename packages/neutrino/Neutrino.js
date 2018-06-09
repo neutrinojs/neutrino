@@ -29,7 +29,8 @@ const requireFromRoot = (moduleId, root) => {
     }
   });
 
-  return require(path); // eslint-disable-line global-require
+  // eslint-disable-next-line global-require, import/no-dynamic-require
+  return require(path);
 };
 
 module.exports = class Neutrino {
@@ -69,7 +70,7 @@ module.exports = class Neutrino {
     });
 
     try {
-      // eslint-disable-next-line global-require
+      // eslint-disable-next-line global-require, import/no-dynamic-require
       options.packageJson = require(join(options.root, 'package.json'));
     } catch (err) {
       options.packageJson = null;

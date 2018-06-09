@@ -121,7 +121,7 @@ module.exports = (neutrino, opts = {}) => {
 
   if (typeof loaderOptions.formatter === 'string') {
     const formatterPath = `eslint/lib/formatters/${loaderOptions.formatter}`;
-    // eslint-disable-next-line global-require
+    // eslint-disable-next-line global-require, import/no-dynamic-require
     loaderOptions.formatter = require(formatterPath);
     // Improve the stringified output when using --inspect.
     // eslint-disable-next-line no-underscore-dangle
