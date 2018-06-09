@@ -31,7 +31,7 @@ module.exports = (neutrino, opts = {}) => {
           useBuiltIns: 'entry',
           targets: options.target === 'node' ?
             { node: '8.3' } :
-            { browsers: [] }
+            { uglify: true, browsers: [] }
         }]
       ]
     }, options.babel)
