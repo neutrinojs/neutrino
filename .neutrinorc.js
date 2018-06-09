@@ -20,7 +20,19 @@ module.exports = {
           'no-console': 'off',
           // Allowing shadowing variable that share the same context as the outer scope
           'no-shadow': 'off'
-        }
+        },
+        overrides: [
+          {
+            files: ['packages/*/test/*'],
+            rules: {
+              // The tests need to do non-global require() to test the presets.
+              'global-require': 'off',
+              // This rule doesn't handle devDependencies being defined
+              // in the monorepo root package.json.
+              'import/no-extraneous-dependencies': 'off'
+            }
+          }
+        ]
       }
     }]
   ]
