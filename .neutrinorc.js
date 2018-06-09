@@ -1,6 +1,6 @@
 module.exports = {
   use: [
-    ['./packages/airbnb-base', {
+    ['./packages/airbnb', {
       // See the package.json `lint` script for which files are linted.
       // Excludes are managed via `.eslintignore`.
       eslint: {
@@ -33,6 +33,20 @@ module.exports = {
               // The dependencies in create-project's templates are installed by
               // by create-project and so are expected to be missing from package.json.
               'import/no-extraneous-dependencies': 'off'
+            }
+          },
+          {
+            files: ['packages/create-project/commands/init/templates/preact/**'],
+            settings: {
+              react: {
+                pragma: 'h'
+              }
+            },
+            rules: {
+              // With Preact the use of `class` is recommended over `className`,
+              // so we have to add `class` to the ignore list, to prevent:
+              // `Unknown property 'class' found, use 'className' instead`
+              'react/no-unknown-property': ['error', { ignore: ['class'] }]
             }
           },
           {

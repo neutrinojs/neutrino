@@ -35,7 +35,8 @@
   },
   "devDependencies": {
     "react": "*",
-    "react-dom": "*"
+    "react-dom": "*",
+    "react-hot-loader": "^4.3.1"
   },
   "peerDependencies": {
     "neutrino": "^8.0.0",
