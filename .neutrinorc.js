@@ -9,7 +9,12 @@ module.exports = {
             'prettier'
           ]
         },
-        envs: ['browser', 'commonjs', 'node'],
+        envs: [
+          'browser',
+          'jest',
+          'mocha',
+          'node'
+        ],
         plugins: [
           'prettier'
         ],
@@ -22,6 +27,14 @@ module.exports = {
           'no-shadow': 'off'
         },
         overrides: [
+          {
+            files: ['packages/create-project/commands/init/templates/**'],
+            rules: {
+              // The dependencies in create-project's templates are installed by
+              // by create-project and so are expected to be missing from package.json.
+              'import/no-extraneous-dependencies': 'off'
+            }
+          },
           {
             files: ['packages/*/test/*'],
             rules: {
