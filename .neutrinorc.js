@@ -1,11 +1,8 @@
 module.exports = {
   use: [
     ['./packages/airbnb-base', {
-      // Excludes are managed via `.eslintignore` since `exclude` doesn't support globs.
-      include: [
-        '.*.js',
-        'packages/'
-      ],
+      // See the package.json `lint` script for which files are linted.
+      // Excludes are managed via `.eslintignore`.
       eslint: {
         baseConfig: {
           extends: [
