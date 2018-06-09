@@ -27,11 +27,12 @@ module.exports = (neutrino, opts = {}) => {
       presets: [
         [require.resolve('@babel/preset-env'), {
           debug: neutrino.options.debug,
+          forceAllTransforms: true,
           modules: false,
           useBuiltIns: 'entry',
           targets: options.target === 'node' ?
             { node: '8.3' } :
-            { uglify: true, browsers: [] }
+            { browsers: [] }
         }]
       ]
     }, options.babel)
