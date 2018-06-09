@@ -1,5 +1,6 @@
 const react = require('@neutrinojs/react');
 const banner = require('@neutrinojs/banner');
+const compileLoader = require('@neutrinojs/compile-loader');
 const merge = require('deepmerge');
 const nodeExternals = require('webpack-node-externals');
 const { extname, join, basename } = require('path');
@@ -12,9 +13,43 @@ module.exports = (neutrino, opts = {}) => {
       title: 'React Preview'
     },
     manifest: mode === 'development',
+    babel: {},
     externals: opts.externals !== false && {},
     style: { extract: { plugin: { filename: '[name].css' } } }
   }, opts);
+
+  Object.assign(options, {
+    babel: compileLoader.merge({
+      presets: [
+        [require.resolve('@babel/preset-env'), {
+          debug: neutrino.options.debug,
+          forceAllTransforms: true,
+          targets: { browsers: [] }
+        }]
+      ]
+    }, options.babel)
+  });
+
+  const { targets } = options.babel.presets[0][1];
+
+  if (targets.browsers && !targets.browsers.length) {
+    targets.browsers.push(
+      'last 2 Chrome versions',
+      'last 2 Firefox versions',
+      'last 2 Edge versions',
+      'last 2 Opera versions',
+      'last 2 Safari versions',
+      'last 2 iOS versions'
+    );
+  }
+
+  neutrino.use(compileLoader, {
+    include: [
+      neutrino.options.source,
+      neutrino.options.tests
+    ],
+    babel: options.babel
+  });
 
   neutrino.config.when(
     mode === 'development',
