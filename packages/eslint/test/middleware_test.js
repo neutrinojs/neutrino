@@ -59,7 +59,7 @@ test('exposes eslintrc config from method', t => {
 
 test('throws when used after a compile preset', async t => {
   const api = new Neutrino();
-  api.use(require('../../web'))
+  api.use(require('../../web'));
 
   t.throws(() => api.use(mw()), /Lint presets must be defined prior/);
 });

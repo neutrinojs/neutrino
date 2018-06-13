@@ -1,5 +1,4 @@
 import test from 'ava';
-import Neutrino from '../Neutrino';
 import neutrino from '..';
 
 test('throws when vendor entrypoint defined', t => {

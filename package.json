@@ -19,7 +19,7 @@
     "docs:bootstrap": "pip install -r docs/requirements.txt",
     "docs:serve": "mkdocs serve",
     "link:all": "lerna exec yarn link",
-    "lint": "eslint packages .neutrinorc.js",
+    "lint": "eslint --ext js,jsx --report-unused-disable-directives \".*.js\" packages",
     "precommit": "lint-staged",
     "release": "lerna publish --force-publish=*",
     "release:preview": "lerna publish --force-publish=* --skip-git --skip-npm",

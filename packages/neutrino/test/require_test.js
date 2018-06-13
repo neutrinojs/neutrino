@@ -4,7 +4,7 @@ import Neutrino from '../Neutrino';
 
 const testModulePath = join(__dirname, 'fixtures', 'test-module');
 
-test.before(t => {
+test.before(() => {
   process.chdir(testModulePath);
 });
 

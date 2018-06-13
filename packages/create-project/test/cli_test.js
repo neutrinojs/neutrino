@@ -34,7 +34,7 @@ const tests = {
 };
 const project = (prompts) => helpers
   .run(require.resolve(join(__dirname, '../commands/init')))
-  .inTmpDir(function(dir) {
+  .inTmpDir(function setOptions(dir) {
     this.withOptions({
       directory: dir,
       name: 'testable',
@@ -47,11 +47,9 @@ const spawnP = (cmd, args, options) => new Promise((resolve, reject) => {
   const child = spawn(cmd, args, options);
   let output = '';
 
-  child.stdout.on('data', data => output += data.toString());
-  child.stderr.on('data', data => output += data.toString());
-  child.on('close', (code) => {
-    code === 0 ? resolve(code) : reject(output);
-  });
+  child.stdout.on('data', data => { output += data.toString(); });
+  child.stderr.on('data', data => { output += data.toString(); });
+  child.on('close', code => (code === 0 ? resolve(code) : reject(output)));
 });
 const buildable = async (t, dir) => {
   try {
@@ -80,11 +78,14 @@ const lintable = async (t, dir) => {
 
 Object.keys(tests).forEach(projectName => {
   const { linter, tester } = tests[projectName];
-  const projectType = projectName.includes('library')
-    ? 'library'
-    : projectName.includes('components')
-      ? 'components'
-      : 'application';
+  let projectType;
+  if (projectName.includes('library')) {
+    projectType = 'library';
+  } else if (projectName.includes('components')) {
+    projectType = 'components';
+  } else {
+    projectType = 'application';
+  }
   const testName = tester
     ? `${projectName} + ${linter} + ${tester}`
     : `${projectName} + ${linter}`;
