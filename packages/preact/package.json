@@ -32,6 +32,9 @@
     "@neutrinojs/web": "^8.2.0",
     "eslint-plugin-react": "^7.7.0"
   },
+  "devDependencies": {
+    "preact": "^8.2.9"
+  },
   "peerDependencies": {
     "neutrino": "^8.0.0",
     "webpack": "^4.0.0"

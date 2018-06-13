@@ -124,7 +124,7 @@ module.exports = class Project extends Generator {
 
     this
       .prompt(questions())
-      .then(answers => this.data = answers)
+      .then(answers => { this.data = answers; })
       .then(() => {
         this.log(`\n👌  ${chalk.white.bold('Looks like I have all the info I need. Give me a moment while I create your project!')}\n`);
         done();

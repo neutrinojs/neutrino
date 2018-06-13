@@ -22,7 +22,7 @@ test('uses with options', t => {
     const api = new Neutrino();
 
     api.config.mode('production');
-    api.use(mw(), options)
+    api.use(mw(), options);
   });
 });
 
