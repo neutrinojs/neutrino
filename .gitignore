@@ -39,3 +39,6 @@ node_modules
 # Project metadata
 .idea
 /.vscode
+
+# ESlint CLI cache
+.eslintcache
