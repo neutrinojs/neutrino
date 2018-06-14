@@ -38,14 +38,14 @@ const eslint = require('@neutrinojs/eslint');
 
 // Usage shows default values
 neutrino.use(eslint, {
-  test: /\.(js|jsx)$/,
-  include: [], /* Should specify either include or exclude */
-  exclude: [], /* Should specify either include or exclude */
+  test: neutrino.regexFromExtensions(), // Uses extensions from neutrino.options.extensions
+  include: [neutrino.options.source, neutrino.options.tests],
+  exclude: [],
   eslint: {
+    failOnError: neutrino.config.get('mode') === 'production',
     cwd: neutrino.options.root,
     useEslintrc: false,
     root: true,
-    extensions: neutrino.options.extensions,
     plugins: ['babel'],
     baseConfig: {},
     envs: ['es6'],
