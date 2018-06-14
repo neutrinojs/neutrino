@@ -22,26 +22,11 @@ module.exports = (neutrino, opts = {}) => {
     babel: compileLoader.merge({
       presets: [
         [require.resolve('@babel/preset-env'), {
-          debug: neutrino.options.debug,
-          forceAllTransforms: true,
-          targets: { browsers: [] }
+          forceAllTransforms: true
         }]
       ]
     }, options.babel)
   });
-
-  const { targets } = options.babel.presets[0][1];
-
-  if (targets.browsers && !targets.browsers.length) {
-    targets.browsers.push(
-      'last 2 Chrome versions',
-      'last 2 Firefox versions',
-      'last 2 Edge versions',
-      'last 2 Opera versions',
-      'last 2 Safari versions',
-      'last 2 iOS versions'
-    );
-  }
 
   neutrino.use(compileLoader, {
     include: [
