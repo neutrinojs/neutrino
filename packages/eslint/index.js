@@ -31,6 +31,7 @@ const eslintrc = (neutrino, override) => {
     // Remove keys that are eslint-loader specific, since they'll be rejected by the .eslintrc schema:
     // https://github.com/eslint/eslint/blob/v4.19.1/conf/config-schema.js
     [
+      'cache',
       'failOnError',
       'emitWarning',
       'emitError',
@@ -82,6 +83,7 @@ module.exports = (neutrino, opts = {}) => {
   const defaults = {
     include: !opts.include ? [neutrino.options.source, neutrino.options.tests] : undefined,
     eslint: {
+      cache: true,
       failOnError: neutrino.config.get('mode') === 'production',
       cwd: neutrino.options.root,
       useEslintrc: false,
