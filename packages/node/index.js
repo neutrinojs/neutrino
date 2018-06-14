@@ -55,8 +55,6 @@ module.exports = (neutrino, opts = {}) => {
     .keys(neutrino.options.mains)
     .forEach(key => neutrino.config.entry(key).add(neutrino.options.mains[key]));
 
-  const mode = neutrino.config.get('mode');
-
   neutrino.config
     .when(sourceMap, () => neutrino.use(banner))
     .performance
@@ -89,7 +87,7 @@ module.exports = (neutrino, opts = {}) => {
         }
       });
     })
-    .when(mode === 'development', (config) => {
+    .when(process.env.NODE_ENV === 'development', (config) => {
       const mainKeys = Object.keys(neutrino.options.mains);
 
       neutrino.use(startServer, {
@@ -109,7 +107,7 @@ module.exports = (neutrino, opts = {}) => {
           });
         });
     })
-    .when(mode === 'production', (config) => {
+    .when(process.env.NODE_ENV === 'production', (config) => {
       config.when(options.clean, () => neutrino.use(clean, options.clean));
     });
 };

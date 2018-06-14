@@ -4,14 +4,23 @@ const webpack = require('./webpack');
 
 const IDENTITY = a => a;
 const configPrefix = 'neutrino.config';
+const nodeEnvsMode = ['production', 'development'];
 
 module.exports = (middleware = { use: ['.neutrinorc.js'] }, options = {}) => {
   const neutrino = new Neutrino(options);
   const args = yargs.parse(process.argv);
-  const mode = args.mode || 'production';
+  // const mode = args.mode || 'production';
 
   if (!process.env.NODE_ENV) {
-    process.env.NODE_ENV = mode;
+    process.env.NODE_ENV = 'production';
+  }
+
+  let mode = 'production';
+
+  if (args.mode) {
+    mode = args.mode; // eslint-disable-line prefer-destructuring
+  } else if (nodeEnvsMode.includes(process.env.NODE_ENV)) {
+    mode = process.env.NODE_ENV;
   }
 
   neutrino.config.mode(mode);
