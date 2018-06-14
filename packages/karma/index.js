@@ -52,7 +52,8 @@ module.exports = neutrino => {
         [sources]: ['webpack']
       },
       webpackMiddleware: {
-        stats: 'errors-only'
+        // Using minimal rather than 'errors-only' so that warnings are still shown.
+        stats: 'minimal'
       },
       webpack: merge(
         omit(neutrino.config.toConfig(), ['plugins', 'entry']),
