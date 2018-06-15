@@ -29,6 +29,7 @@
     "eslint-plugin-vue": "^4.5.0",
     "stylelint-processor-html": "^1.0.0",
     "vue-loader": "^15.0.0",
+    "vue-style-loader": "^4.1.0",
     "vue-template-compiler": "^2.5.16"
   },
   "devDependencies": {

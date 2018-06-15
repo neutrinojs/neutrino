@@ -1,27 +1,27 @@
 const loaderMerge = require('@neutrinojs/loader-merge');
 const web = require('@neutrinojs/web');
 const merge = require('deepmerge');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
-module.exports = (neutrino, options = {}) => {
-  neutrino.use(web, options);
-
-  const babelLoader = neutrino.config.module.rule('compile').use('babel');
-  const vueOptions = merge({
-    extractCss: options.extract !== false,
-    loaders: {
-      js: {
-        loader: babelLoader.get('loader'),
-        options: babelLoader.get('options')
-      }
+module.exports = (neutrino, opts = {}) => {
+  const options = merge({
+    style: {
+      loaders: [{
+        loader: require.resolve('vue-style-loader'),
+        useId: 'vue'
+      }]
     }
-  }, options.vue || {});
+  }, opts);
+
+  neutrino.use(web, options);
 
   neutrino.config.module
     .rule('vue')
       .test(neutrino.regexFromExtensions(['vue']))
       .use('vue')
-        .loader(require.resolve('vue-loader'))
-        .options(vueOptions);
+        .loader(require.resolve('vue-loader'));
+
+  neutrino.config.plugin('vue').use(VueLoaderPlugin);
 
   neutrino.config.when(neutrino.config.module.rules.has('lint'), () => {
     neutrino.use(loaderMerge('lint', 'eslint'), {
@@ -35,22 +35,4 @@ module.exports = (neutrino, options = {}) => {
       }
     });
   });
-
-  if (neutrino.config.plugins.has('stylelint')) {
-    neutrino.config
-      .plugin('stylelint')
-        .tap(([options, ...args]) => [
-          merge(options, {
-            files: ['**/*.vue'],
-            config: {
-              processors: [require.resolve('stylelint-processor-html')],
-              rules: {
-                // allows empty <style> in vue components
-                'no-empty-source': null
-              }
-            }
-          }),
-          ...args
-        ]);
-  }
 };
