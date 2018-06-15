@@ -9,7 +9,6 @@ const nodeEnvsMode = ['production', 'development'];
 module.exports = (middleware = { use: ['.neutrinorc.js'] }, options = {}) => {
   const neutrino = new Neutrino(options);
   const args = yargs.parse(process.argv);
-  // const mode = args.mode || 'production';
 
   if (!process.env.NODE_ENV) {
     process.env.NODE_ENV = 'production';
