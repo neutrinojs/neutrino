@@ -104,10 +104,6 @@ Object.keys(tests).forEach(projectName => {
     assert.file(join(dir, 'webpack.config.js'));
     assert.file(join(dir, '.eslintrc.js'));
 
-    await spawnP('yarn', ['neutrino', '--inspect'], {
-      cwd: dir,
-      stdio: 'pipe'
-    });
     await lintable(t, dir);
     await buildable(t, dir);
 

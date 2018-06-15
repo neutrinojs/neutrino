@@ -13,15 +13,13 @@ module.exports = (neutrino, opts = {}) => {
     }
   }, opts);
 
+  neutrino.use(web, options);
   neutrino.config.module
     .rule('vue')
       .test(neutrino.regexFromExtensions(['vue']))
       .use('vue')
         .loader(require.resolve('vue-loader'));
-
   neutrino.config.plugin('vue').use(VueLoaderPlugin);
-
-  neutrino.use(web, options);
 
   neutrino.config.when(neutrino.config.module.rules.has('lint'), () => {
     neutrino.use(loaderMerge('lint', 'eslint'), {
