@@ -5,7 +5,8 @@ const stringify = require('javascript-stringify');
 const merge = require('deepmerge');
 const Generator = require('yeoman-generator');
 const questions = require('./questions');
-const { projects, packages, isYarn } = require('./utils');
+const { packages, presets } = require('./matrix');
+const { isYarn } = require('./utils');
 
 /* eslint-disable no-underscore-dangle */
 module.exports = class Project extends Generator {
@@ -51,7 +52,7 @@ module.exports = class Project extends Generator {
   _getDependencies() {
     const deps = [this.data.project, this.data.testRunner, this.data.linter]
       .reduce(
-        (deps, project) => merge(deps, projects[project] || {}),
+        (deps, preset) => merge(deps, presets[preset] || {}),
         { dependencies: [], devDependencies: [] }
       );
 
