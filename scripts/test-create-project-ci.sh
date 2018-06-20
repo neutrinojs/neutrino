@@ -12,15 +12,14 @@ yarn verdaccio --config verdaccio.yml &
 while ! nc -zw 1 localhost 4873; do sleep 1; done
 
 # Publish all monorepo packages to the verdaccio registry.
-# Canary mode ensures no git or working directory changes are made, but we
-# have to override the tag from `canary` to `latest` so create-project works.
-# The minor version will be bumped and a `-alpha.GIT_SHA` suffix added, which
-# should help avoid errors from clashing with an already-published version.
+# The version will be bumped to the next pre-release suffix (`-0`) and the
+# package.json changes left in the working directory so that create-project
+# can read the correct version for installing matching monorepo packages.
 yarn release \
   --registry http://localhost:4873/ \
   --yes \
-  --canary \
-  --npm-tag latest
+  --skip-git \
+  --cd-version prerelease
 
 # Run the integration tests, which will install packages
 # from the verdaccio registry
