@@ -5,7 +5,9 @@ const stringify = require('javascript-stringify');
 const merge = require('deepmerge');
 const Generator = require('yeoman-generator');
 const questions = require('./questions');
-const { projects, packages, isYarn } = require('./utils');
+const { packages, presets } = require('./matrix');
+const { isYarn } = require('./utils');
+const { version: neutrinoVersion } = require('../../package.json');
 
 /* eslint-disable no-underscore-dangle */
 module.exports = class Project extends Generator {
@@ -16,6 +18,14 @@ module.exports = class Project extends Generator {
      | | | ||  __/| |_| || |_ | |   | || | | || (_) |
      |_| |_| \\___| \\__,_| \\__||_|   |_||_| |_| \\___/
     `;
+  }
+
+  static _processDependencies(dependencies) {
+    // For dependencies that are Neutrino monorepo packages, install the
+    // same major version as found in create-project's package.json.
+    return dependencies.map(dependency =>
+      dependency in presets ? `${dependency}@^${neutrinoVersion}` : dependency
+    ).sort();
   }
 
   _getProjectMiddleware() {
@@ -51,19 +61,14 @@ module.exports = class Project extends Generator {
   _getDependencies() {
     const deps = [this.data.project, this.data.testRunner, this.data.linter]
       .reduce(
-        (deps, project) => merge(deps, projects[project] || {}),
+        (deps, preset) => merge(deps, presets[preset] || {}),
         { dependencies: [], devDependencies: [] }
       );
 
-    if (deps.dependencies.length && deps.devDependencies.length) {
-      return deps;
-    } else if (deps.dependencies.length) {
-      return { dependencies: deps.dependencies };
-    } else if (deps.devDependencies.length) {
-      return { devDependencies: deps.devDependencies };
-    }
-
-    return {};
+    return {
+      dependencies: Project._processDependencies(deps.dependencies),
+      devDependencies: Project._processDependencies(deps.devDependencies)
+    };
   }
 
   _initialPackageJson() {
@@ -157,13 +162,11 @@ module.exports = class Project extends Generator {
     const install = isYarn ? 'add' : 'install';
     const devFlag = isYarn ? '--dev' : '--save-dev';
     const { dependencies, devDependencies } = this._getDependencies();
-    const sortedDependencies = dependencies && dependencies.sort();
-    const sortedDevDependencies = devDependencies && devDependencies.sort();
 
     this.log('');
 
-    if (dependencies) {
-      this.log(`${chalk.green('⏳  Installing dependencies:')} ${chalk.yellow(sortedDependencies.join(', '))}`);
+    if (dependencies.length) {
+      this.log(`${chalk.green('⏳  Installing dependencies:')} ${chalk.yellow(dependencies.join(', '))}`);
       this.spawnCommandSync(
         packageManager,
         [
@@ -173,7 +176,7 @@ module.exports = class Project extends Generator {
               ? ['--registry', this.options.registry] :
               []
           ),
-          ...sortedDependencies
+          ...dependencies
         ],
         {
           cwd: this.options.directory,
@@ -183,8 +186,8 @@ module.exports = class Project extends Generator {
       );
     }
 
-    if (devDependencies) {
-      this.log(`${chalk.green('⏳  Installing devDependencies:')} ${chalk.yellow(sortedDevDependencies.join(', '))}`);
+    if (devDependencies.length) {
+      this.log(`${chalk.green('⏳  Installing devDependencies:')} ${chalk.yellow(devDependencies.join(', '))}`);
       this.spawnCommandSync(
         packageManager,
         [
@@ -195,7 +198,7 @@ module.exports = class Project extends Generator {
               ? ['--registry', this.options.registry] :
               []
           ),
-          ...sortedDevDependencies
+          ...devDependencies
         ],
         {
           cwd: this.options.directory,
