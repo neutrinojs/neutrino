@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/clean",
-  "version": "8.2.0",
+  "version": "9.0.0-0",
   "description": "Neutrino middleware for cleaning bundle output directories",
   "main": "index.js",
   "keywords": [
@@ -25,7 +25,7 @@
     "clean-webpack-plugin": "^0.1.19"
   },
   "peerDependencies": {
-    "neutrino": "^8.0.0",
+    "neutrino": "^9.0.0-0",
     "webpack": "^4.0.0"
   }
 }

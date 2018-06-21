@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/image-minify",
-  "version": "8.2.0",
+  "version": "9.0.0-0",
   "description": "Neutrino middleware for optimizing images with imagemin",
   "main": "index.js",
   "keywords": [
@@ -32,7 +32,7 @@
     "imagemin-webpack": "^2.0.0"
   },
   "peerDependencies": {
-    "neutrino": "^8.0.0",
+    "neutrino": "^9.0.0-0",
     "webpack": "^4.0.0"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/web",
-  "version": "8.2.0",
+  "version": "9.0.0-0",
   "description": "Neutrino preset for building generic web applications",
   "main": "index.js",
   "keywords": [
@@ -26,24 +26,24 @@
     "@babel/core": "7.0.0-beta.51",
     "@babel/plugin-syntax-dynamic-import": "7.0.0-beta.51",
     "@babel/preset-env": "7.0.0-beta.51",
-    "@neutrinojs/clean": "^8.2.0",
-    "@neutrinojs/compile-loader": "^8.2.0",
-    "@neutrinojs/dev-server": "^8.2.0",
-    "@neutrinojs/env": "^8.2.0",
-    "@neutrinojs/font-loader": "^8.2.0",
-    "@neutrinojs/hot": "^8.2.0",
-    "@neutrinojs/html-loader": "^8.2.0",
-    "@neutrinojs/html-template": "^8.2.0",
-    "@neutrinojs/image-loader": "^8.2.0",
-    "@neutrinojs/loader-merge": "^8.2.0",
-    "@neutrinojs/style-loader": "^8.2.0",
+    "@neutrinojs/clean": "9.0.0-0",
+    "@neutrinojs/compile-loader": "9.0.0-0",
+    "@neutrinojs/dev-server": "9.0.0-0",
+    "@neutrinojs/env": "9.0.0-0",
+    "@neutrinojs/font-loader": "9.0.0-0",
+    "@neutrinojs/hot": "9.0.0-0",
+    "@neutrinojs/html-loader": "9.0.0-0",
+    "@neutrinojs/html-template": "9.0.0-0",
+    "@neutrinojs/image-loader": "9.0.0-0",
+    "@neutrinojs/loader-merge": "9.0.0-0",
+    "@neutrinojs/style-loader": "9.0.0-0",
     "deepmerge": "^1.5.2",
     "html-webpack-include-sibling-chunks-plugin": "^0.1.4",
     "webpack-manifest-plugin": "^2.0.2",
     "worker-loader": "^2.0.0"
   },
   "peerDependencies": {
-    "neutrino": "^8.0.0",
+    "neutrino": "^9.0.0-0",
     "webpack": "^4.0.0"
   }
 }
