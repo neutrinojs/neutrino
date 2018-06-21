@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/preact",
-  "version": "8.2.0",
+  "version": "9.0.0-0",
   "description": "Neutrino preset for building Preact web applications",
   "main": "index.js",
   "keywords": [
@@ -27,16 +27,16 @@
     "@babel/core": "7.0.0-beta.51",
     "@babel/plugin-proposal-class-properties": "7.0.0-beta.51",
     "@babel/plugin-transform-react-jsx": "7.0.0-beta.51",
-    "@neutrinojs/compile-loader": "^8.2.0",
-    "@neutrinojs/loader-merge": "^8.2.0",
-    "@neutrinojs/web": "^8.2.0",
+    "@neutrinojs/compile-loader": "9.0.0-0",
+    "@neutrinojs/loader-merge": "9.0.0-0",
+    "@neutrinojs/web": "9.0.0-0",
     "eslint-plugin-react": "^7.7.0"
   },
   "devDependencies": {
     "preact": "^8.2.9"
   },
   "peerDependencies": {
-    "neutrino": "^8.0.0",
+    "neutrino": "^9.0.0-0",
     "webpack": "^4.0.0"
   }
 }
