@@ -1,11 +1,13 @@
 {
   "lerna": "2.4.0",
-  "packages": [
-    "packages/*"
-  ],
   "version": "8.2.0",
-  "gitRemote": "upstream",
   "npmClient": "yarn",
   "registry": "https://registry.npmjs.org/",
-  "useWorkspaces": true
+  "useWorkspaces": true,
+  "command": {
+    "publish": {
+      "forcePublish": "*",
+      "gitRemote": "upstream"
+    }
+  }
 }
