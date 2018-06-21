@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/vue",
-  "version": "8.2.0",
+  "version": "9.0.0-0",
   "description": "Neutrino preset adding Vue.js support.",
   "main": "src/index.js",
   "author": "Capi Etheriel <barraponto@gmail.com> (https://barraponto.blog.br)",
@@ -21,8 +21,8 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@neutrinojs/loader-merge": "^8.2.0",
-    "@neutrinojs/web": "^8.2.0",
+    "@neutrinojs/loader-merge": "9.0.0-0",
+    "@neutrinojs/web": "9.0.0-0",
     "css-loader": "^0.28.11",
     "deepmerge": "^1.5.2",
     "eslint-plugin-react": "^7.7.0",
@@ -36,7 +36,7 @@
     "vue": "^2.5.16"
   },
   "peerDependencies": {
-    "neutrino": "^8.0.0",
+    "neutrino": "^9.0.0-0",
     "webpack": "^4.0.0"
   }
 }

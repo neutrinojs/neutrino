@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/env",
-  "version": "8.2.0",
+  "version": "9.0.0-0",
   "description": "Neutrino middleware for injecting environment variables into source code",
   "main": "index.js",
   "keywords": [
@@ -24,7 +24,7 @@
     "yarn": ">=1.2.1"
   },
   "peerDependencies": {
-    "neutrino": "^8.0.0",
+    "neutrino": "^9.0.0-0",
     "webpack": "^4.0.0"
   }
 }
