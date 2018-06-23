@@ -8,9 +8,13 @@ class App extends Component {
   };
 
   render() {
+    const { name } = this.state;
     return (
       <div className="App">
-        <h1>Welcome to {this.state.name}</h1>
+        <h1>
+          Welcome to
+          {name}
+        </h1>
       </div>
     );
   }
