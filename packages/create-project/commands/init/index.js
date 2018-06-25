@@ -37,7 +37,9 @@ module.exports = class Project extends Generator {
           title: this.options.name
         }
       }];
-    } else if (projectType === 'library') {
+    }
+
+    if (projectType === 'library') {
       return [project, {
         name: this.options.name
       }];
