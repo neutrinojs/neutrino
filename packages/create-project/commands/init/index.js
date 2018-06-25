@@ -23,8 +23,9 @@ module.exports = class Project extends Generator {
   static _processDependencies(dependencies) {
     // For dependencies that are Neutrino monorepo packages, install the
     // same major version as found in create-project's package.json.
+    const neutrinoPackages = Object.values(packages);
     return dependencies.map(dependency =>
-      dependency in presets ? `${dependency}@^${neutrinoVersion}` : dependency
+      neutrinoPackages.includes(dependency) ? `${dependency}@^${neutrinoVersion}` : dependency
     ).sort();
   }
 
