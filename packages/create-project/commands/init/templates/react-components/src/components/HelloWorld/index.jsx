@@ -16,14 +16,9 @@ export default class HelloWorld extends PureComponent {
     initialColor: '#000'
   };
 
-  state = {
-    color: this.props.initialColor
-  };
-
-  componentWillReceiveProps({ initialColor }) {
-    if (initialColor !== this.props.initialColor) {
-      this.setState({ color: initialColor });
-    }
+  constructor(props) {
+    super(props);
+    this.state = { color: props.initialColor };
   }
 
   handleClick = () => {
@@ -33,10 +28,15 @@ export default class HelloWorld extends PureComponent {
   };
 
   render() {
+    const { color } = this.state;
     return (
       <div>
-        <h1 style={{ color: this.state.color, padding: '20px' }}>Hello World!</h1>
-        <button onClick={this.handleClick}>Change color</button>
+        <h1 style={{ color, padding: '20px' }}>
+          Hello World!
+        </h1>
+        <button type="button" onClick={this.handleClick}>
+          Change color
+        </button>
       </div>
     );
   }
