@@ -8,12 +8,12 @@ const generateColor = () => `#${
 }`;
 
 export default class HelloWorld extends PureComponent {
-  static defaultProps = {
-    initialColor: '#000'
-  };
-
   static propTypes = {
     initialColor: string
+  };
+
+  static defaultProps = {
+    initialColor: '#000'
   };
 
   state = {
