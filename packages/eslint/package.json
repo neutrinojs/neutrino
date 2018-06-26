@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/eslint",
-  "version": "8.2.0",
+  "version": "9.0.0-0",
   "description": "Neutrino middleware for linting source code using ESLint",
   "main": "index.js",
   "keywords": [
@@ -33,7 +33,7 @@
   },
   "peerDependencies": {
     "eslint": "^4.0.0",
-    "neutrino": "^8.0.0",
+    "neutrino": "^9.0.0-0",
     "webpack": "^4.0.0"
   }
 }

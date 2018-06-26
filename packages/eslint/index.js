@@ -28,20 +28,16 @@ const eslintrc = (neutrino, override) => {
         .use('eslint')
         .get('options')
     ),
-    // We remove these keys since they are needed when running the lint command
-    // but not the eslintrc command. The lint command uses ESLint's CLIEngine,
-    // but the ESLint RC format does not match the CLIEngine format exactly. We
-    // must remove anything we add that does not comply with ESLint's schemas.
-    // https://github.com/eslint/eslint/blob/9d1df92628dd4dd1e70fbb19454008e146387435/conf/config-schema.js
-    // https://github.com/eslint/eslint/blob/9d1df92628dd4dd1e70fbb19454008e146387435/lib/config/config-validator.js#L167
+    // Remove keys that are eslint-loader specific, since they'll be rejected by the .eslintrc schema:
+    // https://github.com/eslint/eslint/blob/v4.19.1/conf/config-schema.js
     [
+      'cache',
       'failOnError',
       'emitWarning',
       'emitError',
       'cwd',
       'useEslintrc',
       'fix',
-      'extensions',
       'formatter'
     ]
   );
@@ -85,16 +81,14 @@ module.exports = (neutrino, opts = {}) => {
   }
 
   const defaults = {
-    include: !opts.include ? [neutrino.options.source] : undefined,
+    include: !opts.include ? [neutrino.options.source, neutrino.options.tests] : undefined,
     eslint: {
+      cache: true,
       failOnError: neutrino.config.get('mode') === 'production',
       cwd: neutrino.options.root,
       useEslintrc: false,
       root: true,
       formatter: 'codeframe',
-      // eslint-loader uses executeOnText(), which ignores the `extensions` setting.
-      // However it's still needed for the lint command, as it uses executeOnFiles().
-      extensions: neutrino.options.extensions,
       // Unfortunately we can't `require.resolve('eslint-plugin-babel')` due to:
       // https://github.com/eslint/eslint/issues/6237
       // ...so we have no choice but to rely on it being hoisted.
@@ -121,7 +115,7 @@ module.exports = (neutrino, opts = {}) => {
 
   if (typeof loaderOptions.formatter === 'string') {
     const formatterPath = `eslint/lib/formatters/${loaderOptions.formatter}`;
-    // eslint-disable-next-line global-require
+    // eslint-disable-next-line global-require, import/no-dynamic-require
     loaderOptions.formatter = require(formatterPath);
     // Improve the stringified output when using --inspect.
     // eslint-disable-next-line no-underscore-dangle

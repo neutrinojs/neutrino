@@ -1,1 +1,1 @@
-module.exports = () => "root"
+module.exports = () => 'root';
