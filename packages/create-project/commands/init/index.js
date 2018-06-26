@@ -7,6 +7,7 @@ const { contains, partition } = require('ramda');
 const Generator = require('yeoman-generator');
 const questions = require('./questions');
 const { projects, packages, isYarn } = require('./utils');
+const { version: neutrinoVersion } = require('../../package.json');
 
 /* eslint-disable no-underscore-dangle */
 module.exports = class Project extends Generator {
@@ -174,8 +175,17 @@ module.exports = class Project extends Generator {
           });
         }
       } else {
-        this.log(`${chalk.green('⏳  Installing devDependencies:')} ${chalk.yellow(devDependencies.join(', '))}`);
-        this.spawnCommandSync(packageManager, [install, devFlag, ...devDependencies], {
+        // We support Node 6 so can't use Object.values().
+        const neutrinoPackages = Object.keys(packages).map(k => packages[k]);
+        // For devDependencies that are Neutrino monorepo packages, install the
+        // same major version as found in create-project's package.json.
+        // This can't be done in _getDependencies() since the yarn link above
+        // fails if the package specifier includes a version.
+        const versionedDevDependencies = devDependencies.map(dependency =>
+          neutrinoPackages.includes(dependency) ? `${dependency}@^${neutrinoVersion}` : dependency
+        );
+        this.log(`${chalk.green('⏳  Installing devDependencies:')} ${chalk.yellow(versionedDevDependencies.join(', '))}`);
+        this.spawnCommandSync(packageManager, [install, devFlag, ...versionedDevDependencies], {
           stdio: this.options.stdio,
           env: process.env,
           cwd: this.options.directory
