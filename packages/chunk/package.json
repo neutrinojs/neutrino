@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/chunk",
-  "version": "8.2.3",
+  "version": "8.3.0",
   "description": "Neutrino middleware for chunking bundle assets",
   "main": "index.js",
   "keywords": [

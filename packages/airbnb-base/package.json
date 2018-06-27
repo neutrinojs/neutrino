@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/airbnb-base",
-  "version": "8.2.3",
+  "version": "8.3.0",
   "description": "Neutrino preset for adding Airbnb's base JS ESLint config, following the Airbnb styleguide",
   "main": "index.js",
   "keywords": [
@@ -23,7 +23,7 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@neutrinojs/eslint": "^8.2.3",
+    "@neutrinojs/eslint": "^8.3.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.12.0"

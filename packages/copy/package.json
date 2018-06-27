@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/copy",
-  "version": "8.2.3",
+  "version": "8.3.0",
   "description": "Neutrino middleware for copying files to a bundle output directory",
   "main": "index.js",
   "keywords": [
