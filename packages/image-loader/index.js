@@ -1,5 +1,5 @@
 module.exports = (neutrino, options = {}) => {
-  const isProduction = neutrino.config.get('mode') === 'production';
+  const isProduction = process.env.NODE_ENV === 'production';
   const defaultOptions = {
     limit: 8192,
     name: isProduction ? '[name].[hash:8].[ext]' : '[name].[ext]'

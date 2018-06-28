@@ -84,7 +84,7 @@ module.exports = (neutrino, opts = {}) => {
     include: !opts.include ? [neutrino.options.source, neutrino.options.tests] : undefined,
     eslint: {
       cache: true,
-      failOnError: neutrino.config.get('mode') === 'production',
+      failOnError: process.env.NODE_ENV === 'production',
       cwd: neutrino.options.root,
       useEslintrc: false,
       root: true,
