@@ -7,8 +7,8 @@ const configPrefix = 'neutrino.config';
 
 module.exports = (middleware = { use: ['.neutrinorc.js'] }, options = {}) => {
   const neutrino = new Neutrino(options);
-  const args = yargs.parse(process.argv);
-  const mode = args.mode || 'production';
+  const { argv } = yargs;
+  const mode = argv.mode || 'production';
 
   if (!process.env.NODE_ENV) {
     process.env.NODE_ENV = mode;
