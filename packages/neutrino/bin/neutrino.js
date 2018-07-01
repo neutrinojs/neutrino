@@ -2,9 +2,9 @@
 
 const yargs = require('yargs');
 
-const args = yargs.parse(process.argv);
+const { argv } = yargs;
 
-if (args.inspect) {
+if (argv.inspect) {
   // eslint-disable-next-line global-require
   require('../')().inspect();
 }
