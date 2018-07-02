@@ -87,13 +87,13 @@ module.exports = (neutrino, opts = {}) => {
         .end()
       .end()
     .node
-      .when(options.target === 'node', (node) => {
+      .when(options.target === 'web', (node) => {
         node
           .set('Buffer', false)
           .set('fs', 'empty')
           .set('tls', 'empty');
       })
-      .when(options.target === 'web', (node) => {
+      .when(options.target === 'node', (node) => {
         node
           .set('__filename', false)
           .set('__dirname', false);
