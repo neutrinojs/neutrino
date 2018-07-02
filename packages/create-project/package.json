@@ -42,7 +42,7 @@
     "javascript-stringify": "^1.6.0",
     "yargs": "^12.0.0",
     "yeoman-environment": "^2.0.6",
-    "yeoman-generator": "^2.0.5"
+    "yeoman-generator": "^3.0.0"
   },
   "devDependencies": {
     "yeoman-assert": "^3.1.1",
