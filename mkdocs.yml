@@ -57,7 +57,6 @@ pages:
     - env: './packages/env.md'
     - eslint: './packages/eslint.md'
     - font-loader: './packages/font-loader.md'
-    - hot: './packages/hot.md'
     - html-loader: './packages/html-loader.md'
     - html-template: './packages/html-template.md'
     - image-loader: './packages/image-loader.md'
