@@ -4,11 +4,11 @@ const fontLoader = require('@neutrinojs/font-loader');
 const imageLoader = require('@neutrinojs/image-loader');
 const compileLoader = require('@neutrinojs/compile-loader');
 const env = require('@neutrinojs/env');
-const hot = require('@neutrinojs/hot');
 const htmlTemplate = require('@neutrinojs/html-template');
 const clean = require('@neutrinojs/clean');
 const loaderMerge = require('@neutrinojs/loader-merge');
 const devServer = require('@neutrinojs/dev-server');
+const { HotModuleReplacementPlugin } = require('webpack');
 const { resolve } = require('url');
 const merge = require('deepmerge');
 const HtmlWebpackIncludeSiblingChunksPlugin = require('html-webpack-include-sibling-chunks-plugin');
@@ -192,8 +192,8 @@ module.exports = (neutrino, opts = {}) => {
     .when(mode === 'development', config => {
       neutrino.use(devServer, options.devServer);
       config.devtool('cheap-module-eval-source-map');
-      config.when(options.hot, () => {
-        neutrino.use(hot);
+      config.when(options.hot, (config) => {
+        config.plugin('hot').use(HotModuleReplacementPlugin);
 
         if ('hotEntries' in options) {
           throw new Error(

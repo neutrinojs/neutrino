@@ -2,8 +2,8 @@ const banner = require('@neutrinojs/banner');
 const compile = require('@neutrinojs/compile-loader');
 const clean = require('@neutrinojs/clean');
 const startServer = require('@neutrinojs/start-server');
-const hot = require('@neutrinojs/hot');
 const nodeExternals = require('webpack-node-externals');
+const { HotModuleReplacementPlugin } = require('webpack');
 const {
   basename, parse, format
 } = require('path');
@@ -100,10 +100,10 @@ module.exports = (neutrino, opts = {}) => {
         .output
           .devtoolModuleFilenameTemplate('[absolute-resource-path]')
           .end()
-        .when(options.hot, () => {
-          neutrino.use(hot);
+        .when(options.hot, (config) => {
+          config.plugin('hot').use(HotModuleReplacementPlugin);
           mainKeys.forEach(key => {
-            neutrino.config
+            config
               .entry(key)
                 .add(`${require.resolve('webpack/hot/poll')}?1000`);
           });
