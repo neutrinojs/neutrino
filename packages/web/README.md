@@ -182,8 +182,8 @@ The following shows how you can pass an options object to the Web preset and ove
 module.exports = {
   use: [
     ['@neutrinojs/web', {
-      // Change options for @neutrinojs/env
-      env: [],
+      // Enables and configures `EnvironmentPlugin`. See below for example usage.
+      env: false,
 
       // Enables Hot Module Replacement. Set to false to disable
       hot: true,
@@ -298,6 +298,36 @@ module.exports = {
     }]
   ]
 };
+```
+
+### Environment variables
+
+To use environment variables at compile time, use the `env` setting to enable and configure
+[EnvironmentPlugin](https://webpack.js.org/plugins/environment-plugin/) (`env` accepts the
+same options as the plugin). There is no need to specify `NODE_ENV`, since webpack defines
+it automatically. The environment variables can then be used via `process.env.<NAME>`.
+
+For example:
+
+```js
+['@neutrinojs/web', {
+  env: [
+    // webpack will output a warning if these are not defined in the environment.
+    'VAR_ONE',
+    'VAR_TWO',
+  ]
+}
+```
+
+Or to set default values, use the object form:
+
+```js
+['@neutrinojs/web', {
+  env: {
+    VAR_ONE: 'foo',
+    VAR_TWO: 'bar',
+  }
+}
 ```
 
 ### Dev Server Proxy
@@ -421,7 +451,7 @@ _Note: Some plugins are only available in certain environments. To override them
 
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
-| `env` | Inject environment variables into source code at `process.env`, defaults to only inject `NODE_ENV`. From `@neutrinojs/env`. | all |
+| `env` | Inject environment variables into source code at `process.env`, using `EnvironmentPlugin`. | all |
 | `extract` | Extracts CSS from JS bundle into a separate stylesheet file. From `@neutrinojs/style-loader`. | all |
 | `html-sibling-chunks` | Works around `html-webpack-plugin` not supporting `splitChunks` when using multiple entrypoints, via `html-webpack-include-sibling-chunks-plugin`. | all |
 | `html-{MAIN_NAME}` | Automatically generates HTML files for configured entry points. `{MAIN_NAME}` corresponds to the entry point of each page. By default, there is only a single `index` main, so this would generate a plugin named `html-index`. From `@neutrinojs/html-template` | all |

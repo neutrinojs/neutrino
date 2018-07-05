@@ -65,6 +65,22 @@ test('valid preset development', t => {
   t.is(errors.length, 0);
 });
 
+test('supports env option using array form', t => {
+  const api = new Neutrino();
+
+  const env = ['VAR1', 'VAR2'];
+  api.use(mw(), { env });
+  t.deepEqual(api.config.plugin('env').get('args'), [ env ]);
+});
+
+test('supports env option using object form', t => {
+  const api = new Neutrino();
+
+  const env = { VAR: 'default-value' };
+  api.use(mw(), { env });
+  t.deepEqual(api.config.plugin('env').get('args'), [ env ]);
+});
+
 test('throws when minify.babel defined', async t => {
   const api = new Neutrino();
 
