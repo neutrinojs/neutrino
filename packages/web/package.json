@@ -29,7 +29,6 @@
     "@neutrinojs/clean": "9.0.0-0",
     "@neutrinojs/compile-loader": "9.0.0-0",
     "@neutrinojs/dev-server": "9.0.0-0",
-    "@neutrinojs/env": "9.0.0-0",
     "@neutrinojs/font-loader": "9.0.0-0",
     "@neutrinojs/html-loader": "9.0.0-0",
     "@neutrinojs/html-template": "9.0.0-0",

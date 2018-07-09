@@ -54,7 +54,6 @@ pages:
     - compile-loader: './packages/compile-loader.md'
     - copy: './packages/copy.md'
     - dev-server: './packages/dev-server.md'
-    - env: './packages/env.md'
     - eslint: './packages/eslint.md'
     - font-loader: './packages/font-loader.md'
     - html-loader: './packages/html-loader.md'
