@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/html-loader",
-  "version": "8.2.0",
+  "version": "9.0.0-0",
   "description": "Neutrino middleware for importing and loading HTML files from modules",
   "main": "index.js",
   "keywords": [
@@ -25,7 +25,7 @@
     "html-loader": "^0.5.5"
   },
   "peerDependencies": {
-    "neutrino": "^8.0.0",
+    "neutrino": "^9.0.0-0",
     "webpack": "^4.0.0"
   }
 }

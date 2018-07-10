@@ -1,4 +1,4 @@
-const { packages } = require('./utils');
+const { packages } = require('./matrix');
 
 const NONE = { name: 'None', value: false };
 const APPLICATION = { name: 'A web or Node.js application', value: 'application' };

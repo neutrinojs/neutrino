@@ -22,7 +22,7 @@ const WEBPACK = 'webpack@^4';
 const WEBPACK_CLI = 'webpack-cli@^2';
 const WEBPACK_DEV_SERVER = 'webpack-dev-server@^3';
 
-const projects = {
+const presets = {
   [AIRBNB]: {
     type: LINTING,
     devDependencies: [AIRBNB, ESLINT]
@@ -115,4 +115,4 @@ const packages = {
   STANDARDJS
 };
 
-module.exports = { projects, packages };
+module.exports = { presets, packages };
