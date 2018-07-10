@@ -22,7 +22,7 @@ module.exports = (neutrino, opts = {}) => {
     babel: compileLoader.merge({
       presets: [
         [require.resolve('@babel/preset-env'), {
-          forceAllTransforms: true
+          targets: { browsers: 'ie 9' }
         }]
       ]
     }, options.babel)
