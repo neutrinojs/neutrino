@@ -39,7 +39,8 @@ module.exports = (neutrino, opts = {}) => {
     include: [neutrino.options.source, neutrino.options.tests],
     babel: compile.merge({
       plugins: [
-        require.resolve('@babel/plugin-syntax-dynamic-import')
+        require.resolve('@babel/plugin-syntax-dynamic-import'),
+        require.resolve('transform-object-rest-spread')
       ],
       presets: [
         [require.resolve('@babel/preset-env'), {
