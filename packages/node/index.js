@@ -27,7 +27,8 @@ module.exports = (neutrino, opts = {}) => {
   const options = merge({
     hot: true,
     targets: {
-      node: '8.3'
+      // Targets the version of Node.js used to run webpack.
+      node: 'current'
     },
     clean: opts.clean !== false && {
       paths: [neutrino.options.output]
