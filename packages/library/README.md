@@ -9,7 +9,7 @@
 
 - Zero upfront configuration necessary to start developing and building a JavaScript library
 - Modern Babel compilation supporting ES modules, async functions, and dynamic imports
-- Compiles down to ES5 for all major browsers with support up to IE 9
+- Compiles to ES5 to support major browsers, publishing to npm, and library interoperability
 - Defaults to UMD-based output for consumption in a variety of environments
 - Supports automatically-wired sourcemaps
 - Tree-shaking to create smaller bundles

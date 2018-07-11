@@ -14,7 +14,7 @@ other Neutrino middleware, so you can build, test, and publish multiple React co
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
 - Support for importing web workers with `.worker.*` file extensions
-- Compiles down to ES5 for all major browsers with support up to IE 9
+- Compiles to ES5 to support major browsers, publishing to npm, and library      interoperability
 - Extends partially from [@neutrinojs/web](https://neutrinojs.org/packages/web/)
   - Modern Babel compilation supporting ES modules, async functions, and dynamic imports
   - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
