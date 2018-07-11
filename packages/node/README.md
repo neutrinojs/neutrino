@@ -8,7 +8,8 @@
 ## Features
 
 - Zero upfront configuration necessary to start developing and building a Node.js project
-- Modern Babel compilation supporting ES modules, Node.js 8.3+, async functions, and dynamic imports
+- Modern Babel compilation supporting ES modules, async functions, and dynamic imports
+- By default targets the version of Node.js used to run webpack
 - Supports automatically-wired sourcemaps
 - Tree-shaking to create smaller bundles
 - Hot Module Replacement with source-watching during development
@@ -271,7 +272,8 @@ module.exports = {
         // Override options for @babel/preset-env, showing defaults:
         presets: [
           ['@babel/preset-env', {
-            targets: { node: '8.3' },
+            // Targets the version of Node.js used to run webpack.
+            targets: { node: 'current' },
             modules: false,
             useBuiltIns: true,
           }]
