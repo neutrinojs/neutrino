@@ -43,7 +43,7 @@ neutrino.use(eslint, {
   exclude: [],
   eslint: {
     cache: true,
-    failOnError: neutrino.config.get('mode') === 'production',
+    failOnError: process.env.NODE_ENV !== 'development',
     cwd: neutrino.options.root,
     useEslintrc: false,
     root: true,

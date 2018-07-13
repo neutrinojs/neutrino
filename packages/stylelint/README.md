@@ -41,7 +41,7 @@ neutrino.use(stylelint, {
   pluginId: 'stylelint',
   files: '**/*.+(css|scss|sass|less)',
   context: neutrino.options.source,
-  failOnError: neutrino.options.command !== 'start'
+  failOnError: process.env.NODE_ENV !== 'development'
 });
 ```
 Options are passed to `stylelint-webpack-plugin`. See the [stylelint Node API](https://stylelint.io/user-guide/node-api/#options) for all available options.
@@ -90,6 +90,8 @@ _Example: Create a .stylelintrc.js file in the root of the project, using `.neut
 ```js
 // .stylelintrc.js
 const { Neutrino } = require('neutrino');
+
+process.env.NODE_ENV = process.env.NODE_ENV || 'lint';
 
 // Specify middleware to Neutrino prior to calling stylelintrc.
 // Even if using .neutrinorc.js, you must specify it when using

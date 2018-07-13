@@ -66,8 +66,6 @@ module.exports = (neutrino, opts = {}) => {
     .keys(neutrino.options.mains)
     .forEach(key => neutrino.config.entry(key).add(neutrino.options.mains[key]));
 
-  const mode = neutrino.config.get('mode');
-
   neutrino.config
     .when(hasSourceMap, () => neutrino.use(banner))
     .devtool('source-map')
@@ -122,7 +120,7 @@ module.exports = (neutrino, opts = {}) => {
         neutrino.use(loaderMerge('lint', 'eslint'), { envs: ['browser', 'commonjs'] });
       }
     })
-    .when(mode === 'production', (config) => {
+    .when(process.env.NODE_ENV === 'production', (config) => {
       config.when(options.clean, () => neutrino.use(clean, options.clean));
     });
 };

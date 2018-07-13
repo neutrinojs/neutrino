@@ -3,6 +3,12 @@ import Neutrino from '../../neutrino/Neutrino';
 import neutrino from '../../neutrino';
 
 const mw = () => require('..');
+const originalNodeEnv = process.env.NODE_ENV;
+
+test.afterEach(() => {
+  // Restore the original NODE_ENV after each test (which Ava defaults to 'test').
+  process.env.NODE_ENV = originalNodeEnv;
+});
 
 test('loads middleware', t => {
   t.notThrows(mw);
@@ -11,25 +17,28 @@ test('loads middleware', t => {
 test('uses middleware', t => {
   t.notThrows(() => {
     const api = new Neutrino();
-
-    api.config.mode('production');
     api.use(mw());
   });
 });
 
 test('instantiates', t => {
   const api = new Neutrino();
-
-  api.config.mode('production');
   api.use(mw());
 
   t.notThrows(() => api.config.toConfig());
 });
 
 test('instantiates in development', t => {
+  process.env.NODE_ENV = 'development';
   const api = new Neutrino();
+  api.use(mw());
 
-  api.config.mode('development');
+  t.notThrows(() => api.config.toConfig());
+});
+
+test('instantiates in production', t => {
+  process.env.NODE_ENV = 'production';
+  const api = new Neutrino();
   api.use(mw());
 
   t.notThrows(() => api.config.toConfig());
@@ -37,7 +46,6 @@ test('instantiates in development', t => {
 
 test('exposes mocha output handler', t => {
   const api = new Neutrino();
-
   api.use(mw());
 
   const handler = api.outputHandlers.get('mocha');

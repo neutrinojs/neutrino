@@ -1,6 +1,38 @@
 import test from 'ava';
 import neutrino from '..';
 
+const originalNodeEnv = process.env.NODE_ENV;
+
+test.afterEach(() => {
+  // Restore the original NODE_ENV after each test (which Ava defaults to 'test').
+  process.env.NODE_ENV = originalNodeEnv;
+});
+
+test('default mode derived from production NODE_ENV', t => {
+  process.env.NODE_ENV = 'production';
+  const webpackConfig = neutrino().output('webpack')();
+  t.is(webpackConfig.mode, 'production');
+});
+
+test('default mode derived from development NODE_ENV', t => {
+  process.env.NODE_ENV = 'development';
+  const webpackConfig = neutrino().output('webpack')();
+  t.is(webpackConfig.mode, 'development');
+});
+
+test('default mode derived from test NODE_ENV', t => {
+  process.env.NODE_ENV = 'test';
+  const webpackConfig = neutrino().output('webpack')();
+  t.is(webpackConfig.mode, 'development');
+});
+
+test('undefined mode and NODE_ENV sets only NODE_ENV', t => {
+  delete process.env.NODE_ENV;
+  const webpackConfig = neutrino().output('webpack')();
+  t.is(process.env.NODE_ENV, 'production');
+  t.false('mode' in webpackConfig);
+});
+
 test('throws when vendor entrypoint defined', t => {
   const err = t.throws(() => {
     const webpackConfig = neutrino(neutrino => {

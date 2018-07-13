@@ -8,13 +8,25 @@ const configPrefix = 'neutrino.config';
 module.exports = (middleware = { use: ['.neutrinorc.js'] }, options = {}) => {
   const neutrino = new Neutrino(options);
   const { argv } = yargs;
-  const mode = argv.mode || 'production';
+  let { mode } = argv;
 
-  if (!process.env.NODE_ENV) {
+  if (mode) {
+    // If specified, --mode takes priority and overrides any existing NODE_ENV.
     process.env.NODE_ENV = mode;
+  } else if (process.env.NODE_ENV) {
+    // Development mode is most appropriate for a !production NODE_ENV (such as `NODE_ENV=test`).
+    mode = (process.env.NODE_ENV === 'production') ? 'production' : 'development';
+  } else {
+    // Default NODE_ENV to the more strict value, to save needing to do so in .eslintrc.js.
+    // However don't set `mode` since webpack already defaults it to `production`, and in so
+    // doing outputs a useful message informing users that they are relying on the defaults.
+    process.env.NODE_ENV = 'production';
   }
 
-  neutrino.config.mode(mode);
+  if (mode) {
+    neutrino.config.mode(mode);
+  }
+
   neutrino.register('webpack', webpack);
 
   if (middleware) {
