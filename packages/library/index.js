@@ -31,24 +31,11 @@ module.exports = (neutrino, opts = {}) => {
           useBuiltIns: 'entry',
           targets: options.target === 'node' ?
             { node: '8.3' } :
-            { browsers: [] }
+            { browsers: 'ie 9' }
         }]
       ]
     }, options.babel)
   });
-
-  const { targets } = options.babel.presets[0][1];
-
-  if (targets.browsers && !targets.browsers.length) {
-    targets.browsers.push(
-      'last 2 Chrome versions',
-      'last 2 Firefox versions',
-      'last 2 Edge versions',
-      'last 2 Opera versions',
-      'last 2 Safari versions',
-      'last 2 iOS versions'
-    );
-  }
 
   const pkg = neutrino.options.packageJson;
   const hasSourceMap = (pkg.dependencies && 'source-map-support' in pkg.dependencies) ||

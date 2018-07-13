@@ -13,7 +13,8 @@ module.exports = (neutrino, opts = {}) => {
     },
     manifest: mode === 'development',
     externals: opts.externals !== false && {},
-    style: { extract: { plugin: { filename: '[name].css' } } }
+    style: { extract: { plugin: { filename: '[name].css' } } },
+    targets: { browsers: 'ie 9' }
   }, opts);
 
   neutrino.config.when(
