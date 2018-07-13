@@ -15,6 +15,14 @@ test('throws when vendor entrypoint defined', t => {
   t.true(err.message.includes('Remove the manual `vendor` entrypoint'));
 });
 
+test('throws when trying to override with a non-function', t => {
+  const err = t.throws(() =>
+    neutrino(Function.prototype).output('webpack', { bad: 'override' })
+  );
+
+  t.true(err.message.includes('must be a function'));
+});
+
 test('throws when trying to use a non-registered output', t => {
   const err = t.throws(() =>
     neutrino(Function.prototype).output('fake')

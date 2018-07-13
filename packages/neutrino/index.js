@@ -28,6 +28,10 @@ module.exports = (middleware = { use: ['.neutrinorc.js'] }, options = {}) => {
         process.exit();
       }
 
+      if (typeof override !== 'function') {
+        throw new Error(`The output override for "${name}" must be a function`);
+      }
+
       const handler = neutrino.outputHandlers.get(name);
 
       if (!handler) {
