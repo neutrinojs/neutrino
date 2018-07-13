@@ -9,6 +9,8 @@
 
 - Zero upfront configuration necessary to start developing and building a JavaScript library
 - Modern Babel compilation supporting ES modules, async functions, and dynamic imports
+- Compiles to ES5 to support major browsers, publishing to npm, and library
+  interoperability
 - Defaults to UMD-based output for consumption in a variety of environments
 - Supports automatically-wired sourcemaps
 - Tree-shaking to create smaller bundles
@@ -257,12 +259,7 @@ module.exports = {
           ['@babel/preset-env', {
             // Passing in browser targets to @babel/preset-env will replace them
             // instead of merging them when using the 'web' target
-            targets: {
-              browsers: [
-                'last 1 Chrome versions',
-                'last 1 Firefox versions'
-              ]
-            }
+            targets: { browsers: 'ie 9' }
           }]
         ]
       }
