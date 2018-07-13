@@ -4,7 +4,6 @@ const loaderMerge = require('@neutrinojs/loader-merge');
 const merge = require('deepmerge');
 
 module.exports = (neutrino, opts = {}) => {
-  const mode = neutrino.config.get('mode');
   const options = merge({
     hot: true,
     babel: {}
@@ -20,7 +19,7 @@ module.exports = (neutrino, opts = {}) => {
     babel: compileLoader.merge({
       plugins: [
         ...(
-          mode === 'development' && options.hot && reactHotLoader
+          process.env.NODE_ENV === 'development' && options.hot && reactHotLoader
             ? [reactHotLoader]
             : []
         ),
@@ -33,7 +32,7 @@ module.exports = (neutrino, opts = {}) => {
           require.resolve('@babel/preset-react'),
           {
             // Enable development helpers both in development and testing.
-            development: mode !== 'production',
+            development: process.env.NODE_ENV !== 'production',
             // Use the native built-in instead of polyfilling.
             useBuiltIns: true
           }

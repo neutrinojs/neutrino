@@ -12,7 +12,7 @@ module.exports = (neutrino, opts = {}) => {
     style: {
       ruleId: 'style',
       styleUseId: 'style',
-      extract: neutrino.config.get('mode') === 'production',
+      extract: process.env.NODE_ENV === 'production',
       exclude: [],
       modulesTest: neutrino.regexFromExtensions(['css']),
       modulesSuffix: ''

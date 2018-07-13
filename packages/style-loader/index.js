@@ -22,7 +22,7 @@ module.exports = (neutrino, opts = {}) => {
     extract: {
       loader: {},
       plugin: {
-        filename: neutrino.config.get('mode') === 'production'
+        filename: process.env.NODE_ENV === 'production'
           ? '[name].[contenthash:8].css'
           : '[name].css'
       }

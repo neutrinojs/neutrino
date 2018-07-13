@@ -6,19 +6,18 @@ const { extname, join, basename } = require('path');
 const { readdirSync } = require('fs');
 
 module.exports = (neutrino, opts = {}) => {
-  const mode = neutrino.config.get('mode');
   const options = merge({
-    html: mode === 'development' && {
+    html: process.env.NODE_ENV === 'development' && {
       title: 'React Preview'
     },
-    manifest: mode === 'development',
+    manifest: process.env.NODE_ENV === 'development',
     externals: opts.externals !== false && {},
     style: { extract: { plugin: { filename: '[name].css' } } },
     targets: { browsers: 'ie 9' }
   }, opts);
 
   neutrino.config.when(
-    mode === 'development',
+    process.env.NODE_ENV === 'development',
     () => {
       neutrino.use(react, options);
     },

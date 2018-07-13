@@ -2,21 +2,29 @@ import test from 'ava';
 import { validate } from 'webpack';
 import Neutrino from '../../neutrino/Neutrino';
 
+const mw = () => require('..');
+const originalNodeEnv = process.env.NODE_ENV;
+
+test.afterEach(() => {
+  // Restore the original NODE_ENV after each test (which Ava defaults to 'test').
+  process.env.NODE_ENV = originalNodeEnv;
+});
+
 test('loads preset', t => {
-  t.notThrows(() => require('..'));
+  t.notThrows(mw);
 });
 
 test('uses preset', t => {
   const api = new Neutrino({ root: __dirname });
 
-  t.notThrows(() => api.use(require('..'), { name: 'alpha' }));
+  t.notThrows(() => api.use(mw(), { name: 'alpha' }));
 });
 
 test('valid preset production', t => {
+  process.env.NODE_ENV = 'production';
   const api = new Neutrino({ root: __dirname });
 
-  api.config.mode('production');
-  api.use(require('..'));
+  api.use(mw());
   const config = api.config.toConfig();
 
   // Common
@@ -25,7 +33,6 @@ test('valid preset production', t => {
   t.is(config.optimization.splitChunks, false);
 
   // NODE_ENV/command specific
-  t.is(config.mode, 'production');
   t.true(config.optimization.minimize);
   t.is(config.devtool, 'source-map');
   t.is(config.devServer, undefined);
@@ -35,10 +42,10 @@ test('valid preset production', t => {
 });
 
 test('valid preset development', t => {
+  process.env.NODE_ENV = 'development';
   const api = new Neutrino({ root: __dirname });
 
-  api.config.mode('development');
-  api.use(require('..'));
+  api.use(mw());
   const config = api.config.toConfig();
 
   // Common

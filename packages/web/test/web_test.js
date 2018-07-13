@@ -4,6 +4,12 @@ import Neutrino from '../../neutrino/Neutrino';
 
 const mw = () => require('..');
 const expectedExtensions = ['.js', '.jsx', '.vue', '.ts', '.tsx', '.mjs', '.json'];
+const originalNodeEnv = process.env.NODE_ENV;
+
+test.afterEach(() => {
+  // Restore the original NODE_ENV after each test (which Ava defaults to 'test').
+  process.env.NODE_ENV = originalNodeEnv;
+});
 
 test('loads preset', t => {
   t.notThrows(mw);
@@ -14,9 +20,8 @@ test('uses preset', t => {
 });
 
 test('valid preset production', t => {
+  process.env.NODE_ENV = 'production';
   const api = new Neutrino();
-
-  api.config.mode('production');
   api.use(mw());
   const config = api.config.toConfig();
 
@@ -27,7 +32,6 @@ test('valid preset production', t => {
   t.is(config.optimization.splitChunks.chunks, 'all');
 
   // NODE_ENV/command specific
-  t.is(config.mode, 'production');
   t.true(config.optimization.minimize);
   t.false(config.optimization.splitChunks.name);
   t.is(config.devtool, undefined);
@@ -38,9 +42,8 @@ test('valid preset production', t => {
 });
 
 test('valid preset development', t => {
+  process.env.NODE_ENV = 'development';
   const api = new Neutrino();
-
-  api.config.mode('development');
   api.use(mw());
   const config = api.config.toConfig();
 
@@ -51,7 +54,6 @@ test('valid preset development', t => {
   t.is(config.optimization.splitChunks.chunks, 'all');
 
   // NODE_ENV/command specific
-  t.is(config.mode, 'development');
   t.false(config.optimization.minimize);
   t.true(config.optimization.splitChunks.name);
   t.is(config.devtool, 'cheap-module-eval-source-map');
@@ -60,6 +62,28 @@ test('valid preset development', t => {
   t.is(config.devServer.port, 5000);
   t.is(config.devServer.public, 'localhost:5000');
   t.is(config.devServer.publicPath, '/');
+
+  const errors = validate(config);
+  t.is(errors.length, 0);
+});
+
+test('valid preset test', t => {
+  process.env.NODE_ENV = 'test';
+  const api = new Neutrino();
+  api.use(mw());
+  const config = api.config.toConfig();
+
+  // Common
+  t.is(config.target, 'web');
+  t.deepEqual(config.resolve.extensions, expectedExtensions);
+  t.is(config.optimization.runtimeChunk, 'single');
+  t.is(config.optimization.splitChunks.chunks, 'all');
+
+  // NODE_ENV/command specific
+  t.false(config.optimization.minimize);
+  t.true(config.optimization.splitChunks.name);
+  t.is(config.devtool, undefined);
+  t.is(config.devServer, undefined);
 
   const errors = validate(config);
   t.is(errors.length, 0);

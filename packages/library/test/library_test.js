@@ -2,30 +2,37 @@ import test from 'ava';
 import { validate } from 'webpack';
 import Neutrino from '../../neutrino/Neutrino';
 
+const mw = () => require('..');
 const expectedExtensions = ['.js', '.jsx', '.vue', '.ts', '.tsx', '.mjs', '.json'];
+const originalNodeEnv = process.env.NODE_ENV;
+
+test.afterEach(() => {
+  // Restore the original NODE_ENV after each test (which Ava defaults to 'test').
+  process.env.NODE_ENV = originalNodeEnv;
+});
 
 test('loads preset', t => {
-  t.notThrows(() => require('..'));
+  t.notThrows(mw);
 });
 
 test('uses preset', t => {
   const api = new Neutrino();
 
-  t.notThrows(() => api.use(require('..'), { name: 'alpha' }));
+  t.notThrows(() => api.use(mw(), { name: 'alpha' }));
 });
 
 test('throws when missing library name', t => {
   const api = new Neutrino();
 
-  const err = t.throws(() => api.use(require('..')));
+  const err = t.throws(() => api.use(mw()));
   t.true(err.message.includes('You must specify a library name'));
 });
 
 test('valid preset production', t => {
+  process.env.NODE_ENV = 'production';
   const api = new Neutrino();
 
-  api.config.mode('production');
-  api.use(require('..'), { name: 'alpha' });
+  api.use(mw(), { name: 'alpha' });
   const config = api.config.toConfig();
 
   // Common
@@ -35,7 +42,6 @@ test('valid preset production', t => {
   t.is(config.devServer, undefined);
 
   // NODE_ENV/command specific
-  t.is(config.mode, 'production');
   t.is(config.devtool, 'source-map');
   t.not(config.externals, undefined);
 
@@ -44,10 +50,10 @@ test('valid preset production', t => {
 });
 
 test('valid preset development', t => {
+  process.env.NODE_ENV = 'development';
   const api = new Neutrino();
 
-  api.config.mode('development');
-  api.use(require('..'), { name: 'alpha' });
+  api.use(mw(), { name: 'alpha' });
   const config = api.config.toConfig();
 
   // Common
@@ -57,7 +63,6 @@ test('valid preset development', t => {
   t.is(config.devServer, undefined);
 
   // NODE_ENV/command specific
-  t.is(config.mode, 'development');
   t.is(config.devtool, 'source-map');
   t.not(config.externals, undefined);
 
@@ -67,9 +72,7 @@ test('valid preset development', t => {
 
 test('valid preset Node.js target', t => {
   const api = new Neutrino();
-
-  api.config.mode('development');
-  api.use(require('..'), { name: 'alpha', target: 'node' });
+  api.use(mw(), { name: 'alpha', target: 'node' });
 
   const errors = validate(api.config.toConfig());
 
@@ -78,9 +81,7 @@ test('valid preset Node.js target', t => {
 
 test('valid preset commonjs2 libraryTarget', t => {
   const api = new Neutrino();
-
-  api.config.mode('development');
-  api.use(require('..'), { name: 'alpha', libraryTarget: 'commonjs2' });
+  api.use(mw(), { name: 'alpha', libraryTarget: 'commonjs2' });
 
   const errors = validate(api.config.toConfig());
 
