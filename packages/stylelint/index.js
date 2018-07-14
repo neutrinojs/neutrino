@@ -16,9 +16,9 @@ module.exports = (neutrino, { pluginId = 'stylelint', ...opts } = {}) => {
     .plugin(pluginId)
     .use(StylelintPlugin, [options]);
 
-  neutrino.register('stylelintrc', (neutrino, override) => override(
+  neutrino.register('stylelintrc', (neutrino) =>
     neutrino.config
       .plugin('stylelint')
       .get('args')[0].config || {}
-  ));
+  );
 };

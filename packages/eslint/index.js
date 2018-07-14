@@ -20,7 +20,7 @@ const merge = (source, destination) => {
 
   return options;
 };
-const eslintrc = (neutrino, override) => {
+const eslintrc = (neutrino) => {
   const options = omit(
     clone(
       neutrino.config.module
@@ -72,7 +72,7 @@ const eslintrc = (neutrino, override) => {
     });
   }
 
-  return override(options);
+  return options;
 };
 
 module.exports = (neutrino, opts = {}) => {

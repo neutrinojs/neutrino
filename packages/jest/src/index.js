@@ -18,7 +18,7 @@ module.exports = neutrino => {
     });
   });
 
-  neutrino.register('jest', (neutrino, override) => {
+  neutrino.register('jest', (neutrino) => {
     const usingBabel = neutrino.config.module.rules.has('compile');
 
     if (usingBabel) {
@@ -76,7 +76,7 @@ module.exports = neutrino => {
     const modulesConfig = neutrino.config.resolve.modules.values();
     const aliases = neutrino.config.resolve.alias.entries() || {};
 
-    return override({
+    return {
       rootDir: root,
       moduleDirectories: modulesConfig.length ? modulesConfig : ['node_modules'],
       moduleFileExtensions: neutrino.config.resolve.extensions
@@ -111,6 +111,6 @@ module.exports = neutrino => {
       globals: {
         BABEL_OPTIONS: babelOptions
       }
-    });
+    };
   });
 };

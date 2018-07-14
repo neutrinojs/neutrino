@@ -9,7 +9,7 @@ module.exports = neutrino => {
     });
   }
 
-  neutrino.register('mocha', (neutrino, override) => {
+  neutrino.register('mocha', (neutrino) => {
     const baseOptions = neutrino.config.module.rules.has('compile')
       ? neutrino.config.module.rule('compile').use('babel').get('options')
       : {};
@@ -27,6 +27,6 @@ module.exports = neutrino => {
     );
 
     // eslint-disable-next-line global-require
-    require('@babel/register')(override(options));
+    require('@babel/register')(options);
   });
 };
