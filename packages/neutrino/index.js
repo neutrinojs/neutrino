@@ -2,7 +2,6 @@ const yargs = require('yargs');
 const Neutrino = require('./Neutrino');
 const webpack = require('./webpack');
 
-const IDENTITY = a => a;
 const configPrefix = 'neutrino.config';
 
 module.exports = (middleware = { use: ['.neutrinorc.js'] }, options = {}) => {
@@ -34,14 +33,10 @@ module.exports = (middleware = { use: ['.neutrinorc.js'] }, options = {}) => {
   }
 
   const adapter = {
-    output(name, override = IDENTITY) {
+    output(name) {
       if (name === 'inspect') {
         console.log(neutrino.config.toString({ configPrefix }));
         process.exit();
-      }
-
-      if (typeof override !== 'function') {
-        throw new Error(`The output override for "${name}" must be a function`);
       }
 
       const handler = neutrino.outputHandlers.get(name);
@@ -50,7 +45,7 @@ module.exports = (middleware = { use: ['.neutrinorc.js'] }, options = {}) => {
         throw new Error(`Unable to find an output handler named "${name}"`);
       }
 
-      return handler(neutrino, override);
+      return handler(neutrino);
     }
   };
 

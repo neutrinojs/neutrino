@@ -11,7 +11,7 @@ module.exports = neutrino => {
     });
   }
 
-  neutrino.register('karma', (neutrino, override) => config => {
+  neutrino.register('karma', (neutrino) => (config) => {
     if (neutrino.config.module.rules.has('compile')) {
       neutrino.config.module
         .rule('compile')
@@ -76,6 +76,6 @@ module.exports = neutrino => {
       }
     });
 
-    return override(config);
+    return config;
   });
 };

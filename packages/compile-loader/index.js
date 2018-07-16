@@ -14,12 +14,12 @@ module.exports = (neutrino, options = {}) => {
       ...(options.babel || {})
     });
 
-  neutrino.register('babel', (neutrino, override) => override(
+  neutrino.register('babel', (neutrino) =>
     neutrino.config.module
       .rule('compile')
       .use('babel')
       .get('options')
-  ));
+  );
 };
 
 module.exports.merge = babelMerge;
