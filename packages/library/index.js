@@ -14,6 +14,7 @@ module.exports = (neutrino, opts = {}) => {
     target: 'web',
     libraryTarget: 'umd',
     babel: {},
+    externals: opts.externals !== false && {},
     clean: opts.clean !== false && {
       paths: [neutrino.options.output]
     }
@@ -56,7 +57,7 @@ module.exports = (neutrino, opts = {}) => {
   neutrino.config
     .when(hasSourceMap, () => neutrino.use(banner))
     .devtool('source-map')
-    .externals([nodeExternals()])
+    .externals([nodeExternals(options.externals)])
     .target(options.target)
     .context(neutrino.options.root)
     .output
