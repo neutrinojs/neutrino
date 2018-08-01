@@ -52,7 +52,7 @@ neutrino.use(eslint, {
     envs: ['es6'],
     parser: 'babel-eslint',
     parserOptions: {
-      ecmaVersion: 2017,
+      ecmaVersion: 2019,
       sourceType: 'module',
       ecmaFeatures: {
         objectLiteralDuplicateProperties: false,
