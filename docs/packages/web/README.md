@@ -283,8 +283,11 @@ module.exports = {
       // Example: Remove console and debugger from output
       minify: {
         babel: {
-          removeConsole: true,
-          removeDebugger: true,
+          minify: {
+            removeConsole: true,
+            removeDebugger: true,
+          },
+          preset: {}
         }
       },
 
