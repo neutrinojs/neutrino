@@ -1603,13 +1603,12 @@ babel-loader@8.0.0-beta.4:
     mkdirp "^0.5.1"
     util.promisify "^1.0.0"
 
-babel-merge@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/babel-merge/-/babel-merge-2.0.0.tgz#17c3fd795cc92b306948b1bc2175f89ad6c5a360"
+babel-merge@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/babel-merge/-/babel-merge-2.0.1.tgz#6b2dfad78a655df66e3418eb37b1c3c5e676ad1a"
   dependencies:
     "@babel/core" "^7.0.0-beta.49"
     deepmerge "^2.1.0"
-    is-plain-object "^2.0.4"
     object.omit "^3.0.0"
 
 babel-messages@^6.23.0:
