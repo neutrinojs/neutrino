@@ -24,7 +24,7 @@
     "@babel/plugin-transform-modules-commonjs": "7.0.0-rc.1",
     "@babel/register": "7.0.0-rc.1",
     "@neutrinojs/loader-merge": "9.0.0-0",
-    "babel-merge": "^1.1.1",
+    "babel-merge": "^2.0.1",
     "lodash.omit": "^4.5.0"
   },
   "peerDependencies": {
