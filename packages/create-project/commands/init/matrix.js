@@ -87,7 +87,7 @@ const presets = {
     type: TESTING,
     devDependencies: [
       KARMA,
-      'karma@^2',
+      'karma@^3',
       'karma-cli@^1',
       'mocha@^5'
     ]
