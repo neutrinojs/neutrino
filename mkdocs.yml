@@ -18,7 +18,7 @@ theme:
     icon: ' '
 
 # http://www.mkdocs.org/user-guide/writing-your-docs/#configure-pages-and-navigation
-pages:
+nav:
   - Introduction: './index.md'
   - Getting Started:
     - Installation: './installation/index.md'
