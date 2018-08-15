@@ -17,7 +17,7 @@ const AIRBNB = '@neutrinojs/airbnb';
 const AIRBNB_BASE = '@neutrinojs/airbnb-base';
 const STANDARDJS = '@neutrinojs/standardjs';
 
-const ESLINT = 'eslint@^4';
+const ESLINT = 'eslint@^5';
 const WEBPACK = 'webpack@^4';
 const WEBPACK_CLI = 'webpack-cli@^2';
 const WEBPACK_DEV_SERVER = 'webpack-dev-server@^3';
