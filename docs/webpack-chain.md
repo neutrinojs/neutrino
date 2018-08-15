@@ -1095,3 +1095,112 @@ neutrino.config
     config => config.devtool('source-map')
   );
 ```
+
+### Inspecting generated configuration
+
+You can inspect the generated webpack config using `neutrino.config.toString()`. This will generate a stringified version of the config with comment hints for named rules, uses and plugins:
+
+``` js
+neutrino.config
+  .module
+    .rule('compile')
+      .test(/\.js$/)
+      .use('babel')
+        .loader('babel-loader');
+
+neutrino.config.toString({ configPrefix: 'neutrino.config' });
+
+/*
+{
+  module: {
+    rules: [
+      /* neutrino.config.module.rule('compile') */
+      {
+        test: /\.js$/,
+        use: [
+          /* neutrino.config.module.rule('compile').use('babel') */
+          {
+            loader: 'babel-loader'
+          }
+        ]
+      }
+    ]
+  }
+}
+*/
+```
+
+By default the generated string cannot be used directly as real webpack config if it contains functions and plugins that need to be required. In order to generate usable config, you can customize how functions and plugins are stringified by setting a special `__expression` property on them:
+
+``` js
+class MyPlugin {}
+MyPlugin.__expression = `require('my-plugin')`;
+
+function myFunction () {}
+myFunction.__expression = `require('my-function')`;
+
+neutrino.config
+  .plugin('example')
+    .use(MyPlugin, [{ fn: myFunction }]);
+
+neutrino.config.toString({ configPrefix: 'neutrino.config' });
+
+/*
+{
+  plugins: [
+    new (require('my-plugin'))({
+      fn: require('my-function')
+    })
+  ]
+}
+*/
+```
+
+You can also call `toString` as a static method on `Config` in order to
+modify the configuration object prior to stringifying.
+
+```js
+Config.toString(
+  {
+    ...neutrino.config.toConfig(),
+    module: {
+      defaultRules: [
+        {
+          use: [
+            {
+              loader: 'banner-loader',
+              options: { prefix: 'banner-prefix.txt' },
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    configPrefix: 'neutrino.config'
+  }
+)
+
+/*
+{
+  plugins: [
+    /* neutrino.config.plugin('foo') */
+    new TestPlugin()
+  ],
+  module: {
+    defaultRules: [
+      {
+        use: [
+          {
+            loader: 'banner-loader',
+            options: {
+              prefix: 'banner-prefix.txt'
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+*/
+```
