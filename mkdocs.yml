@@ -18,7 +18,7 @@ theme:
     icon: ' '
 
 # http://www.mkdocs.org/user-guide/writing-your-docs/#configure-pages-and-navigation
-pages:
+nav:
   - Introduction: './index.md'
   - Getting Started:
     - Installation: './installation/index.md'
@@ -66,13 +66,11 @@ pages:
     - style-loader: './packages/style-loader.md'
     - style-minify: './packages/style-minify.md'
     - stylelint: './packages/stylelint.md'
-  # External links aren't supported in the sidebar, so we link to a
-  # blank page that has a corresponding redirect in netlify.toml.
-  - v8 Documentation: './v8.md'
-  - v7 Documentation: './v7.md'
-  - v6 Documentation: './v6.md'
-  - v5 Documentation: './v5.md'
-  - v4 Documentation: './v4.md'
+  - v8 Documentation: 'https://neutrinojs.org/'
+  - v7 Documentation: 'https://release-v7.neutrinojs.org/'
+  - v6 Documentation: 'https://github.com/mozilla-neutrino/neutrino-dev/tree/release/v6/docs'
+  - v5 Documentation: 'https://github.com/mozilla-neutrino/neutrino-dev/tree/release/v5/docs'
+  - v4 Documentation: 'https://github.com/mozilla-neutrino/neutrino-dev/tree/release/v4/docs'
   - Contributing:
     - Overview: './contributing/index.md'
     - Development Process: './contributing/development.md'
