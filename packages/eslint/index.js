@@ -98,13 +98,8 @@ module.exports = (neutrino, opts = {}) => {
       envs: ['es6'],
       parser: require.resolve('babel-eslint'),
       parserOptions: {
-        ecmaVersion: 2017,
-        sourceType: 'module',
-        ecmaFeatures: {
-          objectLiteralDuplicateProperties: false,
-          generators: true,
-          impliedStrict: true
-        }
+        ecmaVersion: 2018,
+        sourceType: 'module'
       },
       settings: {},
       globals: ['process'],

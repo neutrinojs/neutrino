@@ -27,7 +27,7 @@
     "@neutrinojs/compile-loader": "9.0.0-0",
     "@neutrinojs/loader-merge": "9.0.0-0",
     "babel-plugin-jest-hoist": "^23.0.0",
-    "eslint-plugin-jest": "^21.15.1",
+    "eslint-plugin-jest": "^21.21.0",
     "lodash.omit": "^4.5.0"
   },
   "peerDependencies": {
