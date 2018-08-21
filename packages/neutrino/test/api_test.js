@@ -87,44 +87,47 @@ test('throws when legacy options.node_modules is set', t => {
 test('options.mains', t => {
   const api = new Neutrino();
 
-  t.is(api.options.mains.index, join(process.cwd(), 'src/index'));
+  t.deepEqual(api.options.mains.index, { entry: join(process.cwd(), 'src/index') });
   api.options.mains.index = './alpha.js';
-  t.is(api.options.mains.index, join(process.cwd(), 'src/alpha.js'));
+  t.deepEqual(api.options.mains.index, { entry: join(process.cwd(), 'src/alpha.js') });
   api.options.source = 'beta';
-  t.is(api.options.mains.index, join(process.cwd(), 'beta/alpha.js'));
+  t.deepEqual(api.options.mains.index, { entry: join(process.cwd(), 'beta/alpha.js') });
   api.options.root = '/gamma';
-  t.is(api.options.mains.index, join('/gamma', 'beta/alpha.js'));
+  t.deepEqual(api.options.mains.index, { entry: join('/gamma', 'beta/alpha.js') });
   api.options.mains.index = '/alpha.js';
-  t.is(api.options.mains.index, '/alpha.js');
+  t.deepEqual(api.options.mains.index, { entry: '/alpha.js' });
 });
 
 test('override options.mains', t => {
   const api = new Neutrino({
     mains: {
       alpha: 'beta',
-      gamma: 'delta'
+      gamma: {
+        entry: 'delta',
+        title: 'Gamma Page'
+      }
     }
   });
 
-  t.is(api.options.mains.alpha, join(process.cwd(), 'src/beta'));
-  api.options.mains.alpha = './alpha.js';
-  t.is(api.options.mains.alpha, join(process.cwd(), 'src/alpha.js'));
+  t.deepEqual(api.options.mains.alpha, { entry: join(process.cwd(), 'src/beta') });
+  api.options.mains.alpha = { entry: './alpha.js', minify: false };
+  t.deepEqual(api.options.mains.alpha, { entry: join(process.cwd(), 'src/alpha.js'), minify: false });
   api.options.source = 'epsilon';
-  t.is(api.options.mains.alpha, join(process.cwd(), 'epsilon/alpha.js'));
+  t.deepEqual(api.options.mains.alpha, { entry: join(process.cwd(), 'epsilon/alpha.js'), minify: false });
   api.options.root = '/zeta';
-  t.is(api.options.mains.alpha, join('/zeta', 'epsilon/alpha.js'));
+  t.deepEqual(api.options.mains.alpha, { entry: join('/zeta', 'epsilon/alpha.js'), minify: false });
   api.options.mains.alpha = '/alpha.js';
-  t.is(api.options.mains.alpha, '/alpha.js');
+  t.deepEqual(api.options.mains.alpha, { entry: '/alpha.js' });
 
-  t.is(api.options.mains.gamma, join('/zeta', 'epsilon/delta'));
+  t.deepEqual(api.options.mains.gamma, { entry: join('/zeta', 'epsilon/delta'), title: 'Gamma Page' });
   api.options.mains.gamma = './alpha.js';
-  t.is(api.options.mains.gamma, join('/zeta', 'epsilon/alpha.js'));
+  t.deepEqual(api.options.mains.gamma, { entry: join('/zeta', 'epsilon/alpha.js') });
   api.options.source = 'src';
-  t.is(api.options.mains.gamma, join('/zeta', 'src/alpha.js'));
+  t.deepEqual(api.options.mains.gamma, { entry: join('/zeta', 'src/alpha.js') });
   api.options.root = process.cwd();
-  t.is(api.options.mains.gamma, join(process.cwd(), 'src/alpha.js'));
+  t.deepEqual(api.options.mains.gamma, { entry: join(process.cwd(), 'src/alpha.js') });
   api.options.mains.gamma = '/alpha.js';
-  t.is(api.options.mains.gamma, '/alpha.js');
+  t.deepEqual(api.options.mains.gamma, { entry: '/alpha.js' });
 });
 
 test('creates an instance of webpack-chain', t => {

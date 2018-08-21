@@ -245,17 +245,32 @@ array. You can also make these changes from the Neutrino API in custom middlewar
 
 By default Neutrino, and therefore this preset, creates a single **main** `index` entry point to your application, and
 this maps to the `index.*` file in the `src` directory. The extension is resolved by webpack. This value is provided by
-`neutrino.options.mains` at `neutrino.options.mains.index`. This means that the Web preset is optimized toward the use
-case of single-page applications over multi-page applications. If you wish to output multiple pages, you can detail
-all your mains in your `.neutrinorc.js`.
+`neutrino.options.mains` at `neutrino.options.mains.index`.
+
+If you wish to output multiple pages, you can configure them like so:
 
 ```js
 module.exports = {
   options: {
     mains: {
-      index: 'index', // outputs index.html from src/index.*
-      admin: 'admin', // outputs admin.html from src/admin.*
-      account: 'user' // outputs account.html from src/user.*
+      index: {
+        // outputs index.html from src/index.*
+        entry: 'index',
+        // Additional options are passed to html-webpack-plugin, and override
+        // any defaults set via the preset's `html` option.
+        title: 'Site Homepage',
+      },
+      admin: {
+        // outputs admin.html from src/admin.*
+        entry: 'admin',
+        title: 'Admin Dashboard',
+      },
+      account: {
+        // outputs account.html from src/user.* using a custom HTML template.
+        entry: 'user',
+        inject: true,
+        template: 'my-custom-template.html',
+      },
     }
   },
   use: ['@neutrinojs/react']

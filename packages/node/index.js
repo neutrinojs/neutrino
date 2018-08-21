@@ -52,9 +52,9 @@ module.exports = (neutrino, opts = {}) => {
     }, options.babel)
   });
 
-  Object
-    .keys(neutrino.options.mains)
-    .forEach(key => neutrino.config.entry(key).add(neutrino.options.mains[key]));
+  Object.entries(neutrino.options.mains).forEach(([name, config]) =>
+    neutrino.config.entry(name).add(config.entry)
+  );
 
   neutrino.config
     .when(sourceMap, () => neutrino.use(banner))
@@ -92,7 +92,7 @@ module.exports = (neutrino, opts = {}) => {
       const mainKeys = Object.keys(neutrino.options.mains);
 
       neutrino.use(startServer, {
-        name: getOutputForEntry(neutrino.options.mains[mainKeys[0]])
+        name: getOutputForEntry(neutrino.options.mains[mainKeys[0]].entry)
       });
       config
         .devtool('inline-sourcemap')

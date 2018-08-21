@@ -105,6 +105,47 @@ test('supports env option using object form', t => {
   t.deepEqual(api.config.plugin('env').get('args'), [ env ]);
 });
 
+test('supports multiple mains with custom html-webpack-plugin options', t => {
+  const mains = {
+    index: './index',
+    admin: {
+      entry: './admin',
+      title: 'Admin Dashboard'
+    }
+  };
+  const api = new Neutrino({ mains });
+
+  api.use(mw(), { html: { title: 'Default Title', minify: false } });
+
+  t.deepEqual(api.config.plugin('html-index').get('args'), [{
+    appMountId: 'root',
+    chunks: [
+      'index'
+    ],
+    filename: 'index.html',
+    inject: false,
+    minify: false,
+    mobile: true,
+    template: require('html-webpack-template'),
+    title: 'Default Title',
+    xhtml: true
+  }]);
+
+  t.deepEqual(api.config.plugin('html-admin').get('args'), [{
+    appMountId: 'root',
+    chunks: [
+      'admin'
+    ],
+    filename: 'admin.html',
+    inject: false,
+    minify: false,
+    mobile: true,
+    template: require('html-webpack-template'),
+    title: 'Admin Dashboard',
+    xhtml: true
+  }]);
+});
+
 test('throws when minify.babel defined', async t => {
   const api = new Neutrino();
 
