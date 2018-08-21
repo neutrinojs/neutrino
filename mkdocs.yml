@@ -4,8 +4,8 @@ strict: true
 
 site_name: 'Neutrino'
 site_description: 'Create and build modern JavaScript applications with zero initial configuration'
-repo_name: 'mozilla-neutrino/neutrino-dev'
-repo_url: 'https://github.com/mozilla-neutrino/neutrino-dev'
+repo_name: 'neutrinojs/neutrino'
+repo_url: 'https://github.com/neutrinojs/neutrino'
 
 # https://squidfunk.github.io/mkdocs-material/getting-started/#configuration
 theme:
@@ -68,9 +68,9 @@ nav:
     - stylelint: './packages/stylelint.md'
   - v8 Documentation: 'https://neutrinojs.org/'
   - v7 Documentation: 'https://release-v7.neutrinojs.org/'
-  - v6 Documentation: 'https://github.com/mozilla-neutrino/neutrino-dev/tree/release/v6/docs'
-  - v5 Documentation: 'https://github.com/mozilla-neutrino/neutrino-dev/tree/release/v5/docs'
-  - v4 Documentation: 'https://github.com/mozilla-neutrino/neutrino-dev/tree/release/v4/docs'
+  - v6 Documentation: 'https://github.com/neutrinojs/neutrino/tree/release/v6/docs'
+  - v5 Documentation: 'https://github.com/neutrinojs/neutrino/tree/release/v5/docs'
+  - v4 Documentation: 'https://github.com/neutrinojs/neutrino/tree/release/v4/docs'
   - Contributing:
     - Overview: './contributing/index.md'
     - Development Process: './contributing/development.md'

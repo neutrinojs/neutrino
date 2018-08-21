@@ -7,7 +7,7 @@
     ":unpublishSafe"
   ],
   "reviewers": [
-    "mozilla-neutrino/core-contributors"
+    "neutrinojs/core-contributors"
   ],
   "pinVersions": false
 }

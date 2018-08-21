@@ -14,9 +14,9 @@
   ],
   "author": "Constantine Genchevsky <const.gen@gmail.com>",
   "license": "MPL-2.0",
-  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/dev-server",
+  "repository": "https://github.com/neutrinojs/neutrino/tree/master/packages/dev-server",
   "homepage": "https://neutrinojs.org",
-  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "bugs": "https://github.com/neutrinojs/neutrino/issues",
   "publishConfig": {
     "access": "public"
   },

@@ -19,22 +19,22 @@ remains available as is.
 - **BREAKING CHANGE** Removed `entry` option in order to support multiple main entry points via new `mains` options.
 See [Customization](./customization.md#optionsmains) for usage of `mains` in
 `.neutrinorc.js`. See [API](./api.md#optionsmains) for usage of `mains` from the API.
-([#487](https://github.com/mozilla-neutrino/neutrino-dev/pull/487))
+([#487](https://github.com/neutrinojs/neutrino/pull/487))
 - **BREAKING CHANGE** `*.css` files in mains chunks are no longer inlined into the JS bundle by default.
 They are moved into a separate CSS file. To disable CSS extraction, pass `options.extract = false` to
 the style-loader middleware, or `options.style.extract = false` to the web preset.
-([#443](https://github.com/mozilla-neutrino/neutrino-dev/pull/443))
+([#443](https://github.com/neutrinojs/neutrino/pull/443))
 - **BREAKING CHANGE** There is no longer a plugin named `minify` when using the `minify` middleware. This is due
 to the `minify` middleware now being a composition of three different middleware. The associated plugins are
 `babel-minify`, `style-minify`, and `image-minify`, from their associated individual middleware, which can also be
 used separately.
 - **BREAKING CHANGE** The Karma preset now uses Headless Chrome by default to run tests. To that end,
-you will need Chrome 60+ installed. ([#283](https://github.com/mozilla-neutrino/neutrino-dev/pull/283))
+you will need Chrome 60+ installed. ([#283](https://github.com/neutrinojs/neutrino/pull/283))
 - **BREAKING CHANGE** The API methods `.call()` and `.run()` no longer accept additional middleware to load
 prior to running their registered handler. If you wish to load middleware prior, use the `.use()` method first.
 Also, these methods no longer automatically load `.neutrinorc.js` either, you must load this using `.use()` as well.
-([#425](https://github.com/mozilla-neutrino/neutrino-dev/pull/425))
-([#424](https://github.com/mozilla-neutrino/neutrino-dev/pull/424))
+([#425](https://github.com/neutrinojs/neutrino/pull/425))
+([#424](https://github.com/neutrinojs/neutrino/pull/424))
 For a concrete example, `.eslintrc.js`, which utilizes these changes, would migrate to the following:
 
 ```js
@@ -46,9 +46,9 @@ module.exports = Neutrino({ root: __dirname })
 ```
 
 - **BREAKING CHANGE** When building, `file-loader` and `url-loader` will generate file names with pattern
-`[name].[hash].[ext]` instead of `[hash].[ext]`. ([#435](https://github.com/mozilla-neutrino/neutrino-dev/pull/435))
+`[name].[hash].[ext]` instead of `[hash].[ext]`. ([#435](https://github.com/neutrinojs/neutrino/pull/435))
 - **BREAKING CHANGE** The web preset no longer uses the `script-ext` plugin. It was never functional and did not
-serve a purpose at this time. ([#500](https://github.com/mozilla-neutrino/neutrino-dev/pull/500))
+serve a purpose at this time. ([#500](https://github.com/neutrinojs/neutrino/pull/500))
 
 ### Migrated Packages
 

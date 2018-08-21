@@ -234,7 +234,7 @@ options set by both Neutrino and any included middleware.
 ### `config`
 
 When constructing a Neutrino instance, a property of `config` is set to be a new instance of
-[webpack-chain](https://github.com/mozilla-neutrino/webpack-chain). This property is then available to all middleware
+[webpack-chain](https://github.com/neutrinojs/webpack-chain). This property is then available to all middleware
 which subsequently augment it with their specific configuration. All middleware and presets added use this single
 `config` to store their data, meaning that middleware load order has an effect on which config values take precedence.
 Middleware loaded first will have any configuration overridden by later middleware with matching properties.

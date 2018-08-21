@@ -12,7 +12,7 @@
   ],
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
-  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/karma",
+  "repository": "https://github.com/neutrinojs/neutrino/tree/master/packages/karma",
   "publishConfig": {
     "access": "public"
   },

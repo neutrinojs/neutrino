@@ -55,7 +55,7 @@ config.plugins = config.plugins.map(plugin => {
 This forces a much higher maintenance burden on your project, and this is only a very simple example. Modifying
 loaders created from raw webpack configuration objects can be **much** more unwieldy.
 
-Using [webpack-chain](https://github.com/mozilla-neutrino/webpack-chain) affords Neutrino the ability to identify and
+Using [webpack-chain](https://github.com/neutrinojs/webpack-chain) affords Neutrino the ability to identify and
 manipulate parts of the configuration without resorting to object and array manipulation hacks, something not currently
 possible when working with raw webpack configuration data.
 
