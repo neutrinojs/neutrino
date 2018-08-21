@@ -32,7 +32,9 @@ module.exports = (neutrino, opts = {}) => {
 
       readdirSync(components).forEach(component => {
         // eslint-disable-next-line no-param-reassign
-        neutrino.options.mains[basename(component, extname(component))] = join(components, component);
+        neutrino.options.mains[basename(component, extname(component))] = {
+          entry: join(components, component)
+        };
       });
 
       const pkg = neutrino.options.packageJson || {};

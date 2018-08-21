@@ -32,6 +32,10 @@ const requireFromRoot = (moduleId, root) => {
   // eslint-disable-next-line global-require, import/no-dynamic-require
   return require(path);
 };
+// Support both a shorter string form and an object form that allows
+// specifying any page-specific options supported by the preset.
+const normalizeMainConfig = (config) =>
+  (typeof config === 'string') ? { entry: config } : config;
 
 module.exports = class Neutrino {
   constructor(options) {
@@ -138,9 +142,9 @@ module.exports = class Neutrino {
 
   bindMainsOnOptions(options, optionsSource) {
     Object
-      .keys(options.mains)
-      .forEach(key => {
-        let value = options.mains[key];
+      .entries(options.mains)
+      .forEach(([key, value]) => {
+        let normalizedConfig = normalizeMainConfig(value);
 
         Reflect.defineProperty(options.mains, key, {
           enumerable: true,
@@ -148,17 +152,21 @@ module.exports = class Neutrino {
             const source = optionsSource &&
               optionsSource.source || options.source;
 
-            return normalizePath(source, value);
+            return {
+              ...normalizedConfig,
+              // Lazily normalise the path, in case `source` changes after mains is updated.
+              entry: normalizePath(source, normalizedConfig.entry)
+            };
           },
           set(newValue) {
-            value = newValue;
+            normalizedConfig = normalizeMainConfig(newValue);
           }
         });
       });
 
     this.mainsProxy = new Proxy(options.mains, {
       defineProperty: (target, prop, { value }) => {
-        let currentValue = value;
+        let normalizedConfig = normalizeMainConfig(value);
 
         return Reflect.defineProperty(target, prop, {
           enumerable: true,
@@ -166,10 +174,14 @@ module.exports = class Neutrino {
             const source = optionsSource &&
               optionsSource.source || options.source;
 
-            return normalizePath(source, currentValue);
+            return {
+              ...normalizedConfig,
+              // Lazily normalise the path, in case `source` changes after mains is updated.
+              entry: normalizePath(source, normalizedConfig.entry)
+            };
           },
           set(newValue) {
-            currentValue = newValue;
+            normalizedConfig = normalizeMainConfig(newValue);
           }
         });
       }

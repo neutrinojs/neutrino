@@ -61,9 +61,9 @@ console.log(api.options.source); //   /project/lib
 
 ```js
 api.options.mains.index = 'app.js';
-console.log(api.options.mains.index); //   /project/src/app.js
+console.log(api.options.mains.index); // { entry: '/project/src/app.js' }
 api.options.source = 'lib';
-console.log(api.options.mains.index); //   /project/lib/app.js
+console.log(api.options.mains.index); // { entry: /project/lib/app.js }
 ```
 
 ### `options.root`
@@ -138,27 +138,34 @@ Neutrino({
 ### `options.mains`
 
 Set the main entry points for the application. If the option is not set, Neutrino defaults it to:
- 
+
 ```js
 {
   index: 'index'
 }
 ```
- 
+
 Notice the entry point has no extension; the extension is resolved by webpack. If relative paths are specified,
 they will be computed and resolved relative to `options.source`; absolute paths will be used as-is.
+
+Multiple entry points and any page-specific configuration (if supported by the preset) can be specified like so:
 
 ```js
 Neutrino({
   mains: {
-    // If not specified, defaults to options.source + index.*
-    index: 'index',
-    
-    // Override to relative, resolves to options.source + entry.*
-    index: 'entry',
-  
-    // Override to absolute path
-    index: '/code/website/src/entry.js'
+    // Relative path, so resolves to options.source + home.*
+    index: 'home',
+
+    // Absolute path, used as-is.
+    login: '/code/website/src/login.js',
+
+    // Long form that allows passing page-specific configuration
+    // (such as html-webpack-plugin options in the case of @neutrinojs/web).
+    admin: {
+      entry: 'admin',
+      // any page-specific options here (see preset docs)
+      // ...
+    }
   }
 })
 ```

@@ -122,21 +122,25 @@ Set the main entry points for the application. If the option is not set, Neutrin
 Notice the entry point has no extension; the extension is resolved by webpack. If relative paths are specified,
 they will be computed and resolved relative to `options.source`; absolute paths will be used as-is.
 
+Multiple entry points and any page-specific configuration (if supported by the preset) can be specified like so:
+
 ```js
 module.exports = {
   options: {
     mains: {
-      // If not specified, defaults to options.source + index
-      index: 'index',
+      // Relative path, so resolves to options.source + home.*
+      index: 'home',
 
-      // Override to relative, resolves to options.source + entry.*
-      index: 'entry',
+      // Absolute path, used as-is.
+      login: '/code/website/src/login.js',
 
-      // Override to absolute path
-      index: '/code/website/src/entry.js',
-
-      // Add additional main, resolves to options.source + admin.*
-      admin: 'admin'
+      // Long form that allows passing page-specific configuration
+      // (such as html-webpack-plugin options in the case of @neutrinojs/web).
+      admin: {
+        entry: 'admin',
+        // any page-specific options here (see preset docs)
+        // ...
+      }
     }
   }
 };

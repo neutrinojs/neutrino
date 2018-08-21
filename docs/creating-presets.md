@@ -272,10 +272,10 @@ Set the main entry points for the application. If the option is not set, Neutrin
   index: 'index'
 }
 ```
- 
+
 Notice the entry point has no extension; the extension is resolved by webpack. If relative paths are specified,
 they will be computed and resolved relative to `options.source`; absolute paths will be used as-is.
- 
+
 By default these main files are not required to be in JavaScript format. They may also potentially be JSX, TypeScript,
 or any other preprocessor language. These extensions should be specified in middleware at
 `neutrino.config.resolve.extensions`.
@@ -286,21 +286,27 @@ module.exports = neutrino => {
   // resolved to options.source + index
   neutrino.options.mains.index;
 };
+```
 
+Multiple entry points and any page-specific configuration (if supported by the preset) can be specified like so:
+
+```js
 module.exports = {
   options: {
     mains: {
-      // If not specified, defaults to options.source + index
-      index: 'index',
-      
-      // Override to relative, resolves to options.source + entry.*
-      index: 'entry',
-    
-      // Override to absolute path
-      index: '/code/website/src/entry.js',
-      
-      // Add additional main, resolves to options.source + admin.*
-      admin: 'admin'
+      // Relative path, so resolves to options.source + home.*
+      index: 'home',
+
+      // Absolute path, used as-is.
+      login: '/code/website/src/login.js',
+
+      // Long form that allows passing page-specific configuration
+      // (such as html-webpack-plugin options in the case of @neutrinojs/web).
+      admin: {
+        entry: 'admin',
+        // any page-specific options here (see preset docs)
+        // ...
+      }
     }
   }
 };

@@ -49,9 +49,9 @@ module.exports = (neutrino, opts = {}) => {
     babel: options.babel
   });
 
-  Object
-    .keys(neutrino.options.mains)
-    .forEach(key => neutrino.config.entry(key).add(neutrino.options.mains[key]));
+  Object.entries(neutrino.options.mains).forEach(([name, config]) =>
+    neutrino.config.entry(name).add(config.entry)
+  );
 
   neutrino.config
     .when(hasSourceMap, () => neutrino.use(banner))
