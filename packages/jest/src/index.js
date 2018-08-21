@@ -97,6 +97,7 @@ module.exports = neutrino => {
         relative(root, source),
         `**/*.{${extensions.join(',')}}`
       )],
+      testEnvironment: neutrino.config.get('target') === 'node' ? 'node' : 'jsdom',
       testRegex: `${basename(tests)}/.*(_test|_spec|\\.test|\\.spec)\\.(${
         extensions.join('|')
         })$`,
