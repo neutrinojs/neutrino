@@ -280,7 +280,6 @@ By default these main files are not required to be in JavaScript format. They ma
 or any other preprocessor language. These extensions should be specified in middleware at
 `neutrino.config.resolve.extensions`.
 
-
 ```js
 module.exports = neutrino => {
   // if not specified, defaults to an object with a single entry "index",
