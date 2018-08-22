@@ -22,7 +22,7 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "file-loader": "^1.1.11"
+    "file-loader": "^2.0.0"
   },
   "peerDependencies": {
     "neutrino": "^9.0.0-0",
