@@ -242,7 +242,6 @@ module.exports = {
         // Override options for @babel/preset-env:
         presets: [
           ['@babel/preset-env', {
-            modules: false,
             useBuiltIns: true,
           }]
         ]

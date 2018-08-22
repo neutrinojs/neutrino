@@ -87,7 +87,6 @@ module.exports = (neutrino, opts = {}) => {
       presets: [
         [require.resolve('@babel/preset-env'), {
           debug: neutrino.options.debug,
-          modules: false,
           useBuiltIns: 'entry',
           targets: options.targets
         }]
