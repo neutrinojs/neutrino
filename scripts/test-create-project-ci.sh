@@ -18,8 +18,9 @@ while ! nc -zw 1 localhost 4873; do sleep 1; done
 yarn release \
   --registry http://localhost:4873/ \
   --yes \
-  --skip-git \
-  --cd-version prerelease
+  --no-git-tag-version \
+  --no-push \
+  --canary prerelease
 
 # Run the integration tests, which will install packages
 # from the verdaccio registry

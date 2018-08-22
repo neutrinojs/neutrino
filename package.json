@@ -22,7 +22,7 @@
     "lint": "eslint --cache --ext js,jsx --report-unused-disable-directives \".*.js\" packages",
     "precommit": "lint-staged",
     "release": "lerna publish",
-    "release:preview": "lerna publish --skip-git --skip-npm",
+    "release:preview": "lerna publish --no-git-tag-version --no-push --skip-npm",
     "test": "ava --fail-fast packages/*/test \"!packages/create-project/test\"",
     "test:create-project": "ava --verbose packages/create-project/test",
     "validate:eslintrc:root": "eslint --no-eslintrc --print-config . -c ./.eslintrc.js > /dev/null",
