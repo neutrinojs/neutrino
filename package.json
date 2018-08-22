@@ -7,7 +7,7 @@
   "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
   "repository": "mozilla-neutrino/neutrino-dev",
   "engines": {
-    "node": ">=8.3",
+    "node": "^8.10 || >=10",
     "npm": ">=5.4.0",
     "yarn": ">=1.2.1"
   },
