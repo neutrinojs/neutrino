@@ -274,8 +274,7 @@ module.exports = {
           ['@babel/preset-env', {
             // Targets the version of Node.js used to run webpack.
             targets: { node: 'current' },
-            modules: false,
-            useBuiltIns: true,
+            useBuiltIns: 'entry',
           }]
         ]
       }
