@@ -149,6 +149,10 @@ module.exports = (neutrino, opts = {}) => {
         // https://webpack.js.org/plugins/split-chunks-plugin/#optimization-splitchunks-chunks-all
         // https://github.com/webpack/webpack/issues/7064
         chunks: 'all',
+        // Override the default limit of 3 chunks per entrypoint in production, since
+        // it speeds up builds and the greater number of requests is mitigated by use
+        // of long term caching (and a non-issue if using HTTP2).
+        maxInitialRequests: process.env.NODE_ENV === 'production' ? 5 : Infinity,
         // By default the generated files use names that reference the chunk names, eg:
         // `vendors~index~page2.b694ee99.js`. Setting to `false` causes them to use the
         // chunk ID instead (eg `1.ceddedc0.js`), which prevents cache-busting when a
