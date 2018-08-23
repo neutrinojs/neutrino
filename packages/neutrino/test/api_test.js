@@ -84,6 +84,24 @@ test('throws when legacy options.node_modules is set', t => {
   t.throws(() => api.use({ options }), /options\.node_modules has been removed/);
 });
 
+test('throws when middleware "env" is set', t => {
+  const api = new Neutrino();
+  const middleware = {
+    env: {
+      NODE_ENV: {
+        production: neutrino => {
+          neutrino.config.devtool('alpha');
+        }
+      }
+    }
+  };
+
+  api.config.devtool('beta');
+
+  t.throws(() => api.use(middleware), /"env" in middleware has been removed/);
+  t.is(api.config.get('devtool'), 'beta');
+});
+
 test('options.mains', t => {
   const api = new Neutrino();
 
