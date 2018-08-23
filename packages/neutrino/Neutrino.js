@@ -216,6 +216,9 @@ module.exports = class Neutrino {
       // middleware type and options
       this.use(...middleware);
     } else if (isPlainObject(middleware)) {
+      if ('env' in middleware) {
+        throw new Error('Using "env" in middleware has been removed. Apply middleware conditionally instead.');
+      }
       // If middleware is an object, it could contain other middleware in
       // its "use" property. Run every item in "use" prop back through .use(),
       // plus set any options.
