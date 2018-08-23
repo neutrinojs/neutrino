@@ -19,7 +19,7 @@
     "docs:bootstrap": "pip install -r docs/requirements.txt",
     "docs:serve": "mkdocs serve",
     "link:all": "lerna exec yarn link",
-    "lint": "eslint --cache --ext js,jsx --report-unused-disable-directives \".*.js\" packages",
+    "lint": "eslint --no-eslintrc --c ./.eslintrc.js --cache --ext js,jsx --report-unused-disable-directives \".*.js\" packages",
     "precommit": "lint-staged",
     "release": "lerna publish",
     "release:preview": "lerna publish --skip-git --skip-npm",
