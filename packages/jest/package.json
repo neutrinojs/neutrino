@@ -10,9 +10,9 @@
   ],
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
-  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/jest",
+  "repository": "https://github.com/neutrinojs/neutrino/tree/master/packages/jest",
   "homepage": "https://neutrinojs.org",
-  "bugs": "https://github.com/mozilla-neutrino/neutrino-dev/issues",
+  "bugs": "https://github.com/neutrinojs/neutrino/issues",
   "publishConfig": {
     "access": "public"
   },

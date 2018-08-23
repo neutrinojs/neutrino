@@ -30,7 +30,7 @@ There is always room for improvement and expansion in Neutrino. Some things that
 
 While we are happy to review **any** contribution, there are some things that are best left as an external project:
 
-- _Additional presets_. While neutrino-dev does contain a number of core presets, we created and maintain these because
+- _Additional presets_. While neutrino does contain a number of core presets, we created and maintain these because
 they were core to most of the projects we personally work on. If there are more presets you believe should be maintained
 by the core, then feel free to raise an issue and we can discuss! Most likely though, additional presets can be
 externally maintained and published to npm. It still has the same reach potential as bringing it into the core, without
@@ -50,7 +50,7 @@ relevant information related to its development.
 
 ## Guidelines
 
-- Please make a good-faith effort to ensure that code that goes into neutrino-dev follows the existing patterns and
+- Please make a good-faith effort to ensure that code that goes into neutrino follows the existing patterns and
 quality that is already present in the repository.
 - Create issues for any major changes and enhancements that you wish to make. Discuss things transparently and get
 community feedback.
@@ -60,7 +60,7 @@ possible.
 
 ## Getting started
 
-Most contributions will involve working with the neutrino-dev codebase. Please refer to the [development
+Most contributions will involve working with the neutrino codebase. Please refer to the [development
 documentation](./development.md) for technical details on getting started.
 
 ## Filing bugs and issues

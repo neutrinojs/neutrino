@@ -312,7 +312,7 @@ add as many functions as you wish in succession. Every preset or middleware that
 middleware successive pipeline.
 
 The Neutrino API instance provided to your function has a `config` property that is an instance of
-[webpack-chain](https://github.com/mozilla-neutrino/webpack-chain). We won't go in-depth of all the configuration
+[webpack-chain](https://github.com/neutrinojs/webpack-chain). We won't go in-depth of all the configuration
 possibilities here, but encourage you to check out the documentation for webpack-chain for instructions on your
 particular use case. Just know that you can use webpack-chain to modify any part of the underlying webpack configuration
 using its API.

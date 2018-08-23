@@ -10,7 +10,7 @@
   ],
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
-  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/mocha",
+  "repository": "https://github.com/neutrinojs/neutrino/tree/master/packages/mocha",
   "publishConfig": {
     "access": "public"
   },
