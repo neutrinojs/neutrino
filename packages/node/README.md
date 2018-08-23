@@ -18,7 +18,7 @@
 
 ## Requirements
 
-- Node.js v8.3+
+- Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino v8
 
@@ -258,7 +258,7 @@ module.exports = {
 
       // Target specific versions via @babel/preset-env
       targets: {
-        node: '8.3'
+        node: '8.10'
       },
 
       // Remove the contents of the output directory prior to building.

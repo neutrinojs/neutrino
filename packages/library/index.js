@@ -30,7 +30,7 @@ module.exports = (neutrino, opts = {}) => {
           modules: false,
           useBuiltIns: 'entry',
           targets: options.target === 'node' ?
-            { node: '8.3' } :
+            { node: '8.10' } :
             { browsers: 'ie 9' }
         }]
       ]
