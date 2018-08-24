@@ -19,13 +19,13 @@
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/banner
+❯ yarn add --dev @neutrinojs/banner
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/banner
+❯ npm install --save-dev @neutrinojs/banner
 ```
 
 ## Usage

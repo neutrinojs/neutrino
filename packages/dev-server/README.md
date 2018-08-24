@@ -19,13 +19,13 @@
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/dev-server
+❯ yarn add --dev @neutrinojs/dev-server
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/dev-server
+❯ npm install --save-dev @neutrinojs/dev-server
 ```
 
 ## Usage

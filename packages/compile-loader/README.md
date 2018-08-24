@@ -19,13 +19,13 @@
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/compile-loader
+❯ yarn add --dev @neutrinojs/compile-loader
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/compile-loader
+❯ npm install --save-dev @neutrinojs/compile-loader
 ```
 
 ## Usage

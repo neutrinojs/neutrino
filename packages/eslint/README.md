@@ -22,13 +22,13 @@ another Neutrino preset for building your application source code.
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/eslint eslint
+❯ yarn add --dev @neutrinojs/eslint eslint
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/eslint eslint
+❯ npm install --save-dev @neutrinojs/eslint eslint
 ```
 
 ## Usage

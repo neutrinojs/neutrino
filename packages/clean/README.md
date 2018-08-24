@@ -19,13 +19,13 @@
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/clean
+❯ yarn add --dev @neutrinojs/clean
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/clean
+❯ npm install --save-dev @neutrinojs/clean
 ```
 
 ## Usage

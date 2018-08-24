@@ -20,13 +20,13 @@ Application capabilities. This middleware is usually only added during productio
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/pwa
+❯ yarn add --dev @neutrinojs/pwa
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/pwa
+❯ npm install --save-dev @neutrinojs/pwa
 ```
 
 ## Usage

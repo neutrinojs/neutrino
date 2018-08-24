@@ -20,13 +20,13 @@ completion of a build.
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/start-server
+❯ yarn add --dev @neutrinojs/start-server
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/start-server
+❯ npm install --save-dev @neutrinojs/start-server
 ```
 
 ## Usage

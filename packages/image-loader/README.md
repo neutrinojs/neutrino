@@ -19,13 +19,13 @@
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/image-loader
+❯ yarn add --dev @neutrinojs/image-loader
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/image-loader
+❯ npm install --save-dev @neutrinojs/image-loader
 ```
 
 ## Usage

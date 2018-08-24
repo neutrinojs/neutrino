@@ -19,13 +19,13 @@
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/font-loader
+❯ yarn add --dev @neutrinojs/font-loader
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/font-loader
+❯ npm install --save-dev @neutrinojs/font-loader
 ```
 
 ## Usage

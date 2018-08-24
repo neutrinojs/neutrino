@@ -27,13 +27,13 @@
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/style-loader
+❯ yarn add --dev @neutrinojs/style-loader
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/style-loader
+❯ npm install --save-dev @neutrinojs/style-loader
 ```
 
 ## Usage

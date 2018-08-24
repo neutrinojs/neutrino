@@ -21,13 +21,13 @@ added during production builds.
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/style-minify
+❯ yarn add --dev @neutrinojs/style-minify
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/style-minify
+❯ npm install --save-dev @neutrinojs/style-minify
 ```
 
 ## Usage

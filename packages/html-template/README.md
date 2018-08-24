@@ -20,13 +20,13 @@ entry points.
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/html-template
+❯ yarn add --dev @neutrinojs/html-template
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/html-template
+❯ npm install --save-dev @neutrinojs/html-template
 ```
 
 ## Usage

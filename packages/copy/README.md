@@ -19,13 +19,13 @@
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/copy
+❯ yarn add --dev @neutrinojs/copy
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/copy
+❯ npm install --save-dev @neutrinojs/copy
 ```
 
 ## Usage

@@ -19,13 +19,13 @@
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/html-loader
+❯ yarn add --dev @neutrinojs/html-loader
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/html-loader
+❯ npm install --save-dev @neutrinojs/html-loader
 ```
 
 ## Usage
