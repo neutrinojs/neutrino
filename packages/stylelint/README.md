@@ -10,6 +10,8 @@
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino 9
+- webpack 4
+- Stylelint 8
 
 ## Installation
 
@@ -18,13 +20,13 @@
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/stylelint
+❯ yarn add --dev @neutrinojs/stylelint stylelint@^8
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/stylelint
+❯ npm install --save-dev @neutrinojs/stylelint stylelint@^8
 ```
 
 ## Usage

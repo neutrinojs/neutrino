@@ -21,23 +21,25 @@ _Note: If you are building a React project, you should probably use
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino 9 and one of the Neutrino build presets
+- webpack 4
+- ESLint 5
 
 ## Installation
 
 `@neutrinojs/airbnb-base` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `@neutrinojs/airbnb-base` are development dependencies. You will also be using
+`@neutrinojs/airbnb-base` and `eslint` are development dependencies. You will also be using
 another Neutrino preset for building your application source code.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev @neutrinojs/airbnb-base
+❯ yarn add --dev @neutrinojs/airbnb-base eslint
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev @neutrinojs/airbnb-base
+❯ npm install --save-dev @neutrinojs/airbnb-base eslint
 ```
 
 ## Project Layout

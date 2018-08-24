@@ -28,24 +28,27 @@
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino 9
+- webpack 4
+- webpack-cli 3
+- webpack-dev-server 3
 
 ## Installation
 
 `@neutrinojs/preact` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `@neutrinojs/preact` are development dependencies. You will also need `preact` for actual
-Preact development.
+that the Neutrino and webpack related dependencies below are installed as development dependencies.
+You will also need `preact` for actual Preact development.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev neutrino @neutrinojs/preact
+❯ yarn add --dev neutrino @neutrinojs/preact webpack webpack-cli webpack-dev-server
 ❯ yarn add preact
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev neutrino @neutrinojs/preact
+❯ npm install --save-dev neutrino @neutrinojs/preact webpack webpack-cli webpack-dev-server
 ❯ npm install --save preact
 ```
 

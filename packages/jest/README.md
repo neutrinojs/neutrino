@@ -18,23 +18,25 @@
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino 9 and one of the Neutrino build presets
+- webpack 4
+- Jest 23
 
 ## Installation
 
 `@neutrinojs/jest` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `@neutrinojs/jest` are development dependencies. You will also be using
+`@neutrinojs/jest` and `jest` are development dependencies. You will also be using
 another Neutrino preset for building your application source code.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev @neutrinojs/jest
+❯ yarn add --dev @neutrinojs/jest jest
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev @neutrinojs/jest
+❯ npm install --save-dev @neutrinojs/jest jest
 ```
 
 ### Installation: React Testing

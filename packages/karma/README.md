@@ -18,23 +18,26 @@
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino 9 and one of the Neutrino build presets
+- webpack 4
+- Karma 3 and Karma CLI 1
+- Mocha 5
 
 ## Installation
 
 `@neutrinojs/karma` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `@neutrinojs/karma` are development dependencies. You will also be using
+the dependencies below are installed as development dependencies. You will also be using
 another Neutrino preset for building your application source code.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev @neutrinojs/karma
+❯ yarn add --dev @neutrinojs/karma karma karma-cli mocha
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev @neutrinojs/karma
+❯ npm install --save-dev @neutrinojs/karma karma karma-cli mocha
 ```
 
 ## Project Layout

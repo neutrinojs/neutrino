@@ -21,22 +21,24 @@
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino 9
+- webpack 4
+- webpack-cli 3
 
 ## Installation
 
 `@neutrinojs/node` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `@neutrinojs/node` are development dependencies.
+that the dependencies below are installed as development dependencies.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev neutrino @neutrinojs/node
+❯ yarn add --dev neutrino @neutrinojs/node webpack webpack-cli
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev neutrino @neutrinojs/node
+❯ npm install --save-dev neutrino @neutrinojs/node webpack webpack-cli
 ```
 
 If you want to have automatically wired sourcemaps added to your project, add `source-map-support`:

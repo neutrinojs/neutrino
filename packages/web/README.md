@@ -24,22 +24,25 @@
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino 9
+- webpack 4
+- webpack-cli 3
+- webpack-dev-server 3
 
 ## Installation
 
 `@neutrinojs/web` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `@neutrinojs/web` are development dependencies.
+that the dependencies below are installed as development dependencies.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev neutrino @neutrinojs/web
+❯ yarn add --dev neutrino @neutrinojs/web webpack webpack-cli webpack-dev-server
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev neutrino @neutrinojs/web
+❯ npm install --save-dev neutrino @neutrinojs/web webpack webpack-cli webpack-dev-server
 ```
 
 ## Project Layout

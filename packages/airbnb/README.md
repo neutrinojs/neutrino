@@ -18,23 +18,25 @@ config, following the [Airbnb styleguide](https://github.com/airbnb/javascript).
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino 9 and one of the Neutrino build presets
+- webpack 4
+- ESLint 5
 
 ## Installation
 
 `@neutrinojs/airbnb` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `@neutrinojs/airbnb` are development dependencies. You will also be using
+`@neutrinojs/airbnb` and `eslint` are development dependencies. You will also be using
 another Neutrino preset for building your application source code.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev @neutrinojs/airbnb
+❯ yarn add --dev @neutrinojs/airbnb eslint
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev @neutrinojs/airbnb
+❯ npm install --save-dev @neutrinojs/airbnb eslint
 ```
 
 ## Project Layout

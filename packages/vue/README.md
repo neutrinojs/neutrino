@@ -24,24 +24,27 @@
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino 9
+- webpack 4
+- webpack-cli 3
+- webpack-dev-server 3
 
 ## Installation
 
 `@neutrinojs/vue` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `@neutrinojs/vue` are development dependencies. You will also need Vue for actual
-Vue development.
+that the Neutrino and webpack related dependencies below are installed as development dependencies.
+You will also need Vue for actual Vue development.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev neutrino @neutrinojs/vue
+❯ yarn add --dev neutrino @neutrinojs/vue webpack webpack-cli webpack-dev-server
 ❯ yarn add vue
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev neutrino @neutrinojs/vue
+❯ npm install --save-dev neutrino @neutrinojs/vue webpack webpack-cli webpack-dev-server
 ❯ npm install --save vue
 ```
 

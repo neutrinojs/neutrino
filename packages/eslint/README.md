@@ -10,21 +10,25 @@
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino 9 and one of the Neutrino build presets
+- webpack 4
+- ESLint 5
 
 ## Installation
 
-`@neutrinojs/eslint` can be installed via the Yarn or npm clients.
+`@neutrinojs/eslint` can be installed via the Yarn or npm clients. Inside your project, make sure
+`@neutrinojs/eslint` and `eslint` are development dependencies. You will also be using
+another Neutrino preset for building your application source code.
 
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/eslint
+❯ yarn add @neutrinojs/eslint eslint
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/eslint
+❯ npm install --save @neutrinojs/eslint eslint
 ```
 
 ## Usage

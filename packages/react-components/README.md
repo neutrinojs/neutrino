@@ -34,25 +34,27 @@ polyfills in your library code, consider importing @babel/polyfill, core-js, or 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino 9
-- React, React DOM
+- webpack 4
+- webpack-cli 3
+- webpack-dev-server 3
 
 ## Installation
 
 `@neutrinojs/react-components` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `@neutrinojs/react-components` are development dependencies. You will also need React and React DOM
-for actual component development.
+that the Neutrino and webpack related dependencies below are installed as development dependencies.
+You will also need React and React DOM for actual component development.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev neutrino @neutrinojs/react-components
+❯ yarn add --dev neutrino @neutrinojs/react-components webpack webpack-cli webpack-dev-server
 ❯ yarn add react react-dom
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev neutrino @neutrinojs/react-components
+❯ npm install --save-dev neutrino @neutrinojs/react-components webpack webpack-cli webpack-dev-server
 ❯ npm install --save react react-dom
 ```
 

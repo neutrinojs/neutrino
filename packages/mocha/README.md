@@ -16,23 +16,25 @@
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino 9 and one of the Neutrino build presets
+- webpack 4
+- Mocha 5
 
 ## Installation
 
 `@neutrinojs/mocha` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `@neutrinojs/mocha` are development dependencies. You will also be using
+`@neutrinojs/mocha` and `mocha` are development dependencies. You will also be using
 another Neutrino preset for building your application source code.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev @neutrinojs/mocha
+❯ yarn add --dev @neutrinojs/mocha mocha
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev @neutrinojs/mocha
+❯ npm install --save-dev @neutrinojs/mocha mocha
 ```
 
 ## Project Layout

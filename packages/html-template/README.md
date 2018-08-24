@@ -11,6 +11,7 @@ entry points.
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino 9
+- webpack 4
 
 ## Installation
 
