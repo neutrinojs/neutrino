@@ -14,6 +14,7 @@ const HtmlWebpackIncludeSiblingChunksPlugin = require('html-webpack-include-sibl
 const ManifestPlugin = require('webpack-manifest-plugin');
 
 module.exports = (neutrino, opts = {}) => {
+  const isProduction = process.env.NODE_ENV === 'production';
   const publicPath = opts.publicPath || './';
   const options = merge({
     publicPath,
@@ -26,14 +27,14 @@ module.exports = (neutrino, opts = {}) => {
     },
     style: {
       hot: opts.hot !== false,
-      extract: process.env.NODE_ENV === 'production'
+      extract: isProduction
     },
     manifest: opts.html === false ? {} : false,
     clean: opts.clean !== false && {
       paths: [neutrino.options.output]
     },
     minify: {
-      source: process.env.NODE_ENV === 'production'
+      source: isProduction
     },
     babel: {},
     targets: {},
@@ -136,9 +137,7 @@ module.exports = (neutrino, opts = {}) => {
       }
     });
 
-  const jsFilename = process.env.NODE_ENV === 'production'
-    ? '[name].[contenthash:8].js'
-    : '[name].js';
+  const jsFilename = isProduction ? '[name].[contenthash:8].js' : '[name].js';
 
   neutrino.config
     .optimization
@@ -149,11 +148,15 @@ module.exports = (neutrino, opts = {}) => {
         // https://webpack.js.org/plugins/split-chunks-plugin/#optimization-splitchunks-chunks-all
         // https://github.com/webpack/webpack/issues/7064
         chunks: 'all',
+        // Override the default limit of 3 chunks per entrypoint in production, since
+        // it speeds up builds and the greater number of requests is mitigated by use
+        // of long term caching (and a non-issue if using HTTP2).
+        maxInitialRequests: isProduction ? 5 : Infinity,
         // By default the generated files use names that reference the chunk names, eg:
         // `vendors~index~page2.b694ee99.js`. Setting to `false` causes them to use the
         // chunk ID instead (eg `1.ceddedc0.js`), which prevents cache-busting when a
         // new page is added with the same shared vendor dependencies.
-        name: process.env.NODE_ENV !== 'production'
+        name: !isProduction
       })
       // Create a separate chunk for the webpack runtime, so it can be cached separately
       // from the more frequently-changing entrypoint chunks.
@@ -209,7 +212,7 @@ module.exports = (neutrino, opts = {}) => {
         }
       });
     })
-    .when(process.env.NODE_ENV === 'production', (config) => {
+    .when(isProduction, (config) => {
       config.when(options.clean, () => neutrino.use(clean, options.clean));
 
       if (options.manifest) {
