@@ -299,21 +299,21 @@ _Example: Add a custom Babel plugin when testing:_
 module.exports = {
   use: [
     '@neutrinojs/jest'
-  ],
-  env: {
-    NODE_ENV: {
-      test: (neutrino) => neutrino.config.module
-        .rule('compile')
-        .use('babel')
-        .tap(options => merge(options, {
-          env: {
-            test: {
-              plugins: ['custom-babel-plugin']
+    (neutrino) => {
+      if (process.env.NODE_ENV === 'test') {
+        neutrino.config.module
+          .rule('compile')
+          .use('babel')
+          .tap(options => merge(options, {
+            env: {
+              test: {
+                plugins: ['custom-babel-plugin']
+              }
             }
-          }
-        }))
+          }));
+      }
     }
-  }
+  ],
 };
 ```
 

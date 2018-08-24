@@ -123,36 +123,7 @@ module.exports = {
     // or set the default development port to 3000
     port: 3000
   },
-  
-  // Specify environment-specific changes. This is a key-value
-  // mapping of environment variable names to their matching values
-  // during which to override. The matching environment value can
-  // be any middleware format
-  env: {
-    NODE_ENV: {
-      // Require style-minify middleware during production
-      production: '@neutrinojs/style-minify',
-      
-      // Use dev-server during development
-      development: ['@neutrinojs/dev-server', { port: 3000 }],
-      
-      // Use Jest during test-only
-      test: {
-        use: ['@neutrinojs/jest']
-      }
-    },
-    
-    CSS_MODULES: {
-      // Turn on CSS modules when the environment variable CSS_MODULES=enable
-      enable: (neutrino) => {
-        neutrino.config.module
-          .rule('style')
-            .use('css')
-              .options({ modules: true });
-      }
-    }
-  },
-  
+
   // The "use" array defines another set of middleware for Neutrino to use.
   // Just like the CLI and API start with a collection of middleware to use,
   // providing a "use" array specifies another list of middleware formats to work with

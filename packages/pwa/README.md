@@ -87,13 +87,9 @@ _Example: Only use middleware during production:_
 
 ```js
 module.exports = {
-  env: {
-    NODE_ENV: {
-      production: {
-        use: ['@neutrinojs/pwa']
-      }
-    }
-  }
+  use: [
+    process.env.NODE_ENV === 'production' ? '@neutrinojs/pwa' : false,
+  ]
 };
 ```
 

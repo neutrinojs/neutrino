@@ -178,25 +178,6 @@ Informs interested middleware that they should be in a state of debugging. This 
 behave any differently, rather it can be used to inform middleware to behave differently, by outputting console
 information, inspecting processes, or changing configuration which is helpful for debugging.
 
-### `options.env`
-
-When using the CLI and the higher-level API functions, environment variables are automatically set based on the command
-you are using. When using the `Neutrino` low-level API this is not the case, and you should specify an `env` option
-to the API prior to calling any build commands or loading any middleware if you expect them to build correctly based on
-their environment target.
-
-Use `options.env` to set environment variables and make them available to middleware for conditional operations.
-
-```js
-Neutrino({
-  env: {
-    NODE_ENV: 'production'
-  }
-});
-
-process.env.NODE_ENV // "production"
-```
-
 ### `options.command`
 
 The currently running CLI command, e.g. `build`, `start`, `lint`, etc. This value is typically

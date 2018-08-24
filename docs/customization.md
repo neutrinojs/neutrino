@@ -257,22 +257,16 @@ module.exports = {
 ## Environment-specific overrides
 
 Sometimes you can only make certain configuration changes in certain Node.js environments, or you may choose to
-selectively make changes based on the values of any arbitrary environment variable. These can be done from
-`.neutrinorc.js` using the `env` property. Each property within `env` maps to an environment variable with key-values
-mapping to  environment values which contain further middleware. This works for any environment variable, not just
-`NODE_ENV`.
+selectively make changes based on the values of any arbitrary environment variable. This can be achieved by
+conditionally applying middleware in `.neutrinorc.js`.
 
 For example, if you wanted to include additional middleware when `NODE_ENV` is `production`:
 
 ```js
 module.exports = {
-  env: {
-    NODE_ENV: {
-      production: {
-        use: ['@neutrinojs/pwa']
-      }
-    }
-  }
+  use: [
+    process.env.NODE_ENV === 'production' ? '@neutrinojs/pwa' : false,
+  ]
 };
 ```
 
@@ -280,21 +274,19 @@ _Example: Turn on CSS modules when the environment variable `CSS_MODULES=enable`
 
 ```js
 module.exports = {
-  env: {
-    CSS_MODULES: {
+  use: [
+    (neutrino) => {
       // Turn on CSS modules when the environment variable CSS_MODULES=enable
-      enable: (neutrino) => {
+      if (process.env.CSS_MODULES === 'enable') {
         neutrino.config.module
           .rule('style')
             .use('css')
               .options({ modules: true });
       }
     }
-  }
+  ]
 };
 ```
-
-You may use any middleware format as the value for the matching environment-value mapping.
 
 ## Advanced configuration changes
 

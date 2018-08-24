@@ -137,15 +137,9 @@ _Example: ease linting into project by only adding when `NODE_ENV=development`, 
 ```js
 module.exports = {
   use: [
+    process.env.NODE_ENV === 'development' ? '@neutrinojs/airbnb' : false,
     '@neutrinojs/react'
   ],
-  env: {
-    NODE_ENV: {
-      development: {
-        use: ['@neutrinojs/airbnb']
-      }
-    }
-  }
 };
 ```
 
