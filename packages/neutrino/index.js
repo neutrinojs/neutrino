@@ -6,9 +6,9 @@ const webpack = require('./webpack');
 const configPrefix = 'neutrino.config';
 
 module.exports = (middleware = {}) => {
-  if (isPlainObject(middleware) && !middleware.use) {
-    Object.assign(middleware, { use: ['.neutrinorc.js'] });
-  }
+  const use = isPlainObject(middleware) && !middleware.use
+    ? { ...middleware, use: ['.neutrinorc.js'] }
+    : middleware;
 
   const neutrino = new Neutrino();
   const { argv } = yargs;
@@ -33,8 +33,8 @@ module.exports = (middleware = {}) => {
 
   neutrino.register('webpack', webpack);
 
-  if (middleware) {
-    neutrino.use(middleware);
+  if (use) {
+    neutrino.use(use);
   }
 
   const adapter = {
