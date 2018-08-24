@@ -1,3 +1,5 @@
+const neutrino = require('neutrino');
+
 process.env.NODE_ENV = process.env.NODE_ENV || 'test';
 
-require('neutrino')().mocha();
+neutrino().mocha();

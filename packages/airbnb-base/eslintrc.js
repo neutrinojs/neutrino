@@ -1,7 +1,8 @@
 const neutrino = require('../neutrino');
+const middleware = require('.');
 
 module.exports = neutrino({
-  use: require('.'), // eslint-disable-line global-require
+  use: middleware,
   options: {
     root: __dirname
   }
