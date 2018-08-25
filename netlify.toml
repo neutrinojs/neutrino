@@ -6,6 +6,28 @@
   publish = "build"
   command = "../scripts/build-docs.sh"
 
+[[headers]]
+  # Implement security recommendations from:
+  # https://infosec.mozilla.org/guidelines/web_security
+  for = "/*"
+  [headers.values]
+    # The CSP was generated with the help of:
+    # https://addons.mozilla.org/en-US/firefox/addon/laboratory-by-mozilla/
+    # The GitHub API and Google Fonts domains are needed for the Material theme.
+    # The Travis and Shields.io domains are required for our badge images.
+    Content-Security-Policy = """
+        default-src 'none';
+        connect-src 'self' https://api.github.com;
+        font-src 'self' https://fonts.gstatic.com;
+        img-src 'self' https://api.travis-ci.org https://img.shields.io;
+        script-src 'self';
+        style-src 'self' https://fonts.googleapis.com;
+        frame-ancestors 'none';
+    """
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+
 # Redirect domain aliases to the primary domain.
 
 [[redirects]]

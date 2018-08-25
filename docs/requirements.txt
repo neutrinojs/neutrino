@@ -1,3 +1,5 @@
 mkdocs==1.0.2
+# When updating the theme, check the Netlify PR preview to see if any changes
+# are required to the Content-Security-Policy header in netlify.toml.
 mkdocs-material==3.0.3
 Pygments==2.2.0
