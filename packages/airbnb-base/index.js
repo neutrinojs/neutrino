@@ -14,14 +14,12 @@ module.exports = (neutrino, opts = {}) => {
         'new-cap': 'off',
         'no-invalid-this': 'off',
         'object-curly-spacing': 'off',
-        'quotes': 'off',
         'semi': 'off',
         'no-unused-expressions': 'off',
         // Ensure the replacement rules use the options set by airbnb-base rather than ESLint defaults.
         'babel/new-cap': airbnbBaseStyle['new-cap'],
         'babel/no-invalid-this': airbnbBaseBestPractices['no-invalid-this'],
         'babel/object-curly-spacing': airbnbBaseStyle['object-curly-spacing'],
-        'babel/quotes': airbnbBaseStyle.quotes,
         'babel/semi': airbnbBaseStyle.semi,
         'babel/no-unused-expressions': airbnbBaseBestPractices['no-unused-expressions']
       }
