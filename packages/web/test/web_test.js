@@ -1,5 +1,8 @@
+import { resolve } from 'path';
+
 import test from 'ava';
 import { validate } from 'webpack';
+
 import Neutrino from '../../neutrino/Neutrino';
 
 const mw = () => require('..');
@@ -117,18 +120,21 @@ test('supports multiple mains with custom html-webpack-plugin options', t => {
 
   api.use(mw(), { html: { title: 'Default Title', minify: false } });
 
+  const templatePath = resolve(__dirname, '../../html-template/template.ejs');
+
   t.deepEqual(api.config.plugin('html-index').get('args'), [{
     appMountId: 'root',
     chunks: [
       'index'
     ],
     filename: 'index.html',
-    inject: false,
+    lang: 'en',
+    meta: {
+      viewport: 'width=device-width, initial-scale=1'
+    },
     minify: false,
-    mobile: true,
-    template: require('html-webpack-template'),
-    title: 'Default Title',
-    xhtml: true
+    template: templatePath,
+    title: 'Default Title'
   }]);
 
   t.deepEqual(api.config.plugin('html-admin').get('args'), [{
@@ -137,12 +143,13 @@ test('supports multiple mains with custom html-webpack-plugin options', t => {
       'admin'
     ],
     filename: 'admin.html',
-    inject: false,
+    lang: 'en',
+    meta: {
+      viewport: 'width=device-width, initial-scale=1'
+    },
     minify: false,
-    mobile: true,
-    template: require('html-webpack-template'),
-    title: 'Admin Dashboard',
-    xhtml: true
+    template: templatePath,
+    title: 'Admin Dashboard'
   }]);
 });
 

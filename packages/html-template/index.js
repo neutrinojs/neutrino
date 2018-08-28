@@ -1,5 +1,6 @@
+const { resolve } = require('path');
+
 const HtmlPlugin = require('html-webpack-plugin');
-const template = require('html-webpack-template');
 const merge = require('deepmerge');
 
 module.exports = (neutrino, { pluginId = 'html', ...options } = {}) => {
@@ -7,11 +8,14 @@ module.exports = (neutrino, { pluginId = 'html', ...options } = {}) => {
     .plugin(pluginId)
     .use(HtmlPlugin, [
       merge({
-        template,
-        inject: false,
+        // Use a custom template that has more features (appMountId, lang) than the default:
+        // https://github.com/jantimon/html-webpack-plugin/blob/master/default_index.ejs
+        template: resolve(__dirname, 'template.ejs'),
         appMountId: 'root',
-        xhtml: true,
-        mobile: true,
+        lang: 'en',
+        meta: {
+          viewport: 'width=device-width, initial-scale=1'
+        },
         minify: {
           useShortDoctype: true,
           keepClosingSlash: true,
