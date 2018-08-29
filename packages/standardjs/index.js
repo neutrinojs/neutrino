@@ -20,17 +20,15 @@ module.exports = (neutrino, opts = {}) => {
         'new-cap': 'off',
         'no-invalid-this': 'off',
         'object-curly-spacing': 'off',
-        'quotes': 'off',
         'semi': 'off',
         'no-unused-expressions': 'off',
-        // Ensure the replacement rules use the options set by airbnb rather than ESLint defaults.
+        // Ensure the replacement rules use the options set by eslint-config-standard rather than ESLint defaults.
         'babel/new-cap': standardRules['new-cap'],
         // eslint-config-standard doesn't currently have an explicit value for these two rules, so
         // they default to off. The fallbacks are not added to the other rules, so changes in the
         // preset configuration layout doesn't silently cause rules to be disabled.
         'babel/no-invalid-this': standardRules['no-invalid-this'] || 'off',
         'babel/object-curly-spacing': standardRules['object-curly-spacing'] || 'off',
-        'babel/quotes': standardRules.quotes,
         'babel/semi': standardRules.semi,
         'babel/no-unused-expressions': standardRules['no-unused-expressions']
       }
