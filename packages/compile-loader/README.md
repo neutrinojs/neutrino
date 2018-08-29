@@ -146,6 +146,17 @@ config.module
       }, options));
 ```
 
+## babel.config.js
+
+Should you wish to use the Babel configuration outside of webpack, create a `babel.config.js`
+file in the root of the project, containing the following:
+
+```js
+const neutrino = require('neutrino');
+
+module.exports = neutrino().babel();
+```
+
 ## Customization
 
 `@neutrinojs/compile-loader` creates some conventions to make overriding the configuration easier once you are
