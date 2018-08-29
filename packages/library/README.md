@@ -122,26 +122,35 @@ export default class Logger {
 }
 ```
 
-Now edit your project's package.json to add commands for building the library.
+Now edit your project's `package.json` to add commands for building the library:
 
 ```json
 {
   "name": "super-logger",
   "scripts": {
-    "build": "neutrino build"
+    "build": "webpack --mode production"
   }
 }
 ```
 
-When using this library, you **must** use a `.neutrinorc.js` file in your project to specify
-the library name. Add this preset to your `use` array and define the `name` option:
+Then create a `.neutrinorc.js` file alongside `package.json`, which contains your Neutrino configuration:
 
 ```js
 module.exports = {
   use: [
-    ['@neutrinojs/library', { name: 'Logger' }]
+    ['@neutrinojs/library', {
+      name: 'Logger'
+    }]
   ]
 };
+```
+
+And create a `webpack.config.js` file, that uses the Neutrino API to access the generated webpack config:
+
+```js
+const neutrino = require('neutrino');
+
+module.exports = neutrino().webpack();
 ```
 
 You can now build your library!

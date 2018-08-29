@@ -118,18 +118,18 @@ createServer(async (req, res) => {
 .listen(port, () => console.log(`Server running on port ${port}`));
 ```
 
-Now edit your project's package.json to add commands for starting and building the application.
+Now edit your project's `package.json` to add commands for starting and building the application:
 
 ```json
 {
   "scripts": {
-    "start": "neutrino start --use @neutrinojs/node",
-    "build": "neutrino build --use @neutrinojs/node"
+    "start": "webpack --watch --mode development",
+    "build": "webpack --mode production"
   }
 }
 ```
 
-If you are using `.neutrinorc.js`, add this preset to your use array instead of `--use` flags:
+Then create a `.neutrinorc.js` file alongside `package.json`, which contains your Neutrino configuration:
 
 ```js
 module.exports = {
@@ -137,7 +137,15 @@ module.exports = {
 };
 ```
 
-Start the app, then either open a browser to http://localhost:3000 or use curl from another terminal window:
+And create a `webpack.config.js` file, that uses the Neutrino API to access the generated webpack config:
+
+```js
+const neutrino = require('neutrino');
+
+module.exports = neutrino().webpack();
+```
+
+Start the app, then either open a browser to the address in the console, or use curl from another terminal window:
 
 #### Yarn
 
@@ -165,8 +173,8 @@ hi!
 
 ## Building
 
-`@neutrinojs/node` builds assets to the `build` directory by default when running `neutrino build`. Using the
-quick start example above as a reference:
+`@neutrinojs/node` builds assets to the `build` directory by default when running `neutrino build`. Using
+the quick start example above as a reference:
 
 ```bash
 ❯ yarn build

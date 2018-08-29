@@ -128,24 +128,34 @@ Next, edit your `src/App.vue` with the following:
 </template>
 ```
 
-Now edit your project's package.json to add commands for starting and building the application:
+Now edit your project's `package.json` to add commands for starting and building the application:
 
 ```json
 {
   "scripts": {
-    "start": "neutrino start --use @neutrinojs/vue",
-    "build": "neutrino build --use @neutrinojs/vue"
+    "start": "webpack-dev-server --mode development",
+    "build": "webpack --mode production"
   }
 }
 ```
 
-If you are using `.neutrinorc.js`, add this preset to your use array instead of `--use` flags:
+Then create a `.neutrinorc.js` file alongside `package.json`, which contains your Neutrino configuration:
 
 ```js
 module.exports = {
   use: ['@neutrinojs/vue']
 };
 ```
+
+And create a `webpack.config.js` file, that uses the Neutrino API to access the generated webpack config:
+
+```js
+const neutrino = require('neutrino');
+
+module.exports = neutrino().webpack();
+```
+
+Start the app, then open a browser to the address in the console:
 
 #### Yarn
 
@@ -162,8 +172,6 @@ module.exports = {
 ✔ Development server running on: http://localhost:5000
 ✔ Build completed
 ```
-
-Start the app, then open a browser to the address in the console:
 
 ## Building
 
@@ -193,11 +201,10 @@ use the [@neutrinojs/copy](https://neutrinojs.org/packages/copy/) preset alongsi
 
 ## Paths
 
-The `@neutrinojs/web` preset loads assets relative to the path of your application by setting Webpack's
+The `@neutrinojs/web` preset loads assets relative to the path of your application by setting webpack's
 [`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath) to `./`. If you wish to load
 assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
 override `output.publicPath`. See the [Customizing](#customizing) section below.
-
 
 ## Preset options
 

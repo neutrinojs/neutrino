@@ -142,18 +142,18 @@ render((
 ), root);
 ```
 
-Now edit your project's package.json to add commands for starting the development server, or building the components.
+Now edit your project's `package.json` to add commands for starting and building the application:
 
 ```json
 {
   "scripts": {
-    "start": "neutrino start --use @neutrinojs/react-components",
-    "build": "neutrino build --use @neutrinojs/react-components"
+    "start": "webpack-dev-server --mode development",
+    "build": "webpack --mode production"
   }
 }
 ```
 
-If you are using `.neutrinorc.js`, add this preset to your use array instead of `--use` flags:
+Then create a `.neutrinorc.js` file alongside `package.json`, which contains your Neutrino configuration:
 
 ```js
 module.exports = {
@@ -161,7 +161,15 @@ module.exports = {
 };
 ```
 
-Start the app, then open a browser to http://localhost:5000 to preview your components:
+And create a `webpack.config.js` file, that uses the Neutrino API to access the generated webpack config:
+
+```js
+const neutrino = require('neutrino');
+
+module.exports = neutrino().webpack();
+```
+
+Start the app, then open a browser to the address in the console to preview your components:
 
 #### Yarn
 
