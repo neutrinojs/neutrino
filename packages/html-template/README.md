@@ -35,16 +35,20 @@ and plug it into Neutrino:
 
 ```js
 // Using function middleware format
-const template = require('@neutrinojs/html-template');
 
 // Usage shows default values
-// Accepts options specified by HtmlWebpackTemplate
-// https://github.com/jaketrent/html-webpack-template
+// Accepts options specified by html-webpack-plugin:
+// https://github.com/jantimon/html-webpack-plugin#configuration
 neutrino.use(template, {
-  inject: false,
+  // @neutrinojs/html-template includes a custom template that has more features
+  // (eg appMountId and lang support) than the default html-webpack-plugin template:
+  // https://github.com/jantimon/html-webpack-plugin/blob/master/default_index.ejs
+  template: require.resolve('@neutrinojs/html-template/template.ejs'),
   appMountId: 'root',
-  xhtml: true,
-  mobile: true,
+  lang: 'en',
+  meta: {
+    viewport: 'width=device-width, initial-scale=1'
+  },
   minify: {
     useShortDoctype: true,
     keepClosingSlash: true,
@@ -65,15 +69,20 @@ neutrino.use(template, {
 // Using object or array middleware format
 
 // Usage shows default values
-// Accepts options specified by HtmlWebpackTemplate
-// https://github.com/jaketrent/html-webpack-template
+// Accepts options specified by html-webpack-plugin:
+// https://github.com/jantimon/html-webpack-plugin#configuration
 module.exports = {
   use: [
     ['@neutrinojs/html-template', {
-      inject: false,
+      // @neutrinojs/html-template includes a custom template that has more features
+      // (eg appMountId and lang support) than the default html-webpack-plugin template:
+      // https://github.com/jantimon/html-webpack-plugin/blob/master/default_index.ejs
+      template: require.resolve('@neutrinojs/html-template/template.ejs'),
       appMountId: 'root',
-      xhtml: true,
-      mobile: true,
+      lang: 'en',
+      meta: {
+        viewport: 'width=device-width, initial-scale=1'
+      },
       minify: {
         useShortDoctype: true,
         keepClosingSlash: true,
