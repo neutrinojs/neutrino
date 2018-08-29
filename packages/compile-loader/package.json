@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.0.0",
-    "babel-loader": "8.0.0-beta.6",
+    "babel-loader": "^8.0.0",
     "babel-merge": "^2.0.1"
   },
   "peerDependencies": {
