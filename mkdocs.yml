@@ -27,7 +27,6 @@ nav:
   - Project Layout: './project-layout.md'
   - FAQ: './faq.md'
   - Learning Resources: './learning-resources.md'
-  - CLI: './cli.md'
   - API: './api.md'
   - Configuration API: './webpack-chain.md'
   - Customization: './customization.md'

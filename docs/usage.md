@@ -131,3 +131,21 @@ module.exports = {
   ]
 }
 ```
+
+## Inspecting the generated webpack config
+
+The `neutrino --inspect` command can be used to write out a stringified version of the generated
+webpack configuration to stdout. Use the `--mode` flag or the `NODE_ENV` environment variable to
+control which variation of the configuration is output.
+
+For example:
+
+```bash
+neutrino --inspect --mode {production,development}
+```
+
+Or:
+
+```bash
+NODE_ENV={production,development,test} neutrino --inspect
+```
