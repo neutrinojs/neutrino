@@ -19,7 +19,7 @@ const STANDARDJS = '@neutrinojs/standardjs';
 
 const ESLINT = 'eslint@^5';
 const WEBPACK = 'webpack@^4';
-const WEBPACK_CLI = 'webpack-cli@^2';
+const WEBPACK_CLI = 'webpack-cli@^3';
 const WEBPACK_DEV_SERVER = 'webpack-dev-server@^3';
 
 const presets = {

@@ -51,6 +51,7 @@
     "verdaccio": "^3.0.2",
     "verdaccio-memory": "^1.0.1",
     "webpack": "^4.8.3",
+    "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.4"
   },
   "lint-staged": {
