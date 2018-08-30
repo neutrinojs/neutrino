@@ -50,6 +50,10 @@ module.exports = class Project extends Generator {
   }
 
   _getNeutrinorcContent() {
+    // We need to output the word __dirname literally in the file, not its
+    // evaluated value, so we string-build to ensure this is pulled at run-time
+    // and not create-time.
+    const options = '{\n  options: {\n    root: __dirname,\n  },';
     const rc = {
       use: [
         this.data.linter,
@@ -58,7 +62,7 @@ module.exports = class Project extends Generator {
       ].filter(Boolean)
     };
 
-    return `module.exports = ${stringify(rc, null, 2)};\n`;
+    return `module.exports = ${options}${stringify(rc, null, 2).slice(1)};\n`;
   }
 
   _getDependencies() {

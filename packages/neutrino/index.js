@@ -1,11 +1,16 @@
+const isPlainObject = require('is-plain-object');
 const yargs = require('yargs');
 const Neutrino = require('./Neutrino');
 const webpack = require('./webpack');
 
 const configPrefix = 'neutrino.config';
 
-module.exports = (middleware = { use: ['.neutrinorc.js'] }, options = {}) => {
-  const neutrino = new Neutrino(options);
+module.exports = (middleware = {}) => {
+  const use = isPlainObject(middleware) && !middleware.use
+    ? { ...middleware, use: ['.neutrinorc.js'] }
+    : middleware;
+
+  const neutrino = new Neutrino();
   const { argv } = yargs;
   let { mode } = argv;
 
@@ -28,8 +33,8 @@ module.exports = (middleware = { use: ['.neutrinorc.js'] }, options = {}) => {
 
   neutrino.register('webpack', webpack);
 
-  if (middleware) {
-    neutrino.use(middleware);
+  if (use) {
+    neutrino.use(use);
   }
 
   const adapter = {

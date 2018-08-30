@@ -1,4 +1,7 @@
 module.exports = {
+  options: {
+    root: __dirname
+  },
   use: [
     ['./packages/airbnb', {
       // See the package.json `lint` script for which files are linted.

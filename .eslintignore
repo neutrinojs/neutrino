@@ -3,3 +3,8 @@ packages/**/node_modules/
 
 # This file intentionally contains invalid syntax so results in a parse error.
 packages/neutrino/test/fixtures/test-module/errorMiddleware.js
+
+# By using --no-eslintrc in yarn lint, eslint no longer lints the nested
+# RC files. We then negate this ignore so they are still linted, but no longer
+# used as configuration by our development lint command.
+!packages/create-project/bin/commands/init/templates/*/.eslintrc.js
