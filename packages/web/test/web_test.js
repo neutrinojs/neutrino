@@ -85,7 +85,7 @@ test('valid preset test', t => {
   // NODE_ENV/command specific
   t.false(config.optimization.minimize);
   t.true(config.optimization.splitChunks.name);
-  t.is(config.devtool, undefined);
+  t.is(config.devtool, 'source-map');
   t.is(config.devServer, undefined);
 
   const errors = validate(config);
