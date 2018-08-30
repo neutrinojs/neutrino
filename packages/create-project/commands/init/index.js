@@ -53,7 +53,7 @@ module.exports = class Project extends Generator {
     // We need to output the word __dirname literally in the file, not its
     // evaluated value, so we string-build to ensure this is pulled at run-time
     // and not create-time.
-    const options = '{\n  "options": {\n    "root": __dirname,\n  },';
+    const options = '{\n  options: {\n    root: __dirname,\n  },';
     const rc = {
       use: [
         this.data.linter,
