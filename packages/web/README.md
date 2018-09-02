@@ -9,7 +9,7 @@
 
 - Zero upfront configuration necessary to start developing and building a web app
 - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
-- webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
+- webpack loaders for importing HTML, CSS, images, icons, and fonts
 - webpack Dev Server during development
 - Automatic creation of HTML pages, no templating necessary
 - Automatic stylesheet extraction; importing stylesheets into modules creates bundled external stylesheets
@@ -455,7 +455,6 @@ The following is a list of rules and their identifiers which can be overridden:
 | `style-modules` | Allows importing CSS Modules styles from modules. In production contains two loaders named `extract` and `css` which use `MiniCssExtractPlugin.loader` and `css-loader`, respectively. In development the `extract` loader is replaced by `style`, which uses `style-loader`. From `@neutrinojs/style-loader`. | all |
 | `image` | Allows importing ICO, JPEG, PNG, GIF, SVG and WEBP files from modules. Contains a single loader named `url`. From `@neutrinojs/image-loader`. | all |
 | `font` | Allows importing EOT, TTF, WOFF and WOFF2 font files from modules. Contains a single loader named `file`. From `@neutrinojs/font-loader`. | all |
-| `worker` | Allows importing Web Workers automatically with `.worker.*` extensions. Contains a single loader named `worker`. | all |
 
 ### Plugins
 

@@ -183,14 +183,6 @@ module.exports = (neutrino, opts = {}) => {
       .set('fs', 'empty')
       .set('tls', 'empty')
       .end()
-    .module
-      .rule('worker')
-        .test(neutrino.regexFromExtensions(neutrino.options.extensions.map(ext => `worker.${ext}`)))
-        .use('worker')
-          .loader(require.resolve('worker-loader'))
-          .end()
-        .end()
-      .end()
     // The default output is too noisy, particularly with multiple entrypoints.
     .stats({
       children: false,

@@ -428,7 +428,6 @@ The following is a list of rules and their identifiers which can be overridden:
 | Name | Description | Environments and Commands |
 | --- | --- | --- |
 | `compile` | Compiles JS files from the `src` directory using Babel. Contains a single loader named `babel` | all |
-| `worker` | Allows importing Web Workers automatically with `.worker.*` extensions. Contains a single loader named `worker`. | all |
 
 ### Plugins
 
