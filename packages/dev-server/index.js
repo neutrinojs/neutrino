@@ -36,17 +36,11 @@ module.exports = (neutrino, opts = {}) => {
       headers: {
         host: publicHost
       },
+      // Only display compile duration and errors/warnings, to reduce noise when rebuilding.
       stats: {
-        assets: false,
-        children: false,
-        chunks: false,
-        colors: true,
+        all: false,
         errors: true,
-        hash: false,
-        modules: false,
-        publicPath: false,
-        timings: false,
-        version: false,
+        timings: true,
         warnings: true
       }
     },

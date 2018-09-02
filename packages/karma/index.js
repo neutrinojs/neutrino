@@ -52,8 +52,14 @@ module.exports = neutrino => {
         [sources]: ['webpack']
       },
       webpackMiddleware: {
-        // Using minimal rather than 'errors-only' so that warnings are still shown.
-        stats: 'minimal'
+        // Only display webpack compile duration and errors/warnings, since
+        // the focus should be on the output from the tests/karma instead.
+        stats: {
+          all: false,
+          errors: true,
+          timings: true,
+          warnings: true
+        }
       },
       webpack: merge(
         omit(neutrino.config.toConfig(), ['plugins', 'entry']),

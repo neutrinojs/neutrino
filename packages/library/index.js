@@ -93,13 +93,11 @@ module.exports = (neutrino, opts = {}) => {
           .end()
         .end()
       .end()
-    .when(neutrino.options.debug, (config) => {
-      config.merge({
-        stats: {
-          maxModules: Infinity,
-          optimizationBailout: true
-        }
-      });
+    // The default output is too noisy, particularly with multiple entrypoints.
+    .stats({
+      children: false,
+      entrypoints: false,
+      modules: false
     })
     .when(neutrino.config.module.rules.has('lint'), () => {
       if (options.target === 'node') {

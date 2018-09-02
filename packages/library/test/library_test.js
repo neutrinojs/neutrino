@@ -40,6 +40,11 @@ test('valid preset production', t => {
   t.deepEqual(config.resolve.extensions, expectedExtensions);
   t.is(config.optimization, undefined);
   t.is(config.devServer, undefined);
+  t.deepEqual(config.stats, {
+    children: false,
+    entrypoints: false,
+    modules: false
+  });
 
   // NODE_ENV/command specific
   t.is(config.devtool, 'source-map');
@@ -61,6 +66,11 @@ test('valid preset development', t => {
   t.deepEqual(config.resolve.extensions, expectedExtensions);
   t.is(config.optimization, undefined);
   t.is(config.devServer, undefined);
+  t.deepEqual(config.stats, {
+    children: false,
+    entrypoints: false,
+    modules: false
+  });
 
   // NODE_ENV/command specific
   t.is(config.devtool, 'source-map');
