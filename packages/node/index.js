@@ -57,9 +57,6 @@ module.exports = (neutrino, opts = {}) => {
 
   neutrino.config
     .when(sourceMap, () => neutrino.use(banner))
-    .performance
-      .hints(false)
-      .end()
     .target('node')
     .node
       .set('__filename', false)
@@ -79,13 +76,11 @@ module.exports = (neutrino, opts = {}) => {
         .merge(neutrino.options.extensions.concat('json').map(ext => `.${ext}`))
         .end()
       .end()
-    .when(neutrino.options.debug, (config) => {
-      config.merge({
-        stats: {
-          maxModules: Infinity,
-          optimizationBailout: true
-        }
-      });
+    // The default output is too noisy, particularly with multiple entrypoints.
+    .stats({
+      children: false,
+      entrypoints: false,
+      modules: false
     })
     .when(process.env.NODE_ENV === 'development', (config) => {
       const mainKeys = Object.keys(neutrino.options.mains);

@@ -33,6 +33,11 @@ test('valid preset production', t => {
   t.deepEqual(config.resolve.extensions, expectedExtensions);
   t.is(config.optimization.runtimeChunk, 'single');
   t.is(config.optimization.splitChunks.chunks, 'all');
+  t.deepEqual(config.stats, {
+    children: false,
+    entrypoints: false,
+    modules: false
+  });
 
   // NODE_ENV/command specific
   t.true(config.optimization.minimize);
@@ -55,6 +60,11 @@ test('valid preset development', t => {
   t.deepEqual(config.resolve.extensions, expectedExtensions);
   t.is(config.optimization.runtimeChunk, 'single');
   t.is(config.optimization.splitChunks.chunks, 'all');
+  t.deepEqual(config.stats, {
+    children: false,
+    entrypoints: false,
+    modules: false
+  });
 
   // NODE_ENV/command specific
   t.false(config.optimization.minimize);
@@ -65,6 +75,12 @@ test('valid preset development', t => {
   t.is(config.devServer.port, 5000);
   t.is(config.devServer.public, 'localhost:5000');
   t.is(config.devServer.publicPath, '/');
+  t.deepEqual(config.devServer.stats, {
+    all: false,
+    errors: true,
+    timings: true,
+    warnings: true
+  });
 
   const errors = validate(config);
   t.is(errors.length, 0);
@@ -81,6 +97,11 @@ test('valid preset test', t => {
   t.deepEqual(config.resolve.extensions, expectedExtensions);
   t.is(config.optimization.runtimeChunk, 'single');
   t.is(config.optimization.splitChunks.chunks, 'all');
+  t.deepEqual(config.stats, {
+    children: false,
+    entrypoints: false,
+    modules: false
+  });
 
   // NODE_ENV/command specific
   t.false(config.optimization.minimize);
