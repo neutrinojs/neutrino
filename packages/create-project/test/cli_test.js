@@ -51,7 +51,7 @@ const spawnP = (cmd, args, options) => new Promise((resolve, reject) => {
   child.stderr.on('data', data => { output += data.toString(); });
   child.on('close', code => (code === 0 ? resolve(code) : reject(output)));
 });
-const buildable = async (t, dir, args) => {
+const buildable = async (t, dir, args = []) => {
   try {
     await spawnP('yarn', ['build', ...args], { cwd: dir, stdio: 'pipe' });
     t.pass();
@@ -59,7 +59,7 @@ const buildable = async (t, dir, args) => {
     t.fail(`Failed to build project:\n\n${output}`);
   }
 };
-const testable = async (t, dir, args) => {
+const testable = async (t, dir, args = []) => {
   try {
     await spawnP('yarn', ['test', ...args], { cwd: dir, stdio: 'pipe' });
     t.pass();
@@ -67,7 +67,7 @@ const testable = async (t, dir, args) => {
     t.fail(`Failed to test project:\n\n${output}`);
   }
 };
-const lintable = async (t, dir, args) => {
+const lintable = async (t, dir, args = []) => {
   try {
     await spawnP('yarn', ['lint', ...args], { cwd: dir, stdio: 'pipe' });
     t.pass();
