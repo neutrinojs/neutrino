@@ -93,7 +93,7 @@ module.exports = class Project extends Generator {
     // here should have an accompanying change there as well. We can't pull
     // in neutrino here as that would potentially give us conflicting versions
     // in node_modules.
-    const lint = 'eslint --cache --ext wasm,mjs,jsx,vue,tsx,ts,web.jsx,web.js,js src';
+    const lint = 'eslint --cache --ext mjs,vue,jsx,tsx,ts,js src';
 
     if (this.data.testRunner) {
       if (this.data.testRunner.includes('jest')) {
