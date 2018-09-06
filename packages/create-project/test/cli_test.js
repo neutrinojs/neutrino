@@ -110,6 +110,10 @@ Object.keys(tests).forEach(projectName => {
 
     const pkg = require(pkgPath); // eslint-disable-line import/no-dynamic-require
 
+    // Building in development mode to emulating running webpack-dev-server
+    // or webpack --watch without actually spawning the process and waiting.
+    // TODO: Find a way in the future to actually test that the spawned watchers
+    // produce the expected result.
     if ('start' in pkg.scripts) {
       await buildable(t, dir, ['--', '--mode', 'development']);
     }
