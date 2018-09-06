@@ -92,6 +92,72 @@ test('valid preset test', t => {
   t.is(errors.length, 0);
 });
 
+test('devtool string option production', t => {
+  process.env.NODE_ENV = 'production';
+  const api = new Neutrino();
+  api.use(mw(), { devtool: 'source-map' });
+  const config = api.config.toConfig();
+
+  t.is(config.devtool, 'source-map');
+});
+
+test('devtool object option production', t => {
+  process.env.NODE_ENV = 'production';
+  const api = new Neutrino();
+  api.use(mw(), {
+    devtool: {
+      production: 'source-map'
+    }
+  });
+  const config = api.config.toConfig();
+
+  t.is(config.devtool, 'source-map');
+});
+
+test('devtool string option development', t => {
+  process.env.NODE_ENV = 'development';
+  const api = new Neutrino();
+  api.use(mw(), { devtool: 'source-map' });
+  const config = api.config.toConfig();
+
+  t.is(config.devtool, 'source-map');
+});
+
+test('devtool object option development', t => {
+  process.env.NODE_ENV = 'development';
+  const api = new Neutrino();
+  api.use(mw(), {
+    devtool: {
+      development: 'source-map'
+    }
+  });
+  const config = api.config.toConfig();
+
+  t.is(config.devtool, 'source-map');
+});
+
+test('devtool string option test', t => {
+  process.env.NODE_ENV = 'test';
+  const api = new Neutrino();
+  api.use(mw(), { devtool: 'cheap-eval-source-map' });
+  const config = api.config.toConfig();
+
+  t.is(config.devtool, 'cheap-eval-source-map');
+});
+
+test('devtool object option test', t => {
+  process.env.NODE_ENV = 'test';
+  const api = new Neutrino();
+  api.use(mw(), {
+    devtool: {
+      test: 'cheap-eval-source-map'
+    }
+  });
+  const config = api.config.toConfig();
+
+  t.is(config.devtool, 'cheap-eval-source-map');
+});
+
 test('supports env option using array form', t => {
   const api = new Neutrino();
 

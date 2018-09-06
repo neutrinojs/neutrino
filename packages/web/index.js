@@ -23,7 +23,7 @@ module.exports = (neutrino, opts = {}) => {
     html: {},
     devtool: {
       development: 'cheap-module-eval-source-map',
-      production: false,
+      production: undefined,
       test: 'source-map'
     },
     devServer: {
@@ -113,12 +113,10 @@ module.exports = (neutrino, opts = {}) => {
       .use(EnvironmentPlugin, [options.env]);
   }
 
-  if (options.devtool) {
-    const devtool = options.devtool[process.env.NODE_ENV];
+  const devtool = options.devtool[process.env.NODE_ENV];
 
-    if (devtool) {
-      neutrino.config.devtool(devtool);
-    }
+  if (devtool !== undefined) {
+    neutrino.config.devtool(devtool);
   }
 
   neutrino.use(htmlLoader);
