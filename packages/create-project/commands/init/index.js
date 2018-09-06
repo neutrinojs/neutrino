@@ -114,10 +114,14 @@ module.exports = class Project extends Generator {
 
     ensureDirSync(this.options.directory);
 
-    this.spawnCommandSync(installer, ['init', '--yes'], {
+    const { error } = this.spawnCommandSync(installer, ['init', '--yes'], {
       cwd: this.options.directory,
       stdio: this.options.stdio
     });
+
+    if (error) {
+      throw error;
+    }
 
     const jsonPath = join(this.options.directory, 'package.json');
     const json = readJsonSync(jsonPath);
@@ -174,7 +178,8 @@ module.exports = class Project extends Generator {
 
     if (dependencies.length) {
       this.log(`${chalk.green('⏳  Installing dependencies:')} ${chalk.yellow(dependencies.join(', '))}`);
-      this.spawnCommandSync(
+
+      const { error } = this.spawnCommandSync(
         packageManager,
         [
           install,
@@ -191,11 +196,16 @@ module.exports = class Project extends Generator {
           env: process.env
         }
       );
+
+      if (error) {
+        throw error;
+      }
     }
 
     if (devDependencies.length) {
       this.log(`${chalk.green('⏳  Installing devDependencies:')} ${chalk.yellow(devDependencies.join(', '))}`);
-      this.spawnCommandSync(
+
+      const { error } = this.spawnCommandSync(
         packageManager,
         [
           install,
@@ -213,11 +223,16 @@ module.exports = class Project extends Generator {
           env: process.env
         }
       );
+
+      if (error) {
+        throw error;
+      }
     }
 
     if (this.data.linter) {
       this.log(`${chalk.green('⏳  Performing one-time lint')}`);
-      this.spawnCommandSync(packageManager,
+
+      const { error } = this.spawnCommandSync(packageManager,
         isYarn
           ? ['lint', '--fix']
           : ['run', 'lint', '--fix'],
@@ -228,6 +243,10 @@ module.exports = class Project extends Generator {
           env: process.env,
           cwd: this.options.directory
         });
+
+      if (error) {
+        throw error;
+      }
     }
   }
 
