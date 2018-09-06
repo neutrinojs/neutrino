@@ -37,8 +37,7 @@
     "@neutrinojs/style-loader": "9.0.0-0",
     "deepmerge": "^1.5.2",
     "html-webpack-include-sibling-chunks-plugin": "^0.1.4",
-    "webpack-manifest-plugin": "^2.0.2",
-    "worker-loader": "^2.0.0"
+    "webpack-manifest-plugin": "^2.0.2"
   },
   "peerDependencies": {
     "neutrino": "^9.0.0-0",

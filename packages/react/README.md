@@ -13,7 +13,7 @@
 - Write JSX in .js or .jsx files
 - Extends from [@neutrinojs/web](https://neutrinojs.org/packages/web/)
   - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
-  - webpack loaders for importing HTML, CSS, images, icons, fonts, and web workers
+  - webpack loaders for importing HTML, CSS, images, icons, and fonts
   - webpack Dev Server during development
   - Automatic creation of HTML pages, no templating necessary
   - Automatic stylesheet extraction; importing stylesheets into modules creates bundled external stylesheets

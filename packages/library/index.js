@@ -85,14 +85,6 @@ module.exports = (neutrino, opts = {}) => {
           .set('__dirname', false);
       })
       .end()
-    .module
-      .rule('worker')
-        .test(/\.worker\.js$/)
-        .use('worker')
-          .loader(require.resolve('worker-loader'))
-          .end()
-        .end()
-      .end()
     // The default output is too noisy, particularly with multiple entrypoints.
     .stats({
       children: false,
