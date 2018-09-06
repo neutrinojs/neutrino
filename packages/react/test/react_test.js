@@ -3,6 +3,7 @@ import { validate } from 'webpack';
 import Neutrino from '../../neutrino/Neutrino';
 
 const mw = () => require('..');
+const newExtensions = ['.web.jsx', '.web.js'];
 const originalNodeEnv = process.env.NODE_ENV;
 
 test.afterEach(() => {
@@ -22,9 +23,12 @@ test('valid preset production', t => {
   process.env.NODE_ENV = 'production';
   const api = new Neutrino();
   api.use(mw());
+  const config = api.config.toConfig();
 
-  const errors = validate(api.config.toConfig());
+  // Common
+  t.deepEqual(config.resolve.extensions.slice(0, newExtensions.length), newExtensions);
 
+  const errors = validate(config);
   t.is(errors.length, 0);
 });
 
@@ -32,8 +36,24 @@ test('valid preset development', t => {
   process.env.NODE_ENV = 'development';
   const api = new Neutrino();
   api.use(mw());
+  const config = api.config.toConfig();
 
-  const errors = validate(api.config.toConfig());
+  // Common
+  t.deepEqual(config.resolve.extensions.slice(0, newExtensions.length), newExtensions);
 
+  const errors = validate(config);
+  t.is(errors.length, 0);
+});
+
+test('valid preset test', t => {
+  process.env.NODE_ENV = 'test';
+  const api = new Neutrino();
+  api.use(mw());
+  const config = api.config.toConfig();
+
+  // Common
+  t.deepEqual(config.resolve.extensions.slice(0, newExtensions.length), newExtensions);
+
+  const errors = validate(config);
   t.is(errors.length, 0);
 });
