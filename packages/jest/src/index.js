@@ -1,10 +1,11 @@
 const loaderMerge = require('@neutrinojs/loader-merge');
-const { merge } = require('@neutrinojs/compile-loader');
+const compileLoader = require('@neutrinojs/compile-loader');
+const merge = require('deepmerge');
 const omit = require('lodash.omit');
 const { basename, isAbsolute, join, relative } = require('path');
 const { media, style } = require('neutrino/extensions');
 
-module.exports = neutrino => {
+module.exports = (neutrino, options = {}) => {
   neutrino.config.when(neutrino.config.module.rules.has('lint'), () => {
     neutrino.use(loaderMerge('lint', 'eslint'), {
       plugins: ['jest'],
@@ -25,7 +26,7 @@ module.exports = neutrino => {
       neutrino.config.module
         .rule('compile')
         .use('babel')
-        .tap(options => merge(options, {
+        .tap(options => compileLoader.merge(options, {
           plugins: [
             // Once babel-preset-jest has better Babel 7 support we should
             // switch back to it (or even use babel-jest, which will allow
@@ -43,7 +44,7 @@ module.exports = neutrino => {
     }
 
     const babelOptions = usingBabel
-      ? merge(
+      ? compileLoader.merge(
         omit(
           neutrino.config.module.rule('compile').use('babel').get('options'),
           ['cacheDirectory']
@@ -76,7 +77,7 @@ module.exports = neutrino => {
     const modulesConfig = neutrino.config.resolve.modules.values();
     const aliases = neutrino.config.resolve.alias.entries() || {};
 
-    return {
+    return merge({
       rootDir: root,
       moduleDirectories: modulesConfig.length ? modulesConfig : ['node_modules'],
       moduleFileExtensions: neutrino.config.resolve.extensions
@@ -112,6 +113,6 @@ module.exports = neutrino => {
       globals: {
         BABEL_OPTIONS: babelOptions
       }
-    };
+    }, options);
   });
 };
