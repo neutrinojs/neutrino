@@ -74,3 +74,22 @@ test('exposes karma config from method', t => {
 
   t.is(config, fakeKarma);
 });
+
+test('uses middleware with options', t => {
+  // Karma's config handler returns a function.
+  // Force evaluation by calling it.
+  const fakeKarma = new Map();
+  const config = neutrino([mw(), {
+    webpackMiddleware: {
+      stats: {
+        errors: false
+      }
+    }
+  }]).karma()(fakeKarma);
+
+  // Since we are faking out the Karma API with a Map, we need to get the
+  // object back out of the map and check that the merge happened correctly.
+  const [options] = [...config][0];
+
+  t.is(options.webpackMiddleware.stats.errors, false);
+});
