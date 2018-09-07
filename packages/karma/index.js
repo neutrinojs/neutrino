@@ -4,7 +4,7 @@ const merge = require('deepmerge');
 const omit = require('lodash.omit');
 const { join } = require('path');
 
-module.exports = neutrino => {
+module.exports = (neutrino, options = {}) => {
   if (neutrino.config.module.rules.has('lint')) {
     neutrino.use(loaderMerge('lint', 'eslint'), {
       envs: ['mocha']
@@ -24,7 +24,7 @@ module.exports = neutrino => {
     const tests = join(neutrino.options.tests, '**/*_test.js');
     const sources = join(neutrino.options.source, '**/*.js*');
 
-    config.set({
+    config.set(merge({
       basePath: neutrino.options.root,
       browsers: [process.env.CI ? 'ChromeCI' : 'ChromeHeadless'],
       customLaunchers: {
@@ -80,7 +80,7 @@ module.exports = neutrino => {
           { type: 'lcov', subdir: 'report-lcov' }
         ]
       }
-    });
+    }, options));
 
     return config;
   });

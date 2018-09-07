@@ -15,8 +15,9 @@ test('loads middleware', t => {
 });
 
 test('uses middleware', t => {
+  const api = new Neutrino();
+
   t.notThrows(() => {
-    const api = new Neutrino();
     api.use(mw());
   });
 });
@@ -65,4 +66,10 @@ test('exposes jest method', t => {
 
 test('exposes jest config from method', t => {
   t.is(typeof neutrino(mw()).jest(), 'object');
+});
+
+test('uses middleware with options', t => {
+  const config = neutrino([mw(), { testEnvironment: 'node' }]).jest();
+
+  t.is(config.testEnvironment, 'node');
 });
