@@ -34,6 +34,8 @@ const tests = {
   }
 };
 const project = async ({ testName, ...prompts }) => {
+  // Replace special characters in the test name to ensure that it can be
+  // used as a valid directory name.
   const directory = `${join(tmpdir(), testName.replace(/[/+ @]/g, '_'))
      }_${Math.random().toString(36).substr(2)}`;
 
