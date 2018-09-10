@@ -21,6 +21,11 @@ module.exports = (neutrino, opts = {}) => {
     env: false,
     hot: true,
     html: {},
+    devtool: {
+      development: 'cheap-module-eval-source-map',
+      production: undefined,
+      test: 'source-map'
+    },
     devServer: {
       hot: opts.hot !== false,
       publicPath: resolve('/', publicPath)
@@ -52,6 +57,14 @@ module.exports = (neutrino, opts = {}) => {
 
   if ('style' in options.minify) {
     throw new Error('The minify.style option has been removed. To enable style minification use the @neutrinojs/style-minify preset.');
+  }
+
+  if (typeof options.devtool === 'string' || typeof options.devtool === 'boolean') {
+    options.devtool = {
+      development: options.devtool,
+      production: options.devtool,
+      test: options.devtool
+    };
   }
 
   if (typeof options.devServer.proxy === 'string') {
@@ -98,6 +111,12 @@ module.exports = (neutrino, opts = {}) => {
   if (options.env) {
     neutrino.config.plugin('env')
       .use(EnvironmentPlugin, [options.env]);
+  }
+
+  const devtool = options.devtool[process.env.NODE_ENV];
+
+  if (devtool !== undefined) {
+    neutrino.config.devtool(devtool);
   }
 
   neutrino.use(htmlLoader);
@@ -196,8 +215,6 @@ module.exports = (neutrino, opts = {}) => {
     })
     .when(process.env.NODE_ENV === 'development', config => {
       neutrino.use(devServer, options.devServer);
-      // TODO: Enable sourcemaps for NODE_ENV=test too?
-      config.devtool('cheap-module-eval-source-map');
       config.when(options.hot, (config) => {
         config.plugin('hot').use(HotModuleReplacementPlugin);
 
