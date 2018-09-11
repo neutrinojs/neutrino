@@ -6,7 +6,7 @@ import { validate } from 'webpack';
 import Neutrino from '../../neutrino/Neutrino';
 
 const mw = () => require('..');
-const expectedExtensions = ['.js', '.jsx', '.vue', '.ts', '.tsx', '.mjs', '.json'];
+const expectedExtensions = ['.wasm', '.mjs', '.vue', '.jsx', '.tsx', '.ts', '.js', '.json'];
 const originalNodeEnv = process.env.NODE_ENV;
 
 test.afterEach(() => {

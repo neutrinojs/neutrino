@@ -49,8 +49,11 @@ module.exports = (neutrino, opts = {}) => {
     });
   });
 
-  neutrino.config.resolve.alias.set('react-native', 'react-native-web');
-
-  neutrino.config.resolve.extensions.prepend('.web.js');
-  neutrino.config.resolve.extensions.prepend('.web.jsx');
+  neutrino.config.resolve
+    .alias
+      .set('react-native', 'react-native-web')
+      .end()
+    .extensions
+      .prepend('.web.js')
+      .prepend('.web.jsx');
 };

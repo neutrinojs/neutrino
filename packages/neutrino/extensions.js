@@ -4,7 +4,7 @@ module.exports = {
   // Modifying a value here should have an accompanying change there as well.
   // We can't pull in neutrino there as that would potentially give us
   // conflicting versions in node_modules.
-  source: ['js', 'jsx', 'vue', 'ts', 'tsx', 'mjs'],
+  source: ['wasm', 'mjs', 'vue', 'jsx', 'tsx', 'ts', 'js'],
   style: ['css', 'less', 'sass', 'scss'],
   media: [
     'jpg',
