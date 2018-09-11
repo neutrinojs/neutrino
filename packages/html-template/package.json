@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "deepmerge": "^1.5.2",
-    "html-webpack-plugin": "^3.2.0"
+    "html-webpack-plugin": "4.0.0-alpha.2"
   },
   "peerDependencies": {
     "neutrino": "^9.0.0-0",

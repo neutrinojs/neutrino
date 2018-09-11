@@ -44,7 +44,6 @@ module.exports = (neutrino, opts = {}) => {
       neutrino.use(react, options);
 
       // Remove the html generation plugins added by the react preset
-      neutrino.config.plugins.delete('html-sibling-chunks');
       Object
         .keys(neutrino.options.mains)
         .forEach(key => {

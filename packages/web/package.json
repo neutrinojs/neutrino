@@ -36,7 +36,6 @@
     "@neutrinojs/loader-merge": "9.0.0-0",
     "@neutrinojs/style-loader": "9.0.0-0",
     "deepmerge": "^1.5.2",
-    "html-webpack-include-sibling-chunks-plugin": "^0.1.4",
     "webpack-manifest-plugin": "^2.0.2"
   },
   "peerDependencies": {

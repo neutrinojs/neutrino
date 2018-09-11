@@ -466,7 +466,6 @@ _Note: Some plugins are only available in certain environments. To override them
 | --- | --- | --- |
 | `env` | Inject environment variables into source code at `process.env`, using `EnvironmentPlugin`. | all |
 | `extract` | Extracts CSS from JS bundle into a separate stylesheet file. From `@neutrinojs/style-loader`. | all |
-| `html-sibling-chunks` | Works around `html-webpack-plugin` not supporting `splitChunks` when using multiple entrypoints, via `html-webpack-include-sibling-chunks-plugin`. | all |
 | `html-{MAIN_NAME}` | Automatically generates HTML files for configured entry points. `{MAIN_NAME}` corresponds to the entry point of each page. By default, there is only a single `index` main, so this would generate a plugin named `html-index`. From `@neutrinojs/html-template` | all |
 | `hot` | Enables Hot Module Replacement. | `start` command |
 | `clean` | Removes the `build` directory prior to building. From `@neutrinojs/clean`. | `build` command |
