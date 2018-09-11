@@ -36,7 +36,13 @@ module.exports = class Project extends Generator {
       const command = [args[0], ...args[1]].join(' ');
 
       removeSync(this.options.directory);
-      this.log.error(result.error || new Error(`The command "${command}" exited unsuccessfully.`));
+      this.log.error(
+        result.error ||
+        new Error(
+          `The command "${command}" exited unsuccessfully. Try again with the --debug flag` +
+          'for more detailed information about the failure.'
+        )
+      );
       process.exit(result.status || 1);
     }
 
