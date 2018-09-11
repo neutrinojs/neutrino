@@ -1,4 +1,4 @@
-const { ensureDirSync, readJsonSync, writeJsonSync } = require('fs-extra');
+const { ensureDirSync, pathExistsSync, readJsonSync, removeSync, writeJsonSync } = require('fs-extra');
 const { basename, join, relative } = require('path');
 const chalk = require('chalk');
 const stringify = require('javascript-stringify');
@@ -27,6 +27,26 @@ module.exports = class Project extends Generator {
     return dependencies.map(dependency =>
       neutrinoPackages.includes(dependency) ? `${dependency}@^${neutrinoVersion}` : dependency
     ).sort();
+  }
+
+  _spawnSync(...args) {
+    const result = this.spawnCommandSync(...args);
+
+    if (result.error || result.status !== 0) {
+      const command = [args[0], ...args[1]].join(' ');
+
+      removeSync(this.options.directory);
+      this.log.error(
+        result.error ||
+        new Error(
+          `The command "${command}" exited unsuccessfully. Try again with the --debug flag` +
+          'for more detailed information about the failure.'
+        )
+      );
+      process.exit(result.status || 1);
+    }
+
+    return result;
   }
 
   _getProjectMiddleware() {
@@ -112,9 +132,7 @@ module.exports = class Project extends Generator {
       scripts.lint = lint;
     }
 
-    ensureDirSync(this.options.directory);
-
-    this.spawnCommandSync(installer, ['init', '--yes'], {
+    this._spawnSync(installer, ['init', '--yes'], {
       cwd: this.options.directory,
       stdio: this.options.stdio
     });
@@ -144,6 +162,16 @@ module.exports = class Project extends Generator {
   }
 
   writing() {
+    if (pathExistsSync(this.options.directory)) {
+      this.log.error(
+        `The directory ${this.options.directory} already exists. ` +
+        'For safety, please use create-project with a non-existent directory.'
+      );
+      process.exit(1);
+    }
+
+    ensureDirSync(this.options.directory);
+
     const templates = [this.data.project, this.data.testRunner, this.data.linter].filter(Boolean);
 
     this._initialPackageJson();
@@ -174,7 +202,7 @@ module.exports = class Project extends Generator {
 
     if (dependencies.length) {
       this.log(`${chalk.green('⏳  Installing dependencies:')} ${chalk.yellow(dependencies.join(', '))}`);
-      this.spawnCommandSync(
+      this._spawnSync(
         packageManager,
         [
           install,
@@ -195,7 +223,7 @@ module.exports = class Project extends Generator {
 
     if (devDependencies.length) {
       this.log(`${chalk.green('⏳  Installing devDependencies:')} ${chalk.yellow(devDependencies.join(', '))}`);
-      this.spawnCommandSync(
+      this._spawnSync(
         packageManager,
         [
           install,
@@ -217,7 +245,7 @@ module.exports = class Project extends Generator {
 
     if (this.data.linter) {
       this.log(`${chalk.green('⏳  Performing one-time lint')}`);
-      this.spawnCommandSync(packageManager,
+      this._spawnSync(packageManager,
         isYarn
           ? ['lint', '--fix']
           : ['run', 'lint', '--fix'],

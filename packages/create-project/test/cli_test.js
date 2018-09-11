@@ -1,6 +1,7 @@
 import test from 'ava';
 import assert from 'yeoman-assert';
 import helpers from 'yeoman-test';
+import { tmpdir } from 'os';
 import { join } from 'path';
 import { spawn } from 'child_process';
 import { packages } from '../commands/init/matrix';
@@ -32,17 +33,23 @@ const tests = {
     linter: packages.AIRBNB_BASE
   }
 };
-const project = (prompts) => helpers
-  .run(require.resolve(join(__dirname, '../commands/init')))
-  .inTmpDir(function setOptions(dir) {
-    this.withOptions({
-      directory: dir,
-      name: 'testable',
+const project = async ({ testName, ...prompts }) => {
+  // Replace special characters in the test name to ensure that it can be
+  // used as a valid directory name.
+  const directory = `${join(tmpdir(), testName.replace(/[/+ @]/g, '_'))
+     }_${Math.random().toString(36).substr(2)}`;
+
+  await helpers
+    .run(require.resolve(join(__dirname, '../commands/init')))
+    .withOptions({
+      directory,
+      name: testName,
       registry: REGISTRY
-    });
-  })
-  .withPrompts(prompts)
-  .toPromise();
+    })
+    .withPrompts(prompts);
+
+  return directory;
+};
 const spawnP = (cmd, args, options) => new Promise((resolve, reject) => {
   const child = spawn(cmd, args, options);
   let output = '';
@@ -92,6 +99,7 @@ Object.keys(tests).forEach(projectName => {
 
   test.serial(testName, async t => {
     const dir = await project({
+      testName,
       projectType,
       linter,
       project: projectName,
