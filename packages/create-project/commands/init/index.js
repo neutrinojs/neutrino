@@ -39,7 +39,7 @@ module.exports = class Project extends Generator {
       this.log.error(
         result.error ||
         new Error(
-          `The command "${command}" exited unsuccessfully. Try again with the --debug flag` +
+          `The command "${command}" exited unsuccessfully. Try again with the --debug flag ` +
           'for more detailed information about the failure.'
         )
       );
