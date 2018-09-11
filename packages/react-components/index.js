@@ -13,6 +13,9 @@ module.exports = (neutrino, opts = {}) => {
     manifest: process.env.NODE_ENV === 'development',
     externals: opts.externals !== false && {},
     style: { extract: { plugin: { filename: '[name].css' } } },
+    devtool: {
+      production: 'source-map'
+    },
     targets: { browsers: 'ie 9' }
   }, opts);
 
@@ -43,20 +46,9 @@ module.exports = (neutrino, opts = {}) => {
 
       neutrino.use(react, options);
 
-      // Remove the html generation plugins added by the react preset
-      Object
-        .keys(neutrino.options.mains)
-        .forEach(key => {
-          neutrino.config.plugins.delete(`html-${key}`);
-        });
-
       neutrino.config
         .when(options.externals, config => config.externals([nodeExternals(options.externals)]))
         .when(hasSourceMap, () => neutrino.use(banner))
-        .devtool('source-map')
-        .performance
-          .hints('error')
-          .end()
         // Disable the chunking behaviour inherited from the react preset
         .optimization
           .splitChunks(false)
