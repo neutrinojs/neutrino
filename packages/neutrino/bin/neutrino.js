@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const yargs = require('yargs');
+const yargsParser = require('yargs-parser');
 
-const { argv } = yargs;
+const argv = yargsParser(process.argv.slice(2));
 
 if (argv.inspect) {
   // eslint-disable-next-line global-require

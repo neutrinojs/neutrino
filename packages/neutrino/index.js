@@ -1,5 +1,5 @@
 const isPlainObject = require('is-plain-object');
-const yargs = require('yargs');
+const yargsParser = require('yargs-parser');
 const Neutrino = require('./Neutrino');
 const webpack = require('./webpack');
 
@@ -11,8 +11,7 @@ module.exports = (middleware = {}) => {
     : middleware;
 
   const neutrino = new Neutrino();
-  const { argv } = yargs;
-  let { mode } = argv;
+  let { mode } = yargsParser(process.argv.slice(2));
 
   if (mode) {
     // If specified, --mode takes priority and overrides any existing NODE_ENV.
