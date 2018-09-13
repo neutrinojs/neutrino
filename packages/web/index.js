@@ -58,6 +58,10 @@ module.exports = (neutrino, opts = {}) => {
     throw new Error('The minify.style option has been removed. To enable style minification use the @neutrinojs/style-minify preset.');
   }
 
+  if ('polyfills' in options) {
+    throw new Error('The polyfills option has been removed, since polyfills are no longer included by default.');
+  }
+
   if (typeof options.devtool === 'string' || typeof options.devtool === 'boolean') {
     options.devtool = {
       development: options.devtool,

@@ -260,3 +260,10 @@ test('throws when minify.style defined', async t => {
   const err = t.throws(() => api.use(mw(), { minify: { style: false } }));
   t.true(err.message.includes('The minify.style option has been removed'));
 });
+
+test('throws when polyfills defined', async t => {
+  const api = new Neutrino();
+
+  const err = t.throws(() => api.use(mw(), { polyfills: {} }));
+  t.true(err.message.includes('The polyfills option has been removed'));
+});
