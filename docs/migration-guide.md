@@ -2,10 +2,195 @@
 
 ## Contents
 
+- [Neutrino v8 to v9](#neutrino-v8-to-v9)
 - [Neutrino v7 to v8](#neutrino-v7-to-v8)
 - [Neutrino v6 to v7](#neutrino-v6-to-v7)
 - [Neutrino v5 to v6](#neutrino-v5-to-v6)
 - [Neutrino v4 to v5](#neutrino-v4-to-v5)
+
+## Neutrino v8 to v9
+
+Neutrino v9 is our largest release ever, bringing the preset and middleware ecosystem back to the
+native tools and utilities for which they were originally created. The biggest breaking change
+is the necessity to use external tools *alongside* Neutrino now, i.e. webpack, ESLint, Jest, Karma,
+and others' native CLIs will be used in tandem with Neutrino. A list of changes is detailed below for
+migrating:
+
+- **BREAKING CHANGE** The minimum supported Node.js version is v8.3. Node.js v9 is no longer supported
+[#792](https://github.com/neutrinojs/neutrino/pull/792).
+- **BREAKING CHANGE** Consumption of middleware and presets are now dependent on the external CLIs and
+configuration files for which they are intended [#852](https://github.com/neutrinojs/neutrino/pull/852).
+This does not negate the need for a `.neutrinorc.js` file
+in your projects, but rather is the configuration format for declaring all the middleware for a project. As
+an example, using the `@neutrinojs/react` preset also requires an installation of `webpack`,
+`webpack-dev-server`, and `webpack-cli`. You can then add a `webpack.config.js` file to the project which
+will tell webpack to use the Neutrino middleware to load its configuration:
+
+```js
+// webpack.config.js
+const neutrino = require('neutrino');
+
+module.exports = neutrino().webpack();
+```
+
+Or for ESLint:
+
+```js
+// .eslintrc.js
+const neutrino = require('neutrino');
+
+module.exports = neutrino().eslintrc();
+```
+
+- **BREAKING CHANGE** With the necessity of external CLIs means the removal of most of the Neutrino CLI's
+commands [#852](https://github.com/neutrinojs/neutrino/pull/852):
+  - `neutrino build` can typically be replaced with `webpack --mode production`.
+  - `neutrino start` can typically be replaced with `webpack-dev-server --mode development`.
+  - `neutrino test` can typically be replaced with the CLI of your test runner, e.g. `jest` or `karma`.
+  - `neutrino lint` can typically be replaced with `eslint --cache --ext mjs,vue,jsx,js src`.
+  - `neutrino --inspect` command still exists to get information about the configuration that Neutrino will use.
+- **BREAKING CHANGE** The `@neutrinojs/fork` middleware has been removed
+[#852](https://github.com/neutrinojs/neutrino/pull/852). Either call webpack with separate configuration files
+calling out to Neutrino, or export multiple configurations from your `webpack.config.js` file:
+
+```js
+// webpack.config.js
+const neutrino = require('neutrino');
+
+module.exports = [
+  // first build configuration
+  neutrino().webpack(),
+  
+  // second build configuration
+  neutrino().webpack(config => ({
+    ...config,
+    devtool: 'source-map',
+  }))
+];
+```
+
+- **BREAKING CHANGE** You can no longer define an `env` section in `.neutrinorc.js` configuration.
+In order to make environment-specific changes, conditionally define middleware or configuration
+overrides using environment variable values [#852](https://github.com/neutrinojs/neutrino/pull/852):
+
+```js
+// .neutrinorc.js
+module.exports = {
+  use: [
+    '@neutrinojs/react',
+    (neutrino) => {
+      if (process.env.NODE_ENV === 'test') {
+        neutrino.use('neutrino-preset-example');
+      }
+    }
+  ]
+}
+```
+
+- **BREAKING CHANGE** Using a test middleware with no `NODE_ENV` set will set `process.env.NODE_ENV`
+to `test` by default [#972](https://github.com/neutrinojs/neutrino/pull/972).
+- **BREAKING CHANGE** Upgraded to latest major versions of webpack, webpack-dev-server, and related
+packages [#809](https://github.com/neutrinojs/neutrino/pull/809).
+- **BREAKING CHANGE** The `@neutrinojs/chunk` middleware has been removed in favor of webpack's
+improved functionality around `splitChunks` [#809](https://github.com/neutrinojs/neutrino/pull/809).
+- **BREAKING CHANGE** The `@neutrinojs/babel-minify` preset has been removed in favor of the much faster
+uglify-es built into webpack 4 [#809](https://github.com/neutrinojs/neutrino/pull/809).
+- **BREAKING CHANGE** The `@neutrinojs/web` and dependent presets have renamed the `minify.babel` option
+to `minify.source` [#809](https://github.com/neutrinojs/neutrino/pull/809).
+- **BREAKING CHANGE** The `@neutrinojs/web` and dependent presets no longer include the
+`@neutrinojs/image-minify` or `@neutrinojs/style-minify` middleware. This means there are no preset
+options for `minify.image` and `minify.style` [#809](https://github.com/neutrinojs/neutrino/pull/809).
+- **BREAKING CHANGE** The `@neutrinojs/minify` package has been removed. The individual minification
+middleware packages can be used instead [#809](https://github.com/neutrinojs/neutrino/pull/809).
+- **BREAKING CHANGE** The `@neutrinojs/react` and `@neutrinojs/preact` packages no longer use
+`babel-plugin-jsx-pragmatic` [#827](https://github.com/neutrinojs/neutrino/pull/827). This means if you
+did not import React or preact into your files using JSX, you will now need to import these packages
+explicitly when using JSX.
+
+```diff
+- import { Component } from 'react';
++ import React, { Component } from 'react';
+```
+
+- **BREAKING CHANGE** `@neutrinojs/react` will now use the react-hot-loader v4 peerDependency when installed
+in your app [#902](https://github.com/neutrinojs/neutrino/pull/902). See
+https://github.com/gaearon/react-hot-loader#migrating-from-v3 for instructions on upgrading
+to RHL v4 while installing it into your project also.
+- **BREAKING CHANGE** `@neutrinojs/web`, `@neutrinojs/node`, and their dependent presets no longer configure
+defaults for copying static files at build time [#814](https://github.com/neutrinojs/neutrino/pull/814).
+Use the `@neutrinojs/copy` middleware to configure this for v9.
+- **BREAKING CHANGE** Babel has been upgraded from v6 to v7 [#845](https://github.com/neutrinojs/neutrino/pull/809).
+Any additional Babel plugins and presets you use in your projects should be compatible with Babel v7 if
+they are still necessary.
+- **BREAKING CHANGE** The fast-async Babel plugin is no longer used, so async functions will not be de-sugared
+to Promises by default any more [#790](https://github.com/neutrinojs/neutrino/pull/790). This means the preset option
+of `polyfills.async` has been removed.
+- **BREAKING CHANGE** The output format from `neutrino --inspect` has changed and is equivalent to the
+`neutrino --inspect-new` in Neutrino v8 [#928](https://github.com/neutrinojs/neutrino/pull/928).
+- **BREAKING CHANGE** The length of hashes in built filenames has been shortened to 8 characters
+[#930](https://github.com/neutrinojs/neutrino/pull/930). This will
+cause unchanged files to invalidate caches and if you use regex rules to manage web server caches, those must be
+updated.
+- **BREAKING CHANGE** Module resolution now uses the webpack 4 defaults
+[#926](https://github.com/neutrinojs/neutrino/pull/926). This means that the option `neutrino.options.node_modules`
+has been removed.
+- **BREAKING CHANGE** The font and image loader rules have now been consolidated into a single rule for
+`@neutrinojs/font-loader` and another for `@neutrinojs/image-loader` [#858](https://github.com/neutrinojs/neutrino/pull/858).
+- **BREAKING CHANGE** `@neutrinojs/font-loader` now uses `file-loader` instead of `url-loader`
+[#858](https://github.com/neutrinojs/neutrino/pull/858). This prevents asset inlining and will always generate
+separate files.
+- **BREAKING CHANGE** `@neutrinojs/style-loader` now uses `mini-css-extract-plugin` instead of
+`extract-text-webpack-plugin` [#809](https://github.com/neutrinojs/neutrino/pull/809). This means any options you
+may have passed for `options.extract.plugin` must be updated for the new plugin.
+- **BREAKING CHANGE** `@neutrinojs/compile-loader` now sets the `babelrc` option to `false`
+[#826](https://github.com/neutrinojs/neutrino/pull/858). If you wish to force specifying additional Babel
+configuration via a configuration file, you can set it to `true` via `babel: { babelrc: true }`.
+- **BREAKING CHANGE** `@neutrinojs/eslint` and dependent middleware now throw if they are used by Neutrino after
+a compile preset [#839](https://github.com/neutrinojs/neutrino/pull/939). This is to prevent using an unknowingly
+broken configuration.
+- **BREAKING CHANGE** The `@neutrinojs/mocha` preset no longer accepts middleware options as Mocha's CLI does not
+allow providing an options file which can call out to Neutrino to load middleware
+[#852](https://github.com/neutrinojs/neutrino/pull/852). Manually pass any Mocha options to a `mocha.opts` file or
+via the command line flags.
+- **BREAKING CHANGE** As Neutrino no longer supplies a CLI for executing project commands, the `--debug` flag no
+longer exists [#852](https://github.com/neutrinojs/neutrino/pull/852). You can still output debug information for
+middleware in your `.neutrinorc.js` with:
+
+```js
+module.exports = {
+  options: {
+    debug: true
+  }
+};
+```
+
+- **BREAKING CHANGE** `@neutrinojs/html-loader` used by the web-related presets now parse URLs defined in link tags
+in the HTML template [#943](https://github.com/neutrinojs/neutrino/pull/943).
+- **BREAKING CHANGE** The `@neutrinojs/hot` [#981](https://github.com/neutrinojs/neutrino/pull/981) and `@neutrinojs/env`
+[#983](https://github.com/neutrinojs/neutrino/pull/983) middleware have been removed and their relevant
+functionality is now configured directly by its previously-consuming presets.
+- **BREAKING CHANGE** `@neutrinojs/node` now compiles to the supported version of Node.js being used to run the build
+[#991](https://github.com/neutrinojs/neutrino/pull/991). Previously this was always defaulted to a particular Node.js v6
+version. For example, if you use Node.js v8 to run webpack, Neutrino will tell Babel to compile your project to support
+back to Node.js v8.
+- **BREAKING CHANGE** Various build outputs and settings used by Neutrino were driven by the `NODE_ENV` environment
+variable [#972](https://github.com/neutrinojs/neutrino/pull/972). How the environment variable drives some of these
+options has changed and may cause output that is different than in v8. For example, sometimes output was controlled
+when the value *was set to `development`*, but now may be done when the value *is not `production`*.
+- **BREAKING CHANGE** The merging of Babel options has been updated to *not merge array options*, but instead
+overwrite them [#1022](https://github.com/neutrinojs/neutrino/pull/1022).
+- **BREAKING CHANGE** `@neutrinojs/eslint` and its dependent middleware now require ESLint v5, which may mean breaking
+changes to rule configuration and any `parserOptions` modifications [#1025](https://github.com/neutrinojs/neutrino/pull/1025).
+- **BREAKING CHANGE** The `options.mains` Neutrino option can now also accept an object per entry point for setting
+individual options for html-webpack-plugin [#1029](https://github.com/neutrinojs/neutrino/pull/1029). The previous API
+for setting these properties as strings is still supported. This also introduces a breaking API change as accessing an
+entry point property on `neutrino.options.mains` now returns a normalized object, even when using string options.
+- **BREAKING CHANGE** When configuring webpack with a target of `node` the `@neutrinojs/jest` preset will default its
+`testEnvironment` to also be `node` instead of `jsdom` [#1030](https://github.com/neutrinojs/neutrino/pull/1030).
+- **BREAKING CHANGE** Various dependencies have been updated which may bring their own breaking changes. Please
+check and test your project to ensure proper functionality.
+- ESLint caching is now enabled by default, so it is recommended to specify `.eslintcache` as being ignored from
+your source control commits.
 
 ## Neutrino v7 to v8
 
