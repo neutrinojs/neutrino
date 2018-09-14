@@ -7,10 +7,8 @@ const htmlTemplate = require('@neutrinojs/html-template');
 const clean = require('@neutrinojs/clean');
 const loaderMerge = require('@neutrinojs/loader-merge');
 const devServer = require('@neutrinojs/dev-server');
-const { EnvironmentPlugin, HotModuleReplacementPlugin } = require('webpack');
 const { resolve } = require('url');
 const merge = require('deepmerge');
-const ManifestPlugin = require('webpack-manifest-plugin');
 
 module.exports = (neutrino, opts = {}) => {
   const isProduction = process.env.NODE_ENV === 'production';
@@ -113,7 +111,7 @@ module.exports = (neutrino, opts = {}) => {
 
   if (options.env) {
     neutrino.config.plugin('env')
-      .use(EnvironmentPlugin, [options.env]);
+      .use(require.resolve('webpack/lib/EnvironmentPlugin'), [options.env]);
   }
 
   const devtool = options.devtool[process.env.NODE_ENV];
@@ -210,7 +208,7 @@ module.exports = (neutrino, opts = {}) => {
     .when(process.env.NODE_ENV === 'development', config => {
       neutrino.use(devServer, options.devServer);
       config.when(options.hot, (config) => {
-        config.plugin('hot').use(HotModuleReplacementPlugin);
+        config.plugin('hot').use(require.resolve('webpack/lib/HotModuleReplacementPlugin'));
 
         if ('hotEntries' in options) {
           throw new Error(
@@ -226,7 +224,7 @@ module.exports = (neutrino, opts = {}) => {
 
       if (options.manifest) {
         neutrino.config.plugin('manifest')
-          .use(ManifestPlugin, [options.manifest]);
+          .use(require.resolve('webpack-manifest-plugin'), [options.manifest]);
       }
     });
 };

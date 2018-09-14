@@ -1,5 +1,4 @@
 const merge = require('deepmerge');
-const ImageminWebpackPlugin = require('imagemin-webpack/ImageminWebpackPlugin');
 const gifsicle = require('imagemin-gifsicle');
 const svgo = require('imagemin-svgo');
 const pngquant = require('imagemin-pngquant');
@@ -50,5 +49,5 @@ module.exports = (neutrino, opts = {}) => {
 
   neutrino.config
     .plugin(options.pluginId)
-    .use(ImageminWebpackPlugin, [options.plugin]);
+    .use(require.resolve('imagemin-webpack/ImageminWebpackPlugin'), [options.plugin]);
 };

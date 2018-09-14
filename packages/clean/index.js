@@ -1,5 +1,3 @@
-const CleanPlugin = require('clean-webpack-plugin');
-
 module.exports = (neutrino, { pluginId = 'clean', paths = [], ...opts } = {}) => {
   const options = {
     root: neutrino.options.root,
@@ -9,5 +7,5 @@ module.exports = (neutrino, { pluginId = 'clean', paths = [], ...opts } = {}) =>
 
   neutrino.config
     .plugin(pluginId)
-      .use(CleanPlugin, [paths, options]);
+      .use(require.resolve('clean-webpack-plugin'), [paths, options]);
 };

@@ -12121,9 +12121,9 @@ webidl-conversions@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
 
-webpack-chain@^4.8.0:
-  version "4.10.0"
-  resolved "https://registry.yarnpkg.com/webpack-chain/-/webpack-chain-4.10.0.tgz#90c4bd0375b438036343ab2bf8cfc1fc50876255"
+webpack-chain@^4.11.0:
+  version "4.11.0"
+  resolved "https://registry.yarnpkg.com/webpack-chain/-/webpack-chain-4.11.0.tgz#41b57773d2dcdcbfd43c9df28a05b40705ae421c"
   dependencies:
     deepmerge "^1.5.2"
     javascript-stringify "^1.6.0"
