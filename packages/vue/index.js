@@ -1,7 +1,6 @@
 const loaderMerge = require('@neutrinojs/loader-merge');
 const web = require('@neutrinojs/web');
 const merge = require('deepmerge');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = (neutrino, opts = {}) => {
   // vue-loader extracts <style> tags to CSS files so they are parsed
@@ -36,7 +35,7 @@ module.exports = (neutrino, opts = {}) => {
       .use('vue')
         .loader(require.resolve('vue-loader'));
 
-  neutrino.config.plugin('vue').use(VueLoaderPlugin);
+  neutrino.config.plugin('vue').use(require.resolve('vue-loader/lib/plugin'));
 
   if (neutrino.config.module.rules.has('compile')) {
     // We need to remove vue files from being parsed by Babel since the

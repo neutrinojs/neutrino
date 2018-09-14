@@ -1,4 +1,3 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const merge = require('deepmerge');
 
 module.exports = (neutrino, opts = {}) => {
@@ -51,7 +50,7 @@ module.exports = (neutrino, opts = {}) => {
     const styleRule = neutrino.config.module.rule(options.ruleId);
     const loaders = [
       {
-        loader: options.extract ? MiniCssExtractPlugin.loader : require.resolve('style-loader'),
+        loader: options.extract ? require.resolve('mini-css-extract-plugin/dist/loader') : require.resolve('style-loader'),
         options: options.extract ? options.extract.loader : options.style,
         useId: options.extract ? options.extractId : options.styleUseId
       },
@@ -80,6 +79,6 @@ module.exports = (neutrino, opts = {}) => {
   if (options.extract) {
     neutrino.config
       .plugin(options.extractId)
-        .use(MiniCssExtractPlugin, [options.extract.plugin]);
+        .use(require.resolve('mini-css-extract-plugin'), [options.extract.plugin]);
   }
 };

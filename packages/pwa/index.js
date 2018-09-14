@@ -1,4 +1,3 @@
-const OfflinePlugin = require('offline-plugin');
 const merge = require('deepmerge');
 
 module.exports = (neutrino, { pluginId = 'pwa', ...options } = {}) => {
@@ -8,7 +7,7 @@ module.exports = (neutrino, { pluginId = 'pwa', ...options } = {}) => {
 
   neutrino.config
     .plugin(pluginId)
-    .use(OfflinePlugin, [
+    .use(require.resolve('offline-plugin'), [
       merge({
         ServiceWorker: {
           events: true

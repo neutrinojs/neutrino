@@ -3,7 +3,6 @@ const compile = require('@neutrinojs/compile-loader');
 const clean = require('@neutrinojs/clean');
 const startServer = require('@neutrinojs/start-server');
 const nodeExternals = require('webpack-node-externals');
-const { HotModuleReplacementPlugin } = require('webpack');
 const {
   basename, parse, format
 } = require('path');
@@ -98,7 +97,7 @@ module.exports = (neutrino, opts = {}) => {
           .devtoolModuleFilenameTemplate('[absolute-resource-path]')
           .end()
         .when(options.hot, (config) => {
-          config.plugin('hot').use(HotModuleReplacementPlugin);
+          config.plugin('hot').use(require.resolve('webpack/lib/HotModuleReplacementPlugin'));
           mainKeys.forEach(key => {
             config
               .entry(key)
