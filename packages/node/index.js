@@ -20,6 +20,10 @@ const getOutputForEntry = entry => basename(
 );
 
 module.exports = (neutrino, opts = {}) => {
+  if ('polyfills' in opts) {
+    throw new Error('The polyfills option has been removed, since polyfills are no longer included by default.');
+  }
+
   const pkg = neutrino.options.packageJson;
   const sourceMap = (pkg && pkg.dependencies && pkg.dependencies['source-map-support']) ||
     pkg && pkg.devDependencies && pkg.devDependencies['source-map-support'] ||

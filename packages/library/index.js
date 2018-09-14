@@ -10,6 +10,10 @@ module.exports = (neutrino, opts = {}) => {
     throw new Error('Missing required preset option "name". You must specify a library name when using this preset.');
   }
 
+  if ('polyfills' in opts) {
+    throw new Error('The polyfills option has been removed, since polyfills are no longer included by default.');
+  }
+
   const options = merge({
     target: 'web',
     libraryTarget: 'umd',
