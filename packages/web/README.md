@@ -232,6 +232,13 @@ module.exports = {
       // used by the Web preset
       html: {},
 
+      // Control which source map types are enabled for each NODE_ENV
+      devtool: {
+        development: 'cheap-module-eval-source-map',
+        production: undefined,
+        test: 'source-map'
+      },
+
       // Change options related to starting a webpack-dev-server
       devServer: {
         // Disabling options.hot will also disable devServer.hot
@@ -376,6 +383,23 @@ Is equivalent to:
 ```
 
 The `X-Dev-Server-Proxy` header can be useful for detecting if your existing app is being requested through the proxy.
+
+### Source Maps
+
+By default, the `'cheap-module-eval-source-map'` source map is enabled when `NODE_ENV` is `'development'`, `'source-map'` for `'test'` and no source maps for `'production'`.
+
+To customise this, use the preset's `devtool` option, for example:
+
+```js
+['@neutrinojs/web', {
+  devtool: {
+    // Enable source-maps in production
+    production: 'source-map'
+  }
+}
+```
+
+For the differences between each source map type, see the [webpack devtool docs](https://webpack.js.org/configuration/devtool/).
 
 ## Hot Module Replacement
 
