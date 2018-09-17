@@ -29,7 +29,7 @@
     "imagemin-pngquant": "^6.0.0",
     "imagemin-svgo": "^7.0.0",
     "imagemin-webp": "^4.1.0",
-    "imagemin-webpack": "^2.0.0"
+    "imagemin-webpack": "^3.0.0"
   },
   "peerDependencies": {
     "neutrino": "^9.0.0-0",
