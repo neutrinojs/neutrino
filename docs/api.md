@@ -187,7 +187,7 @@ middleware to determine when to augment the configuration with certain functiona
 ### `options.extensions`
 
 Informs interested middleware the preferred list of module extensions to support.
-By default, `options.extensions` is set to `['js', 'jsx', 'vue', 'ts', 'tsx', 'mjs']`.
+By default, `options.extensions` is set to `['wasm', 'mjs', 'vue', 'jsx', 'tsx', 'ts', 'js']`.
 
 ### `options.packageJson`
 
@@ -690,6 +690,6 @@ without any parameters which fallback to `neutrino.options.extensions`.
 // resolves to /\.(vue|js)$/
 neutrino.regexFromExtensions(['vue', 'js']);
 
-// defaults neutrino.options.extensions which resolves to /\.(js|jsx|vue|ts|tsx|mjs)$/
+// defaults neutrino.options.extensions which resolves to /\.(wasm|mjs|vue|jsx|tsx|ts|js)$/
 neutrino.regexFromExtensions();
 ```
