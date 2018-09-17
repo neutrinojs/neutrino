@@ -59,7 +59,6 @@ nav:
     - html-loader: './packages/html-loader.md'
     - html-template: './packages/html-template.md'
     - image-loader: './packages/image-loader.md'
-    - image-minify: './packages/image-minify.md'
     - loader-merge: './packages/loader-merge.md'
     - pwa: './packages/pwa.md'
     - start-server: './packages/start-server.md'
