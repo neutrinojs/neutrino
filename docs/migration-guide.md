@@ -297,7 +297,7 @@ module.exports = Neutrino({ root: __dirname })
   .call('eslintrc');
 ```
 
-- **BREAKING CHANGE** When building, file-loader and url-loader will generate file names with pattern
+- **BREAKING CHANGE** When building, `file-loader` and `url-loader` will generate file names with pattern
 `[name].[hash].[ext]` instead of `[hash].[ext]`. ([#435](https://github.com/neutrinojs/neutrino/pull/435))
 - **BREAKING CHANGE** The web preset no longer uses the `script-ext` plugin. It was never functional and did not
 serve a purpose at this time. ([#500](https://github.com/neutrinojs/neutrino/pull/500))
