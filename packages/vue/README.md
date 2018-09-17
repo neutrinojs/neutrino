@@ -298,7 +298,7 @@ module.exports = {
 The following is a list of additional rules and their identifiers this preset defines, in addition
 to the ones provided by `@neutrinojs/web`, which can be overridden:
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `vue` | Compiles Vue files from the `src` directory using Babel and `vue-loader`. Contains a single loader named `vue`. | all |
 

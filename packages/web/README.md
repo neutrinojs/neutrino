@@ -458,7 +458,7 @@ module.exports = {
 
 The following is a list of rules and their identifiers which can be overridden:
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `compile` | Compiles JS files from the `src` directory using Babel. Contains a single loader named `babel`. From `@neutrinojs/compile-loader`. | all |
 | `html` | Allows importing HTML files from modules. Contains a single loader named `html`. From `@neutrinojs/html-loader`. | all |
@@ -473,14 +473,14 @@ The following is a list of plugins and their identifiers which can be overridden
 
 _Note: Some plugins are only available in certain environments. To override them, they should be modified conditionally._
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `env` | Inject environment variables into source code at `process.env`, using `EnvironmentPlugin`. | all |
 | `extract` | Extracts CSS from JS bundle into a separate stylesheet file. From `@neutrinojs/style-loader`. | all |
 | `html-{MAIN_NAME}` | Automatically generates HTML files for configured entry points. `{MAIN_NAME}` corresponds to the entry point of each page. By default, there is only a single `index` main, so this would generate a plugin named `html-index`. From `@neutrinojs/html-template` | all |
-| `hot` | Enables Hot Module Replacement. | `start` command |
-| `clean` | Removes the `build` directory prior to building. From `@neutrinojs/clean`. | `build` command |
-| `manifest` | Create a manifest file, via webpack-manifest-plugin. | `build` command |
+| `hot` | Enables Hot Module Replacement. | `'development'` |
+| `clean` | Removes the `build` directory prior to building. From `@neutrinojs/clean`. | `'production'` |
+| `manifest` | Create a manifest file, via webpack-manifest-plugin. | `'production'` |
 
 ### Override configuration
 
