@@ -141,8 +141,8 @@ module.exports = {
 ESLint 5, and related packages [#809](https://github.com/neutrinojs/neutrino/pull/809).
 - **BREAKING CHANGE** The `@neutrinojs/chunk` middleware has been removed in favor of webpack's
 improved functionality around `splitChunks` [#809](https://github.com/neutrinojs/neutrino/pull/809). See
-https://webpack.js.org/plugins/split-chunks-plugin/ for more information. Usage of the `vendor` entry point
-will now throw an error when used with v9.
+[the split chunks documentation](https://webpack.js.org/plugins/split-chunks-plugin/) for more information.
+Usage of the `vendor` entry point will now throw an error when used with v9 and should not be used.
 - **BREAKING CHANGE** The `@neutrinojs/babel-minify` preset has been removed in favor of the much faster
 uglify-es built into webpack 4 [#809](https://github.com/neutrinojs/neutrino/pull/809).
 - **BREAKING CHANGE** The `@neutrinojs/web` and dependent presets have renamed the `minify.babel` option
@@ -186,7 +186,8 @@ updated.
 has been removed.
 - **BREAKING CHANGE** The font and image loader rules have now been consolidated into a single rule for
 `@neutrinojs/font-loader` and another for `@neutrinojs/image-loader` [#858](https://github.com/neutrinojs/neutrino/pull/858).
-- **BREAKING CHANGE** `@neutrinojs/font-loader` now uses `file-loader` instead of `url-loader`
+- **BREAKING CHANGE** `@neutrinojs/font-loader` now uses [`file-loader`](https://webpack.js.org/loaders/file-loader/) instead of
+[`url-loader`](https://webpack.js.org/loaders/url-loader/)
 [#858](https://github.com/neutrinojs/neutrino/pull/858). This prevents asset inlining and will always generate
 separate files.
 - **BREAKING CHANGE** `@neutrinojs/style-loader` now uses [`mini-css-extract-plugin`](https://webpack.js.org/plugins/mini-css-extract-plugin/)
@@ -253,10 +254,10 @@ what webpack has configured by default [#1080](https://github.com/neutrinojs/neu
 dependent middleware [#951](https://github.com/neutrinojs/neutrino/pull/951).
 - **BREAKING CHANGE** Various dependencies have been updated which may bring their own breaking changes. Please
 check and test your project to ensure proper functionality.
-- ESLint caching is now enabled by default, so it is recommended to specify `.eslintcache` as being ignored from
-your source control commits.
+- ESLint caching is now enabled by default for new projects, so it is recommended to specify `.eslintcache` as being
+ignored from your source control commits.
 
-[]
+[Compare all v9 changes](https://github.com/neutrinojs/neutrino/compare/v8.3.0...master)
 
 ## Neutrino v7 to v8
 
@@ -296,8 +297,7 @@ module.exports = Neutrino({ root: __dirname })
   .call('eslintrc');
 ```
 
-- **BREAKING CHANGE** When building, [`file-loader`](https://webpack.js.org/loaders/file-loader/) and
-[`url-loader`](https://webpack.js.org/loaders/url-loader/) will generate file names with pattern
+- **BREAKING CHANGE** When building, file-loader and url-loader will generate file names with pattern
 `[name].[hash].[ext]` instead of `[hash].[ext]`. ([#435](https://github.com/neutrinojs/neutrino/pull/435))
 - **BREAKING CHANGE** The web preset no longer uses the `script-ext` plugin. It was never functional and did not
 serve a purpose at this time. ([#500](https://github.com/neutrinojs/neutrino/pull/500))
