@@ -77,12 +77,6 @@ middleware using a deep object merge.
 
 It is recommended to only use this middleware during building, or the production environment.
 
-_Example: Only use middleware when building:_
-
-```bash
-❯ neutrino build --use @neutrinojs/react @neutrinojs/pwa
-```
-
 _Example: Only use middleware during production:_
 
 ```js
