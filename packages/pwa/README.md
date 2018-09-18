@@ -43,7 +43,13 @@ neutrino.use(pwa);
 
 // Usage showing overriding options
 neutrino.use(pwa, {
-  relativePaths: true,
+  ServiceWorker: {
+    events: true
+  },
+  relativePaths: false,
+  excludes: ['_redirects'],
+  cacheMaps: [{ match: /.*/, to: '/', requestTypes: ['navigate'] }],
+  publicPath: '/',
   // Override pluginId to add an additional pwa plugin instance
   pluginId: 'pwa'
 });
@@ -61,7 +67,13 @@ module.exports = {
 module.exports = {
   use: [
     ['@neutrinojs/pwa', {
-      relativePaths: true,
+      ServiceWorker: {
+        events: true
+      },
+      relativePaths: false,
+      excludes: ['_redirects'],
+      cacheMaps: [{ match: /.*/, to: '/', requestTypes: ['navigate'] }],
+      publicPath: '/',
       // Override pluginId to add an additional pwa plugin instance
       pluginId: 'pwa'
     }]

@@ -43,7 +43,9 @@ neutrino.use(copy);
 // Usage shows the default values of this middleware:
 neutrino.use(copy, {
   patterns: [],
-  options: {},
+  options: {
+    debug: neutrino.options.debug
+  },
   pluginId: 'copy'
 });
 ```
@@ -61,7 +63,9 @@ module.exports = {
   use: [
     ['@neutrinojs/copy', {
       patterns: [],
-      options: {},
+      options: {
+        debug: neutrino.options.debug
+      },
       pluginId: 'copy'
     }]
   ]

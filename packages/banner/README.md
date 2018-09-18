@@ -46,6 +46,7 @@ neutrino.use(banner);
 // Usage shows the default values of this middleware:
 neutrino.use(banner, {
   banner: `require('source-map-support').install();`,
+  test: neutrino.regexFromExtensions(),
   raw: true,
   entryOnly: true,
   // Override pluginId to add an additional banner plugin instance
@@ -70,6 +71,7 @@ module.exports = {
   use: [
     ['@neutrinojs/banner', {
       banner: `require('source-map-support').install();`,
+      test: neutrino.regexFromExtensions(),
       raw: true,
       entryOnly: true,
       // Override pluginId to add an additional banner plugin instance

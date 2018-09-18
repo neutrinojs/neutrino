@@ -42,7 +42,7 @@ neutrino.use(html);
 
 // Usage showing default options
 neutrino.use(html, {
-  name: '[name].[ext]'
+  attrs: ['img:src', 'link:href']
 });
 ```
 
@@ -58,7 +58,7 @@ module.exports = {
 module.exports = {
   use: [
     ['@neutrinojs/html-loader', {
-      name: '[name].[ext]'
+      attrs: ['img:src', 'link:href']
     }]
   ]
 };

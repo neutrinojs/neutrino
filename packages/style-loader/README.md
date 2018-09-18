@@ -51,7 +51,9 @@ neutrino.use(styles);
 // Usage showing default options
 neutrino.use(styles, {
   style: {},
-  css: {},
+  css: {
+    importLoaders: opts.loaders ? opts.loaders.length : 0
+  },
   loaders: [],
   test: /\.css$/,
   ruleId: 'style',
@@ -62,8 +64,8 @@ neutrino.use(styles, {
   modulesTest: /\.module.css$/,
   extractId: 'extract',
   extract: {
-    plugin: {},
-    loader: {
+    loader: {},
+    plugin: {
       filename: process.env.NODE_ENV === 'production' ? '[name].[contenthash:8].css' : '[name].css'
     }
   }
@@ -83,7 +85,9 @@ module.exports = {
   use: [
     ['@neutrinojs/style-loader', {
       style: {},
-      css: {},
+      css: {
+        importLoaders: opts.loaders ? opts.loaders.length : 0
+      },
       loaders: [],
       test: /\.css$/,
       ruleId: 'style',
@@ -94,8 +98,8 @@ module.exports = {
       modulesTest: /\.module.css$/,
       extractId: 'extract',
       extract: {
-        plugin: {},
-        loader: {
+        loader: {},
+        plugin: {
           filename: process.env.NODE_ENV === 'production' ? '[name].[contenthash:8].css' : '[name].css'
         }
       }

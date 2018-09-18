@@ -39,6 +39,7 @@ and plug it into Neutrino:
 const compile = require('@neutrinojs/compile-loader');
 
 neutrino.use(compile, {
+  test: neutrino.regexFromExtensions(),
   include: [],
   exclude: [],
   babel: {},
@@ -53,6 +54,7 @@ neutrino.use(compile, {
 module.exports = {
   use: [
     ['@neutrinojs/compile-loader', {
+      test: neutrino.regexFromExtensions(),
       include: [],
       exclude: [],
       babel: {},

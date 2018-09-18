@@ -265,9 +265,9 @@ module.exports = {
       // Enables Hot Module Replacement. Set to false to disable
       hot: true,
 
-      // Target specific versions via @babel/preset-env
+      // Targets the version of Node.js used to run webpack.
       targets: {
-        node: '8.10'
+        node: 'current'
       },
 
       // Remove the contents of the output directory prior to building.

@@ -51,6 +51,7 @@ neutrino.use(eslint, {
     cwd: neutrino.options.root,
     useEslintrc: false,
     root: true,
+    formatter: 'codeframe',
     plugins: ['babel'],
     baseConfig: {},
     envs: ['es6'],

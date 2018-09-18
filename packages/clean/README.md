@@ -44,6 +44,7 @@ neutrino.use(clean);
 neutrino.use(clean, {
   paths: [],
   root: neutrino.options.root,
+  verbose: neutrino.options.debug,
   // Override pluginId to add an additional clean plugin instance
   pluginId: 'clean'
 });
@@ -63,6 +64,7 @@ module.exports = {
     ['@neutrinojs/clean', {
       paths: [],
       root: neutrino.options.root,
+      verbose: neutrino.options.debug,
       // Override pluginId to add an additional banner plugin instance
       pluginId: 'clean'
     }]

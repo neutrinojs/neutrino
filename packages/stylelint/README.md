@@ -41,11 +41,14 @@ const stylelint = require('@neutrinojs/stylelint');
 // Usage shows default values
 neutrino.use(stylelint, {
   pluginId: 'stylelint',
+  configBasedir: neutrino.options.root,
   files: '**/*.+(css|scss|sass|less)',
   context: neutrino.options.source,
-  failOnError: process.env.NODE_ENV !== 'development'
+  failOnError: process.env.NODE_ENV !== 'development',
+  formatter: require('stylelint').formatters.string
 });
 ```
+
 Options are passed to `stylelint-webpack-plugin`. See the [stylelint Node API](https://stylelint.io/user-guide/node-api/#options) for all available options.
 
 ## Information
