@@ -43,27 +43,6 @@ particular use cases.
 This `neutrino.config` is an accumulation of all configuration set up to this moment. All Neutrino presets and
 middleware interact with and make changes through this config, which is all available to your preset.
 
-## Events
-
-Neutrino exposes events for various stages of the build process your preset can hook into **if necessary**.
-
-- `prestart`: Triggered before creating a development bundle, launching a dev server, or a source watcher.
-- `start`: Triggered after the development bundle has been created the dev server or source watcher has started.
-- `prebuild`: Triggered before creating a production build.
-- `build`: Triggered after the production build has completed.
-- `pretest`: Triggered before invoking any test runners.
-- `test`: Triggered when test runners can start, or after they have all completed.
-- `prerun`: Triggered before creating a development bundle, production build, and before invoking any test runners.
-- `run`: Triggered after the development bundle, production build, or all test runners have completed.
-
-_Example: Log to the console when a build finishes._
-
-```js
-module.exports = neutrino => {
-  neutrino.on('build', () => console.log('whew!'));
-};
-```
-
 ## Including and merging other middleware
 
 If your preset depends on other Neutrino presets and/or middleware, or you are creating a preset that is a combination
