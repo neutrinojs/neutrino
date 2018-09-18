@@ -30,7 +30,7 @@
   },
   "peerDependencies": {
     "neutrino": "^9.0.0-0",
-    "stylelint": "^8.0.0",
+    "stylelint": "^9.0.0",
     "webpack": "^4.0.0"
   }
 }
