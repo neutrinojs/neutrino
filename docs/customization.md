@@ -4,16 +4,6 @@ No two JavaScript projects are ever the same, and as such there may be times whe
 to the way your Neutrino presets are building your project. Neutrino provides a mechanism to augment presets and
 middleware in the context of a project without resorting to creating and publishing an entirely independent preset.
 
-## `.neutrinorc.js`
-
-First, you will need to create a `.neutrinorc.js` file in the root of your project. You
-[may have already done this](./usage.md#using-multiple-presets) if you specified your middleware via `.neutrinorc.js`
-as opposed to CLI `--use`.
-
-The `.neutrinorc.js` file is picked up by Neutrino automatically if it exists. This can simplify your Neutrino commands
-by making them as simple as `neutrino start` or `neutrino build`. If you do all your customization within
-`.neutrinorc.js`, the CLI will pick up these changes every time you run it.
-
 ## Middleware formats
 
 Before we delve into making customizations in `.neutrinorc.js`, it's important to note that this file can be in any
