@@ -157,8 +157,9 @@ extension. Pass specific test filenames to the Karma CLI to override this.
 
 ## Watching for changes
 
-`@neutrinojs/karma` can watch for changes on your source directory and subsequently re-run tests. Simply pass
-omit the `--single-run` argument when running the Karma CLI (for example by using the `test:watch` scripts entry above).
+`@neutrinojs/karma` can watch for changes on your source directory and subsequently re-run tests.
+Simply omit the `--single-run` argument when running the Karma CLI (for example by using the `test:watch`
+scripts entry above).
 
 ## Preset options
 

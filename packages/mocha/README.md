@@ -135,7 +135,7 @@ For more details on specific Mocha usage, please refer to their [documentation](
 ## Executing single tests
 
 By default this preset will execute every test file located in your test directory ending in `_test.js`.
-Pass specific test filenames to the Karma CLI to override this.
+Pass specific test filenames to the Mocha CLI to override this.
 
 ## Watching for changes
 

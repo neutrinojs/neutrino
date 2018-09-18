@@ -41,7 +41,7 @@ the package.json would be located. If the option is not set, Neutrino defaults i
 path is specified, it will be resolved relative to `process.cwd()`; absolute paths will be used as-is.
 
 **It's recommended to always set this value, to ensure that tools such as ESLint work when run from a subdirectory
-of the repository. If your `.neutrinorc.js` is in the root of the repository, use the value `__dirname` to achive this.**
+of the repository. If your `.neutrinorc.js` is in the root of the repository, use the value `__dirname` to achieve this.**
 
 ```js
 module.exports = {
