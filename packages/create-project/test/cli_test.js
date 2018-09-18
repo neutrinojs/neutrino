@@ -59,11 +59,6 @@ const matrix = {
     [packages.AIRBNB, packages.STANDARDJS],
     tests
   ],
-  preact: [
-    [packages.PREACT],
-    [packages.AIRBNB, packages.STANDARDJS],
-    tests
-  ],
   node: [
     [packages.NODE],
     [packages.AIRBNB_BASE, packages.STANDARDJS],
