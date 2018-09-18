@@ -44,7 +44,7 @@ module.exports = (neutrino, opts = {}) => {
         }
       })
     );
-  };
+  }
 
   rules.forEach(options => {
     const styleRule = neutrino.config.module.rule(options.ruleId);

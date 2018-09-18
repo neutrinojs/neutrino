@@ -31,3 +31,32 @@ test('instantiates with options', t => {
 
   t.notThrows(() => api.config.toConfig());
 });
+
+test('uses CSS modules by default', t => {
+  const api = new Neutrino();
+
+  api.use(mw());
+
+  t.true(api.config.module.rules.has('style-modules'));
+
+  const options = api.config.module
+    .rule('style-modules')
+    .use('css-modules')
+    .get('options');
+
+  t.truthy(options && options.modules);
+});
+
+test('respects disabling of CSS modules', t => {
+  const api = new Neutrino();
+
+  api.use(mw(), { modules: false });
+
+  t.false(api.config.module.rules.has('style-modules'));
+
+  const style = api.config.module.rule('style').toConfig();
+
+  style.use.forEach(use => {
+    t.falsy(use.options && use.options.css && use.options.css.modules);
+  });
+});
