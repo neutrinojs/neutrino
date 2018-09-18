@@ -40,6 +40,9 @@ Set the base directory which Neutrino middleware and presets operate on. Typical
 the package.json would be located. If the option is not set, Neutrino defaults it to `process.cwd()`. If a relative
 path is specified, it will be resolved relative to `process.cwd()`; absolute paths will be used as-is.
 
+**It's recommended to always set this value, to ensure that tools such as ESLint work when run from a subdirectory
+of the repository. If your `.neutrinorc.js` is in the root of the repository, use the value `__dirname` to achive this.**
+
 ```js
 module.exports = {
   options: {
