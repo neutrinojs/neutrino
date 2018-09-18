@@ -15,8 +15,7 @@ In a typical project:
 - `scripts.test` would be the command you wish to run to execute tests
 
 Using these script targets may not be suitable for every project. They are only the
-typical recommendations for script target names. You may choose any different name if desired
-for your project.
+typical recommendations for script target names. You may choose different names if desired.
 
 ## Building for development
 

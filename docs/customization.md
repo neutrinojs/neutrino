@@ -14,7 +14,7 @@ The `.neutrinorc.js` file is picked up by Neutrino automatically if it exists. T
 by making them as simple as `neutrino start` or `neutrino build`. If you do all your customization within
 `.neutrinorc.js`, the CLI will pick up these changes every time you run it.
 
-### Middleware formats
+## Middleware formats
 
 Before we delve into making customizations in `.neutrinorc.js`, it's important to note that this file can be in any
 valid [middleware format](./middleware.md#formats) that Neutrino accepts. For project-based customization, it is
@@ -41,7 +41,7 @@ module.exports = (neutrino) => {
 
 ## Overriding Neutrino options
 
-Neutrino has a number of useful options for customizing its behavior, and these can be overriden by using an
+Neutrino has a number of useful options for customizing its behavior, and these can be overridden by using an
 object at the `options` property:
 
 ### `options.root`

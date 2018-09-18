@@ -287,7 +287,7 @@ The handler function can accept two arguments:
 webpack-usable object
 2. The Neutrino API instance
 
-_Example: add a new runnable command which resolves with a JSON-formatted webpack configuration:`
+_Example: add a new runnable command which resolves with a JSON-formatted webpack configuration:_
 
 ```js
 api.register(
