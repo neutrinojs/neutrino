@@ -1,7 +1,7 @@
 const merge = require('deepmerge');
 
 module.exports = (neutrino, opts = {}) => {
-  const modules = opts.modules || true;
+  const modules = 'modules' in opts ? opts.modules : true;
   const modulesTest = opts.modulesTest || neutrino.regexFromExtensions(['module.css']);
   const options = merge({
     test: neutrino.regexFromExtensions(['css']),
@@ -44,7 +44,7 @@ module.exports = (neutrino, opts = {}) => {
         }
       })
     );
-  };
+  }
 
   rules.forEach(options => {
     const styleRule = neutrino.config.module.rule(options.ruleId);
