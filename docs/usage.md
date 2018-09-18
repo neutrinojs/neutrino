@@ -149,3 +149,13 @@ Or:
 ```bash
 NODE_ENV={production,development,test} neutrino --inspect
 ```
+
+As of Neutrino 9, the `--inspect` output when using the official presets is now sufficiently
+self-contained that it can be passed to webpack with no additional changes required.
+
+For example:
+
+```bash
+echo "module.exports = $(yarn neutrino --inspect --mode production);" > exported-config.js
+yarn webpack --config exported-config.js
+```
