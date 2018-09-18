@@ -6,6 +6,7 @@ If you desire, you can also create your own instance of the Neutrino API and int
 
 ## Importing
 
+TODO
 The default export of the Neutrino module is an object with the core Neutrino API, along with available
 built-in functions for the API to run:
 
@@ -25,6 +26,7 @@ later showing how to use the runnable functions.
 
 ## Instantiation
 
+TODO
 In order to access the Neutrino API, you must require or import it and invoke it, passing in any
 options:
 
@@ -192,6 +194,7 @@ Returns the `package.json` object defined at the root level of the project.
 When creating a Neutrino instance, you have the option of providing an object which can be passed as options to
 middleware as `neutrino.options`.
 
+TODO
 ```js
 const { Neutrino } = require('neutrino');
 
@@ -270,6 +273,7 @@ api.config.toConfig(); // -> { ... }
 
 ### `register(command, handler, description = '')`
 
+TODO
 This method registers a new command which can be run from the API at a later time. This function takes three
 arguments: a String command name, a Function which accepts a webpack configuration and the API, and an optional string
 description. The return value of `handler` depends on the expected usage of the command. The description is optional,
@@ -295,6 +299,7 @@ The registered command can be triggered from `call()`, `run()`, or via the CLI.
 
 ## Runnable Functions
 
+TODO
 The following functions are exported from Neutrino and can be registered with the API to be executed from `run`
 (recommended) or `call`. These functions are used internally by the CLI, which creates its own instance of the API and
 registers them prior to `run`. Since each of them can be registered directly with the API, they each have the same
@@ -302,6 +307,7 @@ signature, accepting a webpack configuration and an API instance.
 
 ### `inspect(webpackConfig, neutrinoApi)`
 
+TODO
 The `inspect()` function is responsible for creating an object string which represents a webpack configuration for the
 provided middleware and options. Upon execution `inspect` will:
 
