@@ -1,1 +1,0 @@
-../../packages/image-minify/README.md

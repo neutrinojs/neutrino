@@ -150,8 +150,10 @@ to `minify.source` [#809](https://github.com/neutrinojs/neutrino/pull/809).
 - **BREAKING CHANGE** The `@neutrinojs/web` and dependent presets no longer include the
 `@neutrinojs/image-minify` or `@neutrinojs/style-minify` middleware. This means there are no preset
 options for `minify.image` and `minify.style` [#809](https://github.com/neutrinojs/neutrino/pull/809).
-- **BREAKING CHANGE** The `@neutrinojs/minify` package has been removed. The individual minification
+- **BREAKING CHANGE** The `@neutrinojs/minify` package has been removed. The remaining individual minification
 middleware packages can be used instead [#809](https://github.com/neutrinojs/neutrino/pull/809).
+- **BREAKING CHANGE** The `@neutrinojs/image-minify` middleware has been removed
+[#1105](https://github.com/neutrinojs/neutrino/pull/1105).
 - **BREAKING CHANGE** The `@neutrinojs/react` and `@neutrinojs/preact` packages no longer use
 `babel-plugin-jsx-pragmatic` [#827](https://github.com/neutrinojs/neutrino/pull/827). This means if you
 did not import React or preact into your files using JSX, you will now need to import these packages
