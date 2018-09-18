@@ -287,7 +287,7 @@ module.exports = {
             removeConsole: true,
             removeDebugger: true,
           },
-          preset: {}
+          plugin: {}
         }
       },
 
