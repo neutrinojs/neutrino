@@ -148,7 +148,7 @@ To tell `jest` to load Neutrino middleware or presets for its configuration, cre
 `jest.config.js` in the root of the project with the following:
 
 ```js
-// webpack.config.js
+// jest.config.js
 const neutrino = require('neutrino');
 
 // Set a default NODE_ENV before loading any middleware
@@ -163,22 +163,17 @@ by Jest.
 
 ## Using multiple presets
 
-TODO
-All Neutrino commands support the `--use` command line parameter, but having to specify this for each script target
-can be cumbersome and verbose, especially if you have many middleware or presets. Fortunately, Neutrino also supports
-specifying presets using the `use` property in a `.neutrinorc.js` file. By omitting the `--use`
-flag and specifying a `use` array, every call to a Neutrino command will look up which middleware
+Neutrino supports loading multiple presets and middleware using the `use` property in a
+`.neutrinorc.js` file. By specifying a `use` array, every Neutrino output function will look up which middleware
 are configured in your in `.neutrinorc.js`.
-
-This is the recommended approach when using more than one preset/middleware.
 
 ```js
 // package.json
 {
   "scripts": {
-    "start": "neutrino start",
-    "build": "neutrino build",
-    "test": "neutrino test"
+    "start": "webpack-dev-server --mode development",
+    "build": "webpack --mode production",
+    "test": "jest"
   }
 }
 ```
@@ -188,7 +183,7 @@ This is the recommended approach when using more than one preset/middleware.
 module.exports = {
   use: [
     '@neutrinojs/react',
-    '@neutrinojs/karma'
+    '@neutrinojs/jest'
   ]
 }
 ```
