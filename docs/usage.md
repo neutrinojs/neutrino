@@ -38,7 +38,7 @@ typical recommendations for script target names. You may choose different names 
 
 ## Building for development
 
-Webpack's CLI tools provide commands for creating or starting a bundle during development, any vary
+Webpack's CLI tools provide commands for creating or starting a bundle during development, and vary
 depending on whether you are targeting a browser or Node.js. For example, if working on a web project,
 you would typically install `webpack`, `webpack-cli`, and `webpack-dev-server` and call the latter during
 development. For Node.js, you would typically install `webpack` and `webpack-cli`, and call `webpack` from
@@ -79,62 +79,87 @@ by webpack.
 
 ## Building for production
 
-TODO
-Neutrino provides the command `neutrino build` for creating a bundle for production deployment.
-Using `neutrino build` by default sets the Node.js environment to `production` using the `NODE_ENV` environment variable,
-which is available in your project source code. See the documentation for your preset for details regarding additional
-steps after your build is completed.
+Webpack's CLI tools provide commands for creating a production bundle. You should
+have `webpack` and `webpack-cli` installed to run this build. Check the documentation of your preset
+for details on the recommended installation instructions to build your project for production.
+If you do not specify a `NODE_ENV` environment variable, Neutrino will default it to `production`
+when used with webpack's `--mode production`.
+
+Example usage:
 
 ```bash
-# PRESET_MODULE is the name of the preset to build with, e.g. @neutrinojs/react
-neutrino build --use PRESET_MODULE
+webpack --mode production
 ```
 
 Putting this into your `package.json` will allow you to build your project using either
-`yarn build` or `npm run build`. Using `@neutrinojs/react` as an example:
+`yarn build` or `npm run build`.
 
 ```json
 {
   "scripts": {
-    "build": "neutrino build --use @neutrinojs/react"
+    "build": "webpack --mode production"
   }
 }
 ```
+
+To tell `webpack` to load Neutrino middleware or presets for its configuration, create a
+`webpack.config.js` in the root of the project with the following:
+
+```js
+// webpack.config.js
+const neutrino = require('neutrino');
+
+module.exports = neutrino().webpack();
+```
+
+This will cause Neutrino to load all middleware and options defined in the project's
+`.neutrinorc.js` file then turn it into a configuration format suitable for consumption
+by webpack.
 
 ## Building and running tests
 
-TODO
-Neutrino provides the command `neutrino test` for invoking a set of tests included in your project.
-Using `neutrino test` by default sets the Node.js environment variable to `test` using the `NODE_ENV` environment
-variable, which is available in your project source code. How your source code is built and consumed from tests
-is determined by the middleware you are using. Running suites that are built the same as source files is encouraged by
-using Neutrino-compatible middleware. Neutrino currently provides three core testing presets: Karma, Jest, and Mocha.
+Various test runners support using compiled webpack code to drive tests, but may
+be difficult to integrate with webpack, and Neutrino helps alleviate this.
+Check the documentation of your particular test runner preset
+for details on the recommended installation instructions to test your project.
+There should be an associated test runner tool to install alongside your middleware, e.g.
+`@neutrinojs/jest` will require a Jest installation, `@neutrinojs/karma` will require a
+Karma installation, and `@neutrinojs/mocha` will require a Mocha installation.
+
+Example Jest usage:
 
 ```bash
-# PRESET_MODULE is the name of the preset to build with, e.g. @neutrinojs/react
-# TESTING_MODULE is the name of another middleware to build with, e.g. @neutrinojs/karma
-neutrino test --use PRESET_MODULE TESTING_MODULE
+jest
 ```
 
 Putting this into your `package.json` will allow you to test your project using either
-`yarn test` or `npm test`. Using `@neutrinojs/react` and `@neutrinojs/karma` as an example:
+`yarn test` or `npm test`. You can also add commands for watching your tests.
 
 ```json
 {
   "scripts": {
-    "test": "neutrino test --use @neutrinojs/react @neutrinojs/karma"
+    "test": "jest",
+    "test:watch": "jest --watch"
   }
 }
 ```
 
-Using the command `neutrino test` will execute every test file located in your
-[testing directory](./project-layout.md#testing). You may also provide to this command the specific test files you wish
-to run individually. It is important to note that when combined with the `--use` parameter, you should use two
-dashes after the last middleware to denote the end of the middleware and the beginning of the test files.
+To tell `jest` to load Neutrino middleware or presets for its configuration, create a
+`jest.config.js` in the root of the project with the following:
 
-```bash
-neutrino test --use PRESET_A PRESET_B -- a_test.js b_test.js
+```js
+// webpack.config.js
+const neutrino = require('neutrino');
+
+// Set a default NODE_ENV before loading any middleware
+process.env.NODE_ENV = process.env.NODE_ENV || 'test';
+
+module.exports = neutrino().jest();
 ```
+
+This will cause Neutrino to load all middleware and options defined in the project's
+`.neutrinorc.js` file then turn it into a configuration format suitable for consumption
+by Jest.
 
 ## Using multiple presets
 
