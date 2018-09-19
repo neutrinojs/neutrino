@@ -22,29 +22,28 @@ API class and then its available methods.
 
 ## Instantiation
 
-TODO
-In order to access the Neutrino API, you must require or import it and invoke it, passing in any
-options:
+In order to access the `Neutrino` API class, you must require or import it and invoke it,
+passing in any options:
 
 Using `require`:
 
 ```js
-const { Neutrino } = require('neutrino');
+const Neutrino = require('neutrino/Neutrino');
 
-const api = Neutrino(options);
+const api = new Neutrino(options);
 ```
 
 Using ES imports:
 
 ```js
-import { Neutrino } from 'neutrino';
+import Neutrino from 'neutrino/Neutrino';
 
-const api = Neutrino(options);
+const api = new Neutrino(options);
 ```
 
 ## API options
 
-The Neutrino function can accept an object for setting a number of useful options.
+The Neutrino API class can accept an object for setting a number of useful options.
 
 ### Path options
 
