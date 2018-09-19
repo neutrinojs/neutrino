@@ -164,9 +164,9 @@ by Jest.
 ## Linting with ESLint
 
 ESLint's CLI tool can lint your project in addition to development-time hints when used
-with `@neutrinojs/eslint` or its dependent presets. You should have `eslint` installed to run this build.
-Check the documentation of your linting preset for details on the recommended installation instructions
-to lint your project.
+with `@neutrinojs/eslint` or its dependent presets. You should have `eslint` installed in order
+to run the ESLint CLI tool. Check the documentation of your linting preset for details
+on the recommended installation instructions to lint your project.
 
 Example usage:
 
