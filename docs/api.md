@@ -293,64 +293,9 @@ const neutrino = require('neutrino');
 module.exports = neutrino().postcss();
 ```
 
-## Runnable Functions
-
-TODO
-The following functions are exported from Neutrino and can be registered with the API to be executed from `run`
-(recommended) or `call`. These functions are used internally by the CLI, which creates its own instance of the API and
-registers them prior to `run`. Since each of them can be registered directly with the API, they each have the same
-signature, accepting a webpack configuration and an API instance.
-
-### `inspect(webpackConfig, neutrinoApi)`
-
-TODO
-The `inspect()` function is responsible for creating an object string which represents a webpack configuration for the
-provided middleware and options. Upon execution `inspect` will:
-
-- Receive the webpack configuration object
-- Deep-sort the object
-- Stringify the object with 2 spaces (**not** JSON stringified!)
-
-The `inspect` function returns a [`Future`](https://github.com/fluture-js/Fluture) which can then be used to
-kick off the runnable flow. This Future will be resolved with a string representation of the webpack config, or reject
-with an error.
-
-_Example: using the `run` method:_
-
-```js
-const { Neutrino, inspect } = require('neutrino');
-const api = Neutrino();
-
-api
-  .register('inspect', inspect)
-  .use('@neutrinojs/node')
-  .run('inspect')
-  .fork(
-    errors => errors.forEach(err => console.error(err)),
-    config => console.log(config)
-  );
-```
-
-_Example: calling `inspect` manually:_
-
-```js
-const { Neutrino, inspect } = require('neutrino');
-const api = Neutrino();
-
-api.use('@neutrinojs/node');
-
-inspect(api.config.toConfig(), api)
-  .fork(
-    err => err => console.error(err),
-    config => console.log(config)
-  );
-```
-
-## Helper Methods
-
 ### `regexFromExtensions`
 
-Using the Neutrino API you can get a regex expression from a list of extensions using the `regexFromExtensions` method.
+Using the Neutrino API you can get a regular expression from a list of extensions using the `regexFromExtensions` method.
 The `regexFromExtensions` takes in an array of extensions as a parameter but can be invoked
 without any parameters which fallback to `neutrino.options.extensions`.
 
