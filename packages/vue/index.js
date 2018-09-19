@@ -59,6 +59,12 @@ module.exports = (neutrino, opts = {}) => {
   }
 
   neutrino.config.when(neutrino.config.module.rules.has('lint'), () => {
+    // We need to re-set the extension list used by the eslint settings
+    // since when it was generated it didn't include the vue extension.
+    neutrino.config.module
+      .rule('lint')
+        .test(neutrino.regexFromExtensions());
+
     neutrino.use(loaderMerge('lint', 'eslint'), {
       baseConfig: {
         extends: ['plugin:vue/base']
