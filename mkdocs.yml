@@ -63,7 +63,6 @@ nav:
     - start-server: './packages/start-server.md'
     - style-loader: './packages/style-loader.md'
     - style-minify: './packages/style-minify.md'
-    - stylelint: './packages/stylelint.md'
   - API: './api.md'
   - Creating Presets: './creating-presets.md'
   - Previous Versions:

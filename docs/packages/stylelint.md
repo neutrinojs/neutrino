@@ -1,1 +1,0 @@
-../../packages/stylelint/README.md
