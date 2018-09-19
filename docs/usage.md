@@ -8,7 +8,25 @@ favorite CLI tools, preferably using scripts defined in your project's `package.
 ## Setup
 
 After completing the [installation](./installation/index.md) of Neutrino and any Neutrino presets or
-middleware, you will want to define some scripts in your project's `package.json` in order to more
+middleware, you will need to create a `.neutrinorc.js` file to control its options and tell your project
+which middleware to load when building and performing various related tasks. The recommended approach
+is to export an object with a root directory option and the middleware you have installed.
+
+_Example: create a baseline `.neutrinorc.js` file for a React project:_
+
+```js
+// .neutrinorc.js
+module.exports = {
+  options: {
+    root: __dirname
+  },
+  use: [
+    '@neutrinojs/react'
+  ]
+};
+```
+
+Next you will want to define some scripts in your project's `package.json` in order to more
 easily interact with your project. In a typical project:
 
 - `scripts.start` would be the command you wish to run during development
@@ -20,30 +38,44 @@ typical recommendations for script target names. You may choose different names 
 
 ## Building for development
 
-TODO
-Neutrino provides the command `neutrino start` for creating a bundle during development. Using
-`neutrino start` by default sets the Node.js environment to `development` using the `NODE_ENV` environment variable,
-which is available in your project source code. Depending on the presets you are using, `neutrino start`
-may also spin up a development server with Hot Module Replacement (HMR) capabilities.
-Check the documentation of your preset for details.
+Webpack's CLI tools provide commands for creating or starting a bundle during development, any vary
+depending on whether you are targeting a browser or Node.js. For example, if working on a web project,
+you would typically install `webpack`, `webpack-cli`, and `webpack-dev-server` and call the latter during
+development. For Node.js, you would typically install `webpack` and `webpack-cli`, and call `webpack` from
+scripts during development. Check the documentation of your preset for details on the recommended installation
+instructions to build your project for development.
 
-Usage:
+Example usage:
 
 ```bash
-# PRESET_MODULE is the name of the preset to build with, e.g. @neutrinojs/react
-neutrino start --use PRESET_MODULE
+webpack-dev-server --mode development
 ```
 
 Putting this into your `package.json` will allow you to build your project using either
-`yarn start` or `npm start`. Using `@neutrinojs/react` as an example:
+`yarn start` or `npm start`.
 
 ```json
 {
   "scripts": {
-    "start": "neutrino start --use @neutrinojs/react"
+    "start": "webpack-dev-server --mode development"
   }
 }
 ```
+
+To tell `webpack` or `webpack-dev-server` to load Neutrino middleware or presets for
+its configuration, create a `webpack.config.js` in the root of the project with the
+following:
+
+```js
+// webpack.config.js
+const neutrino = require('neutrino');
+
+module.exports = neutrino().webpack();
+```
+
+This will cause Neutrino to load all middleware and options defined in the project's
+`.neutrinorc.js` file then turn it into a configuration format suitable for consumption
+by webpack.
 
 ## Building for production
 
