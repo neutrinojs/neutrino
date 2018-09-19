@@ -36,19 +36,22 @@ nav:
   - Middleware: './middleware.md'
   - Packages:
     - Presets:
-      - React: './packages/react.md'
-      - Preact: './packages/preact.md'
-      - Vue: './packages/vue.md'
+      - Web Projects:
+        - React: './packages/react.md'
+        - Preact: './packages/preact.md'
+        - Vue: './packages/vue.md'
+        - Web: './packages/web.md'
       - Node.js: './packages/node.md'
       - React Components: './packages/react-components.md'
-      - Library: './packages/library.md'
-      - Web: './packages/web.md'
-      - Airbnb: './packages/airbnb.md'
-      - Airbnb Base: './packages/airbnb-base.md'
-      - StandardJS: './packages/standardjs.md'
-      - Karma: './packages/karma.md'
-      - Mocha: './packages/mocha.md'
-      - Jest: './packages/jest.md'
+      - Libraries: './packages/library.md'
+      - Linting:
+        - Airbnb: './packages/airbnb.md'
+        - StandardJS: './packages/standardjs.md'
+        - Airbnb Base: './packages/airbnb-base.md'
+      - Testing:
+        - Jest: './packages/jest.md'
+        - Karma: './packages/karma.md'
+        - Mocha: './packages/mocha.md'
     - Core Middleware:
       - banner: './packages/banner.md'
       - clean: './packages/clean.md'
