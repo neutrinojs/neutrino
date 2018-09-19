@@ -70,7 +70,7 @@ the package.json would be located. If the option is not set, Neutrino defaults i
 path is specified, it will be resolved relative to `process.cwd()`; absolute paths will be used as-is.
 
 ```js
-Neutrino({
+new Neutrino({
   // if not specified, defaults to process.cwd()
 
   // relative, resolves to process.cwd() + website
@@ -87,7 +87,7 @@ Set the directory which contains the application source code. If the option is n
 If a relative path is specified, it will be resolved relative to `options.root`; absolute paths will be used as-is.
 
 ```js
-Neutrino({
+new Neutrino({
   // if not specified, defaults to options.root + src
 
   // relative, resolves to options.root + lib
@@ -104,7 +104,7 @@ Set the directory which will be the output of built assets. If the option is not
 If a relative path is specified, it will be resolved relative to `options.root`; absolute paths will be used as-is.
 
 ```js
-Neutrino({
+new Neutrino({
   // if not specified, defaults to options.root + build
 
   // relative, resolves to options.root + dist
@@ -121,7 +121,7 @@ Set the directory that contains test files. If the option is not set, Neutrino d
 If a relative path is specified, it will be resolved relative to `options.root`; absolute paths will be used as-is.
 
 ```js
-Neutrino({
+new Neutrino({
   // if not specified, defaults to options.root + test
 
   // relative, resolves to options.root + testing
@@ -148,7 +148,7 @@ they will be computed and resolved relative to `options.source`; absolute paths 
 Multiple entry points and any page-specific configuration (if supported by the preset) can be specified like so:
 
 ```js
-Neutrino({
+new Neutrino({
   mains: {
     // Relative path, so resolves to options.source + home.*
     index: 'home',
@@ -189,14 +189,13 @@ Returns the `package.json` object defined at the root level of the project.
 When creating a Neutrino instance, you have the option of providing an object which can be passed as options to
 middleware as `neutrino.options`.
 
-TODO
 ```js
-const { Neutrino } = require('neutrino');
+const Neutrino = require('neutrino/Neutrino');
 
-const neutrino = Neutrino();
+const neutrino = new Neutrino();
 
 // or with optional options
-const neutrino = Neutrino({ output: 'dist' });
+const neutrino = new Neutrino({ output: 'dist' });
 ```
 
 ### `options`
@@ -253,8 +252,8 @@ neutrino.use({
 })
 ```
 
-Any `options` passed to a middleware _object format_ will be set on the Neutrino API instance prior to consuming any
-middleware in the `use` array.
+An `options` property passed to a middleware _object format_ will be merged with the option
+on the Neutrino API instance prior to consuming any middleware in the `use` property.
 
 ### `config.toConfig()`
 
@@ -266,31 +265,33 @@ a configuration object readable directly by webpack.
 api.config.toConfig(); // -> { ... }
 ```
 
-### `register(command, handler, description = '')`
+### `register(name, handler)`
 
-TODO
-This method registers a new command which can be run from the API at a later time. This function takes three
-arguments: a String command name, a Function which accepts a webpack configuration and the API, and an optional string
-description. The return value of `handler` depends on the expected usage of the command. The description is optional,
-but useful when using `--help` from the command line to view available commands.
+This method registers a new output handler which is typically consumed by CLI configuration files for
+outputting a special format based on the accumulated middleware. This method takes two
+arguments: a String output handler name and a Function which accepts the Neutrino API instance.
+The return value of `handler` depends on the expected usage of the function call and varies accordingly.
 
-The handler function can accept two arguments:
-
-1. A webpack configuration object. This is the result of calling `api.config.toConfig()`, and represents a
-webpack-usable object
-2. The Neutrino API instance
-
-_Example: add a new runnable command which resolves with a JSON-formatted webpack configuration:_
+_Example: register a new output handler which returns a well-known postcss configuration:_
 
 ```js
-api.register(
-  'jsonify',
-  config => JSON.stringify(config, null, 2),
-  'Output a JSON representation of the accumulated webpack configuration'
-);
+api.register('postcss', neutrino => {
+  return neutrino.config.module
+    .rule('style')
+    .use('postcss')
+    .get('options')
+});
 ```
 
-The registered command can be triggered from `call()`, `run()`, or via the CLI.
+This registered output handler can now be called directly from a `postcss.config.js` file as
+long as middleware was loaded for the Neutrino API which registered this handler:
+
+```js
+// postcss.config.js
+const neutrino = require('neutrino');
+
+module.exports = neutrino().postcss();
+```
 
 ## Runnable Functions
 
