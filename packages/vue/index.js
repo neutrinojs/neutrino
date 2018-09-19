@@ -18,6 +18,15 @@ module.exports = (neutrino, opts = {}) => {
     }
   }, opts);
 
+  // Add vue extension as a higher priority than JS files.
+  // Since neutrino.options.extensions is always a copy of a Set,
+  // this splice operation is always mutation-safe.
+  const { extensions } = neutrino.options;
+  const index = extensions.indexOf('js');
+
+  extensions.splice(index, 0, 'vue');
+
+  neutrino.options.extensions = extensions; // eslint-disable-line no-param-reassign
   neutrino.use(web, options);
 
   // vue-loader needs CSS files to be parsed with vue-style-loader instead of

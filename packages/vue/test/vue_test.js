@@ -4,6 +4,7 @@ import Neutrino from '../../neutrino/Neutrino';
 
 const mw = () => require('..');
 const originalNodeEnv = process.env.NODE_ENV;
+const expectedExtensions = ['.wasm', '.mjs', '.jsx', '.vue', '.js', '.json'];
 
 test.afterEach(() => {
   // Restore the original NODE_ENV after each test (which Ava defaults to 'test').
@@ -22,8 +23,10 @@ test('valid preset production', t => {
   process.env.NODE_ENV = 'production';
   const api = new Neutrino();
   api.use(mw());
+  const config = api.config.toConfig();
 
-  const errors = validate(api.config.toConfig());
+  const errors = validate(config);
+  t.deepEqual(config.resolve.extensions, expectedExtensions);
 
   t.is(errors.length, 0);
 });
@@ -32,8 +35,10 @@ test('valid preset development', t => {
   process.env.NODE_ENV = 'development';
   const api = new Neutrino();
   api.use(mw());
+  const config = api.config.toConfig();
 
-  const errors = validate(api.config.toConfig());
+  const errors = validate(config);
+  t.deepEqual(config.resolve.extensions, expectedExtensions);
 
   t.is(errors.length, 0);
 });
