@@ -7,10 +7,9 @@ favorite CLI tools, preferably using scripts defined in your project's `package.
 
 ## Setup
 
-TODO
-After completing the [installation](./installation/index.md) of Neutrino and your Neutrino preset, you will
-want to define some scripts in your project's `package.json` in order to more simply build your project.
-In a typical project:
+After completing the [installation](./installation/index.md) of Neutrino and any Neutrino presets or
+middleware, you will want to define some scripts in your project's `package.json` in order to more
+easily interact with your project. In a typical project:
 
 - `scripts.start` would be the command you wish to run during development
 - `scripts.build` would be the command you wish to run to create a production bundle
