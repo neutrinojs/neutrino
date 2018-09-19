@@ -1,28 +1,24 @@
 # Neutrino API
 
-When using Neutrino via the recommended `webpack.config.js` output generator (see build presets docs),
-it creates an instance of the Neutrino API which uses the configuration defined in your `.neutrinorc.js`.
-If you desire, you can also create your own instance of the Neutrino API and interact with it programmatically.
+When using the Neutrino package via the recommended `webpack.config.js` output generator
+(see build presets docs), it creates an instance of the Neutrino API which uses the
+configuration defined in your `.neutrinorc.js`. If you desire, you can also create your
+own instance of the Neutrino API and interact with it programmatically.
 
 ## Importing
 
-TODO
-The default export of the Neutrino module is an object with the core Neutrino API, along with available
-built-in functions for the API to run:
+The default export of the `neutrino` package is a function which instantiates the `Neutrino`
+API class, sets some defaults around `NODE_ENV` and webpack's `mode`, as well setting up
+some basic output handlers. To access the `Neutrino` API class, you can require it via:
 
 ```js
-const {
-  Neutrino,
-  build,
-  inspect,
-  start,
-  test
-} = require('neutrino');
+const Neutrino = require('neutrino/Neutrino');
 ```
 
-The `Neutrino` function is the lowest-level API, and each of the other methods can be used with the Neutrino
-API for executing their functionality. First, we will cover the `Neutrino` API and
-later showing how to use the runnable functions.
+The `Neutrino` API class is the core middleware control mechanism and is responsible
+for all the work which composes and accumulates middleware and presets for consumption
+by webpack, ESLint, test runners, etc. Let's cover getting started with the `Neutrino`
+API class and then its available methods.
 
 ## Instantiation
 
