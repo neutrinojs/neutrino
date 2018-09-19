@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
 const yargsParser = require('yargs-parser');
+const neutrino = require('..');
 
 const argv = yargsParser(process.argv.slice(2));
 
 if (argv.inspect) {
-  // eslint-disable-next-line global-require
-  require('../')().inspect();
+  neutrino().inspect();
+  process.exit();
 }
 
 console.error(`
