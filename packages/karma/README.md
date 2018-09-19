@@ -17,24 +17,27 @@
 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
-- Neutrino v8, Neutrino build preset
+- Neutrino 9 and one of the Neutrino build presets
+- webpack 4
+- Karma 3 and Karma CLI 1
+- Mocha 5
 
 ## Installation
 
 `@neutrinojs/karma` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `@neutrinojs/karma` are development dependencies. You will also be using
+the dependencies below are installed as development dependencies. You will also be using
 another Neutrino preset for building your application source code.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev @neutrinojs/karma
+❯ yarn add --dev @neutrinojs/karma karma karma-cli mocha
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev @neutrinojs/karma
+❯ npm install --save-dev @neutrinojs/karma karma karma-cli mocha
 ```
 
 ## Project Layout
@@ -64,18 +67,8 @@ describe('simple', () => {
 });
 ```
 
-Now edit your project's package.json to add commands for testing your application. In this example,
+Now update your project's `.neutrinorc.js` to add the `@neutrinojs/karma` preset. In this example,
 let's pretend this is a React project:
-
-```json
-{
-  "scripts": {
-    "test": "neutrino test --use @neutrinojs/react @neutrinojs/karma"
-  }
-}
-```
-
-Or if you are using `.neutrinorc.js`, add this preset to your use array instead of `--use` flags:
 
 ```js
 module.exports = {
@@ -83,6 +76,28 @@ module.exports = {
     '@neutrinojs/react',
     '@neutrinojs/karma'
   ]
+};
+```
+
+Create a `karma.conf.js` file in the root of the project, that will be used by the Karma CLI:
+
+```js
+// karma.conf.js
+const neutrino = require('neutrino');
+
+process.env.NODE_ENV = process.env.NODE_ENV || 'test';
+
+module.exports = neutrino().karma();
+```
+
+Then add these scripts entries to your `package.json` to simplify running Karma:
+
+```json
+{
+  "scripts": {
+    "test": "karma start --single-run",
+    "test:watch": "karma start"
+  }
 }
 ```
 
@@ -133,17 +148,18 @@ import thingToTest from '../src/thing';
 ```
 
 For more details on specific Karma usage, please refer to their
-[documentation](https://karma-runner.github.io/1.0/index.html).
+[documentation](https://karma-runner.github.io/2.0/index.html).
 
 ## Executing single tests
 
 By default this preset will execute every test file located in your test directory ending in the appropriate file
-extension. Use the command line [`files` parameters](https://neutrinojs.org/cli/#neutrino-test) to execute individual tests.
+extension. Pass specific test filenames to the Karma CLI to override this.
 
 ## Watching for changes
 
-`@neutrinojs/karma` can watch for changes on your source directory and subsequently re-run tests. Simply use the
-`--watch` flag with your `neutrino test` command.
+`@neutrinojs/karma` can watch for changes on your source directory and subsequently re-run tests.
+Simply omit the `--single-run` argument when running the Karma CLI (for example by using the `test:watch`
+scripts entry above).
 
 ## Preset options
 
@@ -151,7 +167,7 @@ You can provide custom options and have them merged with this preset's default o
 to Karma. You can modify Karma settings from `.neutrinorc.js` by overriding with any options Karma accepts. In a standalone
 Karma project this is typically done in a `karma.conf.js` or similar file, but `@neutrinojs/karma` allows
 configuration through `.neutrinorc.js` as well. This accepts the same configuration options as outlined in the
-[Karma documentation](https://karma-runner.github.io/1.0/config/configuration-file.html). Use an array pair instead of
+[Karma documentation](https://karma-runner.github.io/2.0/config/configuration-file.html). Use an array pair instead of
 a string to supply these options.
 
 _Example: Change the duration Karma waits for a browser to reconnect (in ms)._
@@ -160,20 +176,6 @@ _Example: Change the duration Karma waits for a browser to reconnect (in ms)._
 module.exports = {
   use: [
     ['@neutrinojs/karma', { browserDisconnectTimeout: 5000 }]
-  ]
-};
-```
-
-If you wish to completely override the Karma configuration instead of it being merged, set the `override` property to
-`true` in the preset options:
-
-```js
-module.exports = {
-  use: [
-    ['@neutrinojs/karma', {
-      override: true,
-      /* specify all other Karma configuration options */
-    }]
   ]
 };
 ```

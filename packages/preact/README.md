@@ -27,25 +27,28 @@
 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
-- Neutrino v8
+- Neutrino 9
+- webpack 4
+- webpack-cli 3
+- webpack-dev-server 3
 
 ## Installation
 
 `@neutrinojs/preact` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `@neutrinojs/preact` are development dependencies. You will also need `preact` for actual
-Preact development.
+that the Neutrino and webpack related dependencies below are installed as development dependencies.
+You will also need `preact` for actual Preact development.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev neutrino @neutrinojs/preact
+❯ yarn add --dev neutrino @neutrinojs/preact webpack webpack-cli webpack-dev-server
 ❯ yarn add preact
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev neutrino @neutrinojs/preact
+❯ npm install --save-dev neutrino @neutrinojs/preact webpack webpack-cli webpack-dev-server
 ❯ npm install --save preact
 ```
 
@@ -121,23 +124,31 @@ import { render } from 'preact';
 render(<h1>Hello world!</h1>, document.getElementById('root'));
 ```
 
-Now edit your project's package.json to add commands for starting and building the application:
+Now edit your project's `package.json` to add commands for starting and building the application:
 
 ```json
 {
   "scripts": {
-    "start": "neutrino start --use @neutrinojs/preact",
-    "build": "neutrino build --use @neutrinojs/preact"
+    "start": "webpack-dev-server --mode development",
+    "build": "webpack --mode production"
   }
 }
 ```
 
-If you are using `.neutrinorc.js`, add this preset to your use array instead of `--use` flags:
+Then create a `.neutrinorc.js` file alongside `package.json`, which contains your Neutrino configuration:
 
 ```js
 module.exports = {
   use: ['@neutrinojs/preact']
 };
+```
+
+And create a `webpack.config.js` file, that uses the Neutrino API to access the generated webpack config:
+
+```js
+const neutrino = require('neutrino');
+
+module.exports = neutrino().webpack();
 ```
 
 Start the app, then open a browser to the address in the console:
@@ -243,11 +254,49 @@ To override the build configuration, start with the documentation on [customizat
 Web preset. See the [Web documentation customization](https://neutrinojs.org/packages/web/#customizing)
 for preset-specific configuration to override.
 
+For details on merging and overriding Babel configuration, such as supporting decorator syntax, read more
+about using the [`compile-loader` `merge`](https://neutrinojs.org/packages/compile-loader/#advanced-merging) once you
+are comfortable customizing your build.
+
 ### Advanced configuration
 
 By following the [customization guide](https://neutrinojs.org/customization/) and knowing the rule, loader, and plugin IDs from
 `@neutrinojs/web`, you can override and augment the build by providing a function to your `.neutrinorc.js` use
 array. You can also make these changes from the Neutrino API in custom middleware.
+
+By default Neutrino, and therefore this preset, creates a single **main** `index` entry point to your application, and
+this maps to the `index.*` file in the `src` directory. The extension is resolved by webpack. This value is provided by
+`neutrino.options.mains` at `neutrino.options.mains.index`.
+
+If you wish to output multiple pages, you can configure them like so:
+
+```js
+module.exports = {
+  options: {
+    mains: {
+      index: {
+        // outputs index.html from src/index.*
+        entry: 'index',
+        // Additional options are passed to html-webpack-plugin, and override
+        // any defaults set via the preset's `html` option.
+        title: 'Site Homepage',
+      },
+      admin: {
+        // outputs admin.html from src/admin.*
+        entry: 'admin',
+        title: 'Admin Dashboard',
+      },
+      account: {
+        // outputs account.html from src/user.* using a custom HTML template.
+        entry: 'user',
+        inject: true,
+        template: 'my-custom-template.html',
+      },
+    }
+  },
+  use: ['@neutrinojs/preact']
+}
+```
 
 #### Vendoring
 

@@ -11,7 +11,8 @@ added during production builds.
 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
-- Neutrino v8
+- Neutrino 9
+- webpack 4
 
 ## Installation
 
@@ -20,13 +21,13 @@ added during production builds.
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/style-minify
+❯ yarn add --dev @neutrinojs/style-minify
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/style-minify
+❯ npm install --save-dev @neutrinojs/style-minify
 ```
 
 ## Usage
@@ -86,7 +87,7 @@ make changes.
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `optimize-css` | Minifies css using `OptimizeCssAssetsPlugin`. | all |
 

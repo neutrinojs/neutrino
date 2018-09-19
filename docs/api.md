@@ -1,52 +1,49 @@
 # Neutrino API
 
-When using Neutrino via the [CLI](./cli.md), it creates an instance of the Neutrino API which picks up
-any middleware and arguments passed on the command line or located in your `.neutrinorc.js`. If you desire, you can
-also create your own instance of the Neutrino API and interact with it programmatically.
+When using the Neutrino package via the recommended `webpack.config.js` output generator
+(see build presets docs), it creates an instance of the Neutrino API which uses the
+configuration defined in your `.neutrinorc.js`. If you desire, you can also create your
+own instance of the Neutrino API and interact with it programmatically.
 
 ## Importing
 
-The default export of the Neutrino module is an object with the core Neutrino API, along with available
-built-in functions for the API to run:
+The default export of the `neutrino` package is a function which instantiates the `Neutrino`
+API class, sets some defaults around `NODE_ENV` and webpack's `mode`, as well setting up
+some basic output handlers. To access the `Neutrino` API class, you can require it via:
 
 ```js
-const {
-  Neutrino,
-  build,
-  inspect,
-  start,
-  test
-} = require('neutrino');
+const Neutrino = require('neutrino/Neutrino');
 ```
 
-The `Neutrino` function is the lowest-level API, and each of the other methods can be used with the Neutrino
-API for executing their functionality. First, we will cover the `Neutrino` API and
-later showing how to use the runnable functions.
+The `Neutrino` API class is the core middleware control mechanism and is responsible
+for all the work which composes and accumulates middleware and presets for consumption
+by webpack, ESLint, test runners, etc. Let's cover getting started with the `Neutrino`
+API class and then its available methods.
 
 ## Instantiation
 
-In order to access the Neutrino API, you must require or import it and invoke it, passing in any
-options:
+In order to access the `Neutrino` API class, you must require or import it and invoke it,
+passing in any options:
 
 Using `require`:
 
 ```js
-const { Neutrino } = require('neutrino');
+const Neutrino = require('neutrino/Neutrino');
 
-const api = Neutrino(options);
+const api = new Neutrino(options);
 ```
 
 Using ES imports:
 
 ```js
-import { Neutrino } from 'neutrino';
+import Neutrino from 'neutrino/Neutrino';
 
-const api = Neutrino(options);
+const api = new Neutrino(options);
 ```
 
 ## API options
 
-The Neutrino function can accept an object for setting a number of useful options.
+The Neutrino API class can accept an object for setting a number of useful options.
 
 ### Path options
 
@@ -73,7 +70,7 @@ the package.json would be located. If the option is not set, Neutrino defaults i
 path is specified, it will be resolved relative to `process.cwd()`; absolute paths will be used as-is.
 
 ```js
-Neutrino({
+new Neutrino({
   // if not specified, defaults to process.cwd()
 
   // relative, resolves to process.cwd() + website
@@ -90,7 +87,7 @@ Set the directory which contains the application source code. If the option is n
 If a relative path is specified, it will be resolved relative to `options.root`; absolute paths will be used as-is.
 
 ```js
-Neutrino({
+new Neutrino({
   // if not specified, defaults to options.root + src
 
   // relative, resolves to options.root + lib
@@ -107,7 +104,7 @@ Set the directory which will be the output of built assets. If the option is not
 If a relative path is specified, it will be resolved relative to `options.root`; absolute paths will be used as-is.
 
 ```js
-Neutrino({
+new Neutrino({
   // if not specified, defaults to options.root + build
 
   // relative, resolves to options.root + dist
@@ -124,7 +121,7 @@ Set the directory that contains test files. If the option is not set, Neutrino d
 If a relative path is specified, it will be resolved relative to `options.root`; absolute paths will be used as-is.
 
 ```js
-Neutrino({
+new Neutrino({
   // if not specified, defaults to options.root + test
 
   // relative, resolves to options.root + testing
@@ -151,7 +148,7 @@ they will be computed and resolved relative to `options.source`; absolute paths 
 Multiple entry points and any page-specific configuration (if supported by the preset) can be specified like so:
 
 ```js
-Neutrino({
+new Neutrino({
   mains: {
     // Relative path, so resolves to options.source + home.*
     index: 'home',
@@ -178,35 +175,10 @@ Informs interested middleware that they should be in a state of debugging. This 
 behave any differently, rather it can be used to inform middleware to behave differently, by outputting console
 information, inspecting processes, or changing configuration which is helpful for debugging.
 
-### `options.env`
-
-When using the CLI and the higher-level API functions, environment variables are automatically set based on the command
-you are using. When using the `Neutrino` low-level API this is not the case, and you should specify an `env` option
-to the API prior to calling any build commands or loading any middleware if you expect them to build correctly based on
-their environment target.
-
-Use `options.env` to set environment variables and make them available to middleware for conditional operations.
-
-```js
-Neutrino({
-  env: {
-    NODE_ENV: 'production'
-  }
-});
-
-process.env.NODE_ENV // "production"
-```
-
-### `options.command`
-
-The currently running CLI command, e.g. `build`, `start`, `lint`, etc. This value is typically
-set by the CLI when instantiating the API, but can also be set manually. This value is used by some
-middleware to determine when to augment the configuration with certain functionality.
-
 ### `options.extensions`
 
 Informs interested middleware the preferred list of module extensions to support.
-By default, `options.extensions` is set to `['js', 'jsx', 'vue', 'ts', 'tsx', 'mjs']`.
+By default, `options.extensions` is set to `['wasm', 'mjs', 'vue', 'jsx', 'tsx', 'ts', 'js']`.
 
 ### `options.packageJson`
 
@@ -218,12 +190,12 @@ When creating a Neutrino instance, you have the option of providing an object wh
 middleware as `neutrino.options`.
 
 ```js
-const { Neutrino } = require('neutrino');
+const Neutrino = require('neutrino/Neutrino');
 
-const neutrino = Neutrino();
+const neutrino = new Neutrino();
 
 // or with optional options
-const neutrino = Neutrino({ output: 'dist' });
+const neutrino = new Neutrino({ output: 'dist' });
 ```
 
 ### `options`
@@ -280,69 +252,8 @@ neutrino.use({
 })
 ```
 
-Any `options` passed to a middleware _object format_ will be set on the Neutrino API instance prior to consuming any
-middleware in the `use` array.
-
-## Events
-
-### `on(eventName, handler)`
-
-Add a `handler` function to a Neutrino instance that listens to events named `eventName`. If the event handler
-is going to be used with `emitForAll`, ensure the `handler` returns a Promise. Use the `*` event name to
-execute the handler for all events. Note that `*` events are triggered after named events.
-
-```js
-api.on('custom-event', () => {
-  // ...
-});
-```
-
-### `off(eventName, handler)`
-
-Remove a `handler` function from listening to a particular `eventName`, including `*` events.
-
-```js
-const handler = () => /* ... */;
-
-api.on('custom-event', handler);
-
-api.off('custom-event', handler);
-```
-
-### `emit(eventName, payload)`
-
-Invoke all handlers for the given `eventName`. Note that `*` handlers are executed after named events. You may
-also pass an optional `payload` value to be passed as an argument to the associated event handler function.
-
-```js
-api.emit('custom-event', { /* payload */ });
-```
-
-### `emitForAll(eventName, payload)`
-
-Invoke all handlers for the given `eventName`, meant for usage with Promise-dependent events. For example, calling
-`emitForAll('build')` will trigger an event named build, and each event handler can return a Promise denoting when it
-is finished. When all events have finished, this call will resolve.
-
-This method returns a Promise which resolves when all event handlers have also resolved.
-
-```js
-api
-  .emitForAll('custom-event')
-  .then(() => console.log('All custom-events have resolved!'));
-```
-
-By passing an additional argument for `payload`, you can pass custom data to all the event handlers
-
-```js
-api.emitForAll('custom-event', { custom: 'payload' });
-
-// ...
-
-api.on('custom-event', (args, payload) => {
-  console.log(payload.custom); // "payload"
-});
-```
+An `options` property passed to a middleware _object format_ will be merged with the option
+on the Neutrino API instance prior to consuming any middleware in the `use` property.
 
 ### `config.toConfig()`
 
@@ -354,354 +265,37 @@ a configuration object readable directly by webpack.
 api.config.toConfig(); // -> { ... }
 ```
 
-### `register(command, handler, description = '')`
+### `register(name, handler)`
 
-This method registers a new command which can be run from the API at a later time. This function takes three
-arguments: a String command name, a Function which accepts a webpack configuration and the API, and an optional string
-description. The return value of `handler` depends on the expected usage of the command. The description is optional,
-but useful when using `--help` from the command line to view available commands.
+This method registers a new output handler which is typically consumed by CLI configuration files for
+outputting a special format based on the accumulated middleware. This method takes two
+arguments: a String output handler name and a Function which accepts the Neutrino API instance.
+The return value of `handler` depends on the expected usage of the function call and varies accordingly.
 
-The handler function can accept two arguments:
-
-1. A webpack configuration object. This is the result of calling `api.config.toConfig()`, and represents a
-webpack-usable object
-2. The Neutrino API instance
-
-_Example: add a new runnable command which resolves with a JSON-formatted webpack configuration:`
+_Example: register a new output handler which returns a well-known postcss configuration:_
 
 ```js
-api.register(
-  'jsonify',
-  config => JSON.stringify(config, null, 2),
-  'Output a JSON representation of the accumulated webpack configuration'
-);
-```
-
-The registered command can be triggered from `call()`, `run()`, or via the CLI.
-
-### `require(moduleId)`
-
-This method is typically used internally by the Neutrino API to attempt to require a string module ID in various paths
-before failing. Takes a String `moduleId` and returns the first exports of the module it is able to require. This
-will throw an exception if Neutrino is unable to require the specified module ID in any of its know paths.
-
-### `call(commandName)`
-
-This API method will invoke a command function that has been previously defined by the `register` method.
-The `commandName` argument should be a String. Any necessary middleware should be used prior to invoking `call`.
-
-The `call` method will invoke the registered command with two arguments: a webpack configuration object, and the
-instance of the Neutrino API. The return value of using `call` will be the return value of invoking the registered
-handler with these two arguments.
-
-For a concrete example, the [eslint middleware](./packages/eslint.md) registers an `eslintrc`
-command. The results of this command can be returned with `call`, which is loaded within
-`.neutrinorc.js` in this example:
-
-```js
-const { Neutrino } = require('neutrino');
-
-const eslintConfig = Neutrino({ root: __dirname })
-  .use('.neutrinorc.js')
-  .call('eslintrc');
-```
-
-### `run(commandName)`
-
-This API method will invoke a command function that has been previously defined by the `register` method.
-The `commandName` argument should be a String. Any necessary middleware should be used prior to invoking `run`.
-
-Every runnable command performs the following flow:
-
-- Triggers all `pre*` event handlers for the given command name
-- Triggers all `prerun` event handlers
-- Invokes the given registered command function
-- Triggers all event handlers for the given command name
-- Triggers all `run` event handlers
-
-The `run` method will invoke the registered command with two arguments: a webpack configuration object, and the
-instance of the Neutrino API. Calling a runnable command will return a
-[`Future`](https://github.com/fluture-js/Fluture) which can then be used to kick off the above flow. This Future will
-be resolved with the resolution value of the command, or rejected with any errors the command provides. The return
-value from the registered command can be any synchronous value, Promise, or Future, and Neutrino will properly chain
-from this.
-
-The Neutrino package exports functions to automate key parts of interacting with the Neutrino API, and they are named
-`build`, `inspect`, `start`, and `test`. These are command functions that are invoked when using the CLI.
-As an example, the CLI does this similar to the following:
-
-```js
-const { Neutrino, build } = require('neutrino');
-
-const api = Neutrino();
-
-api.register('build', build);
-
-// later
-api
-  .use(middleware)
-  .run('build')
-  .fork(
-    (errs) => { /* handle errors */ },
-    () => { /* handle success */ }
-  );
-
-```
-
-_Example: execute the `jsonify` command we registered in the `register()` example, and resolve with a Future`:
-
-```js
-const api = Neutrino();
-const Future = require('fluture');
-
-api.register('jsonify', config => Future.of(JSON.stringify(config, null, 2)));
-
-// ...
-
-api
-  .run('jsonify')
-  .fork(console.error, json => console.log(json));
-```
-
-_Example: execute the `jsonify` command we registered in the `register()` example, and resolve with a Promise`:
-
-```js
-const api = Neutrino();
-
-api.register('jsonify', config => Promise.resolve(JSON.stringify(config, null, 2)));
-
-// ...
-
-api
-  .run('jsonify')
-  .fork(console.error, json => console.log(json));
-```
-
-The `run` method takes a single argument, a String command name which the API can execute,
-which has been previously registered with `register`.
-
-Prior to starting this process, Neutrino will trigger and wait for `pre{command}` and `prerun` events to
-finish. After it is complete, Neutrino will trigger and wait for `{command}` and `run` events to finish.
-
-```js
-const { Neutrino, build } = require('neutrino');
-const api = Neutrino();
-
-api
-  .register('build', build)
-  .use('@neutrinojs/react')
-  .run('build')
-  .fork(
-    errors => errors.forEach(console.error),
-    stats => console.log(stats.toString({ colors: true }))
-  );
-```
-
-## Runnable Functions
-
-The following functions are exported from Neutrino and can be registered with the API to be executed from `run`
-(recommended) or `call`. These functions are used internally by the CLI, which creates its own instance of the API and
-registers them prior to `run`. Since each of them can be registered directly with the API, they each have the same
-signature, accepting a webpack configuration and an API instance.
-
-### `start(webpackConfig, neutrinoApi)`
-
-The `start` function is responsible for creating a development bundle, and when possible, starting a development
-server or source watcher. If the Neutrino config contains options for `devServer`, then a webpack-dev-server will be
-started, otherwise a webpack source watcher will be started.
-
-The `start` function returns a [`Future`](https://github.com/fluture-js/Fluture) which can then be used to
-kick off the runnable flow. This Future will be resolved with a webpack compiler (for example, if you wish to listen for
-additional build events), or reject with an **array of errors**. This resolution will be completed when the dev server
-or webpack watcher has been started.
-
-_Example: using the `run` method:_
-
-```js
-const { Neutrino, start } = require('neutrino');
-const api = Neutrino();
-
-api
-  .register('start', start)
-  .use('@neutrinojs/react')
-  .run('start')
-  .fork(
-    errors => errors.forEach(err => console.error(err)),
-    compiler => console.log('App running!')
-  );
-```
-
-_Example: calling `start` manually:_
-
-```js
-const { Neutrino, start } = require('neutrino');
-const api = Neutrino();
-
-api.use('@neutrinojs/react');
-
-start(api.config.toConfig(), api)
-  .fork(
-    errors => errors.forEach(err => console.error(err)),
-    compiler => console.log('App running!')
-  );
-```
-
-### `build(webpackConfig, neutrinoApi)`
-
-The `build` function is responsible for creating a bundle typically used for production.
-
-The `build` function returns a [`Future`](https://github.com/fluture-js/Fluture) which can then be used to
-kick off the runnable flow. This Future will be resolved with a webpack stats object about the build, or reject with an
-**array of errors**. This resolution will be completed when the build has been completed.
-
-_Example: using the `run` method:_
-
-```js
-const { Neutrino, build } = require('neutrino');
-const api = Neutrino();
-
-api
-  .register('build', build)
-  .use('@neutrinojs/node')
-  .run('build')
-  .fork(
-    errors => errors.forEach(err => console.error(err)),
-    stats => console.log(stats.toString({ colors: true }))
-  );
-```
-
-_Example: calling `build` manually_:
-
-```js
-const { Neutrino, build } = require('neutrino');
-const api = Neutrino();
-
-api.use('@neutrinojs/node');
-
-build(api.config.toConfig(), api)
-  .fork(
-    errors => errors.forEach(err => console.error(err)),
-    stats => console.log(stats.toString({ colors: true }))
-  );
-```
-
-### `test(webpackConfig, neutrinoApi)`
-
-The `test` function is typically used for gathering middleware and options needed for testing and triggering relevant
-events as a signal to test middleware that they may run. Using the `test` method has no other functionality other than
-performing the automated runnable flow outlined above. Since `test()` does nothing other than triggering this flow,
-without middleware listening for `test` events, nothing will happen. For this reason, it is recommended that `test` be
-used with the `run` method to ensure that all test-related events are properly retriggered. After Neutrino triggers and
-waits for `test` events to finish, the test runners will do their work and `test()` can resolve.
-
-Any `args` passed to the API as options are passed on to the event handlers and typically have properties for an array
-of `files` to test, as well as a property for `watch`ing and rerunning tests.
-
-The `test` function returns a [`Future`](https://github.com/fluture-js/Fluture) which can then be used to
-kick off the runnable flow. This Future will be resolved, or reject with an error. This resolution will be completed
-when the testing has been finished.
-
-_Example: Using the `run` method:_
-
-```js
-const { Neutrino, test } = require('neutrino');
-const api = Neutrino();
-
-api
-  .register('test', test)
-  .use('@neutrinojs/node')
-  .use('@neutrinojs/mocha')
-  .run('test')
-  .fork(
-    err => console.error(err),
-    () => console.log('Testing completed!')
-  );
-
-// With API args
-const api = Neutrino({
-  args: {
-    files: [/* ... */],
-    watch: true
-  }
+api.register('postcss', neutrino => {
+  return neutrino.config.module
+    .rule('style')
+    .use('postcss')
+    .get('options')
 });
-
-api
-  .register('test', test)
-  .use('@neutrinojs/node')
-  .use('@neutrinojs/mocha')
-  .run('test')
-  .fork(
-    errors => errors.forEach(err => console.error(err)),
-    () => console.log('Testing completed!')
-  );
 ```
 
-_Example: calling `test` manually:_
+This registered output handler can now be called directly from a `postcss.config.js` file as
+long as middleware was loaded for the Neutrino API which registered this handler:
 
 ```js
-const { Neutrino, test } = require('neutrino');
-const api = Neutrino();
+// postcss.config.js
+const neutrino = require('neutrino');
 
-api
-  .use('@neutrinojs/node')
-  .use('@neutrinojs/mocha');
-
-test(api.config.toConfig(), api)
-  .fork(
-    err => console.error(err),
-    () => console.log('Testing completed!')
-  );
+module.exports = neutrino().postcss();
 ```
-
-### `inspect(webpackConfig, neutrinoApi)`
-
-The `inspect()` function is responsible for creating an object string which represents a webpack configuration for the
-provided middleware and options. Upon execution `inspect` will:
-
-- Receive the webpack configuration object
-- Deep-sort the object
-- Stringify the object with 2 spaces (**not** JSON stringified!)
-
-The `inspect` function returns a [`Future`](https://github.com/fluture-js/Fluture) which can then be used to
-kick off the runnable flow. This Future will be resolved with a string representation of the webpack config, or reject
-with an error.
-
-_Example: using the `run` method:_
-
-```js
-const { Neutrino, inspect } = require('neutrino');
-const api = Neutrino();
-
-api
-  .register('inspect', inspect)
-  .use('@neutrinojs/node')
-  .run('inspect')
-  .fork(
-    errors => errors.forEach(err => console.error(err)),
-    config => console.log(config)
-  );
-```
-
-_Example: calling `inspect` manually:_
-
-```js
-const { Neutrino, inspect } = require('neutrino');
-const api = Neutrino();
-
-api.use('@neutrinojs/node');
-
-inspect(api.config.toConfig(), api)
-  .fork(
-    err => err => console.error(err),
-    config => console.log(config)
-  );
-```
-
-## Helper Methods
 
 ### `regexFromExtensions`
 
-Using the Neutrino API you can get a regex expression from a list of extensions using the `regexFromExtensions` method.
+Using the Neutrino API you can get a regular expression from a list of extensions using the `regexFromExtensions` method.
 The `regexFromExtensions` takes in an array of extensions as a parameter but can be invoked
 without any parameters which fallback to `neutrino.options.extensions`.
 
@@ -709,6 +303,6 @@ without any parameters which fallback to `neutrino.options.extensions`.
 // resolves to /\.(vue|js)$/
 neutrino.regexFromExtensions(['vue', 'js']);
 
-// defaults neutrino.options.extensions which resolves to /\.(js|jsx|vue|ts|tsx|mjs)$/
+// defaults neutrino.options.extensions which resolves to /\.(wasm|mjs|vue|jsx|tsx|ts|js)$/
 neutrino.regexFromExtensions();
 ```

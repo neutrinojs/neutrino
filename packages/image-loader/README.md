@@ -9,7 +9,8 @@
 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
-- Neutrino v8
+- Neutrino 9
+- webpack 4
 
 ## Installation
 
@@ -18,13 +19,13 @@
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/image-loader
+❯ yarn add --dev @neutrinojs/image-loader
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/image-loader
+❯ npm install --save-dev @neutrinojs/image-loader
 ```
 
 ## Usage
@@ -77,7 +78,7 @@ ready to make changes.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `image` | Allows importing ICO, JPEG, PNG, GIF, SVG and WEBP files from modules. Contains a single loader named `url`. | all |
 

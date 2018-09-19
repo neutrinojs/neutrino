@@ -23,25 +23,28 @@
 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
-- Neutrino v8
+- Neutrino 9
+- webpack 4
+- webpack-cli 3
+- webpack-dev-server 3
 
 ## Installation
 
 `@neutrinojs/vue` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `@neutrinojs/vue` are development dependencies. You will also need Vue for actual
-Vue development.
+that the Neutrino and webpack related dependencies below are installed as development dependencies.
+You will also need Vue for actual Vue development.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev neutrino @neutrinojs/vue
+❯ yarn add --dev neutrino @neutrinojs/vue webpack webpack-cli webpack-dev-server
 ❯ yarn add vue
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev neutrino @neutrinojs/vue
+❯ npm install --save-dev neutrino @neutrinojs/vue webpack webpack-cli webpack-dev-server
 ❯ npm install --save vue
 ```
 
@@ -125,24 +128,34 @@ Next, edit your `src/App.vue` with the following:
 </template>
 ```
 
-Now edit your project's package.json to add commands for starting and building the application:
+Now edit your project's `package.json` to add commands for starting and building the application:
 
 ```json
 {
   "scripts": {
-    "start": "neutrino start --use @neutrinojs/vue",
-    "build": "neutrino build --use @neutrinojs/vue"
+    "start": "webpack-dev-server --mode development",
+    "build": "webpack --mode production"
   }
 }
 ```
 
-If you are using `.neutrinorc.js`, add this preset to your use array instead of `--use` flags:
+Then create a `.neutrinorc.js` file alongside `package.json`, which contains your Neutrino configuration:
 
 ```js
 module.exports = {
   use: ['@neutrinojs/vue']
 };
 ```
+
+And create a `webpack.config.js` file, that uses the Neutrino API to access the generated webpack config:
+
+```js
+const neutrino = require('neutrino');
+
+module.exports = neutrino().webpack();
+```
+
+Start the app, then open a browser to the address in the console:
 
 #### Yarn
 
@@ -159,8 +172,6 @@ module.exports = {
 ✔ Development server running on: http://localhost:5000
 ✔ Build completed
 ```
-
-Start the app, then open a browser to the address in the console:
 
 ## Building
 
@@ -190,11 +201,10 @@ use the [@neutrinojs/copy](https://neutrinojs.org/packages/copy/) preset alongsi
 
 ## Paths
 
-The `@neutrinojs/web` preset loads assets relative to the path of your application by setting Webpack's
+The `@neutrinojs/web` preset loads assets relative to the path of your application by setting webpack's
 [`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath) to `./`. If you wish to load
 assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
 override `output.publicPath`. See the [Customizing](#customizing) section below.
-
 
 ## Preset options
 
@@ -288,7 +298,7 @@ module.exports = {
 The following is a list of additional rules and their identifiers this preset defines, in addition
 to the ones provided by `@neutrinojs/web`, which can be overridden:
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `vue` | Compiles Vue files from the `src` directory using Babel and `vue-loader`. Contains a single loader named `vue`. | all |
 

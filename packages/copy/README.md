@@ -9,7 +9,8 @@
 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
-- Neutrino v8
+- Neutrino 9
+- webpack 4
 
 ## Installation
 
@@ -18,13 +19,13 @@
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/copy
+❯ yarn add --dev @neutrinojs/copy
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/copy
+❯ npm install --save-dev @neutrinojs/copy
 ```
 
 ## Usage
@@ -42,7 +43,9 @@ neutrino.use(copy);
 // Usage shows the default values of this middleware:
 neutrino.use(copy, {
   patterns: [],
-  options: {},
+  options: {
+    debug: neutrino.options.debug
+  },
   pluginId: 'copy'
 });
 ```
@@ -60,7 +63,9 @@ module.exports = {
   use: [
     ['@neutrinojs/copy', {
       patterns: [],
-      options: {},
+      options: {
+        debug: neutrino.options.debug
+      },
       pluginId: 'copy'
     }]
   ]
@@ -83,7 +88,7 @@ make changes.
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `copy` |  Copy files during building. | all |
 

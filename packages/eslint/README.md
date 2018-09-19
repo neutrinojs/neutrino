@@ -9,22 +9,26 @@
 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
-- Neutrino v8
+- Neutrino 9 and one of the Neutrino build presets
+- webpack 4
+- ESLint 5
 
 ## Installation
 
-`@neutrinojs/eslint` can be installed via the Yarn or npm clients.
+`@neutrinojs/eslint` can be installed via the Yarn or npm clients. Inside your project, make sure
+`@neutrinojs/eslint` and `eslint` are development dependencies. You will also be using
+another Neutrino preset for building your application source code.
 
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/eslint
+❯ yarn add --dev @neutrinojs/eslint eslint
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/eslint
+❯ npm install --save-dev @neutrinojs/eslint eslint
 ```
 
 ## Usage
@@ -47,6 +51,7 @@ neutrino.use(eslint, {
     cwd: neutrino.options.root,
     useEslintrc: false,
     root: true,
+    formatter: 'codeframe',
     plugins: ['babel'],
     baseConfig: {},
     envs: ['es6'],
@@ -76,7 +81,7 @@ make changes.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `lint` | By default, lints JS and JSX files from included directories using ESLint. Contains a single loader named `eslint`. | all |
 
@@ -97,97 +102,39 @@ This middleware only configures a target environment for `es6`, leaving other bu
 target environments. If your middleware puts restrictions on which environments it is capable of running, please
 document that clearly in your middleware.
 
-## eslint CLI
-
-_This is the recommended way to perform a one-off lint in a Neutrino project._
-
-You can also have Neutrino invoke ESLint for you if you wish to perform a one-time lint. This avoids needing to install
-ESLint manually, creating a `.eslintrc.js` file, or having to manage includes and ignores. As long as the ESLint
-middleware is loaded, you have access to a command to run ESLint from the command line.
-
-This middleware registers a command named `lint` which programmatically calls ESLint and prints the results to
-the console.
-
-```bash
-❯ neutrino lint
-```
-
-```bash
-❯ neutrino lint --fix
-```
-
 ## eslintrc Config
 
-If you cannot or do not wish to use Neutrino to execute one-off linting, you can still use ESLint manually.
+`@neutrinojs/eslint`, provides an `.eslintrc()` output handler for
+generating the ESLint configuration in a format suitable for use in an `.eslintrc.js` file. This
+allows the ESLint CLI to be used outside of building the project, and for IDEs and text editors to
+provide linting hints/fixes.
 
-`@neutrinojs/eslint` also provides a method for getting the ESLint configuration suitable for use in an eslintrc
-file. Typically this is used for providing hints or fix solutions to the development environment, e.g. IDEs and text
-editors. Doing this requires [creating an instance of the Neutrino API](https://neutrinojs.org/api/) and providing the
-middleware it uses. If you keep all this information in a `.neutrinorc.js`, this should be relatively straightforward. By
-providing all the middleware used to Neutrino, you can ensure all the linting options used across all middleware will be
-merged together for your development environment, without the need for copying, duplication, or loss of organization and
-separation.
-
-This middleware registers another command named `eslintrc` which returns an ESLint configuration object suitable for
-consumption by the ESLint CLI. Use the Neutrino API's `call` method to invoke this command:
-
-_Example: Create a .eslintrc.js file in the root of the project, using `.neutrinorc.js` middleware._
+Create a `.eslintrc.js` file in the root of the project, containing:
 
 ```js
 // .eslintrc.js
-const { Neutrino } = require('neutrino');
+const neutrino = require('neutrino');
 
-// Specify middleware to Neutrino prior to calling eslintrc.
-// Even if using .neutrinorc.js, you must specify it when using
-// the API
-module.exports = Neutrino({ root: __dirname })
-  .use('.neutrinorc.js')
-  .call('eslintrc');
+module.exports = neutrino().eslintrc();
 ```
 
-_Example: Create a .eslintrc.js file in the root of the project, using specified middleware._
+This `.eslintrc.js` configuration will be automatically used when running the ESLint CLI.
+For convenience a `lint` script alias can be added to your `package.json`, allowing linting
+to be run via `yarn lint` or `npm run lint`:
 
-```js
-// .eslintrc.js
-const { Neutrino } = require('neutrino');
-
-module.exports = Neutrino({ root: __dirname })
-  .use('@neutrinojs/eslint', {
-    eslint: {
-      rules: { semi: 'off' }
-    }
-  })
-  .call('eslintrc');
+```json
+{
+  "scripts": {
+    "lint": "eslint --cache --ext js,jsx,vue,ts,tsx,mjs src"
+  }
+}
 ```
-
-If you are able, only use a `.eslintrc.js` file for editor hints, and use the Neutrino `lint` command for one-off linting
-or fixes. **Loading ESLint configuration from `.eslintrc.js` that is not `.neutrinorc.js` or uses configuration that
-differs from `.neutrinorc.js` could lead to unintended consequences such as linting not failing or passing when expected,
-or working differently when running different commands. Closely evaluate whether you _actually_ need to make these rule
-changes in `.eslintrc.js` over `.neutrinorc.js`.**
 
 Projects may face a problem when their editor or IDE lints all files and highlights errors that were normally excluded
 from source, i.e. Neutrino's `include` and `exclude` options. This is because the ESLint CLI does not have a way to
-specify included and excluded files from configuration. If you still wish to use ESLint's CLI for linting, consider
-setting [CLI flags](https://eslint.org/docs/user-guide/command-line-interface#options) or using an
-[eslintignore](https://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories) to choose which files to
-include or exclude from linting.
-
-Unfortunately ESLint does not provide the possibility to configure ignored paths from Neutrino configuration and exclude them
-from linting. Projects authors should define this manually in their project root directory in a `.eslintignore` file. This
-is one of the main reasons to prefer using the `lint` CLI command with this middleware, as it avoids a lot of manual
-configuration and boilerplate.
-
-`.eslintignore` file:
-
-```
-/build
-/*.*
-```
-
-ESLint will exclude built files and any files in the root directory (e.g. custom Neutrino configuration) but `src` and
-`test` folders will be still checked. `node_modules` are ignored by default in ESLint. More information can be found
-in the [ESLint user guide](https://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories).
+specify included and excluded files from the `.eslintrc.js` configuration. Instead you will need to create an
+[.eslintignore](https://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories) file that controls
+which files should be excluded from linting.
 
 ## Contributing
 

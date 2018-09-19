@@ -10,7 +10,8 @@ entry points.
 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
-- Neutrino v8
+- Neutrino 9
+- webpack 4
 
 ## Installation
 
@@ -19,13 +20,13 @@ entry points.
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/html-template
+❯ yarn add --dev @neutrinojs/html-template
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/html-template
+❯ npm install --save-dev @neutrinojs/html-template
 ```
 
 ## Usage
@@ -114,7 +115,7 @@ make changes.
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `html` | Automatically generates HTML files for configured entry points. | all |
 

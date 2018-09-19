@@ -9,7 +9,8 @@
 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
-- Neutrino v8
+- Neutrino 9
+- webpack 4
 
 ## Installation
 
@@ -18,13 +19,13 @@
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/font-loader
+❯ yarn add --dev @neutrinojs/font-loader
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/font-loader
+❯ npm install --save-dev @neutrinojs/font-loader
 ```
 
 ## Usage
@@ -74,7 +75,7 @@ ready to make changes.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `font` | Allows importing EOT, TTF, WOFF and WOFF2 font files from modules. Contains a single loader named `file`. | all |
 

@@ -7,29 +7,8 @@ listen for events, get build metadata, or augment Neutrino with custom functiona
 
 Neutrino middleware can be specified in several different formats depending on the complexity and level of
 customization needed. The Neutrino API and CLI operate on the concept that they are provided a collection of middleware.
-Specifically:
 
-```js
-// The Neutrino API can use many middleware when it is run()
-neutrino.run('command', [/* array of middleware */])
-
-// When no middleware has been specified to run, it defaults
-// to an array only containing the local .neutrinorc.js file
-neutrino.run('command')
-```
-
-```bash
-# The Neutrino CLI can use many middleware when running a command
-❯ neutrino command --use middleware_a middleware_b
-
-# When no middleware has been specified to the CLI, it defaults
-# to an array only containing the local .neutrinorc.js file
-❯ neutrino command
-```
-
-Each item in these collections can be provided in a number of different formats. For example, the CLI can only directly
-accept string formats, while the API and required middleware can be of any supported format.
-
+Each item in these collections can be provided in a number of different formats.
 The string and array formats are generally used from within the more powerful object and function formats.
 
 ### String format
@@ -42,11 +21,6 @@ different middleware type, depending on what that preset exported.
 Using the string format is most commonly used to depend on other middleware. Referencing a string does not enable
 access to the Neutrino API, and options can only be passed to the string middleware if using the Neutrino API's `use`
 method.
-
-```bash
-# String format on the CLI
-❯ neutrino start --use @neutrinojs/react
-```
 
 ```js
 // String format exported from other middleware
@@ -123,36 +97,7 @@ module.exports = {
     // or set the default development port to 3000
     port: 3000
   },
-  
-  // Specify environment-specific changes. This is a key-value
-  // mapping of environment variable names to their matching values
-  // during which to override. The matching environment value can
-  // be any middleware format
-  env: {
-    NODE_ENV: {
-      // Require style-minify middleware during production
-      production: '@neutrinojs/style-minify',
-      
-      // Use dev-server during development
-      development: ['@neutrinojs/dev-server', { port: 3000 }],
-      
-      // Use Jest during test-only
-      test: {
-        use: ['@neutrinojs/jest']
-      }
-    },
-    
-    CSS_MODULES: {
-      // Turn on CSS modules when the environment variable CSS_MODULES=enable
-      enable: (neutrino) => {
-        neutrino.config.module
-          .rule('style')
-            .use('css')
-              .options({ modules: true });
-      }
-    }
-  },
-  
+
   // The "use" array defines another set of middleware for Neutrino to use.
   // Just like the CLI and API start with a collection of middleware to use,
   // providing a "use" array specifies another list of middleware formats to work with

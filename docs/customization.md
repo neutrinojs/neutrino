@@ -4,17 +4,7 @@ No two JavaScript projects are ever the same, and as such there may be times whe
 to the way your Neutrino presets are building your project. Neutrino provides a mechanism to augment presets and
 middleware in the context of a project without resorting to creating and publishing an entirely independent preset.
 
-## `.neutrinorc.js`
-
-First, you will need to create a `.neutrinorc.js` file in the root of your project. You
-[may have already done this](./usage.md#using-multiple-presets) if you specified your middleware via `.neutrinorc.js`
-as opposed to CLI `--use`.
-
-The `.neutrinorc.js` file is picked up by Neutrino automatically if it exists. This can simplify your Neutrino commands
-by making them as simple as `neutrino start` or `neutrino build`. If you do all your customization within
-`.neutrinorc.js`, the CLI will pick up these changes every time you run it.
-
-### Middleware formats
+## Middleware formats
 
 Before we delve into making customizations in `.neutrinorc.js`, it's important to note that this file can be in any
 valid [middleware format](./middleware.md#formats) that Neutrino accepts. For project-based customization, it is
@@ -41,7 +31,7 @@ module.exports = (neutrino) => {
 
 ## Overriding Neutrino options
 
-Neutrino has a number of useful options for customizing its behavior, and these can be overriden by using an
+Neutrino has a number of useful options for customizing its behavior, and these can be overridden by using an
 object at the `options` property:
 
 ### `options.root`
@@ -49,6 +39,9 @@ object at the `options` property:
 Set the base directory which Neutrino middleware and presets operate on. Typically this is the project directory where
 the package.json would be located. If the option is not set, Neutrino defaults it to `process.cwd()`. If a relative
 path is specified, it will be resolved relative to `process.cwd()`; absolute paths will be used as-is.
+
+**It's recommended to always set this value, to ensure that tools such as ESLint work when run from a subdirectory
+of the repository. If your `.neutrinorc.js` is in the root of the repository, use the value `__dirname` to achieve this.**
 
 ```js
 module.exports = {
@@ -257,22 +250,16 @@ module.exports = {
 ## Environment-specific overrides
 
 Sometimes you can only make certain configuration changes in certain Node.js environments, or you may choose to
-selectively make changes based on the values of any arbitrary environment variable. These can be done from
-`.neutrinorc.js` using the `env` property. Each property within `env` maps to an environment variable with key-values
-mapping to  environment values which contain further middleware. This works for any environment variable, not just
-`NODE_ENV`.
+selectively make changes based on the values of any arbitrary environment variable. This can be achieved by
+conditionally applying middleware in `.neutrinorc.js`.
 
 For example, if you wanted to include additional middleware when `NODE_ENV` is `production`:
 
 ```js
 module.exports = {
-  env: {
-    NODE_ENV: {
-      production: {
-        use: ['@neutrinojs/pwa']
-      }
-    }
-  }
+  use: [
+    process.env.NODE_ENV === 'production' ? '@neutrinojs/pwa' : false,
+  ]
 };
 ```
 
@@ -280,21 +267,19 @@ _Example: Turn on CSS modules when the environment variable `CSS_MODULES=enable`
 
 ```js
 module.exports = {
-  env: {
-    CSS_MODULES: {
+  use: [
+    (neutrino) => {
       // Turn on CSS modules when the environment variable CSS_MODULES=enable
-      enable: (neutrino) => {
+      if (process.env.CSS_MODULES === 'enable') {
         neutrino.config.module
           .rule('style')
             .use('css')
               .options({ modules: true });
       }
     }
-  }
+  ]
 };
 ```
-
-You may use any middleware format as the value for the matching environment-value mapping.
 
 ## Advanced configuration changes
 

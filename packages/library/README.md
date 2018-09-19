@@ -21,23 +21,25 @@
 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
-- Neutrino v8
+- Neutrino 9
+- webpack 4
+- webpack-cli 3
 
 ## Installation
 
 `@neutrinojs/library` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `@neutrinojs/library` are development dependencies.
+that the dependencies below are installed as development dependencies.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev neutrino @neutrinojs/library
+❯ yarn add --dev neutrino @neutrinojs/library webpack webpack-cli
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev neutrino @neutrinojs/library
+❯ npm install --save-dev neutrino @neutrinojs/library webpack webpack-cli
 ```
 
 If you want to have automatically wired sourcemaps added to your project, add `source-map-support`:
@@ -120,26 +122,35 @@ export default class Logger {
 }
 ```
 
-Now edit your project's package.json to add commands for building the library.
+Now edit your project's `package.json` to add commands for building the library:
 
 ```json
 {
   "name": "super-logger",
   "scripts": {
-    "build": "neutrino build"
+    "build": "webpack --mode production"
   }
 }
 ```
 
-When using this library, you **must** use a `.neutrinorc.js` file in your project to specify
-the library name. Add this preset to your `use` array and define the `name` option:
+Then create a `.neutrinorc.js` file alongside `package.json`, which contains your Neutrino configuration:
 
 ```js
 module.exports = {
   use: [
-    ['@neutrinojs/library', { name: 'Logger' }]
+    ['@neutrinojs/library', {
+      name: 'Logger'
+    }]
   ]
 };
+```
+
+And create a `webpack.config.js` file, that uses the Neutrino API to access the generated webpack config:
+
+```js
+const neutrino = require('neutrino');
+
+module.exports = neutrino().webpack();
 ```
 
 You can now build your library!
@@ -425,7 +436,7 @@ module.exports = {
 
 The following is a list of rules and their identifiers which can be overridden:
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `compile` | Compiles JS files from the `src` directory using Babel. Contains a single loader named `babel` | all |
 
@@ -435,10 +446,10 @@ The following is a list of plugins and their identifiers which can be overridden
 
 _Note: Some plugins are only available in certain environments. To override them, they should be modified conditionally._
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `banner` | Injects source-map-support into the main entry points of your application if detected in `dependencies` or `devDependencies` of your package.json. | Only when `source-map-support` is installed |
-| `clean` | Clears the contents of `build` prior to creating a production bundle. | `build` command |
+| `clean` | Clears the contents of `build` prior to creating a production bundle. | `'production'` |
 
 ### Override configuration
 

@@ -9,7 +9,8 @@
 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
-- Neutrino v8
+- Neutrino 9
+- webpack 4
 
 ## Installation
 
@@ -18,13 +19,13 @@
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/banner
+❯ yarn add --dev @neutrinojs/banner
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/banner
+❯ npm install --save-dev @neutrinojs/banner
 ```
 
 ## Usage
@@ -45,6 +46,7 @@ neutrino.use(banner);
 // Usage shows the default values of this middleware:
 neutrino.use(banner, {
   banner: `require('source-map-support').install();`,
+  test: neutrino.regexFromExtensions(),
   raw: true,
   entryOnly: true,
   // Override pluginId to add an additional banner plugin instance
@@ -69,6 +71,7 @@ module.exports = {
   use: [
     ['@neutrinojs/banner', {
       banner: `require('source-map-support').install();`,
+      test: neutrino.regexFromExtensions(),
       raw: true,
       entryOnly: true,
       // Override pluginId to add an additional banner plugin instance
@@ -87,7 +90,7 @@ make changes.
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `banner` | Injects string content into application source code. | all |
 

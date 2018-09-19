@@ -15,24 +15,26 @@
 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
-- Neutrino v8, Neutrino build preset
+- Neutrino 9 and one of the Neutrino build presets
+- webpack 4
+- Mocha 5
 
 ## Installation
 
 `@neutrinojs/mocha` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `@neutrinojs/mocha` are development dependencies. You will also be using
+`@neutrinojs/mocha` and `mocha` are development dependencies. You will also be using
 another Neutrino preset for building your application source code.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev @neutrinojs/mocha
+❯ yarn add --dev @neutrinojs/mocha mocha
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev @neutrinojs/mocha
+❯ npm install --save-dev @neutrinojs/mocha mocha
 ```
 
 ## Project Layout
@@ -62,18 +64,8 @@ describe('simple', () => {
 });
 ```
 
-Now edit your project's package.json to add commands for testing your application. In this example,
+Now update your project's `.neutrinorc.js` to add the `@neutrinojs/mocha` preset. In this example,
 let's pretend this is a Node.js project:
-
-```json
-{
-  "scripts": {
-    "test": "neutrino test --use @neutrinojs/node @neutrinojs/mocha"
-  }
-}
-```
-
-Or if you are using `.neutrinorc.js`, add this preset to your use array instead of `--use` flags:
 
 ```js
 module.exports = {
@@ -82,6 +74,26 @@ module.exports = {
     '@neutrinojs/mocha'
   ]
 };
+```
+
+Create a `mocha.config.js` file in the root of the project, that will be used by the Mocha CLI:
+
+```js
+// mocha.config.js
+process.env.NODE_ENV = process.env.NODE_ENV || 'test';
+
+require('neutrino')().mocha();
+```
+
+Then add these scripts entries to your `package.json` to simplify running Jest:
+
+```json
+{
+  "scripts": {
+    "test": "mocha --require mocha.config.js --recursive",
+    "test:watch": "mocha --require mocha.config.js --recursive --watch"
+  }
+}
 ```
 
 Run the tests, and view the results in your console:
@@ -123,39 +135,18 @@ For more details on specific Mocha usage, please refer to their [documentation](
 ## Executing single tests
 
 By default this preset will execute every test file located in your test directory ending in `_test.js`.
-Use the command line [`files` parameters](https://neutrinojs.org/cli/#neutrino-test) to execute individual tests.
+Pass specific test filenames to the Mocha CLI to override this.
+
+## Watching for changes
+
+`@neutrinojs/mocha` can watch for changes on your source directory and subsequently re-run tests. Simply pass
+`--watch` to the Mocha CLI (for example by using the `test:watch` scripts entry above).
 
 ## Preset options
 
-You can provide custom options and have them merged with this preset's default options, which are subsequently passed
-to Mocha. You can modify Mocha settings from `.neutrinorc.js` by overriding with any options Mocha accepts. In a standalone
-Mocha project this is typically done from a `mocha.opts` file, but `@neutrinojs/mocha` allows configuration through
-`.neutrinorc.js`. This accepts the same options specified by Mocha defined on the
-[Mocha documentation site](https://mochajs.org/#usage), with command-line flags mapping to camel-cased options.
-Use an array pair instead of a string to supply these options in `.neutrinorc.js`.
-
-_Example: Switch the test reporter from the default `spec` to `nyan`:_
-
-```js
-module.exports = {
-  use: [
-    ['@neutrinojs/mocha', { reporter: 'nyan' }]
-  ]
-};
-```
-
-```bash
-❯ yarn test
-
- 1   -__,------,
- 0   -__|  /\_/\
- 0   -_~|_( ^ .^)
-     -_ ""  ""
-
-  1 passing (362ms)
-
-✨  Done in 3.28s.
-```
+Mocha's CLI does not allow providing an options file which can call out to Neutrino to load middleware.
+As such Mocha options must be specified separately in a [`mocha.opts`](https://mochajs.org/#mochaopts)
+file or else via [command line flags](https://mochajs.org/#usage).
 
 ## Customizing
 
@@ -167,7 +158,7 @@ changes.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `compile` | Compiles JS files from the `test` directory using adopted Babel settings from other build presets. Contains a single loader named `babel`. | all |
 
@@ -188,21 +179,21 @@ _Example: Add a custom Babel plugin when testing:_
 module.exports = {
   use: [
     '@neutrinojs/mocha'
-  ],
-  env: {
-    NODE_ENV: {
-      test: (neutrino) => neutrino.config.module
-        .rule('compile')
-        .use('babel')
-        .tap(options => merge(options, {
-          env: {
-            test: {
-              plugins: ['custom-babel-plugin']
+    (neutrino) => {
+      if (process.env.NODE_ENV === 'test') {
+        neutrino.config.module
+          .rule('compile')
+          .use('babel')
+          .tap(options => merge(options, {
+            env: {
+              test: {
+                plugins: ['custom-babel-plugin']
+              }
             }
-          }
-        }))
+          }));
+      }
     }
-  }
+  ],
 };
 ```
 

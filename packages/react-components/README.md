@@ -33,26 +33,28 @@ polyfills in your library code, consider importing @babel/polyfill, core-js, or 
 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
-- Neutrino v8
-- React, React DOM
+- Neutrino 9
+- webpack 4
+- webpack-cli 3
+- webpack-dev-server 3
 
 ## Installation
 
 `@neutrinojs/react-components` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `@neutrinojs/react-components` are development dependencies. You will also need React and React DOM
-for actual component development.
+that the Neutrino and webpack related dependencies below are installed as development dependencies.
+You will also need React and React DOM for actual component development.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev neutrino @neutrinojs/react-components
+❯ yarn add --dev neutrino @neutrinojs/react-components webpack webpack-cli webpack-dev-server
 ❯ yarn add react react-dom
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev neutrino @neutrinojs/react-components
+❯ npm install --save-dev neutrino @neutrinojs/react-components webpack webpack-cli webpack-dev-server
 ❯ npm install --save react react-dom
 ```
 
@@ -140,18 +142,18 @@ render((
 ), root);
 ```
 
-Now edit your project's package.json to add commands for starting the development server, or building the components.
+Now edit your project's `package.json` to add commands for starting and building the application:
 
 ```json
 {
   "scripts": {
-    "start": "neutrino start --use @neutrinojs/react-components",
-    "build": "neutrino build --use @neutrinojs/react-components"
+    "start": "webpack-dev-server --mode development",
+    "build": "webpack --mode production"
   }
 }
 ```
 
-If you are using `.neutrinorc.js`, add this preset to your use array instead of `--use` flags:
+Then create a `.neutrinorc.js` file alongside `package.json`, which contains your Neutrino configuration:
 
 ```js
 module.exports = {
@@ -159,7 +161,15 @@ module.exports = {
 };
 ```
 
-Start the app, then open a browser to http://localhost:5000 to preview your components:
+And create a `webpack.config.js` file, that uses the Neutrino API to access the generated webpack config:
+
+```js
+const neutrino = require('neutrino');
+
+module.exports = neutrino().webpack();
+```
+
+Start the app, then open a browser to the address in the console to preview your components:
 
 #### Yarn
 

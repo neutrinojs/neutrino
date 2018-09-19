@@ -27,25 +27,28 @@
 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
-- Neutrino v8
+- Neutrino 9
+- webpack 4
+- webpack-cli 3
+- webpack-dev-server 3
 
 ## Installation
 
 `@neutrinojs/react` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `@neutrinojs/react` are development dependencies. You will also need React and React DOM for actual
-React development.
+that the Neutrino and webpack related dependencies below are installed as development dependencies.
+You will also need React and React DOM for actual React development.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev neutrino @neutrinojs/react
+❯ yarn add --dev neutrino @neutrinojs/react webpack webpack-cli webpack-dev-server
 ❯ yarn add react react-dom
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev neutrino @neutrinojs/react
+❯ npm install --save-dev neutrino @neutrinojs/react webpack webpack-cli webpack-dev-server
 ❯ npm install --save react react-dom
 ```
 
@@ -106,23 +109,31 @@ import { render } from 'react-dom';
 render(<h1>Hello world!</h1>, document.getElementById('root'));
 ```
 
-Now edit your project's package.json to add commands for starting and building the application:
+Now edit your project's `package.json` to add commands for starting and building the application:
 
 ```json
 {
   "scripts": {
-    "start": "neutrino start --use @neutrinojs/react",
-    "build": "neutrino build --use @neutrinojs/react"
+    "start": "webpack-dev-server --mode development",
+    "build": "webpack --mode production"
   }
 }
 ```
 
-If you are using `.neutrinorc.js`, add this preset to your use array instead of `--use` flags:
+Then create a `.neutrinorc.js` file alongside `package.json`, which contains your Neutrino configuration:
 
 ```js
 module.exports = {
   use: ['@neutrinojs/react']
 };
+```
+
+And create a `webpack.config.js` file, that uses the Neutrino API to access the generated webpack config:
+
+```js
+const neutrino = require('neutrino');
+
+module.exports = neutrino().webpack();
 ```
 
 Start the app, then open a browser to the address in the console:
@@ -175,10 +186,6 @@ The `@neutrinojs/web` preset loads assets relative to the path of your applicati
 [`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath) to `./`. If you wish to load
 assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
 override `output.publicPath`. See the [Customizing](#customizing) section below.
-
-For details on merging and overriding Babel configuration, such as supporting decorator syntax, read more
-about using the [`compile-loader` `merge`](https://neutrinojs.org/packages/compile-loader/#advanced-merging) once you
-are comfortable customizing your build.
 
 ## Preset options
 

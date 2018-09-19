@@ -10,7 +10,8 @@ Application capabilities. This middleware is usually only added during productio
 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
-- Neutrino v8
+- Neutrino 9
+- webpack 4
 
 ## Installation
 
@@ -19,13 +20,13 @@ Application capabilities. This middleware is usually only added during productio
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/pwa
+❯ yarn add --dev @neutrinojs/pwa
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/pwa
+❯ npm install --save-dev @neutrinojs/pwa
 ```
 
 ## Usage
@@ -42,7 +43,13 @@ neutrino.use(pwa);
 
 // Usage showing overriding options
 neutrino.use(pwa, {
-  relativePaths: true,
+  ServiceWorker: {
+    events: true
+  },
+  relativePaths: false,
+  excludes: ['_redirects'],
+  cacheMaps: [{ match: /.*/, to: '/', requestTypes: ['navigate'] }],
+  publicPath: '/',
   // Override pluginId to add an additional pwa plugin instance
   pluginId: 'pwa'
 });
@@ -60,7 +67,13 @@ module.exports = {
 module.exports = {
   use: [
     ['@neutrinojs/pwa', {
-      relativePaths: true,
+      ServiceWorker: {
+        events: true
+      },
+      relativePaths: false,
+      excludes: ['_redirects'],
+      cacheMaps: [{ match: /.*/, to: '/', requestTypes: ['navigate'] }],
+      publicPath: '/',
       // Override pluginId to add an additional pwa plugin instance
       pluginId: 'pwa'
     }]
@@ -76,23 +89,13 @@ middleware using a deep object merge.
 
 It is recommended to only use this middleware during building, or the production environment.
 
-_Example: Only use middleware when building:_
-
-```bash
-❯ neutrino build --use @neutrinojs/react @neutrinojs/pwa
-```
-
 _Example: Only use middleware during production:_
 
 ```js
 module.exports = {
-  env: {
-    NODE_ENV: {
-      production: {
-        use: ['@neutrinojs/pwa']
-      }
-    }
-  }
+  use: [
+    process.env.NODE_ENV === 'production' ? '@neutrinojs/pwa' : false,
+  ]
 };
 ```
 
@@ -115,7 +118,7 @@ make changes.
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `pwa` | Creates an `OfflinePlugin` with options for setting up caching via Service Worker. | all |
 

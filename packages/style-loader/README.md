@@ -17,7 +17,8 @@
 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
-- Neutrino v8
+- Neutrino 9
+- webpack 4
 
 ## Installation
 
@@ -26,13 +27,13 @@
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/style-loader
+❯ yarn add --dev @neutrinojs/style-loader
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/style-loader
+❯ npm install --save-dev @neutrinojs/style-loader
 ```
 
 ## Usage
@@ -50,7 +51,9 @@ neutrino.use(styles);
 // Usage showing default options
 neutrino.use(styles, {
   style: {},
-  css: {},
+  css: {
+    importLoaders: opts.loaders ? opts.loaders.length : 0
+  },
   loaders: [],
   test: /\.css$/,
   ruleId: 'style',
@@ -61,8 +64,8 @@ neutrino.use(styles, {
   modulesTest: /\.module.css$/,
   extractId: 'extract',
   extract: {
-    plugin: {},
-    loader: {
+    loader: {},
+    plugin: {
       filename: process.env.NODE_ENV === 'production' ? '[name].[contenthash:8].css' : '[name].css'
     }
   }
@@ -82,7 +85,9 @@ module.exports = {
   use: [
     ['@neutrinojs/style-loader', {
       style: {},
-      css: {},
+      css: {
+        importLoaders: opts.loaders ? opts.loaders.length : 0
+      },
       loaders: [],
       test: /\.css$/,
       ruleId: 'style',
@@ -93,8 +98,8 @@ module.exports = {
       modulesTest: /\.module.css$/,
       extractId: 'extract',
       extract: {
-        plugin: {},
-        loader: {
+        loader: {},
+        plugin: {
           filename: process.env.NODE_ENV === 'production' ? '[name].[contenthash:8].css' : '[name].css'
         }
       }
@@ -234,7 +239,7 @@ ready to make changes.
 
 The following is a list of default rules and their identifiers which can be overridden:
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `style` | Allows importing CSS stylesheets from modules. By default contains two loaders named `extract` and `css` which use `MiniCssExtractPlugin.loader` and `css-loader`, respectively. If `options.extract` is `false`, then the `extract` loader is replaced by `style`, which uses `style-loader`. | all |
 | `style-modules` | Allows importing CSS Modules styles from modules. By default contains two loaders named `extract` and `css` which use `MiniCssExtractPlugin.loader` and `css-loader`, respectively. If `options.extract` is `false`, then the `extract` loader is replaced by `style`, which uses `style-loader`. | all |
@@ -245,7 +250,7 @@ The following is a default list of plugins and their identifiers which can be ov
 
 _Note: Some plugins may be only available in certain environments. To override them, they should be modified conditionally._
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `extract` | Extracts CSS from JS bundle into a separate stylesheet file. | all |
 

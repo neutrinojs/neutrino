@@ -20,23 +20,25 @@
 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
-- Neutrino v8
+- Neutrino 9
+- webpack 4
+- webpack-cli 3
 
 ## Installation
 
 `@neutrinojs/node` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `@neutrinojs/node` are development dependencies.
+that the dependencies below are installed as development dependencies.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev neutrino @neutrinojs/node
+❯ yarn add --dev neutrino @neutrinojs/node webpack webpack-cli
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev neutrino @neutrinojs/node
+❯ npm install --save-dev neutrino @neutrinojs/node webpack webpack-cli
 ```
 
 If you want to have automatically wired sourcemaps added to your project, add `source-map-support`:
@@ -116,18 +118,18 @@ createServer(async (req, res) => {
 .listen(port, () => console.log(`Server running on port ${port}`));
 ```
 
-Now edit your project's package.json to add commands for starting and building the application.
+Now edit your project's `package.json` to add commands for starting and building the application:
 
 ```json
 {
   "scripts": {
-    "start": "neutrino start --use @neutrinojs/node",
-    "build": "neutrino build --use @neutrinojs/node"
+    "start": "webpack --watch --mode development",
+    "build": "webpack --mode production"
   }
 }
 ```
 
-If you are using `.neutrinorc.js`, add this preset to your use array instead of `--use` flags:
+Then create a `.neutrinorc.js` file alongside `package.json`, which contains your Neutrino configuration:
 
 ```js
 module.exports = {
@@ -135,7 +137,15 @@ module.exports = {
 };
 ```
 
-Start the app, then either open a browser to http://localhost:3000 or use curl from another terminal window:
+And create a `webpack.config.js` file, that uses the Neutrino API to access the generated webpack config:
+
+```js
+const neutrino = require('neutrino');
+
+module.exports = neutrino().webpack();
+```
+
+Start the app, then either open a browser to the address in the console, or use curl from another terminal window:
 
 #### Yarn
 
@@ -163,8 +173,8 @@ hi!
 
 ## Building
 
-`@neutrinojs/node` builds assets to the `build` directory by default when running `neutrino build`. Using the
-quick start example above as a reference:
+`@neutrinojs/node` builds assets to the `build` directory by default when running `neutrino build`. Using
+the quick start example above as a reference:
 
 ```bash
 ❯ yarn build
@@ -238,7 +248,6 @@ modification during development.
 ## Debugging
 
 You can start the Node.js server in `inspect` mode to debug the process by setting `neutrino.options.debug` to `true`.
-This can be done from the [API](https://neutrinojs.org/api/#optionsdebug) or the [CLI using `--debug`](https://neutrinojs.org/cli/#-debug).
 
 ## Preset options
 
@@ -256,9 +265,9 @@ module.exports = {
       // Enables Hot Module Replacement. Set to false to disable
       hot: true,
 
-      // Target specific versions via @babel/preset-env
+      // Targets the version of Node.js used to run webpack.
       targets: {
-        node: '8.10'
+        node: 'current'
       },
 
       // Remove the contents of the output directory prior to building.
@@ -319,7 +328,7 @@ package.json. No extra work is required to make this work.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `compile` | Compiles JS files from the `src` directory using Babel. Contains a single loader named `babel` | all |
 
@@ -329,12 +338,12 @@ The following is a list of plugins and their identifiers which can be overridden
 
 _Note: Some plugins are only available in certain environments. To override them, they should be modified conditionally._
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `banner` | Injects source-map-support into the mains (entry points) of your application if detected in `dependencies` or `devDependencies` of your package.json. | Only when `source-map-support` is installed |
-| `clean` | Clears the contents of `build` prior to creating a production bundle. | `build` command |
-| `start-server` | Start a Node.js for the first configured main entry point. | `start` command |
-| `hot` | Enables Hot Module Replacement. | `start` command |
+| `clean` | Clears the contents of `build` prior to creating a production bundle. | `'production'` |
+| `start-server` | Start a Node.js for the first configured main entry point. | `'development'` |
+| `hot` | Enables Hot Module Replacement. | `'development'` |
 
 ### Override configuration
 

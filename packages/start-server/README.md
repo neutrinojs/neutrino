@@ -10,7 +10,8 @@ completion of a build.
 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
-- Neutrino v8
+- Neutrino 9
+- webpack 4
 
 ## Installation
 
@@ -19,13 +20,13 @@ completion of a build.
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/start-server
+❯ yarn add --dev @neutrinojs/start-server
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/start-server
+❯ npm install --save-dev @neutrinojs/start-server
 ```
 
 ## Usage
@@ -83,15 +84,13 @@ ready to make changes.
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `start-server` | Start a Node.js for the first configured main entry point or specified file. | all |
 
 ### Debugging
 
 You can start the Node.js server in `inspect` mode to debug the process by setting `neutrino.options.debug` to `true`.
-This can be done from the [API](https://neutrinojs.org/api/#optionsdebug) or the
-[CLI using `--debug`](https://neutrinojs.org/cli/#-debug).
 
 ## Contributing
 

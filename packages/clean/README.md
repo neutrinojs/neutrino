@@ -9,7 +9,8 @@
 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
-- Neutrino v8
+- Neutrino 9
+- webpack 4
 
 ## Installation
 
@@ -18,13 +19,13 @@
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/clean
+❯ yarn add --dev @neutrinojs/clean
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/clean
+❯ npm install --save-dev @neutrinojs/clean
 ```
 
 ## Usage
@@ -43,6 +44,7 @@ neutrino.use(clean);
 neutrino.use(clean, {
   paths: [],
   root: neutrino.options.root,
+  verbose: neutrino.options.debug,
   // Override pluginId to add an additional clean plugin instance
   pluginId: 'clean'
 });
@@ -62,6 +64,7 @@ module.exports = {
     ['@neutrinojs/clean', {
       paths: [],
       root: neutrino.options.root,
+      verbose: neutrino.options.debug,
       // Override pluginId to add an additional banner plugin instance
       pluginId: 'clean'
     }]
@@ -78,7 +81,7 @@ make changes.
 
 The following is a list of plugins and their identifiers which can be overridden:
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `clean` | Removes directories before building. | all |
 

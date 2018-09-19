@@ -17,24 +17,26 @@
 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
-- Neutrino v8, Neutrino build preset
+- Neutrino 9 and one of the Neutrino build presets
+- webpack 4
+- Jest 23
 
 ## Installation
 
 `@neutrinojs/jest` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `@neutrinojs/jest` are development dependencies. You will also be using
+`@neutrinojs/jest` and `jest` are development dependencies. You will also be using
 another Neutrino preset for building your application source code.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev @neutrinojs/jest
+❯ yarn add --dev @neutrinojs/jest jest
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev @neutrinojs/jest
+❯ npm install --save-dev @neutrinojs/jest jest
 ```
 
 ### Installation: React Testing
@@ -83,18 +85,8 @@ describe('simple', () => {
 });
 ```
 
-Now edit your project's package.json to add commands for testing your application. In this example,
+Now update your project's `.neutrinorc.js` to add the `@neutrinojs/jest` preset. In this example,
 let's pretend this is a Node.js project:
-
-```json
-{
-  "scripts": {
-    "test": "neutrino test --use @neutrinojs/node @neutrinojs/jest"
-  }
-}
-```
-
-Or if you are using `.neutrinorc.js`, add this preset to your use array instead of `--use` flags:
 
 ```js
 module.exports = {
@@ -103,6 +95,28 @@ module.exports = {
     '@neutrinojs/jest'
   ]
 };
+```
+
+Create a `jest.config.js` file in the root of the project, that will be used by the Jest CLI:
+
+```js
+// jest.config.js
+const neutrino = require('neutrino');
+
+process.env.NODE_ENV = process.env.NODE_ENV || 'test';
+
+module.exports = neutrino().jest();
+```
+
+Then add these scripts entries to your `package.json` to simplify running Jest:
+
+```json
+{
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  }
+}
 ```
 
 Run the tests, and view the results in your console:
@@ -146,64 +160,26 @@ To run tests against files from your source code, simply import them:
 import thingToTest from '../src/thing';
 ```
 
-For more details on specific Jest usage, please refer to their [documentation](https://facebook.github.io/jest/).
+For more details on specific Jest usage, please refer to their [documentation](https://jestjs.io/).
 
 ## Executing single tests
 
 By default this preset will execute every test file located in your test directory ending in the appropriate file
-extension. Use the command line [`files` parameters](https://neutrinojs.org/cli/#neutrino-test) to execute individual tests.
+extension. Pass specific test filenames to the Jest CLI to override this.
 
 ## Watching for changes
 
-`@neutrinojs/jest` can watch for changes on your source directory and subsequently re-run tests. Simply use the
-`--watch` flag with your `neutrino test` command.
+`@neutrinojs/jest` can watch for changes on your source directory and subsequently re-run tests. Simply pass
+`--watch` to the Jest CLI (for example by using the `test:watch` scripts entry above).
 
 ## Coverage reporting
 
 Jest has an integrated coverage reporter, which requires no configuration. To collect test coverage information and
-generate a report:
+generate a report, use the CLI's `--coverage` option.
 
-```bash
-❯ neutrino test --coverage
-```
+## Additional CLI options
 
-You can also edit your package.json file and create a separate command for generating a coverage report, which can be
-helpful during continuous integration of your project:
-
-```json
-{
-  "scripts": {
-    "coverage": "neutrino test --coverage"
-  }
-}
-```
-
-## Additional options
-
-You can pass any additional option Jest accepts. See the
-[Jest documentation](https://facebook.github.io/jest/docs/en/configuration.html#options) for more
-configuration options.
-
-For example, if you want to run tests on the precommit hook with [lint-staged](https://github.com/okonet/lint-staged),
-you can run:
-
-```bash
-npx mrm lintstaged
-```
-
-and update the configuration in your `package.json` to:
-
-```json
-{
-  "lint-staged": {
-    "*.js": [
-      "neutrino lint --fix",
-      "neutrino test --findRelatedTests",
-      "git add"
-    ]
-  }
-}
-```
+See the [Jest CLI options documentation](https://jestjs.io/docs/en/cli#running-from-the-command-line).
 
 ## Preset options
 
@@ -211,7 +187,7 @@ You can provide custom options and have them merged with this preset's default o
 to Jest. You can modify Jest settings from `.neutrinorc.js` by overriding with any options Jest accepts. In a standalone
 Jest project this is typically done in the package.json file, but `@neutrinojs/jest` allows configuration through
 this mechanism as well. This accepts the same configuration options as outlined in the
-[Jest documentation](https://facebook.github.io/jest/docs/configuration.html). Use an array pair instead of a string
+[Jest documentation](https://jestjs.io/docs/en/configuration). Use an array pair instead of a string
 to supply these options.
 
 _Example: Turn off bailing on test failures._
@@ -245,7 +221,7 @@ module.exports = {
 
 <details>
   <summary>test-setup.js and shim.js</summary>
-  
+
 _test-setup.js for the example above_
 
 ```js
@@ -263,7 +239,7 @@ global.requestAnimationFrame = (callback) => {
   setTimeout(callback, 0);
 };
 ```
-  
+
 </details>
 
 ## Customizing
@@ -276,7 +252,7 @@ changes.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `compile` | Compiles JS files from the `test` directory using adopted Babel settings from other build presets. Contains a single loader named `babel`. | all |
 
@@ -288,7 +264,7 @@ make this change from the Neutrino API when using the `use` method.
 
 In a standalone Jest project this is typically done in the package.json file, but `@neutrinojs/jest` allows
 configuration through this mechanism as well. This accepts the same configuration options as outlined in the
-[Jest documentation](https://facebook.github.io/jest/docs/configuration.html). Use an array pair instead of a string
+[Jest documentation](https://jestjs.io/docs/en/configuration). Use an array pair instead of a string
 to supply these options.
 
 _Example: Add a custom Babel plugin when testing:_
@@ -297,21 +273,21 @@ _Example: Add a custom Babel plugin when testing:_
 module.exports = {
   use: [
     '@neutrinojs/jest'
-  ],
-  env: {
-    NODE_ENV: {
-      test: (neutrino) => neutrino.config.module
-        .rule('compile')
-        .use('babel')
-        .tap(options => merge(options, {
-          env: {
-            test: {
-              plugins: ['custom-babel-plugin']
+    (neutrino) => {
+      if (process.env.NODE_ENV === 'test') {
+        neutrino.config.module
+          .rule('compile')
+          .use('babel')
+          .tap(options => merge(options, {
+            env: {
+              test: {
+                plugins: ['custom-babel-plugin']
+              }
             }
-          }
-        }))
+          }));
+      }
     }
-  }
+  ],
 };
 ```
 

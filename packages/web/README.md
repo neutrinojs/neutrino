@@ -23,23 +23,26 @@
 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
-- Neutrino v8
+- Neutrino 9
+- webpack 4
+- webpack-cli 3
+- webpack-dev-server 3
 
 ## Installation
 
 `@neutrinojs/web` can be installed via the Yarn or npm clients. Inside your project, make sure
-`neutrino` and `@neutrinojs/web` are development dependencies.
+that the dependencies below are installed as development dependencies.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev neutrino @neutrinojs/web
+❯ yarn add --dev neutrino @neutrinojs/web webpack webpack-cli webpack-dev-server
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save-dev neutrino @neutrinojs/web
+❯ npm install --save-dev neutrino @neutrinojs/web webpack webpack-cli webpack-dev-server
 ```
 
 ## Project Layout
@@ -101,23 +104,31 @@ app.appendChild(text);
 document.getElementById('root').appendChild(app);
 ```
 
-Now edit your project's package.json to add commands for starting and building the application:
+Now edit your project's `package.json` to add commands for starting and building the application:
 
 ```json
 {
   "scripts": {
-    "start": "neutrino start --use @neutrinojs/web",
-    "build": "neutrino build --use @neutrinojs/web"
+    "start": "webpack-dev-server --mode development",
+    "build": "webpack --mode production"
   }
 }
 ```
 
-If you are using `.neutrinorc.js`, add this preset to your use array instead of `--use` flags:
+Then create a `.neutrinorc.js` file alongside `package.json`, which contains your Neutrino configuration:
 
 ```js
 module.exports = {
   use: ['@neutrinojs/web']
 };
+```
+
+And create a `webpack.config.js` file, that uses the Neutrino API to access the generated webpack config:
+
+```js
+const neutrino = require('neutrino');
+
+module.exports = neutrino().webpack();
 ```
 
 Start the app, then open a browser to the address in the console:
@@ -140,8 +151,8 @@ Start the app, then open a browser to the address in the console:
 
 ## Building
 
-`@neutrinojs/web` builds static assets to the `build` directory by default when running `neutrino build`. Using the
-quick start example above as a reference:
+`@neutrinojs/web` builds static assets to the `build` directory by default when running `neutrino build`. Using
+the quick start example above as a reference:
 
 ```bash
 ❯ yarn build
@@ -220,6 +231,13 @@ module.exports = {
       // See @neutrinojs/html-template for the defaults
       // used by the Web preset
       html: {},
+
+      // Control which source map types are enabled for each NODE_ENV
+      devtool: {
+        development: 'cheap-module-eval-source-map',
+        production: undefined,
+        test: 'source-map'
+      },
 
       // Change options related to starting a webpack-dev-server
       devServer: {
@@ -366,6 +384,23 @@ Is equivalent to:
 
 The `X-Dev-Server-Proxy` header can be useful for detecting if your existing app is being requested through the proxy.
 
+### Source Maps
+
+By default, the `'cheap-module-eval-source-map'` source map is enabled when `NODE_ENV` is `'development'`, `'source-map'` for `'test'` and no source maps for `'production'`.
+
+To customise this, use the preset's `devtool` option, for example:
+
+```js
+['@neutrinojs/web', {
+  devtool: {
+    // Enable source-maps in production
+    production: 'source-map'
+  }
+}
+```
+
+For the differences between each source map type, see the [webpack devtool docs](https://webpack.js.org/configuration/devtool/).
+
 ## Hot Module Replacement
 
 While `@neutrinojs/web` supports Hot Module Replacement your app, it does require some application-specific changes
@@ -447,7 +482,7 @@ module.exports = {
 
 The following is a list of rules and their identifiers which can be overridden:
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `compile` | Compiles JS files from the `src` directory using Babel. Contains a single loader named `babel`. From `@neutrinojs/compile-loader`. | all |
 | `html` | Allows importing HTML files from modules. Contains a single loader named `html`. From `@neutrinojs/html-loader`. | all |
@@ -462,14 +497,14 @@ The following is a list of plugins and their identifiers which can be overridden
 
 _Note: Some plugins are only available in certain environments. To override them, they should be modified conditionally._
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `env` | Inject environment variables into source code at `process.env`, using `EnvironmentPlugin`. | all |
 | `extract` | Extracts CSS from JS bundle into a separate stylesheet file. From `@neutrinojs/style-loader`. | all |
 | `html-{MAIN_NAME}` | Automatically generates HTML files for configured entry points. `{MAIN_NAME}` corresponds to the entry point of each page. By default, there is only a single `index` main, so this would generate a plugin named `html-index`. From `@neutrinojs/html-template` | all |
-| `hot` | Enables Hot Module Replacement. | `start` command |
-| `clean` | Removes the `build` directory prior to building. From `@neutrinojs/clean`. | `build` command |
-| `manifest` | Create a manifest file, via webpack-manifest-plugin. | `build` command |
+| `hot` | Enables Hot Module Replacement. | `'development'` |
+| `clean` | Removes the `build` directory prior to building. From `@neutrinojs/clean`. | `'production'` |
+| `manifest` | Create a manifest file, via webpack-manifest-plugin. | `'production'` |
 
 ### Override configuration
 

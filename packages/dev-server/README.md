@@ -9,7 +9,8 @@
 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
-- Neutrino v8
+- Neutrino 9
+- webpack 4
 
 ## Installation
 
@@ -18,13 +19,13 @@
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/dev-server
+❯ yarn add --dev @neutrinojs/dev-server
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/dev-server
+❯ npm install --save-dev @neutrinojs/dev-server
 ```
 
 ## Usage
@@ -40,18 +41,18 @@ const devServer = require('@neutrinojs/dev-server');
 neutrino.use(devServer);
 
 // Usage with custom options (default options are shown)
-neutrino.use(devServer, { 
+neutrino.use(devServer, {
   https: false,
   port: 5000,
   host: 'localhost',
-  public: 'localhost',
+  public: 'localhost:5000',
   open: false,
   contentBase: neutrino.options.source,
   hot: true,
   historyApiFallback: true,
   publicPath: '/',
   headers: {
-    host: 'localhost'
+    host: 'localhost:5000'
   },
   stats: {
     assets: false,
@@ -59,7 +60,6 @@ neutrino.use(devServer, {
     chunks: false,
     colors: true,
     errors: true,
-    errorDetails: true,
     hash: false,
     modules: false,
     publicPath: false,
@@ -85,7 +85,7 @@ module.exports = {
       https: false,
       port: 5000,
       host: 'localhost',
-      public: 'localhost',
+      public: 'localhost:5000',
       open: false,
       contentBase: neutrino.options.source,
       hot: true,
@@ -100,7 +100,6 @@ module.exports = {
         chunks: false,
         colors: true,
         errors: true,
-        errorDetails: true,
         hash: false,
         modules: false,
         publicPath: false,
@@ -124,10 +123,7 @@ More information about usage of Neutrino middleware can be found in the [documen
 
 `@neutrinojs/dev-server` optionally accepts an object with several options to override the default behavior.
 This object, as seen used above, can accept any
-[property that is accepted by webpack Dev Server](https://webpack.js.org/configuration/dev-server/). In addition, you
-may also specify the following options:
-
-- `open`:  Optional Boolean value to open the project in the a tab of the default browser. Default is `false`.
+[property that is accepted by webpack Dev Server](https://webpack.js.org/configuration/dev-server/).
 
 ## Contributing
 

@@ -9,7 +9,8 @@
 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
-- Neutrino v8
+- Neutrino 9
+- webpack 4
 
 ## Installation
 
@@ -18,13 +19,13 @@
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/html-loader
+❯ yarn add --dev @neutrinojs/html-loader
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/html-loader
+❯ npm install --save-dev @neutrinojs/html-loader
 ```
 
 ## Usage
@@ -41,7 +42,7 @@ neutrino.use(html);
 
 // Usage showing default options
 neutrino.use(html, {
-  name: '[name].[ext]'
+  attrs: ['img:src', 'link:href']
 });
 ```
 
@@ -57,7 +58,7 @@ module.exports = {
 module.exports = {
   use: [
     ['@neutrinojs/html-loader', {
-      name: '[name].[ext]'
+      attrs: ['img:src', 'link:href']
     }]
   ]
 };
@@ -74,7 +75,7 @@ ready to make changes.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `html` | Allows importing HTML files from modules. Contains a single loader named `html`. | all |
 

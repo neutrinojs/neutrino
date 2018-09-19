@@ -9,7 +9,8 @@
 
 - Node.js ^8.10 or 10+
 - Yarn v1.2.1+, or npm v5.4+
-- Neutrino v8
+- Neutrino 9
+- webpack 4
 
 ## Installation
 
@@ -18,13 +19,13 @@
 #### Yarn
 
 ```bash
-❯ yarn add @neutrinojs/compile-loader
+❯ yarn add --dev @neutrinojs/compile-loader
 ```
 
 #### npm
 
 ```bash
-❯ npm install --save @neutrinojs/compile-loader
+❯ npm install --save-dev @neutrinojs/compile-loader
 ```
 
 ## Usage
@@ -38,6 +39,7 @@ and plug it into Neutrino:
 const compile = require('@neutrinojs/compile-loader');
 
 neutrino.use(compile, {
+  test: neutrino.regexFromExtensions(),
   include: [],
   exclude: [],
   babel: {},
@@ -52,6 +54,7 @@ neutrino.use(compile, {
 module.exports = {
   use: [
     ['@neutrinojs/compile-loader', {
+      test: neutrino.regexFromExtensions(),
       include: [],
       exclude: [],
       babel: {},
@@ -145,6 +148,17 @@ config.module
       }, options));
 ```
 
+## babel.config.js
+
+Should you wish to use the Babel configuration outside of webpack, create a `babel.config.js`
+file in the root of the project, containing the following:
+
+```js
+const neutrino = require('neutrino');
+
+module.exports = neutrino().babel();
+```
+
 ## Customization
 
 `@neutrinojs/compile-loader` creates some conventions to make overriding the configuration easier once you are
@@ -154,7 +168,7 @@ ready to make changes.
 
 The following is a list of rules and their identifiers which can be overridden:
 
-| Name | Description | Environments and Commands |
+| Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `compile` | Compiles JS and JSX files from the `src` directory using Babel. Contains a single loader named `babel`. | all |
 
