@@ -161,6 +161,46 @@ This will cause Neutrino to load all middleware and options defined in the proje
 `.neutrinorc.js` file then turn it into a configuration format suitable for consumption
 by Jest.
 
+## Linting with ESLint
+
+ESLint's CLI tool can lint your project in addition to development-time hints when used
+with `@neutrinojs/eslint` or its dependent presets. You should have `eslint` installed in order
+to run the ESLint CLI tool. Check the documentation of your linting preset for details
+on the recommended installation instructions to lint your project.
+
+Example usage:
+
+```bash
+eslint --cache --ext mjs,jsx,js src
+```
+
+Putting this into your `package.json` will allow you to lint your project using either
+`yarn lint` or `npm run lint`. You can also add commands to automatically apply fixes
+if desired.
+
+```json
+{
+  "scripts": {
+    "lint": "eslint --cache --ext mjs,jsx,js src",
+    "lint:fix": "yarn lint --fix"
+  }
+}
+```
+
+To tell ESLint to load Neutrino middleware or presets for its configuration, create a
+`.eslintrc.js` file in the root of the project with the following:
+
+```js
+// .eslintrc.js
+const neutrino = require('neutrino');
+
+module.exports = neutrino().eslintrc();
+```
+
+This will cause Neutrino to load all middleware and options defined in the project's
+`.neutrinorc.js` file then turn it into a configuration format suitable for consumption
+by ESLint's CLI.
+
 ## Using multiple presets
 
 Neutrino supports loading multiple presets and middleware using the `use` property in a
