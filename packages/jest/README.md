@@ -135,7 +135,6 @@ Tests:       1 passed, 1 total
 Snapshots:   0 total
 Time:        0.936s
 Ran all test suites.
-✨  Done in 2.12s.
 ```
 
 #### npm
@@ -272,7 +271,7 @@ _Example: Add a custom Babel plugin when testing:_
 ```js
 module.exports = {
   use: [
-    '@neutrinojs/jest'
+    '@neutrinojs/jest',
     (neutrino) => {
       if (process.env.NODE_ENV === 'test') {
         neutrino.config.module

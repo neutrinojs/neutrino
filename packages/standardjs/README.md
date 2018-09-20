@@ -71,9 +71,6 @@ project. ESLint errors during build will not build the project, and will cause t
 ```bash
 ❯ yarn start
 
-✔ Development server running on: http://localhost:5000
-✔ Build completed
-
 ERROR in ./src/index.js
 
 /web/src/index.js
@@ -89,9 +86,6 @@ ERROR in ./src/index.js
 
 ```bash
 ❯ npm start
-
-✔ Development server running on: http://localhost:5000
-✔ Build completed
 
 ERROR in ./src/index.js
 
@@ -113,7 +107,6 @@ your `use` list during development until all linting errors have been resolved.
 ```bash
 ❯ yarn build
 
-
 /web/src/index.js
   6:1   warning  Unexpected console statement            no-console
   6:14  error    A space is required after '{'           babel/object-curly-spacing
@@ -121,8 +114,6 @@ your `use` list during development until all linting errors have been resolved.
   6:17  error    A space is required before '}'          babel/object-curly-spacing
 
 ✖ 4 problems (3 errors, 1 warning)
-
-error Command failed with exit code 1.
 ```
 
 _Example: ease linting into project by only enabling when `NODE_ENV=development` (ie: `--mode development`):_

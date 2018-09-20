@@ -137,16 +137,12 @@ Start the app, then open a browser to the address in the console:
 
 ```bash
 ❯ yarn start
-✔ Development server running on: http://localhost:5000
-✔ Build completed
 ```
 
 #### npm
 
 ```bash
 ❯ npm start
-✔ Development server running on: http://localhost:5000
-✔ Build completed
 ```
 
 ## Building
@@ -318,7 +314,7 @@ For example:
     'VAR_ONE',
     'VAR_TWO',
   ]
-}
+}]
 ```
 
 Or to set default values, use the object form:
@@ -329,7 +325,7 @@ Or to set default values, use the object form:
     VAR_ONE: 'foo',
     VAR_TWO: 'bar',
   }
-}
+}]
 ```
 
 ### Dev Server Proxy
@@ -346,7 +342,7 @@ For example:
   devServer: {
     proxy: 'http://localhost:3000'
   }
-}
+}]
 ```
 
 Is equivalent to:
@@ -364,7 +360,7 @@ Is equivalent to:
       }
     }
   }
-}
+}]
 ```
 
 The `X-Dev-Server-Proxy` header can be useful for detecting if your existing app is being requested through the proxy.
@@ -381,7 +377,7 @@ To customise this, use the preset's `devtool` option, for example:
     // Enable source-maps in production
     production: 'source-map'
   }
-}
+}]
 ```
 
 For the differences between each source map type, see the [webpack devtool docs](https://webpack.js.org/configuration/devtool/).
