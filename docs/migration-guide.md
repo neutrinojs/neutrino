@@ -256,6 +256,8 @@ loading `*.worker.js` files [#1069](https://github.com/neutrinojs/neutrino/pull/
 what webpack has configured by default [#1080](https://github.com/neutrinojs/neutrino/pull/1080).
 - **BREAKING CHANGE** The tests directory is now additionally linted by default with `@neutrinojs/eslint` and its
 dependent middleware [#951](https://github.com/neutrinojs/neutrino/pull/951).
+- **BREAKING CHANGE** TypeScript extensions are no longer set by default in `neutrino.options.extensions`, and the
+`vue` extension is only added when used with `@neutrinojs/vue`.
 - **BREAKING CHANGE** Various dependencies have been updated which may bring their own breaking changes. Please
 check and test your project to ensure proper functionality.
 - ESLint caching is now enabled by default for new projects, so it is recommended to specify `.eslintcache` as being

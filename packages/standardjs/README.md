@@ -236,7 +236,7 @@ to be run via `yarn lint` or `npm run lint`:
 ```json
 {
   "scripts": {
-    "lint": "eslint --cache --ext js,jsx,vue,ts,tsx,mjs src"
+    "lint": "eslint --cache --ext mjs,jsx,js src"
   }
 }
 ```

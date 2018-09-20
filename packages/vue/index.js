@@ -18,6 +18,15 @@ module.exports = (neutrino, opts = {}) => {
     }
   }, opts);
 
+  // Add vue extension as a higher priority than JS files.
+  // Since neutrino.options.extensions is always a copy of a Set,
+  // this splice operation is always mutation-safe.
+  const { extensions } = neutrino.options;
+  const index = extensions.indexOf('js');
+
+  extensions.splice(index, 0, 'vue');
+
+  neutrino.options.extensions = extensions; // eslint-disable-line no-param-reassign
   neutrino.use(web, options);
 
   // vue-loader needs CSS files to be parsed with vue-style-loader instead of
@@ -50,6 +59,12 @@ module.exports = (neutrino, opts = {}) => {
   }
 
   neutrino.config.when(neutrino.config.module.rules.has('lint'), () => {
+    // We need to re-set the extension list used by the eslint settings
+    // since when it was generated it didn't include the vue extension.
+    neutrino.config.module
+      .rule('lint')
+        .test(neutrino.regexFromExtensions());
+
     neutrino.use(loaderMerge('lint', 'eslint'), {
       baseConfig: {
         extends: ['plugin:vue/base']
