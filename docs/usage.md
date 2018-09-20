@@ -228,6 +228,28 @@ module.exports = {
 }
 ```
 
+## Generating multiple builds
+
+Webpack supports the ability to run multiple builds by exporting an array of
+configurations instead of a single configuration. You can also use Neutrino to
+drive this process by exporting multiple Neutrino configuration outputs from a
+`webpack.config.js` or by calling `webpack` multiple times.
+
+```js
+// webpack.config.js
+const neutrino = require('neutrino');
+
+const config = neutrino().webpack();
+
+module.exports = [
+  // first build configuration
+  config,
+
+  // second build configuration
+  { ...config, libraryTarget: 'commonjs2' },
+];
+```
+
 ## Inspecting the generated webpack config
 
 The `neutrino --inspect` command can be used to write out a stringified version of the generated
