@@ -50,11 +50,15 @@ neutrino.use(template, {
   meta: {
     viewport: 'width=device-width, initial-scale=1'
   },
-  minify: {
-    useShortDoctype: true,
-    keepClosingSlash: true,
+  // These are copied from the new html-webpack-plugin defaults (not yet released):
+  // https://github.com/jantimon/html-webpack-plugin/pull/1048
+  minify: process.env.NODE_ENV === 'production' && {
     collapseWhitespace: true,
-    preserveLineBreaks: true
+    removeComments: true,
+    removeRedundantAttributes: true,
+    removeScriptTypeAttributes: true,
+    removeStyleLinkTypeAttributes: true,
+    useShortDoctype: true
   },
   // Override pluginId to add an additional html-template plugin instance
   pluginId: 'html'
@@ -84,11 +88,15 @@ module.exports = {
       meta: {
         viewport: 'width=device-width, initial-scale=1'
       },
-      minify: {
-        useShortDoctype: true,
-        keepClosingSlash: true,
+      // These are copied from the new html-webpack-plugin defaults (not yet released):
+      // https://github.com/jantimon/html-webpack-plugin/pull/1048
+      minify: process.env.NODE_ENV === 'production' && {
         collapseWhitespace: true,
-        preserveLineBreaks: true
+        removeComments: true,
+        removeRedundantAttributes: true,
+        removeScriptTypeAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        useShortDoctype: true
       },
       // Override pluginId to add an additional html-template plugin instance
       pluginId: 'html'
