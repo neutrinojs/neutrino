@@ -393,30 +393,32 @@ require(['redux', 'redux-example'], ({ createStore }, reduxExample) => {
 
 ## Generating multiple builds
 
-The `@neutrinojs/library` middleware can be used in conjunction with the
-[`@neutrinojs/fork` middleware](https://neutrinojs.org/packages/fork/) to generate multiple library outputs
-when building. Follow the instructions to install the fork middleware, and change your `.neutrinorc.js`
-format as follows:
+A library can be built multiple times from a `webpack.config.js` file in order to
+generate multiple library outputs when building. This is done by exporting
+an array of Neutrino outputs rather than a single output.
 
 ```js
-const name = 'Logger';
-
+// .neutrinorc.js
 module.exports = {
   use: [
-    (neutrino) => {
-      neutrino.on('prebuild', () => neutrino.use('@neutrinojs/clean'));
-    },
-    ['@neutrinojs/fork', {
-      configs: {
-        // Create a named entry for each build type.
-        // You will most likely want to disable cleaning
-        // the output directory until prior to building
-        umd: ['@neutrinojs/library', { name, clean: false }],
-        commonjs2: ['@neutrinojs/library', { name, clean: false }]
-      }
+    ['@neutrinojs/library', {
+      name: 'Logger',
+      clean: false
     }]
   ]
 };
+```
+
+```js
+// webpack.config.js
+const neutrino = require('neutrino');
+
+const config = neutrino().webpack();
+
+module.exports = [
+  config,
+  { ...config, libraryTarget: 'commonjs2' }
+];
 ```
 
 ### Rules
