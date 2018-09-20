@@ -127,15 +127,12 @@ Run the tests, and view the results in your console:
 ❯ yarn test
 
  PASS  test/simple_test.js
-  simple
-    ✓ should be sane (2ms)
 
 Test Suites: 1 passed, 1 total
 Tests:       1 passed, 1 total
 Snapshots:   0 total
-Time:        0.936s
+Time:        3.265s
 Ran all test suites.
-✨  Done in 2.12s.
 ```
 
 #### npm
@@ -144,13 +141,11 @@ Ran all test suites.
 ❯ npm test
 
  PASS  test/simple_test.js
-  simple
-    ✓ should be sane (2ms)
 
 Test Suites: 1 passed, 1 total
 Tests:       1 passed, 1 total
 Snapshots:   0 total
-Time:        0.972s
+Time:        3.265s
 Ran all test suites.
 ```
 
@@ -272,7 +267,7 @@ _Example: Add a custom Babel plugin when testing:_
 ```js
 module.exports = {
   use: [
-    '@neutrinojs/jest'
+    '@neutrinojs/jest',
     (neutrino) => {
       if (process.env.NODE_ENV === 'test') {
         neutrino.config.module

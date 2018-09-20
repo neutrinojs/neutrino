@@ -108,11 +108,8 @@ Run the tests, and view the results in your console:
 ```bash
 ❯ yarn test
 
-START:
-21 11 2017 06:56:39.804:INFO [karma]: Karma v1.7.1 server started at http://0.0.0.0:9876/
-21 11 2017 06:56:39.806:INFO [launcher]: Launching browser ChromeHeadless with unlimited concurrency
-21 11 2017 06:56:39.809:INFO [launcher]: Starting browser ChromeHeadless
-21 11 2017 06:56:40.170:INFO [HeadlessChrome 0.0.0 (Mac OS X 10.13.0)]: Connected on socket PW-kCVej8pQuT-HAAAAA with id 14691980
+# Karma output removed for brevity
+
   simple
     ✔ should be sane
 
@@ -127,11 +124,8 @@ SUMMARY:
 ```bash
 ❯ npm test
 
-START:
-21 11 2017 06:56:39.804:INFO [karma]: Karma v1.7.1 server started at http://0.0.0.0:9876/
-21 11 2017 06:56:39.806:INFO [launcher]: Launching browser ChromeHeadless with unlimited concurrency
-21 11 2017 06:56:39.809:INFO [launcher]: Starting browser ChromeHeadless
-21 11 2017 06:56:40.170:INFO [HeadlessChrome 0.0.0 (Mac OS X 10.13.0)]: Connected on socket PW-kCVej8pQuT-HAAAAA with id 14691980
+# Karma output removed for brevity
+
   simple
     ✔ should be sane
 

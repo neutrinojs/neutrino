@@ -108,8 +108,6 @@ Run the tests, and view the results in your console:
 
 
   1 passing (426ms)
-
-✨  Done in 4.17s.
 ```
 
 #### npm
@@ -178,7 +176,7 @@ _Example: Add a custom Babel plugin when testing:_
 ```js
 module.exports = {
   use: [
-    '@neutrinojs/mocha'
+    '@neutrinojs/mocha',
     (neutrino) => {
       if (process.env.NODE_ENV === 'test') {
         neutrino.config.module

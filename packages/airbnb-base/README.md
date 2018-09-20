@@ -74,18 +74,20 @@ project. ESLint errors during build will not build the project, and will cause t
 ```bash
 ❯ yarn start
 
-✔ Development server running on: http://localhost:5000
-✔ Build completed
-
 ERROR in ./src/index.js
+Module Error (from ./node_modules/eslint-loader/index.js):
 
-/web/src/index.js
-  7:1   warning  Unexpected console statement                no-console
-  7:14  error    A space is required after '{'               babel/object-curly-spacing
-  7:20  error    Missing space before value for key 'hello'  key-spacing
-  7:27  error    A space is required before '}'              babel/object-curly-spacing
+error: Missing semicolon (semi) at src/index.js:35:51:
+  33 |
+  34 |
+> 35 | const MOUNT_NODE = document.getElementById("root")
+     |                                                   ^
+  36 |
+  37 |
+  38 |
 
-✖ 4 problems (3 errors, 1 warning)
+1 error found.
+1 error potentially fixable with the `--fix` option.
 ```
 
 #### npm
@@ -93,18 +95,20 @@ ERROR in ./src/index.js
 ```bash
 ❯ npm start
 
-✔ Development server running on: http://localhost:5000
-✔ Build completed
-
 ERROR in ./src/index.js
+Module Error (from ./node_modules/eslint-loader/index.js):
 
-/web/src/index.js
-  7:1   warning  Unexpected console statement                no-console
-  7:14  error    A space is required after '{'               babel/object-curly-spacing
-  7:20  error    Missing space before value for key 'hello'  key-spacing
-  7:27  error    A space is required before '}'              babel/object-curly-spacing
+error: Missing semicolon (semi) at src/index.js:35:51:
+  33 |
+  34 |
+> 35 | const MOUNT_NODE = document.getElementById("root")
+     |                                                   ^
+  36 |
+  37 |
+  38 |
 
-✖ 4 problems (3 errors, 1 warning)
+1 error found.
+1 error potentially fixable with the `--fix` option.
 ```
 
 ## Building
@@ -116,15 +120,21 @@ your `use` list during development until all linting errors have been resolved.
 ```bash
 ❯ yarn build
 
-/web/src/index.js
-  6:1   warning  Unexpected console statement            no-console
-  6:14  error    A space is required after '{'           babel/object-curly-spacing
-  6:16  error    Missing space before value for key 'a'  key-spacing
-  6:17  error    A space is required before '}'          babel/object-curly-spacing
+ERROR in ./src/index.js
+Module Error (from ./node_modules/eslint-loader/index.js):
 
-✖ 4 problems (3 errors, 1 warning)
+error: Missing semicolon (semi) at src/index.js:35:51:
+  33 |
+  34 |
+> 35 | const MOUNT_NODE = document.getElementById("root")
+     |                                                   ^
+  36 |
+  37 |
+  38 |
 
-error Command failed with exit code 1.
+
+1 error found.
+1 error potentially fixable with the `--fix` option.
 ```
 
 _Example: ease linting into project by only enabling when `NODE_ENV=development` (ie: `--mode development`):_

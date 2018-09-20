@@ -161,16 +161,12 @@ Start the app, then open a browser to the address in the console:
 
 ```bash
 ❯ yarn start
-✔ Development server running on: http://localhost:5000
-✔ Build completed
 ```
 
 #### npm
 
 ```bash
 ❯ npm start
-✔ Development server running on: http://localhost:5000
-✔ Build completed
 ```
 
 ## Building
