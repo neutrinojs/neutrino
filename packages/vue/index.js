@@ -61,22 +61,4 @@ module.exports = (neutrino, opts = {}) => {
       }
     });
   });
-
-  if (neutrino.config.plugins.has('stylelint')) {
-    neutrino.config
-      .plugin('stylelint')
-      .tap(([options, ...args]) => [
-        merge(options, {
-          files: ['**/*.vue'],
-          config: {
-            processors: [require.resolve('stylelint-processor-html')],
-            rules: {
-              // allows empty <style> in vue components
-              'no-empty-source': null
-            }
-          }
-        }),
-        ...args
-      ]);
-  }
 };
