@@ -170,22 +170,6 @@ You can now build your library!
 ## Building
 
 `@neutrinojs/library` builds assets to the `build` directory by default when running `yarn build`.
-Using the quick start example above as a reference:
-
-```bash
-❯ yarn build
-
-Build completed in 0.419s
-
-Hash: 89e4fb250fc535920ba4
-Version: webpack 3.8.1
-Time: 424ms
-       Asset     Size  Chunks             Chunk Names
-    Logger.js  4.29 kB       0  [emitted]  index
-Logger.js.map  3.73 kB       0  [emitted]  index
-✨  Done in 1.51s.
-```
-
 You should specify a `main` property in your package.json pointing to your primary built main entry point. Also when
 publishing your project to npm, consider excluding your `src` directory by using the `files` property to whitelist
 `build`, or via `.npmignore` to blacklist `src`.

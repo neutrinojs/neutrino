@@ -192,21 +192,6 @@ Start the app, then open a browser to the address in the console to preview your
 ## Building
 
 `@neutrinojs/react-components` builds components to the `build` directory by default when running `yarn build`.
-Using the quick start example above as a reference:
-
-```bash
-❯ yarn build
-
-✔ Building project completed
-Hash: 453804a130a959d313a1
-Version: webpack 3.6.1
-Time: 350ms
-                     Asset     Size  Chunks             Chunk Names
-    YourCustomComponent.js  4.12 kB       0  [emitted]  YourCustomComponent
-YourCustomComponent.js.map  4.11 kB       0  [emitted]  YourCustomComponent
-✨  Done in 3.69s.
-```
-
 You can then publish these components to npm. When publishing your project to npm, consider excluding your `src`
 directory in `package.json` by using the `files` property to whitelist `build`, or via `.npmignore` to blacklist `src`.
 Components are generated as UMD named modules, with the name corresponding to the component file name. e.g.
