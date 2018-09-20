@@ -305,6 +305,9 @@ to your application. Code not imported in the hierarchy of the `index` entry wil
 this you must either define more mains via [`options.mains`](https://neutrinojs.org/customization/#optionsmains), import
 the code path somewhere along the `index` hierarchy, or define multiple configurations in your `.neutrinorc.js`.
 
+If the need arises, you can also compile `node_modules` by referring to the relevant
+[`compile-loader` documentation](https://neutrinojs.org/packages/compile-loader/#compiling-node_modules).
+
 ### Vendoring
 
 This preset automatically vendors all external dependencies into a separate chunk based on their inclusion in your

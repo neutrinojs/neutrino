@@ -459,6 +459,9 @@ module.exports = {
 }
 ```
 
+If the need arises, you can compile `node_modules` by referring to the relevant
+[`compile-loader` documentation](https://neutrinojs.org/packages/compile-loader/#compiling-node_modules).
+
 ### Rules
 
 The following is a list of rules and their identifiers which can be overridden:

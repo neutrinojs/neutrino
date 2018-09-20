@@ -273,6 +273,9 @@ module.exports = {
 }
 ```
 
+If the need arises, you can also compile `node_modules` by referring to the relevant
+[`compile-loader` documentation](https://neutrinojs.org/packages/compile-loader/#compiling-node_modules).
+
 ### Rules
 
 The following is a list of additional rules and their identifiers this preset defines, in addition

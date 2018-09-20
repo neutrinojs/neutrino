@@ -226,6 +226,9 @@ for preset-specific configuration to override.
 By default this preset creates an individual entry point for every top-level component found in `src/components`. These
 are set and accessible via the API at [`neutrino.options.mains`](https://neutrinojs.org/api/#optionsmains).
 
+If the need arises, you can also compile `node_modules` by referring to the relevant
+[`compile-loader` documentation](https://neutrinojs.org/packages/compile-loader/#compiling-node_modules).
+
 ### Rules
 
 This plugin does not define any additional rules or loaders in addition to those already used

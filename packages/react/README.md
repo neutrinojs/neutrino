@@ -223,6 +223,9 @@ For details on merging and overriding Babel configuration, such as supporting de
 about using the [`compile-loader` `merge`](https://neutrinojs.org/packages/compile-loader/#advanced-merging) once you
 are comfortable customizing your build.
 
+If the need arises, you can also compile `node_modules` by referring to the relevant
+[`compile-loader` documentation](https://neutrinojs.org/packages/compile-loader/#compiling-node_modules).
+
 ### Advanced configuration
 
 By following the [customization guide](https://neutrinojs.org/customization/) and knowing the rule, loader, and plugin IDs from

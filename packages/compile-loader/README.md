@@ -148,6 +148,32 @@ config.module
       }, options));
 ```
 
+### Compiling node_modules
+
+Neutrino does not compile `node_modules` by default, since packages should be compiling
+down to ES5 themselves (even when using the `module` property in `package.json`) to maximize
+ecosystem compatibility. If you encounter packages that need to be compiled from `node_modules`,
+you can write an override after the inclusion of `compile-loader` or a dependent preset:
+
+_Example: compile `node_modules` after including React preset._
+
+```js
+// .neutrinorc.js
+const { join } = require('path');
+
+module.exports = {
+  use: [
+    '@neutrinojs/react',
+    (neutrino) => {
+      neutrino.config.module
+        .rule('compile')
+          .include
+            .add(join(__dirname, 'node_modules'));
+    }
+  ]
+}
+```
+
 ## babel.config.js
 
 Should you wish to use the Babel configuration outside of webpack, create a `babel.config.js`
