@@ -127,13 +127,11 @@ Run the tests, and view the results in your console:
 ❯ yarn test
 
  PASS  test/simple_test.js
-  simple
-    ✓ should be sane (2ms)
 
 Test Suites: 1 passed, 1 total
 Tests:       1 passed, 1 total
 Snapshots:   0 total
-Time:        0.936s
+Time:        3.265s
 Ran all test suites.
 ```
 
@@ -143,13 +141,11 @@ Ran all test suites.
 ❯ npm test
 
  PASS  test/simple_test.js
-  simple
-    ✓ should be sane (2ms)
 
 Test Suites: 1 passed, 1 total
 Tests:       1 passed, 1 total
 Snapshots:   0 total
-Time:        0.972s
+Time:        3.265s
 Ran all test suites.
 ```
 
