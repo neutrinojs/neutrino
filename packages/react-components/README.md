@@ -72,6 +72,14 @@ If you want to have automatically wired sourcemaps added to your project, add `s
 ❯ npm install --save source-map-support
 ```
 
+**NOTE: If you use this preset along with eslint-plugin-import, including
+`@neutrinojs/airbnb` or Airbnb's ESLint configurations, you will experience linting
+errors for having `react` and `react-dom` installed in `devDependencies`. To overcome
+this error, you will need to add a
+[linting rule override](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-extraneous-dependencies.md).
+You can do this from your `.neutrinorc.js` file if using a Neutrino-based linting preset,
+or your `.eslintrc.js` file for other ESLint-ing mechanisms.**
+
 ## Project Layout
 
 `@neutrinojs/react-components` follows the standard [project layout](https://neutrinojs.org/project-layout/)
