@@ -37,8 +37,7 @@ const presets = {
       WEB_NODE_LIBRARY,
       N,
       WEBPACK,
-      WEBPACK_CLI,
-      WEBPACK_DEV_SERVER
+      WEBPACK_CLI
     ]
   },
   [NODE]: {
