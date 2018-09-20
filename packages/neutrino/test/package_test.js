@@ -78,3 +78,9 @@ test('exposes webpack config from method', t => {
   const handler = neutrino(Function.prototype).webpack();
   t.is(typeof handler, 'object');
 });
+
+test('exposes inspect output handler', t => {
+  t.notThrows(() =>
+    neutrino(Function.prototype).output('inspect')
+  );
+});

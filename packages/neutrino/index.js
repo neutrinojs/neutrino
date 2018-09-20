@@ -1,9 +1,7 @@
 const isPlainObject = require('is-plain-object');
 const yargsParser = require('yargs-parser');
 const Neutrino = require('./Neutrino');
-const webpack = require('./webpack');
-
-const configPrefix = 'neutrino.config';
+const { webpack, inspect } = require('./handlers');
 
 module.exports = (middleware = {}) => {
   const use = isPlainObject(middleware) && !middleware.use
@@ -31,6 +29,7 @@ module.exports = (middleware = {}) => {
   }
 
   neutrino.register('webpack', webpack);
+  neutrino.register('inspect', inspect);
 
   if (use) {
     neutrino.use(use);
@@ -38,11 +37,6 @@ module.exports = (middleware = {}) => {
 
   const adapter = {
     output(name) {
-      if (name === 'inspect') {
-        console.log(neutrino.config.toString({ configPrefix }));
-        process.exit();
-      }
-
       const handler = neutrino.outputHandlers.get(name);
 
       if (!handler) {
