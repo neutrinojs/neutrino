@@ -497,6 +497,9 @@ By following the [customization guide](https://neutrinojs.org/customization/) an
 you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also
 make these changes from the Neutrino API in custom middleware.
 
+If the need arises, you can also compile `node_modules` by referring to the relevant
+[`compile-loader` documentation](https://neutrinojs.org/packages/compile-loader/#compiling-node_modules).
+
 #### Vendoring
 
 External dependencies are automatically split into separate chunks from the application code,
