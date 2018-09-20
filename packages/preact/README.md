@@ -172,22 +172,6 @@ Start the app, then open a browser to the address in the console:
 ## Building
 
 `@neutrinojs/preact` builds static assets to the `build` directory by default when running `yarn build`.
-Using the quick start example above as a reference:
-
-```bash
-❯ yarn build
-
-✔ Building project completed
-Hash: b26ff013b5a2d5f7b824
-Version: webpack 3.5.6
-Time: 9773ms
-                           Asset       Size    Chunks             Chunk Names
-   index.dfbad882ab3d86bfd747.js     181 kB     index  [emitted]  index
- runtime.3d9f9d2453f192a2b10f.js    1.51 kB   runtime  [emitted]  runtime
-                      index.html  846 bytes            [emitted]
-✨  Done in 4.62s.
-```
-
 You can either serve or deploy the contents of this `build` directory as a static site.
 
 ## Static assets

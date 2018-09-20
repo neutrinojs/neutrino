@@ -174,20 +174,6 @@ hi!
 ## Building
 
 `@neutrinojs/node` builds assets to the `build` directory by default when running `yarn build`.
-Using the quick start example above as a reference:
-
-```bash
-❯ yarn build
-
-Hash: 89e4fb250fc535920ba4
-Version: webpack 3.5.6
-Time: 424ms
-       Asset     Size  Chunks             Chunk Names
-    index.js  4.29 kB       0  [emitted]  index
-index.js.map  3.73 kB       0  [emitted]  index
-✨  Done in 1.51s.
-```
-
 You can either serve or deploy the contents of this `build` directory as a Node.js module, server, or tool. For Node.js
 this usually means adding a `main` property to package.json pointing to the primary main built entry point. Also when
 publishing your project to npm, consider excluding your `src` directory by using the `files` property to whitelist

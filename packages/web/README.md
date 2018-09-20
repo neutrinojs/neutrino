@@ -152,21 +152,6 @@ Start the app, then open a browser to the address in the console:
 ## Building
 
 `@neutrinojs/web` builds static assets to the `build` directory by default when running `yarn build`.
-Using the quick start example above as a reference:
-
-```bash
-❯ yarn build
-
-✔ Building project completed
-Hash: 2e1191cdf700df46370d
-Version: webpack 3.5.6
-Time: 4145ms
-                           Asset       Size    Chunks             Chunk Names
-   index.523b6da56c6363aaf056.js    10.1 kB     index  [emitted]  index
- runtime.ce4090a4e87f82940ff0.js    1.51 kB   runtime  [emitted]  runtime
-                      index.html  846 bytes            [emitted]
-```
-
 You can either serve or deploy the contents of this `build` directory as a static site.
 
 ## Static assets
