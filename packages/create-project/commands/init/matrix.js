@@ -63,7 +63,7 @@ const presets = {
       'prop-types@^15',
       'react@^16',
       'react-dom@^16',
-      WEBPACK, WEBPACK_CLI
+      WEBPACK, WEBPACK_CLI, WEBPACK_DEV_SERVER
     ]
   },
   [STANDARDJS]: {
