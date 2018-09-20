@@ -106,9 +106,9 @@ ERROR in ./src/index.js
 
 ## Building
 
-`@neutrinojs/standardjs` will cause errors to **fail your build** when creating a bundle via `neutrino build`. If
-you want to ease introduction of this linting preset to your project, consider only adding it to your `use` list
-during development until all linting errors have been resolved.
+`@neutrinojs/standardjs` will cause errors to **fail your build** when `NODE_ENV` is not `'development'`.
+If you want to ease introduction of this linting preset to your project, consider only adding it to
+your `use` list during development until all linting errors have been resolved.
 
 ```bash
 ❯ yarn build
