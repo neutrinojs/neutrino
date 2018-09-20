@@ -74,7 +74,7 @@ project. ESLint errors during build will not build the project, and will cause t
 ```bash
 ❯ yarn start
 
-ERROR in ./src/main.js
+ERROR in ./src/index.js
 Module Error (from ./node_modules/eslint-loader/index.js):
 
 error: Missing semicolon (semi) at src/index.js:35:51:
