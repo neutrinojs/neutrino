@@ -169,8 +169,8 @@ You can now build your library!
 
 ## Building
 
-`@neutrinojs/library` builds assets to the `build` directory by default when running `neutrino build`. Using the
-quick start example above as a reference:
+`@neutrinojs/library` builds assets to the `build` directory by default when running `yarn build`.
+Using the quick start example above as a reference:
 
 ```bash
 ❯ yarn build
@@ -342,7 +342,7 @@ of `redux-example`._
   "version": "1.0.0",
   "main": "build/reduxExample.js",
   "scripts": {
-    "build": "neutrino build"
+    "build": "webpack --mode production"
   },
   "dependencies": {
     "mitt": "*",

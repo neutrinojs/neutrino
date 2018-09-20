@@ -175,8 +175,8 @@ Start the app, then open a browser to the address in the console:
 
 ## Building
 
-`@neutrinojs/vue` builds static assets to the `build` directory by default when running `neutrino build`. Using
-the quick start example above as a reference:
+`@neutrinojs/vue` builds static assets to the `build` directory by default when running `yarn build`.
+Using the quick start example above as a reference:
 
 ```bash
 ❯ yarn build

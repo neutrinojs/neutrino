@@ -191,7 +191,7 @@ Start the app, then open a browser to the address in the console to preview your
 
 ## Building
 
-`@neutrinojs/react-components` builds components to the `build` directory by default when running `neutrino build`.
+`@neutrinojs/react-components` builds components to the `build` directory by default when running `yarn build`.
 Using the quick start example above as a reference:
 
 ```bash
