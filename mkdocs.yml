@@ -25,10 +25,8 @@ nav:
     - Create new project: './installation/create-new-project.md'
   - Usage: './usage.md'
   - Project Layout: './project-layout.md'
-  - API: './api.md'
-  - Configuration: './webpack-chain.md'
   - Customization: './customization.md'
-  - Creating Presets: './creating-presets.md'
+  - Configuration: './webpack-chain.md'
   - Migration Guide: './migration-guide.md'
   - Presets:
     - What are presets?: './presets.md'
@@ -66,6 +64,8 @@ nav:
     - style-loader: './packages/style-loader.md'
     - style-minify: './packages/style-minify.md'
     - stylelint: './packages/stylelint.md'
+  - API: './api.md'
+  - Creating Presets: './creating-presets.md'
   - Previous Versions:
     - v8 Documentation: 'https://neutrinojs.org/'
     - v7 Documentation: 'https://release-v7.neutrinojs.org/'
