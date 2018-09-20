@@ -463,6 +463,9 @@ module.exports = {
 }
 ```
 
+If the need arises, you can compile `node_modules` by referring to the relevant
+[`compile-loader` documentation](https://neutrinojs.org/packages/compile-loader/#compiling-node_modules).
+
 ### Rules
 
 The following is a list of rules and their identifiers which can be overridden:
@@ -496,9 +499,6 @@ _Note: Some plugins are only available in certain environments. To override them
 By following the [customization guide](https://neutrinojs.org/customization/) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also
 make these changes from the Neutrino API in custom middleware.
-
-If the need arises, you can also compile `node_modules` by referring to the relevant
-[`compile-loader` documentation](https://neutrinojs.org/packages/compile-loader/#compiling-node_modules).
 
 #### Vendoring
 
