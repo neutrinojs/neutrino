@@ -79,7 +79,7 @@ commands [#852](https://github.com/neutrinojs/neutrino/pull/852):
     - `neutrino start` can typically be replaced with `webpack-dev-server --mode development`.
     - `neutrino test` can typically be replaced with the CLI of your test runner,
     e.g. `jest`, `karma start --single-run`, or `mocha --require mocha.config.js --recursive`.
-    - `neutrino lint` can typically be replaced with `eslint --cache --ext mjs,vue,jsx,js src`.
+    - `neutrino lint` can typically be replaced with `eslint --cache --format codeframe --ext mjs,jsx,js src`.
     - `neutrino --inspect` command still exists to get information about the configuration that Neutrino will use.
 - **BREAKING CHANGE** With the removal of the Neutrino CLI and its `--use` flag, the `.neutrinorc.js` file for
 setting middleware is now mandatory within a project.
