@@ -114,7 +114,7 @@ Now edit your project's `package.json` to add commands for starting and building
 ```json
 {
   "scripts": {
-    "start": "webpack-dev-server --mode development",
+    "start": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production"
   }
 }

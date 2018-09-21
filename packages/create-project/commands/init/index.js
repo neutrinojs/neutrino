@@ -105,7 +105,7 @@ module.exports = class Project extends Generator {
     if (this.data.projectType !== 'library') {
       scripts.start = this.data.project === '@neutrinojs/node'
         ? 'webpack --watch --mode development'
-        : 'webpack-dev-server --mode development';
+        : 'webpack-dev-server --mode development --open';
     }
 
     // The list of extensions here needs to be kept in sync with the
