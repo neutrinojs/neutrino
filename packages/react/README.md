@@ -330,7 +330,7 @@ const App = () => <div>Hello World!</div>
 export default hot(module)(App);
 ```
 
-See the [React Hot Loader](http://gaearon.github.io/react-hot-loader/)
+See the [React Hot Loader](https://gaearon.github.io/react-hot-loader/)
 docs for any API specifics on hot reloading other components.
 
 ## Contributing
