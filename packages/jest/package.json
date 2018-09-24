@@ -22,13 +22,13 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@babel/core": "^7.0.0",
-    "@babel/plugin-transform-modules-commonjs": "^7.0.0",
+    "@babel/core": "^7.1.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.1.0",
     "@neutrinojs/compile-loader": "9.0.0-0",
     "@neutrinojs/loader-merge": "9.0.0-0",
-    "babel-plugin-jest-hoist": "^23.0.0",
+    "babel-plugin-jest-hoist": "^23.2.0",
     "deepmerge": "^1.5.2",
-    "eslint-plugin-jest": "^21.21.0",
+    "eslint-plugin-jest": "^21.22.1",
     "lodash.omit": "^4.5.0"
   },
   "peerDependencies": {

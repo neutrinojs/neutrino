@@ -23,9 +23,9 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@babel/core": "^7.0.0",
+    "@babel/core": "^7.1.0",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
     "@neutrinojs/clean": "9.0.0-0",
     "@neutrinojs/compile-loader": "9.0.0-0",
     "@neutrinojs/dev-server": "9.0.0-0",
@@ -36,7 +36,7 @@
     "@neutrinojs/loader-merge": "9.0.0-0",
     "@neutrinojs/style-loader": "9.0.0-0",
     "deepmerge": "^1.5.2",
-    "webpack-manifest-plugin": "^2.0.2"
+    "webpack-manifest-plugin": "^2.0.4"
   },
   "peerDependencies": {
     "neutrino": "^9.0.0-0",

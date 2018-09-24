@@ -24,8 +24,8 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@babel/core": "^7.0.0",
-    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/core": "^7.1.0",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "@neutrinojs/compile-loader": "9.0.0-0",
     "@neutrinojs/loader-merge": "9.0.0-0",
@@ -34,9 +34,9 @@
     "eslint-plugin-react": "^7.11.1"
   },
   "devDependencies": {
-    "react": "*",
-    "react-dom": "*",
-    "react-hot-loader": "^4.3.1"
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-hot-loader": "^4.3.11"
   },
   "peerDependencies": {
     "neutrino": "^9.0.0-0",
