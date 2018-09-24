@@ -99,39 +99,36 @@ module.exports = class Project extends Generator {
   }
 
   _initialPackageJson() {
+    const { project, testRunner } = this.data;
     const installer = isYarn ? 'yarn' : 'npm';
     const scripts = { build: 'webpack --mode production' };
+    let lintDirectories = 'src';
 
     if (this.data.projectType !== 'library') {
-      scripts.start = this.data.project === '@neutrinojs/node'
+      scripts.start = project === '@neutrinojs/node'
         ? 'webpack --watch --mode development'
         : 'webpack-dev-server --mode development';
     }
 
-    // The list of extensions here needs to be kept in sync with the
-    // extension list defined by neutrino/extensions.source. Modifying a value
-    // here should have an accompanying change there as well. We can't pull
-    // in neutrino here as that would potentially give us conflicting versions
-    // in node_modules.
-    const lint = this.data.project === '@neutrinojs/vue'
-      ? 'eslint --cache --ext mjs,vue,jsx,js src'
-      : 'eslint --cache --ext mjs,jsx,js src';
-
-    if (this.data.testRunner) {
-      if (this.data.testRunner.includes('jest')) {
+    if (testRunner) {
+      if (testRunner.includes('jest')) {
         scripts.test = 'jest';
-      } else if (this.data.testRunner.includes('karma')) {
+      } else if (testRunner.includes('karma')) {
         scripts.test = 'karma start --single-run';
-      } else if (this.data.testRunner.includes('mocha')) {
-        scripts.test =
-          'mocha --require mocha.config.js --recursive';
+      } else if (testRunner.includes('mocha')) {
+        scripts.test = 'mocha --require mocha.config.js --recursive';
       }
 
-      if (this.data.linter) {
-        scripts.lint = `${lint} test`;
-      }
-    } else if (this.data.linter) {
-      scripts.lint = lint;
+      lintDirectories += ' test';
+    }
+
+    if (this.data.linter) {
+      // The list of extensions here needs to be kept in sync with the  extension
+      // list defined by neutrino/extensions.source. Modifying a value here should
+      // have an accompanying change there as well. We can't pull in neutrino here
+      // as that would potentially give us conflicting versions in node_modules.
+      const lintExtensions = (project === '@neutrinojs/vue') ? 'mjs,vue,jsx,js' : 'mjs,jsx,js';
+      scripts.lint = `eslint --cache --format codeframe --ext ${lintExtensions} ${lintDirectories}`;
     }
 
     this._spawnSync(installer, ['init', '--yes'], {

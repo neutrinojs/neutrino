@@ -171,7 +171,7 @@ on the recommended installation instructions to lint your project.
 Example usage:
 
 ```bash
-eslint --cache --ext mjs,jsx,js src
+eslint --cache --format codeframe --ext mjs,jsx,js src
 ```
 
 Putting this into your `package.json` will allow you to lint your project using either
@@ -181,7 +181,7 @@ if desired.
 ```json
 {
   "scripts": {
-    "lint": "eslint --cache --ext mjs,jsx,js src",
+    "lint": "eslint --cache --format codeframe --ext mjs,jsx,js src",
     "lint:fix": "yarn lint --fix"
   }
 }
