@@ -107,7 +107,7 @@ module.exports = class Project extends Generator {
     if (this.data.projectType !== 'library') {
       scripts.start = project === '@neutrinojs/node'
         ? 'webpack --watch --mode development'
-        : 'webpack-dev-server --mode development';
+        : 'webpack-dev-server --mode development --open';
     }
 
     if (testRunner) {

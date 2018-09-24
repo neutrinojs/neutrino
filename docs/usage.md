@@ -48,7 +48,7 @@ instructions to build your project for development.
 Example usage:
 
 ```bash
-webpack-dev-server --mode development
+webpack-dev-server --mode development --open
 ```
 
 Putting this into your `package.json` will allow you to build your project using either
@@ -57,7 +57,7 @@ Putting this into your `package.json` will allow you to build your project using
 ```json
 {
   "scripts": {
-    "start": "webpack-dev-server --mode development"
+    "start": "webpack-dev-server --mode development --open"
   }
 }
 ```
@@ -211,7 +211,7 @@ are configured in your in `.neutrinorc.js`.
 // package.json
 {
   "scripts": {
-    "start": "webpack-dev-server --mode development",
+    "start": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production",
     "test": "jest"
   }

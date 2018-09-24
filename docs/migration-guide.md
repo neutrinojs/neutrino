@@ -76,7 +76,7 @@ module.exports = neutrino().eslintrc();
 - **BREAKING CHANGE** With the necessity of external CLIs means the removal of most of the Neutrino CLI's
 commands [#852](https://github.com/neutrinojs/neutrino/pull/852):
     - `neutrino build` can typically be replaced with `webpack --mode production`.
-    - `neutrino start` can typically be replaced with `webpack-dev-server --mode development`.
+    - `neutrino start` can typically be replaced with `webpack-dev-server --mode development --open`.
     - `neutrino test` can typically be replaced with the CLI of your test runner,
     e.g. `jest`, `karma start --single-run`, or `mocha --require mocha.config.js --recursive`.
     - `neutrino lint` can typically be replaced with `eslint --cache --format codeframe --ext mjs,jsx,js src`.
