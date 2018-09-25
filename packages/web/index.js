@@ -74,7 +74,7 @@ module.exports = (neutrino, opts = {}) => {
         target: options.devServer.proxy,
         changeOrigin: true,
         headers: {
-          'X-Dev-Server-Proxy': options.devServer.proxy
+          Forwarded: 'by=_webpack-dev-server'
         }
       }
     };
