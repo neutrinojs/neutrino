@@ -5696,10 +5696,10 @@ html-minifier@^3.2.3, html-minifier@^3.5.8:
     relateurl "0.2.x"
     uglify-js "3.4.x"
 
-html-webpack-plugin@4.0.0-alpha.2:
-  version "4.0.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-4.0.0-alpha.2.tgz#7745967e389a57a098e26963f328ebe4c19b598d"
-  integrity sha512-tyvhjVpuGqD7QYHi1l1drMQTg5i+qRxpQEGbdnYFREgOKy7aFDf/ocQ/V1fuEDlQx7jV2zMap3Hj2nE9i5eGXw==
+html-webpack-plugin@4.0.0-beta.1:
+  version "4.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-4.0.0-beta.1.tgz#15b3b3634af47c79ac46c185f64e2007e0b0d14c"
+  integrity sha512-O+stuSCY5rdzX5O1l1FdH1bZqRQ7ybTi12OHzgD8u5Ogu2Usu3K7e633vxj4uOjM49ST+qCcu5rWYhqNKlpomQ==
   dependencies:
     "@types/tapable" "1.0.2"
     html-minifier "^3.2.3"
