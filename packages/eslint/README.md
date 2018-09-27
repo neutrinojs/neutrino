@@ -51,6 +51,7 @@ neutrino.use(eslint, {
     cwd: neutrino.options.root,
     useEslintrc: false,
     root: true,
+    // Can be the name of a built-in ESLint formatter or the module/path of an external one.
     formatter: 'codeframe',
     plugins: ['babel'],
     baseConfig: {},
