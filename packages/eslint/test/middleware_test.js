@@ -33,6 +33,25 @@ test('instantiates with options', t => {
   t.notThrows(() => api.config.toConfig());
 });
 
+test('supports formatter being the name of an ESLint built-in formatter', t => {
+  const api = new Neutrino();
+  const formatter = 'compact';
+  const formatterPath = require.resolve(`eslint/lib/formatters/${formatter}`);
+  api.use(mw(), { eslint: { formatter } });
+
+  const loaderOptions = api.config.module.rule('lint').use('eslint').get('options');
+  t.is(loaderOptions.formatter, formatterPath);
+});
+
+test('supports formatter being a resolved path', t => {
+  const api = new Neutrino();
+  const formatter = require.resolve('eslint/lib/formatters/compact');
+  api.use(mw(), { eslint: { formatter } });
+
+  const loaderOptions = api.config.module.rule('lint').use('eslint').get('options');
+  t.is(loaderOptions.formatter, formatter);
+});
+
 test('exposes eslintrc output handler', t => {
   const api = new Neutrino();
 

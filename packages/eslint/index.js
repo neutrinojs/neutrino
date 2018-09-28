@@ -89,6 +89,7 @@ module.exports = (neutrino, opts = {}) => {
       cwd: neutrino.options.root,
       useEslintrc: false,
       root: true,
+      // Can be the name of a built-in ESLint formatter or the module/path of an external one.
       formatter: 'codeframe',
       // Unfortunately we can't `require.resolve('eslint-plugin-babel')` due to:
       // https://github.com/eslint/eslint/issues/6237
@@ -110,12 +111,11 @@ module.exports = (neutrino, opts = {}) => {
   const loaderOptions = options.eslint;
 
   if (typeof loaderOptions.formatter === 'string') {
-    const formatterPath = `eslint/lib/formatters/${loaderOptions.formatter}`;
-    // eslint-disable-next-line global-require, import/no-dynamic-require
-    loaderOptions.formatter = require(formatterPath);
-    // Improve the stringified output when using --inspect.
-    // eslint-disable-next-line no-underscore-dangle
-    loaderOptions.formatter.__expression = `require('${formatterPath}')`;
+    try {
+      loaderOptions.formatter = require.resolve(`eslint/lib/formatters/${loaderOptions.formatter}`);
+    } catch (err) {
+      // Pass the formatter as-is, since it may be the module name/path of an external formatter.
+    }
   }
 
   neutrino.config
