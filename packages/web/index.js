@@ -80,7 +80,11 @@ module.exports = (neutrino, opts = {}) => {
     };
   }
 
-  if (!options.targets.node && !options.targets.browsers) {
+  if (options.targets === false) {
+    options.targets = {};
+  } else if (options.targets.browsers === false) {
+    Reflect.deleteProperty(options.targets, 'browsers');
+  } else if (!options.targets.node && !options.targets.browsers) {
     options.targets.browsers = [
       'last 2 Chrome versions',
       'last 2 Firefox versions',
@@ -90,7 +94,7 @@ module.exports = (neutrino, opts = {}) => {
       'last 2 iOS versions'
     ];
   }
-
+  
   Object.assign(options, {
     style: options.style && merge(options.style, {
       extract: options.style.extract === true ? {} : options.style.extract
