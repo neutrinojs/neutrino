@@ -94,7 +94,7 @@ module.exports = (neutrino, opts = {}) => {
       'last 2 iOS versions'
     ];
   }
-  
+
   Object.assign(options, {
     style: options.style && merge(options.style, {
       extract: options.style.extract === true ? {} : options.style.extract
