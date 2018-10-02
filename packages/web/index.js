@@ -89,11 +89,6 @@ module.exports = (neutrino, opts = {}) => {
     };
   }
 
-  // Force @babel/preset-env default behavior (.browserslistrc)
-  if (options.targets === false) {
-    options.targets = {};
-  }
-
   Object.assign(options, {
     style: options.style && merge(options.style, {
       extract: options.style.extract === true ? {} : options.style.extract
