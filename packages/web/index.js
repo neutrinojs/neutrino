@@ -39,7 +39,16 @@ module.exports = (neutrino, opts = {}) => {
       source: isProduction
     },
     babel: {},
-    targets: {},
+    targets: {
+      browsers: [
+        'last 2 Chrome versions',
+        'last 2 Firefox versions',
+        'last 2 Edge versions',
+        'last 2 Opera versions',
+        'last 2 Safari versions',
+        'last 2 iOS versions'
+      ]
+    },
     font: {},
     image: {}
   }, opts);
@@ -80,19 +89,9 @@ module.exports = (neutrino, opts = {}) => {
     };
   }
 
+  // Force @babel/preset-env default behavior (.browserslistrc)
   if (options.targets === false) {
     options.targets = {};
-  } else if (options.targets.browsers === false) {
-    Reflect.deleteProperty(options.targets, 'browsers');
-  } else if (!options.targets.node && !options.targets.browsers) {
-    options.targets.browsers = [
-      'last 2 Chrome versions',
-      'last 2 Firefox versions',
-      'last 2 Edge versions',
-      'last 2 Opera versions',
-      'last 2 Safari versions',
-      'last 2 iOS versions'
-    ];
   }
 
   Object.assign(options, {
