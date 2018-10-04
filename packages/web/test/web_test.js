@@ -267,3 +267,28 @@ test('throws when polyfills defined', async t => {
   const err = t.throws(() => api.use(mw(), { polyfills: {} }));
   t.true(err.message.includes('The polyfills option has been removed'));
 });
+
+test('targets option test', t => {
+  const api = new Neutrino();
+  const targets = {
+    browsers: ['last 2 iOS versions']
+  };
+  api.use(mw(), { targets });
+
+  t.deepEqual(api.config.module
+    .rule('compile')
+    .use('babel')
+    .get('options')
+    .presets[0][1].targets, targets);
+});
+
+test('targets false option test', t => {
+  const api = new Neutrino();
+  api.use(mw(), { targets: false });
+
+  t.deepEqual(api.config.module
+    .rule('compile')
+    .use('babel')
+    .get('options')
+    .presets[0][1].targets, {});
+});
