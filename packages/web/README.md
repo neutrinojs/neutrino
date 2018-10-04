@@ -389,6 +389,9 @@ For the differences between each source map type, see the [webpack devtool docs]
 Setting to `false` will override Neutrino's default targets and allow
 `@babel/preset-env` to read targets from a [`.browserslistrc` file](https://babeljs.io/docs/en/babel-preset-env#browserslist-integration).
 
+When using a `.browserslistrc` file, be aware that file changes may not
+invalidate cache as expected: https://github.com/babel/babel-loader/issues/690
+
 See [`@babel/preset-env`](https://babeljs.io/docs/en/babel-preset-env#targets)
 for all other available settings.
 
