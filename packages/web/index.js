@@ -80,7 +80,10 @@ module.exports = (neutrino, opts = {}) => {
     };
   }
 
-  if (!options.targets.node && !options.targets.browsers) {
+  // Force @babel/preset-env default behavior (.browserslistrc)
+  if (options.targets === false) {
+    options.targets = {};
+  } else if (!options.targets.node && !options.targets.browsers) {
     options.targets.browsers = [
       'last 2 Chrome versions',
       'last 2 Firefox versions',
