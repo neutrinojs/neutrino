@@ -273,11 +273,6 @@ module.exports = {
         source: false
       },
 
-      // Example: Use a .browserslistrc file with @babel/preset-env
-      targets: {
-        browsers: require('browserslist')()
-      },
-
       // Remove the contents of the output directory prior to building.
       // Set to false to disable cleaning this directory
       clean: {
@@ -381,6 +376,21 @@ To customise this, use the preset's `devtool` option, for example:
 ```
 
 For the differences between each source map type, see the [webpack devtool docs](https://webpack.js.org/configuration/devtool/).
+
+### Targets
+
+```js
+['@neutrinojs/web', {
+  // Use targets from a .browserslistrc file.
+  targets: false
+}]
+```
+
+Setting to `false` will override Neutrino's default targets and allow
+`@babel/preset-env` to read targets from a [`.browserslistrc` file](https://babeljs.io/docs/en/babel-preset-env#browserslist-integration).
+
+See [`@babel/preset-env`](https://babeljs.io/docs/en/babel-preset-env#targets)
+for all other available settings.
 
 ## Hot Module Replacement
 
