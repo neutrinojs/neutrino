@@ -78,7 +78,8 @@ test('valid preset development', t => {
 
 test('throws when polyfills defined', t => {
   const api = new Neutrino();
-
-  const err = t.throws(() => api.use(mw(), { polyfills: {} }));
-  t.true(err.message.includes('The polyfills option has been removed'));
+  t.throws(
+    () => api.use(mw(), { polyfills: {} }),
+    /The polyfills option has been removed/
+  );
 });

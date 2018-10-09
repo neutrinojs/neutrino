@@ -11,11 +11,12 @@ if (argv.inspect) {
 }
 
 console.error(`
-The "neutrino start/build/lint" commands have been removed starting with v9.
-Please see the migration guide at https://neutrinojs.org/migration-guide
-for details on upgrading your installation.
+The "neutrino start/build/lint/test" commands were removed in Neutrino 9.
+Please see the migration guide for how to upgrade your project:
+https://neutrinojs.org/migration-guide/
 
-You may still inspect the generated webpack configuration with "neutrino --inspect".
+You may still inspect the generated webpack configuration using:
+neutrino --inspect --mode {production,development}
 `);
 
 process.exit(1);

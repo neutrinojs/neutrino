@@ -49,7 +49,7 @@ module.exports = (neutrino, opts = {}) => {
   }
 
   if ('image' in options.minify) {
-    throw new Error('The minify.image option has been removed. To enable image minification use the @neutrinojs/image-minify preset.');
+    throw new Error('The minify.image option has been removed. See: https://github.com/neutrinojs/neutrino/issues/1104');
   }
 
   if ('style' in options.minify) {
@@ -58,6 +58,13 @@ module.exports = (neutrino, opts = {}) => {
 
   if ('polyfills' in options) {
     throw new Error('The polyfills option has been removed, since polyfills are no longer included by default.');
+  }
+
+  if ('hotEntries' in options) {
+    throw new Error(
+      'The hotEntries option has been removed. See the "neutrino.options.mains" ' +
+      'docs for how to add custom hot entries to your bundle without importing.'
+    );
   }
 
   if (typeof options.devtool === 'string' || typeof options.devtool === 'boolean') {
@@ -212,14 +219,6 @@ module.exports = (neutrino, opts = {}) => {
       neutrino.use(devServer, options.devServer);
       config.when(options.hot, (config) => {
         config.plugin('hot').use(require.resolve('webpack/lib/HotModuleReplacementPlugin'));
-
-        if ('hotEntries' in options) {
-          throw new Error(
-            'The options.hotEntries option has been removed. ' +
-            'See the "neutrino.options.mains" docs for details on adding ' +
-            'custom hot entries to your bundle without importing.'
-          );
-        }
       });
     })
     .when(isProduction, (config) => {

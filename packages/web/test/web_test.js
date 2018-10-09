@@ -242,30 +242,42 @@ test('supports multiple mains with custom html-webpack-plugin options', t => {
 
 test('throws when minify.babel defined', t => {
   const api = new Neutrino();
-
-  const err = t.throws(() => api.use(mw(), { minify: { babel: false } }));
-  t.true(err.message.includes('The minify.babel option has been removed'));
+  t.throws(
+    () => api.use(mw(), { minify: { babel: false } }),
+    /The minify\.babel option has been removed/
+  );
 });
 
 test('throws when minify.image defined', t => {
   const api = new Neutrino();
-
-  const err = t.throws(() => api.use(mw(), { minify: { image: true } }));
-  t.true(err.message.includes('The minify.image option has been removed'));
+  t.throws(
+    () => api.use(mw(), { minify: { image: true } }),
+    /The minify\.image option has been removed/
+  );
 });
 
 test('throws when minify.style defined', t => {
   const api = new Neutrino();
-
-  const err = t.throws(() => api.use(mw(), { minify: { style: false } }));
-  t.true(err.message.includes('The minify.style option has been removed'));
+  t.throws(
+    () => api.use(mw(), { minify: { style: false } }),
+    /The minify\.style option has been removed/
+  );
 });
 
 test('throws when polyfills defined', t => {
   const api = new Neutrino();
+  t.throws(
+    () => api.use(mw(), { polyfills: {} }),
+    /The polyfills option has been removed/
+  );
+});
 
-  const err = t.throws(() => api.use(mw(), { polyfills: {} }));
-  t.true(err.message.includes('The polyfills option has been removed'));
+test('throws when hotEntries defined', t => {
+  const api = new Neutrino();
+  t.throws(
+    () => api.use(mw(), { hotEntries: [] }),
+    /The hotEntries option has been removed/
+  );
 });
 
 test('targets option test', t => {
