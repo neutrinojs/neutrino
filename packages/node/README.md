@@ -313,6 +313,38 @@ If the need arises, you can also compile `node_modules` by referring to the rele
 This preset automatically vendors all external dependencies into a separate chunk based on their inclusion in your
 package.json. No extra work is required to make this work.
 
+### Source minification
+
+By default script sources are minified in production only, using
+[terser-webpack-plugin](https://github.com/webpack-contrib/terser-webpack-plugin)
+(which replaces `uglifyjs-webpack-plugin`). To customise the options passed to `TerserPlugin`
+or even use a different minifier, override `optimization.minimizer`.
+
+_Example: Adjust the `terser` minification settings:_
+
+```js
+module.exports = {
+  use: [
+    '@neutrinojs/node',
+    (neutrino) => {
+      // The `terser` minimizer plugin only exists in the configuration in production.
+      if (process.env.NODE_ENV === 'production') {
+        neutrino.config.optimization
+          .minimizer('terser')
+          .tap(([defaultOptions]) => [{
+            ...defaultOptions,
+            // https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
+            // https://github.com/terser-js/terser#minify-options
+            terserOptions: {
+              mangle: false,
+            },
+          }]);
+      }
+    }
+  ]
+};
+```
+
 ### Rules
 
 The following is a list of rules and their identifiers which can be overridden:

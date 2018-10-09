@@ -391,6 +391,38 @@ require(['redux', 'redux-example'], ({ createStore }, reduxExample) => {
 </script>
 ```
 
+### Source minification
+
+By default script sources are minified in production only, using
+[terser-webpack-plugin](https://github.com/webpack-contrib/terser-webpack-plugin)
+(which replaces `uglifyjs-webpack-plugin`). To customise the options passed to `TerserPlugin`
+or even use a different minifier, override `optimization.minimizer`.
+
+_Example: Adjust the `terser` minification settings:_
+
+```js
+module.exports = {
+  use: [
+    '@neutrinojs/library',
+    (neutrino) => {
+      // The `terser` minimizer plugin only exists in the configuration in production.
+      if (process.env.NODE_ENV === 'production') {
+        neutrino.config.optimization
+          .minimizer('terser')
+          .tap(([defaultOptions]) => [{
+            ...defaultOptions,
+            // https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
+            // https://github.com/terser-js/terser#minify-options
+            terserOptions: {
+              mangle: false,
+            },
+          }]);
+      }
+    }
+  ]
+};
+```
+
 ## Generating multiple builds
 
 A library can be built multiple times from a `webpack.config.js` file in order to

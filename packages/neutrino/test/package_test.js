@@ -41,6 +41,20 @@ test('throws when vendor entrypoint defined', t => {
   );
 });
 
+test('throws if devtool configured manually when using terser-webpack-plugin', t => {
+  process.env.NODE_ENV = 'production';
+  const mw = (neutrino) =>
+    neutrino.config
+      .devtool('source-map')
+      .optimization
+        .minimizer('terser')
+          .use(Function.prototype, [{ sourceMap: false }]);
+  t.throws(
+    () => neutrino(mw).output('webpack'),
+    /terser-webpack-plugin has not been correctly configured/
+  );
+});
+
 test('throws when trying to use a non-registered output', t => {
   t.throws(
     () => neutrino(Function.prototype).output('fake'),

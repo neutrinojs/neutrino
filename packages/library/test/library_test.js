@@ -46,7 +46,6 @@ test('valid preset production', t => {
   // Common
   t.is(config.target, 'web');
   t.deepEqual(config.resolve.extensions, expectedExtensions);
-  t.is(config.optimization, undefined);
   t.is(config.devServer, undefined);
   t.deepEqual(config.stats, {
     children: false,
@@ -57,6 +56,7 @@ test('valid preset production', t => {
   // NODE_ENV/command specific
   t.is(config.devtool, 'source-map');
   t.not(config.externals, undefined);
+  t.is(config.optimization.minimizer.length, 1);
 
   const errors = validate(config);
   t.is(errors.length, 0);
@@ -72,7 +72,6 @@ test('valid preset development', t => {
   // Common
   t.is(config.target, 'web');
   t.deepEqual(config.resolve.extensions, expectedExtensions);
-  t.is(config.optimization, undefined);
   t.is(config.devServer, undefined);
   t.deepEqual(config.stats, {
     children: false,
@@ -83,6 +82,7 @@ test('valid preset development', t => {
   // NODE_ENV/command specific
   t.is(config.devtool, 'source-map');
   t.not(config.externals, undefined);
+  t.is(config.optimization, undefined);
 
   const errors = validate(config);
   t.is(errors.length, 0);
