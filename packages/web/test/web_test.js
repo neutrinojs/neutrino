@@ -240,28 +240,28 @@ test('supports multiple mains with custom html-webpack-plugin options', t => {
   }]);
 });
 
-test('throws when minify.babel defined', async t => {
+test('throws when minify.babel defined', t => {
   const api = new Neutrino();
 
   const err = t.throws(() => api.use(mw(), { minify: { babel: false } }));
   t.true(err.message.includes('The minify.babel option has been removed'));
 });
 
-test('throws when minify.image defined', async t => {
+test('throws when minify.image defined', t => {
   const api = new Neutrino();
 
   const err = t.throws(() => api.use(mw(), { minify: { image: true } }));
   t.true(err.message.includes('The minify.image option has been removed'));
 });
 
-test('throws when minify.style defined', async t => {
+test('throws when minify.style defined', t => {
   const api = new Neutrino();
 
   const err = t.throws(() => api.use(mw(), { minify: { style: false } }));
   t.true(err.message.includes('The minify.style option has been removed'));
 });
 
-test('throws when polyfills defined', async t => {
+test('throws when polyfills defined', t => {
   const api = new Neutrino();
 
   const err = t.throws(() => api.use(mw(), { polyfills: {} }));

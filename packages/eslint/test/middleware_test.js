@@ -76,7 +76,7 @@ test('exposes eslintrc config from method', t => {
   t.is(typeof neutrino(mw()).eslintrc(), 'object');
 });
 
-test('throws when used after a compile preset', async t => {
+test('throws when used after a compile preset', t => {
   const api = new Neutrino();
   api.use(require('../../web'));
 

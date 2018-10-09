@@ -16,10 +16,10 @@ test('requires middleware from root/node_modules', t => {
   t.notThrows(() => new Neutrino().use('alpha'));
 });
 
-test('forks with error middleware contains error', (t) => {
-  t.throws(() => new Neutrino().use('errorMiddleware'));
+test('throws if middleware contains error', (t) => {
+  t.throws(() => new Neutrino().use('errorMiddleware'), SyntaxError);
 });
 
 test('throws if middleware cannot be found', (t) => {
-  t.throws(() => new Neutrino().use('nonExistent'));
+  t.throws(() => new Neutrino().use('nonExistent'), 'Cannot find module \'nonExistent\'');
 });

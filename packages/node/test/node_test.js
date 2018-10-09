@@ -76,7 +76,7 @@ test('valid preset development', t => {
   t.is(errors.length, 0);
 });
 
-test('throws when polyfills defined', async t => {
+test('throws when polyfills defined', t => {
   const api = new Neutrino();
 
   const err = t.throws(() => api.use(mw(), { polyfills: {} }));
