@@ -24,15 +24,16 @@ test('uses preset', t => {
 test('throws when missing library name', t => {
   const api = new Neutrino();
 
-  const err = t.throws(() => api.use(mw()));
-  t.true(err.message.includes('You must specify a library name'));
+  t.throws(() => api.use(mw()), /You must specify a library name/);
 });
 
-test('throws when polyfills defined', async t => {
+test('throws when polyfills defined', t => {
   const api = new Neutrino();
 
-  const err = t.throws(() => api.use(mw(), { name: 'alpha', polyfills: {} }));
-  t.true(err.message.includes('The polyfills option has been removed'));
+  t.throws(
+    () => api.use(mw(), { name: 'alpha', polyfills: {} }),
+    /The polyfills option has been removed/
+  );
 });
 
 test('valid preset production', t => {
