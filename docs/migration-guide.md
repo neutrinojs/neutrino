@@ -39,12 +39,15 @@ neutrino --inspect --mode production > v9.config
 git diff --no-index v8.config v9.config
 ```
 
-Please [file an issue](https://github.com/neutrinojs/neutrino/issues) if any issue arises from upgrade
-that may not be outlined here.
+**We strongly recommend that any Yarn/npm lockfiles (eg `yarn.lock` or `package-lock.json`) are
+removed and regenerated when upgrading, to prevent problems caused by leftover dependencies.**
+
+Please [file an issue](https://github.com/neutrinojs/neutrino/issues) if any issue arises from the
+upgrade that may not be outlined here.
 
 A list of changes is detailed below for migrating:
 
-- **BREAKING CHANGE** The minimum supported Node.js version is 8.10. Node.js 9 is no longer supported
+- **BREAKING CHANGE** The minimum supported Node.js version is 8.10. Node.js 6 and 9 are no longer supported
 [#792](https://github.com/neutrinojs/neutrino/pull/792).
 - **BREAKING CHANGE** Consumption of middleware and presets are now dependent on the external CLIs and
 configuration files for which they are intended [#852](https://github.com/neutrinojs/neutrino/pull/852).
