@@ -28,7 +28,7 @@
     "deepmerge": "^1.5.2",
     "is-plain-object": "^2.0.4",
     "lodash.clonedeep": "^4.5.0",
-    "webpack-chain": "^4.11.0",
+    "webpack-chain": "^5.0.0",
     "yargs-parser": "^11.0.0"
   }
 }
