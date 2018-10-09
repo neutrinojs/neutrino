@@ -39,7 +39,7 @@ neutrino --inspect --mode production > v9.config
 git diff --no-index v8.config v9.config
 ```
 
-**We strongly recommend that any Yarn/NPM lockfiles (eg `yarn.lock` or `package-lock.json`) are
+**We strongly recommend that any Yarn/npm lockfiles (eg `yarn.lock` or `package-lock.json`) are
 removed and regenerated when upgrading, to prevent problems caused by leftover dependencies.**
 
 Please [file an issue](https://github.com/neutrinojs/neutrino/issues) if any issue arises from the
