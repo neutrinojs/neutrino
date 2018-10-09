@@ -11,6 +11,7 @@ module.exports = (neutrino, options = {}) => {
     .options({
       cacheDirectory: true,
       babelrc: false,
+      configFile: false,
       ...(options.babel || {})
     });
 
