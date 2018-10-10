@@ -32,7 +32,13 @@ module.exports = (middleware = {}) => {
   neutrino.register('inspect', inspect);
 
   if (use) {
-    neutrino.use(use);
+    try {
+      neutrino.use(use);
+    } catch (err) {
+      console.error('\nAn error occurred when loading the Neutrino configuration.\n');
+      console.error(err);
+      process.exit(1);
+    }
   }
 
   const adapter = {
