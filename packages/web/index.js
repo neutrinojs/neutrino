@@ -11,6 +11,15 @@ const { resolve } = require('url');
 const merge = require('deepmerge');
 
 module.exports = (neutrino, opts = {}) => {
+  if (neutrino.config.module.rules.has('compile')) {
+    throw new Error(
+      '@neutrinojs/web is being used when a `compile` rule already exists,\n' +
+      'which would cause the existing configuration to be overwritten.\n' +
+      'If you are including this preset manually to customise options configured\n' +
+      "by another preset, instead use that preset's own options to do so."
+    );
+  }
+
   const isProduction = process.env.NODE_ENV === 'production';
   const publicPath = opts.publicPath || './';
   const options = merge({

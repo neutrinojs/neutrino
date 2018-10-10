@@ -80,6 +80,14 @@ module.exports = (neutrino, opts = {}) => {
     throw new Error('Lint presets must be defined prior to any other presets in .neutrinorc.js.');
   }
 
+  if (neutrino.config.module.rules.has('lint')) {
+    throw new Error(
+      '@neutrinojs/eslint has been used twice.\n' +
+      'If you are including this preset manually to customise the ESLint rule\n' +
+      "configured by another preset, instead use that preset's own options to do so."
+    );
+  }
+
   const defaults = {
     include: !opts.include ? [neutrino.options.source, neutrino.options.tests] : undefined,
     eslint: {
