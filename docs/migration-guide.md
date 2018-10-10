@@ -97,15 +97,14 @@ calling out to Neutrino, or export multiple configurations from your `webpack.co
 // webpack.config.js
 const neutrino = require('neutrino');
 
+const config = neutrino().webpack();
+
 module.exports = [
   // first build configuration
-  neutrino().webpack(),
+  config,
 
   // second build configuration
-  {
-    ...neutrino().webpack(),
-   devtool: 'source-map'
-  },
+  { ...config, libraryTarget: 'commonjs2' },
 ];
 ```
 
@@ -146,8 +145,10 @@ ESLint 5, and related packages [#809](https://github.com/neutrinojs/neutrino/pul
 improved functionality around `splitChunks` [#809](https://github.com/neutrinojs/neutrino/pull/809). See
 [the split chunks documentation](https://webpack.js.org/plugins/split-chunks-plugin/) for more information.
 Usage of the `vendor` entry point will now throw an error when used with v9 and should not be used.
-- **BREAKING CHANGE** The `@neutrinojs/babel-minify` preset has been removed in favor of the much faster
-uglify-es built into webpack 4 [#809](https://github.com/neutrinojs/neutrino/pull/809).
+- **BREAKING CHANGE** The `@neutrinojs/babel-minify` preset has been removed in favor
+of the much faster `terser-webpack-plugin` (which will be the default in webpack 5)
+[#809](https://github.com/neutrinojs/neutrino/pull/809) and
+[#1158](https://github.com/neutrinojs/neutrino/pull/1158).
 - **BREAKING CHANGE** The `@neutrinojs/web` and dependent presets have renamed the `minify.babel` option
 to `minify.source` [#809](https://github.com/neutrinojs/neutrino/pull/809).
 - **BREAKING CHANGE** The `@neutrinojs/web` and dependent presets no longer include the
@@ -176,6 +177,11 @@ to RHL v4 while installing it into your project also.
 - **BREAKING CHANGE** `@neutrinojs/web`, `@neutrinojs/node`, and their dependent presets no longer configure
 defaults for copying static files at build time [#814](https://github.com/neutrinojs/neutrino/pull/814).
 Use the `@neutrinojs/copy` middleware to configure this for v9.
+- **BREAKING CHANGE** When using `@neutrinojs/web` and presets that depend on it,
+source maps must now be configured using the preset's `devtool` option rather than
+manually in a later middleware, to ensure that `terser-webpack-plugin` is configured
+correctly [#1158](https://github.com/neutrinojs/neutrino/pull/1158). See the
+[source maps documentation](./packages/web.md#source-maps) for more details.
 - **BREAKING CHANGE** Babel has been upgraded from v6 to v7 [#845](https://github.com/neutrinojs/neutrino/pull/809).
 Any additional Babel plugins and presets you use in your projects should be compatible with Babel v7 if
 they are still necessary.

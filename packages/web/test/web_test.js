@@ -41,6 +41,7 @@ test('valid preset production', t => {
 
   // NODE_ENV/command specific
   t.true(config.optimization.minimize);
+  t.is(config.optimization.minimizer.length, 1);
   t.false(config.optimization.splitChunks.name);
   t.is(config.devtool, undefined);
   t.is(config.devServer, undefined);
@@ -68,6 +69,7 @@ test('valid preset development', t => {
 
   // NODE_ENV/command specific
   t.false(config.optimization.minimize);
+  t.is(config.optimization.minimizer, undefined);
   t.true(config.optimization.splitChunks.name);
   t.is(config.devtool, 'cheap-module-eval-source-map');
   t.not(config.devServer, undefined);
@@ -105,6 +107,7 @@ test('valid preset test', t => {
 
   // NODE_ENV/command specific
   t.false(config.optimization.minimize);
+  t.is(config.optimization.minimizer, undefined);
   t.true(config.optimization.splitChunks.name);
   t.is(config.devtool, 'source-map');
   t.is(config.devServer, undefined);

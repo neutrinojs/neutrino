@@ -536,38 +536,31 @@ module.exports = {
 
 #### Source minification
 
-By default script sources are minified in production only, and using webpack's default of
-[uglifyjs-webpack-plugin](https://github.com/webpack-contrib/uglifyjs-webpack-plugin)
-(which internally uses `uglify-es`). To customise the options passed to `UglifyJsPlugin`
+By default script sources are minified in production only, using
+[terser-webpack-plugin](https://github.com/webpack-contrib/terser-webpack-plugin)
+(which replaces `uglifyjs-webpack-plugin`). To customise the options passed to `TerserPlugin`
 or even use a different minifier, override `optimization.minimizer`.
 
-Note: If switching to [babel-minify-webpack-plugin](https://github.com/webpack-contrib/babel-minify-webpack-plugin)
-ensure that sourcemaps are disabled in production to avoid [this bug](https://github.com/webpack-contrib/babel-minify-webpack-plugin/issues/68).
-
-_Example: Use different options with `uglify-es`:_
+_Example: Adjust the `terser` minification settings:_
 
 ```js
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-
 module.exports = {
   use: [
     '@neutrinojs/web',
     (neutrino) => {
-      neutrino.config
-        .optimization
-          .minimizer([
-            // Based on:
-            // https://github.com/webpack/webpack/blob/v4.6.0/lib/WebpackOptionsDefaulter.js#L277-L285
-            new UglifyJsPlugin({
-              cache: true,
-              parallel: true,
-              sourceMap: neutrino.config.devtool && /source-?map/.test(neutrino.config.devtool),
-              uglifyOptions: {
-                // Custom uglify-es options here. See:
-                // https://github.com/mishoo/UglifyJS2/tree/harmony#minify-options
-              }
-            })
-          ]);
+      // The `terser` minimizer plugin only exists in the configuration in production.
+      if (process.env.NODE_ENV === 'production') {
+        neutrino.config.optimization
+          .minimizer('terser')
+          .tap(([defaultOptions]) => [{
+            ...defaultOptions,
+            // https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
+            // https://github.com/terser-js/terser#minify-options
+            terserOptions: {
+              mangle: false,
+            },
+          }]);
+      }
     }
   ]
 };
