@@ -29,7 +29,6 @@ module.exports = (neutrino, opts = {}) => {
       port,
       https: false,
       contentBase: neutrino.options.source,
-      open: false,
       hot: true,
       historyApiFallback: true,
       publicPath: '/',
