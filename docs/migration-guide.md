@@ -177,6 +177,11 @@ to RHL v4 while installing it into your project also.
 - **BREAKING CHANGE** `@neutrinojs/web`, `@neutrinojs/node`, and their dependent presets no longer configure
 defaults for copying static files at build time [#814](https://github.com/neutrinojs/neutrino/pull/814).
 Use the `@neutrinojs/copy` middleware to configure this for v9.
+- **BREAKING CHANGE** `@neutrinojs/dev-server` (used by `@neutrinojs/web`) no longer sets `contentBase`
+by default, meaning that in development any files that are not part of the webpack build need to be
+explicitly included (such as by importing from JS or using `@neutrinojs/copy`) or they will not be
+accessible from the dev server [#814](https://github.com/neutrinojs/neutrino/pull/814).
+This prevents missing files from only being discovered once in production.
 - **BREAKING CHANGE** When using `@neutrinojs/web` and presets that depend on it,
 source maps must now be configured using the preset's `devtool` option rather than
 manually in a later middleware, to ensure that `terser-webpack-plugin` is configured
