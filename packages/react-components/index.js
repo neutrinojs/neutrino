@@ -12,7 +12,15 @@ module.exports = (neutrino, opts = {}) => {
     },
     manifest: process.env.NODE_ENV === 'development',
     externals: opts.externals !== false && {},
-    style: { extract: { plugin: { filename: '[name].css' } } },
+    style: {
+      extract: {
+        plugin: {
+          // Override the @neutrinojs/react production behaviour of hashed CSS
+          // filenames, and output to the build root, not an `assets/` subdirectory.
+          filename: '[name].css'
+        }
+      }
+    },
     devtool: {
       production: 'source-map'
     },
@@ -55,6 +63,7 @@ module.exports = (neutrino, opts = {}) => {
           .runtimeChunk(false)
           .end()
         .output
+          // Override hashed filename/subdirectory usage inherited from @neutrinojs/react.
           .filename('[name].js')
           .library('[name]')
           .libraryTarget('umd')

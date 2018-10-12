@@ -176,8 +176,6 @@ module.exports = (neutrino, opts = {}) => {
       }
     });
 
-  const jsFilename = isProduction ? '[name].[contenthash:8].js' : '[name].js';
-
   neutrino.config
     .optimization
       .minimize(options.minify.source)
@@ -221,8 +219,7 @@ module.exports = (neutrino, opts = {}) => {
     .output
       .path(neutrino.options.output)
       .publicPath(options.publicPath)
-      .filename(jsFilename)
-      .chunkFilename(jsFilename)
+      .filename(isProduction ? 'assets/[name].[contenthash:8].js' : 'assets/[name].js')
       .end()
     .resolve
       .extensions

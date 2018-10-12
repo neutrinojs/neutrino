@@ -66,7 +66,9 @@ neutrino.use(styles, {
   extract: {
     loader: {},
     plugin: {
-      filename: process.env.NODE_ENV === 'production' ? '[name].[contenthash:8].css' : '[name].css'
+      filename: process.env.NODE_ENV === 'production'
+        ? 'assets/[name].[contenthash:8].css'
+        : 'assets/[name].css'
     }
   }
 });
@@ -100,7 +102,9 @@ module.exports = {
       extract: {
         loader: {},
         plugin: {
-          filename: process.env.NODE_ENV === 'production' ? '[name].[contenthash:8].css' : '[name].css'
+          filename: process.env.NODE_ENV === 'production'
+            ? 'assets/[name].[contenthash:8].css'
+            : 'assets/[name].css'
         }
       }
     }]

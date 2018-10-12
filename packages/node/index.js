@@ -73,9 +73,7 @@ module.exports = (neutrino, opts = {}) => {
     .context(neutrino.options.root)
     .output
       .path(neutrino.options.output)
-      .filename('[name].js')
       .libraryTarget('commonjs2')
-      .chunkFilename('[name].js')
       .end()
     .resolve
       .extensions
