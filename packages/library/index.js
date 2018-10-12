@@ -4,14 +4,19 @@ const clean = require('@neutrinojs/clean');
 const loaderMerge = require('@neutrinojs/loader-merge');
 const merge = require('deepmerge');
 const nodeExternals = require('webpack-node-externals');
+const { ConfigurationError } = require('neutrino/errors');
 
 module.exports = (neutrino, opts = {}) => {
   if (!opts.name) {
-    throw new Error('Missing required preset option "name". You must specify a library name when using this preset.');
+    throw new ConfigurationError(
+      'Missing required preset option "name". You must specify a library name when using this preset.'
+    );
   }
 
   if ('polyfills' in opts) {
-    throw new Error('The polyfills option has been removed, since polyfills are no longer included by default.');
+    throw new ConfigurationError(
+      'The polyfills option has been removed, since polyfills are no longer included by default.'
+    );
   }
 
   const options = merge({

@@ -8,6 +8,7 @@ const {
 } = require('path');
 const merge = require('deepmerge');
 const omit = require('lodash.omit');
+const { ConfigurationError } = require('neutrino/errors');
 
 const getOutputForEntry = entry => basename(
   format(
@@ -20,7 +21,9 @@ const getOutputForEntry = entry => basename(
 
 module.exports = (neutrino, opts = {}) => {
   if ('polyfills' in opts) {
-    throw new Error('The polyfills option has been removed, since polyfills are no longer included by default.');
+    throw new ConfigurationError(
+      'The polyfills option has been removed, since polyfills are no longer included by default.'
+    );
   }
 
   const pkg = neutrino.options.packageJson;

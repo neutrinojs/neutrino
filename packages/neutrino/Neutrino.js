@@ -3,6 +3,7 @@ const Config = require('webpack-chain');
 const isPlainObject = require('is-plain-object');
 const merge = require('deepmerge');
 const { isAbsolute, join } = require('path');
+const { ConfigurationError } = require('./errors');
 const { source } = require('./extensions');
 
 const getRoot = ({ root }) => root;
@@ -134,7 +135,9 @@ module.exports = class Neutrino {
       });
 
     if ('node_modules' in options) {
-      throw new Error('options.node_modules has been removed. Use `neutrino.config.resolve.modules` instead.');
+      throw new ConfigurationError(
+        'options.node_modules has been removed. Use `neutrino.config.resolve.modules` instead.'
+      );
     }
 
     return options;
@@ -217,7 +220,9 @@ module.exports = class Neutrino {
       this.use(...middleware);
     } else if (isPlainObject(middleware)) {
       if ('env' in middleware) {
-        throw new Error('Using "env" in middleware has been removed. Apply middleware conditionally instead.');
+        throw new ConfigurationError(
+          'Using "env" in middleware has been removed. Apply middleware conditionally instead.'
+        );
       }
       // If middleware is an object, it could contain other middleware in
       // its "use" property. Run every item in "use" prop back through .use(),

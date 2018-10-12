@@ -1,8 +1,9 @@
 const { resolve } = require('path');
+const { ConfigurationError } = require('neutrino/errors');
 
 module.exports = (neutrino, { pluginId = 'html', ...options } = {}) => {
   if ('links' in options && !('template' in options)) {
-    throw new Error(
+    throw new ConfigurationError(
       'The default Neutrino HTML template no longer supports the "links" option. ' +
       'To set a favicon use the "favicon" option instead. For stylesheets either ' +
       'import the equivalent npm package from JS, or if using a CDN is preferred, ' +

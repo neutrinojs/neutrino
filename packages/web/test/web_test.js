@@ -246,7 +246,10 @@ test('supports multiple mains with custom html-webpack-plugin options', t => {
 test('throws when used twice', t => {
   const api = new Neutrino();
   api.use(mw());
-  t.throws(() => api.use(mw()), /a `compile` rule already exists/);
+  t.throws(
+    () => api.use(mw()),
+    /@neutrinojs\/web is being used when a `compile` rule already exists/
+  );
 });
 
 test('throws when minify.babel defined', t => {
