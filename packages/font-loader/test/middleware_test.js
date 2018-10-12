@@ -31,3 +31,12 @@ test('instantiates with options', t => {
 
   t.notThrows(() => api.config.toConfig());
 });
+
+test('throws when used twice', t => {
+  const api = new Neutrino();
+  api.use(mw());
+  t.throws(
+    () => api.use(mw()),
+    /@neutrinojs\/font-loader has been used twice with the same ruleId of 'font'/
+  );
+});

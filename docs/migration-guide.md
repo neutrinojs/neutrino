@@ -218,6 +218,9 @@ configuration via a configuration file, you can set it to `true` via `babel: { b
 - **BREAKING CHANGE** `@neutrinojs/eslint` and dependent middleware now throw if they are used by Neutrino after
 a compile preset [#839](https://github.com/neutrinojs/neutrino/pull/939). This is to prevent using an unknowingly
 broken configuration.
+- **BREAKING CHANGE** Most Neutrino middleware now throws if used twice with the same rule IDs. This is to
+prevent mis-configurations seen in the wild (such as using both `@neutrinojs/web` and one of the lower-level
+middleware it uses at the same time) [#1162](https://github.com/neutrinojs/neutrino/pull/1162).
 - **BREAKING CHANGE** The `@neutrinojs/mocha` preset no longer accepts middleware options as Mocha's CLI does not
 allow providing an options file which can call out to Neutrino to load middleware
 [#852](https://github.com/neutrinojs/neutrino/pull/852). Manually pass any Mocha options to a [`mocha.opts`](https://mochajs.org/#mochaopts)

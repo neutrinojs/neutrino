@@ -1,4 +1,5 @@
 const merge = require('deepmerge');
+const { DuplicateRuleError } = require('neutrino/errors');
 
 module.exports = (neutrino, opts = {}) => {
   const modules = 'modules' in opts ? opts.modules : true;
@@ -27,6 +28,10 @@ module.exports = (neutrino, opts = {}) => {
       }
     }
   }, opts);
+
+  if (neutrino.config.module.rules.has(options.ruleId)) {
+    throw new DuplicateRuleError('@neutrinojs/style-loader', options.ruleId);
+  }
 
   const rules = [options];
 

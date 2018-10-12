@@ -1,6 +1,8 @@
+const { ConfigurationError } = require('./errors');
+
 const webpack = (neutrino) => {
   if (neutrino.config.entryPoints.has('vendor')) {
-    throw new Error(
+    throw new ConfigurationError(
       'Vendor chunks are now automatically generated. ' +
       'Remove the manual `vendor` entrypoint.'
     );
@@ -22,7 +24,7 @@ const webpack = (neutrino) => {
   // disable source maps in terser-webpack-plugin, then they can unset `sourceMap` rather
   // than setting it to `false`.
   if (usingSourcemap && minimizer && (minimizer.get('args')[0] || {}).sourceMap === false) {
-    throw new Error(
+    throw new ConfigurationError(
       `neutrino.config.devtool is set to '${devtool}', however terser-webpack-plugin ` +
       'has not been correctly configured to allow source maps. ' +
       'This can happen if the devtool is configured manually outside of the preset. ' +

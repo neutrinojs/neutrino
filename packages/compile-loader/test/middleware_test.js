@@ -60,3 +60,12 @@ test('exposes babel method', t => {
 test('exposes babel config from method', t => {
   t.is(typeof neutrino(mw()).babel(), 'object');
 });
+
+test('throws when used twice', t => {
+  const api = new Neutrino();
+  api.use(mw());
+  t.throws(
+    () => api.use(mw()),
+    /@neutrinojs\/compile-loader has been used twice with the same ruleId of 'compile'/
+  );
+});

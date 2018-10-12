@@ -1,6 +1,7 @@
 const deepmerge = require('deepmerge');
 const clone = require('lodash.clonedeep');
 const omit = require('lodash.omit');
+const { ConfigurationError, DuplicateRuleError } = require('neutrino/errors');
 
 const merge = (source, destination) => {
   const sourceRules = (source && source.eslint && source.eslint.rules) || {};
@@ -77,7 +78,13 @@ const eslintrc = (neutrino) => {
 
 module.exports = (neutrino, opts = {}) => {
   if (neutrino.config.module.rules.has('compile')) {
-    throw new Error('Lint presets must be defined prior to any other presets in .neutrinorc.js.');
+    throw new ConfigurationError(
+      'Lint presets must be defined prior to any other presets in .neutrinorc.js.'
+    );
+  }
+
+  if (neutrino.config.module.rules.has('lint')) {
+    throw new DuplicateRuleError('@neutrinojs/eslint', 'lint');
   }
 
   const defaults = {

@@ -60,3 +60,12 @@ test('respects disabling of CSS modules', t => {
     t.falsy(use.options && use.options.css && use.options.css.modules);
   });
 });
+
+test('throws when used twice', t => {
+  const api = new Neutrino();
+  api.use(mw());
+  t.throws(
+    () => api.use(mw()),
+    /@neutrinojs\/style-loader has been used twice with the same ruleId of 'style'/
+  );
+});

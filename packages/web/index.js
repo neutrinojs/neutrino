@@ -9,8 +9,18 @@ const loaderMerge = require('@neutrinojs/loader-merge');
 const devServer = require('@neutrinojs/dev-server');
 const { resolve } = require('url');
 const merge = require('deepmerge');
+const { ConfigurationError } = require('neutrino/errors');
 
 module.exports = (neutrino, opts = {}) => {
+  if (neutrino.config.module.rules.has('compile')) {
+    throw new ConfigurationError(
+      '@neutrinojs/web is being used when a `compile` rule already exists, ' +
+      'which would overwrite the existing configuration. If you are including ' +
+      'this preset manually to customise rules configured by another preset, ' +
+      "instead use that preset's own options to do so."
+    );
+  }
+
   const isProduction = process.env.NODE_ENV === 'production';
   const publicPath = opts.publicPath || './';
   const options = merge({
@@ -45,23 +55,31 @@ module.exports = (neutrino, opts = {}) => {
   }, opts);
 
   if ('babel' in options.minify) {
-    throw new Error('The minify.babel option has been removed. See the web preset docs for how to customise source minification.');
+    throw new ConfigurationError(
+      'The minify.babel option has been removed. See the web preset docs for how to customise source minification.'
+    );
   }
 
   if ('image' in options.minify) {
-    throw new Error('The minify.image option has been removed. See: https://github.com/neutrinojs/neutrino/issues/1104');
+    throw new ConfigurationError(
+      'The minify.image option has been removed. See: https://github.com/neutrinojs/neutrino/issues/1104'
+    );
   }
 
   if ('style' in options.minify) {
-    throw new Error('The minify.style option has been removed. To enable style minification use the @neutrinojs/style-minify preset.');
+    throw new ConfigurationError(
+      'The minify.style option has been removed. To enable style minification use the @neutrinojs/style-minify preset.'
+    );
   }
 
   if ('polyfills' in options) {
-    throw new Error('The polyfills option has been removed, since polyfills are no longer included by default.');
+    throw new ConfigurationError(
+      'The polyfills option has been removed, since polyfills are no longer included by default.'
+    );
   }
 
   if ('hotEntries' in options) {
-    throw new Error(
+    throw new ConfigurationError(
       'The hotEntries option has been removed. See the "neutrino.options.mains" ' +
       'docs for how to add custom hot entries to your bundle without importing.'
     );
