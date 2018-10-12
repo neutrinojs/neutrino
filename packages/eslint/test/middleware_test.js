@@ -86,5 +86,8 @@ test('throws when used after a compile preset', t => {
 test('throws when used twice', t => {
   const api = new Neutrino();
   api.use(mw());
-  t.throws(() => api.use(mw()), /@neutrinojs\/eslint has been used twice/);
+  t.throws(
+    () => api.use(mw()),
+    /@neutrinojs\/eslint has been used twice with the same ruleId of 'lint'/
+  );
 });

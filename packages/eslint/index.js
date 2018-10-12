@@ -1,6 +1,7 @@
 const deepmerge = require('deepmerge');
 const clone = require('lodash.clonedeep');
 const omit = require('lodash.omit');
+const { DuplicateRuleError } = require('neutrino/errors');
 
 const merge = (source, destination) => {
   const sourceRules = (source && source.eslint && source.eslint.rules) || {};
@@ -81,11 +82,7 @@ module.exports = (neutrino, opts = {}) => {
   }
 
   if (neutrino.config.module.rules.has('lint')) {
-    throw new Error(
-      '@neutrinojs/eslint has been used twice.\n' +
-      'If you are including this preset manually to customise the ESLint rule\n' +
-      "configured by another preset, instead use that preset's own options to do so."
-    );
+    throw new DuplicateRuleError('@neutrinojs/eslint', 'lint');
   }
 
   const defaults = {

@@ -1,3 +1,5 @@
+const { DuplicateRuleError } = require('neutrino/errors');
+
 module.exports = (neutrino, options = {}) => {
   const ruleId = 'image';
   const isProduction = process.env.NODE_ENV === 'production';
@@ -7,12 +9,7 @@ module.exports = (neutrino, options = {}) => {
   };
 
   if (neutrino.config.module.rules.has(ruleId)) {
-    throw new Error(
-      '@neutrinojs/image-loader has been used twice.\n' +
-      'If you are including this preset manually to customise the image rule\n' +
-      "configured by another preset, instead use that preset's own options to do so\n" +
-      '(such as the `image` option when using the Neutrino web/react/vue/... presets).'
-    );
+    throw new DuplicateRuleError('@neutrinojs/image-loader', ruleId);
   }
 
   neutrino.config.module

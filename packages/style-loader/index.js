@@ -1,4 +1,5 @@
 const merge = require('deepmerge');
+const { DuplicateRuleError } = require('neutrino/errors');
 
 module.exports = (neutrino, opts = {}) => {
   const modules = 'modules' in opts ? opts.modules : true;
@@ -29,12 +30,7 @@ module.exports = (neutrino, opts = {}) => {
   }, opts);
 
   if (neutrino.config.module.rules.has(options.ruleId)) {
-    throw new Error(
-      '@neutrinojs/style-loader has been used twice with the same `ruleId`.\n' +
-      'If you are including this preset manually to customise the style rules\n' +
-      "configured by another preset, instead use that preset's own options to do so\n" +
-      '(such as the `style` option when using the Neutrino web/react/vue/... presets).'
-    );
+    throw new DuplicateRuleError('@neutrinojs/style-loader', options.ruleId);
   }
 
   const rules = [options];
