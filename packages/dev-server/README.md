@@ -11,6 +11,7 @@
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino 9
 - webpack 4
+- webpack-dev-server 3
 
 ## Installation
 
@@ -42,27 +43,15 @@ neutrino.use(devServer);
 
 // Usage with custom options (default options are shown)
 neutrino.use(devServer, {
-  https: false,
   port: 5000,
-  host: 'localhost',
-  public: 'localhost:5000',
   hot: true,
+  // Redirect 404s to index.html, so that apps that use the HTML 5 History API work.
   historyApiFallback: true,
-  publicPath: '/',
-  headers: {
-    host: 'localhost:5000'
-  },
+  // Only display compile duration and errors/warnings, to reduce noise when rebuilding.
   stats: {
-    assets: false,
-    children: false,
-    chunks: false,
-    colors: true,
+    all: false,
     errors: true,
-    hash: false,
-    modules: false,
-    publicPath: false,
-    timings: false,
-    version: false,
+    timings: true,
     warnings: true
   }
 });
@@ -80,27 +69,15 @@ module.exports = {
 module.exports = {
   use: [
     ['@neutrinojs/dev-server', {
-      https: false,
       port: 5000,
-      host: 'localhost',
-      public: 'localhost:5000',
       hot: true,
+      // Redirect 404s to index.html, so that apps that use the HTML 5 History API work.
       historyApiFallback: true,
-      publicPath: '/',
-      headers: {
-        host: 'localhost'
-      },
+      // Only display compile duration and errors/warnings, to reduce noise when rebuilding.
       stats: {
-        assets: false,
-        children: false,
-        chunks: false,
-        colors: true,
+        all: false,
         errors: true,
-        hash: false,
-        modules: false,
-        publicPath: false,
-        timings: false,
-        version: false,
+        timings: true,
         warnings: true
       }
     }]
@@ -111,9 +88,6 @@ module.exports = {
 By default this middleware will start a development server with Hot Module Replacement support on
 `http://localhost:5000`. To enable HMR with your application, read the documentation of corresponding Neutrino
 preset or middleware.
-
-It is recommended to call this middleware only in development mode when `process.env.NODE_ENV === 'development'`.
-More information about usage of Neutrino middleware can be found in the [documentation](https://neutrinojs.org/middleware/).
 
 ## Middleware options
 

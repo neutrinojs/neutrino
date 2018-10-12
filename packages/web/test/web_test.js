@@ -43,6 +43,7 @@ test('valid preset production', t => {
   t.true(config.optimization.minimize);
   t.is(config.optimization.minimizer.length, 1);
   t.false(config.optimization.splitChunks.name);
+  t.is(config.output.publicPath, '');
   t.is(config.devtool, undefined);
   t.is(config.devServer, undefined);
 
@@ -61,6 +62,7 @@ test('valid preset development', t => {
   t.deepEqual(config.resolve.extensions, expectedExtensions);
   t.is(config.optimization.runtimeChunk, 'single');
   t.is(config.optimization.splitChunks.chunks, 'all');
+  t.is(config.output.publicPath, '');
   t.deepEqual(config.stats, {
     children: false,
     entrypoints: false,
@@ -72,16 +74,16 @@ test('valid preset development', t => {
   t.is(config.optimization.minimizer, undefined);
   t.true(config.optimization.splitChunks.name);
   t.is(config.devtool, 'cheap-module-eval-source-map');
-  t.not(config.devServer, undefined);
-  t.is(config.devServer.host, '0.0.0.0');
-  t.is(config.devServer.port, 5000);
-  t.is(config.devServer.public, 'localhost:5000');
-  t.is(config.devServer.publicPath, '/');
-  t.deepEqual(config.devServer.stats, {
-    all: false,
-    errors: true,
-    timings: true,
-    warnings: true
+  t.deepEqual(config.devServer, {
+    historyApiFallback: true,
+    hot: true,
+    port: 5000,
+    stats: {
+      all: false,
+      errors: true,
+      timings: true,
+      warnings: true
+    }
   });
 
   const errors = validate(config);
@@ -99,6 +101,7 @@ test('valid preset test', t => {
   t.deepEqual(config.resolve.extensions, expectedExtensions);
   t.is(config.optimization.runtimeChunk, 'single');
   t.is(config.optimization.splitChunks.chunks, 'all');
+  t.is(config.output.publicPath, '');
   t.deepEqual(config.stats, {
     children: false,
     entrypoints: false,
@@ -289,6 +292,14 @@ test('throws when hotEntries defined', t => {
   t.throws(
     () => api.use(mw(), { hotEntries: [] }),
     /The hotEntries option has been removed/
+  );
+});
+
+test('throws when devServer.proxy is the deprecated string shorthand', t => {
+  const api = new Neutrino();
+  t.throws(
+    () => api.use(mw(), { devServer: { proxy: 'foo' } }),
+    /setting `devServer.proxy` to a string is no longer supported/
   );
 });
 
