@@ -72,7 +72,6 @@ module.exports = (neutrino, opts = {}) => {
     .output
       .path(neutrino.options.output)
       .library(options.name)
-      .filename('[name].js')
       .libraryTarget(options.libraryTarget)
       .when(options.libraryTarget === 'umd', (output) => output.umdNamedDefine(true))
       .end()

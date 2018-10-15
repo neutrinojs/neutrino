@@ -195,10 +195,11 @@ so async functions will not be de-sugared to Promises by default any more [#790]
 This means the preset option of `polyfills.async` has been removed.
 - **BREAKING CHANGE** The output format from `neutrino --inspect` has changed and is equivalent to the
 `neutrino --inspect-new` in Neutrino v8 [#928](https://github.com/neutrinojs/neutrino/pull/928).
-- **BREAKING CHANGE** The length of hashes in built filenames has been shortened to 8 characters
-[#930](https://github.com/neutrinojs/neutrino/pull/930). This will
-cause potential hash changes for changed files and if you use regex rules to manage web server caches, those must be
-updated.
+- **BREAKING CHANGE** The path and filename of built files has changed. Files with hashed filenames
+are now output under an `assets/` subdirectory, and the hash has been shortened to 8 characters
+[#930](https://github.com/neutrinojs/neutrino/pull/930) and [#1174](https://github.com/neutrinojs/neutrino/pull/1174).
+If you set custom headers for these files in your web server configuration (such as a long-expiry
+`Cache-Control` header), the rules/regex for them will need to be updated.
 - **BREAKING CHANGE** Module resolution now uses the [webpack 4 defaults](https://webpack.js.org/configuration/resolve/#resolve-modules)
 [#926](https://github.com/neutrinojs/neutrino/pull/926). This means that the option `neutrino.options.node_modules`
 has been removed.

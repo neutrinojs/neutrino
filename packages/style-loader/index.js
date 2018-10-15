@@ -23,8 +23,8 @@ module.exports = (neutrino, opts = {}) => {
       loader: {},
       plugin: {
         filename: process.env.NODE_ENV === 'production'
-          ? '[name].[contenthash:8].css'
-          : '[name].css'
+          ? 'assets/[name].[contenthash:8].css'
+          : 'assets/[name].css'
       }
     }
   }, opts);

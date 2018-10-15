@@ -42,7 +42,9 @@ neutrino.use(fonts);
 
 // Usage showing default options
 neutrino.use(fonts, {
-  name: process.env.NODE_ENV === 'production' ? '[name].[hash:8].[ext]' : '[name].[ext]'
+  name: process.env.NODE_ENV === 'production'
+    ? 'assets/[name].[hash:8].[ext]'
+    : 'assets/[name].[ext]'
 });
 ```
 
@@ -58,7 +60,9 @@ module.exports = {
 module.exports = {
   use: [
     ['@neutrinojs/font-loader', {
-      name: process.env.NODE_ENV === 'production' ? '[name].[hash:8].[ext]' : '[name].[ext]'
+      name: process.env.NODE_ENV === 'production'
+        ? 'assets/[name].[hash:8].[ext]'
+        : 'assets/[name].[ext]'
     }]
   ]
 };

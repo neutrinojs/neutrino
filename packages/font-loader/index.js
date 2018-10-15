@@ -4,7 +4,7 @@ module.exports = (neutrino, options = {}) => {
   const ruleId = 'font';
   const isProduction = process.env.NODE_ENV === 'production';
   const defaultOptions = {
-    name: isProduction ? '[name].[hash:8].[ext]' : '[name].[ext]'
+    name: isProduction ? 'assets/[name].[hash:8].[ext]' : 'assets/[name].[ext]'
   };
 
   if (neutrino.config.module.rules.has(ruleId)) {
