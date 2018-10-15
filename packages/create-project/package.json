@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "chalk": "^2.4.1",
-    "command-exists": "^1.2.7",
+    "command-exists": "^1.2.8",
     "deepmerge": "^1.5.2",
     "fs-extra": "^7.0.0",
     "javascript-stringify": "^1.6.0",
