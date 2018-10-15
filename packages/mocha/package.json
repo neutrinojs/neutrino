@@ -20,7 +20,7 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@babel/core": "^7.1.0",
+    "@babel/core": "^7.1.2",
     "@babel/plugin-transform-modules-commonjs": "^7.1.0",
     "@babel/register": "^7.0.0",
     "@neutrinojs/loader-merge": "9.0.0-0",

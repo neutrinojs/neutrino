@@ -26,8 +26,8 @@
   "dependencies": {
     "css-loader": "^1.0.0",
     "deepmerge": "^1.5.2",
-    "mini-css-extract-plugin": "^0.4.3",
-    "style-loader": "^0.23.0"
+    "mini-css-extract-plugin": "^0.4.4",
+    "style-loader": "^0.23.1"
   },
   "peerDependencies": {
     "neutrino": "^9.0.0-0",

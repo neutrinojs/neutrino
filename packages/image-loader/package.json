@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "file-loader": "^2.0.0",
-    "url-loader": "^1.1.1"
+    "url-loader": "^1.1.2"
   },
   "peerDependencies": {
     "neutrino": "^9.0.0-0",
