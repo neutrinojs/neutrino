@@ -158,7 +158,7 @@ use the [@neutrinojs/copy](https://neutrinojs.org/packages/copy/) preset alongsi
 ## Paths
 
 The `@neutrinojs/web` preset loads assets relative to the path of your application by setting webpack's
-[`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath) to `./`. If you wish to load
+[`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath) to `''`. If you wish to load
 assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
 override `output.publicPath`. See the [Customizing](#customizing) section below.
 
@@ -180,10 +180,9 @@ module.exports = {
       // Enables Hot Module Replacement. Set to false to disable
       hot: true,
 
-      // Sets webpack's `output.publicPath` and
-      // `devServer.publicPath` settings. Useful if you want to
-      // serve assets from a non-root location (e.g. `/assets/`)
-      publicPath: './',
+      // Sets webpack's `output.publicPath` setting, which is useful if you
+      // want to serve assets from a non-root location (e.g. `/assets/`).
+      publicPath: '',
 
       // Change options for @neutrinojs/style-loader
       style: {
@@ -325,22 +324,11 @@ Or to set default values, use the object form:
 
 ### Dev Server Proxy
 
-If you are handling requests with a server, you may want to set up a proxy for development. See webpack's [`devServer.proxy`](https://webpack.js.org/configuration/dev-server/#devserver-proxy) for all available options.
-
-Optionally, you may pass a url string (instead of an object) to `devServer.proxy`.
-This will proxy **all requests** through the given url, and set some sensible defaults.
+If you are handling requests with a server, you may want to set up a proxy for development.
+See webpack's [`devServer.proxy`](https://webpack.js.org/configuration/dev-server/#devserver-proxy)
+for all available options.
 
 For example:
-
-```js
-['@neutrinojs/web', {
-  devServer: {
-    proxy: 'http://localhost:3000'
-  }
-}]
-```
-
-Is equivalent to:
 
 ```js
 ['@neutrinojs/web', {
@@ -349,16 +337,11 @@ Is equivalent to:
       '**': {
         target: 'http://localhost:3000',
         changeOrigin: true,
-        headers: {
-          'X-Dev-Server-Proxy': 'http://localhost:3000'
-        }
       }
     }
   }
 }]
 ```
-
-The `X-Dev-Server-Proxy` header can be useful for detecting if your existing app is being requested through the proxy.
 
 ### Source Maps
 

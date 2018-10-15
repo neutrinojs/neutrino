@@ -25,11 +25,9 @@
     "npm": ">=5.4.0",
     "yarn": ">=1.2.1"
   },
-  "dependencies": {
-    "deepmerge": "^1.5.2"
-  },
   "peerDependencies": {
     "neutrino": "^9.0.0-0",
-    "webpack": "^4.0.0"
+    "webpack": "^4.0.0",
+    "webpack-dev-server": "^3.0.0"
   }
 }

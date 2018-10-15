@@ -7,7 +7,6 @@ const htmlTemplate = require('@neutrinojs/html-template');
 const clean = require('@neutrinojs/clean');
 const loaderMerge = require('@neutrinojs/loader-merge');
 const devServer = require('@neutrinojs/dev-server');
-const { resolve } = require('url');
 const merge = require('deepmerge');
 const { ConfigurationError } = require('neutrino/errors');
 
@@ -22,9 +21,8 @@ module.exports = (neutrino, opts = {}) => {
   }
 
   const isProduction = process.env.NODE_ENV === 'production';
-  const publicPath = opts.publicPath || './';
   const options = merge({
-    publicPath,
+    publicPath: '',
     env: false,
     hot: true,
     html: {},
@@ -34,8 +32,7 @@ module.exports = (neutrino, opts = {}) => {
       test: 'source-map'
     },
     devServer: {
-      hot: opts.hot !== false,
-      publicPath: resolve('/', publicPath)
+      hot: opts.hot !== false
     },
     style: {
       hot: opts.hot !== false,
@@ -85,23 +82,19 @@ module.exports = (neutrino, opts = {}) => {
     );
   }
 
+  if (typeof options.devServer.proxy === 'string') {
+    throw new ConfigurationError(
+      'The shorthand of setting `devServer.proxy` to a string is no longer supported. ' +
+      'Use an object and the options listed here instead: ' +
+      'https://webpack.js.org/configuration/dev-server/#devserver-proxy'
+    );
+  }
+
   if (typeof options.devtool === 'string' || typeof options.devtool === 'boolean') {
     options.devtool = {
       development: options.devtool,
       production: options.devtool,
       test: options.devtool
-    };
-  }
-
-  if (typeof options.devServer.proxy === 'string') {
-    options.devServer.proxy = {
-      '**': {
-        target: options.devServer.proxy,
-        changeOrigin: true,
-        headers: {
-          Forwarded: 'by=_webpack-dev-server'
-        }
-      }
     };
   }
 

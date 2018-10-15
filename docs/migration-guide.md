@@ -177,11 +177,20 @@ to RHL v4 while installing it into your project also.
 - **BREAKING CHANGE** `@neutrinojs/web`, `@neutrinojs/node`, and their dependent presets no longer configure
 defaults for copying static files at build time [#814](https://github.com/neutrinojs/neutrino/pull/814).
 Use the `@neutrinojs/copy` middleware to configure this for v9.
-- **BREAKING CHANGE** `@neutrinojs/dev-server` (used by `@neutrinojs/web`) no longer sets `contentBase`
+- **BREAKING CHANGE** `@neutrinojs/dev-server` (used by `@neutrinojs/web`) no longer sets
+[contentBase](https://webpack.js.org/configuration/dev-server/#devserver-contentbase)
 by default, meaning that in development any files that are not part of the webpack build need to be
 explicitly included (such as by importing from JS or using `@neutrinojs/copy`) or they will not be
 accessible from the dev server [#1165](https://github.com/neutrinojs/neutrino/pull/1165).
 This prevents missing files from only being discovered once in production.
+- **BREAKING CHANGE** `@neutrinojs/dev-server` no longer sets
+[public](https://webpack.js.org/configuration/dev-server/#devserver-public) or
+[host](https://webpack.js.org/configuration/dev-server/#devserver-host), meaning that
+for certain workflows (such as running webpack-dev-server behind a proxy) you may need to set
+them yourself. In particular, due to a bug in the previous implementation, the dev server
+used to be accessible on all network interfaces, whereas it is now correctly only available
+over localhost. As such if running webpack-dev-server from within a Docker container or VM,
+you will now need to set `host` to `0.0.0.0` to allow connections from the host machine.
 - **BREAKING CHANGE** When using `@neutrinojs/web` and presets that depend on it,
 source maps must now be configured using the preset's `devtool` option rather than
 manually in a later middleware, to ensure that `terser-webpack-plugin` is configured
@@ -266,6 +275,9 @@ for setting these properties as strings is still supported. This also introduces
 entry point property on `neutrino.options.mains` now returns a normalized object, even when using string options.
 - **BREAKING CHANGE** When configuring webpack with a target of `node` the `@neutrinojs/jest` preset will default its
 `testEnvironment` to also be `node` instead of `jsdom` [#1030](https://github.com/neutrinojs/neutrino/pull/1030).
+- **BREAKING CHANGE** `@neutrinojs/web` no longer supports the shorthand of `devServer.proxy`
+being set to a string [#1175](https://github.com/neutrinojs/neutrino/pull/1175). Instead pass an
+object using the [options here](https://webpack.js.org/configuration/dev-server/#devserver-proxy).
 - **BREAKING CHANGE** `@neutrinojs/web` and its dependent middleware no longer have the `options.hotEntries` option
 [#902](https://github.com/neutrinojs/neutrino/pull/902).
 - **BREAKING CHANGE** `@neutrinojs/web` and its dependent middleware no longer include `worker-loader` for automatically
