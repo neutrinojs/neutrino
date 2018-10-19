@@ -154,6 +154,9 @@ If you wish to customize what is included, excluded, or any ESLint options, you 
 middleware and this will be merged with our internal defaults for this preset. Use an array pair instead of a string
 to supply these options.
 
+By default the preset configures `eslint-plugin-react` to target the latest version of React.
+If using an older version, you must explicitly pass it as in the example below.
+
 _Example: Extend from a custom configuration (it will be applied after Airbnb),
 turn off semicolons from being required, and set a specific React version._
 
