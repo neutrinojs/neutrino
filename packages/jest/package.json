@@ -22,7 +22,6 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@neutrinojs/loader-merge": "9.0.0-0",
     "babel-core": "^7.0.0-bridge",
     "babel-jest": "^23.6.0",
     "deepmerge": "^1.5.2",

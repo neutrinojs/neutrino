@@ -226,8 +226,9 @@ must be updated for the new plugin.
 [#826](https://github.com/neutrinojs/neutrino/pull/858). If you wish to force specifying additional Babel
 configuration via a configuration file, you can set it to `true` via `babel: { babelrc: true }`.
 - **BREAKING CHANGE** `@neutrinojs/eslint` and dependent middleware now throw if they are used by Neutrino after
-a compile preset [#839](https://github.com/neutrinojs/neutrino/pull/939). This is to prevent using an unknowingly
-broken configuration.
+a compile preset [#939](https://github.com/neutrinojs/neutrino/pull/939), or if used with unrecognised
+[eslint-loader options](https://github.com/webpack-contrib/eslint-loader#options)
+[#1182](https://github.com/neutrinojs/neutrino/pull/1182). This is to prevent using an unknowingly broken configuration.
 - **BREAKING CHANGE** Most Neutrino middleware now throws if used twice with the same rule IDs. This is to
 prevent mis-configurations seen in the wild (such as using both `@neutrinojs/web` and one of the lower-level
 middleware it uses at the same time) [#1162](https://github.com/neutrinojs/neutrino/pull/1162).
@@ -253,9 +254,10 @@ in the HTML template [#943](https://github.com/neutrinojs/neutrino/pull/943).
 [html-webpack-template](https://github.com/jaketrent/html-webpack-template), which supports a smaller set of options
 but better html-webpack-plugin integration. You can override with your own template for more in-depth customization of
 this template and its content [#1049](https://github.com/neutrinojs/neutrino/pull/1049).
-- **BREAKING CHANGE** The `@neutrinojs/hot` [#981](https://github.com/neutrinojs/neutrino/pull/981) and `@neutrinojs/env`
-[#983](https://github.com/neutrinojs/neutrino/pull/983) middleware have been removed and their relevant
-functionality is now configured directly by its previously-consuming presets.
+- **BREAKING CHANGE** The `@neutrinojs/hot` [#981](https://github.com/neutrinojs/neutrino/pull/981),
+`@neutrinojs/env` [#983](https://github.com/neutrinojs/neutrino/pull/983), and
+`@neutrinojs/loader-merge` [#1182](https://github.com/neutrinojs/neutrino/pull/1182) middleware have been
+removed and their relevant functionality is now configured directly by its previously-consuming presets.
 - **BREAKING CHANGE** `@neutrinojs/node` now compiles to the supported version of Node.js being used to run the build
 [#991](https://github.com/neutrinojs/neutrino/pull/991). Previously this was always defaulted to a particular Node.js v6
 version. For example, if you use Node.js v8 to run webpack, Neutrino will tell Babel to compile your project to support
@@ -269,6 +271,10 @@ overwrite them [#1022](https://github.com/neutrinojs/neutrino/pull/1022).
 - **BREAKING CHANGE** `@neutrinojs/eslint` and its dependent middleware now require ESLint v5, which may mean breaking
 changes to rule configuration and any `parserOptions` modifications [#1025](https://github.com/neutrinojs/neutrino/pull/1025).
 See the [ESLint migration docs](https://eslint.org/docs/user-guide/migrating-to-5.0.0) for more information.
+- **BREAKING CHANGE** `@neutrinojs/eslint` and its dependent middleware now only set loader-related
+default options if `useEslintrc` is `true`, to prevent linting configuration defaults from conflicting
+with values set in `.eslintrc.*` [#1182](https://github.com/neutrinojs/neutrino/pull/1182).
+See the new documentation explaining how to [use your own `.eslintrc.*`](./packages/eslint.md#using-your-own-eslintrc).
 - **BREAKING CHANGE** The `options.mains` Neutrino option can now also accept an object per entry point for setting
 individual options for html-webpack-plugin [#1029](https://github.com/neutrinojs/neutrino/pull/1029). The previous API
 for setting these properties as strings is still supported. This also introduces a breaking API change as accessing an

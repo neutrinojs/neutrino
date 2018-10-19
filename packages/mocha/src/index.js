@@ -1,12 +1,21 @@
-const loaderMerge = require('@neutrinojs/loader-merge');
 const merge = require('babel-merge');
 const omit = require('lodash.omit');
 
 module.exports = neutrino => {
-  if (neutrino.config.module.rules.has('lint')) {
-    neutrino.use(loaderMerge('lint', 'eslint'), {
-      envs: ['mocha']
-    });
+  const lintRule = neutrino.config.module.rules.get('lint');
+  if (lintRule) {
+    lintRule.use('eslint').tap(
+      // Don't adjust the lint configuration for projects using their own .eslintrc.
+      lintOptions => lintOptions.useEslintrc
+        ? lintOptions
+        : merge(lintOptions, {
+            baseConfig: {
+              env: {
+                mocha: true
+              }
+            }
+          })
+    );
   }
 
   neutrino.register('mocha', (neutrino) => {

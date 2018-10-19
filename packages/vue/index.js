@@ -1,4 +1,3 @@
-const loaderMerge = require('@neutrinojs/loader-merge');
 const web = require('@neutrinojs/web');
 const merge = require('deepmerge');
 
@@ -58,22 +57,26 @@ module.exports = (neutrino, opts = {}) => {
       );
   }
 
-  neutrino.config.when(neutrino.config.module.rules.has('lint'), () => {
+  const lintRule = neutrino.config.module.rules.get('lint');
+  if (lintRule) {
     // We need to re-set the extension list used by the eslint settings
     // since when it was generated it didn't include the vue extension.
-    neutrino.config.module
-      .rule('lint')
-        .test(neutrino.regexFromExtensions());
+    lintRule.test(neutrino.regexFromExtensions());
 
-    neutrino.use(loaderMerge('lint', 'eslint'), {
-      baseConfig: {
-        extends: ['plugin:vue/base']
-      },
-      plugins: ['vue'],
-      parser: 'vue-eslint-parser',
-      parserOptions: {
-        parser: 'babel-eslint'
-      }
-    });
-  });
+    lintRule.use('eslint').tap(
+      // Don't adjust the lint configuration for projects using their own .eslintrc.
+      lintOptions => lintOptions.useEslintrc
+        ? lintOptions
+        : merge(lintOptions, {
+            baseConfig: {
+              extends: ['plugin:vue/base'],
+              parser: 'vue-eslint-parser',
+              parserOptions: {
+                parser: 'babel-eslint'
+              },
+              plugins: ['vue']
+            }
+          })
+    );
+  }
 };

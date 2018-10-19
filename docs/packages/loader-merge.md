@@ -1,1 +1,0 @@
-../../packages/loader-merge/README.md
