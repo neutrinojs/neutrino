@@ -1,7 +1,5 @@
 const loaderMerge = require('@neutrinojs/loader-merge');
-const compileLoader = require('@neutrinojs/compile-loader');
 const merge = require('deepmerge');
-const omit = require('lodash.omit');
 const { basename, isAbsolute, join, relative } = require('path');
 const { media, style } = require('neutrino/extensions');
 
@@ -20,43 +18,12 @@ module.exports = (neutrino, options = {}) => {
   });
 
   neutrino.register('jest', (neutrino) => {
-    const usingBabel = neutrino.config.module.rules.has('compile');
+    const compileRule = neutrino.config.module.rules.get('compile');
+    const babelOptions = compileRule ? compileRule.use('babel').get('options') : {};
+    // Any parts of the babel config that are not serializable will be omitted, however
+    // that also occurs when passing to the custom transformer using `globals` instead.
+    process.env.JEST_BABEL_OPTIONS = JSON.stringify(babelOptions);
 
-    if (usingBabel) {
-      neutrino.config.module
-        .rule('compile')
-        .use('babel')
-        .tap(options => compileLoader.merge(options, {
-          plugins: [
-            // Once babel-preset-jest has better Babel 7 support we should
-            // switch back to it (or even use babel-jest, which will allow
-            // simplifying the transformer too):
-            // https://github.com/facebook/jest/issues/6126
-            // For now this plugin is taken from here (we don't need
-            // object-rest-spread since node >=8.3):
-            // https://github.com/facebook/jest/blob/v22.4.2/packages/babel-preset-jest/index.js#L11-L12
-            require.resolve('babel-plugin-jest-hoist'),
-            // Since the tests will be run by node which doesn't yet support
-            // ES2015 modules
-            require.resolve('@babel/plugin-transform-modules-commonjs')
-          ]
-        }));
-    }
-
-    const babelOptions = usingBabel
-      ? compileLoader.merge(
-        omit(
-          neutrino.config.module.rule('compile').use('babel').get('options'),
-          ['cacheDirectory']
-        ),
-        {
-          retainLines: true,
-          plugins: [
-            require.resolve('@babel/plugin-transform-modules-commonjs')
-          ]
-        }
-      )
-      : {};
     const getFinalPath = path => {
       if (isAbsolute(path)) {
         return path;
@@ -109,9 +76,6 @@ module.exports = (neutrino, options = {}) => {
         // property name where a Regex object will cause issues. e.g.:
         // https://github.com/neutrinojs/neutrino/issues/638.
         [extensionsToNames(extensions)]: require.resolve('./transformer')
-      },
-      globals: {
-        BABEL_OPTIONS: babelOptions
       }
     }, options);
   });
