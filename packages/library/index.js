@@ -1,7 +1,6 @@
 const banner = require('@neutrinojs/banner');
 const compileLoader = require('@neutrinojs/compile-loader');
 const clean = require('@neutrinojs/clean');
-const loaderMerge = require('@neutrinojs/loader-merge');
 const merge = require('deepmerge');
 const nodeExternals = require('webpack-node-externals');
 const { ConfigurationError } = require('neutrino/errors');
@@ -99,13 +98,6 @@ module.exports = (neutrino, opts = {}) => {
       entrypoints: false,
       modules: false
     })
-    .when(neutrino.config.module.rules.has('lint'), () => {
-      if (options.target === 'node') {
-        neutrino.use(loaderMerge('lint', 'eslint'), { envs: ['commonjs'] });
-      } else if (options.target === 'web') {
-        neutrino.use(loaderMerge('lint', 'eslint'), { envs: ['browser', 'commonjs'] });
-      }
-    })
     .when(process.env.NODE_ENV === 'production', (config) => {
       // Use terser instead of the unmaintained uglify-es.
       // This is a backport of the upcoming webpack 5 minimizer configuration:
@@ -119,4 +111,21 @@ module.exports = (neutrino, opts = {}) => {
         }]);
       config.when(options.clean, () => neutrino.use(clean, options.clean));
     });
+
+  const lintRule = neutrino.config.module.rules.get('lint');
+  if (lintRule) {
+    lintRule.use('eslint').tap(
+      // Don't adjust the lint configuration for projects using their own .eslintrc.
+      lintOptions => lintOptions.useEslintrc
+        ? lintOptions
+        : merge(lintOptions, {
+            baseConfig: {
+              env: {
+                ...(options.target === 'web' && { browser: true }),
+                commonjs: true
+              }
+            }
+          })
+    );
+  }
 };

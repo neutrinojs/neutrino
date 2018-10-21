@@ -1,5 +1,6 @@
 import test from 'ava';
 import { validate } from 'webpack';
+import lint from '../../eslint';
 import Neutrino from '../../neutrino/Neutrino';
 
 const mw = () => require('..');
@@ -104,4 +105,35 @@ test('valid preset commonjs2 libraryTarget', t => {
   const errors = validate(api.config.toConfig());
 
   t.is(errors.length, 0);
+});
+
+test('updates lint config by default when target is web', t => {
+  const api = new Neutrino();
+  api.use(lint);
+  api.use(mw(), { name: 'alpha', target: 'web' });
+  const options = api.config.module.rule('lint').use('eslint').get('options');
+  t.deepEqual(options.baseConfig.env, {
+    browser: true,
+    commonjs:true,
+    es6: true
+  });
+});
+
+test('updates lint config by default when target is node', t => {
+  const api = new Neutrino();
+  api.use(lint);
+  api.use(mw(), { name: 'alpha', target: 'node' });
+  const options = api.config.module.rule('lint').use('eslint').get('options');
+  t.deepEqual(options.baseConfig.env, {
+    commonjs:true,
+    es6: true
+  });
+});
+
+test('does not update lint config if useEslintrc true', t => {
+  const api = new Neutrino();
+  api.use(lint, { eslint: { useEslintrc: true } });
+  api.use(mw(), { name: 'alpha' });
+  const options = api.config.module.rule('lint').use('eslint').get('options');
+  t.deepEqual(options.baseConfig, {});
 });

@@ -24,11 +24,9 @@
   },
   "dependencies": {
     "babel-eslint": "^10.0.1",
-    "deepmerge": "^1.5.2",
     "eslint-loader": "^2.1.1",
     "eslint-plugin-babel": "^5.2.1",
-    "lodash.clonedeep": "^4.5.0",
-    "lodash.omit": "^4.5.0"
+    "lodash.pick": "^4.4.0"
   },
   "peerDependencies": {
     "eslint": "^5.0.0",

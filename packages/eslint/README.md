@@ -42,28 +42,42 @@ const eslint = require('@neutrinojs/eslint');
 
 // Usage shows default values
 neutrino.use(eslint, {
-  test: neutrino.regexFromExtensions(), // Uses extensions from neutrino.options.extensions
+  // Uses extensions from neutrino.options.extensions
+  test: neutrino.regexFromExtensions(),
   include: [neutrino.options.source, neutrino.options.tests],
   exclude: [],
   eslint: {
+    // For supported options, see:
+    // https://github.com/webpack-contrib/eslint-loader#options
+    // https://eslint.org/docs/developer-guide/nodejs-api#cliengine
     cache: true,
+    // Make errors fatal not just for 'production' but also 'test'.
     failOnError: process.env.NODE_ENV !== 'development',
     cwd: neutrino.options.root,
     useEslintrc: false,
-    root: true,
-    // Can be the name of a built-in ESLint formatter or the module/path of an external one.
+    // Can be the name of a built-in ESLint formatter
+    // or the module/path of an external one.
     formatter: 'codeframe',
-    plugins: ['babel'],
-    baseConfig: {},
-    envs: ['es6'],
-    parser: 'babel-eslint',
-    parserOptions: {
-      ecmaVersion: 2018,
-      sourceType: 'module'
-    },
-    settings: {},
-    globals: ['process'],
-    rules: {}
+    // The options under `baseConfig` correspond to those
+    // that can be used in an `.eslintrc.*` file.
+    baseConfig: {
+      env: {
+        es6: true
+      },
+      extends: [],
+      globals: {
+        process: true
+      },
+      overrides: [],
+      parser: require.resolve('babel-eslint'),
+      parserOptions: {
+        ecmaVersion: 2018,
+        sourceType: 'module'
+      },
+      plugins: ['babel'],
+      root: true,
+      settings: {}
+    }
   }
 });
 ```
@@ -71,39 +85,10 @@ neutrino.use(eslint, {
 - `test`: Test which files should be linted.
 - `include`: An array of paths to include in linting. Maps to webpack's [`Rule.include`](https://webpack.js.org/configuration/module/#rule-include)
 - `exclude`: An array of paths to exclude from linting. Maps to webpack's [`Rule.exclude`](https://webpack.js.org/configuration/module/#rule-exclude)
-- `eslint`: An ESLint CLIEngine configuration object for configuring ESLint. Use this to configure rules, plugins, and other [ESLint options](https://eslint.org/docs/user-guide/configuring).
+- `eslint`: An object containing [eslint-loader options](https://github.com/webpack-contrib/eslint-loader#options),
+  which includes options passed to ESLint's [CLIEngine](https://eslint.org/docs/developer-guide/nodejs-api#cliengine).
 
-## Customization
-
-`@neutrinojs/eslint` creates some conventions to make overriding the configuration easier once you are ready to
-make changes.
-
-### Rules
-
-The following is a list of rules and their identifiers which can be overridden:
-
-| Name | Description | NODE_ENV |
-| --- | --- | --- |
-| `lint` | By default, lints JS and JSX files from included directories using ESLint. Contains a single loader named `eslint`. | all |
-
-## Information
-
-By default this middleware will show errors and warnings in the console during development, and will cause a failure when
-creating a build bundle.
-
----
-
-If you want your preset or middleware to also extend from another **ESLint configuration or preset** that you have made
-a dependency, you must use `baseConfig.extends` rather than just `extends`. This is a limitation of ESLint, not this
-middleware.
-
----
-
-This middleware only configures a target environment for `es6`, leaving other build middleware free to add their own
-target environments. If your middleware puts restrictions on which environments it is capable of running, please
-document that clearly in your middleware.
-
-## eslintrc Config
+## Exposing generated lint configuration via `.eslintrc.js`
 
 `@neutrinojs/eslint`, provides an `.eslintrc()` output handler for
 generating the ESLint configuration in a format suitable for use in an `.eslintrc.js` file. This
@@ -136,6 +121,53 @@ from source, i.e. Neutrino's `include` and `exclude` options. This is because th
 specify included and excluded files from the `.eslintrc.js` configuration. Instead you will need to create an
 [.eslintignore](https://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories) file that controls
 which files should be excluded from linting.
+
+## Using your own `.eslintrc.*`
+
+If instead you would prefer to use your own non-generated `.eslintrc.*` file, set `useEslintrc` to `true`.
+This will cause `@neutrinojs/eslint` to only set the loader-specific configuration defaults, and leave
+all other linting configuration to be managed by the standalone `.eslintrc.*` file.
+
+For example:
+
+```js
+neutrino.use(eslint, {
+  eslint: {
+    // Use own `.eslintrc.*` file for configuration instead.
+    useEslintrc: true
+  }
+});
+```
+
+```js
+// .eslintrc.js (or any of the other filetypes supported by ESLint)
+module.exports = {
+  // Configure as you would normally when not using Neutrino:
+  // https://eslint.org/docs/user-guide/configuring
+  root: true,
+  extends: 'eslint-config-airbnb',
+  parser: 'babel-eslint',
+  settings: {
+    // ...
+  },
+  rules: {
+    // ...
+  }
+};
+```
+
+## Customization
+
+`@neutrinojs/eslint` creates some conventions to make overriding the configuration easier once you are ready to
+make changes.
+
+### Rules
+
+The following is a list of rules and their identifiers which can be overridden:
+
+| Name | Description | NODE_ENV |
+| --- | --- | --- |
+| `lint` | By default, lints JS and JSX files from the `src` and `test` directories using ESLint. Contains a single loader named `eslint`. | all |
 
 ## Contributing
 

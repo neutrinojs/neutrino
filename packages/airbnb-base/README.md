@@ -132,7 +132,6 @@ error: Missing semicolon (semi) at src/index.js:35:51:
   37 |
   38 |
 
-
 1 error found.
 1 error potentially fixable with the `--fix` option.
 ```
@@ -153,12 +152,13 @@ module.exports = {
 
 ## Middleware options
 
-This preset uses the same middleware options as [@neutrinojs/eslint](https://neutrinojs.org/packages/eslint/).
+This preset uses the same middleware options as [@neutrinojs/eslint](https://neutrinojs.org/packages/eslint/#usage).
 If you wish to customize what is included, excluded, or any ESLint options, you can provide an options object with the
 middleware and this will be merged with our internal defaults for this preset. Use an array pair instead of a string
 to supply these options.
 
-_Example: Turn off semicolons from being required as defined by the Airbnb rules._
+_Example: Extend from a custom configuration (it will be applied after Airbnb)
+and turn off semicolons from being required._
 
 ```js
 module.exports = {
@@ -168,8 +168,18 @@ module.exports = {
   use: [
     ['@neutrinojs/airbnb-base', {
       eslint: {
-        rules: {
-          'babel/semi': 'off'
+        // For supported options, see:
+        // https://github.com/webpack-contrib/eslint-loader#options
+        // https://eslint.org/docs/developer-guide/nodejs-api#cliengine
+        // The options under `baseConfig` correspond to those
+        // that can be used in an `.eslintrc.*` file.
+        baseConfig: {
+          extends: [
+            'my-custom-config'
+          ],
+          rules: {
+            'babel/semi': 'off'
+          }
         }
       }
     }]
@@ -177,55 +187,7 @@ module.exports = {
 };
 ```
 
-## Customizing
-
-To override the build configuration, start with the documentation on [customization](https://neutrinojs.org/customization/).
-`@neutrinojs/airbnb-base` creates some conventions to make overriding the configuration easier once you are ready to
-make changes.
-
-### Rules
-
-The following is a list of rules and their identifiers which can be overridden:
-
-| Name | Description | NODE_ENV |
-| --- | --- | --- |
-| `lint` | Lints JS and JSX files from the `src` directory using ESLint. Contains a single loader named `eslint`. This is inherited from `@neutrinojs/eslint`. | all |
-
-### Information
-
-If you want your preset or middleware to also extend from another **ESLint configuration or preset** that you have made
-a dependency, you must use `baseConfig.extends` rather than just `extends`. This is a limitation of ESLint, not this
-middleware.
-
-### Override configuration
-
-By following the [customization guide](https://neutrinojs.org/customization/) and knowing the rule and loader IDs above,
-you can also override or augment the build by providing a function to your `.neutrinorc.js` use array. You can also
-make this change from the Neutrino API when using the `use` method.
-
-_Example: Turn off semicolons from being required as defined by the Airbnb rules from `.neutrinorc.js` using a function and the API:_
-
-```js
-module.exports = {
-  options: {
-    root: __dirname
-  },
-  use: [
-    '@neutrinojs/airbnb-base',
-    (neutrino) => neutrino.config.module
-      .rule('lint')
-      .use('eslint')
-      .tap(options => ({
-        ...options,
-        rules: {
-          'babel/semi': 'off'
-        }
-      }))
-  ]
-};
-```
-
-## eslintrc Config
+## Exposing generated lint configuration via `.eslintrc.js`
 
 `@neutrinojs/eslint`, from which this preset inherits, provides an `.eslintrc()` output handler for
 generating the ESLint configuration in a format suitable for use in an `.eslintrc.js` file. This
@@ -258,6 +220,29 @@ from source, i.e. Neutrino's `include` and `exclude` options. This is because th
 specify included and excluded files from the `.eslintrc.js` configuration. Instead you will need to create an
 [.eslintignore](https://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories) file that controls
 which files should be excluded from linting.
+
+## Using your own `.eslintrc.*`
+
+If instead you would prefer to use your own non-generated `.eslintrc.*` file, set `useEslintrc` to `true`.
+This will cause `@neutrinojs/airbnb-base` to only set the loader-specific configuration defaults, and leave
+all other linting configuration to be managed by the standalone `.eslintrc.*` file.
+
+See the `@neutrinojs/eslint` [documentation](https://neutrinojs.org/packages/eslint/#using-your-own-eslintrc)
+for more details.
+
+## Customizing
+
+To override the lint configuration, start with the documentation on [customization](https://neutrinojs.org/customization/).
+`@neutrinojs/airbnb-base` creates some conventions to make overriding the configuration easier once you are ready to
+make changes.
+
+### Rules
+
+The following is a list of rules and their identifiers which can be overridden:
+
+| Name | Description | NODE_ENV |
+| --- | --- | --- |
+| `lint` | By default, lints JS and JSX files from the `src` and `test` directories using ESLint. Contains a single loader named `eslint`. This is inherited from `@neutrinojs/eslint`. | all |
 
 ## Contributing
 

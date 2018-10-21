@@ -1,6 +1,6 @@
 const compileLoader = require('@neutrinojs/compile-loader');
-const loaderMerge = require('@neutrinojs/loader-merge');
 const web = require('@neutrinojs/web');
+const merge = require('deepmerge');
 
 module.exports = (neutrino, opts = {}) => {
   const options = {
@@ -26,16 +26,22 @@ module.exports = (neutrino, opts = {}) => {
         .set('create-react-class', 'preact-compat/lib/create-react-class')
         .set('react-addons-css-transition-group', 'preact-css-transition-group');
 
-  neutrino.config.when(neutrino.config.module.rules.has('lint'), () => {
-    neutrino.use(loaderMerge('lint', 'eslint'), {
-      plugins: ['react'],
-      baseConfig: {
-        settings: {
-          react: {
-            pragma: 'h'
-          }
-        }
-      }
-    });
-  });
+  const lintRule = neutrino.config.module.rules.get('lint');
+  if (lintRule) {
+    lintRule.use('eslint').tap(
+      // Don't adjust the lint configuration for projects using their own .eslintrc.
+      lintOptions => lintOptions.useEslintrc
+        ? lintOptions
+        : merge(lintOptions, {
+            baseConfig: {
+              plugins: ['react'],
+              settings: {
+                react: {
+                  pragma: 'h'
+                }
+              }
+            }
+          })
+    );
+  }
 };

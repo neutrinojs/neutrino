@@ -5,7 +5,6 @@ const imageLoader = require('@neutrinojs/image-loader');
 const compileLoader = require('@neutrinojs/compile-loader');
 const htmlTemplate = require('@neutrinojs/html-template');
 const clean = require('@neutrinojs/clean');
-const loaderMerge = require('@neutrinojs/loader-merge');
 const devServer = require('@neutrinojs/dev-server');
 const merge = require('deepmerge');
 const { ConfigurationError } = require('neutrino/errors');
@@ -230,11 +229,6 @@ module.exports = (neutrino, opts = {}) => {
       entrypoints: false,
       modules: false
     })
-    .when(neutrino.config.module.rules.has('lint'), () => {
-      neutrino.use(loaderMerge('lint', 'eslint'), {
-        envs: ['browser', 'commonjs']
-      });
-    })
     .when(process.env.NODE_ENV === 'development', config => {
       neutrino.use(devServer, options.devServer);
       config.when(options.hot, (config) => {
@@ -249,4 +243,21 @@ module.exports = (neutrino, opts = {}) => {
           .use(require.resolve('webpack-manifest-plugin'), [options.manifest]);
       }
     });
+
+  const lintRule = neutrino.config.module.rules.get('lint');
+  if (lintRule) {
+    lintRule.use('eslint').tap(
+      // Don't adjust the lint configuration for projects using their own .eslintrc.
+      lintOptions => lintOptions.useEslintrc
+        ? lintOptions
+        : merge(lintOptions, {
+            baseConfig: {
+              env: {
+                browser: true,
+                commonjs: true
+              }
+            }
+          })
+    );
+  }
 };

@@ -1,21 +1,30 @@
-const loaderMerge = require('@neutrinojs/loader-merge');
 const merge = require('deepmerge');
 const { basename, isAbsolute, join, relative } = require('path');
 const { media, style } = require('neutrino/extensions');
 
 module.exports = (neutrino, options = {}) => {
-  neutrino.config.when(neutrino.config.module.rules.has('lint'), () => {
-    neutrino.use(loaderMerge('lint', 'eslint'), {
-      plugins: ['jest'],
-      envs: ['jest/globals'],
-      rules: {
-        'jest/no-disabled-tests': 'warn',
-        'jest/no-focused-tests': 'error',
-        'jest/no-identical-title': 'error',
-        'jest/valid-expect': 'error'
-      }
-    });
-  });
+  const lintRule = neutrino.config.module.rules.get('lint');
+  if (lintRule) {
+    lintRule.use('eslint').tap(
+      // Don't adjust the lint configuration for projects using their own .eslintrc.
+      lintOptions => lintOptions.useEslintrc
+        ? lintOptions
+        : merge(lintOptions, {
+            baseConfig: {
+              env: {
+                'jest/globals': true
+              },
+              plugins: ['jest'],
+              rules: {
+                'jest/no-disabled-tests': 'warn',
+                'jest/no-focused-tests': 'error',
+                'jest/no-identical-title': 'error',
+                'jest/valid-expect': 'error'
+              }
+            }
+          })
+    );
+  }
 
   neutrino.register('jest', (neutrino) => {
     const compileRule = neutrino.config.module.rules.get('compile');
