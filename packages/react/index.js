@@ -50,7 +50,14 @@ module.exports = (neutrino, opts = {}) => {
         ? lintOptions
         : merge(lintOptions, {
             baseConfig: {
-              plugins: ['react']
+              plugins: ['react'],
+              settings: {
+                react: {
+                  // https://github.com/yannickcr/eslint-plugin-react#configuration
+                  // This is undocumented, but equivalent to "latest version".
+                  version: '999.999.999'
+                }
+              }
             }
           })
     );

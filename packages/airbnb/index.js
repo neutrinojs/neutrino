@@ -25,6 +25,13 @@ module.exports = (neutrino, { eslint = {}, ...opts } = {}) => {
             'babel/object-curly-spacing': airbnbBaseStyle['object-curly-spacing'],
             'babel/semi': airbnbBaseStyle.semi,
             'babel/no-unused-expressions': airbnbBaseBestPractices['no-unused-expressions']
+          },
+          settings: {
+            react: {
+              // https://github.com/yannickcr/eslint-plugin-react#configuration
+              // This is undocumented, but equivalent to "latest version".
+              version: '999.999.999'
+            }
           }
         },
         eslint.baseConfig || {}

@@ -113,7 +113,11 @@ test('sets defaults when no options passed', t => {
         'object-curly-spacing': 'off',
         semi: 'off'
       },
-      settings: {}
+      settings: {
+        react: {
+          version: '999.999.999'
+        }
+      }
     },
     cache: true,
     cwd: api.options.root,

@@ -70,6 +70,11 @@ test('updates lint config by default', t => {
     es6: true
   });
   t.deepEqual(options.baseConfig.plugins, ['babel', 'react']);
+  t.deepEqual(options.baseConfig.settings, {
+    react: {
+      version: '999.999.999'
+    }
+  });
 });
 
 test('does not update lint config if useEslintrc true', t => {

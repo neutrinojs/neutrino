@@ -34,6 +34,13 @@ module.exports = (neutrino, { eslint = {}, ...opts } = {}) => {
             'babel/object-curly-spacing': standardRules['object-curly-spacing'] || 'off',
             'babel/semi': standardRules.semi,
             'babel/no-unused-expressions': standardRules['no-unused-expressions']
+          },
+          settings: {
+            react: {
+              // https://github.com/yannickcr/eslint-plugin-react#configuration
+              // This is undocumented, but equivalent to "latest version".
+              version: '999.999.999'
+            }
           }
         },
         eslint.baseConfig || {}
