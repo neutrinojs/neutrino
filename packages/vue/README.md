@@ -179,12 +179,20 @@ You can either serve or deploy the contents of this `build` directory as a stati
 If you wish to copy files to the build directory that are not imported from application code,
 use the [@neutrinojs/copy](https://neutrinojs.org/packages/copy/) preset alongside this one.
 
-## Paths
+## Deployment Path
 
-The `@neutrinojs/web` preset loads assets relative to the path of your application by setting webpack's
-[`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath) to `''`. If you wish to load
-assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
-override `output.publicPath`. See the [Customizing](#customizing) section below.
+By default `@neutrinojs/vue` assumes that your application will be deployed at the root of a
+domain (eg: `https://www.my-app.com/`), and so sets webpack's
+[`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath) to `'/'`,
+which means assets will be loaded from the site root using absolute paths.
+
+If your app is instead deployed within a subdirectory, you will need to adjust the `publicPath`
+[preset option](#preset-options). For example if your app is hosted at
+`https://my-username.github.io/my-app/`, you will need to set `publicPath` to `'/my-app/'`.
+
+Alternatively, if you would like your app to be able to be served from any location, and are
+not using the HTML5 pushState history API or client-side routing, then you can set `publicPath`
+to the empty string, which will cause relative asset paths to be used instead.
 
 ## Preset options
 
@@ -203,6 +211,10 @@ module.exports = {
 
       // Example: disable Hot Module Replacement
       hot: false,
+
+      // Controls webpack's `output.publicPath` setting.
+      // See the "Deployment Path" section above for more info.
+      publicPath: '/',
 
       // Example: change the page title
       html: {

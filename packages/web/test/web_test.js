@@ -44,7 +44,7 @@ test('valid preset production', t => {
   t.true(config.optimization.minimize);
   t.is(config.optimization.minimizer.length, 1);
   t.false(config.optimization.splitChunks.name);
-  t.is(config.output.publicPath, '');
+  t.is(config.output.publicPath, '/');
   t.is(config.devtool, undefined);
   t.is(config.devServer, undefined);
 
@@ -63,7 +63,7 @@ test('valid preset development', t => {
   t.deepEqual(config.resolve.extensions, expectedExtensions);
   t.is(config.optimization.runtimeChunk, 'single');
   t.is(config.optimization.splitChunks.chunks, 'all');
-  t.is(config.output.publicPath, '');
+  t.is(config.output.publicPath, '/');
   t.deepEqual(config.stats, {
     children: false,
     entrypoints: false,
@@ -102,7 +102,7 @@ test('valid preset test', t => {
   t.deepEqual(config.resolve.extensions, expectedExtensions);
   t.is(config.optimization.runtimeChunk, 'single');
   t.is(config.optimization.splitChunks.chunks, 'all');
-  t.is(config.output.publicPath, '');
+  t.is(config.output.publicPath, '/');
   t.deepEqual(config.stats, {
     children: false,
     entrypoints: false,

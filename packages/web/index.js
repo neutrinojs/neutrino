@@ -21,7 +21,10 @@ module.exports = (neutrino, opts = {}) => {
 
   const isProduction = process.env.NODE_ENV === 'production';
   const options = merge({
-    publicPath: '',
+    // Default to an absolute public path, so pushState API sites work.
+    // Apps deployed to a subdirectory will need to override this.
+    // https://webpack.js.org/configuration/output/#output-publicpath
+    publicPath: '/',
     env: false,
     hot: true,
     html: {},

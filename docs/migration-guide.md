@@ -177,6 +177,10 @@ to RHL v4 while installing it into your project also.
 - **BREAKING CHANGE** `@neutrinojs/web`, `@neutrinojs/node`, and their dependent presets no longer configure
 defaults for copying static files at build time [#814](https://github.com/neutrinojs/neutrino/pull/814).
 Use the `@neutrinojs/copy` middleware to configure this for v9.
+- **BREAKING CHANGE** `@neutrinojs/web` and dependent presets now default `output.publicPath` to `'/'`,
+which means that apps not served from the root of a domain (such as those hosted on GitHub pages) will
+need to explicitly set their `publicPath` [#1185](https://github.com/neutrinojs/neutrino/pull/1185).
+See the [deployment path documentation](./packages/web.md#deployment-path).
 - **BREAKING CHANGE** `@neutrinojs/dev-server` (used by `@neutrinojs/web`) no longer sets
 [contentBase](https://webpack.js.org/configuration/dev-server/#devserver-contentbase)
 by default, meaning that in development any files that are not part of the webpack build need to be
