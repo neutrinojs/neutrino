@@ -10,9 +10,7 @@ before_install:
 - curl -sSfL https://yarnpkg.com/install.sh | bash
 - export PATH="$HOME/.yarn/bin:$PATH"
 install:
-# Remove --ignore-engines when this fixed:
-# https://github.com/anodynos/upath/issues/14
-- yarn install --frozen-lockfile --ignore-engines
+- yarn --frozen-lockfile
 script:
 - yarn validate:eslintrc
 - yarn lint
