@@ -35,23 +35,23 @@
   },
   "devDependencies": {
     "auto-changelog": "^1.8.1",
-    "ava": "^1.0.0-beta.4",
-    "eslint": "^5.7.0",
+    "ava": "^1.0.0-rc.1",
+    "eslint": "^5.8.0",
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-prettier": "^3.0.0",
-    "husky": "^1.0.0",
+    "husky": "^1.1.2",
     "jest": "^23.6.0",
-    "karma": "^3.0.0",
+    "karma": "^3.1.1",
     "karma-cli": "^1.0.1",
     "lerna": "^2.11.0",
     "lint-staged": "^7.3.0",
     "mocha": "^5.2.0",
     "prettier": "^1.14.3",
-    "verdaccio": "^3.8.4",
+    "verdaccio": "^3.8.5",
     "verdaccio-memory": "^1.0.3",
-    "webpack": "^4.20.2",
+    "webpack": "^4.23.1",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.9"
+    "webpack-dev-server": "^3.1.10"
   },
   "lint-staged": {
     "*.js": [
