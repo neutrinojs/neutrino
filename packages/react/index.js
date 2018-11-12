@@ -18,7 +18,9 @@ module.exports = (neutrino, opts = {}) => {
     babel: compileLoader.merge({
       plugins: [
         ...(
-          process.env.NODE_ENV === 'development' && options.hot && reactHotLoader
+          // The plugin is enabled in production too since it removes the `hot(module)(...)`
+          // wrapper, allowing webpack to use its concatenate modules optimization.
+          options.hot && reactHotLoader
             ? [reactHotLoader]
             : []
         ),
