@@ -22,7 +22,7 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "clean-webpack-plugin": "^0.1.19"
+    "clean-webpack-plugin": "^1.0.0"
   },
   "peerDependencies": {
     "neutrino": "^9.0.0-0",
