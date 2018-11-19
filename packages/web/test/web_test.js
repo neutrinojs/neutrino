@@ -78,6 +78,7 @@ test('valid preset development', t => {
   t.deepEqual(config.devServer, {
     historyApiFallback: true,
     hot: true,
+    overlay: true,
     port: 5000,
     stats: {
       all: false,
