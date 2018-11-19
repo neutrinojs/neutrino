@@ -113,7 +113,13 @@ module.exports = (neutrino, { test, include, exclude, eslint = {} } = {}) => {
     // https://eslint.org/docs/developer-guide/nodejs-api#cliengine
     cache: true,
     cwd: neutrino.options.root,
-    // Make errors fatal not just for 'production' but also 'test'.
+    // Downgrade errors to warnings when in development, to reduce the noise in
+    // the webpack-dev-server overlay (which defaults to showing errors only),
+    // and to also ensure hot reloading isn't prevented.
+    emitWarning: process.env.NODE_ENV === 'development',
+    // Make errors fatal for 'production' and 'test'.
+    // However note that even when `false` webpack still fails the build:
+    // https://github.com/webpack-contrib/eslint-loader/issues/257
     failOnError: process.env.NODE_ENV !== 'development',
     // Can be the name of a built-in ESLint formatter or the module/path of an external one.
     formatter: 'codeframe',
