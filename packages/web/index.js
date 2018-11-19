@@ -174,18 +174,6 @@ module.exports = (neutrino, opts = {}) => {
   neutrino.config
     .optimization
       .minimize(options.minify.source)
-      // Use terser instead of the unmaintained uglify-es.
-      // This is a backport of the upcoming webpack 5 minimizer configuration:
-      // https://github.com/edmorley/webpack/blob/a94d0434a99489ef9bcb1808cdbe9cbe97bbd3e7/lib/WebpackOptionsDefaulter.js#L292-L308
-      .when(options.minify.source, (optimization) =>
-        optimization
-          .minimizer('terser')
-          .use(require.resolve('terser-webpack-plugin'), [{
-            cache: true,
-            parallel: true,
-            sourceMap: typeof devtool === 'string' && /source-?map/.test(devtool)
-          }])
-       )
       .splitChunks({
         // By default SplitChunksPlugin only splits out the async chunks (to avoid the
         // ever-changing file list breaking users who don't auto-generate their HTML):

@@ -315,10 +315,10 @@ package.json. No extra work is required to make this work.
 
 ### Source minification
 
-By default script sources are minified in production only, using
-[terser-webpack-plugin](https://github.com/webpack-contrib/terser-webpack-plugin)
-(which replaces `uglifyjs-webpack-plugin`). To customise the options passed to `TerserPlugin`
-or even use a different minifier, override `optimization.minimizer`.
+By default script sources are minified in production only, using webpack's default of
+[terser-webpack-plugin](https://github.com/webpack-contrib/terser-webpack-plugin).
+To customise the options passed to `TerserPlugin` or even use a different minifier,
+override `optimization.minimizer`.
 
 _Example: Adjust the `terser` minification settings:_
 
@@ -327,15 +327,22 @@ module.exports = {
   use: [
     '@neutrinojs/node',
     (neutrino) => {
-      // The `terser` minimizer plugin only exists in the configuration in production.
+      // Whilst the minimizer is only used when the separate `minimize` option is true
+      // (ie in production), the conditional avoids the expensive require() in development.
       if (process.env.NODE_ENV === 'production') {
         neutrino.config.optimization
           .minimizer('terser')
-          .tap(([defaultOptions]) => [{
-            ...defaultOptions,
+          .use(require.resolve('terser-webpack-plugin'), [{
+            // Default options used by webpack:
+            // https://github.com/webpack/webpack/blob/v4.26.0/lib/WebpackOptionsDefaulter.js#L308-L315
+            cache: true,
+            parallel: true,
+            sourceMap: neutrino.config.devtool && /source-?map/.test(neutrino.config.devtool),
+            // Pass custom options here.
             // https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
             // https://github.com/terser-js/terser#minify-options
             terserOptions: {
+              // eg disable mangling of names
               mangle: false,
             },
           }]);

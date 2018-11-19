@@ -107,16 +107,6 @@ module.exports = (neutrino, opts = {}) => {
         });
     })
     .when(process.env.NODE_ENV === 'production', (config) => {
-      // Use terser instead of the unmaintained uglify-es.
-      // This is a backport of the upcoming webpack 5 minimizer configuration:
-      // https://github.com/edmorley/webpack/blob/a94d0434a99489ef9bcb1808cdbe9cbe97bbd3e7/lib/WebpackOptionsDefaulter.js#L292-L308
-      config.optimization
-        .minimizer('terser')
-        .use(require.resolve('terser-webpack-plugin'), [{
-          cache: true,
-          parallel: true,
-          sourceMap: true
-        }]);
       config.when(options.clean, () => neutrino.use(clean, options.clean));
     });
 };
