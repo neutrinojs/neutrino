@@ -7,7 +7,7 @@ module.exports = (neutrino, opts = {}) => {
     hot: true,
     babel: {}
   }, opts);
-  let reactHotLoader;
+  let reactHotLoader = false;
 
   try {
     // Attempt to load react-hot-loader from the user's installation.
@@ -17,17 +17,19 @@ module.exports = (neutrino, opts = {}) => {
   Object.assign(options, {
     babel: compileLoader.merge({
       plugins: [
-        ...(
-          // The plugin is enabled in production too since it removes the `hot(module)(...)`
-          // wrapper, allowing webpack to use its concatenate modules optimization.
-          options.hot && reactHotLoader
-            ? [reactHotLoader]
-            : []
-        ),
+        // The RHL plugin is enabled in production too since it removes the `hot(module)(...)`
+        // wrapper, allowing webpack to use its concatenate modules optimization.
+        options.hot && reactHotLoader,
+        process.env.NODE_ENV === 'production' && [
+          require.resolve('babel-plugin-transform-react-remove-prop-types'),
+          {
+            removeImport: true
+          }
+        ],
         // Using loose for the reasons here:
         // https://github.com/facebook/create-react-app/issues/4263
         [require.resolve('@babel/plugin-proposal-class-properties'), { loose: true }]
-      ],
+      ].filter(Boolean),
       presets: [
         [
           require.resolve('@babel/preset-react'),

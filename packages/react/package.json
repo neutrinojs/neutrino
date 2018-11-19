@@ -29,6 +29,7 @@
     "@babel/preset-react": "^7.0.0",
     "@neutrinojs/compile-loader": "9.0.0-0",
     "@neutrinojs/web": "9.0.0-0",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.20",
     "deepmerge": "^1.5.2",
     "eslint-plugin-react": "^7.11.1"
   },
