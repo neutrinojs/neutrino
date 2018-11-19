@@ -1,5 +1,6 @@
 import test from 'ava';
-import lint from '../../eslint';
+import airbnbPreset from '../../airbnb';
+import eslintPreset from '../../eslint';
 import Neutrino from '../../neutrino/Neutrino';
 import neutrino from '../../neutrino';
 
@@ -77,25 +78,18 @@ test('uses middleware with options', t => {
 
 test('updates lint config by default', t => {
   const api = new Neutrino();
-  api.use(lint);
+  api.use(airbnbPreset);
   api.use(mw());
   const options = api.config.module.rule('lint').use('eslint').get('options');
-  t.deepEqual(options.baseConfig.env, {
-    es6: true,
-    'jest/globals': true
-  });
-  t.deepEqual(options.baseConfig.plugins, ['babel', 'jest']);
-  t.deepEqual(options.baseConfig.rules, {
-    'jest/no-disabled-tests': 'warn',
-    'jest/no-focused-tests': 'error',
-    'jest/no-identical-title': 'error',
-    'jest/valid-expect': 'error'
-  });
+  t.deepEqual(options.baseConfig.extends, [
+    require.resolve('eslint-config-airbnb'),
+    'plugin:jest/recommended'
+  ]);
 });
 
 test('does not update lint config if useEslintrc true', t => {
   const api = new Neutrino();
-  api.use(lint, { eslint: { useEslintrc: true } });
+  api.use(eslintPreset, { eslint: { useEslintrc: true } });
   api.use(mw());
   const options = api.config.module.rule('lint').use('eslint').get('options');
   t.deepEqual(options.baseConfig, {});

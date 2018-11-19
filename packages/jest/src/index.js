@@ -11,16 +11,7 @@ module.exports = (neutrino, options = {}) => {
         ? lintOptions
         : merge(lintOptions, {
             baseConfig: {
-              env: {
-                'jest/globals': true
-              },
-              plugins: ['jest'],
-              rules: {
-                'jest/no-disabled-tests': 'warn',
-                'jest/no-focused-tests': 'error',
-                'jest/no-identical-title': 'error',
-                'jest/valid-expect': 'error'
-              }
+              extends: ['plugin:jest/recommended']
             }
           })
     );
