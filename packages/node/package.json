@@ -32,7 +32,6 @@
     "@neutrinojs/start-server": "9.0.0-0",
     "deepmerge": "^1.5.2",
     "lodash.omit": "^4.5.0",
-    "terser-webpack-plugin": "^1.1.0",
     "webpack-node-externals": "^1.7.2"
   },
   "peerDependencies": {
