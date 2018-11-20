@@ -121,6 +121,7 @@ test('sets defaults when no options passed', t => {
     },
     cache: true,
     cwd: api.options.root,
+    emitWarning: false,
     failOnError: true,
     formatter: require.resolve('eslint/lib/formatters/codeframe'),
     useEslintrc: false
@@ -220,6 +221,7 @@ test('merges options with defaults', t => {
     },
     cache: true,
     cwd: api.options.root,
+    emitWarning: false,
     failOnError: true,
     formatter: require.resolve('eslint/lib/formatters/codeframe'),
     reportUnusedDisableDirectives: true,
