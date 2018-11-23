@@ -1,4 +1,5 @@
-const merge = require('babel-merge');
+const babelMerge = require('babel-merge');
+const merge = require('deepmerge');
 const omit = require('lodash.omit');
 
 module.exports = neutrino => {
@@ -23,7 +24,7 @@ module.exports = neutrino => {
       ? neutrino.config.module.rule('compile').use('babel').get('options')
       : {};
     const options = omit(
-      merge(
+      babelMerge(
         baseOptions,
         {
           extensions: neutrino.options.extensions.map(ext => `.${ext}`),
