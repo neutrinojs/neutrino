@@ -1,6 +1,7 @@
 const banner = require('@neutrinojs/banner');
 const compileLoader = require('@neutrinojs/compile-loader');
 const clean = require('@neutrinojs/clean');
+const babelMerge = require('babel-merge');
 const merge = require('deepmerge');
 const nodeExternals = require('webpack-node-externals');
 const { ConfigurationError } = require('neutrino/errors');
@@ -29,7 +30,7 @@ module.exports = (neutrino, opts = {}) => {
   }, opts);
 
   Object.assign(options, {
-    babel: compileLoader.merge({
+    babel: babelMerge({
       plugins: [
         require.resolve('@babel/plugin-syntax-dynamic-import')
       ],

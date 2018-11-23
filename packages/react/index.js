@@ -1,5 +1,5 @@
 const web = require('@neutrinojs/web');
-const compileLoader = require('@neutrinojs/compile-loader');
+const babelMerge = require('babel-merge');
 const merge = require('deepmerge');
 
 module.exports = (neutrino, opts = {}) => {
@@ -15,7 +15,7 @@ module.exports = (neutrino, opts = {}) => {
   } catch (err) {} // eslint-disable-line no-empty
 
   Object.assign(options, {
-    babel: compileLoader.merge({
+    babel: babelMerge({
       plugins: [
         // The RHL plugin is enabled in production too since it removes the `hot(module)(...)`
         // wrapper, allowing webpack to use its concatenate modules optimization.

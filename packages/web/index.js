@@ -6,6 +6,7 @@ const compileLoader = require('@neutrinojs/compile-loader');
 const htmlTemplate = require('@neutrinojs/html-template');
 const clean = require('@neutrinojs/clean');
 const devServer = require('@neutrinojs/dev-server');
+const babelMerge = require('babel-merge');
 const merge = require('deepmerge');
 const { ConfigurationError } = require('neutrino/errors');
 
@@ -118,7 +119,7 @@ module.exports = (neutrino, opts = {}) => {
   }
 
   Object.assign(options, {
-    babel: compileLoader.merge({
+    babel: babelMerge({
       plugins: [
         require.resolve('@babel/plugin-syntax-dynamic-import')
       ],

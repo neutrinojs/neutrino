@@ -1,4 +1,4 @@
-const { merge: babelMerge } = require('@neutrinojs/compile-loader');
+const babelMerge = require('babel-merge');
 const merge = require('deepmerge');
 const omit = require('lodash.omit');
 const { join } = require('path');

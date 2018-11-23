@@ -1,4 +1,4 @@
-const compileLoader = require('@neutrinojs/compile-loader');
+const babelMerge = require('babel-merge');
 const web = require('@neutrinojs/web');
 const merge = require('deepmerge');
 
@@ -6,7 +6,7 @@ module.exports = (neutrino, opts = {}) => {
   const options = {
     hot: true,
     ...opts,
-    babel: compileLoader.merge({
+    babel: babelMerge({
       plugins: [
         [require.resolve('@babel/plugin-transform-react-jsx'), { pragma: 'h' }],
         // Using loose for the reasons here:

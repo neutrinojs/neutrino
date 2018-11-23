@@ -1,4 +1,3 @@
-const babelMerge = require('babel-merge');
 const { DuplicateRuleError } = require('neutrino/errors');
 
 module.exports = (neutrino, { ruleId = 'compile', useId = 'babel', ...options } = {}) => {
@@ -27,5 +26,3 @@ module.exports = (neutrino, { ruleId = 'compile', useId = 'babel', ...options } 
       .get('options')
   );
 };
-
-module.exports.merge = babelMerge;
