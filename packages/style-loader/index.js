@@ -2,6 +2,7 @@ const merge = require('deepmerge');
 const { DuplicateRuleError } = require('neutrino/errors');
 
 module.exports = (neutrino, opts = {}) => {
+  const isProduction = process.env.NODE_ENV === 'production';
   const modules = 'modules' in opts ? opts.modules : true;
   const modulesTest = opts.modulesTest || neutrino.regexFromExtensions(['module.css']);
   const options = merge({
@@ -20,9 +21,10 @@ module.exports = (neutrino, opts = {}) => {
     loaders: [],
     extractId: 'extract',
     extract: {
+      enabled: isProduction,
       loader: {},
       plugin: {
-        filename: process.env.NODE_ENV === 'production'
+        filename: isProduction
           ? 'assets/[name].[contenthash:8].css'
           : 'assets/[name].css'
       }
@@ -33,6 +35,7 @@ module.exports = (neutrino, opts = {}) => {
     throw new DuplicateRuleError('@neutrinojs/style-loader', options.ruleId);
   }
 
+  const extractEnabled = options.extract && options.extract.enabled;
   const rules = [options];
 
   if (options.modules) {
@@ -55,9 +58,9 @@ module.exports = (neutrino, opts = {}) => {
     const styleRule = neutrino.config.module.rule(options.ruleId);
     const loaders = [
       {
-        loader: options.extract ? require.resolve('mini-css-extract-plugin/dist/loader') : require.resolve('style-loader'),
-        options: options.extract ? options.extract.loader : options.style,
-        useId: options.extract ? options.extractId : options.styleUseId
+        loader: extractEnabled ? require.resolve('mini-css-extract-plugin/dist/loader') : require.resolve('style-loader'),
+        options: extractEnabled ? options.extract.loader : options.style,
+        useId: extractEnabled ? options.extractId : options.styleUseId
       },
       {
         loader: require.resolve('css-loader'),
@@ -81,7 +84,7 @@ module.exports = (neutrino, opts = {}) => {
     });
   });
 
-  if (options.extract) {
+  if (extractEnabled) {
     neutrino.config
       .plugin(options.extractId)
         .use(require.resolve('mini-css-extract-plugin'), [options.extract.plugin]);

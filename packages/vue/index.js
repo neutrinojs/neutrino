@@ -10,7 +10,6 @@ module.exports = (neutrino, opts = {}) => {
     style: {
       ruleId: 'style',
       styleUseId: 'style',
-      extract: process.env.NODE_ENV === 'production',
       exclude: [],
       modulesTest: neutrino.regexFromExtensions(['css']),
       modulesSuffix: ''
@@ -30,9 +29,10 @@ module.exports = (neutrino, opts = {}) => {
 
   // vue-loader needs CSS files to be parsed with vue-style-loader instead of
   // style-loader, so we replace the loader with the one vue wants.
-  if (!options.style.extract) {
-    neutrino.config.module
-      .rule(options.style.ruleId)
+  // This is only required when using style-loader and not when extracting CSS.
+  const styleRule = neutrino.config.module.rules.get(options.style.ruleId);
+  if (styleRule && styleRule.uses.has(options.style.styleUseId)) {
+    styleRule
       .use(options.style.styleUseId)
       .loader(require.resolve('vue-style-loader'));
   }

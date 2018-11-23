@@ -3,6 +3,12 @@ import Neutrino from '../../neutrino/Neutrino';
 
 const mw = () => require('..');
 const options = { css: { modules: true }, style: { sourceMap: true } };
+const originalNodeEnv = process.env.NODE_ENV;
+
+test.afterEach(() => {
+  // Restore the original NODE_ENV after each test (which Ava defaults to 'test').
+  process.env.NODE_ENV = originalNodeEnv;
+});
 
 test('loads middleware', t => {
   t.notThrows(mw);
@@ -59,6 +65,56 @@ test('respects disabling of CSS modules', t => {
   style.use.forEach(use => {
     t.falsy(use.options && use.options.css && use.options.css.modules);
   });
+});
+
+test('does not extract in development by default', t => {
+  process.env.NODE_ENV = 'development';
+  const api = new Neutrino();
+
+  api.use(mw());
+
+  t.true(api.config.module.rule('style').uses.has('style'));
+  t.false(api.config.module.rule('style').uses.has('extract'));
+});
+
+test('extracts in production by default', t => {
+  process.env.NODE_ENV = 'production';
+  const api = new Neutrino();
+
+  api.use(mw());
+
+  t.false(api.config.module.rule('style').uses.has('style'));
+  t.true(api.config.module.rule('style').uses.has('extract'));
+});
+
+test('respects enabling of extract in development using extract.enabled', t => {
+  process.env.NODE_ENV = 'development';
+  const api = new Neutrino();
+
+  api.use(mw(), { extract: { enabled: true } });
+
+  t.false(api.config.module.rule('style').uses.has('style'));
+  t.true(api.config.module.rule('style').uses.has('extract'));
+});
+
+test('respects disabling of extract in production using false', t => {
+  process.env.NODE_ENV = 'production';
+  const api = new Neutrino();
+
+  api.use(mw(), { extract: false });
+
+  t.true(api.config.module.rule('style').uses.has('style'));
+  t.false(api.config.module.rule('style').uses.has('extract'));
+});
+
+test('respects disabling of extract in production using extract.enabled', t => {
+  process.env.NODE_ENV = 'production';
+  const api = new Neutrino();
+
+  api.use(mw(), { extract: { enabled: false } });
+
+  t.true(api.config.module.rule('style').uses.has('style'));
+  t.false(api.config.module.rule('style').uses.has('extract'));
 });
 
 test('throws when used twice', t => {

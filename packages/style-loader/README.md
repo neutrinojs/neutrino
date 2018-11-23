@@ -64,6 +64,7 @@ neutrino.use(styles, {
   modulesTest: /\.module.css$/,
   extractId: 'extract',
   extract: {
+    enabled: process.env.NODE_ENV === 'production',
     loader: {},
     plugin: {
       filename: process.env.NODE_ENV === 'production'
@@ -100,6 +101,7 @@ module.exports = {
       modulesTest: /\.module.css$/,
       extractId: 'extract',
       extract: {
+        enabled: process.env.NODE_ENV === 'production',
         loader: {},
         plugin: {
           filename: process.env.NODE_ENV === 'production'
@@ -256,7 +258,7 @@ _Note: Some plugins may be only available in certain environments. To override t
 
 | Name | Description | NODE_ENV |
 | --- | --- | --- |
-| `extract` | Extracts CSS from JS bundle into a separate stylesheet file. | all |
+| `extract` | Extracts CSS from JS bundle into a separate stylesheet file. | `'production'` |
 
 ## Contributing
 
