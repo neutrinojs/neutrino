@@ -197,8 +197,17 @@ module.exports = {
 
 ## Webstorm Mocha Runner
 Webstorm has a mocha runner that enables running mocha tests within the IDE. The mocha runner also allows for debugging of mocha tests in Webstorm. Basic setup can be found at [Webstorm's Mocha Run/Debug documentation](https://www.jetbrains.com/help/webstorm/run-debug-configuration-mocha.html). _Note: since neutrino takes care of installing mocha, you do not need to install mocha separately._ Once you are familiar with the basics, the following steps will allow you to use Webstorm's mocha runner with neutrino.
- 
-- create a `.babelrc` in project root. _As of `neutrino 8.x`, the config provided assumes neutrino is still relying on `babel 6.x`.  If neutrino updates to use `babel 7.x`, then the plugin names below will likely need to be updated to reflect the updated `babel 7.x` version._
+
+### For Neutrino 9.x 
+- Create a mocha runner using [Webstorm's Mocha Run/Debug documentation](https://www.jetbrains.com/help/webstorm/run-debug-configuration-mocha.html). The defaults should be fine with the following exceptions:
+  - `Extra Mocha options:` `--require mocha.config.js`
+    - note: you may require a different file, but `mocha.config.js` is the default config file provided by Neutrino at project root.
+  - choose `File patterns` radio button
+  - `Test file patterns:` `./test/*_test.js`  (or whatever pattern you need for your tests)
+- Now you should be able to `run` your tests or add a breakpoint to your tests and `debug` your tests
+
+### For Neutrino 8.x 
+- Follow the steps for Neutrino 9.x, except create a `.babelrc` in project root instead of relying on `mocha.config.js`
 ```
 {
   "plugins": [
@@ -207,11 +216,7 @@ Webstorm has a mocha runner that enables running mocha tests within the IDE. The
   ]
 }
 ``` 
-- Create a mocha runner using [Webstorm's Mocha Run/Debug documentation](https://www.jetbrains.com/help/webstorm/run-debug-configuration-mocha.html). The defaults should be fine with the following exceptions:
-  - `Extra Mocha options:` `--require babel-core/register`
-  - choose `File patterns` radio button
-  - `Test file patterns:` `./test/*.test.js`  (or whatever pattern you need for your tests)
-- Now you should be able to `run` your tests or add a breakpoint to your tests and `debug` your tests
+- Use `Extra Mocha options:` `--require babel-core/register` instead of pointing `--require` to `mocha.config.js`
 
 ## Contributing
 
