@@ -197,6 +197,7 @@ test('creates a webpack config', t => {
 test('regexFromExtensions', t => {
   const api = new Neutrino();
 
+  t.is(String(api.regexFromExtensions()), '/\\.(mjs|jsx|js)$/');
   t.is(String(api.regexFromExtensions(['js'])), '/\\.js$/');
   t.is(String(api.regexFromExtensions(['js', 'css'])), '/\\.(js|css)$/');
   t.is(String(api.regexFromExtensions(['worker.js', 'worker.jsx'])), '/\\.(worker\\.js|worker\\.jsx)$/');

@@ -62,7 +62,7 @@ test('sets defaults when no options passed', t => {
   api.use(mw());
 
   const lintRule = api.config.module.rule('lint');
-  t.deepEqual(lintRule.get('test'), /\.(wasm|mjs|jsx|js)$/);
+  t.deepEqual(lintRule.get('test'), /\.(mjs|jsx|js)$/);
   t.deepEqual(lintRule.include.values(), [api.options.source, api.options.tests]);
   t.deepEqual(lintRule.exclude.values(), []);
   t.deepEqual(lintRule.use('eslint').get('options'), {
