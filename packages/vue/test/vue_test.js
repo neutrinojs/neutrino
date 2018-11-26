@@ -50,7 +50,7 @@ test('updates lint config by default', t => {
   api.use(mw());
 
   const lintRule = api.config.module.rule('lint');
-  t.deepEqual(lintRule.get('test'), /\.(wasm|mjs|jsx|vue|js)$/);
+  t.deepEqual(lintRule.get('test'), /\.(mjs|jsx|vue|js)$/);
   t.deepEqual(lintRule.use('eslint').get('options').baseConfig, {
     env: {
       browser: true,

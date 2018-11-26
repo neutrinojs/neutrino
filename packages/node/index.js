@@ -77,7 +77,14 @@ module.exports = (neutrino, opts = {}) => {
       .end()
     .resolve
       .extensions
-        .merge(neutrino.options.extensions.concat('json').map(ext => `.${ext}`))
+        // Based on the webpack defaults:
+        // https://webpack.js.org/configuration/resolve/#resolve-extensions
+        // Keep in sync with the options in the web and library presets.
+        .merge([
+          '.wasm',
+          ...neutrino.options.extensions.map(ext => `.${ext}`),
+          '.json'
+        ])
         .end()
       .end()
     // The default output is too noisy, particularly with multiple entrypoints.
