@@ -158,7 +158,7 @@ module.exports = class Neutrino {
             return {
               ...normalizedConfig,
               // Lazily normalise the path, in case `source` changes after mains is updated.
-              entry: normalizePath(source, normalizedConfig.entry)
+              entry: normalizePath(source, normalizedConfig.entry || key)
             };
           },
           set(newValue) {
