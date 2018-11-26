@@ -24,7 +24,7 @@
   "dependencies": {
     "babel-merge": "^2.0.1",
     "babel-plugin-istanbul": "^5.1.0",
-    "deepmerge": "^1.5.2",
+    "deepmerge": "^2.0.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.2",
     "karma-mocha": "^1.3.0",

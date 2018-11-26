@@ -25,7 +25,7 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "deepmerge": "^1.5.2",
+    "deepmerge": "^2.0.0",
     "is-plain-object": "^2.0.4",
     "lodash.clonedeep": "^4.5.0",
     "webpack-chain": "^5.0.1",

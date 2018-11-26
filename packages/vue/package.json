@@ -23,7 +23,7 @@
   "dependencies": {
     "@neutrinojs/web": "9.0.0-0",
     "css-loader": "^1.0.1",
-    "deepmerge": "^1.5.2",
+    "deepmerge": "^2.0.0",
     "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-vue": "5.0.0-beta.5",
     "vue-loader": "^15.4.2",
