@@ -148,6 +148,24 @@ test('override options.mains', t => {
   t.deepEqual(api.options.mains.gamma, { entry: '/alpha.js' });
 });
 
+test('override options.mains.index template', t => {
+  const api = new Neutrino({
+    mains: {
+      index: {
+        template: 'alpha.eps'
+      }
+    }
+  });
+
+  t.deepEqual(
+    api.options.mains.index,
+    {
+      entry: join(process.cwd(), 'src/index'),
+      template: 'alpha.eps'
+    }
+  );
+});
+
 test('creates an instance of webpack-chain', t => {
   t.is(typeof new Neutrino().config.toConfig, 'function');
 });
