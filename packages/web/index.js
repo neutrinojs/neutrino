@@ -36,10 +36,7 @@ module.exports = (neutrino, opts = {}) => {
     devServer: {
       hot: opts.hot !== false
     },
-    style: {
-      hot: opts.hot !== false,
-      extract: isProduction
-    },
+    style: {},
     manifest: opts.html === false ? {} : false,
     clean: opts.clean !== false && {
       paths: [neutrino.options.output]
@@ -100,6 +97,12 @@ module.exports = (neutrino, opts = {}) => {
     };
   }
 
+  if (options.style && options.style.extract === true) {
+    throw new ConfigurationError(
+      'Setting `style.extract` to `true` is no longer supported. Override `style.extract.enabled` instead.'
+    );
+  }
+
   // Force @babel/preset-env default behavior (.browserslistrc)
   if (options.targets === false) {
     options.targets = {};
@@ -115,9 +118,6 @@ module.exports = (neutrino, opts = {}) => {
   }
 
   Object.assign(options, {
-    style: options.style && merge(options.style, {
-      extract: options.style.extract === true ? {} : options.style.extract
-    }),
     babel: compileLoader.merge({
       plugins: [
         require.resolve('@babel/plugin-syntax-dynamic-import')

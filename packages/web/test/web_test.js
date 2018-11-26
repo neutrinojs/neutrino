@@ -302,6 +302,14 @@ test('throws when devServer.proxy is the deprecated string shorthand', t => {
   );
 });
 
+test('throws when style.extract is true', t => {
+  const api = new Neutrino();
+  t.throws(
+    () => api.use(mw(), { style: { extract: true } }),
+    /Setting `style.extract` to `true` is no longer supported/
+  );
+});
+
 test('targets option test', t => {
   const api = new Neutrino();
   const targets = {

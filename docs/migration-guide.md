@@ -286,6 +286,9 @@ being set to a string [#1175](https://github.com/neutrinojs/neutrino/pull/1175).
 object using the [options here](https://webpack.js.org/configuration/dev-server/#devserver-proxy).
 - **BREAKING CHANGE** `@neutrinojs/web` and its dependent middleware no longer have the `options.hotEntries` option
 [#902](https://github.com/neutrinojs/neutrino/pull/902).
+- **BREAKING CHANGE** `@neutrinojs/web` and its dependent middleware no longer support
+`style.extract` being set to `true` [#1221](https://github.com/neutrinojs/neutrino/pull/1221).
+Override `style.extract.enabled` instead.
 - **BREAKING CHANGE** `@neutrinojs/web` and its dependent middleware no longer include `worker-loader` for automatically
 loading `*.worker.js` files [#1069](https://github.com/neutrinojs/neutrino/pull/1069).
 - **BREAKING CHANGE** The loading order for `config.resolve.extensions` has been rearranged to be closer in parity to
