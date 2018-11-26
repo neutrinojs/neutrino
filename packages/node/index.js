@@ -1,7 +1,8 @@
 const banner = require('@neutrinojs/banner');
-const compile = require('@neutrinojs/compile-loader');
+const compileLoader = require('@neutrinojs/compile-loader');
 const clean = require('@neutrinojs/clean');
 const startServer = require('@neutrinojs/start-server');
+const babelMerge = require('babel-merge');
 const nodeExternals = require('webpack-node-externals');
 const {
   basename, parse, format
@@ -41,9 +42,9 @@ module.exports = (neutrino, opts = {}) => {
     }
   }, opts);
 
-  neutrino.use(compile, {
+  neutrino.use(compileLoader, {
     include: [neutrino.options.source, neutrino.options.tests],
-    babel: compile.merge({
+    babel: babelMerge({
       plugins: [
         require.resolve('@babel/plugin-syntax-dynamic-import')
       ],

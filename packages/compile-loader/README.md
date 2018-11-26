@@ -36,9 +36,9 @@ and plug it into Neutrino:
 ```js
 // Using function middleware format
 
-const compile = require('@neutrinojs/compile-loader');
+const compileLoader = require('@neutrinojs/compile-loader');
 
-neutrino.use(compile, {
+neutrino.use(compileLoader, {
   test: neutrino.regexFromExtensions(),
   include: [],
   exclude: [],
@@ -76,13 +76,13 @@ this to set properties such as `presets`, `plugins`, and `env`.
 
 ## Merging Babel Configuration
 
-This package also exposes a function for merging Babel configurations. This comes from
-the [babel-merge](https://www.npmjs.com/package/babel-merge) package.
+To correctly merge Babel configurations use the
+[babel-merge](https://www.npmjs.com/package/babel-merge) package.
 
 ```js
-const { merge } = require('@neutrinojs/compile-loader');
+const babelMerge } = require('babel-merge');
 
-const together = merge(
+const together = babelMerge(
   {
     presets: [
       ['@babel/preset-env', {
@@ -123,13 +123,12 @@ console.log(together);
 ### Advanced merging
 
 Should you need to do merging of Babel configuration that is more advanced than this, such as re-ordering the options,
-you will need to `tap` into the existing Babel options to do so. This still involves using the compile-loader's
-`merge` function.
+you will need to `tap` into the existing Babel options to do so. This still involves using `babel-merge`.
 
 _Example: enable current decorator syntax in the compile loader:_
 
 ```js
-const { merge } = require('@neutrinojs/compile-loader');
+const babelMerge = require('babel-merge');
 
 // Decorators generally need to be enabled *before* other
 // syntax which exists in both normal plugins, and
@@ -140,7 +139,7 @@ const { merge } = require('@neutrinojs/compile-loader');
 config.module
   .rule('compile')
     .use('babel')
-      .tap(options => merge({
+      .tap(options => babelMerge({
         plugins: [
           require.resolve('@babel/plugin-proposal-decorators'),
           require.resolve('@babel/plugin-proposal-class-properties')

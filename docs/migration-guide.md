@@ -297,6 +297,10 @@ what webpack has configured by default [#1080](https://github.com/neutrinojs/neu
 dependent middleware [#951](https://github.com/neutrinojs/neutrino/pull/951).
 - **BREAKING CHANGE** TypeScript extensions are no longer set by default in `neutrino.options.extensions`, and the
 `vue` extension is only added when used with `@neutrinojs/vue`.
+- **BREAKING CHANGE** `@neutrinojs/compile-loader` no longer exports a `merge` function
+[#1220](https://github.com/neutrinojs/neutrino/pull/1220). See the documentation on
+[merging babel configuration](./packages/compile-loader.md#merging-babel-configuration)
+for how to use the [babel-merge](https://www.npmjs.com/package/babel-merge) package directly instead.
 - **BREAKING CHANGE** Various dependencies have been updated which may bring their own breaking changes. Please
 check and test your project to ensure proper functionality.
 - ESLint caching is now enabled by default for new projects, so it is recommended to specify `.eslintcache` as being
