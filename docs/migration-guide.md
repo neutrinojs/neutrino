@@ -306,7 +306,7 @@ check and test your project to ensure proper functionality.
 - ESLint caching is now enabled by default for new projects, so it is recommended to specify `.eslintcache` as being
 ignored from your source control commits.
 
-[Compare all v9 changes](https://github.com/neutrinojs/neutrino/compare/v8.3.0...master)
+[Compare all v9 changes](https://github.com/neutrinojs/neutrino/compare/v8.3.0...v9.0.0)
 
 ## Neutrino v7 to v8
 
