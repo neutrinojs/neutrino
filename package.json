@@ -15,7 +15,7 @@
     "packages/*"
   ],
   "scripts": {
-    "changelog": "auto-changelog --remote upstream --commit-limit false --include-branch upstream/release/v7,upstream/release/v8",
+    "changelog": "auto-changelog",
     "docs:bootstrap": "pip install -r docs/requirements.txt",
     "docs:serve": "mkdocs serve",
     "link:all": "lerna exec yarn link",
