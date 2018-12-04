@@ -4279,7 +4279,7 @@ eslint-plugin-standard@^4.0.0:
   resolved "https://registry.yarnpkg.com/eslint-plugin-standard/-/eslint-plugin-standard-4.0.0.tgz#f845b45109c99cd90e77796940a344546c8f6b5c"
   integrity sha512-OwxJkR6TQiYMmt1EsNRMe5qG3GsbjlcOhbGUBY4LtavF9DsLaTcoR+j2Tdjqi23oUwKNUqX7qcn5fPStafMdlA==
 
-eslint-plugin-vue@5.0.0:
+eslint-plugin-vue@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-5.0.0.tgz#4a2cc1c0e71ea45e1bd9c1a60f925bfe68bb5710"
   integrity sha512-mSv2Ebz3RaPP+XJO/mu7F+SdR9lrMyGISSExnarLFqqf3pF5wTmwWNrhHW1o9zKzKI811UVTIIkWJJvgO6SsUQ==
