@@ -6,7 +6,7 @@ const merge = require('deepmerge');
 const Generator = require('yeoman-generator');
 const questions = require('./questions');
 const { packages, presets } = require('./matrix');
-const { isYarn } = require('./utils');
+const { isYarn, generateGitignoreContents } = require('./utils');
 const { version: neutrinoVersion } = require('../../package.json');
 
 /* eslint-disable no-underscore-dangle */
@@ -178,6 +178,7 @@ module.exports = class Project extends Generator {
       join(this.options.directory, '.neutrinorc.js'),
       this._getNeutrinorcContent()
     );
+    this.fs.write(join(this.options.directory, '.gitignore'), generateGitignoreContents());
     templates.forEach(template => {
       const templateDir = template.replace('@neutrinojs/', '');
 
