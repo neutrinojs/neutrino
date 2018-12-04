@@ -4279,12 +4279,12 @@ eslint-plugin-standard@^4.0.0:
   resolved "https://registry.yarnpkg.com/eslint-plugin-standard/-/eslint-plugin-standard-4.0.0.tgz#f845b45109c99cd90e77796940a344546c8f6b5c"
   integrity sha512-OwxJkR6TQiYMmt1EsNRMe5qG3GsbjlcOhbGUBY4LtavF9DsLaTcoR+j2Tdjqi23oUwKNUqX7qcn5fPStafMdlA==
 
-eslint-plugin-vue@5.0.0-beta.5:
-  version "5.0.0-beta.5"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-5.0.0-beta.5.tgz#d478abfcea7eaa98cbe28eedec4aea0e596fbdb2"
-  integrity sha512-ETVqyctk0cta99tTi3NjDDGyJiQZTHlf6J7fl6Ig58/926U2tjzU3T0A/c6/jkiTw1m9yErxLyF+IPnwX7j6bg==
+eslint-plugin-vue@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-5.0.0.tgz#4a2cc1c0e71ea45e1bd9c1a60f925bfe68bb5710"
+  integrity sha512-mSv2Ebz3RaPP+XJO/mu7F+SdR9lrMyGISSExnarLFqqf3pF5wTmwWNrhHW1o9zKzKI811UVTIIkWJJvgO6SsUQ==
   dependencies:
-    vue-eslint-parser "^3.2.1"
+    vue-eslint-parser "^4.0.2"
 
 eslint-restricted-globals@^0.1.1:
   version "0.1.1"
@@ -12041,10 +12041,10 @@ void-elements@^2.0.0:
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
   integrity sha1-wGavtYK7HLQSjWDqkjkulNXp2+w=
 
-vue-eslint-parser@^3.2.1:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-3.3.0.tgz#06b195d18bb66ac72c6b7f2469b549109a61d72c"
-  integrity sha512-gUsSihfwXmSIbxtqq8YT9CBdkqTHj+6ahj+glY6vJSYu0ylMHQ1A9ClC1YkF5YLRs+WShAwJklXfiL8CEZhgog==
+vue-eslint-parser@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-4.0.2.tgz#7d10ec5b67d9b2ef240cac0f0e8b2f03773d810e"
+  integrity sha512-A+teFdsAVtVawd4rtLsv8q6uuj2MYt3Uw+GCodqEkjozB3g20G91hbukz60yWa9IUx/yFz+JzKBu/3Djkod36g==
   dependencies:
     debug "^4.1.0"
     eslint-scope "^4.0.0"
