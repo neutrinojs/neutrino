@@ -11,7 +11,7 @@ module.exports = (neutrino, opts = {}) => {
       ruleId: 'style',
       styleUseId: 'style',
       exclude: [],
-      modulesTest: neutrino.regexFromExtensions(['css']),
+      modulesTest: opts.style && opts.style.test ? opts.style.test : neutrino.regexFromExtensions(['css']),
       modulesSuffix: ''
     }
   }, opts);
