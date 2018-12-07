@@ -155,7 +155,7 @@ module.exports = {
   use: ['@neutrinojs/style-loader', {
     // Override the default file extension of `.css` if needed
     test: /\.(css|sass|scss)$/,
-    moduleTest: /\.module\.(css|sass|scss)$/,
+    modulesTest: /\.module\.(css|sass|scss)$/,
     loaders: [
       // Define loaders as objects. Note: loaders must be specified in reverse order.
       // ie: for the loaders below the actual execution order would be:
