@@ -1,7 +1,5 @@
 const clone = require('lodash.clonedeep');
 const Config = require('webpack-chain');
-const isPlainObject = require('is-plain-object');
-const merge = require('deepmerge');
 const { isAbsolute, join } = require('path');
 const { ConfigurationError } = require('./errors');
 const { source } = require('./extensions');
@@ -15,24 +13,6 @@ const pathOptions = [
   ['output', 'build', getRoot],
   ['tests', 'test', getRoot]
 ];
-const requireFromRoot = (moduleId, root) => {
-  const paths = [
-    join(root, moduleId),
-    join(root, 'node_modules', moduleId),
-    moduleId
-  ];
-  const path = paths.find(path => {
-    try {
-      require.resolve(path);
-      return true;
-    } catch (err) {
-      return path === paths[paths.length - 1];
-    }
-  });
-
-  // eslint-disable-next-line global-require, import/no-dynamic-require
-  return require(path);
-};
 // Support both a shorter string form and an object form that allows
 // specifying any page-specific options supported by the preset.
 const normalizeMainConfig = (config) =>
@@ -92,53 +72,6 @@ module.exports = class Neutrino {
     });
 
     this.bindMainsOnOptions(options);
-
-    return options;
-  }
-
-  mergeOptions(options, newOptions) {
-    const pathKeys = pathOptions.map(([path]) => path);
-
-    Object
-      .keys(newOptions)
-      .forEach(key => {
-        if (key === 'mains') {
-          this.bindMainsOnOptions(newOptions, options);
-          Object.assign(options, { mains: newOptions.mains });
-          return;
-        }
-
-        const value = newOptions[key];
-
-        if (pathKeys.includes(key)) {
-          Object.assign(options, { [key]: value });
-          return;
-        }
-
-        // Only merge values if there is an existing value to merge with,
-        // and if the value types match, and if the value types are both
-        // objects or both arrays. Otherwise just replace the old value
-        // with the new value.
-        if (
-          options[key] &&
-          (
-            Array.isArray(options[key]) && Array.isArray(value) ||
-            isPlainObject(options[key]) && isPlainObject(value)
-          )
-        ) {
-          Object.assign(options, {
-            [key]: merge(options[key], newOptions[key])
-          });
-        } else {
-          Object.assign(options, { [key]: newOptions[key] });
-        }
-      });
-
-    if ('node_modules' in options) {
-      throw new ConfigurationError(
-        'options.node_modules has been removed. Use `neutrino.config.resolve.modules` instead.'
-      );
-    }
 
     return options;
   }
@@ -205,39 +138,15 @@ module.exports = class Neutrino {
     this.outputHandlers.set(name, handler);
   }
 
-  use(middleware, options) {
-    if (typeof middleware === 'function') {
-      // If middleware is a function, invoke it with the provided options
-      middleware(this, options);
-    } else if (typeof middleware === 'string') {
-      // If middleware is a string, it's a module to require.
-      // Require it, then run the results back through .use()
-      // with the provided options
-      this.use(requireFromRoot(middleware, this.options.root), options);
-    } else if (Array.isArray(middleware)) {
-      // If middleware is an array, it's a pair of some other
-      // middleware type and options
-      this.use(...middleware);
-    } else if (isPlainObject(middleware)) {
-      if ('env' in middleware) {
-        throw new ConfigurationError(
-          'Using "env" in middleware has been removed. Apply middleware conditionally instead.'
-        );
-      }
-      // If middleware is an object, it could contain other middleware in
-      // its "use" property. Run every item in "use" prop back through .use(),
-      // plus set any options.
-      if (middleware.options) {
-        this.options = this.mergeOptions(this.options, middleware.options);
-      }
-
-      if (middleware.use) {
-        if (Array.isArray(middleware.use)) {
-          middleware.use.map(usage => this.use(usage));
-        } else {
-          this.use(middleware.use);
-        }
-      }
+  use(middleware) {
+    if (!middleware) {
+      return;
     }
+
+    if (typeof middleware !== 'function') {
+      throw new ConfigurationError('Middleware must be a function');
+    }
+
+    middleware(this);
   }
 };

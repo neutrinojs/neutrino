@@ -123,8 +123,10 @@ Now edit your project's `package.json` to add commands for starting and building
 Then create a `.neutrinorc.js` file alongside `package.json`, which contains your Neutrino configuration:
 
 ```js
+const react = require('@neutrinojs/react');
+
 module.exports = {
-  use: ['@neutrinojs/react']
+  use: [react()]
 };
 ```
 
@@ -178,16 +180,16 @@ to the empty string, which will cause relative asset paths to be used instead.
 ## Preset options
 
 You can provide custom options and have them merged with this preset's default options to easily affect how this
-preset builds. You can modify React preset settings from `.neutrinorc.js` by overriding with an options object. Use
-an array pair instead of a string to supply these options in `.neutrinorc.js`.
-
+preset builds. You can modify React preset settings from `.neutrinorc.js` by overriding with an options object.
 The following shows how you can pass an options object to the React preset and override its options. See the
 [Web documentation](https://neutrinojs.org/packages/web/#preset-options) for specific options you can override with this object.
 
 ```js
+const react = require('@neutrinojs/react');
+
 module.exports = {
   use: [
-    ['@neutrinojs/react', {
+    react({
       /* preset options */
 
       // Example: disable Hot Module Replacement
@@ -219,7 +221,7 @@ module.exports = {
           }]
         ]
       }
-    }]
+    })
   ]
 };
 ```
@@ -251,6 +253,8 @@ this maps to the `index.*` file in the `src` directory. The extension is resolve
 If you wish to output multiple pages, you can configure them like so:
 
 ```js
+const react = require('@neutrinojs/react');
+
 module.exports = {
   options: {
     mains: {
@@ -274,7 +278,7 @@ module.exports = {
       },
     }
   },
-  use: ['@neutrinojs/react']
+  use: [react()]
 }
 ```
 
@@ -286,9 +290,11 @@ by the new webpack [SplitChunksPlugin](https://webpack.js.org/plugins/split-chun
 _Example: The splitChunks settings can be adjusted like so:_
 
 ```js
+const react = require('@neutrinojs/react');
+
 module.exports = {
   use: [
-    '@neutrinojs/react',
+    react(),
     (neutrino) => {
       neutrino.config
         .optimization

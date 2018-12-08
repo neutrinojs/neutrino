@@ -34,38 +34,38 @@
 and plug it into Neutrino:
 
 ```js
-// Using function middleware format
 const images = require('@neutrinojs/image-loader');
 
 // Use with default options
-neutrino.use(images);
+neutrino.use(images());
 
 // Usage showing default options
-neutrino.use(images, {
+neutrino.use(images({
   limit: 8192,
   name: process.env.NODE_ENV === 'production'
     ? 'assets/[name].[hash:8].[ext]'
     : 'assets/[name].[ext]'
-});
+}));
 ```
 
 ```js
-// Using object or array middleware format
+// Using in .neutrinorc.js
+const images = require('@neutrinojs/image-loader');
 
 // Use with default options
 module.exports = {
-  use: ['@neutrinojs/image-loader']
+  use: [images()]
 };
 
 // Usage showing default options
 module.exports = {
   use: [
-    ['@neutrinojs/image-loader', {
+    images({
       limit: 8192,
       name: process.env.NODE_ENV === 'production'
         ? 'assets/[name].[hash:8].[ext]'
         : 'assets/[name].[ext]'
-    }]
+    })
   ]
 };
 ```

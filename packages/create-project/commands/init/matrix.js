@@ -24,14 +24,17 @@ const WEBPACK_DEV_SERVER = 'webpack-dev-server@^3';
 
 const presets = {
   [AIRBNB]: {
+    name: 'airbnb',
     type: LINTING,
     devDependencies: [AIRBNB, ESLINT]
   },
   [AIRBNB_BASE]: {
+    name: 'airbnbBase',
     type: LINTING,
     devDependencies: [AIRBNB_BASE, ESLINT]
   },
   [WEB_NODE_LIBRARY]: {
+    name: 'library',
     type: PROJECT,
     devDependencies: [
       WEB_NODE_LIBRARY,
@@ -41,20 +44,24 @@ const presets = {
     ]
   },
   [NODE]: {
+    name: 'node',
     type: PROJECT,
     devDependencies: [NODE, N, WEBPACK, WEBPACK_CLI]
   },
   [PREACT]: {
+    name: 'preact',
     type: PROJECT,
     dependencies: ['preact@^8', 'preact-compat@^3'],
     devDependencies: [PREACT, N, WEBPACK, WEBPACK_CLI, WEBPACK_DEV_SERVER]
   },
   [REACT]: {
+    name: 'react',
     type: PROJECT,
     dependencies: ['prop-types@^15', 'react@^16', 'react-dom@^16', 'react-hot-loader@^4'],
     devDependencies: [REACT, N, WEBPACK, WEBPACK_CLI, WEBPACK_DEV_SERVER]
   },
   [REACT_COMPONENTS]: {
+    name: 'reactComponents',
     type: PROJECT,
     devDependencies: [
       REACT_COMPONENTS,
@@ -66,23 +73,28 @@ const presets = {
     ]
   },
   [STANDARDJS]: {
+    name: 'standard',
     type: LINTING,
     devDependencies: [STANDARDJS, ESLINT]
   },
   [VUE]: {
+    name: 'vue',
     type: PROJECT,
     dependencies: ['vue@^2'],
     devDependencies: [VUE, N, WEBPACK, WEBPACK_CLI, WEBPACK_DEV_SERVER]
   },
   [WEB]: {
+    name: 'web',
     type: PROJECT,
     devDependencies: [WEB, N, WEBPACK, WEBPACK_CLI, WEBPACK_DEV_SERVER]
   },
   [JEST]: {
+    name: 'jest',
     type: TESTING,
     devDependencies: [JEST, 'jest@^24']
   },
   [KARMA]: {
+    name: 'karma',
     type: TESTING,
     devDependencies: [
       KARMA,
@@ -92,6 +104,7 @@ const presets = {
     ]
   },
   [MOCHA]: {
+    name: 'mocha',
     type: TESTING,
     devDependencies: [MOCHA, 'mocha@^6']
   }

@@ -51,13 +51,16 @@ After adding the Airbnb preset to your Neutrino-built project, edit your project
 linting **before** your build preset. For example, when building your project using `@neutrinojs/react`:
 
 ```js
+const airbnb = require('@neutrinojs/airbnb');
+const react = require('@neutrinojs/react');
+
 module.exports = {
   options: {
     root: __dirname
   },
   use: [
-    '@neutrinojs/airbnb',
-    '@neutrinojs/react'
+    airbnb(),
+    react()
   ]
 };
 ```
@@ -136,13 +139,16 @@ error: Missing semicolon (semi) at src/index.js:35:51:
 _Example: ease linting into project by only enabling when `NODE_ENV=development` (ie: `--mode development`):_
 
 ```js
+const airbnb = require('@neutrinojs/airbnb');
+const react = require('@neutrinojs/react');
+
 module.exports = {
   options: {
     root: __dirname
   },
   use: [
-    process.env.NODE_ENV === 'development' ? '@neutrinojs/airbnb' : false,
-    '@neutrinojs/react'
+    process.env.NODE_ENV === 'development' ? airbnb() : false,
+    react()
   ],
 };
 ```
@@ -151,8 +157,8 @@ module.exports = {
 
 This preset uses the same middleware options as [@neutrinojs/eslint](https://neutrinojs.org/packages/eslint/#usage).
 If you wish to customize what is included, excluded, or any ESLint options, you can provide an options object with the
-middleware and this will be merged with our internal defaults for this preset. Use an array pair instead of a string
-to supply these options.
+middleware and this will be merged with our internal defaults for this preset. Pass the options as an argument
+to the middleware function.
 
 By default the preset configures `eslint-plugin-react` to target the latest version of React.
 If using an older version, you must explicitly pass it as in the example below.
@@ -161,12 +167,14 @@ _Example: Extend from a custom configuration (it will be applied after Airbnb),
 turn off semicolons from being required, and set a specific React version._
 
 ```js
+const airbnb = require('@neutrinojs/airbnb');
+
 module.exports = {
   options: {
     root: __dirname
   },
   use: [
-    ['@neutrinojs/airbnb', {
+    airbnb({
       eslint: {
         // For supported options, see:
         // https://github.com/webpack-contrib/eslint-loader#options
@@ -187,7 +195,7 @@ module.exports = {
           }
         }
       }
-    }]
+    })
   ]
 };
 ```

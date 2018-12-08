@@ -71,10 +71,13 @@ Now update your project's `.neutrinorc.js` to add the `@neutrinojs/karma` preset
 let's pretend this is a React project:
 
 ```js
+const react = require('@neutrinojs/react');
+const karma = require('@neutrinojs/karma');
+
 module.exports = {
   use: [
-    '@neutrinojs/react',
-    '@neutrinojs/karma'
+    react(),
+    karma()
   ]
 };
 ```
@@ -161,15 +164,16 @@ You can provide custom options and have them merged with this preset's default o
 to Karma. You can modify Karma settings from `.neutrinorc.js` by overriding with any options Karma accepts. In a standalone
 Karma project this is typically done in a `karma.conf.js` or similar file, but `@neutrinojs/karma` allows
 configuration through `.neutrinorc.js` as well. This accepts the same configuration options as outlined in the
-[Karma documentation](https://karma-runner.github.io/2.0/config/configuration-file.html). Use an array pair instead of
-a string to supply these options.
+[Karma documentation](https://karma-runner.github.io/2.0/config/configuration-file.html).
 
 _Example: Change the duration Karma waits for a browser to reconnect (in ms)._
 
 ```js
+const karma = require('@neutrinojs/karma');
+
 module.exports = {
   use: [
-    ['@neutrinojs/karma', { browserDisconnectTimeout: 5000 }]
+    karma({ browserDisconnectTimeout: 5000 })
   ]
 };
 ```
@@ -193,9 +197,11 @@ You may also need to pass additional options to the Karma preset to change its b
 Chrome as an example instead of Chrome Headless:
 
 ```js
+const karma = require('@neutrinojs/karma');
+
 module.exports = {
   use: [
-    ['@neutrinojs/karma', {
+    karma({
       browsers: [process.env.CI ? 'ChromeCI' : 'Chrome'],
       customLaunchers: {
         ChromeCI: {
@@ -203,7 +209,7 @@ module.exports = {
           flags: ['--no-sandbox']
         }
       },
-    }]
+    })
   ]
 }
 ```

@@ -1,4 +1,4 @@
-module.exports = (neutrino, { pluginId = 'start-server', ...options } = {}) => {
+module.exports = ({ pluginId = 'start-server', ...options } = {}) => (neutrino) => {
   neutrino.config
     .plugin(pluginId)
     .use(require.resolve('start-server-webpack-plugin'), [{

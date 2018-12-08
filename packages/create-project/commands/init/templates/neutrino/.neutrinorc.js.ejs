@@ -1,0 +1,10 @@
+<% middleware.forEach(({ name, pkg }) => { %>const <%= name %> = require('<%= pkg %>');
+<% })%>
+module.exports = {
+  options: {
+    root: __dirname,
+  },
+  use: [<% middleware.forEach(({ name, options }) => { %>
+    <%= name %>(<%- options %>),<% })%>
+  ],
+};

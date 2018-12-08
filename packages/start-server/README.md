@@ -35,38 +35,38 @@ completion of a build.
 and plug it into Neutrino:
 
 ```js
-// Using function middleware format
-const server = require('@neutrinojs/start-server');
+const startServer = require('@neutrinojs/start-server');
 
 // Use with default options, starting the server
 // for the main entry point, defaults to neutrino.options.mains.index
-neutrino.use(server);
+neutrino.use(startServer());
 
 // Usage with custom server file to start
-neutrino.use(server, {
+neutrino.use(startServer({
   name: 'custom.js',
   // Override pluginId to add an additional start-server plugin instance
   pluginId: 'start-server'
-});
+}));
 ```
 
 ```js
-// Using object or array middleware format
+// Using in .neutrinorc.js
+const startServer = require('@neutrinojs/start-server');
 
 // Use with default options, starting the server
 // for the main entry point, defaults to neutrino.options.mains.index
 module.exports = {
-  use: ['@neutrinojs/start-server']
+  use: [startServer()]
 };
 
 // Usage with custom server file to start
 module.exports = {
   use: [
-    ['@neutrinojs/start-server', {
+    startServer({
       name: 'custom.js',
       // Override pluginId to add an additional start-server plugin instance
       pluginId: 'start-server'
-    }]
+    })
   ]
 };
 ```

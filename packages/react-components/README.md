@@ -98,7 +98,6 @@ Don’t want to use the CLI helper? No worries, we have you covered with the [ma
 Run the following command to start the process. Substitute `<directory-name>` with the directory name you wish to create
 for this project.
 
-
 #### Yarn
 
 ```
@@ -164,8 +163,10 @@ Now edit your project's `package.json` to add commands for starting and building
 Then create a `.neutrinorc.js` file alongside `package.json`, which contains your Neutrino configuration:
 
 ```js
+const reactComponents = require('@neutrinojs/react-components');
+
 module.exports = {
-  use: ['@neutrinojs/react-components']
+  use: [reactComponents()]
 };
 ```
 
@@ -252,11 +253,13 @@ make these changes from the Neutrino API in custom middleware.
 _Example: Change the name of the components directory:_
 
 ```js
+const reactComponents = require('@neutrinojs/react-components');
+
 module.exports = {
   use: [
-    ['@neutrinojs/react-components', {
+    reactComponents({
       components: 'react-stuff' // now you can put your components in src/react-stuff/
-    }]
+    })
   ]
 }
 ```

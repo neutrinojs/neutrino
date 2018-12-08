@@ -3,7 +3,7 @@ const merge = require('deepmerge');
 const omit = require('lodash.omit');
 const { join } = require('path');
 
-module.exports = (neutrino, options = {}) => {
+module.exports = (options = {}) => (neutrino) => {
   const lintRule = neutrino.config.module.rules.get('lint');
   if (lintRule) {
     lintRule.use('eslint').tap(

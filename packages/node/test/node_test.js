@@ -2,7 +2,7 @@ import test from 'ava';
 import { validate } from 'webpack';
 import Neutrino from '../../neutrino/Neutrino';
 
-const mw = () => require('..');
+const mw = (...args) => require('..')(...args);
 const expectedExtensions = ['.wasm', '.mjs', '.jsx', '.js', '.json'];
 const originalNodeEnv = process.env.NODE_ENV;
 
@@ -12,7 +12,7 @@ test.afterEach(() => {
 });
 
 test('loads preset', t => {
-  t.notThrows(mw);
+  t.notThrows(() => require('..'));
 });
 
 test('uses preset', t => {
@@ -79,7 +79,7 @@ test('valid preset development', t => {
 test('throws when polyfills defined', t => {
   const api = new Neutrino();
   t.throws(
-    () => api.use(mw(), { polyfills: {} }),
+    () => api.use(mw({ polyfills: {} })),
     /The polyfills option has been removed/
   );
 });

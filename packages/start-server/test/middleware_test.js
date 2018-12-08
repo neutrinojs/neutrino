@@ -1,11 +1,11 @@
 import test from 'ava';
 import Neutrino from '../../neutrino/Neutrino';
 
-const mw = () => require('..');
+const mw = (...args) => require('..')(...args);
 const options = { name: 'app.js' };
 
 test('loads middleware', t => {
-  t.notThrows(mw);
+  t.notThrows(() => require('..'));
 });
 
 test('uses middleware', t => {
@@ -13,7 +13,7 @@ test('uses middleware', t => {
 });
 
 test('uses with options', t => {
-  t.notThrows(() => new Neutrino().use(mw(), options));
+  t.notThrows(() => new Neutrino().use(mw(options)));
 });
 
 test('uses middleware while debugging', t => {
@@ -25,7 +25,7 @@ test('uses middleware while debugging', t => {
 test('uses with options while debugging', t => {
   const api = new Neutrino({ debug: true });
 
-  t.notThrows(() => api.use(mw(), options));
+  t.notThrows(() => api.use(mw(options)));
 });
 
 test('instantiates', t => {
@@ -39,7 +39,7 @@ test('instantiates', t => {
 test('instantiates with options', t => {
   const api = new Neutrino();
 
-  api.use(mw(), options);
+  api.use(mw(options));
 
   t.notThrows(() => api.config.toConfig());
 });

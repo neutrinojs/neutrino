@@ -89,10 +89,13 @@ Now update your project's `.neutrinorc.js` to add the `@neutrinojs/jest` preset.
 let's pretend this is a Node.js project:
 
 ```js
+const node = require('@neutrinojs/node');
+const jest = require('@neutrinojs/jest');
+
 module.exports = {
   use: [
-    '@neutrinojs/node',
-    '@neutrinojs/jest'
+    node(),
+    jest()
   ]
 };
 ```
@@ -182,15 +185,16 @@ You can provide custom options and have them merged with this preset's default o
 to Jest. You can modify Jest settings from `.neutrinorc.js` by overriding with any options Jest accepts. In a standalone
 Jest project this is typically done in the package.json file, but `@neutrinojs/jest` allows configuration through
 this mechanism as well. This accepts the same configuration options as outlined in the
-[Jest documentation](https://jestjs.io/docs/en/configuration). Use an array pair instead of a string
-to supply these options.
+[Jest documentation](https://jestjs.io/docs/en/configuration).
 
 _Example: Turn off bailing on test failures._
 
 ```js
+const jest = require('@neutrinojs/jest');
+
 module.exports = {
   use: [
-    ['@neutrinojs/jest', { bail: false }]
+    jest({ bail: false })
   ]
 };
 ```
@@ -200,16 +204,18 @@ You might need to instruct Jest to load some setup scripts (e.g. when you use En
 _Example: Jest setup scripts_
 
 ```js
+const jest = require('@neutrinojs/jest');
+
 module.exports = {
   use: [
-    ['@neutrinojs/jest', {
+    jest({
       // setup script for the framework
       setupTestFrameworkScriptFile: '<rootDir>/test-setup.js',
       // and / or shims
       setupFiles: [
         '<rootDir>/shim.js'
       ]
-    }]
+    })
   ]
 };
 ```
@@ -257,17 +263,14 @@ By following the [customization guide](https://neutrinojs.org/customization/) an
 you can override and augment testing by providing a function to your `.neutrinorc.js` use array. You can also
 make this change from the Neutrino API when using the `use` method.
 
-In a standalone Jest project this is typically done in the package.json file, but `@neutrinojs/jest` allows
-configuration through this mechanism as well. This accepts the same configuration options as outlined in the
-[Jest documentation](https://jestjs.io/docs/en/configuration). Use an array pair instead of a string
-to supply these options.
-
 _Example: Add a custom Babel plugin when testing:_
 
 ```js
+const jest = require('@neutrinojs/jest');
+
 module.exports = {
   use: [
-    '@neutrinojs/jest',
+    jest(),
     (neutrino) => {
       if (process.env.NODE_ENV === 'test') {
         neutrino.config.module

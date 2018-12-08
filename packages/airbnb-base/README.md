@@ -54,13 +54,16 @@ After adding the Airbnb preset to your Neutrino-built project, edit your project
 linting **before** your build preset. For example, when building your project using `@neutrinojs/web`:
 
 ```js
+const airbnbBase = require('@neutrinojs/airbnb-base');
+const web = require('@neutrinojs/web');
+
 module.exports = {
   options: {
     root: __dirname
   },
   use: [
-    '@neutrinojs/airbnb-base',
-    '@neutrinojs/web'
+    airbnbBase(),
+    web()
   ]
 };
 ```
@@ -139,13 +142,16 @@ error: Missing semicolon (semi) at src/index.js:35:51:
 _Example: ease linting into project by only enabling when `NODE_ENV=development` (ie: `--mode development`):_
 
 ```js
+const airbnbBase = require('@neutrinojs/airbnb-base');
+const web = require('@neutrinojs/web');
+
 module.exports = {
   options: {
     root: __dirname
   },
   use: [
-    process.env.NODE_ENV === 'development' ? '@neutrinojs/airbnb-base' : false,
-    '@neutrinojs/web'
+    process.env.NODE_ENV === 'development' ? airbnbBase() : false,
+    web()
   ],
 };
 ```
@@ -154,19 +160,20 @@ module.exports = {
 
 This preset uses the same middleware options as [@neutrinojs/eslint](https://neutrinojs.org/packages/eslint/#usage).
 If you wish to customize what is included, excluded, or any ESLint options, you can provide an options object with the
-middleware and this will be merged with our internal defaults for this preset. Use an array pair instead of a string
-to supply these options.
+middleware and this will be merged with our internal defaults for this preset.
 
 _Example: Extend from a custom configuration (it will be applied after Airbnb)
 and turn off semicolons from being required._
 
 ```js
+const airbnbBase = require('@neutrinojs/airbnb-base');
+
 module.exports = {
   options: {
     root: __dirname
   },
   use: [
-    ['@neutrinojs/airbnb-base', {
+    airbnbBase({
       eslint: {
         // For supported options, see:
         // https://github.com/webpack-contrib/eslint-loader#options
@@ -182,7 +189,7 @@ module.exports = {
           }
         }
       }
-    }]
+    })
   ]
 };
 ```

@@ -75,17 +75,7 @@ const validLoaderOptions = [
   'useEslintrc'
 ];
 
-module.exports = (neutrino, { test, include, exclude, eslint = {} } = {}) => {
-  if (neutrino.config.module.rules.has('compile')) {
-    throw new ConfigurationError(
-      'Lint presets must be defined prior to any other presets in .neutrinorc.js.'
-    );
-  }
-
-  if (neutrino.config.module.rules.has('lint')) {
-    throw new DuplicateRuleError('@neutrinojs/eslint', 'lint');
-  }
-
+module.exports = ({ test, include, exclude, eslint = {} } = {}) => {
   // Neither eslint-loader nor ESLint's `CLIEngine` validate passed options, so
   // we do so here to make it easier to work out why settings seemingly aren't
   // taking effect. This is particularly important given that the configuration
@@ -107,80 +97,92 @@ module.exports = (neutrino, { test, include, exclude, eslint = {} } = {}) => {
     );
   }
 
-  const loaderOptions = {
-    // For supported options, see:
-    // https://github.com/webpack-contrib/eslint-loader#options
-    // https://eslint.org/docs/developer-guide/nodejs-api#cliengine
-    cache: true,
-    cwd: neutrino.options.root,
-    // Downgrade errors to warnings when in development, to reduce the noise in
-    // the webpack-dev-server overlay (which defaults to showing errors only),
-    // and to also ensure hot reloading isn't prevented.
-    emitWarning: process.env.NODE_ENV === 'development',
-    // Make errors fatal for 'production' and 'test'.
-    // However note that even when `false` webpack still fails the build:
-    // https://github.com/webpack-contrib/eslint-loader/issues/257
-    failOnError: process.env.NODE_ENV !== 'development',
-    // Can be the name of a built-in ESLint formatter or the module/path of an external one.
-    formatter: 'codeframe',
-    useEslintrc: false,
-    ...eslint,
-    // The options under `baseConfig` correspond to those that can be used in `.eslintrc.*`.
-    // Projects that want to use a non-generated .eslintrc can set `useEslintrc: true`,
-    // which will tell eslint-loader to actually read in their config file. However in
-    // that case we must only set the eslint-loader specific options above, and not the
-    // values below that overlap with the available eslintrc options - since otherwise
-    // the lint config will be inconsistent between standalone lint and eslint-loader.
-    baseConfig: eslint.useEslintrc
-      ? {}
-      : eslintMerge(
-        {
-          env: {
-            es6: true
-          },
-          extends: [],
-          globals: {
-            process: true
-          },
-          overrides: [],
-          parser: require.resolve('babel-eslint'),
-          parserOptions: {
-            ecmaVersion: 2018,
-            sourceType: 'module'
-          },
-          // Unfortunately we can't `require.resolve('eslint-plugin-babel')` due to:
-          // https://github.com/eslint/eslint/issues/6237
-          // ...so we have no choice but to rely on it being hoisted.
-          plugins: ['babel'],
-          root: true,
-          settings: {}
-        },
-        eslint.baseConfig || {}
-      )
-  };
-
-  if (typeof loaderOptions.formatter === 'string') {
-    try {
-      loaderOptions.formatter = require.resolve(
-        `eslint/lib/formatters/${loaderOptions.formatter}`
+  return (neutrino) => {
+    if (neutrino.config.module.rules.has('compile')) {
+      throw new ConfigurationError(
+        'Lint presets must be defined prior to any other presets in .neutrinorc.js.'
       );
-    } catch (err) {
-      // Pass the formatter as-is, since it may be the module name/path of an external formatter.
     }
-  }
 
-  neutrino.config
-    .module
-      .rule('lint')
-        .test(test || neutrino.regexFromExtensions())
-        .pre()
-        .include
-          .merge(include || [neutrino.options.source, neutrino.options.tests])
-          .end()
-        .when(exclude, rule => rule.exclude.merge(exclude))
-        .use('eslint')
-          .loader(require.resolve('eslint-loader'))
-          .options(loaderOptions);
+    if (neutrino.config.module.rules.has('lint')) {
+      throw new DuplicateRuleError('@neutrinojs/eslint', 'lint');
+    }
 
-  neutrino.register('eslintrc', eslintrc);
+    const loaderOptions = {
+      // For supported options, see:
+      // https://github.com/webpack-contrib/eslint-loader#options
+      // https://eslint.org/docs/developer-guide/nodejs-api#cliengine
+      cache: true,
+      cwd: neutrino.options.root,
+      // Downgrade errors to warnings when in development, to reduce the noise in
+      // the webpack-dev-server overlay (which defaults to showing errors only),
+      // and to also ensure hot reloading isn't prevented.
+      emitWarning: process.env.NODE_ENV === 'development',
+      // Make errors fatal for 'production' and 'test'.
+      // However note that even when `false` webpack still fails the build:
+      // https://github.com/webpack-contrib/eslint-loader/issues/257
+      failOnError: process.env.NODE_ENV !== 'development',
+      // Can be the name of a built-in ESLint formatter or the module/path of an external one.
+      formatter: 'codeframe',
+      useEslintrc: false,
+      ...eslint,
+      // The options under `baseConfig` correspond to those that can be used in `.eslintrc.*`.
+      // Projects that want to use a non-generated .eslintrc can set `useEslintrc: true`,
+      // which will tell eslint-loader to actually read in their config file. However in
+      // that case we must only set the eslint-loader specific options above, and not the
+      // values below that overlap with the available eslintrc options - since otherwise
+      // the lint config will be inconsistent between standalone lint and eslint-loader.
+      baseConfig: eslint.useEslintrc
+        ? {}
+        : eslintMerge(
+          {
+            env: {
+              es6: true
+            },
+            extends: [],
+            globals: {
+              process: true
+            },
+            overrides: [],
+            parser: require.resolve('babel-eslint'),
+            parserOptions: {
+              ecmaVersion: 2018,
+              sourceType: 'module'
+            },
+            // Unfortunately we can't `require.resolve('eslint-plugin-babel')` due to:
+            // https://github.com/eslint/eslint/issues/6237
+            // ...so we have no choice but to rely on it being hoisted.
+            plugins: ['babel'],
+            root: true,
+            settings: {}
+          },
+          eslint.baseConfig || {}
+        )
+    };
+
+    if (typeof loaderOptions.formatter === 'string') {
+      try {
+        loaderOptions.formatter = require.resolve(
+          `eslint/lib/formatters/${loaderOptions.formatter}`
+        );
+      } catch (err) {
+        // Pass the formatter as-is, since it may be the module name/path of an external formatter.
+      }
+    }
+
+    neutrino.config
+      .module
+        .rule('lint')
+          .test(test || neutrino.regexFromExtensions())
+          .pre()
+          .include
+            .merge(include || [neutrino.options.source, neutrino.options.tests])
+            .end()
+          .when(exclude, rule => rule.exclude.merge(exclude))
+          .use('eslint')
+            .loader(require.resolve('eslint-loader'))
+            .options(loaderOptions);
+
+    neutrino.register('eslintrc', eslintrc);
+  };
 };

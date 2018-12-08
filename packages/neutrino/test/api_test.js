@@ -19,18 +19,6 @@ test('initialization stores options', t => {
   t.is(api.options.gamma, options.gamma);
 });
 
-test('merges custom primitive option properties', t => {
-  const options = { alpha: 'a', beta: {}, gamma: 4, delta: [] };
-  const api = new Neutrino(options);
-
-  api.options = api.mergeOptions(api.options, { alpha: 'd', beta: 3, gamma: /.*/, delta: true });
-
-  t.is(api.options.alpha, 'd');
-  t.is(api.options.beta, 3);
-  t.deepEqual(api.options.gamma, /.*/);
-  t.is(api.options.delta, true);
-});
-
 test('options.root', t => {
   const api = new Neutrino();
 
@@ -75,31 +63,6 @@ test('options.tests', t => {
   t.is(api.options.tests, join('/beta', 'alpha'));
   api.options.tests = '/alpha';
   t.is(api.options.tests, '/alpha');
-});
-
-test('throws when legacy options.node_modules is set', t => {
-  const api = new Neutrino();
-  const options = { node_modules: 'abc' };
-
-  t.throws(() => api.use({ options }), /options\.node_modules has been removed/);
-});
-
-test('throws when middleware "env" is set', t => {
-  const api = new Neutrino();
-  const middleware = {
-    env: {
-      NODE_ENV: {
-        production: neutrino => {
-          neutrino.config.devtool('alpha');
-        }
-      }
-    }
-  };
-
-  api.config.devtool('beta');
-
-  t.throws(() => api.use(middleware), /"env" in middleware has been removed/);
-  t.is(api.config.get('devtool'), 'beta');
 });
 
 test('options.mains', t => {
@@ -182,22 +145,6 @@ test('middleware receives no default options', t => {
   api.use((api, options) => {
     t.is(options, undefined);
   });
-});
-
-test('middleware receives options parameter', t => {
-  const api = new Neutrino();
-  const defaults = { alpha: 'a', beta: 'b', gamma: 'c' };
-
-  api.use((api, options) => {
-    t.deepEqual(options, defaults);
-  }, defaults);
-});
-
-test('import middleware for use', async (t) => {
-  const api = new Neutrino({ root: __dirname });
-
-  api.use(['fixtures/middleware']);
-  t.notDeepEqual(api.config.toConfig(), {});
 });
 
 test('creates a webpack config', t => {

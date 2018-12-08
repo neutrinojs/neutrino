@@ -1,7 +1,7 @@
 const merge = require('deepmerge');
 const { DuplicateRuleError } = require('neutrino/errors');
 
-module.exports = (neutrino, opts = {}) => {
+module.exports = (opts = {}) => (neutrino) => {
   const isProduction = process.env.NODE_ENV === 'production';
   const modules = 'modules' in opts ? opts.modules : true;
   const modulesTest = opts.modulesTest || neutrino.regexFromExtensions(['module.css']);

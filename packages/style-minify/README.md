@@ -36,42 +36,42 @@ added during production builds.
 and plug it into Neutrino:
 
 ```js
-// Using function middleware format
 const styleMinify = require('@neutrinojs/style-minify');
 
 // Use with default options
-neutrino.use(styleMinify);
+neutrino.use(styleMinify());
 
 // Usage showing overriding options
-neutrino.use(styleMinify, {
+neutrino.use(styleMinify({
   pluginId: 'optimize-css',
   plugin: {
     assetNameRegExp: /\.css$/g,
     cssProcessorOptions: {},
     canPrint: true,
   }
-});
+}));
 ```
 
 ```js
-// Using object or array middleware format
+// Using in .neutrinorc.js
+const styleMinify = require('@neutrinojs/style-minify');
 
 // Use with default options
 module.exports = {
-  use: ['@neutrinojs/style-minify']
+  use: [styleMinify()]
 };
 
 // Usage showing overriding options
 module.exports = {
   use: [
-    ['@neutrinojs/style-minify', {
+    styleMinify({
       pluginId: 'optimize-css',
       plugin: {
         assetNameRegExp: /\.css$/g,
         cssProcessorOptions: {},
         canPrint: true,
       }
-    }]
+    })
   ]
 };
 ```

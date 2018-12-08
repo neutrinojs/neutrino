@@ -2,7 +2,7 @@ const web = require('@neutrinojs/web');
 const babelMerge = require('babel-merge');
 const merge = require('deepmerge');
 
-module.exports = (neutrino, opts = {}) => {
+module.exports = (opts = {}) => (neutrino) => {
   const options = merge({
     hot: true,
     babel: {}
@@ -44,7 +44,7 @@ module.exports = (neutrino, opts = {}) => {
     }, options.babel)
   });
 
-  neutrino.use(web, options);
+  neutrino.use(web(options));
 
   const lintRule = neutrino.config.module.rules.get('lint');
   if (lintRule) {

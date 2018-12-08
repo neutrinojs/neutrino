@@ -28,6 +28,7 @@ nav:
   - Customization: './customization.md'
   - Configuration: './webpack-chain.md'
   - Migration Guide: './migration-guide.md'
+  - Migration Tool: './migrate.md'
   - Presets:
     - What are presets?: './presets.md'
     - Web Projects:

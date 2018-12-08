@@ -37,11 +37,10 @@ another Neutrino preset for building your application source code.
 and plug it into Neutrino:
 
 ```js
-// Using function middleware format
 const eslint = require('@neutrinojs/eslint');
 
 // Usage shows default values
-neutrino.use(eslint, {
+neutrino.use(eslint({
   // Uses extensions from neutrino.options.extensions
   test: neutrino.regexFromExtensions(),
   include: [neutrino.options.source, neutrino.options.tests],
@@ -85,7 +84,7 @@ neutrino.use(eslint, {
       settings: {}
     }
   }
-});
+}));
 ```
 
 - `test`: Test which files should be linted.
@@ -137,12 +136,12 @@ all other linting configuration to be managed by the standalone `.eslintrc.*` fi
 For example:
 
 ```js
-neutrino.use(eslint, {
+neutrino.use(eslint({
   eslint: {
     // Use own `.eslintrc.*` file for configuration instead.
     useEslintrc: true
   }
-});
+}));
 ```
 
 ```js

@@ -211,49 +211,30 @@ which subsequently augment it with their specific configuration. All middleware 
 `config` to store their data, meaning that middleware load order has an effect on which config values take precedence.
 Middleware loaded first will have any configuration overridden by later middleware with matching properties.
 
-### `use(middlewareFormat)`
+### `use(middlewareFunction)`
 
-Use a Neutrino middleware format, optionally providing options which will be passed to the middleware.
-Middleware functions will be invoked with two arguments:
-
-1. The Neutrino API instance
-2. Any middleware options argument passed to `use`.
-
-#### Manually loading middleware with `use`
-
-Using the Neutrino API you can load [middleware](./middleware.md) and presets (which are also just middleware)
-using the `use` method. The `use` method takes in a middleware format and optionally any options that should be
-passed to the middleware. See [middleware formats](./middleware.md#formats) for details on the different ways to
-specify middleware.
+Use a Neutrino middleware function which can extend or modify Neutrino configuration,
+options, and registered handlers. Middleware functions will be invoked with a single
+argument, the Neutrino API instance. Using the Neutrino API you can load
+[middleware](./middleware.md) and presets (which are also just middleware)
+using the `use` method.
 
 ```js
-/**
-* use::
-*   (Function, Object)
-*   (String, Object)
-*   (Array [Middleware, Object])
-*   (Object)
-*/
-// use :: (Function, Object)
-neutrino.use(neutrino => { /* ... */ }, { /* options */ })
-
-// use :: (String, Object)
-neutrino.use('middleware', { /* options */ })
-
-// use :: (Array [Middleware, Object])
-neutrino.use(['middleware', { /* options */ }])
-
-// use :: (Object)
-neutrino.use({
-  options: { /* ... */ },
-  use: [
-    // ...even more middleware
-  ]
+neutrino.use(neutrino => {
+  /* ... */
 })
 ```
 
-An `options` property passed to a middleware _object format_ will be merged with the option
-on the Neutrino API instance prior to consuming any middleware in the `use` property.
+For the built-in middleware, these are often exposed as functions **which return
+Neutrino middleware**. This allows middleware to also accept options for controlling
+how they operate:
+
+```js
+const react = require('@neutrinojs/react');
+
+// calling react() returns a new middleware function:
+neutrino.use(react({ /* ... */ }));
+```
 
 ### `config.toConfig()`
 

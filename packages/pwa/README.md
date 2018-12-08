@@ -35,14 +35,13 @@ Application capabilities. This middleware is usually only added during productio
 and plug it into Neutrino:
 
 ```js
-// Using function middleware format
 const pwa = require('@neutrinojs/pwa');
 
 // Use with default options
-neutrino.use(pwa);
+neutrino.use(pwa());
 
 // Usage showing overriding options
-neutrino.use(pwa, {
+neutrino.use(pwa({
   ServiceWorker: {
     events: true
   },
@@ -52,21 +51,22 @@ neutrino.use(pwa, {
   publicPath: '/',
   // Override pluginId to add an additional pwa plugin instance
   pluginId: 'pwa'
-});
+}));
 ```
 
 ```js
-// Using object or array middleware format
+// Using in .neutrinorc.js
+const pwa = require('@neutrinojs/pwa');
 
 // Use with default options
 module.exports = {
-  use: ['@neutrinojs/pwa']
+  use: [pwa()]
 };
 
 // Usage showing overriding options
 module.exports = {
   use: [
-    ['@neutrinojs/pwa', {
+    pwa({
       ServiceWorker: {
         events: true
       },
@@ -76,7 +76,7 @@ module.exports = {
       publicPath: '/',
       // Override pluginId to add an additional pwa plugin instance
       pluginId: 'pwa'
-    }]
+    })
   ]
 };
 ```
@@ -92,9 +92,11 @@ It is recommended to only use this middleware during building, or the production
 _Example: Only use middleware during production:_
 
 ```js
+const pwa = require('@neutrinojs/pwa');
+
 module.exports = {
   use: [
-    process.env.NODE_ENV === 'production' ? '@neutrinojs/pwa' : false,
+    process.env.NODE_ENV === 'production' ? pwa() : false,
   ]
 };
 ```
@@ -105,7 +107,7 @@ _Example: Only use middleware during production:_
 const pwa = require('@neutrinojs/pwa');
 
 neutrino.config.when(process.env.NODE_ENV === 'production', () => {
-  neutrino.use(pwa);
+  neutrino.use(pwa());
 });
 ```
 

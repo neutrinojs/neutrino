@@ -42,14 +42,13 @@
 and plug it into Neutrino:
 
 ```js
-// Using function middleware format
 const styles = require('@neutrinojs/style-loader');
 
 // Use with default options
-neutrino.use(styles);
+neutrino.use(styles());
 
 // Usage showing default options
-neutrino.use(styles, {
+neutrino.use(styles({
   style: {},
   css: {
     importLoaders: opts.loaders ? opts.loaders.length : 0
@@ -68,23 +67,24 @@ neutrino.use(styles, {
         : 'assets/[name].css'
     }
   }
-});
+}));
 ```
 
 ```js
-// Using object or array middleware format
+// Using in .neutrinorc.js
+const styles = require('@neutrinojs/style-loader');
 
 // Use with default options
 module.exports = {
-  use: ['@neutrinojs/style-loader']
+  use: [styles()]
 };
 
 // Usage with options
 module.exports = {
   use: [
-    ['@neutrinojs/style-loader', {
+    styles({
       modules: false,
-    }]
+    })
   ]
 };
 ```
@@ -120,46 +120,54 @@ the index of this loader within the `loaders` array.
 `style-loader` and `css-loader`.
 
 ```js
+const styles = require('@neutrinojs/style-loader');
+
 module.exports = {
-  use: ['@neutrinojs/style-loader', {
-    // Override the default file extension of `.css` if needed
-    test: /\.(css|sass|scss)$/,
-    modulesTest: /\.module\.(css|sass|scss)$/,
-    loaders: [
-      // Define loaders as objects. Note: loaders must be specified in reverse order.
-      // ie: for the loaders below the actual execution order would be:
-      // input file -> sass-loader -> postcss-loader -> css-loader -> style-loader/mini-css-extract-plugin
-      {
-        loader: 'postcss-loader',
-        options: {
-          plugins: [require('autoprefixer')]
+  use: [
+    styles({
+      // Override the default file extension of `.css` if needed
+      test: /\.(css|sass|scss)$/,
+      modulesTest: /\.module\.(css|sass|scss)$/,
+      loaders: [
+        // Define loaders as objects. Note: loaders must be specified in reverse order.
+        // ie: for the loaders below the actual execution order would be:
+        // input file -> sass-loader -> postcss-loader -> css-loader -> style-loader/mini-css-extract-plugin
+        {
+          loader: 'postcss-loader',
+          options: {
+            plugins: [require('autoprefixer')]
+          }
+        },
+        {
+          loader: 'sass-loader',
+          useId: 'sass',
+          options: {
+            includePaths: ['absolute/path/a', 'absolute/path/b']
+          }
         }
-      },
-      {
-        loader: 'sass-loader',
-        useId: 'sass',
-        options: {
-          includePaths: ['absolute/path/a', 'absolute/path/b']
-        }
-      }
-    ]
-  }]
+      ]
+    })
+  ]
 }
 ```
 
 ```js
-module.exports = {
-  use: ['@neutrinojs/style-loader', {
-    loaders: [
-      // Define loaders as strings
-      // This will cause this middleware to generate a
-      // loader with a useId of `css-2`.
-      'sass-loader'
+const styles = require('@neutrinojs/style-loader');
 
-      // Adding any other loaders will increment the useId
-      // to `css-3`, `css-4`, etc.
-    ]
-  }]
+module.exports = {
+  use: [
+    styles({
+      loaders: [
+        // Define loaders as strings
+        // This will cause this middleware to generate a
+        // loader with a useId of `css-2`.
+        'sass-loader'
+  
+        // Adding any other loaders will increment the useId
+        // to `css-3`, `css-4`, etc.
+      ]
+    })
+  ]
 }
 ```
 
@@ -174,24 +182,28 @@ you need to pass `options.config`:
 
 ```js
 // .neutrinorc.js
-module.exports = {
-  use: ['@neutrinojs/style-loader', {
-    loaders: [
-      {
-        loader: 'postcss-loader',
-        useId: 'postcss',
-        options: {
-          config: {
+const styles = require('@neutrinojs/style-loader');
 
-            // Where to look for config (postcss.config.js)
-            // https://github.com/postcss/postcss-loader#path
-            // See "Loader Configuration" below
-            path: neutrino.options.root
+module.exports = {
+  use: [
+    styles({
+      loaders: [
+        {
+          loader: 'postcss-loader',
+          useId: 'postcss',
+          options: {
+            config: {
+  
+              // Where to look for config (postcss.config.js)
+              // https://github.com/postcss/postcss-loader#path
+              // See "Loader Configuration" below
+              path: neutrino.options.root
+            }
           }
         }
-      }
-    ]
-  }]
+      ]
+    })
+  ]
 }
 ```
 

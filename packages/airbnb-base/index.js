@@ -3,8 +3,8 @@ const { merge: eslintMerge } = require('eslint/lib/config/config-ops');
 const { rules: airbnbBaseStyle } = require('eslint-config-airbnb-base/rules/style');
 const { rules: airbnbBaseBestPractices } = require('eslint-config-airbnb-base/rules/best-practices');
 
-module.exports = (neutrino, { eslint = {}, ...opts } = {}) => {
-  neutrino.use(lint, {
+module.exports = ({ eslint = {}, ...opts } = {}) => (neutrino) => {
+  neutrino.use(lint({
     ...opts,
     eslint: {
       ...eslint,
@@ -30,5 +30,5 @@ module.exports = (neutrino, { eslint = {}, ...opts } = {}) => {
         eslint.baseConfig || {}
       )
     }
-  });
+  }));
 };

@@ -4,13 +4,6 @@ No two JavaScript projects are ever the same, and as such there may be times whe
 to the way your Neutrino presets are building your project. Neutrino provides a mechanism to augment presets and
 middleware in the context of a project without resorting to creating and publishing an entirely independent preset.
 
-## Middleware formats
-
-Before we delve into making customizations in `.neutrinorc.js`, it's important to note that this file can be in any
-valid [middleware format](./middleware.md#formats) that Neutrino accepts. For project-based customization, it is
-recommended to use the object format, and that will be the format we focus on for the remainder of this guide. Should
-you need a lot of API customization, you may still opt to write your `.neutrinorc.js` file in the function format.
-
 Your `.neutrinorc.js` file is a JavaScript module which will be required by Neutrino using Node.js. Any code written in
 this file should be usable by the version of Node.js you have running on your system when running Neutrino. The
 `.neutrinorc.js` file should export an object or function depending on which format you opt to use.
@@ -26,8 +19,6 @@ module.exports = (neutrino) => {
   /* make customizations */
 };
 ```
-
-**In a nutshell, the `.neutrinorc.js` file is wholly middleware**.
 
 ## Overriding Neutrino options
 
@@ -46,6 +37,8 @@ of the repository. If your `.neutrinorc.js` is in the root of the repository, us
 ```js
 module.exports = {
   options: {
+    // Override to root of project
+    root: __dirname,
     // Override to relative directory, resolves to process.cwd() + website
     root: 'website',
     // Override to absolute directory
@@ -141,91 +134,86 @@ module.exports = {
 
 ## Mutating `neutrino.options`
 
-While it is possible to mutate `neutrino.options` directly, this should be avoided.
-Instead, it is _always recommended_ to pass an `options` object to ensure proper normalization.
+While it is possible to mutate `neutrino.options` directly, this should be avoided if possible.
+Instead, it is _recommended_ to pass an `options` object via the object-based export to
+ensure proper normalization.
 
 ```js
-// Bad: Using function format, overriding `neutrino.options` properites.
+// Bad: Overriding `neutrino.options` properties.
 // Paths will not be relative to `neutrino.options.root` as expected.
 module.exports = neutrino => {
   Object.assign(neutrino.options, {
     source: 'lib',
     output: 'dist'
   });
-}
+};
 ```
 
 ```js
-// Good: Using function format, setting `neutrino.options.*` properties directly.
+// Good: Setting `neutrino.options.*` properties directly.
 module.exports = neutrino => {
   neutrino.options.source = 'lib';
   neutrino.options.output = 'dist';
-}
+};
 ```
 
 ```js
-// Good: Use object format w/ `use` array
+// Good: Use object export format for merging.
 module.exports = {
   options: {
     source: 'lib',
     output: 'dist'
   },
-  use: [/* ... */]
-}
-```
-
-```js
-// Good: Use object format w/ `use` function
-module.exports = {
-  options: {
-    source: 'lib',
-    output: 'dist'
-  },
-  use: neutrino => {
-    neutrino.use(/* ... */);
-  }
-}
-```
-
-## Using middleware
-
-By specifying a `use` array in your `.neutrinorc.js`, you can inform Neutrino to load additional middleware when it
-runs, including any additional files you wish to include as middleware. Each item in this `use` array can be any
-Neutrino-supported [middleware format](./middleware.md#formats).
-
-In its simplest form, each item can be the string module name or path to middleware you wish Neutrino to require and
-use for you:
-
-```js
-module.exports = {
   use: [
-    '@neutrinojs/airbnb-base',
-    '@neutrinojs/react',
-    '@neutrinojs/jest',
-    './override.js'
+    /* ... */
   ]
 };
 ```
 
-If your middleware module supports its own options, instead of referencing it by string, use an array pair of string
-module name and options:
+## Using middleware
+
+By specifying a `use` array in your `.neutrinorc.js`, you can inform Neutrino to load middleware when it
+runs. Each item in this `use` array can be a [middleware function](./middleware.md).
+
+In its simplest form, you can require middleware packages and pass them to Neutrino:
 
 ```js
+const airbnb = require('@neutrinojs/airbnb');
+const react = require('@neutrinojs/react');
+const jest = require('@neutrinojs/jest');
+
 module.exports = {
   use: [
-    ['@neutrinojs/airbnb-base', {
+    airbnb(),
+    react(),
+    jest()
+  ]
+};
+```
+
+If your middleware module supports its own options via a closure, pass them into
+the middleware factory:
+
+```js
+const airbnb = require('@neutrinojs/airbnb');
+const react = require('@neutrinojs/react');
+const jest = require('@neutrinojs/jest');
+
+module.exports = {
+  use: [
+    airbnb({
       eslint: {
         rules: {
           semi: 'off'
         }
       }
-    }],
+    }),
 
-    ['@neutrinojs/react', {
+    react({
       html: { title: 'Epic React App' }
-    }],
+    }),
 
-    '@neutrinojs/jest'
+    jest()
   ]
 };
 ```
@@ -234,15 +222,21 @@ If you need to make more advanced configuration changes, you can even directly p
 and have access to the Neutrino API:
 
 ```js
+const airbnb = require('@neutrinojs/airbnb');
+const react = require('@neutrinojs/react');
+const jest = require('@neutrinojs/jest');
+
 module.exports = {
   use: [
-    '@neutrinojs/airbnb-base',
-    '@neutrinojs/react',
-    '@neutrinojs/jest',
-    (neutrino) => neutrino.config.module
-      .rule('style')
-      .use('css')
-      .options({ modules: true })
+    airbnb(),
+    react(),
+    jest(),
+    (neutrino) => {
+      neutrino.config.module
+        .rule('style')
+        .use('css')
+        .options({ modules: true });
+    }
   ]
 };
 ```
@@ -256,9 +250,11 @@ conditionally applying middleware in `.neutrinorc.js`.
 For example, if you wanted to include additional middleware when `NODE_ENV` is `production`:
 
 ```js
+const pwa = require('@neutrinojs/pwa');
+
 module.exports = {
   use: [
-    process.env.NODE_ENV === 'production' ? '@neutrinojs/pwa' : false,
+    process.env.NODE_ENV === 'production' ? pwa() : false,
   ]
 };
 ```
@@ -284,7 +280,7 @@ module.exports = {
 ## Advanced configuration changes
 
 Making deep or complex changes to Neutrino build configuration beyond what middleware options afford you can be done
-using the function middleware format. If you wish, your entire `.neutrinorc.js` file can be a middleware function, but
+using a middleware function. If you wish, your entire `.neutrinorc.js` file can be a middleware function, but
 typically this function can be inlined directly as an additional item in the `use` array.
 
 If you're familiar with middleware from the Express/connect world, this works similarly. When using Express middleware,
@@ -309,10 +305,16 @@ presets `@neutrinojs/react` and `@neutrinojs/karma`, any config set can be exten
 _Example: Neutrino's React preset adds `.jsx` as a module extension. Let's remove it._
 
 ```js
+const react = require('@neutrinojs/react');
+const karma = require('@neutrinojs/karma');
+
 module.exports = {
   use: [
-    '@neutrinojs/react',
-    (neutrino) => neutrino.config.resolve.extensions.delete('.jsx')
+    react(),
+    karma(),
+    (neutrino) => {
+      neutrino.config.resolve.extensions.delete('.jsx');
+    }
   ]
 };
 ```
@@ -320,10 +322,14 @@ module.exports = {
 _Example: Neutrino's Node.js preset has performance hints disabled. Let's re-enable them._
 
 ```js
+const node = require('@neutrinojs/node');
+
 module.exports = {
   use: [
-    '@neutrinojs/node',
-    (neutrino) => neutrino.config.performance.hints('error')
+    node(),
+    (neutrino) => {
+      neutrino.config.performance.hints('error');
+    }
   ]
 };
 ```
@@ -335,7 +341,7 @@ your use cases.
 
 ### Conditional configuration
 
-Some plugins and rules are only available in certain environments. For example, the Web preset only exposes a `optimize-css`
+Some plugins and rules are only available in certain environments. For example, the Web preset only exposes an `optimize-css`
 plugin during production, leading to issues when trying to modify its settings, but throws an exception during
 development.
 

@@ -2,7 +2,7 @@ const babelMerge = require('babel-merge');
 const merge = require('deepmerge');
 const omit = require('lodash.omit');
 
-module.exports = (neutrino, opts = {}) => {
+module.exports = (opts = {}) => neutrino => {
   const lintRule = neutrino.config.module.rules.get('lint');
 
   if (lintRule) {

@@ -1,7 +1,8 @@
-module.exports = (neutrino, options = {}) => neutrino.config.module
-  .rule('html')
-  .test(neutrino.regexFromExtensions(['html']))
-  .use('html')
+module.exports = (options = {}) => (neutrino) => {
+  neutrino.config.module
+    .rule('html')
+    .test(neutrino.regexFromExtensions(['html']))
+    .use('html')
     .loader(require.resolve('html-loader'))
     .options({
       // Override html-loader's default attrs of `['img:src']`
@@ -11,3 +12,4 @@ module.exports = (neutrino, options = {}) => neutrino.config.module
       attrs: ['img:src', 'link:href'],
       ...options
     });
+};

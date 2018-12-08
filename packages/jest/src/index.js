@@ -3,7 +3,7 @@ const omit = require('lodash.omit');
 const { basename, isAbsolute, join, relative } = require('path');
 const { media, style } = require('neutrino/extensions');
 
-module.exports = (neutrino, options = {}) => {
+module.exports = (options = {}) => (neutrino) => {
   const lintRule = neutrino.config.module.rules.get('lint');
   if (lintRule) {
     lintRule.use('eslint').tap(
@@ -12,7 +12,8 @@ module.exports = (neutrino, options = {}) => {
         ? lintOptions
         : merge(lintOptions, {
             baseConfig: {
-              extends: ['plugin:jest/recommended']
+              extends: ['plugin:jest/recommended'],
+              plugins: ['jest']
             }
           })
     );

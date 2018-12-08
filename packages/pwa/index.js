@@ -1,6 +1,6 @@
 const merge = require('deepmerge');
 
-module.exports = (neutrino, { pluginId = 'pwa', ...options } = {}) => {
+module.exports = ({ pluginId = 'pwa', ...options } = {}) => (neutrino) => {
   Object
     .keys(neutrino.options.mains)
     .forEach(key => neutrino.config.entry(key).add(require.resolve('./pwa')));

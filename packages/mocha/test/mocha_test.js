@@ -3,7 +3,7 @@ import lint from '../../eslint';
 import Neutrino from '../../neutrino/Neutrino';
 import neutrino from '../../neutrino';
 
-const mw = () => require('..');
+const mw = (...args) => require('..')(...args);
 const originalNodeEnv = process.env.NODE_ENV;
 
 test.afterEach(() => {
@@ -12,7 +12,7 @@ test.afterEach(() => {
 });
 
 test('loads middleware', t => {
-  t.notThrows(mw);
+  t.notThrows(() => require('..'));
 });
 
 test('uses middleware', t => {
@@ -60,7 +60,7 @@ test('exposes mocha method', t => {
 
 test('updates lint config by default', t => {
   const api = new Neutrino();
-  api.use(lint);
+  api.use(lint());
   api.use(mw());
   const options = api.config.module.rule('lint').use('eslint').get('options');
   t.deepEqual(options.baseConfig.env, {
@@ -71,7 +71,7 @@ test('updates lint config by default', t => {
 
 test('does not update lint config if useEslintrc true', t => {
   const api = new Neutrino();
-  api.use(lint, { eslint: { useEslintrc: true } });
+  api.use(lint({ eslint: { useEslintrc: true } }));
   api.use(mw());
   const options = api.config.module.rule('lint').use('eslint').get('options');
   t.deepEqual(options.baseConfig, {});

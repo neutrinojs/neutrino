@@ -16,7 +16,7 @@ const replaceStyleLoader = rule => {
   }
 };
 
-module.exports = (neutrino, opts = {}) => {
+module.exports = (opts = {}) => (neutrino) => {
   const options = merge({
     style: {
       ruleId: 'style'
@@ -32,7 +32,7 @@ module.exports = (neutrino, opts = {}) => {
   extensions.splice(index, 0, 'vue');
 
   neutrino.options.extensions = extensions; // eslint-disable-line no-param-reassign
-  neutrino.use(web, options);
+  neutrino.use(web(options));
 
   // Vue component oneOfs are prepended to our style rule so they match first.
   // The test from the "normal" oneOf is also applied.
