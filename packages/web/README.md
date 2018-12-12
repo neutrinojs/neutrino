@@ -207,7 +207,7 @@ module.exports = {
         source: process.env.NODE_ENV === 'production'
       },
 
-      // Change options for `webpack-manifest-plugin`
+      // Change options for `webpack-assets-manifest`
       manifest: {},
 
       // Change options related to generating the HTML document
@@ -264,7 +264,7 @@ module.exports = {
       hot: false,
 
       // Example: disable image-loader, style-loader, font-loader,
-      // font-loader, webpack-manifest-plugin
+      // font-loader, webpack-assets-manifest
       image: false,
       style: false,
       font: false,
@@ -487,7 +487,7 @@ _Note: Some plugins are only available in certain environments. To override them
 | `html-{MAIN_NAME}` | Automatically generates HTML files for configured entry points. `{MAIN_NAME}` corresponds to the entry point of each page. By default, there is only a single `index` main, so this would generate a plugin named `html-index`. From `@neutrinojs/html-template` | all |
 | `hot` | Enables Hot Module Replacement. | `'development'` |
 | `clean` | Removes the `build` directory prior to building. From `@neutrinojs/clean`. | `'production'` |
-| `manifest` | Create a manifest file, via webpack-manifest-plugin. | `'production'` |
+| `manifest` | Create a manifest file, via webpack-assets-manifest. | `'production'` |
 
 ### Override configuration
 

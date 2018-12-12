@@ -38,7 +38,9 @@ module.exports = (neutrino, opts = {}) => {
       hot: opts.hot !== false
     },
     style: {},
-    manifest: opts.html === false ? {} : false,
+    manifest: opts.html === false ? {
+      entrypoints: true
+    } : false,
     clean: opts.clean !== false && {
       paths: [neutrino.options.output]
     },
@@ -239,7 +241,7 @@ module.exports = (neutrino, opts = {}) => {
 
       if (options.manifest) {
         neutrino.config.plugin('manifest')
-          .use(require.resolve('webpack-manifest-plugin'), [options.manifest]);
+          .use(require.resolve('webpack-assets-manifest'), [options.manifest]);
       }
     });
 
