@@ -180,7 +180,7 @@ module.exports = (neutrino, opts = {}) => {
         // ever-changing file list breaking users who don't auto-generate their HTML):
         // https://webpack.js.org/plugins/split-chunks-plugin/#optimization-splitchunks-chunks-all
         // https://github.com/webpack/webpack/issues/7064
-        chunks: 'all',
+        chunks: options.html ? 'all' : 'async',
         // Override the default limit of 3 chunks per entrypoint in production, since
         // it speeds up builds and the greater number of requests is mitigated by use
         // of long term caching (and a non-issue if using HTTP2).
