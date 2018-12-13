@@ -38,7 +38,6 @@ module.exports = (neutrino, opts = {}) => {
       hot: opts.hot !== false
     },
     style: {},
-    manifest: opts.html === false ? {} : false,
     clean: opts.clean !== false && {
       paths: [neutrino.options.output]
     },
@@ -236,11 +235,6 @@ module.exports = (neutrino, opts = {}) => {
     })
     .when(isProduction, (config) => {
       config.when(options.clean, () => neutrino.use(clean, options.clean));
-
-      if (options.manifest) {
-        neutrino.config.plugin('manifest')
-          .use(require.resolve('webpack-manifest-plugin'), [options.manifest]);
-      }
     });
 
   const lintRule = neutrino.config.module.rules.get('lint');

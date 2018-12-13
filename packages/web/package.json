@@ -35,8 +35,7 @@
     "@neutrinojs/image-loader": "9.0.0-0",
     "@neutrinojs/style-loader": "9.0.0-0",
     "babel-merge": "^2.0.1",
-    "deepmerge": "^1.5.2",
-    "webpack-manifest-plugin": "^2.0.4"
+    "deepmerge": "^1.5.2"
   },
   "peerDependencies": {
     "neutrino": "^9.0.0-0",
