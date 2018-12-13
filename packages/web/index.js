@@ -81,6 +81,13 @@ module.exports = (neutrino, opts = {}) => {
     );
   }
 
+  if ('manifest' in options) {
+    throw new ConfigurationError(
+      'The manifest option has been removed. See the v8 to v9 migration guide ' +
+      'for how to genearate a manifest manually.'
+    );
+  }
+
   if (typeof options.devServer.proxy === 'string') {
     throw new ConfigurationError(
       'The shorthand of setting `devServer.proxy` to a string is no longer supported. ' +
