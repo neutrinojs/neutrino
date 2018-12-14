@@ -5695,10 +5695,10 @@ html-minifier@^3.5.20, html-minifier@^3.5.8:
     relateurl "0.2.x"
     uglify-js "3.4.x"
 
-html-webpack-plugin@4.0.0-beta.4:
-  version "4.0.0-beta.4"
-  resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-4.0.0-beta.4.tgz#4a996abc66ccccad2816998741dad2589858716c"
-  integrity sha512-5JDvn5zoNxcfnbuciyBbHTtUkOXfoVdO4g0Ma2ibVHruEvtx2g5wFgRjl/bAHrnF4EzGlCFn168cOnmMGg9NtA==
+html-webpack-plugin@4.0.0-beta.5:
+  version "4.0.0-beta.5"
+  resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-4.0.0-beta.5.tgz#2c53083c1151bfec20479b1f8aaf0039e77b5513"
+  integrity sha512-y5l4lGxOW3pz3xBTFdfB9rnnrWRPVxlAhX6nrBYIcW+2k2zC3mSp/3DxlWVCMBfnO6UAnoF8OcFn0IMy6kaKAQ==
   dependencies:
     html-minifier "^3.5.20"
     loader-utils "^1.1.0"
