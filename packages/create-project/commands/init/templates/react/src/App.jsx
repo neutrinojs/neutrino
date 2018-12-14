@@ -12,8 +12,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1>
-          Welcome to
-          {name}
+          Welcome to {name}
         </h1>
       </div>
     );
