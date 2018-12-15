@@ -31,11 +31,38 @@ module.exports = (neutrino, opts = {}) => {
   // style-loader, so we replace the loader with the one vue wants.
   // This is only required when using style-loader and not when extracting CSS.
   const styleRule = neutrino.config.module.rules.get(options.style.ruleId);
-  if (styleRule && styleRule.uses.has(options.style.styleUseId)) {
+
+  Object.keys(styleRule.uses.entries()).forEach((useId) => {
     styleRule
-      .use(options.style.styleUseId)
-      .loader(require.resolve('vue-style-loader'));
-  }
+      .oneOf('vue-style-modules')
+        .resourceQuery(/module/)
+        .use(useId)
+          .merge(styleRule.use(useId).entries())
+          .end()
+        .use(options.style.styleUseId)
+          .loader(require.resolve('vue-style-loader'))
+          .end()
+        .use(options.style.cssUseId)
+          .tap(cssOptions => Object.assign(cssOptions || {}, {
+            modules: true
+          }))
+          .end()
+        .end()
+      .oneOf('vue-style')
+        .resourceQuery(/\?vue/)
+        .use(useId)
+          .merge(styleRule.use(useId).entries())
+          .end()
+        .use(options.style.styleUseId)
+          .loader(require.resolve('vue-style-loader'))
+          .end()
+        .end()
+      .oneOf('style')
+        .use(useId)
+          .merge(styleRule.use(useId).entries());
+  });
+
+  styleRule.uses.clear();
 
   neutrino.config.module
     .rule('vue')
