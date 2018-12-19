@@ -286,6 +286,14 @@ test('throws when polyfills defined', t => {
   );
 });
 
+test('throws when manifest defined', t => {
+  const api = new Neutrino();
+  t.throws(
+    () => api.use(mw(), { manifest: {} }),
+    /The manifest option has been removed/
+  );
+});
+
 test('throws when hotEntries defined', t => {
   const api = new Neutrino();
   t.throws(
