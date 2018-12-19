@@ -187,6 +187,9 @@ if desired.
 }
 ```
 
+Note: When using npm any options must be preceeded with `--`, so the `lint:fix` command
+becomes `"npm run lint -- --fix"`.
+
 To tell ESLint to load Neutrino middleware or presets for its configuration, create a
 `.eslintrc.js` file in the root of the project with the following:
 

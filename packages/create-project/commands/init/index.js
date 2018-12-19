@@ -242,7 +242,7 @@ module.exports = class Project extends Generator {
       this._spawnSync(packageManager,
         isYarn
           ? ['lint', '--fix']
-          : ['run', 'lint', '--fix']
+          : ['run', 'lint', '--', '--fix']
       );
     }
   }
@@ -261,8 +261,10 @@ module.exports = class Project extends Generator {
     }
 
     if (this.data.linter) {
-      this.log(`  • To lint your project manually run:  ${chalk.cyan.bold(`${isYarn ? 'yarn' : 'npm run'} lint`)}`);
-      this.log(`    You can also fix some linting problems with:  ${chalk.cyan.bold(`${isYarn ? 'yarn' : 'npm run'} lint --fix`)}`);
+      const lintCommand = isYarn ? 'yarn lint' : 'npm run lint';
+      const fixLintCommand = isYarn ? `${lintCommand} --fix` : `${lintCommand} -- --fix`;
+      this.log(`  • To lint your project manually run:  ${chalk.cyan.bold(lintCommand)}`);
+      this.log(`    You can also fix linting problems with:  ${chalk.cyan.bold(fixLintCommand)}`);
     }
 
     this.log('\nNow change your directory to the following to get started:');
