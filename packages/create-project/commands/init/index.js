@@ -47,10 +47,11 @@ module.exports = class Project extends Generator {
       this.log.error(`The command "${commandString}" exited unsuccessfully.`);
 
       if (!this.options.debug) {
-        this.log.error('Try again with the --debug flag for more detailed information about the failure.');
+        this.log.error('Cleaning up the incomplete project directory.');
+        removeSync(this.options.directory);
+        this.log.error('Try again with the --debug flag for more information and to skip cleanup.');
       }
 
-      removeSync(this.options.directory);
       process.exit(result.status || 1);
     }
 
