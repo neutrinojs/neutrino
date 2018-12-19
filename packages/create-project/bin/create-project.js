@@ -24,5 +24,6 @@ env.run('create-project', {
   directory,
   name,
   registry: cli.registry,
+  debug: !!cli.debug,
   stdio: cli.debug ? 'inherit' : 'ignore'
 }, done);

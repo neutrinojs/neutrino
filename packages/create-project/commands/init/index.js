@@ -29,20 +29,28 @@ module.exports = class Project extends Generator {
     ).sort();
   }
 
-  _spawnSync(...args) {
-    const result = this.spawnCommandSync(...args);
+  _spawnSync(command, args) {
+    const result = this.spawnCommandSync(command, args, {
+      cwd: this.options.directory,
+      stdio: this.options.stdio,
+      env: process.env
+    });
 
     if (result.error || result.status !== 0) {
-      const command = [args[0], ...args[1]].join(' ');
+      const commandString = [command, ...args].join(' ');
+
+      if (result.error) {
+        // The child process failed to start entirely, or timed out.
+        this.log.error(result.error);
+      }
+
+      this.log.error(`The command "${commandString}" exited unsuccessfully.`);
+
+      if (!this.options.debug) {
+        this.log.error('Try again with the --debug flag for more detailed information about the failure.');
+      }
 
       removeSync(this.options.directory);
-      this.log.error(
-        result.error ||
-        new Error(
-          `The command "${command}" exited unsuccessfully. Try again with the --debug flag ` +
-          'for more detailed information about the failure.'
-        )
-      );
       process.exit(result.status || 1);
     }
 
@@ -131,10 +139,7 @@ module.exports = class Project extends Generator {
       scripts.lint = `eslint --cache --format codeframe --ext ${lintExtensions} ${lintDirectories}`;
     }
 
-    this._spawnSync(installer, ['init', '--yes'], {
-      cwd: this.options.directory,
-      stdio: this.options.stdio
-    });
+    this._spawnSync(installer, ['init', '--yes']);
 
     const jsonPath = join(this.options.directory, 'package.json');
     const json = readJsonSync(jsonPath);
@@ -211,12 +216,7 @@ module.exports = class Project extends Generator {
               []
           ),
           ...dependencies
-        ],
-        {
-          cwd: this.options.directory,
-          stdio: this.options.stdio,
-          env: process.env
-        }
+        ]
       );
     }
 
@@ -233,12 +233,7 @@ module.exports = class Project extends Generator {
               []
           ),
           ...devDependencies
-        ],
-        {
-          cwd: this.options.directory,
-          stdio: this.options.stdio,
-          env: process.env
-        }
+        ]
       );
     }
 
@@ -247,14 +242,8 @@ module.exports = class Project extends Generator {
       this._spawnSync(packageManager,
         isYarn
           ? ['lint', '--fix']
-          : ['run', 'lint', '--fix'],
-        {
-          stdio: this.options.stdio === 'inherit' || !this.options.stdio
-            ? 'ignore' :
-            this.options.stdio,
-          env: process.env,
-          cwd: this.options.directory
-        });
+          : ['run', 'lint', '--fix']
+      );
     }
   }
 
