@@ -260,7 +260,7 @@ module.exports = {
       // Example: disable Hot Module Replacement
       hot: false,
 
-      // Example: disable image-loader, style-loader, font-loader, font-loader
+      // Example: disable image-loader, style-loader, font-loader
       image: false,
       style: false,
       font: false,
