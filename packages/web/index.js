@@ -38,7 +38,6 @@ module.exports = (neutrino, opts = {}) => {
       hot: opts.hot !== false
     },
     style: {},
-    manifest: opts.html === false ? {} : false,
     clean: opts.clean !== false && {
       paths: [neutrino.options.output]
     },
@@ -79,6 +78,13 @@ module.exports = (neutrino, opts = {}) => {
     throw new ConfigurationError(
       'The hotEntries option has been removed. See the "neutrino.options.mains" ' +
       'docs for how to add custom hot entries to your bundle without importing.'
+    );
+  }
+
+  if ('manifest' in options) {
+    throw new ConfigurationError(
+      'The manifest option has been removed. See the v8 to v9 migration guide ' +
+      'for how to genearate a manifest manually.'
     );
   }
 
@@ -236,11 +242,6 @@ module.exports = (neutrino, opts = {}) => {
     })
     .when(isProduction, (config) => {
       config.when(options.clean, () => neutrino.use(clean, options.clean));
-
-      if (options.manifest) {
-        neutrino.config.plugin('manifest')
-          .use(require.resolve('webpack-manifest-plugin'), [options.manifest]);
-      }
     });
 
   const lintRule = neutrino.config.module.rules.get('lint');

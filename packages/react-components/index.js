@@ -10,7 +10,6 @@ module.exports = (neutrino, opts = {}) => {
     html: process.env.NODE_ENV === 'development' && {
       title: 'React Preview'
     },
-    manifest: process.env.NODE_ENV === 'development',
     externals: opts.externals !== false && {},
     style: {
       extract: {

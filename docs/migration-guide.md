@@ -303,6 +303,23 @@ dependent middleware [#951](https://github.com/neutrinojs/neutrino/pull/951).
 for how to use the [babel-merge](https://www.npmjs.com/package/babel-merge) package directly instead.
 - **BREAKING CHANGE** Various dependencies have been updated which may bring their own breaking changes. Please
 check and test your project to ensure proper functionality.
+- **BREAKING CHANGE** `@neutrinojs/web` and its dependent middleware no longer accept a `manifest` option or include `webpack-manifest-plugin` automatically ([#1254](https://github.com/neutrinojs/neutrino/pull/1254)). Users may add it themselves like so:
+
+```js
+// .neutrinorc.js
+module.exports = {
+  use: [
+    '@neutrinojs/web',
+    (neutrino) => {
+      if (process.env.NODE_ENV === 'production') {
+        neutrino.config.plugin('manifest')
+          .use(require.resolve('webpack-manifest-plugin'));
+      }
+    }
+  ]
+}
+```
+
 - ESLint caching is now enabled by default for new projects, so it is recommended to specify `.eslintcache` as being
 ignored from your source control commits.
 

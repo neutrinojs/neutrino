@@ -207,9 +207,6 @@ module.exports = {
         source: process.env.NODE_ENV === 'production'
       },
 
-      // Change options for `webpack-manifest-plugin`
-      manifest: {},
-
       // Change options related to generating the HTML document
       // See @neutrinojs/html-template for the defaults
       // used by the Web preset
@@ -263,12 +260,10 @@ module.exports = {
       // Example: disable Hot Module Replacement
       hot: false,
 
-      // Example: disable image-loader, style-loader, font-loader,
-      // font-loader, webpack-manifest-plugin
+      // Example: disable image-loader, style-loader, font-loader
       image: false,
       style: false,
       font: false,
-      manifest: false,
 
       // Disable javascript minification entirely
       minify: {
@@ -487,7 +482,6 @@ _Note: Some plugins are only available in certain environments. To override them
 | `html-{MAIN_NAME}` | Automatically generates HTML files for configured entry points. `{MAIN_NAME}` corresponds to the entry point of each page. By default, there is only a single `index` main, so this would generate a plugin named `html-index`. From `@neutrinojs/html-template` | all |
 | `hot` | Enables Hot Module Replacement. | `'development'` |
 | `clean` | Removes the `build` directory prior to building. From `@neutrinojs/clean`. | `'production'` |
-| `manifest` | Create a manifest file, via webpack-manifest-plugin. | `'production'` |
 
 ### Override configuration
 
