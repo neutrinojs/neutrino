@@ -2,10 +2,6 @@ const web = require('@neutrinojs/web');
 const merge = require('deepmerge');
 
 module.exports = (neutrino, opts = {}) => {
-  // vue-loader extracts <style> tags to CSS files so they are parsed
-  // automatically by the css-loader. In order to enable CSS modules
-  // on these CSS files, we need to say that normal CSS files can use
-  // CSS modules.
   const options = merge({
     style: {
       ruleId: 'style',
