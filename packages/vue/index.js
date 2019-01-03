@@ -6,7 +6,8 @@ module.exports = (neutrino, opts = {}) => {
     style: {
       ruleId: 'style',
       styleUseId: 'style',
-      modulesSuffix: '-modules'
+      modulesSuffix: '-modules',
+      modules: true
     }
   }, opts);
 
@@ -38,12 +39,12 @@ module.exports = (neutrino, opts = {}) => {
 
   // Rebuild our style rule to be a oneOf, first matching vue component styles
   styleRule
-    .oneOf(`vue-${options.style.ruleId}${options.style.modulesSuffix}`)
-      .resourceQuery(/module/)
-      .uses
-        .merge(styleModulesRule.uses.entries())
-        .end()
-      .end()
+    .when(styleModulesRule && options.style.modules, rule => {
+      rule.oneOf(`vue-${options.style.ruleId}${options.style.modulesSuffix}`)
+        .resourceQuery(/module/)
+        .uses
+          .merge(styleModulesRule.uses.entries());
+    })
     .oneOf(`vue-${options.style.ruleId}`)
       .resourceQuery(/\?vue/)
       .uses
