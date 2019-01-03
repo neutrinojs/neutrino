@@ -31,23 +31,31 @@ module.exports = (neutrino, opts = {}) => {
   const styleRule = neutrino.config.module.rules.get(options.style.ruleId);
   const styleModulesRule = neutrino.config.module.rules.get(`${options.style.ruleId}${options.style.modulesSuffix}`);
 
+  if (styleRule && styleRule.uses.has(options.style.styleUseId)) {
+    styleRule
+      .use(`${options.style.styleUseId}`)
+      .loader(require.resolve('vue-style-loader'));
+  }
+
+  if (styleModulesRule && styleModulesRule.uses.has(`${options.style.styleUseId}${options.style.modulesSuffix}`)) {
+    styleModulesRule
+      .use(`${options.style.styleUseId}${options.style.modulesSuffix}`)
+      .loader(require.resolve('vue-style-loader'));
+  }
+
   styleRule
     .oneOf(`vue-${options.style.ruleId}${options.style.modulesSuffix}`)
       .resourceQuery(/module/)
       .uses
         .merge(styleModulesRule.uses.entries())
         .end()
-      .use(`${options.style.styleUseId}${options.style.modulesSuffix}`)
-        .loader(require.resolve('vue-style-loader'))
-        .end()
+      .end()
     .oneOf(`vue-${options.style.ruleId}`)
       .resourceQuery(/\?vue/)
       .uses
         .merge(styleRule.uses.entries())
         .end()
-      .use(options.style.styleUseId)
-        .loader(require.resolve('vue-style-loader'))
-        .end()
+      .end()
     .oneOf(options.style.ruleId)
       .uses
         .merge(styleRule.uses.entries())
