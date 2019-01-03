@@ -8,6 +8,7 @@ module.exports = (neutrino, opts = {}) => {
   const options = merge({
     test: neutrino.regexFromExtensions(['css']),
     ruleId: 'style',
+    oneOfRuleId: 'style',
     styleUseId: 'style',
     cssUseId: 'css',
     css: {
@@ -17,7 +18,6 @@ module.exports = (neutrino, opts = {}) => {
     modules,
     modulesTest,
     modulesSuffix: '-modules',
-    exclude: modules && modulesTest,
     loaders: [],
     extractId: 'extract',
     extract: {
@@ -39,14 +39,10 @@ module.exports = (neutrino, opts = {}) => {
   const rules = [options];
 
   if (options.modules) {
-    rules.push(
+    rules.unshift(
       merge(options, {
         test: options.modulesTest,
-        exclude: options.modulesExclude,
-        ruleId: `${options.ruleId}${options.modulesSuffix}`,
-        styleUseId: `${options.styleUseId}${options.modulesSuffix}`,
-        cssUseId: `${options.cssUseId}${options.modulesSuffix}`,
-        extractId: `${options.extractId}${options.modulesSuffix}`,
+        oneOfRuleId: `${options.oneOfRuleId}${options.modulesSuffix}`,
         css: {
           modules: options.modules
         }
@@ -76,11 +72,11 @@ module.exports = (neutrino, opts = {}) => {
 
     loaders.forEach(loader => {
       styleRule
-        .test(options.test)
-        .when(options.exclude, rule => rule.exclude.add(options.exclude))
-        .use(loader.useId)
-          .loader(loader.loader)
-          .when(loader.options, use => use.options(loader.options));
+        .oneOf(options.oneOfRuleId)
+          .test(options.test)
+          .use(loader.useId)
+            .loader(loader.loader)
+            .when(loader.options, use => use.options(loader.options));
     });
   });
 
