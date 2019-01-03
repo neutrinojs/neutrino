@@ -36,6 +36,7 @@ module.exports = (neutrino, opts = {}) => {
       });
   });
 
+  // Rebuild our style rule to be a oneOf, first matching vue component styles
   styleRule
     .oneOf(`vue-${options.style.ruleId}${options.style.modulesSuffix}`)
       .resourceQuery(/module/)
