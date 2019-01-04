@@ -24,7 +24,7 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "css-loader": "^1.0.1",
+    "css-loader": "^2.0.0",
     "deepmerge": "^1.5.2",
     "mini-css-extract-plugin": "^0.5.0",
     "style-loader": "^0.23.1"
