@@ -1,6 +1,12 @@
 const web = require('@neutrinojs/web');
 const merge = require('deepmerge');
 
+const applyUse = from => to => {
+  from.uses.values().forEach(use => {
+    to.use(use.name).merge(use.entries());
+  });
+};
+
 module.exports = (neutrino, opts = {}) => {
   const options = merge({
     style: {
@@ -28,36 +34,36 @@ module.exports = (neutrino, opts = {}) => {
   const styleRule = neutrino.config.module.rules.get(options.style.ruleId);
   const styleModulesRule = neutrino.config.module.rules.get(`${options.style.ruleId}${options.style.modulesSuffix}`);
 
-  [styleRule, styleModulesRule].forEach(rule => {
-    rule
-      .when(rule && rule.uses.has(options.style.styleUseId), rule => {
-        rule
-          .use(`${options.style.styleUseId}`)
-          .loader(require.resolve('vue-style-loader'));
-      });
-  });
-
   // Rebuild our style rule to be a oneOf, first matching vue component styles
-  styleRule
-    .when(styleModulesRule && options.style.modules, rule => {
-      rule.oneOf(`vue-${options.style.ruleId}${options.style.modulesSuffix}`)
+  if (styleRule) {
+    styleRule
+      .when(styleModulesRule && options.style.modules, rule => {
+        rule.oneOf(`vue-${options.style.ruleId}${options.style.modulesSuffix}`)
+          .resourceQuery(/module/)
+          .batch(applyUse(styleModulesRule))
+          .use(options.style.ruleId)
+            .loader(require.resolve('vue-style-loader'));
+      })
+      .oneOf(`vue-${options.style.ruleId}${options.style.modulesSuffix}`)
         .resourceQuery(/module/)
-        .uses
-          .merge(styleModulesRule.uses.entries());
-    })
-    .oneOf(`vue-${options.style.ruleId}`)
-      .resourceQuery(/\?vue/)
-      .uses
-        .merge(styleRule.uses.entries())
+        .batch(applyUse(styleModulesRule))
+        .use(options.style.ruleId)
+          .loader(require.resolve('vue-style-loader'))
+          .end()
         .end()
-      .end()
-    .oneOf(options.style.ruleId)
-      .uses
-        .merge(styleRule.uses.entries())
+      .oneOf(`vue-${options.style.ruleId}`)
+        .resourceQuery(/\?vue/)
+        .batch(applyUse(styleRule))
+        .use(options.style.ruleId)
+          .loader(require.resolve('vue-style-loader'))
+          .end()
         .end()
-      .end()
-    .uses
-      .clear();
+      .oneOf(options.style.ruleId)
+        .batch(applyUse(styleRule))
+        .end()
+      .uses
+        .clear();
+  }
 
   neutrino.config.module
     .rule('vue')
