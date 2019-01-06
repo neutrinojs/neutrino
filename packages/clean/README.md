@@ -72,6 +72,22 @@ module.exports = {
 };
 ```
 
+## Clean external directories
+
+Pass the `allowExternal: true` option to remove the directories outside of the project root. This is disabled by default to prevent deletion of unintended directories.
+
+```js
+module.exports = {
+  options: {
+    // Override to an external directory
+    output: '../build'
+  },
+  // Set the option
+  allowExternal: true,
+  use: ['@neutrinojs/react']
+};
+```
+
 ## Customization
 
 `@neutrinojs/clean` creates some conventions to make overriding the configuration easier once you are ready to
