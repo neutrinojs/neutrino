@@ -9,10 +9,10 @@ module.exports = (neutrino, opts = {}) => {
   const options = merge({
     style: {
       ruleId: 'style',
-      styleUseId: 'style'
-      // exclude: [],
-      // modulesTest: opts.style && opts.style.test ? opts.style.test : neutrino.regexFromExtensions(['css']),
-      // modulesSuffix: ''
+      styleUseId: 'style',
+      exclude: [],
+      modulesTest: opts.style && opts.style.test ? opts.style.test : neutrino.regexFromExtensions(['css']),
+      modulesSuffix: ''
     }
   }, opts);
 
