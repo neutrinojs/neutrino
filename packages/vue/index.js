@@ -12,7 +12,8 @@ module.exports = (neutrino, opts = {}) => {
     style: {
       ruleId: 'style',
       styleUseId: 'style',
-      modulesSuffix: '-modules',
+      oneOfId: 'normal',
+      modulesOneOfId: 'modules',
       modules: true
     }
   }, opts);
@@ -28,41 +29,36 @@ module.exports = (neutrino, opts = {}) => {
   neutrino.options.extensions = extensions; // eslint-disable-line no-param-reassign
   neutrino.use(web, options);
 
-  // vue-loader needs CSS files to be parsed with vue-style-loader instead of
-  // style-loader, so we replace the loader with the one vue wants.
-  // This is only required when using style-loader and not when extracting CSS.
+  // Vue component oneOfs are prepended to our style rule so they match first.
+  // The test from the "normal" oneOf is also applied.
   const styleRule = neutrino.config.module.rules.get(options.style.ruleId);
-  const styleModulesRule = neutrino.config.module.rules.get(`${options.style.ruleId}${options.style.modulesSuffix}`);
+  const styleOneOf = styleRule.oneOf(options.style.oneOfId);
+  const styleModulesOneOf = styleRule.oneOf(options.style.modulesOneOfId);
+  const styleTest = styleOneOf.get('test');
 
-  // Rebuild our style rule to be a oneOf, first matching vue component styles
   if (styleRule) {
     styleRule
-      .when(styleModulesRule && options.style.modules, rule => {
-        rule.oneOf(`vue-${options.style.ruleId}${options.style.modulesSuffix}`)
-          .resourceQuery(/module/)
-          .batch(applyUse(styleModulesRule))
-          .use(options.style.ruleId)
-            .loader(require.resolve('vue-style-loader'));
+      .when(styleModulesOneOf && options.style.modules, rule => {
+        rule
+          .oneOf(`vue-${options.style.modulesOneOfId}`)
+            .before(options.style.modulesOneOfId)
+            .test(styleTest)
+            .resourceQuery(/module/)
+            .batch(applyUse(styleModulesOneOf))
+            .use(options.style.styleUseId)
+              .loader(require.resolve('vue-style-loader'));
       })
-      .oneOf(`vue-${options.style.ruleId}${options.style.modulesSuffix}`)
-        .resourceQuery(/module/)
-        .batch(applyUse(styleModulesRule))
-        .use(options.style.ruleId)
-          .loader(require.resolve('vue-style-loader'))
-          .end()
-        .end()
-      .oneOf(`vue-${options.style.ruleId}`)
+      .oneOf(`vue-${options.style.oneOfId}`)
+        .before(options.style.modules ? options.style.modulesOneOfId : options.style.oneOfId)
+        .test(styleTest)
         .resourceQuery(/\?vue/)
-        .batch(applyUse(styleRule))
-        .use(options.style.ruleId)
-          .loader(require.resolve('vue-style-loader'))
-          .end()
-        .end()
-      .oneOf(options.style.ruleId)
-        .batch(applyUse(styleRule))
-        .end()
-      .uses
-        .clear();
+        .batch(applyUse(styleOneOf))
+
+        // vue-loader needs CSS files to be parsed with vue-style-loader instead of
+        // style-loader, so we replace the loader with the one vue wants.
+        // This is only required when using style-loader and not when extracting CSS.
+        .use(options.style.styleUseId)
+          .loader(require.resolve('vue-style-loader'));
   }
 
   neutrino.config.module
