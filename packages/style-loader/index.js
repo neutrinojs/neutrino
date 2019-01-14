@@ -8,7 +8,7 @@ module.exports = (neutrino, opts = {}) => {
   const options = merge({
     test: neutrino.regexFromExtensions(['css']),
     ruleId: 'style',
-    oneOfRuleId: 'style',
+    oneOfId: 'style',
     styleUseId: 'style',
     cssUseId: 'css',
     css: {
@@ -72,7 +72,7 @@ module.exports = (neutrino, opts = {}) => {
 
     loaders.forEach(loader => {
       styleRule
-        .oneOf(options.oneOfRuleId)
+        .oneOf(options.oneOfId)
           .test(options.test)
           .use(loader.useId)
             .loader(loader.loader)

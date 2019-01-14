@@ -57,6 +57,7 @@ neutrino.use(styles, {
   loaders: [],
   test: /\.css$/,
   ruleId: 'style',
+  oneOfId: 'style',
   styleUseId: 'style',
   cssUseId: 'css',
   modules: true,
@@ -119,7 +120,7 @@ module.exports = {
 - `loaders`: Provide an array of custom loaders used when loading stylesheets
 - `test`: File extensions which support stylesheets
 - `ruleId`: The ID of the webpack-chain rule used to identify the stylesheet loaders
-- `oneOfRuleId`: The ID of the webpack-chain `oneOf` used to identify the rule
+- `oneOfId`: The ID of the webpack-chain `oneOf` used to identify the rule
 - `styleUseId`: The ID of the webpack-chain `use` used to identify the style-loader
 - `cssUseId`: The ID of the webpack-chain `use` used to identify the css-loader
 - `modules`: Enable usage of CSS modules via `*.module.css` files. Set to `false` to disable and skip defining these rules.
