@@ -57,13 +57,8 @@ neutrino.use(styles, {
   loaders: [],
   test: /\.css$/,
   ruleId: 'style',
-  oneOfId: 'normal',
-  styleUseId: 'style',
-  cssUseId: 'css',
   modules: true,
   modulesTest: /\.module.css$/,
-  modulesOneOfId: 'modules',
-  extractId: 'extract',
   extract: {
     enabled: process.env.NODE_ENV === 'production',
     loader: {},
@@ -99,13 +94,8 @@ module.exports = {
 - `loaders`: Provide an array of custom loaders used when loading stylesheets
 - `test`: File extensions which support stylesheets
 - `ruleId`: The ID of the webpack-chain rule used to identify the stylesheet loaders
-- `oneOfId`: The ID of the webpack-chain `oneOf` used to identify the normal (non-modules) rule
-- `styleUseId`: The ID of the webpack-chain `use` used to identify the style-loader
-- `cssUseId`: The ID of the webpack-chain `use` used to identify the css-loader
 - `modules`: Enable usage of CSS modules via `*.module.css` files. Set to `false` to disable and skip defining these rules.
 - `modulesTest`: File extensions which support CSS Modules stylesheets
-- `modulesOneOfId`: The ID of the webpack-chain `oneOf` used to identify the modules rule
-- `extractId`: The ID of the webpack-chain plugin used to identify the `ExtractTextPlugin`
 - `extract`: Options relating to the `ExtractTextPlugin` instance. Override `extract.plugin` to override plugin options.
 Override `extract.loader` to override the loader options. Set to `false` to disable stylesheet extraction.
 
@@ -124,7 +114,7 @@ by other consuming middleware. Each loader object can specify 3 properties:
 
 Using a string to define loaders will cause `@neutrinojs/style-loader` to still generate a loader object. The string
 will be used as the `loader` property, `options` will be left blank, and the `useId` will be derived from
-`cssUseId` option above plus the index of this loader within the `loaders` array.
+the index of this loader within the `loaders` array.
 
 **Important:** The `useId` for string-defined loaders will start at `2`, since all loaders are preceded by the included
 `style-loader` and `css-loader`.
