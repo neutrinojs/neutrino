@@ -84,32 +84,11 @@ module.exports = {
   use: ['@neutrinojs/style-loader']
 };
 
-// Usage showing default options
+// Usage with options
 module.exports = {
   use: [
     ['@neutrinojs/style-loader', {
-      style: {},
-      css: {
-        importLoaders: opts.loaders ? opts.loaders.length : 0
-      },
-      loaders: [],
-      test: /\.css$/,
-      ruleId: 'style',
-      styleUseId: 'style',
-      cssUseId: 'css',
-      modules: true,
-      modulesSuffix: '-modules',
-      modulesTest: /\.module.css$/,
-      extractId: 'extract',
-      extract: {
-        enabled: process.env.NODE_ENV === 'production',
-        loader: {},
-        plugin: {
-          filename: process.env.NODE_ENV === 'production'
-            ? 'assets/[name].[contenthash:8].css'
-            : 'assets/[name].css'
-        }
-      }
+      test: /\.scss$/,
     }]
   ]
 };
