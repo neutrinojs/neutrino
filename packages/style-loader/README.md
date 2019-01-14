@@ -61,8 +61,8 @@ neutrino.use(styles, {
   styleUseId: 'style',
   cssUseId: 'css',
   modules: true,
-  modulesSuffix: '-modules',
   modulesTest: /\.module.css$/,
+  modulesOneOfId: 'style-modules',
   extractId: 'extract',
   extract: {
     enabled: process.env.NODE_ENV === 'production',
@@ -120,14 +120,12 @@ module.exports = {
 - `loaders`: Provide an array of custom loaders used when loading stylesheets
 - `test`: File extensions which support stylesheets
 - `ruleId`: The ID of the webpack-chain rule used to identify the stylesheet loaders
-- `oneOfId`: The ID of the webpack-chain `oneOf` used to identify the rule
+- `oneOfId`: The ID of the webpack-chain `oneOf` used to identify the normal (non-modules) rule
 - `styleUseId`: The ID of the webpack-chain `use` used to identify the style-loader
 - `cssUseId`: The ID of the webpack-chain `use` used to identify the css-loader
 - `modules`: Enable usage of CSS modules via `*.module.css` files. Set to `false` to disable and skip defining these rules.
-- `modulesSuffix`: A suffix added to `ruleId`, `styleUseId`, `cssUseId`, `hotUseId`, and `extractId` to derive names for
-modules-related rules. For example, the default `-modules` suffix will generate a rule ID for the CSS modules rules of
-`style-modules`, while the normal rule remains as `style`.
 - `modulesTest`: File extensions which support CSS Modules stylesheets
+- `modulesOneOfId`: The ID of the webpack-chain `oneOf` used to identify the modules rule
 - `extractId`: The ID of the webpack-chain plugin used to identify the `ExtractTextPlugin`
 - `extract`: Options relating to the `ExtractTextPlugin` instance. Override `extract.plugin` to override plugin options.
 Override `extract.loader` to override the loader options. Set to `false` to disable stylesheet extraction.

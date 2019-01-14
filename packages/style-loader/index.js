@@ -17,7 +17,7 @@ module.exports = (neutrino, opts = {}) => {
     style: {},
     modules,
     modulesTest,
-    modulesSuffix: '-modules',
+    modulesOneOfId: 'style-modules',
     loaders: [],
     extractId: 'extract',
     extract: {
@@ -42,7 +42,7 @@ module.exports = (neutrino, opts = {}) => {
     rules.unshift(
       merge(options, {
         test: options.modulesTest,
-        oneOfRuleId: `${options.oneOfRuleId}${options.modulesSuffix}`,
+        oneOfId: options.modulesOneOfId,
         css: {
           modules: options.modules
         }
