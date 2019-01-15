@@ -96,6 +96,7 @@ module.exports = {
 - `ruleId`: The ID of the webpack-chain rule used to identify the stylesheet loaders
 - `modules`: Enable usage of CSS modules via `*.module.css` files. Set to `false` to disable and skip defining these rules.
 - `modulesTest`: File extensions which support CSS Modules stylesheets
+- `extractId`: The ID of the webpack-chain plugin used to identify the `ExtractTextPlugin`
 - `extract`: Options relating to the `ExtractTextPlugin` instance. Override `extract.plugin` to override plugin options.
 Override `extract.loader` to override the loader options. Set to `false` to disable stylesheet extraction.
 

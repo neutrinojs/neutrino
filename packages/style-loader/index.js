@@ -8,16 +8,12 @@ module.exports = (neutrino, opts = {}) => {
   const options = merge({
     test: neutrino.regexFromExtensions(['css']),
     ruleId: 'style',
-    oneOfId: 'normal',
-    styleUseId: 'style',
-    cssUseId: 'css',
     css: {
       importLoaders: opts.loaders ? opts.loaders.length : 0
     },
     style: {},
     modules,
     modulesTest,
-    modulesOneOfId: 'modules',
     loaders: [],
     extractId: 'extract',
     extract: {
@@ -36,13 +32,15 @@ module.exports = (neutrino, opts = {}) => {
   }
 
   const extractEnabled = options.extract && options.extract.enabled;
-  const rules = [options];
+  const rules = [merge(options, {
+    oneOfId: 'normal'
+  })];
 
   if (options.modules) {
     rules.unshift(
       merge(options, {
         test: options.modulesTest,
-        oneOfId: options.modulesOneOfId,
+        oneOfId: 'modules',
         css: {
           modules: options.modules
         }
@@ -56,17 +54,17 @@ module.exports = (neutrino, opts = {}) => {
       {
         loader: extractEnabled ? require.resolve('mini-css-extract-plugin/dist/loader') : require.resolve('style-loader'),
         options: extractEnabled ? options.extract.loader : options.style,
-        useId: extractEnabled ? options.extractId : options.styleUseId
+        useId: extractEnabled ? options.extractId : 'style'
       },
       {
         loader: require.resolve('css-loader'),
         options: options.css,
-        useId: options.cssUseId
+        useId: 'css'
       },
       ...options.loaders
     ]
     .map((loader, index) => ({
-      useId: `${options.cssUseId}-${index}`,
+      useId: `css-${index}`,
       ...(typeof loader === 'object' ? loader : { loader })
     }));
 
