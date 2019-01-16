@@ -15,7 +15,6 @@ module.exports = (neutrino, opts = {}) => {
     modules,
     modulesTest,
     loaders: [],
-    extractId: 'extract',
     extract: {
       enabled: isProduction,
       loader: {},
@@ -54,7 +53,7 @@ module.exports = (neutrino, opts = {}) => {
       {
         loader: extractEnabled ? require.resolve('mini-css-extract-plugin/dist/loader') : require.resolve('style-loader'),
         options: extractEnabled ? options.extract.loader : options.style,
-        useId: extractEnabled ? options.extractId : 'style'
+        useId: extractEnabled ? 'extract' : 'style'
       },
       {
         loader: require.resolve('css-loader'),
@@ -80,7 +79,7 @@ module.exports = (neutrino, opts = {}) => {
 
   if (extractEnabled) {
     neutrino.config
-      .plugin(options.extractId)
+      .plugin('extract')
         .use(require.resolve('mini-css-extract-plugin'), [options.extract.plugin]);
   }
 };
