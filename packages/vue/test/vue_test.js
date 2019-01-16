@@ -84,3 +84,25 @@ test('does not update lint config if useEslintrc true', t => {
   const options = api.config.module.rule('lint').use('eslint').get('options');
   t.deepEqual(options.baseConfig, {});
 });
+
+test('adds style oneOfs in order', t => {
+  const api = new Neutrino();
+  api.use(mw());
+  const { oneOfs } = api.config.module.rule('style');
+
+  t.is(Object.keys(oneOfs.entries()), [
+    'vue-modules',
+    'vue-normal',
+    'modules',
+    'normal'
+  ]);
+});
+
+test('replaces style-loader with vue-style-loader', t => {
+  const api = new Neutrino();
+  api.use(mw());
+
+  api.config.module.rule('style').oneOfs.values().filter(oneOf => oneOf.name.startsWith('vue-')).forEach(oneOf => {
+    t.is(oneOf.use('style').get('loader'), require.resolve('vue-style-loader'));
+  });
+});
