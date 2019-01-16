@@ -83,7 +83,7 @@ module.exports = {
 module.exports = {
   use: [
     ['@neutrinojs/style-loader', {
-      test: /\.scss$/,
+      modules: false,
     }]
   ]
 };
