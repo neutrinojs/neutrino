@@ -97,11 +97,16 @@ test('adds style oneOfs in order', t => {
   ]);
 });
 
-test('replaces style-loader with vue-style-loader', t => {
+test('replaces style-loader with vue-style-loader in development', t => {
+  process.env.NODE_ENV = 'development';
   const api = new Neutrino();
   api.use(mw());
 
-  api.config.module.rule('style').oneOfs.values().filter(oneOf => oneOf.name.startsWith('vue-')).forEach(oneOf => {
-    t.is(oneOf.use('style').get('loader'), require.resolve('vue-style-loader'));
-  });
+  api.config.module.rule('style')
+    .oneOfs
+    .values()
+    .filter(oneOf => oneOf.name.startsWith('vue-'))
+    .forEach(oneOf => {
+      t.is(oneOf.use('style').get('loader'), require.resolve('vue-style-loader'));
+    });
 });
