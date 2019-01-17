@@ -464,8 +464,7 @@ The following is a list of rules and their identifiers which can be overridden:
 | --- | --- | --- |
 | `compile` | Compiles JS files from the `src` directory using Babel. Contains a single loader named `babel`. From `@neutrinojs/compile-loader`. | all |
 | `html` | Allows importing HTML files from modules. Contains a single loader named `html`. From `@neutrinojs/html-loader`. | all |
-| `style` | Allows importing CSS stylesheets from modules. In production contains two loaders named `extract` and `css` which use `MiniCssExtractPlugin.loader` and `css-loader`, respectively. In development the `extract` loader is replaced by `style`, which uses `style-loader`. From `@neutrinojs/style-loader`. | all |
-| `style-modules` | Allows importing CSS Modules styles from modules. In production contains two loaders named `extract` and `css` which use `MiniCssExtractPlugin.loader` and `css-loader`, respectively. In development the `extract` loader is replaced by `style`, which uses `style-loader`. From `@neutrinojs/style-loader`. | all |
+| `style` | A parent rule containing `oneOf` rules for importing stylesheets. From `@neutrinojs/style-loader`. | all |
 | `image` | Allows importing ICO, JPEG, PNG, GIF, SVG and WEBP files from modules. Contains a single loader named `url`. From `@neutrinojs/image-loader`. | all |
 | `font` | Allows importing EOT, TTF, WOFF and WOFF2 font files from modules. Contains a single loader named `file`. From `@neutrinojs/font-loader`. | all |
 
