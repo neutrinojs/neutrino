@@ -7,11 +7,19 @@ const applyUse = from => to => {
   });
 };
 
+// vue-loader needs CSS files to be parsed with vue-style-loader instead of
+// style-loader, so we replace the loader with the one vue wants.
+// This is only required when using style-loader and not when extracting CSS.
+const replaceStyleLoader = rule => {
+  if (rule.uses.has('style')) {
+    rule.use('style').loader(require.resolve('vue-style-loader'));
+  }
+};
+
 module.exports = (neutrino, opts = {}) => {
   const options = merge({
     style: {
-      ruleId: 'style',
-      modules: true
+      ruleId: 'style'
     }
   }, opts);
 
@@ -30,32 +38,27 @@ module.exports = (neutrino, opts = {}) => {
   // The test from the "normal" oneOf is also applied.
   const styleRule = neutrino.config.module.rules.get(options.style.ruleId);
   const styleTest = styleRule.oneOf('normal').get('test');
+  const styleModulesEnabled = styleRule.oneOfs.has('modules');
 
   if (styleRule) {
     styleRule
-      .when(options.style.modules && styleRule.oneOf('modules'), rule => {
+      .when(styleModulesEnabled, rule => {
         rule
           .oneOf('vue-modules')
             .before('modules')
             .test(styleTest)
             .resourceQuery(/module/)
             .batch(applyUse(styleRule.oneOf('modules')))
-            .use('style')
-              .loader(require.resolve('vue-style-loader'));
+            .batch(replaceStyleLoader);
       })
       .when(styleRule.oneOf('normal'), rule => {
         rule
           .oneOf('vue-normal')
-            .before(options.style.modules ? 'modules' : 'normal')
+            .before(styleModulesEnabled ? 'modules' : 'normal')
             .test(styleTest)
             .resourceQuery(/\?vue/)
             .batch(applyUse(styleRule.oneOf('normal')))
-
-            // vue-loader needs CSS files to be parsed with vue-style-loader instead of
-            // style-loader, so we replace the loader with the one vue wants.
-            // This is only required when using style-loader and not when extracting CSS.
-            .use('style')
-              .loader(require.resolve('vue-style-loader'));
+            .batch(replaceStyleLoader);
       });
   }
 
