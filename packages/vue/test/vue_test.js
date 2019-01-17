@@ -89,7 +89,7 @@ test('adds style oneOfs in order', t => {
   const api = new Neutrino();
   api.use(mw());
   const { oneOfs } = api.config.module.rule('style');
-  t.deepEqual(Object.keys(oneOfs.entries()), [
+  t.deepEqual(oneOfs.values().map(oneOf => oneOf.name), [
     'vue-modules',
     'vue-normal',
     'modules',
