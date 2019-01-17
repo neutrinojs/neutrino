@@ -321,6 +321,7 @@ module.exports = {
 ```
 
 - **BREAKING CHANGE** `@neutrinojs/style-loader` now creates a single `style` rule with `oneOfs`, instead of multiple rules for handling css modules ((#1281)[https://github.com/neutrinojs/neutrino/pull/1281]).
+- **BREAKING CHANGE** `@neutrinojs/vue` now adds oneOfs instead of replacing existing style rules ((#1276)[https://github.com/neutrinojs/neutrino/pull/1276]).
 - ESLint caching is now enabled by default for new projects, so it is recommended to specify `.eslintcache` as being
 ignored from your source control commits.
 
