@@ -90,7 +90,7 @@ test('adds style oneOfs in order', t => {
   api.use(mw());
   const { oneOfs } = api.config.module.rule('style');
 
-  t.is(Object.keys(oneOfs.entries()), [
+  t.deepEqual(Object.keys(oneOfs.entries()), [
     'vue-modules',
     'vue-normal',
     'modules',
