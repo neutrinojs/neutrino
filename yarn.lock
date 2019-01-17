@@ -12358,10 +12358,10 @@ webidl-conversions@^4.0.2:
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
   integrity sha512-YQ+BmxuTgd6UXZW3+ICGfyqRyHXVlD5GtQr5+qjiNW7bF0cqrzX500HVXPBOvgXb5YnzDd+h0zqyv61KUD7+Sg==
 
-webpack-chain@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/webpack-chain/-/webpack-chain-5.0.1.tgz#549ec483f1bd6699ad4305b7892869cd619c1b62"
-  integrity sha512-RiMJSZ5bxURnRl1hLOjslWD9aqqBRjwLUFvYR1Nq7dxka4fYw/mLPS0X641qJd3f4SLuiZ7k8WSiss8XgTTl1w==
+webpack-chain@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/webpack-chain/-/webpack-chain-5.1.0.tgz#106d6a1848d7a996465568e1a04e3380580aee17"
+  integrity sha512-FWMw3zyXOdSkU+VYCtRid7i9PJ4H7Zp8NnBM3U+7DBDcPw4WQ7KGkBlRerfcZ3zk8qX77RoU0w57LGU1OFFMlg==
   dependencies:
     deepmerge "^1.5.2"
     javascript-stringify "^1.6.0"
