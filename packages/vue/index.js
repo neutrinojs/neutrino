@@ -1,18 +1,25 @@
 const web = require('@neutrinojs/web');
 const merge = require('deepmerge');
 
+const applyUse = from => to => {
+  from.uses.values().forEach(use => {
+    to.use(use.name).merge(use.entries());
+  });
+};
+
+// vue-loader needs CSS files to be parsed with vue-style-loader instead of
+// style-loader, so we replace the loader with the one vue wants.
+// This is only required when using style-loader and not when extracting CSS.
+const replaceStyleLoader = rule => {
+  if (rule.uses.has('style')) {
+    rule.use('style').loader(require.resolve('vue-style-loader'));
+  }
+};
+
 module.exports = (neutrino, opts = {}) => {
-  // vue-loader extracts <style> tags to CSS files so they are parsed
-  // automatically by the css-loader. In order to enable CSS modules
-  // on these CSS files, we need to say that normal CSS files can use
-  // CSS modules.
   const options = merge({
     style: {
-      ruleId: 'style',
-      styleUseId: 'style',
-      exclude: [],
-      modulesTest: opts.style && opts.style.test ? opts.style.test : neutrino.regexFromExtensions(['css']),
-      modulesSuffix: ''
+      ruleId: 'style'
     }
   }, opts);
 
@@ -27,14 +34,32 @@ module.exports = (neutrino, opts = {}) => {
   neutrino.options.extensions = extensions; // eslint-disable-line no-param-reassign
   neutrino.use(web, options);
 
-  // vue-loader needs CSS files to be parsed with vue-style-loader instead of
-  // style-loader, so we replace the loader with the one vue wants.
-  // This is only required when using style-loader and not when extracting CSS.
+  // Vue component oneOfs are prepended to our style rule so they match first.
+  // The test from the "normal" oneOf is also applied.
   const styleRule = neutrino.config.module.rules.get(options.style.ruleId);
-  if (styleRule && styleRule.uses.has(options.style.styleUseId)) {
+  const styleTest = styleRule.oneOf('normal').get('test');
+  const styleModulesEnabled = styleRule.oneOfs.has('modules');
+
+  if (styleRule) {
     styleRule
-      .use(options.style.styleUseId)
-      .loader(require.resolve('vue-style-loader'));
+      .when(styleModulesEnabled, rule => {
+        rule
+          .oneOf('vue-modules')
+            .before('modules')
+            .test(styleTest)
+            .resourceQuery(/module/)
+            .batch(applyUse(styleRule.oneOf('modules')))
+            .batch(replaceStyleLoader);
+      })
+      .when(styleRule.oneOf('normal'), rule => {
+        rule
+          .oneOf('vue-normal')
+            .before(styleModulesEnabled ? 'modules' : 'normal')
+            .test(styleTest)
+            .resourceQuery(/\?vue/)
+            .batch(applyUse(styleRule.oneOf('normal')))
+            .batch(replaceStyleLoader);
+      });
   }
 
   neutrino.config.module
