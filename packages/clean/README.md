@@ -78,13 +78,11 @@ Pass the `allowExternal: true` option to remove the directories outside of the p
 
 ```js
 module.exports = {
-  options: {
-    // Override to an external directory
-    output: '../build'
-  },
-  // Set the option
-  allowExternal: true,
-  use: ['@neutrinojs/react']
+  use: [
+    ['@neutrinojs/clean', {
+      allowExternal: true,
+    }]
+  ]
 };
 ```
 
