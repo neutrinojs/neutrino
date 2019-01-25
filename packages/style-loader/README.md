@@ -57,12 +57,8 @@ neutrino.use(styles, {
   loaders: [],
   test: /\.css$/,
   ruleId: 'style',
-  styleUseId: 'style',
-  cssUseId: 'css',
   modules: true,
-  modulesSuffix: '-modules',
   modulesTest: /\.module.css$/,
-  extractId: 'extract',
   extract: {
     enabled: process.env.NODE_ENV === 'production',
     loader: {},
@@ -83,32 +79,11 @@ module.exports = {
   use: ['@neutrinojs/style-loader']
 };
 
-// Usage showing default options
+// Usage with options
 module.exports = {
   use: [
     ['@neutrinojs/style-loader', {
-      style: {},
-      css: {
-        importLoaders: opts.loaders ? opts.loaders.length : 0
-      },
-      loaders: [],
-      test: /\.css$/,
-      ruleId: 'style',
-      styleUseId: 'style',
-      cssUseId: 'css',
-      modules: true,
-      modulesSuffix: '-modules',
-      modulesTest: /\.module.css$/,
-      extractId: 'extract',
-      extract: {
-        enabled: process.env.NODE_ENV === 'production',
-        loader: {},
-        plugin: {
-          filename: process.env.NODE_ENV === 'production'
-            ? 'assets/[name].[contenthash:8].css'
-            : 'assets/[name].css'
-        }
-      }
+      modules: false,
     }]
   ]
 };
@@ -119,14 +94,8 @@ module.exports = {
 - `loaders`: Provide an array of custom loaders used when loading stylesheets
 - `test`: File extensions which support stylesheets
 - `ruleId`: The ID of the webpack-chain rule used to identify the stylesheet loaders
-- `styleUseId`: The ID of the webpack-chain `use` used to identify the style-loader
-- `cssUseId`: The ID of the webpack-chain `use` used to identify the css-loader
 - `modules`: Enable usage of CSS modules via `*.module.css` files. Set to `false` to disable and skip defining these rules.
-- `modulesSuffix`: A suffix added to `ruleId`, `styleUseId`, `cssUseId`, `hotUseId`, and `extractId` to derive names for
-modules-related rules. For example, the default `-modules` suffix will generate a rule ID for the CSS modules rules of
-`style-modules`, while the normal rule remains as `style`.
 - `modulesTest`: File extensions which support CSS Modules stylesheets
-- `extractId`: The ID of the webpack-chain plugin used to identify the `ExtractTextPlugin`
 - `extract`: Options relating to the `ExtractTextPlugin` instance. Override `extract.plugin` to override plugin options.
 Override `extract.loader` to override the loader options. Set to `false` to disable stylesheet extraction.
 
@@ -145,7 +114,7 @@ by other consuming middleware. Each loader object can specify 3 properties:
 
 Using a string to define loaders will cause `@neutrinojs/style-loader` to still generate a loader object. The string
 will be used as the `loader` property, `options` will be left blank, and the `useId` will be derived from
-`cssUseId` option above plus the index of this loader within the `loaders` array.
+the index of this loader within the `loaders` array.
 
 **Important:** The `useId` for string-defined loaders will start at `2`, since all loaders are preceded by the included
 `style-loader` and `css-loader`.
@@ -243,12 +212,13 @@ ready to make changes.
 
 ### Rules
 
-The following is a list of default rules and their identifiers which can be overridden:
+The following is a list of default rules/oneOfs and their identifiers which can be overridden:
 
 | Name | Description | NODE_ENV |
 | --- | --- | --- |
-| `style` | Allows importing CSS stylesheets from modules. By default contains two loaders named `extract` and `css` which use `MiniCssExtractPlugin.loader` and `css-loader`, respectively. If `options.extract` is `false`, then the `extract` loader is replaced by `style`, which uses `style-loader`. | all |
-| `style-modules` | Allows importing CSS Modules styles from modules. By default contains two loaders named `extract` and `css` which use `MiniCssExtractPlugin.loader` and `css-loader`, respectively. If `options.extract` is `false`, then the `extract` loader is replaced by `style`, which uses `style-loader`. | all |
+| `style` | A parent rule containing `oneOf` rules for importing stylesheets. | all |
+| `style.normal` | Allows importing CSS stylesheets from modules. By default contains two loaders named `extract` and `css` which use `MiniCssExtractPlugin.loader` and `css-loader`, respectively. If `options.extract` is `false`, then the `extract` loader is replaced by `style`, which uses `style-loader`. | all |
+| `style.modules` | Allows importing CSS Modules styles from modules. By default contains two loaders named `extract` and `css` which use `MiniCssExtractPlugin.loader` and `css-loader`, respectively. If `options.extract` is `false`, then the `extract` loader is replaced by `style`, which uses `style-loader`. | all |
 
 ### Plugins
 

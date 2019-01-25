@@ -290,12 +290,14 @@ If the need arises, you can also compile `node_modules` by referring to the rele
 
 ### Rules
 
-The following is a list of additional rules and their identifiers this preset defines, in addition
+The following is a list of additional rules/oneOfs and their identifiers this preset defines, in addition
 to the ones provided by `@neutrinojs/web`, which can be overridden:
 
 | Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `vue` | Compiles Vue files from the `src` directory using Babel and `vue-loader`. Contains a single loader named `vue`. | all |
+| `style.vue-normal` | oneOf rule for importing CSS from `<style>` in Vue components. | all |
+| `style.vue-modules` | oneOf rule for importing CSS modules from `<style module>` from Vue components. | all |
 
 ### Plugins
 
