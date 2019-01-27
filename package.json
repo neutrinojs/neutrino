@@ -37,7 +37,7 @@
     "auto-changelog": "^1.10.2",
     "ava": "^1.0.0-rc.1",
     "eslint": "^5.9.0",
-    "eslint-config-prettier": "^3.3.0",
+    "eslint-config-prettier": "^4.0.0",
     "eslint-plugin-prettier": "^3.0.0",
     "husky": "^1.2.0",
     "jest": "^23.6.0",
