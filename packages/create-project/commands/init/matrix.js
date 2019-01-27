@@ -80,7 +80,7 @@ const presets = {
   },
   [JEST]: {
     type: TESTING,
-    devDependencies: [JEST, 'jest@^23']
+    devDependencies: [JEST, 'jest@^24']
   },
   [KARMA]: {
     type: TESTING,
