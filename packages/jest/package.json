@@ -24,12 +24,12 @@
   "dependencies": {
     "@babel/core": "^7.1.6",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^23.6.0",
+    "babel-jest": "^24.0.0",
     "deepmerge": "^1.5.2",
     "eslint-plugin-jest": "^22.0.1"
   },
   "peerDependencies": {
-    "jest": "^23.0.0",
+    "jest": "^24.0.0",
     "neutrino": "^9.0.0-0"
   }
 }
