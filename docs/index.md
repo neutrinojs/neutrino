@@ -6,6 +6,7 @@
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
 [![Build Status][travis-image]][travis-url]
+[![Netlify Status][netlify-image]][netlify-url]
 
 [https://github.com/neutrinojs/neutrino](https://github.com/neutrinojs/neutrino)
 
@@ -26,3 +27,5 @@ cover.
 [npm-url]: https://www.npmjs.com/package/neutrino
 [travis-image]: https://api.travis-ci.org/neutrinojs/neutrino.svg?branch=master
 [travis-url]: https://travis-ci.org/neutrinojs/neutrino
+[netlify-image]: https://api.netlify.com/api/v1/badges/faef6419-2d67-488a-95a8-998e1ad3e40f/deploy-status
+[netlify-url]: https://app.netlify.com/sites/neutrinojs/deploys
