@@ -12149,7 +12149,7 @@ webpack-dev-middleware@^3.2.0:
     range-parser "^1.0.3"
     webpack-log "^2.0.0"
 
-webpack-dev-server@^3.1.10:
+webpack-dev-server@>=3.1.11:
   version "3.1.14"
   resolved "https://registry.yarnpkg.com/webpack-dev-server/-/webpack-dev-server-3.1.14.tgz#60fb229b997fc5a0a1fc6237421030180959d469"
   integrity sha512-mGXDgz5SlTxcF3hUpfC8hrQ11yhAttuUQWf1Wmb+6zo3x6rb7b9mIfuQvAPLdfDRCGRGvakBWHdHOa0I9p/EVQ==
