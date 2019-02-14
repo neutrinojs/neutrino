@@ -70,17 +70,7 @@ module.exports = (neutrino, options = {}) => {
           warnings: true
         }
       },
-      webpack: merge(
-        omit(neutrino.config.toConfig(), ['entry']),
-        // Work around `yarn test` hanging under webpack 4:
-        // https://github.com/webpack-contrib/karma-webpack/issues/322
-        {
-          optimization: {
-            splitChunks: false,
-            runtimeChunk: false
-          }
-        }
-      ),
+      webpack: omit(neutrino.config.toConfig(), ['entry']),
       reporters: ['mocha', 'coverage'],
       coverageReporter: {
         dir: '.coverage',
