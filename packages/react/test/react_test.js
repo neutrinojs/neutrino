@@ -69,7 +69,7 @@ test('updates lint config by default', t => {
     commonjs:true,
     es6: true
   });
-  t.deepEqual(options.baseConfig.plugins, ['babel', 'react']);
+  t.deepEqual(options.baseConfig.plugins, ['babel', 'react', 'react-hooks']);
   t.deepEqual(options.baseConfig.settings, {
     react: {
       version: '999.999.999'

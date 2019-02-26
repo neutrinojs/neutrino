@@ -54,7 +54,7 @@ module.exports = (neutrino, opts = {}) => {
         ? lintOptions
         : merge(lintOptions, {
             baseConfig: {
-              plugins: ['react'],
+              plugins: ['react', 'react-hooks'],
               settings: {
                 react: {
                   // https://github.com/yannickcr/eslint-plugin-react#configuration
