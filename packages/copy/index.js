@@ -4,7 +4,7 @@ module.exports = (neutrino, { pluginId = 'copy', patterns = [], options = {} } =
     .use(require.resolve('copy-webpack-plugin'), [
       patterns,
       {
-        debug: neutrino.options.debug,
+        logLevel: neutrino.options.debug ? 'debug' : 'warn',
         ...options
       }
     ]);

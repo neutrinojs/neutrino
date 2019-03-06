@@ -44,7 +44,7 @@ neutrino.use(copy);
 neutrino.use(copy, {
   patterns: [],
   options: {
-    debug: neutrino.options.debug
+    logLevel: neutrino.options.debug ? 'debug' : 'warn',
   },
   pluginId: 'copy'
 });
@@ -64,7 +64,7 @@ module.exports = {
     ['@neutrinojs/copy', {
       patterns: [],
       options: {
-        debug: neutrino.options.debug
+        logLevel: neutrino.options.debug ? 'debug' : 'warn',
       },
       pluginId: 'copy'
     }]
