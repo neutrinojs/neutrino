@@ -270,11 +270,8 @@ module.exports = {
         source: false
       },
 
-      // Remove the contents of the output directory prior to building.
-      // Set to false to disable cleaning this directory
-      clean: {
-        paths: [neutrino.options.output]
-      },
+      // Disable cleaning the output build directory
+      clean: false,
 
       // Example: change the page title
       html: {
@@ -480,7 +477,7 @@ _Note: Some plugins are only available in certain environments. To override them
 | `extract` | Extracts CSS from JS bundle into a separate stylesheet file. From `@neutrinojs/style-loader`. | `'production'` |
 | `html-{MAIN_NAME}` | Automatically generates HTML files for configured entry points. `{MAIN_NAME}` corresponds to the entry point of each page. By default, there is only a single `index` main, so this would generate a plugin named `html-index`. From `@neutrinojs/html-template` | all |
 | `hot` | Enables Hot Module Replacement. | `'development'` |
-| `clean` | Removes the `build` directory prior to building. From `@neutrinojs/clean`. | `'production'` |
+| `clean` | Clean or remove the `build` directory prior to building. From `@neutrinojs/clean`. | `'production'` |
 
 ### Override configuration
 

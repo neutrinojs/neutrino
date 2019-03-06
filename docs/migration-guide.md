@@ -301,6 +301,10 @@ dependent middleware [#951](https://github.com/neutrinojs/neutrino/pull/951).
 [#1220](https://github.com/neutrinojs/neutrino/pull/1220). See the documentation on
 [merging babel configuration](./packages/compile-loader.md#merging-babel-configuration)
 for how to use the [babel-merge](https://www.npmjs.com/package/babel-merge) package directly instead.
+- **BREAKING CHANGE** `@neutrinojs/clean` options are now a single object format and automatically cleans the output
+build directory and does not accept `root` or `paths` options. The `allowExternal` option has been changed to
+`dangerouslyAllowCleanPatternsOutsideProject`. See the other updated options for
+[clean-webpack-plugin](https://github.com/johnagan/clean-webpack-plugin).
 - **BREAKING CHANGE** Various dependencies have been updated which may bring their own breaking changes. Please
 check and test your project to ensure proper functionality.
 - **BREAKING CHANGE** `@neutrinojs/web` and its dependent middleware no longer accept a `manifest` option or include `webpack-manifest-plugin` automatically ([#1254](https://github.com/neutrinojs/neutrino/pull/1254)). Users may add it themselves like so:

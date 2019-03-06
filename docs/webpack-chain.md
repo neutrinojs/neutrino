@@ -103,7 +103,7 @@ module.exports = (neutrino) => {
   // Create named plugins too!
   neutrino.config
     .plugin('clean')
-      .use(CleanPlugin, [['dist'], { root: '/dir' }]);
+      .use(CleanPlugin);
 };
 ```
 
