@@ -39,7 +39,7 @@
     "command-exists": "^1.2.8",
     "deepmerge": "^1.5.2",
     "fs-extra": "^7.0.1",
-    "javascript-stringify": "^1.6.0",
+    "javascript-stringify": "^2.0.0",
     "yargs": "^12.0.5",
     "yeoman-environment": "^2.3.4",
     "yeoman-generator": "^3.1.1"
