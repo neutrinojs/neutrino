@@ -1,4 +1,5 @@
 const merge = require('deepmerge');
+const omit = require('lodash.omit');
 const { basename, isAbsolute, join, relative } = require('path');
 const { media, style } = require('neutrino/extensions');
 
@@ -19,7 +20,9 @@ module.exports = (neutrino, options = {}) => {
 
   neutrino.register('jest', (neutrino) => {
     const compileRule = neutrino.config.module.rules.get('compile');
-    const babelOptions = compileRule ? compileRule.use('babel').get('options') : {};
+    const babelOptions = compileRule
+      ? omit(compileRule.use('babel').get('options'), ['cacheDirectory'])
+      : {};
     // Any parts of the babel config that are not serializable will be omitted, however
     // that also occurs when passing to the custom transformer using `globals` instead.
     process.env.JEST_BABEL_OPTIONS = JSON.stringify(babelOptions);
