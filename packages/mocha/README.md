@@ -76,22 +76,24 @@ module.exports = {
 };
 ```
 
-Create a `mocha.config.js` file in the root of the project, that will be used by the Mocha CLI:
+Create a `.mocharc.js` file in the root of the project, that will be used by the Mocha CLI:
 
 ```js
-// mocha.config.js
+// .mocharc.js
+const neutrino = require('neutrino');
+
 process.env.NODE_ENV = process.env.NODE_ENV || 'test';
 
-require('neutrino')().mocha();
+module.exports = neutrino().mocha();
 ```
 
-Then add these scripts entries to your `package.json` to simplify running Jest:
+Then add these scripts entries to your `package.json` to simplify running Mocha:
 
 ```json
 {
   "scripts": {
-    "test": "mocha --require mocha.config.js --recursive",
-    "test:watch": "mocha --require mocha.config.js --recursive --watch"
+    "test": "mocha",
+    "test:watch": "mocha --watch"
   }
 }
 ```
@@ -142,9 +144,22 @@ Pass specific test filenames to the Mocha CLI to override this.
 
 ## Preset options
 
-Mocha's CLI does not allow providing an options file which can call out to Neutrino to load middleware.
-As such Mocha options must be specified separately in a [`mocha.opts`](https://mochajs.org/#mochaopts)
-file or else via [command line flags](https://mochajs.org/#usage).
+You can provide custom options and have them merged with this preset's default options, which are subsequently passed
+to Mocha. You can modify Mocha settings from `.neutrinorc.js` by overriding with any options Mocha accepts. In a standalone
+Mocha project this is done in the `.mocharc.js` file, but `@neutrinojs/mocha` allows configuration through
+this mechanism as well. This accepts the same configuration options as outlined in the
+[Mocha documentation](https://mochajs.org/). Use an array pair instead of a string
+to supply these options.
+
+_Example: Enable bailing on test failures._
+
+```js
+module.exports = {
+  use: [
+    ['@neutrinojs/mocha', { bail: true }]
+  ]
+};
+```
 
 ## Customizing
 
@@ -196,14 +211,17 @@ module.exports = {
 ```
 
 ## Webstorm Mocha Runner
-Webstorm has a mocha runner that enables running mocha tests within the IDE. The mocha runner also allows for debugging of mocha tests in Webstorm. Basic setup can be found at [Webstorm's Mocha Run/Debug documentation](https://www.jetbrains.com/help/webstorm/run-debug-configuration-mocha.html). _Note: since neutrino takes care of installing mocha, you do not need to install mocha separately._ Once you are familiar with the basics, the following steps will allow you to use Webstorm's mocha runner with neutrino.
+
+Webstorm has a mocha runner that enables running mocha tests within the IDE.
+The Mocha runner also allows for debugging of Mocha tests in Webstorm. Basic
+setup can be found at
+[Webstorm's Mocha Run/Debug documentation](https://www.jetbrains.com/help/webstorm/run-debug-configuration-mocha.html).
 
 - Create a mocha runner using [Webstorm's Mocha Run/Debug documentation](https://www.jetbrains.com/help/webstorm/run-debug-configuration-mocha.html). The defaults should be fine with the following exceptions:
-  - `Extra Mocha options:` `--require mocha.config.js`
-    - note: you may require a different file, but `mocha.config.js` is the default config file provided by Neutrino at project root.
-  - choose `File patterns` radio button
-  - `Test file patterns:` `./test/*_test.js`  (or whatever pattern you need for your tests)
-- Now you should be able to `run` your tests or add a breakpoint to your tests and `debug` your tests
+- choose `File patterns` radio button
+- `Test file patterns:` `./test/*_test.js`  (or whichever pattern you need for your tests)
+
+Now you should be able to `run` your tests or add a breakpoint to your tests and `debug` them.
 
 ## Contributing
 
