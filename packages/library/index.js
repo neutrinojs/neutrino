@@ -66,7 +66,6 @@ module.exports = (neutrino, opts = {}) => {
     .when(options.externals, config => config.externals([nodeExternals(options.externals)]))
     .when(hasSourceMap, () => neutrino.use(banner))
     .devtool('source-map')
-    .externals([nodeExternals()])
     .target(options.target)
     .context(neutrino.options.root)
     .output
