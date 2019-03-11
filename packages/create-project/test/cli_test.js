@@ -132,7 +132,7 @@ Object.keys(tests).forEach(projectName => {
       } else if (tester === packages.KARMA) {
         assert.file(join(dir, 'karma.conf.js'));
       } else if (tester === packages.MOCHA) {
-        assert.file(join(dir, 'mocha.config.js'));
+        assert.file(join(dir, '.mocharc.js'));
       }
 
       assert.file(join(dir, 'test/simple_test.js'));

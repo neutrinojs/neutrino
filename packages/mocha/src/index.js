@@ -2,8 +2,9 @@ const babelMerge = require('babel-merge');
 const merge = require('deepmerge');
 const omit = require('lodash.omit');
 
-module.exports = neutrino => {
+module.exports = (neutrino, opts = {}) => {
   const lintRule = neutrino.config.module.rules.get('lint');
+
   if (lintRule) {
     lintRule.use('eslint').tap(
       // Don't adjust the lint configuration for projects using their own .eslintrc.
@@ -20,23 +21,27 @@ module.exports = neutrino => {
   }
 
   neutrino.register('mocha', (neutrino) => {
+    const { extensions } = neutrino.options;
     const baseOptions = neutrino.config.module.rules.has('compile')
       ? neutrino.config.module.rule('compile').use('babel').get('options')
       : {};
-    const options = omit(
+    const babelOptions = omit(
       babelMerge(
         baseOptions,
         {
-          extensions: neutrino.options.extensions.map(ext => `.${ext}`),
-          plugins: [
-            require.resolve('@babel/plugin-transform-modules-commonjs')
-          ]
+          extensions: extensions.map(ext => `.${ext}`),
+          plugins: [require.resolve('@babel/plugin-transform-modules-commonjs')]
         }
       ),
       ['cacheDirectory']
     );
 
-    // eslint-disable-next-line global-require
-    require('@babel/register')(options);
+    process.env.MOCHA_BABEL_OPTIONS = JSON.stringify(babelOptions);
+
+    return merge({
+      require: require.resolve('./register'),
+      recursive: true,
+      extension: extensions
+    }, opts);
   });
 };

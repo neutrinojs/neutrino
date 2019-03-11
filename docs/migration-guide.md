@@ -81,7 +81,7 @@ commands [#852](https://github.com/neutrinojs/neutrino/pull/852):
     - `neutrino build` can typically be replaced with `webpack --mode production`.
     - `neutrino start` can typically be replaced with `webpack-dev-server --mode development --open`.
     - `neutrino test` can typically be replaced with the CLI of your test runner,
-    e.g. `jest`, `karma start --single-run`, or `mocha --require mocha.config.js --recursive`.
+    e.g. `jest`, `karma start --single-run`, or `mocha`.
     - `neutrino lint` can typically be replaced with `eslint --cache --format codeframe --ext mjs,jsx,js src`.
     - `neutrino --inspect` command still exists to get information about the configuration that Neutrino will use.
 - **BREAKING CHANGE** With the removal of the Neutrino CLI and its `--use` flag, the `.neutrinorc.js` file for
@@ -235,10 +235,6 @@ a compile preset [#939](https://github.com/neutrinojs/neutrino/pull/939), or if 
 - **BREAKING CHANGE** Most Neutrino middleware now throws if used twice with the same rule IDs. This is to
 prevent mis-configurations seen in the wild (such as using both `@neutrinojs/web` and one of the lower-level
 middleware it uses at the same time) [#1162](https://github.com/neutrinojs/neutrino/pull/1162).
-- **BREAKING CHANGE** The `@neutrinojs/mocha` preset no longer accepts middleware options as Mocha's CLI does not
-allow providing an options file which can call out to Neutrino to load middleware
-[#852](https://github.com/neutrinojs/neutrino/pull/852). Manually pass any Mocha options to a [`mocha.opts`](https://mochajs.org/#mochaopts)
-file or via the command line flags.
 - **BREAKING CHANGE** As Neutrino no longer supplies a CLI for executing project commands, the `--debug` flag no
 longer exists [#852](https://github.com/neutrinojs/neutrino/pull/852). You can still output debug information for
 middleware in your `.neutrinorc.js` with:

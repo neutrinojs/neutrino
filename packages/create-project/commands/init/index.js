@@ -125,7 +125,7 @@ module.exports = class Project extends Generator {
       } else if (testRunner.includes('karma')) {
         scripts.test = 'karma start --single-run';
       } else if (testRunner.includes('mocha')) {
-        scripts.test = 'mocha --require mocha.config.js --recursive';
+        scripts.test = 'mocha';
       }
 
       lintDirectories += ' test';
