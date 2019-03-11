@@ -23,7 +23,7 @@ module.exports = (neutrino, opts = {}) => {
     target: 'web',
     libraryTarget: 'umd',
     babel: {},
-    externals: opts.externals !== false && {}
+    externals: {}
   }, opts);
 
   Object.assign(options, {
@@ -60,7 +60,8 @@ module.exports = (neutrino, opts = {}) => {
   );
 
   neutrino.config
-    .when(options.externals, config => config.externals([nodeExternals(options.externals)]))
+    .when(options.externals !== false && process.env.NODE_ENV !== 'test', config =>
+      config.externals([nodeExternals(options.externals)]))
     .when(hasSourceMap, () => neutrino.use(banner))
     .devtool('source-map')
     .target(options.target)
