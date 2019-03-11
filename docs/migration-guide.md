@@ -178,6 +178,9 @@ to RHL v4 while installing it into your project also.
 - **BREAKING CHANGE** `@neutrinojs/web`, `@neutrinojs/node`, and their dependent presets no longer configure
 defaults for copying static files at build time [#814](https://github.com/neutrinojs/neutrino/pull/814).
 Use the `@neutrinojs/copy` middleware to configure this for v9.
+- **BREAKING CHANGE** `@neutrinojs/copy` has renamed its `debug` option to `logLevel` to be synonymous
+with the option provided by [copy-webpack-plugin](https://github.com/webpack-contrib/copy-webpack-plugin#loglevel).
+This option is now a string, not a boolean.
 - **BREAKING CHANGE** `@neutrinojs/web` and dependent presets now default `output.publicPath` to `'/'`,
 which means that apps not served from the root of a domain (such as those hosted on GitHub pages) will
 need to explicitly set their `publicPath` [#1185](https://github.com/neutrinojs/neutrino/pull/1185).
