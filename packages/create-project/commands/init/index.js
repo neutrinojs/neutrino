@@ -1,7 +1,7 @@
 const { ensureDirSync, pathExistsSync, readJsonSync, removeSync, writeJsonSync } = require('fs-extra');
 const { basename, join, relative } = require('path');
 const chalk = require('chalk');
-const stringify = require('javascript-stringify');
+const { stringify } = require('javascript-stringify');
 const merge = require('deepmerge');
 const Generator = require('yeoman-generator');
 const questions = require('./questions');
