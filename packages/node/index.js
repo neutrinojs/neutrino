@@ -36,9 +36,6 @@ module.exports = (neutrino, opts = {}) => {
     targets: {
       // Targets the version of Node.js used to run webpack.
       node: 'current'
-    },
-    clean: opts.clean !== false && {
-      paths: [neutrino.options.output]
     }
   }, opts);
 
@@ -115,6 +112,6 @@ module.exports = (neutrino, opts = {}) => {
         });
     })
     .when(process.env.NODE_ENV === 'production', (config) => {
-      config.when(options.clean, () => neutrino.use(clean, options.clean));
+      config.when(options.clean !== false, () => neutrino.use(clean, options.clean));
     });
 };

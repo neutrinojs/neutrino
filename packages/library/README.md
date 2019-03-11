@@ -241,11 +241,8 @@ module.exports = {
       // such as whitelisting dependencies for bundling.
       externals: {},
 
-      // Remove the contents of the output directory prior to building.
-      // Set to false to disable cleaning this directory
-      clean: {
-        paths: [neutrino.options.output]
-      },
+      // Disable cleaning the output build directory
+      clean: false,
 
       // Add additional Babel plugins, presets, or env options
       babel: {
@@ -477,7 +474,7 @@ _Note: Some plugins are only available in certain environments. To override them
 | Name | Description | NODE_ENV |
 | --- | --- | --- |
 | `banner` | Injects source-map-support into the main entry points of your application if detected in `dependencies` or `devDependencies` of your package.json. | Only when `source-map-support` is installed |
-| `clean` | Clears the contents of `build` prior to creating a production bundle. | `'production'` |
+| `clean` | Clean or remove the `build` directory prior to building. From `@neutrinojs/clean`. | `'production'` |
 
 ### Override configuration
 

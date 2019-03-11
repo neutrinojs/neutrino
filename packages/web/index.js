@@ -38,9 +38,6 @@ module.exports = (neutrino, opts = {}) => {
       hot: opts.hot !== false
     },
     style: {},
-    clean: opts.clean !== false && {
-      paths: [neutrino.options.output]
-    },
     minify: {
       source: isProduction
     },
@@ -241,7 +238,7 @@ module.exports = (neutrino, opts = {}) => {
       });
     })
     .when(isProduction, (config) => {
-      config.when(options.clean, () => neutrino.use(clean, options.clean));
+      config.when(options.clean !== false, () => neutrino.use(clean, options.clean));
     });
 
   const lintRule = neutrino.config.module.rules.get('lint');

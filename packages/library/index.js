@@ -23,10 +23,7 @@ module.exports = (neutrino, opts = {}) => {
     target: 'web',
     libraryTarget: 'umd',
     babel: {},
-    externals: opts.externals !== false && {},
-    clean: opts.clean !== false && {
-      paths: [neutrino.options.output]
-    }
+    externals: opts.externals !== false && {}
   }, opts);
 
   Object.assign(options, {
@@ -106,7 +103,7 @@ module.exports = (neutrino, opts = {}) => {
       modules: false
     })
     .when(process.env.NODE_ENV === 'production', (config) => {
-      config.when(options.clean, () => neutrino.use(clean, options.clean));
+      config.when(options.clean !== false, () => neutrino.use(clean, options.clean));
     });
 
   const lintRule = neutrino.config.module.rules.get('lint');

@@ -1,9 +1,12 @@
 # Neutrino Clean Middleware
 
-`@neutrinojs/clean` is Neutrino middleware for removing directories before building.
+`@neutrinojs/clean` is Neutrino middleware for removing or cleaning build directories.
 
 [![NPM version][npm-image]][npm-url]
 [![NPM downloads][npm-downloads]][npm-url]
+
+By default, this plugin will remove all files inside webpack's `output.path` directory,
+as well as all unused webpack assets after every successful rebuild.
 
 ## Requirements
 
@@ -42,8 +45,6 @@ neutrino.use(clean);
 
 // Usage shows the default values of this middleware:
 neutrino.use(clean, {
-  paths: [],
-  root: neutrino.options.root,
   verbose: neutrino.options.debug,
   // Override pluginId to add an additional clean plugin instance
   pluginId: 'clean'
@@ -62,8 +63,6 @@ module.exports = {
 module.exports = {
   use: [
     ['@neutrinojs/clean', {
-      paths: [],
-      root: neutrino.options.root,
       verbose: neutrino.options.debug,
       // Override pluginId to add an additional banner plugin instance
       pluginId: 'clean'
@@ -72,15 +71,20 @@ module.exports = {
 };
 ```
 
+Additional options can be specified to control the behavior of the underlying
+`clean-webpack-plugin`. See
+[`CleanWebpackPlugin`'s documentation](https://github.com/johnagan/clean-webpack-plugin)
+for available options.
+
 ## Clean external directories
 
-Pass the `allowExternal: true` option to remove the directories outside of the project root. This is disabled by default to prevent deletion of unintended directories.
+Pass the `dangerouslyAllowCleanPatternsOutsideProject: true` option to remove directories outside of the project root. This is disabled by default to prevent deletion of unintended directories.
 
 ```js
 module.exports = {
   use: [
     ['@neutrinojs/clean', {
-      allowExternal: true,
+      dangerouslyAllowCleanPatternsOutsideProject: true,
     }]
   ]
 };
