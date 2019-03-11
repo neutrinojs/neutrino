@@ -76,7 +76,13 @@ test('exposes webpack config from method', t => {
 });
 
 test('exposes inspect output handler', t => {
-  t.notThrows(() =>
-    neutrino(Function.prototype).output('inspect')
-  );
+  t.notThrows(() => {
+    // Overriding console.log to prevent the inspect() method from logging to
+    // the console during tests, interfering with the ava output.
+    const original = console.log;
+
+    console.log = Function.prototype;
+    neutrino(Function.prototype).output('inspect');
+    console.log = original.bind(console);
+  });
 });
