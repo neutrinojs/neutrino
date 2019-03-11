@@ -20,7 +20,6 @@
     "docs:serve": "mkdocs serve",
     "link:all": "lerna exec yarn link",
     "lint": "eslint --no-eslintrc --c ./.eslintrc.js --cache --report-unused-disable-directives --format codeframe --ext js,jsx \".*.js\" packages",
-    "precommit": "lint-staged",
     "release": "lerna publish",
     "release:preview": "lerna publish --skip-git --skip-npm",
     "test": "ava --fail-fast packages/*/test \"!packages/create-project/test\"",
@@ -52,10 +51,5 @@
     "webpack": "^4.26.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10"
-  },
-  "lint-staged": {
-    "*.js": [
-      "yarn lint"
-    ]
   }
 }
