@@ -89,6 +89,18 @@ test('valid preset development', t => {
   t.is(errors.length, 0);
 });
 
+test('removes webpack externals when NODE_ENV=test', t => {
+  process.env.NODE_ENV = 'test';
+
+  const api = new Neutrino();
+
+  api.use(mw(), { name: 'alpha' });
+
+  const config = api.config.toConfig();
+
+  t.is(config.externals, undefined);
+});
+
 test('valid preset Node.js target', t => {
   const api = new Neutrino();
   api.use(mw(), { name: 'alpha', target: 'node' });
