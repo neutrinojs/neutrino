@@ -17,6 +17,12 @@
 - Automatically marks dependencies as external
 - Easily extensible to customize your library as needed
 
+**Important! This preset does not include 
+@babel/polyfill for size reasons. If you need
+polyfills in your library code, consider 
+importing @babel/polyfill, core-js, or other 
+alternative.**
+
 ## Requirements
 
 - Node.js ^8.10 or 10+

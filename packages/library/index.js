@@ -36,9 +36,7 @@ module.exports = (opts = {}) => {
           [require.resolve('@babel/preset-env'), {
             debug: neutrino.options.debug,
             useBuiltIns: 'entry',
-            targets: options.target === 'node' ?
-              { node: '8.10' } :
-              { browsers: 'ie 9' }
+            forceAllTransforms: true
           }]
         ]
       }, options.babel)
