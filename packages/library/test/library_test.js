@@ -94,7 +94,7 @@ test('removes webpack externals when NODE_ENV=test', t => {
 
   const api = new Neutrino();
 
-  api.use(mw(), { name: 'alpha' });
+  api.use(mw({ name: 'alpha' }));
 
   const config = api.config.toConfig();
 
