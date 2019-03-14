@@ -12,10 +12,12 @@ output of migrate:
 ```bash
 ❯ npx @neutrinojs/migrate --help
 
-migrate [command]
+migrate [files..]
 
-Commands:
-  migrate [...tasks]  Perform migration tasks: rc
+Migrate Neutrino middleware to the latest version via codemods
+
+Positionals:
+  files  files to migrate  [default: [".neutrinorc.js"]]
 
 Options:
   --version     Show version number  [boolean]
@@ -25,14 +27,23 @@ Options:
   --help        Show help  [boolean]
 ```
 
-## neutrinorc migration
+## Middleware migration
 
-Currently the only available migration task is `rc`, which converts legacy
-string and array-based middleware usage in `.neutrinorc.js` files to function
-calls:
+To convert legacy string and array-based middleware usage in Neutrino middleware
+files to function calls:
 
 ```bash
-❯ npx @neutrinojs/migrate rc
+❯ npx @neutrinojs/migrate
+```
+
+This will make transformations in `.neutrinorc.js` by default. You
+can manually specify middleware files to transform by passing
+them as arguments on the command line:
+
+```bash
+❯ npx @neutrinojs/migrate .neutrinorc.js
+❯ npx @neutrinojs/migrate index.js
+❯ npx @neutrinojs/migrate src/index.js src/other.js .neutrinorc.js
 ```
 
 This will make the following transformations:

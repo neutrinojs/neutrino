@@ -5,7 +5,7 @@ import { join, resolve } from 'path';
 
 const jscodeshift = join(execSync('yarn bin').toString().trim(), 'jscodeshift');
 const fixture = join(__dirname, 'fixtures/.neutrinorc.js');
-const transform = resolve(__dirname, '../transforms/rc.js');
+const transform = resolve(__dirname, '../transforms/middleware.js');
 const snapshot = readFileSync(join(__dirname, 'fixtures/.neutrinorc.js.txt'))
   .toString()
   .trim();
