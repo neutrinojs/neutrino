@@ -115,4 +115,5 @@ module.exports = (opts = {}) => {
       .when(process.env.NODE_ENV === 'production', (config) => {
         config.when(options.clean !== false, () => neutrino.use(clean(options.clean)));
       });
+    };
 };

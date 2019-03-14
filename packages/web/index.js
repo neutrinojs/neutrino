@@ -81,7 +81,7 @@ module.exports = (opts = {}) => (neutrino) => {
   if ('manifest' in options) {
     throw new ConfigurationError(
       'The manifest option has been removed. See the v8 to v9 migration guide ' +
-      'for how to genearate a manifest manually.'
+      'for how to generate a manifest manually.'
     );
   }
 
