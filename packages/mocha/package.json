@@ -20,8 +20,8 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@babel/core": "^7.1.6",
-    "@babel/plugin-transform-modules-commonjs": "^7.1.0",
+    "@babel/core": "^7.3.4",
+    "@babel/plugin-transform-modules-commonjs": "^7.2.0",
     "@babel/register": "^7.0.0",
     "babel-merge": "^2.0.1",
     "deepmerge": "^1.5.2",

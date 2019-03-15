@@ -23,9 +23,9 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@babel/core": "^7.1.6",
-    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
-    "@babel/preset-env": "^7.1.6",
+    "@babel/core": "^7.3.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-env": "^7.3.4",
     "@neutrinojs/clean": "9.0.0-0",
     "@neutrinojs/compile-loader": "9.0.0-0",
     "@neutrinojs/dev-server": "9.0.0-0",

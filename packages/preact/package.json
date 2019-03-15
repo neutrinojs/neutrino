@@ -24,16 +24,16 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@babel/core": "^7.1.6",
-    "@babel/plugin-proposal-class-properties": "^7.1.0",
-    "@babel/plugin-transform-react-jsx": "^7.1.6",
+    "@babel/core": "^7.3.4",
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/plugin-transform-react-jsx": "^7.3.0",
     "@neutrinojs/web": "9.0.0-0",
     "babel-merge": "^2.0.1",
     "deepmerge": "^1.5.2",
-    "eslint-plugin-react": "^7.11.1"
+    "eslint-plugin-react": "^7.12.4"
   },
   "devDependencies": {
-    "preact": "^8.3.1"
+    "preact": "^8.4.2"
   },
   "peerDependencies": {
     "neutrino": "^9.0.0-0",
