@@ -1,14 +1,25 @@
 {
-  "lerna": "2.4.0",
-  "version": "9.0.0-0",
+  "version": "9.0.0-rc.0",
   "npmClient": "yarn",
   "registry": "https://registry.npmjs.org/",
   "useWorkspaces": true,
   "command": {
-    "publish": {
-      "exact": "true",
+    "version": {
+      "exact": true,
       "forcePublish": "*",
-      "gitRemote": "upstream"
+      "gitRemote": "upstream",
+      "gitTagVersion": false,
+      "push": false
+    },
+    "publish": {
+      "exact": true,
+      "forcePublish": "*",
+      "gitRemote": "upstream",
+      "gitTagVersion": false,
+      "push": false
     }
-  }
+  },
+  "packages": [
+    "packages/*"
+  ]
 }

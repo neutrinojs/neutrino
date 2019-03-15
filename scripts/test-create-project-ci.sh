@@ -15,11 +15,7 @@ while ! nc -zw 1 localhost 4873; do sleep 1; done
 # The version will be bumped to the next pre-release suffix (`-0`) and the
 # package.json changes left in the working directory so that create-project
 # can read the correct version for installing matching monorepo packages.
-yarn release \
-  --registry http://localhost:4873/ \
-  --yes \
-  --skip-git \
-  --cd-version prerelease
+yarn release:ci
 
 # Run the integration tests, which will install packages
 # from the verdaccio registry
