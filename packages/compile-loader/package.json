@@ -23,8 +23,8 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@babel/core": "^7.1.6",
-    "babel-loader": "^8.0.4"
+    "@babel/core": "^7.3.4",
+    "babel-loader": "^8.0.5"
   },
   "peerDependencies": {
     "neutrino": "^9.0.0-0",
