@@ -2,6 +2,7 @@ const yargsParser = require('yargs-parser');
 const { join } = require('path');
 const Neutrino = require('./Neutrino');
 const { webpack, inspect } = require('./handlers');
+const { ConfigurationError } = require('./errors');
 
 const extractMiddlewareAndOptions = (format) =>
   typeof format === 'function'
@@ -12,7 +13,15 @@ module.exports = (
   // eslint-disable-next-line global-require, import/no-dynamic-require
   middleware = require(join(process.cwd(), '.neutrinorc.js'))
 ) => {
-  const { use, options } = extractMiddlewareAndOptions(middleware);
+  const { use, options, env } = extractMiddlewareAndOptions(middleware);
+
+  if (env) {
+    throw new ConfigurationError(
+      'Specifying "env" in middleware has been removed.' +
+      'Apply middleware conditionally instead.'
+    );
+  }
+
   const neutrino = new Neutrino(options);
   let { mode } = yargsParser(process.argv.slice(2));
 

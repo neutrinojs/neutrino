@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import test from 'ava';
 import { join } from 'path';
 import Neutrino from '../Neutrino';
@@ -160,9 +159,11 @@ test('middleware fails on more than one argument', t => {
   const api = new Neutrino();
   const errorMatch = /middleware only accepts a single argument/;
 
+  /* eslint-disable no-unused-vars */
   t.notThrows(() => api.use(function good() {}));
   t.notThrows(() => api.use(function good(neutrino) {}));
   t.throws(() => api.use(function bad(neutrino, options) {}), errorMatch);
+  /* eslint-enable no-unused-vars */
 });
 
 test('middleware only accepts functions', t => {

@@ -55,6 +55,13 @@ test('throws when trying to use a non-registered proxied method', t => {
   );
 });
 
+test('throws when trying to specify "env"', t => {
+  t.throws(
+    () => neutrino({ env: {} }),
+    /Specifying "env" in middleware has been removed/
+  );
+});
+
 test('exposes webpack output handler', t => {
   t.notThrows(() =>
     neutrino(Function.prototype).output('webpack')

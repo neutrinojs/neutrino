@@ -194,10 +194,7 @@ module.exports = class Neutrino {
       );
     } else {
       throw new ConfigurationError(
-        'As of Neutrino 9, middleware can only be passed as functions.\n' +
-          'Use the migration tool and see the migration guide for details:\n' +
-          '  https://neutrinojs.org/migrate\n' +
-          '  https://neutrinojs.org/migration-guide'
+        'As of Neutrino 9, middleware can only be passed as functions.'
       );
     }
   }
