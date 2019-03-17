@@ -159,3 +159,34 @@ the latest changes from the master branch.
 ❯ git remote add upstream https://github.com/neutrinojs/neutrino.git
 ❯ git pull upstream master
 ```
+
+## Releasing a new version
+
+1. Decide whether the new version should be a major/minor/patch/prerelease version bump.
+2. From the root of the Neutrino repository, run:
+
+    `git fetch upstream --quiet && git checkout -b version-bump upstream/master`
+
+3. Then run `yarn release:prepare` and pick the desired new version.
+4. Check the changes in the working directory and adjust if necessary.
+
+    If bumping to a new major version, or incrementing the pre-release version,
+    you will want to manually increase the presets' version of `neutrino` in
+    `peerDependencies`. For example by running:
+
+    `sed -i 's/"neutrino": "^9.0.0-0"/"neutrino": "^9.0.0-rc.0"/g' packages/*/package.json`
+
+5. Commit the changes using: `git commit -a -m 'vN.N.N'`
+
+    If the release warrants having a longer description included in the changelog,
+    one can be provided by additionally passing `-e` to provide a multi-line commit
+    message that  `auto-changelog` will automatically add to `CHANGELOG.md`.
+
+6. Open a Pull Request and request review.
+7. Once the Pull request is merged, check out `master` at that revision.
+
+    (It's important to not publish from the PR's branch, since with squash and
+    merge the resultant package revision SHA will be different.)
+
+8. Git tag and push the new tag: `git tag vN.N.N && git push upstream vN.N.N`
+9. Publish to NPM: `yarn release:publish` (or for a pre-release, `yarn release:publish-next`)
