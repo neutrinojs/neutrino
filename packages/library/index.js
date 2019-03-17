@@ -35,8 +35,7 @@ module.exports = (opts = {}) => {
         presets: [
           [require.resolve('@babel/preset-env'), {
             debug: neutrino.options.debug,
-            useBuiltIns: 'entry',
-            forceAllTransforms: true
+            useBuiltIns: 'entry'
           }]
         ]
       }, options.babel)
