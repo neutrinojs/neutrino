@@ -38,12 +38,6 @@ module.exports = class Neutrino {
       );
     }
 
-    if ('env' in options) {
-      throw new ConfigurationError(
-        'options.env has been removed. Apply middleware conditionally instead.'
-      );
-    }
-
     if (!options.mains) {
       Object.assign(options, {
         mains: {

@@ -69,18 +69,6 @@ test('throws when legacy options.node_modules is set', t => {
   t.throws(() => new Neutrino({ node_modules: 'abc' }), /options\.node_modules has been removed/);
 });
 
-test('throws when legacy options.env is set', t => {
-  t.throws(() => new Neutrino({
-    env: {
-      NODE_ENV: {
-        production: neutrino => {
-          neutrino.config.devtool('alpha');
-        }
-      }
-    }
-  }), /options\.env has been removed/);
-});
-
 test('options.mains', t => {
   const api = new Neutrino();
 
