@@ -34,33 +34,32 @@
 and plug it into Neutrino:
 
 ```js
-// Using function middleware format
-
 const compileLoader = require('@neutrinojs/compile-loader');
 
-neutrino.use(compileLoader, {
+neutrino.use(compileLoader({
   test: neutrino.regexFromExtensions(),
   include: [],
   exclude: [],
   babel: {},
   ruleId: 'compile',
   useId: 'babel'
-});
+}));
 ```
 
 ```js
-// Using object or array middleware format
+// Using in .neutrinorc.js
+const compileLoader = require('@neutrinojs/compile-loader');
 
 module.exports = {
   use: [
-    ['@neutrinojs/compile-loader', {
+    compileLoader({
       test: neutrino.regexFromExtensions(),
       include: [],
       exclude: [],
       babel: {},
       ruleId: 'compile',
       useId: 'babel'
-    }]
+    })
   ]
 };
 ```
@@ -80,7 +79,7 @@ To correctly merge Babel configurations use the
 [babel-merge](https://www.npmjs.com/package/babel-merge) package.
 
 ```js
-const babelMerge } = require('babel-merge');
+const babelMerge = require('babel-merge');
 
 const together = babelMerge(
   {
@@ -158,11 +157,12 @@ _Example: compile `node_modules` after including React preset._
 
 ```js
 // .neutrinorc.js
+const react = require('@neutrinojs/react');
 const { join } = require('path');
 
 module.exports = {
   use: [
-    '@neutrinojs/react',
+    react(),
     (neutrino) => {
       neutrino.config.module
         .rule('compile')

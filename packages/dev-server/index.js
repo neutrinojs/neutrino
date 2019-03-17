@@ -1,4 +1,4 @@
-module.exports = (neutrino, options = {}) => {
+module.exports = (options = {}) => (neutrino) => {
   neutrino.config.devServer.merge({
     port: 5000,
     hot: true,

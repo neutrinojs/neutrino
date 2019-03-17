@@ -136,11 +136,13 @@ Now edit your project's `package.json` to add commands for building the library:
 Then create a `.neutrinorc.js` file alongside `package.json`, which contains your Neutrino configuration:
 
 ```js
+const library = require('@neutrinojs/library');
+
 module.exports = {
   use: [
-    ['@neutrinojs/library', {
+    library({
       name: 'Logger'
-    }]
+    })
   ]
 };
 ```
@@ -213,16 +215,16 @@ require(['super-logger'], (Logger) => {
 ## Preset options
 
 You can provide custom options and have them merged with this preset's default options to easily affect how this
-preset builds. You can modify Library preset settings from `.neutrinorc.js` by overriding with an options object. Use
-an array pair instead of a string to supply these options in `.neutrinorc.js`.
-
+preset builds. You can modify Library preset settings from `.neutrinorc.js` by overriding with an options object.
 The following shows how you can pass an options object to the Library preset and override its options, showing the
 defaults where applicable:
 
 ```js
+const library = require('@neutrinojs/library');
+
 module.exports = {
   use: [
-    ['@neutrinojs/library', {
+    library({
       // REQUIRED. Sets the name of the library, along with its
       // output filename.
       name: '<YOUR_LIBRARY_NAME>',
@@ -255,7 +257,7 @@ module.exports = {
           }]
         ]
       }
-    }]
+    })
   ]
 };
 ```
@@ -263,9 +265,11 @@ module.exports = {
 _Example: Override the library Babel compilation target to Node.js v6 and commonjs2 module:_
 
 ```js
+const library = require('@neutrinojs/library');
+
 module.exports = {
   use: [
-    ['@neutrinojs/library', {
+    library({
       name: 'Logger',
       target: 'node',
       libraryTarget: 'commonjs2',
@@ -280,7 +284,7 @@ module.exports = {
           }]
         ]
       }
-    }]
+    })
   ]
 };
 ```
@@ -340,14 +344,16 @@ of `redux-example`._
 ```
 
 ```js
+const library = require('@neutrinojs/library');
+
 module.exports = {
   use: [
-    ['@neutrinojs/library', {
+    library({
       name: 'reduxExample',
       externals: {
         whitelist: ['mitt']
       }
-    }]
+    })
   ]
 };
 ```
@@ -398,9 +404,11 @@ override `optimization.minimizer`.
 _Example: Adjust the `terser` minification settings:_
 
 ```js
+const library = require('@neutrinojs/library');
+
 module.exports = {
   use: [
-    '@neutrinojs/library',
+    library({ name: 'reduxExample' }),
     (neutrino) => {
       // Whilst the minimizer is only used when the separate `minimize` option is true
       // (ie in production), the conditional avoids the expensive require() in development.
@@ -435,12 +443,14 @@ an array of Neutrino outputs rather than a single output.
 
 ```js
 // .neutrinorc.js
+const library = require('@neutrinojs/library');
+
 module.exports = {
   use: [
-    ['@neutrinojs/library', {
+    library({
       name: 'Logger',
       clean: false
-    }]
+    })
   ]
 };
 ```
@@ -485,11 +495,13 @@ make these changes from the Neutrino API in custom middleware.
 _Example: Allow importing modules with a `.esm` extension._
 
 ```js
+const library = require('@neutrinojs/library');
+
 module.exports = {
   use: [
-    ['@neutrinojs/library', { /* ... */ }],
+    library({ /* ... */ }),
     (neutrino) => {
-      neutrino.config.resolve.extensions.add('.esm')
+      neutrino.config.resolve.extensions.add('.esm');
     }
   ]
 };

@@ -6,7 +6,7 @@ const merge = require('deepmerge');
 const nodeExternals = require('webpack-node-externals');
 const { ConfigurationError } = require('neutrino/errors');
 
-module.exports = (neutrino, opts = {}) => {
+module.exports = (opts = {}) => {
   if (!opts.name) {
     throw new ConfigurationError(
       'Missing required preset option "name". You must specify a library name when using this preset.'
@@ -19,108 +19,110 @@ module.exports = (neutrino, opts = {}) => {
     );
   }
 
-  const options = merge({
-    target: 'web',
-    libraryTarget: 'umd',
-    babel: {},
-    externals: {}
-  }, opts);
+  return (neutrino) => {
+    const options = merge({
+      target: 'web',
+      libraryTarget: 'umd',
+      babel: {},
+      externals: {}
+    }, opts);
 
-  Object.assign(options, {
-    babel: babelMerge({
-      plugins: [
-        require.resolve('@babel/plugin-syntax-dynamic-import')
-      ],
-      presets: [
-        [require.resolve('@babel/preset-env'), {
-          debug: neutrino.options.debug,
-          useBuiltIns: 'entry',
-          targets: options.target === 'node' ?
-            { node: '8.10' } :
-            { browsers: 'ie 9' }
-        }]
-      ]
-    }, options.babel)
-  });
-
-  const pkg = neutrino.options.packageJson;
-  const hasSourceMap = (pkg.dependencies && 'source-map-support' in pkg.dependencies) ||
-    (pkg.devDependencies && 'source-map-support' in pkg.devDependencies);
-
-  neutrino.use(compileLoader, {
-    include: [
-      neutrino.options.source,
-      neutrino.options.tests
-    ],
-    babel: options.babel
-  });
-
-  Object.entries(neutrino.options.mains).forEach(([name, config]) =>
-    neutrino.config.entry(name).add(config.entry)
-  );
-
-  neutrino.config
-    .when(options.externals !== false && process.env.NODE_ENV !== 'test', config =>
-      config.externals([nodeExternals(options.externals)]))
-    .when(hasSourceMap, () => neutrino.use(banner))
-    .devtool('source-map')
-    .target(options.target)
-    .context(neutrino.options.root)
-    .output
-      .path(neutrino.options.output)
-      .library(options.name)
-      .libraryTarget(options.libraryTarget)
-      .when(options.libraryTarget === 'umd', (output) => output.umdNamedDefine(true))
-      .end()
-    .resolve
-      .extensions
-        // Based on the webpack defaults:
-        // https://webpack.js.org/configuration/resolve/#resolve-extensions
-        // Keep in sync with the options in the node and web presets.
-        .merge([
-          '.wasm',
-          ...neutrino.options.extensions.map(ext => `.${ext}`),
-          '.json'
-        ])
-        .end()
-      .end()
-    .node
-      .when(options.target === 'web', (node) => {
-        node
-          .set('Buffer', false)
-          .set('fs', 'empty')
-          .set('tls', 'empty');
-      })
-      .when(options.target === 'node', (node) => {
-        node
-          .set('__filename', false)
-          .set('__dirname', false);
-      })
-      .end()
-    // The default output is too noisy, particularly with multiple entrypoints.
-    .stats({
-      children: false,
-      entrypoints: false,
-      modules: false
-    })
-    .when(process.env.NODE_ENV === 'production', (config) => {
-      config.when(options.clean !== false, () => neutrino.use(clean, options.clean));
+    Object.assign(options, {
+      babel: babelMerge({
+        plugins: [
+          require.resolve('@babel/plugin-syntax-dynamic-import')
+        ],
+        presets: [
+          [require.resolve('@babel/preset-env'), {
+            debug: neutrino.options.debug,
+            useBuiltIns: 'entry',
+            targets: options.target === 'node' ?
+              { node: '8.10' } :
+              { browsers: 'ie 9' }
+          }]
+        ]
+      }, options.babel)
     });
 
-  const lintRule = neutrino.config.module.rules.get('lint');
-  if (lintRule) {
-    lintRule.use('eslint').tap(
-      // Don't adjust the lint configuration for projects using their own .eslintrc.
-      lintOptions => lintOptions.useEslintrc
-        ? lintOptions
-        : merge(lintOptions, {
-            baseConfig: {
-              env: {
-                ...(options.target === 'web' && { browser: true }),
-                commonjs: true
-              }
-            }
-          })
+    const pkg = neutrino.options.packageJson;
+    const hasSourceMap = (pkg.dependencies && 'source-map-support' in pkg.dependencies) ||
+      (pkg.devDependencies && 'source-map-support' in pkg.devDependencies);
+
+    neutrino.use(compileLoader({
+      include: [
+        neutrino.options.source,
+        neutrino.options.tests
+      ],
+      babel: options.babel
+    }));
+
+    Object.entries(neutrino.options.mains).forEach(([name, config]) =>
+      neutrino.config.entry(name).add(config.entry)
     );
-  }
+
+    neutrino.config
+      .when(options.externals !== false && process.env.NODE_ENV !== 'test', config =>
+        config.externals([nodeExternals(options.externals)]))
+      .when(hasSourceMap, () => neutrino.use(banner()))
+      .devtool('source-map')
+      .target(options.target)
+      .context(neutrino.options.root)
+      .output
+        .path(neutrino.options.output)
+        .library(options.name)
+        .libraryTarget(options.libraryTarget)
+        .when(options.libraryTarget === 'umd', (output) => output.umdNamedDefine(true))
+        .end()
+      .resolve
+        .extensions
+          // Based on the webpack defaults:
+          // https://webpack.js.org/configuration/resolve/#resolve-extensions
+          // Keep in sync with the options in the node and web presets.
+          .merge([
+            '.wasm',
+            ...neutrino.options.extensions.map(ext => `.${ext}`),
+            '.json'
+          ])
+          .end()
+        .end()
+      .node
+        .when(options.target === 'web', (node) => {
+          node
+            .set('Buffer', false)
+            .set('fs', 'empty')
+            .set('tls', 'empty');
+        })
+        .when(options.target === 'node', (node) => {
+          node
+            .set('__filename', false)
+            .set('__dirname', false);
+        })
+        .end()
+      // The default output is too noisy, particularly with multiple entrypoints.
+      .stats({
+        children: false,
+        entrypoints: false,
+        modules: false
+      })
+      .when(process.env.NODE_ENV === 'production', (config) => {
+        config.when(options.clean !== false, () => neutrino.use(clean(options.clean)));
+      });
+
+    const lintRule = neutrino.config.module.rules.get('lint');
+    if (lintRule) {
+      lintRule.use('eslint').tap(
+        // Don't adjust the lint configuration for projects using their own .eslintrc.
+        lintOptions => lintOptions.useEslintrc
+          ? lintOptions
+          : merge(lintOptions, {
+              baseConfig: {
+                env: {
+                  ...(options.target === 'web' && { browser: true }),
+                  commonjs: true
+                }
+              }
+            })
+      );
+    }
+  };
 };

@@ -1,9 +1,11 @@
+const airbnb = require('./packages/airbnb');
+
 module.exports = {
   options: {
     root: __dirname
   },
   use: [
-    ['./packages/airbnb', {
+    airbnb({
       // See the package.json `lint` script for which files are linted.
       // Excludes are managed via `.eslintignore`.
       eslint: {
@@ -60,6 +62,6 @@ module.exports = {
           ]
         }
       }
-    }]
+    })
   ]
 };

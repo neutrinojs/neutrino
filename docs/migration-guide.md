@@ -15,6 +15,36 @@ native tools and utilities for which they were originally created. The biggest b
 is the necessity to use external tools *alongside* Neutrino now, i.e. webpack, ESLint, Jest, Karma,
 and others' native CLIs will be used in tandem with Neutrino.
 
+Additionally, the Neutrino API no longer accepts any middleware format other than functions.
+The `.neutrinorc.js` file is an exception, which still supports an object-based definition
+for setting Neutrino options. There is now a new package to assist in migration changes to core
+Neutrino middleware which are now middleware factories, since packages can no longer be required
+for you:
+
+```bash
+npx @neutrinojs/migrate
+```
+
+```js
+// Before:
+module.exports = {
+  use: [
+    '@neutrinojs/react'
+  ]
+};
+
+// After:
+const react = require('@neutrinojs/react');
+
+module.exports = {
+  use: [
+    react()
+  ]
+};
+```
+
+See the [migration tool documentation](./migrate.md) for more details.
+
 To debug any difficulties in the upgrade process, you can run your respective Neutrino v8 command
 with `--inspect-new` and compare it with the output of Neutrino v9's `--inspect` flag. For example,
 to compare the difference between a v8 and v9 build, you can run respectively:
@@ -78,17 +108,34 @@ module.exports = neutrino().eslintrc();
 
 - **BREAKING CHANGE** With the necessity of external CLIs means the removal of most of the Neutrino CLI's
 commands [#852](https://github.com/neutrinojs/neutrino/pull/852):
-    - `neutrino build` can typically be replaced with `webpack --mode production`.
-    - `neutrino start` can typically be replaced with `webpack-dev-server --mode development --open`.
-    - `neutrino test` can typically be replaced with the CLI of your test runner,
-    e.g. `jest`, `karma start --single-run`, or `mocha`.
-    - `neutrino lint` can typically be replaced with `eslint --cache --format codeframe --ext mjs,jsx,js src`.
-    - `neutrino --inspect` command still exists to get information about the configuration that Neutrino will use.
+  - `neutrino build` can typically be replaced with `webpack --mode production`.
+  - `neutrino start` can typically be replaced with `webpack-dev-server --mode development --open`.
+  - `neutrino test` can typically be replaced with the CLI of your test runner,
+  e.g. `jest`, `karma start --single-run`, or `mocha`.
+  - `neutrino lint` can typically be replaced with `eslint --cache --format codeframe --ext mjs,jsx,js src`.
+  - `neutrino --inspect` command still exists to get information about the configuration that Neutrino will use.
 - **BREAKING CHANGE** With the removal of the Neutrino CLI and its `--use` flag, the `.neutrinorc.js` file for
 setting middleware is now mandatory within a project.
 - **BREAKING CHANGE** With the removal of the Neutrino CLI, many of the Neutrino API methods and functionality
 were no longer needed. This includes removal of `neutrino.options.command.` See the updated Neutrino API docs
 for updated information.
+- **BREAKING CHANGE** The Neutrino API's `use` method now only supports functions as middleware.
+- **BREAKING CHANGE** Since the Neutrino API now only recognizes functions as middleware, all core middleware
+packages export a factory function for accepting their options. This also means that middleware must be
+manually required and passed to Neutrino as it can no longer be required for you:
+
+```js
+// .neutrinorc.js
+const react = require('@neutrinojs/react');
+
+module.exports = {
+  use: [
+    react(), // default options
+    react(options) // custom options
+  ]
+}
+```
+
 - **BREAKING CHANGE** The `@neutrinojs/fork` middleware has been removed
 [#852](https://github.com/neutrinojs/neutrino/pull/852). Either call webpack with separate configuration files
 calling out to Neutrino, or export multiple configurations from your `webpack.config.js` file:
@@ -127,12 +174,15 @@ overrides using environment variable values [#852](https://github.com/neutrinojs
 
 ```js
 // .neutrinorc.js
+const react = require('@neutrinojs/react');
+const example = require('neutrino-preset-example');
+
 module.exports = {
   use: [
-    '@neutrinojs/react',
+    react(),
     (neutrino) => {
       if (process.env.NODE_ENV === 'test') {
-        neutrino.use('neutrino-preset-example');
+        neutrino.use(example);
       }
     }
   ]

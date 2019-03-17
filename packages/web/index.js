@@ -10,7 +10,7 @@ const babelMerge = require('babel-merge');
 const merge = require('deepmerge');
 const { ConfigurationError } = require('neutrino/errors');
 
-module.exports = (neutrino, opts = {}) => {
+module.exports = (opts = {}) => (neutrino) => {
   if (neutrino.config.module.rules.has('compile')) {
     throw new ConfigurationError(
       '@neutrinojs/web is being used when a `compile` rule already exists, ' +
@@ -81,7 +81,7 @@ module.exports = (neutrino, opts = {}) => {
   if ('manifest' in options) {
     throw new ConfigurationError(
       'The manifest option has been removed. See the v8 to v9 migration guide ' +
-      'for how to genearate a manifest manually.'
+      'for how to generate a manifest manually.'
     );
   }
 
@@ -147,14 +147,14 @@ module.exports = (neutrino, opts = {}) => {
     neutrino.config.devtool(devtool);
   }
 
-  neutrino.use(htmlLoader);
-  neutrino.use(compileLoader, {
+  neutrino.use(htmlLoader());
+  neutrino.use(compileLoader({
     include: [
       neutrino.options.source,
       neutrino.options.tests
     ],
     babel: options.babel
-  });
+  }));
 
   Object
     .entries(neutrino.options.mains)
@@ -163,7 +163,7 @@ module.exports = (neutrino, opts = {}) => {
       neutrino.config.entry(name).add(entry);
 
       if (options.html) {
-        neutrino.use(htmlTemplate, merge.all([
+        neutrino.use(htmlTemplate(merge.all([
           {
             pluginId: `html-${name}`,
             filename: `${name}.html`,
@@ -171,7 +171,7 @@ module.exports = (neutrino, opts = {}) => {
           },
           options.html,
           htmlTemplateConfig
-        ]));
+        ])));
       }
     });
 
@@ -198,9 +198,9 @@ module.exports = (neutrino, opts = {}) => {
       // from the more frequently-changing entrypoint chunks.
       .runtimeChunk('single')
       .end()
-    .when(options.style, () => neutrino.use(styleLoader, options.style))
-    .when(options.font, () => neutrino.use(fontLoader, options.font))
-    .when(options.image, () => neutrino.use(imageLoader, options.image))
+    .when(options.style, () => neutrino.use(styleLoader(options.style)))
+    .when(options.font, () => neutrino.use(fontLoader(options.font)))
+    .when(options.image, () => neutrino.use(imageLoader(options.image)))
     .target('web')
     .context(neutrino.options.root)
     .output
@@ -232,13 +232,13 @@ module.exports = (neutrino, opts = {}) => {
       modules: false
     })
     .when(process.env.NODE_ENV === 'development', config => {
-      neutrino.use(devServer, options.devServer);
+      neutrino.use(devServer(options.devServer));
       config.when(options.hot, (config) => {
         config.plugin('hot').use(require.resolve('webpack/lib/HotModuleReplacementPlugin'));
       });
     })
     .when(isProduction, (config) => {
-      config.when(options.clean !== false, () => neutrino.use(clean, options.clean));
+      config.when(options.clean !== false, () => neutrino.use(clean(options.clean)));
     });
 
   const lintRule = neutrino.config.module.rules.get('lint');

@@ -1,0 +1,34 @@
+const eslint = require('@neutrinojs/eslint');
+const airbnbBase = require('@neutrinojs/airbnb-base');
+const node = require('@neutrinojs/node');
+const jest = require('@neutrinojs/jest');
+const fakePreset = require('fake-preset');
+
+module.exports = {
+  options: {
+    root: __dirname,
+  },
+  use: [
+    (neutrino) => {
+      neutrino.use(fakePreset());
+    },
+    process.env.NODE_ENV === 'development' && eslint(),
+    airbnbBase({
+      eslint: {
+        baseConfig: {
+          rules: {
+            semi: 'off',
+          },
+        },
+      },
+    }),
+    node(),
+    process.env.NODE_ENV === 'test' && jest({
+      testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
+    }),
+    (neutrino) => {
+      neutrino.config.externals(/^[a-z\-0-9]+$/);
+      neutrino.use(fakePreset({ alpha: 'beta' }));
+    },
+  ],
+};

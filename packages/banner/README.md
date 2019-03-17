@@ -34,33 +34,32 @@
 and plug it into Neutrino:
 
 ```js
-// Using function middleware format:
 const banner = require('@neutrinojs/banner');
 
 // Use with default options
-neutrino.use(banner);
+neutrino.use(banner());
 
 // Also accepts options for webpack's BannerPlugin
 // https://webpack.js.org/plugins/banner-plugin/
 
 // Usage shows the default values of this middleware:
-neutrino.use(banner, {
+neutrino.use(banner({
   banner: `require('source-map-support').install();`,
   test: neutrino.regexFromExtensions(),
   raw: true,
   entryOnly: true,
   // Override pluginId to add an additional banner plugin instance
   pluginId: 'banner'
-});
+}));
 ```
 
 ```js
-// Using object or array middleware format:
+// Using in .neutrinorc.js
 const banner = require('@neutrinojs/banner');
 
 // Use with default options
 module.exports = {
-  use: ['@neutrinojs/banner']
+  use: [banner()]
 };
 
 // Also accepts options for webpack's BannerPlugin
@@ -69,14 +68,14 @@ module.exports = {
 // Usage shows the default values of this middleware:
 module.exports = {
   use: [
-    ['@neutrinojs/banner', {
+    banner({
       banner: `require('source-map-support').install();`,
       test: neutrino.regexFromExtensions(),
       raw: true,
       entryOnly: true,
       // Override pluginId to add an additional banner plugin instance
       pluginId: 'banner'
-    }]
+    })
   ]
 };
 ```

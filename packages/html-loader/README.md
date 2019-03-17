@@ -34,32 +34,32 @@
 and plug it into Neutrino:
 
 ```js
-// Using function middleware format
 const html = require('@neutrinojs/html-loader');
 
 // Use with default options
-neutrino.use(html);
+neutrino.use(html());
 
 // Usage showing default options
-neutrino.use(html, {
+neutrino.use(html({
   attrs: ['img:src', 'link:href']
-});
+}));
 ```
 
 ```js
-// Using object or array middleware format
+// Using in .neutrinorc.js
+const html = require('@neutrinojs/html-loader');
 
 // Use with default options
 module.exports = {
-  use: ['@neutrinojs/html-loader']
+  use: [html()]
 };
 
 // Usage showing default options
 module.exports = {
   use: [
-    ['@neutrinojs/html-loader', {
+    html({
       attrs: ['img:src', 'link:href']
-    }]
+    })
   ]
 };
 ```

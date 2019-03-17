@@ -68,10 +68,13 @@ Now update your project's `.neutrinorc.js` to add the `@neutrinojs/mocha` preset
 let's pretend this is a Node.js project:
 
 ```js
+const node = require('@neutrinojs/node');
+const mocha = require('@neutrinojs/mocha');
+
 module.exports = {
   use: [
-    '@neutrinojs/node',
-    '@neutrinojs/mocha'
+    node(),
+    mocha()
   ]
 };
 ```
@@ -148,15 +151,16 @@ You can provide custom options and have them merged with this preset's default o
 to Mocha. You can modify Mocha settings from `.neutrinorc.js` by overriding with any options Mocha accepts. In a standalone
 Mocha project this is done in the `.mocharc.js` file, but `@neutrinojs/mocha` allows configuration through
 this mechanism as well. This accepts the same configuration options as outlined in the
-[Mocha documentation](https://mochajs.org/). Use an array pair instead of a string
-to supply these options.
+[Mocha documentation](https://mochajs.org/).
 
 _Example: Enable bailing on test failures._
 
 ```js
 module.exports = {
   use: [
-    ['@neutrinojs/mocha', { bail: true }]
+    mocha({
+      bail: true
+    })
   ]
 };
 ```
@@ -181,17 +185,14 @@ By following the [customization guide](https://neutrinojs.org/customization/) an
 you can override and augment testing by providing a function to your `.neutrinorc.js` use array. You can also
 make this change from the Neutrino API when using the `use` method.
 
-In a standalone Mocha project this is typically done in a `mocha.opts` file, but `@neutrinojs/mocha` allows
-configuration through `.neutrinorc.js`. This accepts the same options specified by Mocha defined on the
-[Mocha documentation site](https://mochajs.org/#usage), with command-line flags mapping to camel-cased options. Use an
-array pair instead of a string to supply these options.
-
 _Example: Add a custom Babel plugin when testing:_
 
 ```js
+const mocha = require('@neutrinojs/mocha');
+
 module.exports = {
   use: [
-    '@neutrinojs/mocha',
+    mocha(),
     (neutrino) => {
       if (process.env.NODE_ENV === 'test') {
         neutrino.config.module

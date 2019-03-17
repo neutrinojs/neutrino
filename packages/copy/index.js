@@ -1,4 +1,4 @@
-module.exports = (neutrino, { pluginId = 'copy', patterns = [], options = {} } = {}) => {
+module.exports = ({ pluginId = 'copy', patterns = [], options = {} } = {}) => (neutrino) => {
   neutrino.config
     .plugin(pluginId)
     .use(require.resolve('copy-webpack-plugin'), [

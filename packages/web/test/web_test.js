@@ -6,7 +6,7 @@ import { validate } from 'webpack';
 import lint from '../../eslint';
 import Neutrino from '../../neutrino/Neutrino';
 
-const mw = () => require('..');
+const mw = (...args) => require('..')(...args);
 const expectedExtensions = ['.wasm', '.mjs', '.jsx', '.js', '.json'];
 const originalNodeEnv = process.env.NODE_ENV;
 
@@ -16,7 +16,7 @@ test.afterEach(() => {
 });
 
 test('loads preset', t => {
-  t.notThrows(mw);
+  t.notThrows(() => require('..'));
 });
 
 test('uses preset', t => {
@@ -121,7 +121,7 @@ test('valid preset test', t => {
 test('devtool string option production', t => {
   process.env.NODE_ENV = 'production';
   const api = new Neutrino();
-  api.use(mw(), { devtool: 'source-map' });
+  api.use(mw({ devtool: 'source-map' }));
   const config = api.config.toConfig();
 
   t.is(config.devtool, 'source-map');
@@ -130,11 +130,11 @@ test('devtool string option production', t => {
 test('devtool object option production', t => {
   process.env.NODE_ENV = 'production';
   const api = new Neutrino();
-  api.use(mw(), {
+  api.use(mw({
     devtool: {
       production: 'source-map'
     }
-  });
+  }));
   const config = api.config.toConfig();
 
   t.is(config.devtool, 'source-map');
@@ -143,7 +143,7 @@ test('devtool object option production', t => {
 test('devtool string option development', t => {
   process.env.NODE_ENV = 'development';
   const api = new Neutrino();
-  api.use(mw(), { devtool: 'source-map' });
+  api.use(mw({ devtool: 'source-map' }));
   const config = api.config.toConfig();
 
   t.is(config.devtool, 'source-map');
@@ -152,11 +152,11 @@ test('devtool string option development', t => {
 test('devtool object option development', t => {
   process.env.NODE_ENV = 'development';
   const api = new Neutrino();
-  api.use(mw(), {
+  api.use(mw({
     devtool: {
       development: 'source-map'
     }
-  });
+  }));
   const config = api.config.toConfig();
 
   t.is(config.devtool, 'source-map');
@@ -165,7 +165,7 @@ test('devtool object option development', t => {
 test('devtool string option test', t => {
   process.env.NODE_ENV = 'test';
   const api = new Neutrino();
-  api.use(mw(), { devtool: 'cheap-eval-source-map' });
+  api.use(mw({ devtool: 'cheap-eval-source-map' }));
   const config = api.config.toConfig();
 
   t.is(config.devtool, 'cheap-eval-source-map');
@@ -174,11 +174,11 @@ test('devtool string option test', t => {
 test('devtool object option test', t => {
   process.env.NODE_ENV = 'test';
   const api = new Neutrino();
-  api.use(mw(), {
+  api.use(mw({
     devtool: {
       test: 'cheap-eval-source-map'
     }
-  });
+  }));
   const config = api.config.toConfig();
 
   t.is(config.devtool, 'cheap-eval-source-map');
@@ -188,7 +188,7 @@ test('supports env option using array form', t => {
   const api = new Neutrino();
 
   const env = ['VAR1', 'VAR2'];
-  api.use(mw(), { env });
+  api.use(mw({ env }));
   t.deepEqual(api.config.plugin('env').get('args'), [ env ]);
 });
 
@@ -196,7 +196,7 @@ test('supports env option using object form', t => {
   const api = new Neutrino();
 
   const env = { VAR: 'default-value' };
-  api.use(mw(), { env });
+  api.use(mw({ env }));
   t.deepEqual(api.config.plugin('env').get('args'), [ env ]);
 });
 
@@ -210,7 +210,7 @@ test('supports multiple mains with custom html-webpack-plugin options', t => {
   };
   const api = new Neutrino({ mains });
 
-  api.use(mw(), { html: { title: 'Default Title', minify: false } });
+  api.use(mw({ html: { title: 'Default Title', minify: false } }));
 
   const templatePath = resolve(__dirname, '../../html-template/template.ejs');
 
@@ -257,7 +257,7 @@ test('throws when used twice', t => {
 test('throws when minify.babel defined', t => {
   const api = new Neutrino();
   t.throws(
-    () => api.use(mw(), { minify: { babel: false } }),
+    () => api.use(mw({ minify: { babel: false } })),
     /The minify\.babel option has been removed/
   );
 });
@@ -265,7 +265,7 @@ test('throws when minify.babel defined', t => {
 test('throws when minify.image defined', t => {
   const api = new Neutrino();
   t.throws(
-    () => api.use(mw(), { minify: { image: true } }),
+    () => api.use(mw({ minify: { image: true } })),
     /The minify\.image option has been removed/
   );
 });
@@ -273,7 +273,7 @@ test('throws when minify.image defined', t => {
 test('throws when minify.style defined', t => {
   const api = new Neutrino();
   t.throws(
-    () => api.use(mw(), { minify: { style: false } }),
+    () => api.use(mw({ minify: { style: false } })),
     /The minify\.style option has been removed/
   );
 });
@@ -281,7 +281,7 @@ test('throws when minify.style defined', t => {
 test('throws when polyfills defined', t => {
   const api = new Neutrino();
   t.throws(
-    () => api.use(mw(), { polyfills: {} }),
+    () => api.use(mw({ polyfills: {} })),
     /The polyfills option has been removed/
   );
 });
@@ -289,7 +289,7 @@ test('throws when polyfills defined', t => {
 test('throws when manifest defined', t => {
   const api = new Neutrino();
   t.throws(
-    () => api.use(mw(), { manifest: {} }),
+    () => api.use(mw({ manifest: {} })),
     /The manifest option has been removed/
   );
 });
@@ -297,7 +297,7 @@ test('throws when manifest defined', t => {
 test('throws when hotEntries defined', t => {
   const api = new Neutrino();
   t.throws(
-    () => api.use(mw(), { hotEntries: [] }),
+    () => api.use(mw({ hotEntries: [] })),
     /The hotEntries option has been removed/
   );
 });
@@ -305,7 +305,7 @@ test('throws when hotEntries defined', t => {
 test('throws when devServer.proxy is the deprecated string shorthand', t => {
   const api = new Neutrino();
   t.throws(
-    () => api.use(mw(), { devServer: { proxy: 'foo' } }),
+    () => api.use(mw({ devServer: { proxy: 'foo' } })),
     /setting `devServer.proxy` to a string is no longer supported/
   );
 });
@@ -313,7 +313,7 @@ test('throws when devServer.proxy is the deprecated string shorthand', t => {
 test('throws when style.extract is true', t => {
   const api = new Neutrino();
   t.throws(
-    () => api.use(mw(), { style: { extract: true } }),
+    () => api.use(mw({ style: { extract: true } })),
     /Setting `style.extract` to `true` is no longer supported/
   );
 });
@@ -323,7 +323,7 @@ test('targets option test', t => {
   const targets = {
     browsers: ['last 2 iOS versions']
   };
-  api.use(mw(), { targets });
+  api.use(mw({ targets }));
 
   t.deepEqual(api.config.module
     .rule('compile')
@@ -334,7 +334,7 @@ test('targets option test', t => {
 
 test('targets false option test', t => {
   const api = new Neutrino();
-  api.use(mw(), { targets: false });
+  api.use(mw({ targets: false }));
 
   t.deepEqual(api.config.module
     .rule('compile')
@@ -345,7 +345,7 @@ test('targets false option test', t => {
 
 test('updates lint config by default', t => {
   const api = new Neutrino();
-  api.use(lint);
+  api.use(lint());
   api.use(mw());
   const options = api.config.module.rule('lint').use('eslint').get('options');
   t.deepEqual(options.baseConfig.env, {
@@ -357,7 +357,7 @@ test('updates lint config by default', t => {
 
 test('does not update lint config if useEslintrc true', t => {
   const api = new Neutrino();
-  api.use(lint, { eslint: { useEslintrc: true } });
+  api.use(lint({ eslint: { useEslintrc: true } }));
   api.use(mw());
   const options = api.config.module.rule('lint').use('eslint').get('options');
   t.deepEqual(options.baseConfig, {});

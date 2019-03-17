@@ -10,11 +10,11 @@ configuration and dependencies necessary to accomplish those use cases:
 
 ## Getting Started
 
-Neutrino middleware are Node.js modules or packages that export a [middleware format](./middleware.md#formats).
+Neutrino middleware are Node.js modules or packages that export a [middleware function](./middleware.md).
 We call these Neutrino middleware because they sit in the middle of Neutrino and webpack, modifying a configuration with
-each subsequent middleware call. When using the function middleware formats, you can use the Neutrino instance provided
-to the middleware function to modify the configuration, provide your own configuration, expose custom options for your
-middleware, listen for build events, and execute custom functionality.
+each subsequent middleware call. When using these middleware functions, you can use the Neutrino instance provided
+to the function to modify the configuration, provide your own configuration, expose custom options for your
+middleware, and execute custom functionality.
 
 Neutrino presets are just Neutrino middleware that encapsulate a specific project need or the combination of other
 middleware. At a bare minimum, let's start by exporting a middleware function for an empty Neutrino preset:
@@ -57,9 +57,9 @@ const node = require('@neutrinojs/node');
 const mocha = require('@neutrinojs/mocha');
 
 module.exports = neutrino => {
-  neutrino.use(node);
-  neutrino.use(mocha);
-  
+  neutrino.use(node());
+  neutrino.use(mocha());
+
   // neutrino.config now contains the accumulation of configuration from
   // the Node.js and Mocha presets
 };
@@ -108,14 +108,15 @@ module.exports = neutrino => {
 ## Middleware Options
 
 If you want to expose custom options for your middleware that are not appropriate to be stored in the Neutrino config,
-your middleware function can accept a second argument for its options. You may then document to users how they can
+your package can use a closure for the options, and return a middleware function. You may then document to users how they can
 go about affecting how your middleware works by manipulating these options via their own middleware or `.neutrinorc.js`.
-You can then merge these options back with your defaults within your middleware when needed.
+You can then merge these options back with your defaults within your middleware when needed. This is how Neutrino's own
+core middleware works.
 
 _Example:_
 
 ```js
-module.exports = (neutrino, opts = {}) => {
+module.exports = (opts = {}) => (neutrino) => {
   const options = {
     quiet: false,
     logLevel: 'warn',
@@ -137,181 +138,11 @@ Please consider using these paths for your preset so they play nice with others.
 
 ### Modifying Neutrino options
 
-If you wish to **modify** Neutrino options, including paths, it is recommended to use the object middleware format so
-Neutrino can guarantee options are merged prior to your middleware being used.
-
-```js
-const middleware = (neutrino, options) => {
-  // ...
-};
-
-module.exports = {
-  options: {
-    source: 'lib',
-    mains: {
-      index: 'application.js'
-    }
-  },
-  use: [middleware]
-}
-```
-
-### `options.root`
-
-Set the base directory which Neutrino middleware and presets operate on. Typically this is the project directory where
-the package.json would be located. If the option is not set, Neutrino defaults it to `process.cwd()`. If a relative
-path is specified, it will be resolved relative to `process.cwd()`; absolute paths will be used as-is.
-
-```js
-module.exports = neutrino => {
-  // if not specified, defaults to process.cwd()
-  neutrino.options.root;
-};
-
-module.exports = {
-  options: {
-    // relative, resolves to process.cwd() + website
-    root: 'website',
-    // absolute
-    root: '/code/website'
-  }
-};
-```
-
-### `options.source`
-
-Set the directory which contains the application source code. If the option is not set, Neutrino defaults it to `src`.
-If a relative path is specified, it will be resolved relative to `options.root`; absolute paths will be used as-is.
-
-```js
-module.exports = neutrino => {
-  // if not specified, defaults to options.root + src
-  neutrino.options.source;
-};
-
-module.exports = {
-  options: {
-    // relative, resolves to options.root + lib
-    source: 'lib',
-    // absolute
-    source: '/code/website/lib'
-  }
-};
-```
-
-### `options.output`
-
-Set the directory which will be the output of built assets. If the option is not set, Neutrino defaults it to `build`.
-If a relative path is specified, it will be resolved relative to `options.root`; absolute paths will be used as-is.
-
-```js
-module.exports = neutrino => {
-  // if not specified, defaults to options.root + build
-  neutrino.options.output;
-}
-
-module.exports = {
-  options: {
-    // relative, resolves to options.root + dist
-    output: 'dist',
-    // absolute
-    output: '/code/website/dist'
-  }
-};
-```
-
-### `options.tests`
-
-Set the directory that contains test files. If the option is not set, Neutrino defaults it to `test`.
-If a relative path is specified, it will be resolved relative to `options.root`; absolute paths will be used as-is.
-
-```js
-module.exports = neutrino => {
-  // if not specified, defaults to options.root + test
-  neutrino.options.tests;
-};
-
-module.exports = {
-  options: {
-    // relative, resolves to options.root + testing
-    tests: 'testing',
-    
-    // absolute
-    tests: '/code/website/testing'
-  }
-};
-```
-
-### `options.mains`
-
-Set the main entry points for the application. If the option is not set, Neutrino defaults it to:
-
-```js
-{
-  index: 'index'
-}
-```
-
-Notice the entry point has no extension; the extension is resolved by webpack. If relative paths are specified,
-they will be computed and resolved relative to `options.source`; absolute paths will be used as-is.
-
-By default these main files are not required to be in JavaScript format. They may also potentially be JSX, TypeScript,
-or any other preprocessor language. These extensions should be specified in middleware at
-`neutrino.config.resolve.extensions`.
-
-```js
-module.exports = neutrino => {
-  // if not specified, defaults to an object with a single entry "index",
-  // resolved to options.source + index
-  neutrino.options.mains.index;
-};
-```
-
-Multiple entry points and any page-specific configuration (if supported by the preset) can be specified like so:
-
-```js
-module.exports = {
-  options: {
-    mains: {
-      // Relative path, so resolves to options.source + home.*
-      index: 'home',
-
-      // Absolute path, used as-is.
-      login: '/code/website/src/login.js',
-
-      // Long form that allows passing page-specific configuration
-      // (such as html-webpack-plugin options in the case of @neutrinojs/web).
-      admin: {
-        entry: 'admin',
-        // any page-specific options here (see preset docs)
-        // ...
-      }
-    }
-  }
-};
-```
-
-### `options.extensions`
-
-Set the preferred list of module extensions to inform interested middleware. If the option is not set,
-Neutrino defaults it to `['mjs', 'jsx', 'js']`.
-
-```js
-module.exports = neutrino => {
-  // if not specified, defaults to ['mjs', 'jsx', 'js']
-  neutrino.options.extensions;
-
-  // overwrites the default list
-  neutrino.options.extensions = ['elm']
-}
-
-module.exports = {
-  options: {
-    // extends the default list to ['mjs', 'jsx', 'js', 'elm']
-    extensions: ['elm']
-  }
-};
-```
+If you wish to **modify** Neutrino options, including paths, be aware that other middleware
+may have been loaded before or after your own middleware, which may have unintended
+consequences. If possible, document recommended Neutrino option changes to your middleware
+consumers for them to change manually in their `.neutrinorc.js`. See the
+[Neutrino API](./api.md) for a list of options you can manipulate.
 
 ## Loader and Babel modules
 

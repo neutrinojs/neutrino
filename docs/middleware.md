@@ -3,133 +3,18 @@
 The basic unit of interacting with Neutrino is middleware. Middleware can modify configuration,
 listen for events, get build metadata, or augment Neutrino with custom functionality.
 
-## Formats
+## Middleware function
 
-Neutrino middleware can be specified in several different formats depending on the complexity and level of
-customization needed. The Neutrino API and CLI operate on the concept that they are provided a collection of middleware.
-
-Each item in these collections can be provided in a number of different formats.
-The string and array formats are generally used from within the more powerful object and function formats.
-
-### String format
-
-Providing a string as a middleware item denotes it as being a require-able module. Neutrino will attempt to require
-this string and then try to use its exports as another middleware format. For example, using the string
-"@neutrinojs/react" will be required by Neutrino, and then be re-processed through Neutrino using its exports as a
-different middleware type, depending on what that preset exported.
-
-Using the string format is most commonly used to depend on other middleware. Referencing a string does not enable
-access to the Neutrino API, and options can only be passed to the string middleware if using the Neutrino API's `use`
-method.
+Using a function as middleware gives direct access to the Neutrino API, configuration,
+and options.
 
 ```js
-// String format exported from other middleware
-// not very useful, but possible
-module.exports = '@neutrinojs/react';
+function middleware(neutrino) {}
 ```
 
-```js
-// String format being used within an object-format .neutrinorc.js
-module.exports = {
-  use: ['@neutrinojs/react']
-};
-```
-
-```js
-// String format being used within function format
-module.exports = neutrino => {
-  neutrino.use('@neutrinojs/react');
-  neutrino.use('@neutrinojs/react', {
-    devServer: { port: 3000 }
-  });
-};
-```
-
-### Array format
-
-Providing an array as a middleware item denotes it as being a pair of middleware format and options, i.e.
-`[middleware, options]`. The first item in the pair can be any other middleware format, although it is typically
-specified as a string to require, and options to be passed to the required middleware.
-
-Using the array format is most commonly used to depend on other middleware while being able to supply options to the
-required middleware. Referencing an array does not enable access to the Neutrino API.
-
-```js
-// Array format exported from other middleware
-// still not very useful, but possible
-module.exports = ['@neutrinojs/react', { devServer: { port: 3000 } }];
-```
-
-```js
-// Array format being used within an object-format .neutrinorc.js
-module.exports = {
-  use: [
-    ['@neutrinojs/react', {
-      devServer: { port: 3000 }
-    }]
-  ]
-};
-```
-
-```js
-// Array format being used within function format
-module.exports = neutrino => {
-  neutrino.use(['@neutrinojs/react']);
-  neutrino.use(['@neutrinojs/react', {
-    devServer: { port: 3000 }
-  }]);
-};
-```
-
-### Object format
-
-Providing an object as a middleware item denotes it as being a more complex middleware structure capable of
-overriding configuration and options. The object format is the recommended format when creating `.neutrinorc.js` files
-as it provides a good balance between easily setting options and using other middleware. The object format can be
-structured as follows:
-
-```js
-module.exports = {
-  // specify options to override in the Neutrino API
-  options: {
-    // for example, change the output directory to dist
-    output: 'dist',
-    // or set the default development port to 3000
-    port: 3000
-  },
-
-  // The "use" array defines another set of middleware for Neutrino to use.
-  // Just like the CLI and API start with a collection of middleware to use,
-  // providing a "use" array specifies another list of middleware formats to work with
-  use: [
-    // string format
-    '@neutrinojs/airbnb-base',
-    
-    // array format
-    ['@neutrinojs/react', html: { title: 'Epic React App' } }],
-    
-    // function format
-    (neutrino) => {
-      // Make whatever configuration overrides needed
-    }
-  ]
-}
-```
-
-Hopefully it is clear that the object format is quite powerful, and although it doesn't give you direct access to the
-Neutrino API, providing a function format **within does** give you API access.
-
-### Function format
-
-The most powerful middleware format. Using a function as middleware gives direct access to the Neutrino API, configuration,
-options, and events for modification, as well as being able to accept options for driving the behavior of the middleware.
-
-```js
-function middleware(neutrino, options) {}
-```
-
-A middleware function can optionally accept an `options` argument which will be fed back into
-the middleware function when used. The options argument can be whatever value you accept.
+If middleware needs its own options, your package can export a factory function/closure for
+returning a new middleware function. This closure can optionally accept an `options` argument.
+These arguments can be whatever value you choose.
 
 If you're familiar with middleware from the Express/connect world, this works similarly. When using Express middleware,
 you provide a function to Express which receives arguments to modify a request or response along its lifecycle. There
@@ -140,55 +25,26 @@ the lifecycle.
 To use a concrete example, let's create middleware that adds an environment plugin:
 
 ```js
-const { Neutrino } = require('neutrino');
 const { EnvironmentPlugin } = require('webpack');
 
-module.exports = (neutrino, additionalVars = []) => {
+module.exports = (neutrino) => {
   neutrino.config
     .plugin('env')
-    .use(EnvironmentPlugin, ['NODE_ENV', ...additionalVars]);
+    .use(EnvironmentPlugin, ['NODE_ENV']);
 };
+```
 
-// When this middleware gets used, options can be passed to it
-// depending on the format:
+This middleware can now be used by consumers in their `.neutrinorc.js`:
+
+```js
+const envLoader = require('neutrino-middleware-env-loader');
 
 module.exports = {
   use: [
-    'your-env-middleware',
-    
-    ['your-env-middleware', ['CSS_MODULES']],
-    
-    (neutrino) => neutrino.use('your-env-middleware', ['CSS_MODULES'])
+    envLoader
   ]
 };
 ```
-
-## Loading middleware
-
-Additional middleware can also be loaded from a middleware function. This makes their composition simpler for
-consumers.
-
-```js
-// @neutrinojs/env
-const { EnvironmentPlugin } = require('webpack');
-
-module.exports = (neutrino, additionalVars = []) => neutrino.config
-  .plugin('env')
-  .use(EnvironmentPlugin, ['NODE_ENV', ...additionalVars]);
-```
-
-```js
-// env preset (which is also middleware)
-const env = require('@neutrinojs/env');
-
-module.exports = neutrino => {
-  neutrino.use(env, ['SECRET_KEY']);
-  neutrino.use(/* next middleware */);
-  neutrino.use(/* next middleware */)
-};
-```
-
-## Configuring
 
 If your middleware requires configuration _outside_ of the options necessary for _running_ the middleware,
 use a closure technique for simplifying this for your middleware consumers. In short, your module will provide a
@@ -196,32 +52,100 @@ function to consumers which, when executed, will return a Neutrino middleware fu
 
 ```js
 module.exports = function wrapper(...args) {
-  return function middleware(neutrino, options) {
-    // do something with neutrino, options, and args
+  return function middleware(neutrino) {
+    // do something with neutrino and and args
   };
 };
 ```
 
-Let's create a contrived example using our `env` middleware. Let's use a closure to let the consumer provide an
-alternate plugin name when creating the middleware:
+Let's say you decide to accept additional environment variables to load via
+your middleware. You can specify these in a closure and return your middleware.
+For example:
 
 ```js
-// @neutrinojs/env
 const { EnvironmentPlugin } = require('webpack');
 
-module.exports = (pluginName = 'env') => (neutrino, additionalVars = []) => {
-    neutrino.config
-      .plugin(pluginName)
-      .use(EnvironmentPlugin, ['NODE_ENV', ...additionalVars]);
+// Export a function which, when called, returns a middleware function.
+module.exports = (additionalEnvs = []) => (neutrino) => {
+  neutrino.config
+    .plugin('env')
+    .use(EnvironmentPlugin, ['NODE_ENV', ...additionalEnvs]);
+};
+```
+
+This middleware can now be used by consumers in their `.neutrinorc.js`, but now
+needs to be called in order for a valid middleware function to be passed to
+`use`:
+
+```js
+const envLoader = require('neutrino-middleware-env-loader');
+
+module.exports = {
+  use: [
+    envLoader(),
+    
+    // Or with custom environment variables now supported:
+    envLoader(['CSS_MODULES'])
+  ]
+};
+```
+
+### neutrinorc
+
+The `.neutrinorc.js` file, which project creators use for defining how their projects
+are built, often export an object capable of overriding configuration and options.
+The object format is the recommended format when creating `.neutrinorc.js` files
+as it provides a good balance between easily setting options and using other middleware.
+This object format can be structured as follows:
+
+```js
+const airbnb = require('@neutrinojs/airbnb');
+const react = require('@neutrinojs/react');
+
+module.exports = {
+  // specify options to override in the Neutrino API
+  options: {
+    // for example, change the output directory to dist
+    output: 'dist',
+    // or set the default development port to 3000
+    port: 3000
+  },
+
+  // The "use" array defines another set of middleware for Neutrino to use.
+  use: [
+    airbnb(),
+    react({ html: { title: 'Epic React App' } }),
+    // manual middleware function:
+    (neutrino) => {
+      // Make whatever configuration overrides needed
+    }
+  ]
+}
+```
+
+## Loading middleware
+
+Additional middleware can also be used from a middleware function. This makes their composition simpler for
+consumers.
+
+```js
+const { EnvironmentPlugin } = require('webpack');
+
+// Export a function which, when called, returns a middleware function.
+module.exports = (additionalEnvs = []) => (neutrino) => {
+  neutrino.config
+    .plugin('env')
+    .use(EnvironmentPlugin, ['NODE_ENV', ...additionalEnvs]);
 };
 ```
 
 ```js
-// react preset (which is also middleware)
-const env = require('@neutrinojs/env');
+const envLoader = require('neutrino-middleware-env-loader');
 
 module.exports = neutrino => {
-  neutrino.use(env('ENV-PLUGIN'), ['SECRET_KEY']);
+  neutrino.use(env(['SECRET_KEY']));
+  neutrino.use(/* next middleware */);
+  neutrino.use(/* next middleware */)
 };
 ```
 

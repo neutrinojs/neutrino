@@ -5,7 +5,7 @@ const nodeExternals = require('webpack-node-externals');
 const { extname, join, basename } = require('path');
 const { readdirSync } = require('fs');
 
-module.exports = (neutrino, opts = {}) => {
+module.exports = (opts = {}) => (neutrino) => {
   const options = merge({
     html: process.env.NODE_ENV === 'development' && {
       title: 'React Preview'
@@ -29,7 +29,7 @@ module.exports = (neutrino, opts = {}) => {
   neutrino.config.when(
     process.env.NODE_ENV === 'development',
     () => {
-      neutrino.use(react, options);
+      neutrino.use(react(options));
     },
     () => {
       const components = join(neutrino.options.source, options.components || 'components');
@@ -51,11 +51,11 @@ module.exports = (neutrino, opts = {}) => {
       const hasSourceMap = (pkg.dependencies && 'source-map-support' in pkg.dependencies) ||
         (pkg.devDependencies && 'source-map-support' in pkg.devDependencies);
 
-      neutrino.use(react, options);
+      neutrino.use(react(options));
 
       neutrino.config
         .when(options.externals, config => config.externals([nodeExternals(options.externals)]))
-        .when(hasSourceMap, () => neutrino.use(banner))
+        .when(hasSourceMap, () => neutrino.use(banner()))
         // Disable the chunking behaviour inherited from the react preset
         .optimization
           .splitChunks(false)

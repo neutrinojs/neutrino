@@ -1,6 +1,6 @@
 const { DuplicateRuleError } = require('neutrino/errors');
 
-module.exports = (neutrino, options = {}) => {
+module.exports = (options = {}) => (neutrino) => {
   const ruleId = 'font';
   const isProduction = process.env.NODE_ENV === 'production';
   const defaultOptions = {

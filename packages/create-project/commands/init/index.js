@@ -1,6 +1,7 @@
-const { ensureDirSync, pathExistsSync, readJsonSync, removeSync, writeJsonSync } = require('fs-extra');
+const { ensureDirSync, pathExistsSync, readFileSync, readJsonSync, removeSync, writeJsonSync } = require('fs-extra');
 const { basename, join, relative } = require('path');
 const chalk = require('chalk');
+const ejs = require('ejs');
 const { stringify } = require('javascript-stringify');
 const merge = require('deepmerge');
 const Generator = require('yeoman-generator');
@@ -8,6 +9,9 @@ const questions = require('./questions');
 const { packages, presets } = require('./matrix');
 const { isYarn } = require('./utils');
 const { version: neutrinoVersion } = require('../../package.json');
+
+const rcContent = readFileSync(join(__dirname, 'templates/neutrino/.neutrinorc.js.ejs')).toString();
+const rcTemplate = ejs.compile(rcContent);
 
 /* eslint-disable no-underscore-dangle */
 module.exports = class Project extends Generator {
@@ -58,40 +62,40 @@ module.exports = class Project extends Generator {
     return result;
   }
 
-  _getProjectMiddleware() {
+  _getProjectNeutrinorcData() {
     const { projectType, project } = this.data;
+    const reIndent = /^(?!\s*$)/mg;
+    let options = '';
 
     if (projectType === 'application' && project !== packages.NODE) {
-      return [project, {
+      options = stringify({
         html: {
           title: this.options.name
         }
-      }];
-    }
-
-    if (projectType === 'library') {
-      return [project, {
+      }, null, 2);
+    } else if (projectType === 'library') {
+      options = stringify({
         name: this.options.name
-      }];
+      }, null, 2);
     }
 
-    return project;
+    if (options) {
+      const [head, ...tail] = options.split('\n');
+
+      options = `${head}\n${tail.join('\n').replace(reIndent, '    ')}`;
+    }
+
+    return { pkg: project, options };
   }
 
   _getNeutrinorcContent() {
-    // We need to output the word __dirname literally in the file, not its
-    // evaluated value, so we string-build to ensure this is pulled at run-time
-    // and not create-time.
-    const options = '{\n  options: {\n    root: __dirname,\n  },';
-    const rc = {
-      use: [
-        this.data.linter,
-        this._getProjectMiddleware(),
-        this.data.testRunner
+    return rcTemplate({
+      middleware: [
+        this.data.linter && { name: presets[this.data.linter].name, pkg: this.data.linter, options: '' },
+        { name: presets[this.data.project].name, ...this._getProjectNeutrinorcData() },
+        this.data.testRunner && { name: presets[this.data.testRunner].name, pkg: this.data.testRunner, options: '' }
       ].filter(Boolean)
-    };
-
-    return `module.exports = ${options}${stringify(rc, null, 2).slice(1)};\n`;
+    });
   }
 
   _getDependencies() {

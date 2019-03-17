@@ -35,12 +35,12 @@ entry points.
 and plug it into Neutrino:
 
 ```js
-// Using function middleware format
+const htmlTemplate = require('@neutrinojs/html-template');
 
 // Usage shows default values
 // Accepts options specified by html-webpack-plugin:
 // https://github.com/jantimon/html-webpack-plugin#configuration
-neutrino.use(template, {
+neutrino.use(htmlTemplate({
   // @neutrinojs/html-template includes a custom template that has more features
   // (eg appMountId and lang support) than the default html-webpack-plugin template:
   // https://github.com/jantimon/html-webpack-plugin/blob/master/default_index.ejs
@@ -52,23 +52,24 @@ neutrino.use(template, {
   },
   // Override pluginId to add an additional html-template plugin instance
   pluginId: 'html'
-});
+}));
 
 // Most commonly, you will want to override the initial page title:
-neutrino.use(template, {
+neutrino.use(htmlTemplate({
   title: 'React Application'
-});
+}));
 ```
 
 ```js
-// Using object or array middleware format
+// Using in .neutrinorc.js
+const htmlTemplate = require('@neutrinojs/html-template');
 
 // Usage shows default values
 // Accepts options specified by html-webpack-plugin:
 // https://github.com/jantimon/html-webpack-plugin#configuration
 module.exports = {
   use: [
-    ['@neutrinojs/html-template', {
+    htmlTemplate({
       // @neutrinojs/html-template includes a custom template that has more features
       // (eg appMountId and lang support) than the default html-webpack-plugin template:
       // https://github.com/jantimon/html-webpack-plugin/blob/master/default_index.ejs
@@ -80,16 +81,16 @@ module.exports = {
       },
       // Override pluginId to add an additional html-template plugin instance
       pluginId: 'html'
-    }]
+    })
   ]
 };
 
 // Most commonly, you will want to override the initial page title:
 module.exports = {
   use: [
-    ['@neutrinojs/html-template', {
+    htmlTemplate({
       title: 'React Application'
-    }]
+    })
   ]
 };
 ```

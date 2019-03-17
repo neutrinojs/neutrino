@@ -16,12 +16,14 @@ _Example: create a baseline `.neutrinorc.js` file for a React project:_
 
 ```js
 // .neutrinorc.js
+const react = require('@neutrinojs/react');
+
 module.exports = {
   options: {
     root: __dirname
   },
   use: [
-    '@neutrinojs/react'
+    react()
   ]
 };
 ```
@@ -223,10 +225,13 @@ are configured in your in `.neutrinorc.js`.
 
 ```js
 // .neutrinorc.js
+const react = require('@neutrinojs/react');
+const jest = require('@neutrinojs/jest');
+
 module.exports = {
   use: [
-    '@neutrinojs/react',
-    '@neutrinojs/jest'
+    react(),
+    jest()
   ]
 }
 ```

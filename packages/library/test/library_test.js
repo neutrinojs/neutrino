@@ -3,7 +3,7 @@ import { validate } from 'webpack';
 import lint from '../../eslint';
 import Neutrino from '../../neutrino/Neutrino';
 
-const mw = () => require('..');
+const mw = (...args) => require('..')(...args);
 const expectedExtensions = ['.wasm', '.mjs', '.jsx', '.js', '.json'];
 const originalNodeEnv = process.env.NODE_ENV;
 
@@ -13,13 +13,13 @@ test.afterEach(() => {
 });
 
 test('loads preset', t => {
-  t.notThrows(mw);
+  t.notThrows(() => require('..'));
 });
 
 test('uses preset', t => {
   const api = new Neutrino();
 
-  t.notThrows(() => api.use(mw(), { name: 'alpha' }));
+  t.notThrows(() => api.use(mw({ name: 'alpha' })));
 });
 
 test('throws when missing library name', t => {
@@ -32,7 +32,7 @@ test('throws when polyfills defined', t => {
   const api = new Neutrino();
 
   t.throws(
-    () => api.use(mw(), { name: 'alpha', polyfills: {} }),
+    () => api.use(mw({ name: 'alpha', polyfills: {} })),
     /The polyfills option has been removed/
   );
 });
@@ -41,7 +41,7 @@ test('valid preset production', t => {
   process.env.NODE_ENV = 'production';
   const api = new Neutrino();
 
-  api.use(mw(), { name: 'alpha' });
+  api.use(mw({ name: 'alpha' }));
   const config = api.config.toConfig();
 
   // Common
@@ -67,7 +67,7 @@ test('valid preset development', t => {
   process.env.NODE_ENV = 'development';
   const api = new Neutrino();
 
-  api.use(mw(), { name: 'alpha' });
+  api.use(mw({ name: 'alpha' }));
   const config = api.config.toConfig();
 
   // Common
@@ -94,7 +94,7 @@ test('removes webpack externals when NODE_ENV=test', t => {
 
   const api = new Neutrino();
 
-  api.use(mw(), { name: 'alpha' });
+  api.use(mw({ name: 'alpha' }));
 
   const config = api.config.toConfig();
 
@@ -103,7 +103,7 @@ test('removes webpack externals when NODE_ENV=test', t => {
 
 test('valid preset Node.js target', t => {
   const api = new Neutrino();
-  api.use(mw(), { name: 'alpha', target: 'node' });
+  api.use(mw({ name: 'alpha', target: 'node' }));
 
   const errors = validate(api.config.toConfig());
 
@@ -112,7 +112,7 @@ test('valid preset Node.js target', t => {
 
 test('valid preset commonjs2 libraryTarget', t => {
   const api = new Neutrino();
-  api.use(mw(), { name: 'alpha', libraryTarget: 'commonjs2' });
+  api.use(mw({ name: 'alpha', libraryTarget: 'commonjs2' }));
 
   const errors = validate(api.config.toConfig());
 
@@ -121,8 +121,8 @@ test('valid preset commonjs2 libraryTarget', t => {
 
 test('updates lint config by default when target is web', t => {
   const api = new Neutrino();
-  api.use(lint);
-  api.use(mw(), { name: 'alpha', target: 'web' });
+  api.use(lint());
+  api.use(mw({ name: 'alpha', target: 'web' }));
   const options = api.config.module.rule('lint').use('eslint').get('options');
   t.deepEqual(options.baseConfig.env, {
     browser: true,
@@ -133,8 +133,8 @@ test('updates lint config by default when target is web', t => {
 
 test('updates lint config by default when target is node', t => {
   const api = new Neutrino();
-  api.use(lint);
-  api.use(mw(), { name: 'alpha', target: 'node' });
+  api.use(lint());
+  api.use(mw({ name: 'alpha', target: 'node' }));
   const options = api.config.module.rule('lint').use('eslint').get('options');
   t.deepEqual(options.baseConfig.env, {
     commonjs:true,
@@ -144,8 +144,8 @@ test('updates lint config by default when target is node', t => {
 
 test('does not update lint config if useEslintrc true', t => {
   const api = new Neutrino();
-  api.use(lint, { eslint: { useEslintrc: true } });
-  api.use(mw(), { name: 'alpha' });
+  api.use(lint({ eslint: { useEslintrc: true } }));
+  api.use(mw({ name: 'alpha' }));
   const options = api.config.module.rule('lint').use('eslint').get('options');
   t.deepEqual(options.baseConfig, {});
 });

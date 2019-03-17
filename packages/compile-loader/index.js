@@ -1,6 +1,6 @@
 const { DuplicateRuleError } = require('neutrino/errors');
 
-module.exports = (neutrino, { ruleId = 'compile', useId = 'babel', ...options } = {}) => {
+module.exports = ({ ruleId = 'compile', useId = 'babel', ...options } = {}) => (neutrino) => {
   if (neutrino.config.module.rules.has(ruleId)) {
     throw new DuplicateRuleError('@neutrinojs/compile-loader', ruleId);
   }

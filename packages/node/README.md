@@ -132,8 +132,10 @@ Now edit your project's `package.json` to add commands for starting and building
 Then create a `.neutrinorc.js` file alongside `package.json`, which contains your Neutrino configuration:
 
 ```js
+const node = require('@neutrinojs/node');
+
 module.exports = {
-  use: ['@neutrinojs/node']
+  use: [node()]
 };
 ```
 
@@ -238,16 +240,16 @@ You can start the Node.js server in `inspect` mode to debug the process by setti
 ## Preset options
 
 You can provide custom options and have them merged with this preset's default options to easily affect how this
-preset builds. You can modify Node.js preset settings from `.neutrinorc.js` by overriding with an options object. Use
-an array pair instead of a string to supply these options in `.neutrinorc.js`.
-
+preset builds. You can modify Node.js preset settings from `.neutrinorc.js` by overriding with an options object.
 The following shows how you can pass an options object to the Node.js preset and override its options, showing the
 defaults:
 
 ```js
+const node = require('@neutrinojs/node');
+
 module.exports = {
   use: [
-    ['@neutrinojs/node', {
+    node({
       // Enables Hot Module Replacement. Set to false to disable
       hot: true,
 
@@ -270,7 +272,7 @@ module.exports = {
           }]
         ]
       }
-    }]
+    })
   ]
 };
 ```
@@ -278,14 +280,16 @@ module.exports = {
 _Example: Override the Node.js Babel compilation target to Node.js v6:_
 
 ```js
+const node = require('@neutrinojs/node');
+
 module.exports = {
   use: [
-    ['@neutrinojs/node', {
+    node({
       // Target specific versions via @babel/preset-env
       targets: {
         node: '6.0'
       }
-    }]
+    })
   ]
 };
 ```
@@ -320,9 +324,11 @@ override `optimization.minimizer`.
 _Example: Adjust the `terser` minification settings:_
 
 ```js
+const node = require('@neutrinojs/node');
+
 module.exports = {
   use: [
-    '@neutrinojs/node',
+    node(),
     (neutrino) => {
       // Whilst the minimizer is only used when the separate `minimize` option is true
       // (ie in production), the conditional avoids the expensive require() in development.
@@ -379,10 +385,14 @@ make these changes from the Neutrino API in custom middleware.
 _Example: Allow importing modules with a `.esm` extension._
 
 ```js
+const node = require('@neutrinojs/node');
+
 module.exports = {
   use: [
-    '@neutrinojs/node',
-    (neutrino) => neutrino.config.resolve.extensions.add('.esm')
+    node(),
+    (neutrino) => {
+      neutrino.config.resolve.extensions.add('.esm');
+    }
   ]
 };
 ```

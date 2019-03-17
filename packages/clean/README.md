@@ -37,36 +37,36 @@ as well as all unused webpack assets after every successful rebuild.
 and plug it into Neutrino:
 
 ```js
-// Using function middleware format
 const clean = require('@neutrinojs/clean');
 
 // Use with default options
-neutrino.use(clean);
+neutrino.use(clean());
 
 // Usage shows the default values of this middleware:
-neutrino.use(clean, {
+neutrino.use(clean({
   verbose: neutrino.options.debug,
   // Override pluginId to add an additional clean plugin instance
   pluginId: 'clean'
-});
+}));
 ```
 
 ```js
-// Using object or array middleware format
+// Using in .neutrinorc.js
+const clean = require('@neutrinojs/clean');
 
 // Use with default options
 module.exports = {
-  use: ['@neutrinojs/clean']
+  use: [clean()]
 };
 
 // Usage shows the default values of this middleware:
 module.exports = {
   use: [
-    ['@neutrinojs/clean', {
+    clean({
       verbose: neutrino.options.debug,
       // Override pluginId to add an additional banner plugin instance
       pluginId: 'clean'
-    }]
+    })
   ]
 };
 ```
@@ -83,9 +83,9 @@ Pass the `dangerouslyAllowCleanPatternsOutsideProject: true` option to remove di
 ```js
 module.exports = {
   use: [
-    ['@neutrinojs/clean', {
+    clean({
       dangerouslyAllowCleanPatternsOutsideProject: true,
-    }]
+    })
   ]
 };
 ```

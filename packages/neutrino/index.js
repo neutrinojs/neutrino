@@ -1,14 +1,28 @@
-const isPlainObject = require('is-plain-object');
 const yargsParser = require('yargs-parser');
+const { join } = require('path');
 const Neutrino = require('./Neutrino');
 const { webpack, inspect } = require('./handlers');
+const { ConfigurationError } = require('./errors');
 
-module.exports = (middleware = {}) => {
-  const use = isPlainObject(middleware) && !middleware.use
-    ? { ...middleware, use: ['.neutrinorc.js'] }
-    : middleware;
+const extractMiddlewareAndOptions = (format) =>
+  typeof format === 'function'
+    ? { ...format, use: format }
+    : { ...format };
 
-  const neutrino = new Neutrino();
+module.exports = (
+  // eslint-disable-next-line global-require, import/no-dynamic-require
+  middleware = require(join(process.cwd(), '.neutrinorc.js'))
+) => {
+  const { use, options, env } = extractMiddlewareAndOptions(middleware);
+
+  if (env) {
+    throw new ConfigurationError(
+      'Specifying "env" in middleware has been removed.' +
+      'Apply middleware conditionally instead.'
+    );
+  }
+
+  const neutrino = new Neutrino(options);
   let { mode } = yargsParser(process.argv.slice(2));
 
   if (mode) {
@@ -33,7 +47,11 @@ module.exports = (middleware = {}) => {
 
   if (use) {
     try {
-      neutrino.use(use);
+      if (Array.isArray(use)) {
+        use.forEach(use => neutrino.use(use));
+      } else {
+        neutrino.use(use);
+      }
     } catch (err) {
       console.error('\nAn error occurred when loading the Neutrino configuration.\n');
       console.error(err);

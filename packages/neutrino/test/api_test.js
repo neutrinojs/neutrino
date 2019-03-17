@@ -19,18 +19,6 @@ test('initialization stores options', t => {
   t.is(api.options.gamma, options.gamma);
 });
 
-test('merges custom primitive option properties', t => {
-  const options = { alpha: 'a', beta: {}, gamma: 4, delta: [] };
-  const api = new Neutrino(options);
-
-  api.options = api.mergeOptions(api.options, { alpha: 'd', beta: 3, gamma: /.*/, delta: true });
-
-  t.is(api.options.alpha, 'd');
-  t.is(api.options.beta, 3);
-  t.deepEqual(api.options.gamma, /.*/);
-  t.is(api.options.delta, true);
-});
-
 test('options.root', t => {
   const api = new Neutrino();
 
@@ -78,15 +66,11 @@ test('options.tests', t => {
 });
 
 test('throws when legacy options.node_modules is set', t => {
-  const api = new Neutrino();
-  const options = { node_modules: 'abc' };
-
-  t.throws(() => api.use({ options }), /options\.node_modules has been removed/);
+  t.throws(() => new Neutrino({ node_modules: 'abc' }), /options\.node_modules has been removed/);
 });
 
-test('throws when middleware "env" is set', t => {
-  const api = new Neutrino();
-  const middleware = {
+test('throws when legacy options.env is set', t => {
+  t.throws(() => new Neutrino({
     env: {
       NODE_ENV: {
         production: neutrino => {
@@ -94,12 +78,7 @@ test('throws when middleware "env" is set', t => {
         }
       }
     }
-  };
-
-  api.config.devtool('beta');
-
-  t.throws(() => api.use(middleware), /"env" in middleware has been removed/);
-  t.is(api.config.get('devtool'), 'beta');
+  }), /options\.env has been removed/);
 });
 
 test('options.mains', t => {
@@ -176,28 +155,25 @@ test('middleware receives API instance', t => {
   api.use(n => t.is(n, api));
 });
 
-test('middleware receives no default options', t => {
+test('middleware fails on more than one argument', t => {
   const api = new Neutrino();
+  const errorMatch = /middleware only accepts a single argument/;
 
-  api.use((api, options) => {
-    t.is(options, undefined);
-  });
+  /* eslint-disable no-unused-vars */
+  t.notThrows(() => api.use(function good() {}));
+  t.notThrows(() => api.use(function good(neutrino) {}));
+  t.throws(() => api.use(function bad(neutrino, options) {}), errorMatch);
+  /* eslint-enable no-unused-vars */
 });
 
-test('middleware receives options parameter', t => {
+test('middleware only accepts functions', t => {
   const api = new Neutrino();
-  const defaults = { alpha: 'a', beta: 'b', gamma: 'c' };
+  const errorMatch = /middleware can only be passed as functions/;
 
-  api.use((api, options) => {
-    t.deepEqual(options, defaults);
-  }, defaults);
-});
-
-test('import middleware for use', async (t) => {
-  const api = new Neutrino({ root: __dirname });
-
-  api.use(['fixtures/middleware']);
-  t.notDeepEqual(api.config.toConfig(), {});
+  t.notThrows(() => api.use(function good() {}));
+  t.throws(() => api.use('bad'), errorMatch);
+  t.throws(() => api.use(['bad', { alpha: 'beta' }]), errorMatch);
+  t.throws(() => api.use({ alpha: 'beta' }), errorMatch);
 });
 
 test('creates a webpack config', t => {

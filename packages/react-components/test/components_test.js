@@ -2,7 +2,7 @@ import test from 'ava';
 import { validate } from 'webpack';
 import Neutrino from '../../neutrino/Neutrino';
 
-const mw = () => require('..');
+const mw = (...args) => require('..')(...args);
 const originalNodeEnv = process.env.NODE_ENV;
 
 test.afterEach(() => {
@@ -11,13 +11,13 @@ test.afterEach(() => {
 });
 
 test('loads preset', t => {
-  t.notThrows(mw);
+  t.notThrows(() => require('..'));
 });
 
 test('uses preset', t => {
   const api = new Neutrino({ root: __dirname });
 
-  t.notThrows(() => api.use(mw(), { name: 'alpha' }));
+  t.notThrows(() => api.use(mw({ name: 'alpha' })));
 });
 
 test('valid preset production', t => {

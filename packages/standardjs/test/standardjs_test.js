@@ -2,11 +2,11 @@ import test from 'ava';
 import Neutrino from '../../neutrino/Neutrino';
 import neutrino from '../../neutrino';
 
-const mw = () => require('..');
+const mw = (...args) => require('..')(...args);
 const options = { eslint: { rules: { semi: false } } };
 
 test('loads preset', t => {
-  t.notThrows(mw);
+  t.notThrows(() => require('..'));
 });
 
 test('uses preset', t => {
@@ -14,7 +14,7 @@ test('uses preset', t => {
 });
 
 test('uses with options', t => {
-  t.notThrows(() => new Neutrino().use(mw(), options));
+  t.notThrows(() => new Neutrino().use(mw(options)));
 });
 
 test('instantiates', t => {
@@ -28,7 +28,7 @@ test('instantiates', t => {
 test('instantiates with options', t => {
   const api = new Neutrino();
 
-  api.use(mw(), options);
+  api.use(mw(options));
 
   t.notThrows(() => api.config.toConfig());
 });
@@ -130,7 +130,7 @@ test('sets defaults when no options passed', t => {
 
 test('merges options with defaults', t => {
   const api = new Neutrino();
-  api.use(mw(), {
+  api.use(mw({
     test: /\.js$/,
     include: ['/app/src'],
     exclude: [/node_modules/],
@@ -152,7 +152,7 @@ test('merges options with defaults', t => {
       },
       reportUnusedDisableDirectives: true
     }
-  });
+  }));
 
   const lintRule = api.config.module.rule('lint');
   t.deepEqual(lintRule.get('test'), /\.js$/);

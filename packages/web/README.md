@@ -118,8 +118,10 @@ Now edit your project's `package.json` to add commands for starting and building
 Then create a `.neutrinorc.js` file alongside `package.json`, which contains your Neutrino configuration:
 
 ```js
+const web = require('@neutrinojs/web');
+
 module.exports = {
-  use: ['@neutrinojs/web']
+  use: [web()]
 };
 ```
 
@@ -173,15 +175,15 @@ to the empty string, which will cause relative asset paths to be used instead.
 ## Preset options
 
 You can provide custom options and have them merged with this preset's default options to easily affect how this
-preset builds. You can modify Web preset settings from `.neutrinorc.js` by overriding with an options object. Use
-an array pair instead of a string to supply these options in `.neutrinorc.js`.
-
+preset builds. You can modify Web preset settings from `.neutrinorc.js` by overriding with an options object.
 The following shows how you can pass an options object to the Web preset and override its options:
 
 ```js
+const web = require('@neutrinojs/web');
+
 module.exports = {
   use: [
-    ['@neutrinojs/web', {
+    web({
       // Enables and configures `EnvironmentPlugin`. See below for example usage.
       env: false,
 
@@ -244,7 +246,7 @@ module.exports = {
           }]
         ]
       }
-    }]
+    })
   ]
 };
 ```
@@ -252,9 +254,11 @@ module.exports = {
 _Example: Disable Hot Module Replacement and change the page title:_
 
 ```js
+const web = require('@neutrinojs/web');
+
 module.exports = {
   use: [
-    ['@neutrinojs/web', {
+    web({
       /* preset options */
 
       // Example: disable Hot Module Replacement
@@ -282,7 +286,7 @@ module.exports = {
       devServer: {
         proxy: 'http://localhost:3000'
       }
-    }]
+    })
   ]
 };
 ```
@@ -297,24 +301,24 @@ it automatically. The environment variables can then be used via `process.env.<N
 For example:
 
 ```js
-['@neutrinojs/web', {
+web({
   env: [
     // webpack will output a warning if these are not defined in the environment.
     'VAR_ONE',
     'VAR_TWO',
   ]
-}]
+})
 ```
 
 Or to set default values, use the object form:
 
 ```js
-['@neutrinojs/web', {
+web({
   env: {
     VAR_ONE: 'foo',
     VAR_TWO: 'bar',
   }
-}]
+})
 ```
 
 ### Dev Server Proxy
@@ -326,7 +330,7 @@ for all available options.
 For example:
 
 ```js
-['@neutrinojs/web', {
+web({
   devServer: {
     proxy: {
       '**': {
@@ -335,7 +339,7 @@ For example:
       }
     }
   }
-}]
+})
 ```
 
 ### Source Maps
@@ -345,12 +349,12 @@ By default, the `'cheap-module-eval-source-map'` source map is enabled when `NOD
 To customise this, use the preset's `devtool` option, for example:
 
 ```js
-['@neutrinojs/web', {
+web({
   devtool: {
     // Enable source-maps in production
     production: 'source-map'
   }
-}]
+})
 ```
 
 For the differences between each source map type, see the [webpack devtool docs](https://webpack.js.org/configuration/devtool/).
@@ -358,10 +362,10 @@ For the differences between each source map type, see the [webpack devtool docs]
 ### Targets
 
 ```js
-['@neutrinojs/web', {
+web({
   // Use targets from a .browserslistrc file.
   targets: false
-}]
+})
 ```
 
 Setting to `false` will override Neutrino's default targets and allow
@@ -423,6 +427,8 @@ this maps to the `index.*` file in the `src` directory. The extension is resolve
 If you wish to output multiple pages, you can configure them like so:
 
 ```js
+const web = require('@neutrinojs/web');
+
 module.exports = {
   options: {
     mains: {
@@ -446,7 +452,7 @@ module.exports = {
       },
     }
   },
-  use: ['@neutrinojs/web']
+  use: [web()]
 }
 ```
 
@@ -493,9 +499,11 @@ by the new webpack [SplitChunksPlugin](https://webpack.js.org/plugins/split-chun
 _Example: The splitChunks settings can be adjusted like so:_
 
 ```js
+const web = require('@neutrinojs/web');
+
 module.exports = {
   use: [
-    '@neutrinojs/web',
+    web(),
     (neutrino) => {
       neutrino.config
         .optimization
@@ -520,9 +528,11 @@ override `optimization.minimizer`.
 _Example: Adjust the `terser` minification settings:_
 
 ```js
+const web = require('@neutrinojs/web');
+
 module.exports = {
   use: [
-    '@neutrinojs/web',
+    web(),
     (neutrino) => {
       // Whilst the minimizer is only used when the separate `minimize` option is true
       // (ie in production), the conditional avoids the expensive require() in development.

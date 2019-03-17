@@ -34,40 +34,40 @@
 and plug it into Neutrino:
 
 ```js
-// Using function middleware format
 const copy = require('@neutrinojs/copy');
 
 // Use with default options
-neutrino.use(copy);
+neutrino.use(copy());
 
 // Usage shows the default values of this middleware:
-neutrino.use(copy, {
+neutrino.use(copy({
   patterns: [],
   options: {
     logLevel: neutrino.options.debug ? 'debug' : 'warn',
   },
   pluginId: 'copy'
-});
+}));
 ```
 
 ```js
-// Using object or array middleware format
+// Using in .neutrinorc.js
+const copy = require('@neutrinojs/copy');
 
 // Use with default options
 module.exports = {
-  use: ['@neutrinojs/copy']
+  use: [copy()]
 };
 
 // Usage shows the default values of this middleware:
 module.exports = {
   use: [
-    ['@neutrinojs/copy', {
+    copy({
       patterns: [],
       options: {
         logLevel: neutrino.options.debug ? 'debug' : 'warn',
       },
       pluginId: 'copy'
-    }]
+    })
   ]
 };
 ```

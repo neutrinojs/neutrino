@@ -35,14 +35,13 @@
 and plug it into Neutrino:
 
 ```js
-// Using function middleware format
 const devServer = require('@neutrinojs/dev-server');
 
 // Usage with default options
-neutrino.use(devServer);
+neutrino.use(devServer());
 
 // Usage with custom options (default options are shown)
-neutrino.use(devServer, {
+neutrino.use(devServer({
   port: 5000,
   hot: true,
   // Redirect 404s to index.html, so that apps that use the HTML 5 History API work.
@@ -54,21 +53,22 @@ neutrino.use(devServer, {
     timings: true,
     warnings: true
   }
-});
+}));
 ```
 
 ```js
-// Using object or array middleware format
+// Using in .neutrinorc.js
+const devServer = require('@neutrinojs/dev-server');
 
 // Usage with default options
 module.exports = {
-  use: ['@neutrinojs/dev-server']
+  use: [devServer()]
 };
 
 // Usage with custom options (default options are shown)
 module.exports = {
   use: [
-    ['@neutrinojs/dev-server', {
+    devServer({
       port: 5000,
       hot: true,
       // Redirect 404s to index.html, so that apps that use the HTML 5 History API work.
@@ -80,7 +80,7 @@ module.exports = {
         timings: true,
         warnings: true
       }
-    }]
+    })
   ]
 };
 ```

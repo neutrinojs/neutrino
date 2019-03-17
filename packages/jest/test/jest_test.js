@@ -4,7 +4,7 @@ import eslintPreset from '../../eslint';
 import Neutrino from '../../neutrino/Neutrino';
 import neutrino from '../../neutrino';
 
-const mw = () => require('..');
+const mw = (...args) => require('..')(...args);
 const originalNodeEnv = process.env.NODE_ENV;
 
 test.afterEach(() => {
@@ -13,7 +13,7 @@ test.afterEach(() => {
 });
 
 test('loads middleware', t => {
-  t.notThrows(mw);
+  t.notThrows(() => require('..'));
 });
 
 test('uses middleware', t => {
@@ -71,14 +71,14 @@ test('exposes jest config from method', t => {
 });
 
 test('uses middleware with options', t => {
-  const config = neutrino([mw(), { testEnvironment: 'node' }]).jest();
+  const config = neutrino(mw({ testEnvironment: 'node' })).jest();
 
   t.is(config.testEnvironment, 'node');
 });
 
 test('updates lint config by default', t => {
   const api = new Neutrino();
-  api.use(airbnbPreset);
+  api.use(airbnbPreset());
   api.use(mw());
   const options = api.config.module.rule('lint').use('eslint').get('options');
   t.deepEqual(options.baseConfig.extends, [
@@ -89,7 +89,7 @@ test('updates lint config by default', t => {
 
 test('does not update lint config if useEslintrc true', t => {
   const api = new Neutrino();
-  api.use(eslintPreset, { eslint: { useEslintrc: true } });
+  api.use(eslintPreset({ eslint: { useEslintrc: true } }));
   api.use(mw());
   const options = api.config.module.rule('lint').use('eslint').get('options');
   t.deepEqual(options.baseConfig, {});

@@ -34,36 +34,36 @@
 and plug it into Neutrino:
 
 ```js
-// Using function middleware format
 const fonts = require('@neutrinojs/font-loader');
 
 // Use with default options
-neutrino.use(fonts);
+neutrino.use(fonts());
 
 // Usage showing default options
-neutrino.use(fonts, {
+neutrino.use(fonts({
   name: process.env.NODE_ENV === 'production'
     ? 'assets/[name].[hash:8].[ext]'
     : 'assets/[name].[ext]'
-});
+}));
 ```
 
 ```js
-// Using object or array middleware format
+// Using in .neutrinorc.js
+const fonts = require('@neutrinojs/font-loader');
 
 // Use with default options
 module.exports = {
-  use: ['@neutrinojs/font-loader']
+  use: [fonts()]
 };
 
 // Usage showing default options
 module.exports = {
   use: [
-    ['@neutrinojs/font-loader', {
+    fonts({
       name: process.env.NODE_ENV === 'production'
         ? 'assets/[name].[hash:8].[ext]'
         : 'assets/[name].[ext]'
-    }]
+    })
   ]
 };
 ```
