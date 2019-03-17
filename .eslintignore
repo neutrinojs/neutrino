@@ -8,3 +8,15 @@ packages/neutrino/test/fixtures/test-module/errorMiddleware.js
 # RC files. We then negate this ignore so they are still linted, but no longer
 # used as configuration by our development lint command.
 !packages/create-project/bin/commands/init/templates/*/.eslintrc.js
+
+# Ignore directories that may potentially have JS we don't need linted
+coverage
+docs
+build
+.nyc_output
+
+# Lint dotfiles
+!.*.js
+
+# Do not use prettier to re-format the changelog
+CHANGELOG.md
