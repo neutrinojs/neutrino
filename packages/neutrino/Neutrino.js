@@ -32,6 +32,18 @@ module.exports = class Neutrino {
       ...clone(opts)
     };
 
+    if ('node_modules' in options) {
+      throw new ConfigurationError(
+        'options.node_modules has been removed. Use `neutrino.config.resolve.modules` instead.'
+      );
+    }
+
+    if ('env' in options) {
+      throw new ConfigurationError(
+        'options.env has been removed. Apply middleware conditionally instead.'
+      );
+    }
+
     if (!options.mains) {
       Object.assign(options, {
         mains: {
@@ -143,10 +155,50 @@ module.exports = class Neutrino {
       return;
     }
 
-    if (typeof middleware !== 'function') {
-      throw new ConfigurationError('Middleware must be a function');
-    }
+    if (typeof middleware === 'function') {
+      if (middleware.length > 1) {
+        throw new ConfigurationError(
+          'As of Neutrino 9, middleware only accepts a single argument\n' +
+            'referencing the Neutrino API. Please check that the correct\n' +
+            'value is being passed.'
+        );
+      }
 
-    middleware(this);
+      const extraneous = middleware(this);
+
+      if (extraneous && typeof extraneous === 'function') {
+        throw new ConfigurationError(
+          'Neutrino received middleware that upon usage tried returning\n' +
+            'another function. This typically indicates that the supplied\n' +
+            'function should be executed and passed to Neutrino, e.g.\n\n' +
+            '  use: [middleware] -> use: [middleware()]\n' +
+            '  neutrino.use(middleware) -> neutrino.use(middleware())\n\n' +
+            'Please check that the correct value is being passed.'
+        );
+      }
+    } else if (typeof middleware === 'string') {
+      throw new ConfigurationError(
+        `"${middleware}" is specified as a string, but as of Neutrino 9,\n` +
+          'middleware can only be passed as functions.\n' +
+          'Use the migration tool and see the migration guide for details:\n' +
+          '  https://neutrinojs.org/migrate\n' +
+          '  https://neutrinojs.org/migration-guide'
+      );
+    } else if (Array.isArray) {
+      throw new ConfigurationError(
+        `"${middleware[0]}" is specified as an array, but as of Neutrino 9,\n` +
+          'middleware can only be passed as functions.\n' +
+          'Use the migration tool and see the migration guide for details:\n' +
+          '  https://neutrinojs.org/migrate\n' +
+          '  https://neutrinojs.org/migration-guide'
+      );
+    } else {
+      throw new ConfigurationError(
+        'As of Neutrino 9, middleware can only be passed as functions.\n' +
+          'Use the migration tool and see the migration guide for details:\n' +
+          '  https://neutrinojs.org/migrate\n' +
+          '  https://neutrinojs.org/migration-guide'
+      );
+    }
   }
 };

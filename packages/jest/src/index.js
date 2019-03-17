@@ -12,8 +12,7 @@ module.exports = (options = {}) => (neutrino) => {
         ? lintOptions
         : merge(lintOptions, {
             baseConfig: {
-              extends: ['plugin:jest/recommended'],
-              plugins: ['jest']
+              extends: ['plugin:jest/recommended']
             }
           })
     );

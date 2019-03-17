@@ -7,6 +7,25 @@ const getIdentifierFromPackage = (pkg) => {
   return camelcase(parts[parts.length - 1]);
 };
 
+const getTargetAndArgs = element => {
+  // In the use array, skip converting middleware that isn't a string
+  // or an array. There may be conditional expressions prior to the actual
+  // middleware usage, e.g., process.env.NODE_ENV === 'test' && <middleware>.
+  if (element.type === 'Literal') {
+    return [element];
+  }
+
+  if (element.type === 'ArrayExpression') {
+    return [element.elements[0], element.elements.slice(1)];
+  }
+
+  if (element.type === 'LogicalExpression') {
+    return getTargetAndArgs(element.right);
+  }
+
+  return [];
+};
+
 /**
  * Transform .neutrinorc.js files to remove legacy middleware string-based
  * formats in module.exports.use and neutrino.use(). Will move string formats
@@ -46,59 +65,61 @@ module.exports = ({ source }, { jscodeshift: j }) => {
         }
 
         // Convert middleware in the use array.
-        use.value.elements = use.value.elements
-          .map(element => {
-            // In the use array, skip converting middleware that isn't a string
-            // or an array.
-            if (
-              element.type !== 'ArrayExpression' &&
-              typeof element.value !== 'string'
-            ) {
-              return element;
-            }
+        Object.assign(use.value, {
+          elements: use.value.elements
+            .map(element => {
+              // The target contains the package name, and any remaining
+              // arguments should be captured to pass to the function call.
+              const [target, args = []] = getTargetAndArgs(element);
 
-            const target = element.elements
-              ? element.elements[0]
-              : element;
-            const name = getIdentifierFromPackage(target.value);
-            // The first argument was the package name, so any remaining
-            // arguments should be captured to pass to the function call.
-            const args = element.elements ? element.elements.slice(1) : [];
+              if (!target) {
+                return element;
+              }
 
-            // Capture the middleware package name to be directly required.
-            requires.set(name, target.raw);
+              const name = getIdentifierFromPackage(target.value);
 
-            // Convert to function call.
-            return callExpression(name, args);
-          });
+              // Capture the middleware package name to be directly required.
+              requires.set(name, target.raw);
 
-        // Convert middleware from neutrino.use.
-        j(path)
-          .find(j.CallExpression, {
-            callee: {
-              object: { name: 'neutrino' },
-              property: { name: 'use' }
-            }
-          })
-          .forEach(({ node }) => {
-            // The first argument was the package name, so any remaining
-            // arguments should be captured to pass to the function call.
-            const [use, ...args] = node.arguments;
-
-            if (typeof use.value !== 'string') {
-              return;
-            }
-
-            const name = getIdentifierFromPackage(use.value);
-
-            // Capture the middleware package name to be directly required.
-            requires.set(name, use.raw);
-            Object.assign(node, {
-              // Convert to function call.
-              arguments: [callExpression(name, args)]
-            });
+              // Convert the usage to a function call, ensuring that any
+              // preceding conditionals are kept intact.
+              return element.type === 'LogicalExpression'
+                ? Object.assign(element, { right: callExpression(name, args) })
+                : callExpression(name, args);
+            })
           });
       });
+
+    // Convert middleware from neutrino.use.
+    root
+      .find(j.CallExpression, {
+        callee: {
+          object: { name: 'neutrino' },
+          property: { name: 'use' }
+        }
+      })
+      .forEach(({ node }) => {
+        // The first argument was the package name, so any remaining
+        // arguments should be captured to pass to the function call.
+        const [use, ...args] = node.arguments;
+
+        if (typeof use.value !== 'string') {
+          return;
+        }
+
+        const name = getIdentifierFromPackage(use.value);
+
+        // Capture the middleware package name to be directly required.
+        requires.set(name, use.raw);
+        Object.assign(node, {
+          // Convert to function call.
+          arguments: [callExpression(name, args)]
+        });
+      });
+
+    if (!requires.size) {
+      return source;
+    }
 
     // With the source now transformed, inject aggregated packages to requires
     // at the top of the file.

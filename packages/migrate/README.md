@@ -5,9 +5,8 @@ Neutrino 9.
 
 ## Getting Started
 
-Run the following command to start the process. Substitute `<...tasks>` with
-the list of migration tasks you wish to run. Let's take a look at the help
-output of migrate:
+The `npx @neutrinojs/migrate` command starts the process.
+Let's take a look at the help output of migrate:
 
 ```bash
 ❯ npx @neutrinojs/migrate --help

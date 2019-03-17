@@ -1,3 +1,4 @@
+const eslint = require('@neutrinojs/eslint');
 const airbnbBase = require('@neutrinojs/airbnb-base');
 const node = require('@neutrinojs/node');
 const jest = require('@neutrinojs/jest');
@@ -11,6 +12,7 @@ module.exports = {
     (neutrino) => {
       neutrino.use(fakePreset());
     },
+    process.env.NODE_ENV === 'development' && eslint(),
     airbnbBase({
       eslint: {
         baseConfig: {
@@ -21,7 +23,7 @@ module.exports = {
       },
     }),
     node(),
-    jest({
+    process.env.NODE_ENV === 'test' && jest({
       testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
     }),
     (neutrino) => {

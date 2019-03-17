@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import test from 'ava';
 import { join } from 'path';
 import Neutrino from '../Neutrino';
@@ -63,6 +64,22 @@ test('options.tests', t => {
   t.is(api.options.tests, join('/beta', 'alpha'));
   api.options.tests = '/alpha';
   t.is(api.options.tests, '/alpha');
+});
+
+test('throws when legacy options.node_modules is set', t => {
+  t.throws(() => new Neutrino({ node_modules: 'abc' }), /options\.node_modules has been removed/);
+});
+
+test('throws when legacy options.env is set', t => {
+  t.throws(() => new Neutrino({
+    env: {
+      NODE_ENV: {
+        production: neutrino => {
+          neutrino.config.devtool('alpha');
+        }
+      }
+    }
+  }), /options\.env has been removed/);
 });
 
 test('options.mains', t => {
@@ -139,12 +156,23 @@ test('middleware receives API instance', t => {
   api.use(n => t.is(n, api));
 });
 
-test('middleware receives no default options', t => {
+test('middleware fails on more than one argument', t => {
   const api = new Neutrino();
+  const errorMatch = /middleware only accepts a single argument/;
 
-  api.use((api, options) => {
-    t.is(options, undefined);
-  });
+  t.notThrows(() => api.use(function good() {}));
+  t.notThrows(() => api.use(function good(neutrino) {}));
+  t.throws(() => api.use(function bad(neutrino, options) {}), errorMatch);
+});
+
+test('middleware only accepts functions', t => {
+  const api = new Neutrino();
+  const errorMatch = /middleware can only be passed as functions/;
+
+  t.notThrows(() => api.use(function good() {}));
+  t.throws(() => api.use('bad'), errorMatch);
+  t.throws(() => api.use(['bad', { alpha: 'beta' }]), errorMatch);
+  t.throws(() => api.use({ alpha: 'beta' }), errorMatch);
 });
 
 test('creates a webpack config', t => {

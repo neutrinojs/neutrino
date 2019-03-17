@@ -22,7 +22,7 @@ Neutrino middleware which are now middleware factories, since packages can no lo
 for you:
 
 ```bash
-npx @neutrinojs/migrate rc
+npx @neutrinojs/migrate
 ```
 
 ```js

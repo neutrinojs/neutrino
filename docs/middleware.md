@@ -74,7 +74,8 @@ module.exports = (additionalEnvs = []) => (neutrino) => {
 ```
 
 This middleware can now be used by consumers in their `.neutrinorc.js`, but now
-needs to be called so a middleware function is given to `use`:
+needs to be called in order for a valid middleware function to be passed to
+`use`:
 
 ```js
 const envLoader = require('neutrino-middleware-env-loader');

@@ -83,9 +83,9 @@ Pass the `dangerouslyAllowCleanPatternsOutsideProject: true` option to remove di
 ```js
 module.exports = {
   use: [
-    ['@neutrinojs/clean', {
+    clean({
       dangerouslyAllowCleanPatternsOutsideProject: true,
-    }]
+    })
   ]
 };
 ```

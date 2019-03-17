@@ -2,7 +2,8 @@
 
 const yargs = require('yargs');
 const { run } = require('jscodeshift/src/Runner');
-const { join, resolve } = require('path');
+const { resolve } = require('path');
+const { existsSync } = require('fs');
 
 const cli = yargs
   .scriptName('migrate')
@@ -38,7 +39,15 @@ const cli = yargs
 
 run(
   resolve(__dirname, '../transforms/middleware.js'),
-  cli.files.map(file => join(process.cwd(), file)),
+  cli.files.map(file => {
+    const resolved = resolve(process.cwd(), file);
+
+    if (!existsSync(resolved)) {
+      throw new Error(`Cannot find file '${resolved}'`);
+    }
+
+    return resolved;
+  }),
   { dry: cli.dry, silent: cli.silent, print: cli.print }
 )
 .catch(err => {

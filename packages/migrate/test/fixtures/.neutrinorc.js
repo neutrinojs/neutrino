@@ -6,6 +6,7 @@ module.exports = {
     (neutrino) => {
       neutrino.use('fake-preset');
     },
+    process.env.NODE_ENV === 'development' && '@neutrinojs/eslint',
     ['@neutrinojs/airbnb-base', {
       eslint: {
         baseConfig: {
@@ -16,7 +17,7 @@ module.exports = {
       },
     }],
     '@neutrinojs/node',
-    ['@neutrinojs/jest', {
+    process.env.NODE_ENV === 'test' && ['@neutrinojs/jest', {
       testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
     }],
     (neutrino) => {

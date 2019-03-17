@@ -151,15 +151,16 @@ You can provide custom options and have them merged with this preset's default o
 to Mocha. You can modify Mocha settings from `.neutrinorc.js` by overriding with any options Mocha accepts. In a standalone
 Mocha project this is done in the `.mocharc.js` file, but `@neutrinojs/mocha` allows configuration through
 this mechanism as well. This accepts the same configuration options as outlined in the
-[Mocha documentation](https://mochajs.org/). Use an array pair instead of a string
-to supply these options.
+[Mocha documentation](https://mochajs.org/).
 
 _Example: Enable bailing on test failures._
 
 ```js
 module.exports = {
   use: [
-    ['@neutrinojs/mocha', { bail: true }]
+    mocha({
+      bail: true
+    })
   ]
 };
 ```
