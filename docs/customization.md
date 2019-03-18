@@ -247,14 +247,14 @@ Sometimes you can only make certain configuration changes in certain Node.js env
 selectively make changes based on the values of any arbitrary environment variable. This can be achieved by
 conditionally applying middleware in `.neutrinorc.js`.
 
-For example, if you wanted to include additional middleware when `NODE_ENV` is `production`:
+For example, if you wanted to include additional middleware when `NODE_ENV` is `test`:
 
 ```js
-const pwa = require('@neutrinojs/pwa');
+const jest = require('@neutrinojs/jest');
 
 module.exports = {
   use: [
-    process.env.NODE_ENV === 'production' ? pwa() : false,
+    process.env.NODE_ENV === 'test' ? jest() : false,
   ]
 };
 ```

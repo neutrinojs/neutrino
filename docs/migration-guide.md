@@ -209,6 +209,8 @@ options for `minify.image` and `minify.style` [#809](https://github.com/neutrino
 middleware packages can be used instead [#809](https://github.com/neutrinojs/neutrino/pull/809).
 - **BREAKING CHANGE** The `@neutrinojs/image-minify` middleware has been removed
 [#1105](https://github.com/neutrinojs/neutrino/pull/1105).
+- **BREAKING CHANGE** The `@neutrinojs/pwa` middleware has been removed
+[#1105](https://github.com/neutrinojs/neutrino/pull/1330).
 - **BREAKING CHANGE** The `@neutrinojs/stylelint` middleware has been removed
 [#1105](https://github.com/neutrinojs/neutrino/pull/1110).
 - **BREAKING CHANGE** The `@neutrinojs/react` and `@neutrinojs/preact` packages no longer use
