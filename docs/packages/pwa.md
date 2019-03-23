@@ -1,1 +1,0 @@
-../../packages/pwa/README.md
