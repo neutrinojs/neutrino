@@ -19,9 +19,18 @@
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino 9 and one of the Neutrino build presets
 - webpack 4
-- Jest 23
+- Jest 24
 
-## Installation
+## Quickstart
+
+The fastest way to get started is by using the `create-project` scaffolding tool.
+See the [Create new project](https://neutrinojs.org/installation/create-new-project/) docs for more details.
+
+Don’t want to use the CLI helper? No worries, we have you covered with the [manual installation](#manual-installation).
+
+## Manual Installation
+
+First follow the manual installation instructions for your chosen build preset.
 
 `@neutrinojs/jest` can be installed via the Yarn or npm clients. Inside your project, make sure
 `@neutrinojs/jest` and `jest` are development dependencies. You will also be using
@@ -60,15 +69,7 @@ higher-level abstraction such as Airbnb's Enzyme. These should be development de
 See the [React's Test Utils documentation](https://reactjs.org/docs/test-utils.html) for specifics on React
 testing with this approach.
 
-## Project Layout
-
-`@neutrinojs/jest` follows the standard [project layout](https://neutrinojs.org/project-layout/) specified by Neutrino. This
-means that by default all project test code should live in a directory named `test` in the root of the
-project. Test files end in either `_test.js`, `.test.js`, `_test.jsx`, or `.test.jsx`.
-
-## Quickstart
-
-After adding the Jest preset to your Neutrino-built project, add a new directory named `test` in the root of the
+After that, add a new directory named `test` in the root of the
 project, with a single JS file named `simple_test.js` in it.
 
 ```bash
@@ -159,6 +160,12 @@ import thingToTest from '../src/thing';
 ```
 
 For more details on specific Jest usage, please refer to their [documentation](https://jestjs.io/).
+
+## Project Layout
+
+`@neutrinojs/jest` follows the standard [project layout](https://neutrinojs.org/project-layout/) specified by Neutrino. This
+means that by default all project test code should live in a directory named `test` in the root of the
+project. Test files end in either `_test.js`, `.test.js`, `_test.jsx`, or `.test.jsx`.
 
 ## Executing single tests
 

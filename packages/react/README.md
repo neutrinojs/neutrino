@@ -32,33 +32,6 @@
 - webpack-cli 3
 - webpack-dev-server 3
 
-## Installation
-
-`@neutrinojs/react` can be installed via the Yarn or npm clients. Inside your project, make sure
-that the Neutrino and webpack related dependencies below are installed as development dependencies.
-You will also need React and React DOM for actual React development.
-
-#### Yarn
-
-```bash
-❯ yarn add --dev neutrino @neutrinojs/react webpack webpack-cli webpack-dev-server
-❯ yarn add react react-dom
-```
-
-#### npm
-
-```bash
-❯ npm install --save-dev neutrino @neutrinojs/react webpack webpack-cli webpack-dev-server
-❯ npm install --save react react-dom
-```
-
-## Project Layout
-
-`@neutrinojs/react` follows the standard [project layout](https://neutrinojs.org/project-layout/) specified by Neutrino. This
-means that by default all project source code should live in a directory named `src` in the root of the
-project. This includes JavaScript files, CSS stylesheets, images, and any other assets that would be available
-to import your compiled project.
-
 ## Quickstart
 
 The fastest way to get started is by using the `create-project` scaffolding tool.
@@ -93,7 +66,25 @@ for details on all available options.
 
 ### Manual Installation
 
-After installing Neutrino and the React preset, add a new directory named `src` in the root of the project, with
+`@neutrinojs/react` can be installed via the Yarn or npm clients. Inside your project, make sure
+that the Neutrino and webpack related dependencies below are installed as development dependencies.
+You will also need React and React DOM for actual React development.
+
+#### Yarn
+
+```bash
+❯ yarn add --dev neutrino @neutrinojs/react webpack webpack-cli webpack-dev-server
+❯ yarn add react react-dom
+```
+
+#### npm
+
+```bash
+❯ npm install --save-dev neutrino @neutrinojs/react webpack webpack-cli webpack-dev-server
+❯ npm install --save react react-dom
+```
+
+After that, add a new directory named `src` in the root of the project, with
 a single JS file named `index.js` in it.
 
 ```bash
@@ -151,6 +142,13 @@ Start the app, then open a browser to the address in the console:
 ```bash
 ❯ npm start
 ```
+
+## Project Layout
+
+`@neutrinojs/react` follows the standard [project layout](https://neutrinojs.org/project-layout/) specified by Neutrino. This
+means that by default all project source code should live in a directory named `src` in the root of the
+project. This includes JavaScript files, CSS stylesheets, images, and any other assets that would be available
+to import your compiled project.
 
 ## Building
 

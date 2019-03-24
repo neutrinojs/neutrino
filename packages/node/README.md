@@ -24,43 +24,6 @@
 - webpack 4
 - webpack-cli 3
 
-## Installation
-
-`@neutrinojs/node` can be installed via the Yarn or npm clients. Inside your project, make sure
-that the dependencies below are installed as development dependencies.
-
-#### Yarn
-
-```bash
-❯ yarn add --dev neutrino @neutrinojs/node webpack webpack-cli
-```
-
-#### npm
-
-```bash
-❯ npm install --save-dev neutrino @neutrinojs/node webpack webpack-cli
-```
-
-If you want to have automatically wired sourcemaps added to your project, add `source-map-support`:
-
-#### Yarn
-
-```bash
-❯ yarn add source-map-support
-```
-
-#### npm
-
-```bash
-❯ npm install --save source-map-support
-```
-
-## Project Layout
-
-`@neutrinojs/node` follows the standard [project layout](https://neutrinojs.org/project-layout/) specified by Neutrino. This
-means that by default all project source code should live in a directory named `src` in the root of the
-project. This includes JavaScript files that would be available to your compiled project.
-
 ## Quickstart
 
 The fastest way to get started is by using the `create-project` scaffolding tool.
@@ -95,7 +58,36 @@ for details on all available options.
 
 ### Manual Installation
 
-After installing Neutrino and the Node.js preset, add a new directory named `src` in the root of the project, with
+`@neutrinojs/node` can be installed via the Yarn or npm clients. Inside your project, make sure
+that the dependencies below are installed as development dependencies.
+
+#### Yarn
+
+```bash
+❯ yarn add --dev neutrino @neutrinojs/node webpack webpack-cli
+```
+
+#### npm
+
+```bash
+❯ npm install --save-dev neutrino @neutrinojs/node webpack webpack-cli
+```
+
+If you want to have automatically wired sourcemaps added to your project, add `source-map-support`:
+
+#### Yarn
+
+```bash
+❯ yarn add source-map-support
+```
+
+#### npm
+
+```bash
+❯ npm install --save source-map-support
+```
+
+After that, add a new directory named `src` in the root of the project, with
 a single JS file named `index.js` in it.
 
 ```bash
@@ -172,6 +164,12 @@ Server running on port 3000
 ❯ curl http://localhost:3000
 hi!
 ```
+
+## Project Layout
+
+`@neutrinojs/node` follows the standard [project layout](https://neutrinojs.org/project-layout/) specified by Neutrino. This
+means that by default all project source code should live in a directory named `src` in the root of the
+project. This includes JavaScript files that would be available to your compiled project.
 
 ## Building
 
