@@ -52,6 +52,9 @@ module.exports = (options = {}) => (neutrino) => {
       moduleDirectories: modulesConfig.length ? modulesConfig : ['node_modules'],
       moduleFileExtensions: neutrino.config.resolve.extensions
         .values()
+        // Jest does not yet support ES6 modules, see:
+        // https://github.com/facebook/jest/issues/4842
+        .filter(ext => ext !== '.mjs')
         .map(extension => extension.replace('.', '')),
       moduleNameMapper:
         Object
