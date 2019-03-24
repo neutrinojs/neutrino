@@ -1,9 +1,5 @@
 import React from 'react';
 import { render } from 'react-dom';
-import HelloWorld from './components/HelloWorld';
+import Example from './components/Example';
 
-const root = document.getElementById('root');
-
-render((
-  <HelloWorld />
-), root);
+render(<Example />, document.getElementById('root'));
