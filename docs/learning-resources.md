@@ -26,3 +26,9 @@ community, file an issue or submit a pull request.
 
 * [Bootstrap a Zero Configuration React App with Neutrino](https://egghead.io/lessons/react-bootstrap-a-zero-configuration-react-app-with-neutrino) by [@markshust](https://twitter.com/markshust)
 * [Empower and Simplify JavaScript Development](https://www.youtube.com/watch?v=fz5jMdmKmRI) by [@eliperelman](https://twitter.com/eliperelman) at [@nebraskajs](https://nebraskajs.com)
+
+## Third Party Presets and Middleware
+
+Other presets and middleware that can be taken as examples to learn from:
+
+* [Preset for Zoho Sites Template development](https://gitlab.com/ringods/neutrino-preset-zoho-sites-template)
