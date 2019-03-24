@@ -1,6 +1,7 @@
 import test from 'ava';
 import airbnbPreset from '../../airbnb';
 import eslintPreset from '../../eslint';
+import reactPreset from '../../react';
 import Neutrino from '../../neutrino/Neutrino';
 import neutrino from '../../neutrino';
 
@@ -93,4 +94,19 @@ test('does not update lint config if useEslintrc true', t => {
   api.use(mw());
   const options = api.config.module.rule('lint').use('eslint').get('options');
   t.deepEqual(options.baseConfig, {});
+});
+
+test('configures moduleFileExtensions correctly', t => {
+  const api = new Neutrino();
+  api.use(reactPreset());
+  api.use(mw());
+  const config = api.outputHandlers.get('jest')(api);
+  t.deepEqual(config.moduleFileExtensions, [
+    'web.jsx',
+    'web.js',
+    'wasm',
+    'jsx',
+    'js',
+    'json'
+  ]);
 });
