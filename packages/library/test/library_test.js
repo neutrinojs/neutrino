@@ -119,6 +119,32 @@ test('valid preset commonjs2 libraryTarget', t => {
   t.is(errors.length, 0);
 });
 
+test('targets option test', t => {
+  const api = new Neutrino();
+  const targets = {
+    browsers: ['last 2 iOS versions']
+  };
+
+  api.use(mw({ name: 'alpha', targets }));
+
+  t.deepEqual(api.config.module
+    .rule('compile')
+    .use('babel')
+    .get('options')
+    .presets[0][1].targets, targets);
+});
+
+test('targets false option test', t => {
+  const api = new Neutrino();
+  api.use(mw({ name: 'alpha', targets: false }));
+
+  t.deepEqual(api.config.module
+    .rule('compile')
+    .use('babel')
+    .get('options')
+    .presets[0][1].targets, {});
+});
+
 test('updates lint config by default when target is web', t => {
   const api = new Neutrino();
   api.use(lint());

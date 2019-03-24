@@ -24,8 +24,13 @@ module.exports = (opts = {}) => {
       target: 'web',
       libraryTarget: 'umd',
       babel: {},
-      externals: {}
+      externals: {},
+      targets: {}
     }, opts);
+
+    if (options.targets === false) {
+      options.targets = {};
+    }
 
     Object.assign(options, {
       babel: babelMerge({
@@ -35,7 +40,8 @@ module.exports = (opts = {}) => {
         presets: [
           [require.resolve('@babel/preset-env'), {
             debug: neutrino.options.debug,
-            useBuiltIns: 'entry'
+            useBuiltIns: 'entry',
+            targets: options.targets
           }]
         ]
       }, options.babel)
