@@ -45,6 +45,29 @@ module.exports = {
 
 See the [migration tool documentation](./migrate.md) for more details.
 
+Unfortunately the migration tool is not yet able to handle other types of breaking changes
+(see [#1336](https://github.com/neutrinojs/neutrino/issues/1336)), so after running the tool
+you will also need to:
+
+1. Update the `neutrino` and `@neutrinojs/*` dependencies in `package.json` to version 9,
+   and remove any packages that do not have a v9 release (such as `@neutrinojs/env`).
+
+2. Remove and re-generate any Yarn/npm lockfiles (eg `yarn.lock` or `package-lock.json`),
+   to prevent problems caused by leftover dependencies.
+
+3. Refer to the updated package installation instructions on your build, lint and test preset's
+  documentation pages, making sure to:
+
+    - install the new peer dependencies (such as `webpack`, `eslint`, `jest`)
+    - update the `package.json` scripts (such as `build`, `start`, `lint`) with the recommended values
+    - create the configuration file for each tool (such as `webpack.config.js`, `.eslintrc.js`, `jest.config.js`).
+      NB: The `.eslintrc.js` contents has changed, so will need updating if it already exists.
+
+4. Try running the yarn/npm build/start/test/lint commands to see if further migration steps
+   are suggested via configuration error messages.
+
+5. Review the breaking changes listed below to check if any other adjustments are required.
+
 To debug any difficulties in the upgrade process, you can run your respective Neutrino v8 command
 with `--inspect-new` and compare it with the output of Neutrino v9's `--inspect` flag. For example,
 to compare the difference between a v8 and v9 build, you can run respectively:
@@ -69,9 +92,6 @@ neutrino --inspect --mode production > v9.config
 git diff --no-index v8.config v9.config
 ```
 
-**We strongly recommend that any Yarn/npm lockfiles (eg `yarn.lock` or `package-lock.json`) are
-removed and regenerated when upgrading, to prevent problems caused by leftover dependencies.**
-
 Please [file an issue](https://github.com/neutrinojs/neutrino/issues) if any issue arises from the
 upgrade that may not be outlined here.
 
@@ -84,28 +104,9 @@ configuration files for which they are intended [#852](https://github.com/neutri
 This does not negate the need for a `.neutrinorc.js` file
 in your projects, but rather is the configuration format for declaring all the middleware for a project. As
 an example, using the `@neutrinojs/react` preset also requires an installation of `webpack`,
-`webpack-dev-server`, and `webpack-cli`. Refer to the updated package installation instructions on your
-preset's documentation page. You must then also add a `webpack.config.js` file to the project which
-will tell webpack to use the Neutrino middleware to load its configuration:
-
-```js
-// webpack.config.js
-const neutrino = require('neutrino');
-
-module.exports = neutrino().webpack();
-```
-
-Or for ESLint:
-
-```js
-// .eslintrc.js
-// NOTE: This format of .eslintrc.js is different than
-// it was in Neutrino v8.
-const neutrino = require('neutrino');
-
-module.exports = neutrino().eslintrc();
-```
-
+`webpack-dev-server`, and `webpack-cli`, as well as the creation of `webpack.config.js` file and the update
+of the script commands listed in `package.json`. **Refer to the updated package installation instructions on your
+build, lint and test preset's documentation pages.**
 - **BREAKING CHANGE** With the necessity of external CLIs means the removal of most of the Neutrino CLI's
 commands [#852](https://github.com/neutrinojs/neutrino/pull/852):
   - `neutrino build` can typically be replaced with `webpack --mode production`.
@@ -229,10 +230,32 @@ in your app [#902](https://github.com/neutrinojs/neutrino/pull/902). See
 to RHL v4 while installing it into your project also.
 - **BREAKING CHANGE** `@neutrinojs/web`, `@neutrinojs/node`, and their dependent presets no longer configure
 defaults for copying static files at build time [#814](https://github.com/neutrinojs/neutrino/pull/814).
-Use the `@neutrinojs/copy` middleware to configure this for v9.
+Use the `@neutrinojs/copy` middleware to configure this for v9. For example:
+
+```js
+// .neutrinorc.js
+const copy = require('@neutrinojs/copy');
+
+module.exports = {
+  use: [
+    // ...
+    copy({
+      patterns: [{
+        context: 'src/static',
+        from: '**/*',
+        to: 'static',
+      }],
+    })
+  ]
+};
+```
+
 - **BREAKING CHANGE** `@neutrinojs/copy` has renamed its `debug` option to `logLevel` to be synonymous
 with the option provided by [copy-webpack-plugin](https://github.com/webpack-contrib/copy-webpack-plugin#loglevel).
 This option is now a string, not a boolean.
+- **BREAKING CHANGE** The `neutrino.options.host` and `neutrino.options.port` options have been removed
+[#852](https://github.com/neutrinojs/neutrino/pull/852). Set `host` and `port` via the `devServer` option
+of the web/react/... presets instead.
 - **BREAKING CHANGE** `@neutrinojs/web` and dependent presets now default `output.publicPath` to `'/'`,
 which means that apps not served from the root of a domain (such as those hosted on GitHub pages) will
 need to explicitly set their `publicPath` [#1185](https://github.com/neutrinojs/neutrino/pull/1185).
