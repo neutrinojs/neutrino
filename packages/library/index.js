@@ -24,8 +24,13 @@ module.exports = (opts = {}) => {
       target: 'web',
       libraryTarget: 'umd',
       babel: {},
-      externals: {}
+      externals: {},
+      targets: {}
     }, opts);
+
+    if (options.targets === false) {
+      options.targets = {};
+    }
 
     Object.assign(options, {
       babel: babelMerge({
@@ -36,9 +41,7 @@ module.exports = (opts = {}) => {
           [require.resolve('@babel/preset-env'), {
             debug: neutrino.options.debug,
             useBuiltIns: 'entry',
-            targets: options.target === 'node' ?
-              { node: '8.10' } :
-              { browsers: 'ie 9' }
+            targets: options.targets
           }]
         ]
       }, options.babel)

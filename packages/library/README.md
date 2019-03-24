@@ -17,6 +17,12 @@
 - Automatically marks dependencies as external
 - Easily extensible to customize your library as needed
 
+**Important! This preset does not include 
+@babel/polyfill for size reasons. If you need
+polyfills in your library code, consider 
+importing @babel/polyfill, core-js, or other 
+alternative.**
+
 ## Requirements
 
 - Node.js ^8.10 or 10+
@@ -243,15 +249,17 @@ module.exports = {
 
       // Disable cleaning the output build directory
       clean: false,
+      
+      // Target specific browsers or Node.js versions with @babel/preset-env
+      targets: {},
 
       // Add additional Babel plugins, presets, or env options
       babel: {
         // Override options for @babel/preset-env
         presets: [
           ['@babel/preset-env', {
-            // Passing in browser targets to @babel/preset-env will replace them
-            // instead of merging them when using the 'web' target
-            targets: { browsers: 'ie 9' }
+            debug: neutrino.options.debug,
+            useBuiltIns: 'entry'
           }]
         ]
       }
@@ -260,7 +268,7 @@ module.exports = {
 };
 ```
 
-_Example: Override the library Babel compilation target to Node.js v6 and commonjs2 module:_
+_Example: Override the library to output a commonjs2 module:_
 
 ```js
 const library = require('@neutrinojs/library');
@@ -270,22 +278,58 @@ module.exports = {
     library({
       name: 'Logger',
       target: 'node',
-      libraryTarget: 'commonjs2',
-      // Add additional Babel plugins, presets, or env options
-      babel: {
-        // Override options for @babel/preset-env
-        presets: [
-          ['@babel/preset-env', {
-            targets: {
-              node: '6.0'
-            }
-          }]
-        ]
+      libraryTarget: 'commonjs2'
+    })
+  ]
+};
+```
+
+### Targets
+
+Using the `targets` option, you can target specific browsers or Node.js versions
+to compile to with `@babel/preset-env`. By default, this preset does not set any
+targets and will compile to an ES5 baseline.
+
+_Example: Override the library Babel compilation target to Node.js v6:_
+
+```js
+const library = require('@neutrinojs/library');
+
+module.exports = {
+  use: [
+    library({
+      name: 'Logger',
+      target: 'node',
+      targets: {
+        node: '6.0'
       }
     })
   ]
 };
 ```
+
+Setting to `false` will override Neutrino's default targets and allow
+`@babel/preset-env` to read targets from a [`.browserslistrc` file](https://babeljs.io/docs/en/babel-preset-env#browserslist-integration).
+
+```js
+const library = require('@neutrinojs/library');
+
+module.exports = {
+  use: [
+    library({
+      name: 'Logger',
+      target: 'node',
+      targets: false
+    })
+  ]
+};
+```
+
+When using a `.browserslistrc` file, be aware that file changes may not
+invalidate cache as expected: https://github.com/babel/babel-loader/issues/690
+
+See [`@babel/preset-env`](https://babeljs.io/docs/en/babel-preset-env#targets)
+for all other available settings.
 
 ## Customizing
 
