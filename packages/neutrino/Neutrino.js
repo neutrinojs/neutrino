@@ -38,6 +38,18 @@ module.exports = class Neutrino {
       );
     }
 
+    if ('host' in options) {
+      throw new ConfigurationError(
+        'options.host has been removed. Configure via the `devServer.host` option of the web/react/... presets.'
+      );
+    }
+
+    if ('port' in options) {
+      throw new ConfigurationError(
+        'options.port has been removed. Configure via the `devServer.port` option of the web/react/... presets.'
+      );
+    }
+
     if (!options.mains) {
       Object.assign(options, {
         mains: {

@@ -69,6 +69,14 @@ test('throws when legacy options.node_modules is set', t => {
   t.throws(() => new Neutrino({ node_modules: 'abc' }), /options\.node_modules has been removed/);
 });
 
+test('throws when legacy options.host is set', t => {
+  t.throws(() => new Neutrino({ host: 'abc' }), /options\.host has been removed/);
+});
+
+test('throws when legacy options.port is set', t => {
+  t.throws(() => new Neutrino({ port: 1234 }), /options\.port has been removed/);
+});
+
 test('options.mains', t => {
   const api = new Neutrino();
 
