@@ -1,4 +1,4 @@
-<% middleware.forEach(({ name, pkg }) => { %>const <%= name %> = require('<%= pkg %>');
+<% middleware.forEach(({ name, package }) => { %>const <%= name %> = require('<%= package %>');
 <% })%>
 module.exports = {
   options: {
