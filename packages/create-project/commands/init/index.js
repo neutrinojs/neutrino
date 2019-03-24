@@ -3,6 +3,7 @@ const { basename, join, relative } = require('path');
 const { cyan, green, white, yellow } = require('chalk');
 const merge = require('deepmerge');
 const Generator = require('yeoman-generator');
+const { appendFileSync } = require('fs');
 const { packageLint, packageManager, rcTemplate, getNeutrinorcOptions } = require('./utils');
 const { presets, questions, LIBRARY, NONE, LOGO } = require('./constants');
 
@@ -110,6 +111,8 @@ module.exports = class Project extends Generator {
       })
     });
 
+    this._spawnSync('npx gitignore node');
+    appendFileSync(join(directory, '.gitignore'), '\n# Neutrino build directory\nbuild');
     this.fs.write(join(directory, '.neutrinorc.js'), neutrinorc);
     presets.forEach(preset => {
       const templateDir = preset.package.replace('@neutrinojs/', '');

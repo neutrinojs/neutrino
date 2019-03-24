@@ -44,7 +44,7 @@ const scaffold = async ({ testName, ...prompts }) => {
   // Replace special characters in the test name to ensure that it can be
   // used as a valid directory name.
   const directory = `${
-    join(tmpdir(), testName.replace(/[/+ @]/g, '_'))
+    join(tmpdir(), testName.replace(/[/+ @:]/g, '_'))
    }_${
     Math.random().toString(36).substr(2)
   }`;
@@ -97,8 +97,8 @@ const lintable = async (t, dir, args = []) => {
 
 tests.forEach(({ project, linter, testRunner }) => {
   const testName = testRunner
-    ? `${project.name} + ${linter.name} + ${testRunner.name}`
-    : `${project.name} + ${linter.name}`;
+    ? `create-project: ${project.name} + ${linter.name} + ${testRunner.name}`
+    : `create-project: ${project.name} + ${linter.name}`;
 
   test.serial(testName, async t => {
     const dir = await scaffold({
@@ -115,6 +115,7 @@ tests.forEach(({ project, linter, testRunner }) => {
     assert.file(join(dir, '.neutrinorc.js'));
     assert.file(join(dir, 'webpack.config.js'));
     assert.file(join(dir, '.eslintrc.js'));
+    assert.file(join(dir, '.gitignore'));
 
     await lintable(t, dir);
     await buildable(t, dir);
