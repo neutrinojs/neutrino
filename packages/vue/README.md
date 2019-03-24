@@ -28,33 +28,6 @@
 - webpack-cli 3
 - webpack-dev-server 3
 
-## Installation
-
-`@neutrinojs/vue` can be installed via the Yarn or npm clients. Inside your project, make sure
-that the Neutrino and webpack related dependencies below are installed as development dependencies.
-You will also need Vue for actual Vue development.
-
-#### Yarn
-
-```bash
-❯ yarn add --dev neutrino @neutrinojs/vue webpack webpack-cli webpack-dev-server
-❯ yarn add vue
-```
-
-#### npm
-
-```bash
-❯ npm install --save-dev neutrino @neutrinojs/vue webpack webpack-cli webpack-dev-server
-❯ npm install --save vue
-```
-
-## Project Layout
-
-`@neutrinojs/vue` follows the standard [project layout](https://neutrinojs.org/project-layout/) specified by Neutrino. This
-means that by default all project source code should live in a directory named `src` in the root of the
-project. This includes JavaScript files, CSS stylesheets, images, and any other assets that would be available
-to import your compiled project.
-
 ## Quickstart
 
 The fastest way to get started is by using the `create-project` scaffolding tool.
@@ -89,7 +62,25 @@ for details on all available options.
 
 ### Manual Installation
 
-After installing Neutrino and the Vue preset, add a new directory named `src` in the root of the project, with
+`@neutrinojs/vue` can be installed via the Yarn or npm clients. Inside your project, make sure
+that the Neutrino and webpack related dependencies below are installed as development dependencies.
+You will also need Vue for actual Vue development.
+
+#### Yarn
+
+```bash
+❯ yarn add --dev neutrino @neutrinojs/vue webpack webpack-cli webpack-dev-server
+❯ yarn add vue
+```
+
+#### npm
+
+```bash
+❯ npm install --save-dev neutrino @neutrinojs/vue webpack webpack-cli webpack-dev-server
+❯ npm install --save vue
+```
+
+After that, add a new directory named `src` in the root of the project, with
 two files `index.js` and `App.vue` in it.
 
 ```bash
@@ -170,6 +161,13 @@ Start the app, then open a browser to the address in the console:
 ```bash
 ❯ npm start
 ```
+
+## Project Layout
+
+`@neutrinojs/vue` follows the standard [project layout](https://neutrinojs.org/project-layout/) specified by Neutrino. This
+means that by default all project source code should live in a directory named `src` in the root of the
+project. This includes JavaScript files, CSS stylesheets, images, and any other assets that would be available
+to import your compiled project.
 
 ## Building
 

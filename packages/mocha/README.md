@@ -17,9 +17,18 @@
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino 9 and one of the Neutrino build presets
 - webpack 4
-- Mocha 5
+- Mocha 6
 
-## Installation
+## Quickstart
+
+The fastest way to get started is by using the `create-project` scaffolding tool.
+See the [Create new project](https://neutrinojs.org/installation/create-new-project/) docs for more details.
+
+Don’t want to use the CLI helper? No worries, we have you covered with the [manual installation](#manual-installation).
+
+## Manual Installation
+
+First follow the manual installation instructions for your chosen build preset.
 
 `@neutrinojs/mocha` can be installed via the Yarn or npm clients. Inside your project, make sure
 `@neutrinojs/mocha` and `mocha` are development dependencies. You will also be using
@@ -37,15 +46,7 @@ another Neutrino preset for building your application source code.
 ❯ npm install --save-dev @neutrinojs/mocha mocha
 ```
 
-## Project Layout
-
-`@neutrinojs/mocha` follows the standard [project layout](https://neutrinojs.org/project-layout/) specified by Neutrino. This
-means that by default all project test code should live in a directory named `test` in the root of the
-project. Test files end in `_test.js` by default.
-
-## Quickstart
-
-After adding the Mocha preset to your Neutrino-built project, add a new directory named `test` in the root of the
+After that, add a new directory named `test` in the root of the
 project, with a single JS file named `simple_test.js` in it.
 
 ```bash
@@ -134,6 +135,12 @@ import thingToTest from '../src/thing';
 ```
 
 For more details on specific Mocha usage, please refer to their [documentation](https://mochajs.org/).
+
+## Project Layout
+
+`@neutrinojs/mocha` follows the standard [project layout](https://neutrinojs.org/project-layout/) specified by Neutrino. This
+means that by default all project test code should live in a directory named `test` in the root of the
+project. Test files end in `_test.js` by default.
 
 ## Executing single tests
 

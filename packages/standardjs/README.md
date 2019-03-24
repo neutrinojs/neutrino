@@ -21,7 +21,16 @@
 - webpack 4
 - ESLint 5
 
-## Installation
+## Quickstart
+
+The fastest way to get started is by using the `create-project` scaffolding tool.
+See the [Create new project](https://neutrinojs.org/installation/create-new-project/) docs for more details.
+
+Don’t want to use the CLI helper? No worries, we have you covered with the [manual installation](#manual-installation).
+
+## Manual Installation
+
+First follow the manual installation instructions for your chosen build preset.
 
 `@neutrinojs/standardjs` can be installed via the Yarn or npm clients. Inside your project, make sure
 `@neutrinojs/standardjs` and `eslint` are development dependencies. You will also be using
@@ -39,15 +48,7 @@ another Neutrino preset for building your application source code.
 ❯ npm install --save-dev @neutrinojs/standardjs eslint
 ```
 
-## Project Layout
-
-`@neutrinojs/standardjs` follows the standard [project layout](https://neutrinojs.org/project-layout/) specified by Neutrino. This
-means that by default all project source code should live in a directory named `src` in the root of the
-project.
-
-## Quickstart
-
-After adding the StandardJS preset to your Neutrino-built project, edit your project's `.neutrinorc.js` to add the preset for
+After that, edit your project's `.neutrinorc.js` to add the preset for
 linting **before** your build preset. For example, when building your project using `@neutrinojs/web`:
 
 ```js
@@ -110,6 +111,12 @@ error: Missing semicolon (semi) at src/index.js:35:51:
 1 error found.
 1 error potentially fixable with the `--fix` option.
 ```
+
+## Project Layout
+
+`@neutrinojs/standardjs` follows the standard [project layout](https://neutrinojs.org/project-layout/) specified by Neutrino. This
+means that by default all project source code should live in a directory named `src` in the root of the
+project.
 
 ## Building
 

@@ -38,7 +38,38 @@ polyfills in your library code, consider importing @babel/polyfill, core-js, or 
 - webpack-cli 3
 - webpack-dev-server 3
 
-## Installation
+## Quickstart
+
+The fastest way to get started is by using the `create-project` scaffolding tool.
+Don’t want to use the CLI helper? No worries, we have you covered with the [manual installation](#manual-installation).
+
+### create-project
+
+Run the following command to start the process. Substitute `<directory-name>` with the directory name you wish to create
+for this project.
+
+#### Yarn
+
+```
+❯ yarn create @neutrinojs/project <directory-name>
+```
+
+_Note: The `create` command is a shorthand that helps you do two things at once. See the [Yarn create docs](https://yarnpkg.com/lang/en/docs/cli/create/) for more details._
+
+#### npm/npx
+
+[`npx`](https://github.com/zkat/npx) comes pre-installed with `npm`. If you’re running an older version of `npm`, then
+`npm install -g npm` to update to the latest version.
+
+```
+❯ npx @neutrinojs/create-project <directory-name>
+```
+
+The CLI helper will prompt for the project to scaffold, and will offer to set
+up a test runner as well as linting to your project. Refer to the [Create new project](https://neutrinojs.org/installation/create-new-project/) section
+for details on all available options.
+
+### Manual Installation
 
 `@neutrinojs/react-components` can be installed via the Yarn or npm clients. Inside your project, make sure
 that the Neutrino and webpack related dependencies below are installed as development dependencies.
@@ -80,48 +111,7 @@ this error, you will need to add a
 You can do this from your `.neutrinorc.js` file if using a Neutrino-based linting preset,
 or your `.eslintrc.js` file for other ESLint-ing mechanisms.**
 
-## Project Layout
-
-`@neutrinojs/react-components` follows the standard [project layout](https://neutrinojs.org/project-layout/)
-specified by Neutrino. This means that by default all project source code should live in a directory named `src` in the
-root of the project. This includes JavaScript files that would be available to your compiled project.
-
-All components should be their own module within a directory named `components` inside the source directory.
-
-## Quickstart
-
-The fastest way to get started is by using the `create-project` scaffolding tool.
-Don’t want to use the CLI helper? No worries, we have you covered with the [manual installation](#manual-installation).
-
-### create-project
-
-Run the following command to start the process. Substitute `<directory-name>` with the directory name you wish to create
-for this project.
-
-#### Yarn
-
-```
-❯ yarn create @neutrinojs/project <directory-name>
-```
-
-_Note: The `create` command is a shorthand that helps you do two things at once. See the [Yarn create docs](https://yarnpkg.com/lang/en/docs/cli/create/) for more details._
-
-#### npm/npx
-
-[`npx`](https://github.com/zkat/npx) comes pre-installed with `npm`. If you’re running an older version of `npm`, then
-`npm install -g npm` to update to the latest version.
-
-```
-❯ npx @neutrinojs/create-project <directory-name>
-```
-
-The CLI helper will prompt for the project to scaffold, and will offer to set
-up a test runner as well as linting to your project. Refer to the [Create new project](https://neutrinojs.org/installation/create-new-project/) section
-for details on all available options.
-
-### Manual Installation
-
-After installing Neutrino and this preset, add a new directory named `src` in the root of the project, with
+After that, add a new directory named `src` in the root of the project, with
 a single JS file named `index.js` in it. This `index` file can be used to render any components you
 wish to the browser to preview and.
 
@@ -191,6 +181,14 @@ Start the app, then open a browser to the address in the console to preview your
 ```bash
 ❯ npm start
 ```
+
+## Project Layout
+
+`@neutrinojs/react-components` follows the standard [project layout](https://neutrinojs.org/project-layout/)
+specified by Neutrino. This means that by default all project source code should live in a directory named `src` in the
+root of the project. This includes JavaScript files that would be available to your compiled project.
+
+All components should be their own module within a directory named `components` inside the source directory.
 
 ## Building
 
