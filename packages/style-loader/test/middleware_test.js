@@ -76,8 +76,18 @@ test('does not extract in development by default', t => {
 
   api.use(mw());
 
-  t.true(api.config.module.rule('style').oneOf('normal').uses.has('style'));
-  t.false(api.config.module.rule('style').oneOf('normal').uses.has('extract'));
+  t.true(
+    api.config.module
+      .rule('style')
+      .oneOf('normal')
+      .uses.has('style'),
+  );
+  t.false(
+    api.config.module
+      .rule('style')
+      .oneOf('normal')
+      .uses.has('extract'),
+  );
 });
 
 test('extracts in production by default', t => {
@@ -86,8 +96,18 @@ test('extracts in production by default', t => {
 
   api.use(mw());
 
-  t.false(api.config.module.rule('style').oneOf('normal').uses.has('style'));
-  t.true(api.config.module.rule('style').oneOf('normal').uses.has('extract'));
+  t.false(
+    api.config.module
+      .rule('style')
+      .oneOf('normal')
+      .uses.has('style'),
+  );
+  t.true(
+    api.config.module
+      .rule('style')
+      .oneOf('normal')
+      .uses.has('extract'),
+  );
 });
 
 test('respects enabling of extract in development using extract.enabled', t => {
@@ -96,8 +116,18 @@ test('respects enabling of extract in development using extract.enabled', t => {
 
   api.use(mw({ extract: { enabled: true } }));
 
-  t.false(api.config.module.rule('style').oneOf('normal').uses.has('style'));
-  t.true(api.config.module.rule('style').oneOf('normal').uses.has('extract'));
+  t.false(
+    api.config.module
+      .rule('style')
+      .oneOf('normal')
+      .uses.has('style'),
+  );
+  t.true(
+    api.config.module
+      .rule('style')
+      .oneOf('normal')
+      .uses.has('extract'),
+  );
 });
 
 test('respects disabling of extract in production using false', t => {
@@ -106,8 +136,18 @@ test('respects disabling of extract in production using false', t => {
 
   api.use(mw({ extract: false }));
 
-  t.true(api.config.module.rule('style').oneOf('normal').uses.has('style'));
-  t.false(api.config.module.rule('style').oneOf('normal').uses.has('extract'));
+  t.true(
+    api.config.module
+      .rule('style')
+      .oneOf('normal')
+      .uses.has('style'),
+  );
+  t.false(
+    api.config.module
+      .rule('style')
+      .oneOf('normal')
+      .uses.has('extract'),
+  );
 });
 
 test('respects disabling of extract in production using extract.enabled', t => {
@@ -116,8 +156,18 @@ test('respects disabling of extract in production using extract.enabled', t => {
 
   api.use(mw({ extract: { enabled: false } }));
 
-  t.true(api.config.module.rule('style').oneOf('normal').uses.has('style'));
-  t.false(api.config.module.rule('style').oneOf('normal').uses.has('extract'));
+  t.true(
+    api.config.module
+      .rule('style')
+      .oneOf('normal')
+      .uses.has('style'),
+  );
+  t.false(
+    api.config.module
+      .rule('style')
+      .oneOf('normal')
+      .uses.has('extract'),
+  );
 });
 
 test('throws when used twice', t => {
@@ -125,6 +175,6 @@ test('throws when used twice', t => {
   api.use(mw());
   t.throws(
     () => api.use(mw()),
-    /@neutrinojs\/style-loader has been used twice with the same ruleId of 'style'/
+    /@neutrinojs\/style-loader has been used twice with the same ruleId of 'style'/,
   );
 });

@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 const camelcase = require('camelcase');
 
-const getIdentifierFromPackage = (pkg) => {
+const getIdentifierFromPackage = pkg => {
   const parts = pkg.split('/');
 
   return camelcase(parts[parts.length - 1]);
@@ -44,21 +44,24 @@ module.exports = ({ source }, { jscodeshift: j }) => {
 
     root
       .find(j.AssignmentExpression)
-      .filter(({ value }) =>
-        // Find module.exports = <Object>; ignore any other export type.
-        value &&
-        value.left &&
-        value.left.object &&
-        value.left.object.name === 'module' &&
-        value.left.property &&
-        value.left.property.name === 'exports' &&
-        value.right &&
-        value.right.type === 'ObjectExpression'
+      .filter(
+        ({ value }) =>
+          // Find module.exports = <Object>; ignore any other export type.
+          value &&
+          value.left &&
+          value.left.object &&
+          value.left.object.name === 'module' &&
+          value.left.property &&
+          value.left.property.name === 'exports' &&
+          value.right &&
+          value.right.type === 'ObjectExpression',
       )
       .forEach(path => {
         // Skip the use property if it isn't an array.
-        const use = path.value.right.properties.find(({ key, value }) =>
-          key.name === 'use' && value.type === 'ArrayExpression');
+        const use = path.value.right.properties.find(
+          ({ key, value }) =>
+            key.name === 'use' && value.type === 'ArrayExpression',
+        );
 
         if (!use) {
           return;
@@ -66,28 +69,27 @@ module.exports = ({ source }, { jscodeshift: j }) => {
 
         // Convert middleware in the use array.
         Object.assign(use.value, {
-          elements: use.value.elements
-            .map(element => {
-              // The target contains the package name, and any remaining
-              // arguments should be captured to pass to the function call.
-              const [target, args = []] = getTargetAndArgs(element);
+          elements: use.value.elements.map(element => {
+            // The target contains the package name, and any remaining
+            // arguments should be captured to pass to the function call.
+            const [target, args = []] = getTargetAndArgs(element);
 
-              if (!target) {
-                return element;
-              }
+            if (!target) {
+              return element;
+            }
 
-              const name = getIdentifierFromPackage(target.value);
+            const name = getIdentifierFromPackage(target.value);
 
-              // Capture the middleware package name to be directly required.
-              requires.set(name, target.raw);
+            // Capture the middleware package name to be directly required.
+            requires.set(name, target.raw);
 
-              // Convert the usage to a function call, ensuring that any
-              // preceding conditionals are kept intact.
-              return element.type === 'LogicalExpression'
-                ? Object.assign(element, { right: callExpression(name, args) })
-                : callExpression(name, args);
-            })
-          });
+            // Convert the usage to a function call, ensuring that any
+            // preceding conditionals are kept intact.
+            return element.type === 'LogicalExpression'
+              ? Object.assign(element, { right: callExpression(name, args) })
+              : callExpression(name, args);
+          }),
+        });
       });
 
     // Convert middleware from neutrino.use.
@@ -95,8 +97,8 @@ module.exports = ({ source }, { jscodeshift: j }) => {
       .find(j.CallExpression, {
         callee: {
           object: { name: 'neutrino' },
-          property: { name: 'use' }
-        }
+          property: { name: 'use' },
+        },
       })
       .forEach(({ node }) => {
         // The first argument was the package name, so any remaining
@@ -113,7 +115,7 @@ module.exports = ({ source }, { jscodeshift: j }) => {
         requires.set(name, use.raw);
         Object.assign(node, {
           // Convert to function call.
-          arguments: [callExpression(name, args)]
+          arguments: [callExpression(name, args)],
         });
       });
 
@@ -123,9 +125,9 @@ module.exports = ({ source }, { jscodeshift: j }) => {
 
     // With the source now transformed, inject aggregated packages to requires
     // at the top of the file.
-    return `${[...requires].map(([name, pkg]) =>
-      `const ${name} = require(${pkg});`).join('\n')
-    }\n\n${root.toSource()}`;
+    return `${[...requires]
+      .map(([name, pkg]) => `const ${name} = require(${pkg});`)
+      .join('\n')}\n\n${root.toSource()}`;
   } catch (err) {
     console.error(err);
     process.exit(1);

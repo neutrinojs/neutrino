@@ -55,25 +55,22 @@ test('updates lint config by default', t => {
     env: {
       browser: true,
       commonjs: true,
-      es6: true
+      es6: true,
     },
     extends: ['plugin:vue/base'],
     globals: {
-      process: true
+      process: true,
     },
     overrides: [],
     parser: 'vue-eslint-parser',
     parserOptions: {
       ecmaVersion: 2018,
       parser: 'babel-eslint',
-      sourceType: 'module'
+      sourceType: 'module',
     },
-    plugins: [
-      'babel',
-      'vue'
-    ],
+    plugins: ['babel', 'vue'],
     root: true,
-    settings: {}
+    settings: {},
   });
 });
 
@@ -81,7 +78,10 @@ test('does not update lint config if useEslintrc true', t => {
   const api = new Neutrino();
   api.use(lint({ eslint: { useEslintrc: true } }));
   api.use(mw());
-  const options = api.config.module.rule('lint').use('eslint').get('options');
+  const options = api.config.module
+    .rule('lint')
+    .use('eslint')
+    .get('options');
   t.deepEqual(options.baseConfig, {});
 });
 
@@ -93,7 +93,7 @@ test('adds style oneOfs in order', t => {
     'vue-modules',
     'vue-normal',
     'modules',
-    'normal'
+    'normal',
   ]);
 });
 
@@ -102,11 +102,14 @@ test('replaces style-loader with vue-style-loader in development', t => {
   const api = new Neutrino();
   api.use(mw());
 
-  api.config.module.rule('style')
-    .oneOfs
-    .values()
+  api.config.module
+    .rule('style')
+    .oneOfs.values()
     .filter(oneOf => oneOf.name.startsWith('vue-'))
     .forEach(oneOf => {
-      t.is(oneOf.use('style').get('loader'), require.resolve('vue-style-loader'));
+      t.is(
+        oneOf.use('style').get('loader'),
+        require.resolve('vue-style-loader'),
+      );
     });
 });

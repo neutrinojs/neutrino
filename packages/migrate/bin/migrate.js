@@ -10,32 +10,31 @@ const cli = yargs
   .command(
     '$0 [files..]',
     'Migrate Neutrino middleware to the latest version via codemods',
-    (yargs) => {
+    yargs => {
       yargs.positional('files', {
         array: true,
         description: 'files to migrate',
-        default: ['.neutrinorc.js']
+        default: ['.neutrinorc.js'],
       });
-    }
+    },
   )
   .option('dry', {
     alias: 'd',
     description: 'dry run (no changes are made to files)',
-    boolean: true
+    boolean: true,
   })
   .option('print', {
     alias: 'p',
     description: 'print transformed files to stdout, useful for development',
-    boolean: true
+    boolean: true,
   })
   .option('silent', {
     alias: 's',
     description: 'do not write to stdout or stderr',
-    boolean: true
+    boolean: true,
   })
   .help()
-  .wrap(null)
-  .argv;
+  .wrap(null).argv;
 
 run(
   resolve(__dirname, '../transforms/middleware.js'),
@@ -48,9 +47,8 @@ run(
 
     return resolved;
   }),
-  { dry: cli.dry, silent: cli.silent, print: cli.print }
-)
-.catch(err => {
+  { dry: cli.dry, silent: cli.silent, print: cli.print },
+).catch(err => {
   console.error(err);
   process.exit(1);
 });

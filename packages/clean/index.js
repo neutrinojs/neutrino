@@ -1,10 +1,10 @@
-module.exports = ({ pluginId = 'clean', ...opts } = {}) => (neutrino) => {
+module.exports = ({ pluginId = 'clean', ...opts } = {}) => neutrino => {
   const options = {
     verbose: neutrino.options.debug,
-    ...opts
+    ...opts,
   };
 
   neutrino.config
     .plugin(pluginId)
-      .use(require.resolve('clean-webpack-plugin'), [options]);
+    .use(require.resolve('clean-webpack-plugin'), [options]);
 };

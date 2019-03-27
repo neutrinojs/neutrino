@@ -7,14 +7,17 @@ const arrayToObject = array =>
 
 // Return an ESLint config object matching the schema here:
 // https://github.com/eslint/eslint/blob/v5.7.0/conf/config-schema.js
-const eslintrc = (neutrino) => {
-  const options = neutrino.config.module.rule('lint').use('eslint').get('options');
+const eslintrc = neutrino => {
+  const options = neutrino.config.module
+    .rule('lint')
+    .use('eslint')
+    .get('options');
 
   if (options.useEslintrc) {
     throw new ConfigurationError(
       'The @neutrinojs/eslint preset option `useEslintrc` has been set to `true`, ' +
-      'which is intended for projects that use their own non-generated .eslintrc.js. ' +
-      'If you wish to use the Neutrino .eslintrc() generator leave `useEslintrc` unset.'
+        'which is intended for projects that use their own non-generated .eslintrc.js. ' +
+        'If you wish to use the Neutrino .eslintrc() generator leave `useEslintrc` unset.',
     );
   }
 
@@ -31,9 +34,9 @@ const eslintrc = (neutrino) => {
       ...pick(options, ['parser', 'parserOptions', 'plugins', 'rules']),
       // These top level options are of type array, however their baseConfig/eslintrc
       // equivalents must be objects (!?), so we have to convert first.
-      ...options.envs && { env: arrayToObject(options.envs) },
-      ...options.globals && { globals: arrayToObject(options.globals) }
-    }
+      ...(options.envs && { env: arrayToObject(options.envs) }),
+      ...(options.globals && { globals: arrayToObject(options.globals) }),
+    },
   );
 };
 
@@ -72,7 +75,7 @@ const validLoaderOptions = [
   'reportUnusedDisableDirectives',
   'rulePaths',
   'rules',
-  'useEslintrc'
+  'useEslintrc',
 ];
 
 module.exports = ({ test, include, exclude, eslint = {} } = {}) => {
@@ -84,23 +87,23 @@ module.exports = ({ test, include, exclude, eslint = {} } = {}) => {
   // https://github.com/webpack-contrib/eslint-loader/issues/252
   // https://github.com/eslint/eslint/issues/10272
   const invalidOptions = Object.keys(eslint).filter(
-    option => !validLoaderOptions.includes(option)
+    option => !validLoaderOptions.includes(option),
   );
 
   if (invalidOptions.length) {
     throw new ConfigurationError(
       `Unrecognised 'eslint' option(s): ${invalidOptions.join(', ')}\n` +
-      `Valid options are: ${validLoaderOptions.sort().join(', ')}\n` +
-      'If trying to set `extends`, `overrides` or `settings`, they must be ' +
-      'defined under the `baseConfig` key and not as a top-level option. ' +
-      'See: https://neutrinojs.org/packages/eslint/#usage'
+        `Valid options are: ${validLoaderOptions.sort().join(', ')}\n` +
+        'If trying to set `extends`, `overrides` or `settings`, they must be ' +
+        'defined under the `baseConfig` key and not as a top-level option. ' +
+        'See: https://neutrinojs.org/packages/eslint/#usage',
     );
   }
 
-  return (neutrino) => {
+  return neutrino => {
     if (neutrino.config.module.rules.has('compile')) {
       throw new ConfigurationError(
-        'Lint presets must be defined prior to any other presets in .neutrinorc.js.'
+        'Lint presets must be defined prior to any other presets in .neutrinorc.js.',
       );
     }
 
@@ -135,53 +138,53 @@ module.exports = ({ test, include, exclude, eslint = {} } = {}) => {
       baseConfig: eslint.useEslintrc
         ? {}
         : eslintMerge(
-          {
-            env: {
-              es6: true
+            {
+              env: {
+                es6: true,
+              },
+              extends: [],
+              globals: {
+                process: true,
+              },
+              overrides: [],
+              parser: require.resolve('babel-eslint'),
+              parserOptions: {
+                ecmaVersion: 2018,
+                sourceType: 'module',
+              },
+              // Unfortunately we can't `require.resolve('eslint-plugin-babel')` due to:
+              // https://github.com/eslint/eslint/issues/6237
+              // ...so we have no choice but to rely on it being hoisted.
+              plugins: ['babel'],
+              root: true,
+              settings: {},
             },
-            extends: [],
-            globals: {
-              process: true
-            },
-            overrides: [],
-            parser: require.resolve('babel-eslint'),
-            parserOptions: {
-              ecmaVersion: 2018,
-              sourceType: 'module'
-            },
-            // Unfortunately we can't `require.resolve('eslint-plugin-babel')` due to:
-            // https://github.com/eslint/eslint/issues/6237
-            // ...so we have no choice but to rely on it being hoisted.
-            plugins: ['babel'],
-            root: true,
-            settings: {}
-          },
-          eslint.baseConfig || {}
-        )
+            eslint.baseConfig || {},
+          ),
     };
 
     if (typeof loaderOptions.formatter === 'string') {
       try {
         loaderOptions.formatter = require.resolve(
-          `eslint/lib/formatters/${loaderOptions.formatter}`
+          `eslint/lib/formatters/${loaderOptions.formatter}`,
         );
       } catch (err) {
         // Pass the formatter as-is, since it may be the module name/path of an external formatter.
       }
     }
 
-    neutrino.config
-      .module
-        .rule('lint')
-          .test(test || neutrino.regexFromExtensions())
-          .pre()
-          .include
-            .merge(include || [neutrino.options.source, neutrino.options.tests])
-            .end()
-          .when(exclude, rule => rule.exclude.merge(exclude))
-          .use('eslint')
-            .loader(require.resolve('eslint-loader'))
-            .options(loaderOptions);
+    neutrino.config.module
+      .rule('lint')
+      .test(test || neutrino.regexFromExtensions())
+      .pre()
+      .include.merge(
+        include || [neutrino.options.source, neutrino.options.tests],
+      )
+      .end()
+      .when(exclude, rule => rule.exclude.merge(exclude))
+      .use('eslint')
+      .loader(require.resolve('eslint-loader'))
+      .options(loaderOptions);
 
     neutrino.register('eslintrc', eslintrc);
   };

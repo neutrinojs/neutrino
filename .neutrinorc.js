@@ -77,7 +77,7 @@ module.exports = {
             },
           ],
         },
-      }
+      },
     }),
     neutrino => {
       neutrino.register('prettierrc', neutrino => {

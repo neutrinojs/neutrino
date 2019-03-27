@@ -23,4 +23,4 @@ packages:
     access: $anonymous
     proxy: yarnpkg
 logs:
-  - {type: stdout, format: pretty, level: warn}
+  - { type: stdout, format: pretty, level: warn }

@@ -1,9 +1,9 @@
 # Neutrino Banner Middleware
 
-`@neutrinojs/banner` is Neutrino middleware for injecting string content into source code files.
+`@neutrinojs/banner` is Neutrino middleware for injecting string content into
+source code files.
 
-[![NPM version][npm-image]][npm-url]
-[![NPM downloads][npm-downloads]][npm-url]
+[![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url]
 
 ## Requirements
 
@@ -30,8 +30,8 @@
 
 ## Usage
 
-`@neutrinojs/banner` can be consumed from the Neutrino API, middleware, or presets. Require this package
-and plug it into Neutrino:
+`@neutrinojs/banner` can be consumed from the Neutrino API, middleware, or
+presets. Require this package and plug it into Neutrino:
 
 ```js
 const banner = require('@neutrinojs/banner');
@@ -43,14 +43,16 @@ neutrino.use(banner());
 // https://webpack.js.org/plugins/banner-plugin/
 
 // Usage shows the default values of this middleware:
-neutrino.use(banner({
-  banner: `require('source-map-support').install();`,
-  test: neutrino.regexFromExtensions(),
-  raw: true,
-  entryOnly: true,
-  // Override pluginId to add an additional banner plugin instance
-  pluginId: 'banner'
-}));
+neutrino.use(
+  banner({
+    banner: `require('source-map-support').install();`,
+    test: neutrino.regexFromExtensions(),
+    raw: true,
+    entryOnly: true,
+    // Override pluginId to add an additional banner plugin instance
+    pluginId: 'banner',
+  }),
+);
 ```
 
 ```js
@@ -59,7 +61,7 @@ const banner = require('@neutrinojs/banner');
 
 // Use with default options
 module.exports = {
-  use: [banner()]
+  use: [banner()],
 };
 
 // Also accepts options for webpack's BannerPlugin
@@ -74,29 +76,32 @@ module.exports = {
       raw: true,
       entryOnly: true,
       // Override pluginId to add an additional banner plugin instance
-      pluginId: 'banner'
-    })
-  ]
+      pluginId: 'banner',
+    }),
+  ],
 };
 ```
 
 ## Customization
 
-`@neutrinojs/banner` creates some conventions to make overriding the configuration easier once you are ready to
-make changes.
+`@neutrinojs/banner` creates some conventions to make overriding the
+configuration easier once you are ready to make changes.
 
 ### Plugins
 
-The following is a list of plugins and their identifiers which can be overridden:
+The following is a list of plugins and their identifiers which can be
+overridden:
 
-| Name | Description | NODE_ENV |
-| --- | --- | --- |
-| `banner` | Injects string content into application source code. | all |
+| Name     | Description                                          | NODE_ENV |
+| -------- | ---------------------------------------------------- | -------- |
+| `banner` | Injects string content into application source code. | all      |
 
 ## Contributing
 
-This middleware is part of the [neutrino](https://github.com/neutrinojs/neutrino) repository, a monorepo
-containing all resources for developing Neutrino and its core presets and middleware. Follow the
+This middleware is part of the
+[neutrino](https://github.com/neutrinojs/neutrino) repository, a monorepo
+containing all resources for developing Neutrino and its core presets and
+middleware. Follow the
 [contributing guide](https://neutrinojs.org/contributing/) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/banner.svg

@@ -4,7 +4,7 @@ const { readFileSync } = require('fs-extra');
 const { stringify } = require('javascript-stringify');
 const { join } = require('path');
 
-const RE_INDENT = /^(?!\s*$)/mg;
+const RE_INDENT = /^(?!\s*$)/gm;
 const isYarn = commandExists.sync('yarnpkg');
 const cli = isYarn ? 'yarn' : 'npm';
 const yarnReplacers = new Map();
@@ -22,13 +22,11 @@ const packageManager = (command, registry) => {
     return cli;
   }
 
-  const formatted = [...(isYarn ? yarnReplacers : npmReplacers)]
-    .reduce((command, [matcher, replacement]) =>
-        matcher.test(command)
-          ? command.replace(matcher, replacement)
-          : command,
-      command
-    );
+  const formatted = [...(isYarn ? yarnReplacers : npmReplacers)].reduce(
+    (command, [matcher, replacement]) =>
+      matcher.test(command) ? command.replace(matcher, replacement) : command,
+    command,
+  );
 
   return registry
     ? `${cli} --registry ${registry} ${formatted}`
@@ -40,28 +38,22 @@ const packageLint = (jsx = false, vue = false, test = false) => {
   // list defined by neutrino/extensions.source. Modifying a value here should
   // have an accompanying change there as well. We can't pull in neutrino here
   // as that would potentially give us conflicting versions in node_modules.
-  const exts = [
-    'mjs',
-    vue && 'vue',
-    jsx && 'jsx',
-    'js'
-  ].filter(Boolean).join(',');
-  const dirs = [
-    'src',
-    test && 'test'
-  ].filter(Boolean).join(' ');
+  const exts = ['mjs', vue && 'vue', jsx && 'jsx', 'js']
+    .filter(Boolean)
+    .join(',');
+  const dirs = ['src', test && 'test'].filter(Boolean).join(' ');
 
   return {
     scripts: {
-      lint: `eslint --cache --format codeframe --ext ${exts} ${dirs}`
-    }
+      lint: `eslint --cache --format codeframe --ext ${exts} ${dirs}`,
+    },
   };
 };
 
 const rcTemplate = compile(
   readFileSync(
-    join(__dirname, 'templates/neutrino/.neutrinorc.js.ejs')
-  ).toString()
+    join(__dirname, 'templates/neutrino/.neutrinorc.js.ejs'),
+  ).toString(),
 );
 
 const getNeutrinorcOptions = (name, project) => {
@@ -78,5 +70,5 @@ module.exports = {
   getNeutrinorcOptions,
   packageLint,
   packageManager,
-  rcTemplate
+  rcTemplate,
 };

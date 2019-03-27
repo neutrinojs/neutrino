@@ -41,7 +41,7 @@ test('throws when links defined with default template', t => {
 
   t.throws(
     () => api.use(mw({ links: [] })),
-    /no longer supports the "links" option/
+    /no longer supports the "links" option/,
   );
 });
 

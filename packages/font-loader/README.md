@@ -1,9 +1,9 @@
 # Neutrino Font Loader Middleware
 
-`@neutrinojs/font-loader` is Neutrino middleware for loading and importing font files from modules.
+`@neutrinojs/font-loader` is Neutrino middleware for loading and importing font
+files from modules.
 
-[![NPM version][npm-image]][npm-url]
-[![NPM downloads][npm-downloads]][npm-url]
+[![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url]
 
 ## Requirements
 
@@ -30,8 +30,8 @@
 
 ## Usage
 
-`@neutrinojs/font-loader` can be consumed from the Neutrino API, middleware, or presets. Require this package
-and plug it into Neutrino:
+`@neutrinojs/font-loader` can be consumed from the Neutrino API, middleware, or
+presets. Require this package and plug it into Neutrino:
 
 ```js
 const fonts = require('@neutrinojs/font-loader');
@@ -40,11 +40,14 @@ const fonts = require('@neutrinojs/font-loader');
 neutrino.use(fonts());
 
 // Usage showing default options
-neutrino.use(fonts({
-  name: process.env.NODE_ENV === 'production'
-    ? 'assets/[name].[hash:8].[ext]'
-    : 'assets/[name].[ext]'
-}));
+neutrino.use(
+  fonts({
+    name:
+      process.env.NODE_ENV === 'production'
+        ? 'assets/[name].[hash:8].[ext]'
+        : 'assets/[name].[ext]',
+  }),
+);
 ```
 
 ```js
@@ -53,18 +56,19 @@ const fonts = require('@neutrinojs/font-loader');
 
 // Use with default options
 module.exports = {
-  use: [fonts()]
+  use: [fonts()],
 };
 
 // Usage showing default options
 module.exports = {
   use: [
     fonts({
-      name: process.env.NODE_ENV === 'production'
-        ? 'assets/[name].[hash:8].[ext]'
-        : 'assets/[name].[ext]'
-    })
-  ]
+      name:
+        process.env.NODE_ENV === 'production'
+          ? 'assets/[name].[hash:8].[ext]'
+          : 'assets/[name].[ext]',
+    }),
+  ],
 };
 ```
 
@@ -72,21 +76,23 @@ module.exports = {
 
 ## Customization
 
-`@neutrinojs/font-loader` creates some conventions to make overriding the configuration easier once you are
-ready to make changes.
+`@neutrinojs/font-loader` creates some conventions to make overriding the
+configuration easier once you are ready to make changes.
 
 ### Rules
 
 The following is a list of rules and their identifiers which can be overridden:
 
-| Name | Description | NODE_ENV |
-| --- | --- | --- |
-| `font` | Allows importing EOT, TTF, WOFF and WOFF2 font files from modules. Contains a single loader named `file`. | all |
+| Name   | Description                                                                                               | NODE_ENV |
+| ------ | --------------------------------------------------------------------------------------------------------- | -------- |
+| `font` | Allows importing EOT, TTF, WOFF and WOFF2 font files from modules. Contains a single loader named `file`. | all      |
 
 ## Contributing
 
-This middleware is part of the [neutrino](https://github.com/neutrinojs/neutrino) repository, a monorepo
-containing all resources for developing Neutrino and its core presets and middleware. Follow the
+This middleware is part of the
+[neutrino](https://github.com/neutrinojs/neutrino) repository, a monorepo
+containing all resources for developing Neutrino and its core presets and
+middleware. Follow the
 [contributing guide](https://neutrinojs.org/contributing/) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/font-loader.svg

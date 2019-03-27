@@ -80,13 +80,15 @@ test('uses middleware with options', t => {
   // Karma's config handler returns a function.
   // Force evaluation by calling it.
   const fakeKarma = new Map();
-  const config = neutrino(mw({
-    webpackMiddleware: {
-      stats: {
-        errors: false
-      }
-    }
-  })).karma()(fakeKarma);
+  const config = neutrino(
+    mw({
+      webpackMiddleware: {
+        stats: {
+          errors: false,
+        },
+      },
+    }),
+  ).karma()(fakeKarma);
 
   // Since we are faking out the Karma API with a Map, we need to get the
   // object back out of the map and check that the merge happened correctly.
@@ -99,10 +101,13 @@ test('updates lint config by default', t => {
   const api = new Neutrino();
   api.use(lint());
   api.use(mw());
-  const options = api.config.module.rule('lint').use('eslint').get('options');
+  const options = api.config.module
+    .rule('lint')
+    .use('eslint')
+    .get('options');
   t.deepEqual(options.baseConfig.env, {
     es6: true,
-    mocha: true
+    mocha: true,
   });
 });
 
@@ -110,6 +115,9 @@ test('does not update lint config if useEslintrc true', t => {
   const api = new Neutrino();
   api.use(lint({ eslint: { useEslintrc: true } }));
   api.use(mw());
-  const options = api.config.module.rule('lint').use('eslint').get('options');
+  const options = api.config.module
+    .rule('lint')
+    .use('eslint')
+    .get('options');
   t.deepEqual(options.baseConfig, {});
 });

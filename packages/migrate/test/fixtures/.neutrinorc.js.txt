@@ -9,7 +9,7 @@ module.exports = {
     root: __dirname,
   },
   use: [
-    (neutrino) => {
+    neutrino => {
       neutrino.use(fakePreset());
     },
     process.env.NODE_ENV === 'development' && eslint(),
@@ -26,7 +26,7 @@ module.exports = {
     process.env.NODE_ENV === 'test' && jest({
       testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
     }),
-    (neutrino) => {
+    neutrino => {
       neutrino.config.externals(/^[a-z\-0-9]+$/);
       neutrino.use(fakePreset({ alpha: 'beta' }));
     },

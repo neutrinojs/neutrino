@@ -42,7 +42,7 @@ test('valid preset production', t => {
   t.deepEqual(config.stats, {
     children: false,
     entrypoints: false,
-    modules: false
+    modules: false,
   });
 
   // NODE_ENV/command specific
@@ -66,7 +66,7 @@ test('valid preset development', t => {
   t.deepEqual(config.stats, {
     children: false,
     entrypoints: false,
-    modules: false
+    modules: false,
   });
 
   // NODE_ENV/command specific
@@ -80,6 +80,6 @@ test('throws when polyfills defined', t => {
   const api = new Neutrino();
   t.throws(
     () => api.use(mw({ polyfills: {} })),
-    /The polyfills option has been removed/
+    /The polyfills option has been removed/,
   );
 });

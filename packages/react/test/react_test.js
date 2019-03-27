@@ -27,7 +27,10 @@ test('valid preset production', t => {
   const config = api.config.toConfig();
 
   // Common
-  t.deepEqual(config.resolve.extensions.slice(0, newExtensions.length), newExtensions);
+  t.deepEqual(
+    config.resolve.extensions.slice(0, newExtensions.length),
+    newExtensions,
+  );
 
   const errors = validate(config);
   t.is(errors.length, 0);
@@ -40,7 +43,10 @@ test('valid preset development', t => {
   const config = api.config.toConfig();
 
   // Common
-  t.deepEqual(config.resolve.extensions.slice(0, newExtensions.length), newExtensions);
+  t.deepEqual(
+    config.resolve.extensions.slice(0, newExtensions.length),
+    newExtensions,
+  );
 
   const errors = validate(config);
   t.is(errors.length, 0);
@@ -53,7 +59,10 @@ test('valid preset test', t => {
   const config = api.config.toConfig();
 
   // Common
-  t.deepEqual(config.resolve.extensions.slice(0, newExtensions.length), newExtensions);
+  t.deepEqual(
+    config.resolve.extensions.slice(0, newExtensions.length),
+    newExtensions,
+  );
 
   const errors = validate(config);
   t.is(errors.length, 0);
@@ -63,17 +72,20 @@ test('updates lint config by default', t => {
   const api = new Neutrino();
   api.use(lint());
   api.use(mw());
-  const options = api.config.module.rule('lint').use('eslint').get('options');
+  const options = api.config.module
+    .rule('lint')
+    .use('eslint')
+    .get('options');
   t.deepEqual(options.baseConfig.env, {
     browser: true,
-    commonjs:true,
-    es6: true
+    commonjs: true,
+    es6: true,
   });
   t.deepEqual(options.baseConfig.plugins, ['babel', 'react', 'react-hooks']);
   t.deepEqual(options.baseConfig.settings, {
     react: {
-      version: '999.999.999'
-    }
+      version: '999.999.999',
+    },
   });
 });
 
@@ -81,6 +93,9 @@ test('does not update lint config if useEslintrc true', t => {
   const api = new Neutrino();
   api.use(lint({ eslint: { useEslintrc: true } }));
   api.use(mw());
-  const options = api.config.module.rule('lint').use('eslint').get('options');
+  const options = api.config.module
+    .rule('lint')
+    .use('eslint')
+    .get('options');
   t.deepEqual(options.baseConfig, {});
 });

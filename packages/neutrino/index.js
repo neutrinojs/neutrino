@@ -4,21 +4,19 @@ const Neutrino = require('./Neutrino');
 const { webpack, inspect } = require('./handlers');
 const { ConfigurationError } = require('./errors');
 
-const extractMiddlewareAndOptions = (format) =>
-  typeof format === 'function'
-    ? { ...format, use: format }
-    : { ...format };
+const extractMiddlewareAndOptions = format =>
+  typeof format === 'function' ? { ...format, use: format } : { ...format };
 
 module.exports = (
   // eslint-disable-next-line global-require, import/no-dynamic-require
-  middleware = require(join(process.cwd(), '.neutrinorc.js'))
+  middleware = require(join(process.cwd(), '.neutrinorc.js')),
 ) => {
   const { use, options, env } = extractMiddlewareAndOptions(middleware);
 
   if (env) {
     throw new ConfigurationError(
       'Specifying "env" in middleware has been removed.' +
-      'Apply middleware conditionally instead.'
+        'Apply middleware conditionally instead.',
     );
   }
 
@@ -30,7 +28,7 @@ module.exports = (
     process.env.NODE_ENV = mode;
   } else if (process.env.NODE_ENV) {
     // Development mode is most appropriate for a !production NODE_ENV (such as `NODE_ENV=test`).
-    mode = (process.env.NODE_ENV === 'production') ? 'production' : 'development';
+    mode = process.env.NODE_ENV === 'production' ? 'production' : 'development';
   } else {
     // Default NODE_ENV to the more strict value, to save needing to do so in .eslintrc.js.
     // However don't set `mode` since webpack already defaults it to `production`, and in so
@@ -53,7 +51,9 @@ module.exports = (
         neutrino.use(use);
       }
     } catch (err) {
-      console.error('\nAn error occurred when loading the Neutrino configuration.\n');
+      console.error(
+        '\nAn error occurred when loading the Neutrino configuration.\n',
+      );
       console.error(err);
       process.exit(1);
     }
@@ -68,7 +68,7 @@ module.exports = (
       }
 
       return handler(neutrino);
-    }
+    },
   };
 
   return new Proxy(adapter, {
@@ -76,6 +76,6 @@ module.exports = (
       return property === 'output'
         ? Reflect.get(object, property)
         : Reflect.get(object, 'output').bind(object, property);
-    }
+    },
   });
 };

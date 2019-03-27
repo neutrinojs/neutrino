@@ -34,38 +34,36 @@ test('undefined mode and NODE_ENV sets only NODE_ENV', t => {
 });
 
 test('throws when vendor entrypoint defined', t => {
-  const mw = (neutrino) => neutrino.config.entry('vendor').add('lodash');
+  const mw = neutrino => neutrino.config.entry('vendor').add('lodash');
   t.throws(
     () => neutrino(mw).output('webpack'),
-    /Remove the manual `vendor` entrypoint/
+    /Remove the manual `vendor` entrypoint/,
   );
 });
 
 test('throws when trying to use a non-registered output', t => {
   t.throws(
     () => neutrino(Function.prototype).output('fake'),
-    'Unable to find an output handler named "fake"'
+    'Unable to find an output handler named "fake"',
   );
 });
 
 test('throws when trying to use a non-registered proxied method', t => {
   t.throws(
     () => neutrino(Function.prototype).fake(),
-    'Unable to find an output handler named "fake"'
+    'Unable to find an output handler named "fake"',
   );
 });
 
 test('throws when trying to specify "env"', t => {
   t.throws(
     () => neutrino({ env: {} }),
-    /Specifying "env" in middleware has been removed/
+    /Specifying "env" in middleware has been removed/,
   );
 });
 
 test('exposes webpack output handler', t => {
-  t.notThrows(() =>
-    neutrino(Function.prototype).output('webpack')
-  );
+  t.notThrows(() => neutrino(Function.prototype).output('webpack'));
 });
 
 test('exposes webpack config from output', t => {

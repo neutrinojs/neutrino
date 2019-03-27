@@ -8,9 +8,7 @@ export default function Example() {
 
   return (
     <div>
-      <p>
-        {message}
-      </p>
+      <p>{message}</p>
       <button type="button" onClick={() => setCount(count + 1)}>
         Click me
       </button>

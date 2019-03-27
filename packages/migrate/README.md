@@ -5,8 +5,8 @@ Neutrino 9.
 
 ## Getting Started
 
-The `npx @neutrinojs/migrate` command starts the process.
-Let's take a look at the help output of migrate:
+The `npx @neutrinojs/migrate` command starts the process. Let's take a look at
+the help output of migrate:
 
 ```bash
 ❯ npx @neutrinojs/migrate --help
@@ -35,9 +35,9 @@ files to function calls:
 ❯ npx @neutrinojs/migrate
 ```
 
-This will make transformations in `.neutrinorc.js` by default. You
-can manually specify middleware files to transform by passing
-them as arguments on the command line:
+This will make transformations in `.neutrinorc.js` by default. You can manually
+specify middleware files to transform by passing them as arguments on the
+command line:
 
 ```bash
 ❯ npx @neutrinojs/migrate .neutrinorc.js
@@ -52,34 +52,33 @@ This will make the following transformations:
 ```js
 // Before:
 module.exports = {
-  use: [
-    '@neutrinojs/react'
-  ]
+  use: ['@neutrinojs/react'],
 };
 
 // After:
 const react = require('@neutrinojs/react');
 
 module.exports = {
-  use: [
-    react()
-  ]
+  use: [react()],
 };
 ```
 
 - Convert array middleware usage in `module.exports.use[]` to function calls,
-respecting the options by passing them as arguments to the function call:
+  respecting the options by passing them as arguments to the function call:
 
 ```js
 // Before:
 module.exports = {
   use: [
-    ['@neutrinojs/react', {
-      html: {
-        title: 'Migration App'
-      }
-    }]
-  ]
+    [
+      '@neutrinojs/react',
+      {
+        html: {
+          title: 'Migration App',
+        },
+      },
+    ],
+  ],
 };
 
 // After:
@@ -89,56 +88,59 @@ module.exports = {
   use: [
     react({
       html: {
-        title: 'Migration App'
-      }
-    })
-  ]
+        title: 'Migration App',
+      },
+    }),
+  ],
 };
 ```
 
 - Convert string middleware usage in `neutrino.use()` to function calls,
-respecting any additional arguments by passing them to the new function call:
+  respecting any additional arguments by passing them to the new function call:
 
 ```js
 // Before:
-module.exports = (neutrino) => {
+module.exports = neutrino => {
   neutrino.use('@neutrinojs/react');
 };
 
 // After:
 const react = require('@neutrinojs/react');
 
-module.exports = (neutrino) => {
+module.exports = neutrino => {
   neutrino.use(react());
 };
 ```
 
 ```js
 // Before:
-module.exports = (neutrino) => {
+module.exports = neutrino => {
   neutrino.use('@neutrinojs/react', {
     html: {
-      title: 'Migration App'
-    }
+      title: 'Migration App',
+    },
   });
 };
 
 // After:
 const react = require('@neutrinojs/react');
 
-module.exports = (neutrino) => {
-  neutrino.use(react({
-    html: {
-      title: 'Migration App'
-    }
-  }));
+module.exports = neutrino => {
+  neutrino.use(
+    react({
+      html: {
+        title: 'Migration App',
+      },
+    }),
+  );
 };
 ```
 
 ## Contributing
 
-This project is part of the [neutrino](https://github.com/neutrinojs/neutrino) repository, a monorepo
-containing all resources for developing Neutrino and its core presets and middleware. Follow the
+This project is part of the [neutrino](https://github.com/neutrinojs/neutrino)
+repository, a monorepo containing all resources for developing Neutrino and its
+core presets and middleware. Follow the
 [contributing guide](https://neutrinojs.org/contributing/) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/migrate.svg

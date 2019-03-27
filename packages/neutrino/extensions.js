@@ -24,6 +24,6 @@ module.exports = {
     'mp3',
     'm4a',
     'aac',
-    'oga'
-  ]
+    'oga',
+  ],
 };
