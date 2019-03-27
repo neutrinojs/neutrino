@@ -63,22 +63,25 @@ test('sets defaults when no options passed', t => {
 
   const lintRule = api.config.module.rule('lint');
   t.deepEqual(lintRule.get('test'), /\.(mjs|jsx|js)$/);
-  t.deepEqual(lintRule.include.values(), [api.options.source, api.options.tests]);
+  t.deepEqual(lintRule.include.values(), [
+    api.options.source,
+    api.options.tests,
+  ]);
   t.deepEqual(lintRule.exclude.values(), []);
   t.deepEqual(lintRule.use('eslint').get('options'), {
     baseConfig: {
       env: {
-        es6: true
+        es6: true,
       },
       extends: [require.resolve('eslint-config-airbnb')],
       globals: {
-        process: true
+        process: true,
       },
       overrides: [],
       parser: require.resolve('babel-eslint'),
       parserOptions: {
         ecmaVersion: 2018,
-        sourceType: 'module'
+        sourceType: 'module',
       },
       plugins: ['babel'],
       root: true,
@@ -90,11 +93,11 @@ test('sets defaults when no options passed', t => {
             capIsNewExceptions: [
               'Immutable.Map',
               'Immutable.Set',
-              'Immutable.List'
+              'Immutable.List',
             ],
             newIsCap: true,
-            newIsCapExceptions: []
-          }
+            newIsCapExceptions: [],
+          },
         ],
         'babel/no-invalid-this': 'off',
         'babel/no-unused-expressions': [
@@ -102,8 +105,8 @@ test('sets defaults when no options passed', t => {
           {
             allowShortCircuit: false,
             allowTaggedTemplates: false,
-            allowTernary: false
-          }
+            allowTernary: false,
+          },
         ],
         'babel/object-curly-spacing': ['error', 'always'],
         'babel/semi': ['error', 'always'],
@@ -111,48 +114,50 @@ test('sets defaults when no options passed', t => {
         'no-invalid-this': 'off',
         'no-unused-expressions': 'off',
         'object-curly-spacing': 'off',
-        semi: 'off'
+        semi: 'off',
       },
       settings: {
         react: {
-          version: '999.999.999'
-        }
-      }
+          version: '999.999.999',
+        },
+      },
     },
     cache: true,
     cwd: api.options.root,
     emitWarning: false,
     failOnError: true,
     formatter: require.resolve('eslint/lib/formatters/codeframe'),
-    useEslintrc: false
+    useEslintrc: false,
   });
 });
 
 test('merges options with defaults', t => {
   const api = new Neutrino();
-  api.use(mw({
-    test: /\.js$/,
-    include: ['/app/src'],
-    exclude: [/node_modules/],
-    eslint: {
-      baseConfig: {
-        extends: ['eslint-config-splendid'],
-        globals: {
-          jQuery: true
+  api.use(
+    mw({
+      test: /\.js$/,
+      include: ['/app/src'],
+      exclude: [/node_modules/],
+      eslint: {
+        baseConfig: {
+          extends: ['eslint-config-splendid'],
+          globals: {
+            jQuery: true,
+          },
+          plugins: ['jest'],
+          rules: {
+            'babel/no-unused-expressions': 'warn',
+          },
+          settings: {
+            react: {
+              version: '16.5',
+            },
+          },
         },
-        plugins: ['jest'],
-        rules: {
-          'babel/no-unused-expressions': 'warn'
-        },
-        settings: {
-          react: {
-            version: '16.5'
-          }
-        }
+        reportUnusedDisableDirectives: true,
       },
-      reportUnusedDisableDirectives: true
-    }
-  }));
+    }),
+  );
 
   const lintRule = api.config.module.rule('lint');
   t.deepEqual(lintRule.get('test'), /\.js$/);
@@ -161,26 +166,23 @@ test('merges options with defaults', t => {
   t.deepEqual(lintRule.use('eslint').get('options'), {
     baseConfig: {
       env: {
-        es6: true
+        es6: true,
       },
       extends: [
         require.resolve('eslint-config-airbnb'),
-        'eslint-config-splendid'
+        'eslint-config-splendid',
       ],
       globals: {
         jQuery: true,
-        process: true
+        process: true,
       },
       overrides: [],
       parser: require.resolve('babel-eslint'),
       parserOptions: {
         ecmaVersion: 2018,
-        sourceType: 'module'
+        sourceType: 'module',
       },
-      plugins: [
-        'babel',
-        'jest'
-      ],
+      plugins: ['babel', 'jest'],
       root: true,
       rules: {
         'babel/new-cap': [
@@ -190,11 +192,11 @@ test('merges options with defaults', t => {
             capIsNewExceptions: [
               'Immutable.Map',
               'Immutable.Set',
-              'Immutable.List'
+              'Immutable.List',
             ],
             newIsCap: true,
-            newIsCapExceptions: []
-          }
+            newIsCapExceptions: [],
+          },
         ],
         'babel/no-invalid-this': 'off',
         'babel/no-unused-expressions': [
@@ -202,8 +204,8 @@ test('merges options with defaults', t => {
           {
             allowShortCircuit: false,
             allowTaggedTemplates: false,
-            allowTernary: false
-          }
+            allowTernary: false,
+          },
         ],
         'babel/object-curly-spacing': ['error', 'always'],
         'babel/semi': ['error', 'always'],
@@ -211,13 +213,13 @@ test('merges options with defaults', t => {
         'no-invalid-this': 'off',
         'no-unused-expressions': 'off',
         'object-curly-spacing': 'off',
-        semi: 'off'
+        semi: 'off',
       },
       settings: {
         react: {
-          version: '16.5'
-        }
-      }
+          version: '16.5',
+        },
+      },
     },
     cache: true,
     cwd: api.options.root,
@@ -225,6 +227,6 @@ test('merges options with defaults', t => {
     failOnError: true,
     formatter: require.resolve('eslint/lib/formatters/codeframe'),
     reportUnusedDisableDirectives: true,
-    useEslintrc: false
+    useEslintrc: false,
   });
 });

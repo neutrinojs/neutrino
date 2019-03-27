@@ -1,4 +1,4 @@
-module.exports = (options = {}) => (neutrino) => {
+module.exports = (options = {}) => neutrino => {
   neutrino.config.module
     .rule('html')
     .test(neutrino.regexFromExtensions(['html']))
@@ -10,6 +10,6 @@ module.exports = (options = {}) => (neutrino) => {
       // TODO: Remove once html-loader 1.0.0 is released:
       // https://github.com/webpack-contrib/html-loader/issues/17
       attrs: ['img:src', 'link:href'],
-      ...options
+      ...options,
     });
 };

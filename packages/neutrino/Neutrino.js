@@ -6,17 +6,17 @@ const { source } = require('./extensions');
 
 const getRoot = ({ root }) => root;
 const normalizePath = (base, path) =>
-  (isAbsolute(path) ? path : join(base, path));
+  isAbsolute(path) ? path : join(base, path);
 const pathOptions = [
   ['root', '', () => process.cwd()],
   ['source', 'src', getRoot],
   ['output', 'build', getRoot],
-  ['tests', 'test', getRoot]
+  ['tests', 'test', getRoot],
 ];
 // Support both a shorter string form and an object form that allows
 // specifying any page-specific options supported by the preset.
-const normalizeMainConfig = (config) =>
-  (typeof config === 'string') ? { entry: config } : config;
+const normalizeMainConfig = config =>
+  typeof config === 'string' ? { entry: config } : config;
 
 module.exports = class Neutrino {
   constructor(options) {
@@ -29,32 +29,32 @@ module.exports = class Neutrino {
     let moduleExtensions = new Set(source);
     const options = {
       debug: false,
-      ...clone(opts)
+      ...clone(opts),
     };
 
     if ('node_modules' in options) {
       throw new ConfigurationError(
-        'options.node_modules has been removed. Use `neutrino.config.resolve.modules` instead.'
+        'options.node_modules has been removed. Use `neutrino.config.resolve.modules` instead.',
       );
     }
 
     if ('host' in options) {
       throw new ConfigurationError(
-        'options.host has been removed. Configure via the `devServer.host` option of the web/react/... presets.'
+        'options.host has been removed. Configure via the `devServer.host` option of the web/react/... presets.',
       );
     }
 
     if ('port' in options) {
       throw new ConfigurationError(
-        'options.port has been removed. Configure via the `devServer.port` option of the web/react/... presets.'
+        'options.port has been removed. Configure via the `devServer.port` option of the web/react/... presets.',
       );
     }
 
     if (!options.mains) {
       Object.assign(options, {
         mains: {
-          index: 'index'
-        }
+          index: 'index',
+        },
       });
     }
 
@@ -68,7 +68,7 @@ module.exports = class Neutrino {
         },
         set(newValue) {
           value = newValue || defaultValue;
-        }
+        },
       });
     });
 
@@ -86,7 +86,7 @@ module.exports = class Neutrino {
       },
       set(extensions) {
         moduleExtensions = new Set(extensions.map(ext => ext.replace('.', '')));
-      }
+      },
     });
 
     this.bindMainsOnOptions(options);
@@ -95,28 +95,26 @@ module.exports = class Neutrino {
   }
 
   bindMainsOnOptions(options, optionsSource) {
-    Object
-      .entries(options.mains)
-      .forEach(([key, value]) => {
-        let normalizedConfig = normalizeMainConfig(value);
+    Object.entries(options.mains).forEach(([key, value]) => {
+      let normalizedConfig = normalizeMainConfig(value);
 
-        Reflect.defineProperty(options.mains, key, {
-          enumerable: true,
-          get() {
-            const source = optionsSource &&
-              optionsSource.source || options.source;
+      Reflect.defineProperty(options.mains, key, {
+        enumerable: true,
+        get() {
+          const source =
+            (optionsSource && optionsSource.source) || options.source;
 
-            return {
-              ...normalizedConfig,
-              // Lazily normalise the path, in case `source` changes after mains is updated.
-              entry: normalizePath(source, normalizedConfig.entry || key)
-            };
-          },
-          set(newValue) {
-            normalizedConfig = normalizeMainConfig(newValue);
-          }
-        });
+          return {
+            ...normalizedConfig,
+            // Lazily normalise the path, in case `source` changes after mains is updated.
+            entry: normalizePath(source, normalizedConfig.entry || key),
+          };
+        },
+        set(newValue) {
+          normalizedConfig = normalizeMainConfig(newValue);
+        },
       });
+    });
 
     this.mainsProxy = new Proxy(options.mains, {
       defineProperty: (target, prop, { value }) => {
@@ -125,20 +123,20 @@ module.exports = class Neutrino {
         return Reflect.defineProperty(target, prop, {
           enumerable: true,
           get() {
-            const source = optionsSource &&
-              optionsSource.source || options.source;
+            const source =
+              (optionsSource && optionsSource.source) || options.source;
 
             return {
               ...normalizedConfig,
               // Lazily normalise the path, in case `source` changes after mains is updated.
-              entry: normalizePath(source, normalizedConfig.entry)
+              entry: normalizePath(source, normalizedConfig.entry),
             };
           },
           set(newValue) {
             normalizedConfig = normalizeMainConfig(newValue);
-          }
+          },
         });
-      }
+      },
     });
   }
 
@@ -146,9 +144,9 @@ module.exports = class Neutrino {
     const exts = extensions.map(ext => ext.replace('.', '\\.'));
 
     return new RegExp(
-      extensions.length === 1 ?
-        String.raw`\.${exts[0]}$` :
-        String.raw`\.(${exts.join('|')})$`
+      extensions.length === 1
+        ? String.raw`\.${exts[0]}$`
+        : String.raw`\.(${exts.join('|')})$`,
     );
   }
 
@@ -166,7 +164,7 @@ module.exports = class Neutrino {
         throw new ConfigurationError(
           'As of Neutrino 9, middleware only accepts a single argument\n' +
             'referencing the Neutrino API. Please check that the correct\n' +
-            'value is being passed.'
+            'value is being passed.',
         );
       }
 
@@ -179,7 +177,7 @@ module.exports = class Neutrino {
             'function should be executed and passed to Neutrino, e.g.\n\n' +
             '  use: [middleware] -> use: [middleware()]\n' +
             '  neutrino.use(middleware) -> neutrino.use(middleware())\n\n' +
-            'Please check that the correct value is being passed.'
+            'Please check that the correct value is being passed.',
         );
       }
     } else if (typeof middleware === 'string') {
@@ -188,7 +186,7 @@ module.exports = class Neutrino {
           'middleware can only be passed as functions.\n' +
           'Use the migration tool and see the migration guide for details:\n' +
           '  https://neutrinojs.org/migrate\n' +
-          '  https://neutrinojs.org/migration-guide'
+          '  https://neutrinojs.org/migration-guide',
       );
     } else if (Array.isArray) {
       throw new ConfigurationError(
@@ -196,11 +194,11 @@ module.exports = class Neutrino {
           'middleware can only be passed as functions.\n' +
           'Use the migration tool and see the migration guide for details:\n' +
           '  https://neutrinojs.org/migrate\n' +
-          '  https://neutrinojs.org/migration-guide'
+          '  https://neutrinojs.org/migration-guide',
       );
     } else {
       throw new ConfigurationError(
-        'As of Neutrino 9, middleware can only be passed as functions.'
+        'As of Neutrino 9, middleware can only be passed as functions.',
       );
     }
   }

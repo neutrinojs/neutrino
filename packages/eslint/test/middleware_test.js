@@ -39,7 +39,10 @@ test('supports formatter being the name of an ESLint built-in formatter', t => {
   const formatterPath = require.resolve(`eslint/lib/formatters/${formatter}`);
   api.use(mw({ eslint: { formatter } }));
 
-  const loaderOptions = api.config.module.rule('lint').use('eslint').get('options');
+  const loaderOptions = api.config.module
+    .rule('lint')
+    .use('eslint')
+    .get('options');
   t.is(loaderOptions.formatter, formatterPath);
 });
 
@@ -48,7 +51,10 @@ test('supports formatter being a resolved path', t => {
   const formatter = require.resolve('eslint/lib/formatters/compact');
   api.use(mw({ eslint: { formatter } }));
 
-  const loaderOptions = api.config.module.rule('lint').use('eslint').get('options');
+  const loaderOptions = api.config.module
+    .rule('lint')
+    .use('eslint')
+    .get('options');
   t.is(loaderOptions.formatter, formatter);
 });
 
@@ -88,7 +94,7 @@ test('throws when used twice', t => {
   api.use(mw());
   t.throws(
     () => api.use(mw()),
-    /@neutrinojs\/eslint has been used twice with the same ruleId of 'lint'/
+    /@neutrinojs\/eslint has been used twice with the same ruleId of 'lint'/,
   );
 });
 
@@ -104,12 +110,12 @@ test('throws when invalid eslint-loader options are passed', t => {
       extends: [],
       overrides: [],
       root: false,
-      settings: {}
-    }
+      settings: {},
+    },
   };
   t.throws(
     () => api.use(mw(options)),
-    /Unrecognised 'eslint' option\(s\): env, extends, overrides, root, settings\nValid options are: allowInlineConfig, /
+    /Unrecognised 'eslint' option\(s\): env, extends, overrides, root, settings\nValid options are: allowInlineConfig, /,
   );
 });
 
@@ -119,106 +125,111 @@ test('sets defaults when no options passed', t => {
 
   const lintRule = api.config.module.rule('lint');
   t.deepEqual(lintRule.get('test'), /\.(mjs|jsx|js)$/);
-  t.deepEqual(lintRule.include.values(), [api.options.source, api.options.tests]);
+  t.deepEqual(lintRule.include.values(), [
+    api.options.source,
+    api.options.tests,
+  ]);
   t.deepEqual(lintRule.exclude.values(), []);
   t.deepEqual(lintRule.use('eslint').get('options'), {
     baseConfig: {
       env: {
-        es6: true
+        es6: true,
       },
       extends: [],
       globals: {
-        process: true
+        process: true,
       },
       overrides: [],
       parser: require.resolve('babel-eslint'),
       parserOptions: {
         ecmaVersion: 2018,
-        sourceType: 'module'
+        sourceType: 'module',
       },
       plugins: ['babel'],
       root: true,
-      settings: {}
+      settings: {},
     },
     cache: true,
     cwd: api.options.root,
     emitWarning: false,
     failOnError: true,
     formatter: require.resolve('eslint/lib/formatters/codeframe'),
-    useEslintrc: false
+    useEslintrc: false,
   });
 
   const eslintrc = api.outputHandlers.get('eslintrc')(api);
   t.deepEqual(eslintrc, {
     env: {
-      es6: true
+      es6: true,
     },
     extends: [],
     globals: {
-      process: true
+      process: true,
     },
     overrides: [],
     parser: require.resolve('babel-eslint'),
     parserOptions: {
       ecmaVersion: 2018,
-      sourceType: 'module'
+      sourceType: 'module',
     },
     plugins: ['babel'],
     root: true,
-    settings: {}
+    settings: {},
   });
 });
 
 test('merges options with defaults', t => {
   const api = new Neutrino();
-  api.use(mw({
-    test: /\.js$/,
-    include: ['/app/src'],
-    exclude: [/node_modules/],
-    eslint: {
-      baseConfig: {
-        env: {
-          jasmine: true
+  api.use(
+    mw({
+      test: /\.js$/,
+      include: ['/app/src'],
+      exclude: [/node_modules/],
+      eslint: {
+        baseConfig: {
+          env: {
+            jasmine: true,
+          },
+          extends: ['eslint-config-splendid'],
+          globals: {
+            jQuery: true,
+          },
+          overrides: [
+            {
+              files: '/app/src/custom.js',
+              rules: {
+                'no-console': 'off',
+              },
+            },
+          ],
+          parser: require.resolve('babel-eslint'),
+          parserOptions: {
+            jsx: true,
+          },
+          plugins: ['react'],
+          rules: {
+            quotes: ['error', 'single'],
+          },
+          settings: {
+            react: {
+              version: '16.5',
+            },
+          },
         },
-        extends: ['eslint-config-splendid'],
-        globals: {
-          jQuery: true
-        },
-        overrides: [
-          {
-            files: '/app/src/custom.js',
-            rules: {
-              'no-console': 'off'
-            }
-          }
-        ],
-        parser: require.resolve('babel-eslint'),
+        envs: ['jest'],
+        globals: ['$'],
+        parser: 'esprima',
         parserOptions: {
-          jsx: true
+          sourceType: 'script',
         },
-        plugins: ['react'],
+        plugins: ['jest'],
+        reportUnusedDisableDirectives: true,
         rules: {
-          quotes: ['error', 'single']
+          quotes: 'warn',
         },
-        settings: {
-          react: {
-            version: '16.5'
-          }
-        }
       },
-      envs: ['jest'],
-      globals: ['$'],
-      parser: 'esprima',
-      parserOptions: {
-        sourceType: 'script'
-      },
-      plugins: ['jest'],
-      reportUnusedDisableDirectives: true,
-      rules: {
-        quotes: 'warn'
-      }
-    }
-  }));
+    }),
+  );
 
   const lintRule = api.config.module.rule('lint');
   t.deepEqual(lintRule.get('test'), /\.js$/);
@@ -228,40 +239,37 @@ test('merges options with defaults', t => {
     baseConfig: {
       env: {
         es6: true,
-        jasmine: true
+        jasmine: true,
       },
       extends: ['eslint-config-splendid'],
       globals: {
         jQuery: true,
-        process: true
+        process: true,
       },
       overrides: [
         {
           files: '/app/src/custom.js',
           rules: {
-            'no-console': 'off'
-          }
-        }
+            'no-console': 'off',
+          },
+        },
       ],
       parser: require.resolve('babel-eslint'),
       parserOptions: {
         ecmaVersion: 2018,
         jsx: true,
-        sourceType: 'module'
+        sourceType: 'module',
       },
-      plugins: [
-        'babel',
-        'react'
-      ],
+      plugins: ['babel', 'react'],
       root: true,
       rules: {
-        quotes: ['error', 'single']
+        quotes: ['error', 'single'],
       },
       settings: {
         react: {
-          version: '16.5'
-        }
-      }
+          version: '16.5',
+        },
+      },
     },
     cache: true,
     cwd: api.options.root,
@@ -272,14 +280,14 @@ test('merges options with defaults', t => {
     globals: ['$'],
     parser: 'esprima',
     parserOptions: {
-      sourceType: 'script'
+      sourceType: 'script',
     },
     plugins: ['jest'],
     reportUnusedDisableDirectives: true,
     rules: {
-      quotes: 'warn'
+      quotes: 'warn',
     },
-    useEslintrc: false
+    useEslintrc: false,
   });
 
   const eslintrc = api.outputHandlers.get('eslintrc')(api);
@@ -287,42 +295,38 @@ test('merges options with defaults', t => {
     env: {
       es6: true,
       jasmine: true,
-      jest: true
+      jest: true,
     },
     extends: ['eslint-config-splendid'],
     globals: {
       $: true,
       jQuery: true,
-      process: true
+      process: true,
     },
     overrides: [
       {
         files: '/app/src/custom.js',
         rules: {
-          'no-console': 'off'
-        }
-      }
+          'no-console': 'off',
+        },
+      },
     ],
     parser: 'esprima',
     parserOptions: {
       ecmaVersion: 2018,
       jsx: true,
-      sourceType: 'script'
+      sourceType: 'script',
     },
-    plugins: [
-      'babel',
-      'react',
-      'jest'
-    ],
+    plugins: ['babel', 'react', 'jest'],
     root: true,
     rules: {
-      quotes: ['warn', 'single']
+      quotes: ['warn', 'single'],
     },
     settings: {
       react: {
-        version: '16.5'
-      }
-    }
+        version: '16.5',
+      },
+    },
   });
 });
 
@@ -332,7 +336,10 @@ test('sets only loader-specific defaults if useEslintrc true', t => {
 
   const lintRule = api.config.module.rule('lint');
   t.deepEqual(lintRule.get('test'), /\.(mjs|jsx|js)$/);
-  t.deepEqual(lintRule.include.values(), [api.options.source, api.options.tests]);
+  t.deepEqual(lintRule.include.values(), [
+    api.options.source,
+    api.options.tests,
+  ]);
   t.deepEqual(lintRule.exclude.values(), []);
   t.deepEqual(lintRule.use('eslint').get('options'), {
     baseConfig: {},
@@ -341,7 +348,7 @@ test('sets only loader-specific defaults if useEslintrc true', t => {
     emitWarning: false,
     failOnError: true,
     formatter: require.resolve('eslint/lib/formatters/codeframe'),
-    useEslintrc: true
+    useEslintrc: true,
   });
 });
 
@@ -351,6 +358,6 @@ test('eslintrc output handler throws if useEslintrc true', t => {
 
   t.throws(
     () => api.outputHandlers.get('eslintrc')(api),
-    /`useEslintrc` has been set to `true`/
+    /`useEslintrc` has been set to `true`/,
   );
 });

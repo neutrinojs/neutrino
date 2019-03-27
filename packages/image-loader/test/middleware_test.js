@@ -37,6 +37,6 @@ test('throws when used twice', t => {
   api.use(mw());
   t.throws(
     () => api.use(mw()),
-    /@neutrinojs\/image-loader has been used twice with the same ruleId of 'image'/
+    /@neutrinojs\/image-loader has been used twice with the same ruleId of 'image'/,
   );
 });

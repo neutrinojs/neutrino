@@ -13,7 +13,7 @@ Please try to answer the following questions:
 
 ### Feature request or enhancement?
 
-Please describe your request in detail. Use the following questions as guidance: 
+Please describe your request in detail. Use the following questions as guidance:
 
 - What is the goal of the change?
 - What are the pros and cons of the change?

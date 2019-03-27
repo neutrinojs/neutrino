@@ -2,7 +2,7 @@ const airbnb = require('./packages/airbnb');
 
 module.exports = {
   options: {
-    root: __dirname
+    root: __dirname,
   },
   use: [
     airbnb({
@@ -10,44 +10,60 @@ module.exports = {
       // Excludes are managed via `.eslintignore`.
       eslint: {
         baseConfig: {
-          extends: ['prettier'],
+          extends: [
+            'plugin:prettier/recommended',
+            'prettier/babel',
+            'prettier/react',
+          ],
           env: {
             browser: true,
             jest: true,
             mocha: true,
-            node: true
+            node: true,
           },
-          plugins: ['prettier'],
           rules: {
-            // Disallow trailing commas on arrays, objects, functions, et al
-            'comma-dangle': ['error', 'never'],
+            'prettier/prettier': [
+              'error',
+              {
+                singleQuote: true,
+                jsxBracketSameLine: true,
+                trailingComma: 'all',
+                proseWrap: 'always',
+                endOfLine: 'lf',
+              },
+            ],
             // Allow using console since most of the code in this repo isn't run in a browser.
             'no-console': 'off',
             // Allowing shadowing variable that share the same context as the outer scope
-            'no-shadow': 'off'
+            'no-shadow': 'off',
           },
           overrides: [
             {
-              files: ['packages/create-project/commands/init/templates/**'],
+              files: [
+                'packages/create-project/commands/init/templates/**',
+                'packages/create-project/commands/init/templates/*/.*.js',
+              ],
               rules: {
                 // The dependencies in create-project's templates are installed by
                 // by create-project and so are expected to be missing from package.json.
-                'import/no-extraneous-dependencies': 'off'
-              }
+                'import/no-extraneous-dependencies': 'off',
+              },
             },
             {
-              files: ['packages/create-project/commands/init/templates/preact/**'],
+              files: [
+                'packages/create-project/commands/init/templates/preact/**',
+              ],
               settings: {
                 react: {
-                  pragma: 'h'
-                }
+                  pragma: 'h',
+                },
               },
               rules: {
                 // With Preact the use of `class` is recommended over `className`,
                 // so we have to add `class` to the ignore list, to prevent:
                 // `Unknown property 'class' found, use 'className' instead`
-                'react/no-unknown-property': ['error', { ignore: ['class'] }]
-              }
+                'react/no-unknown-property': ['error', { ignore: ['class'] }],
+              },
             },
             {
               files: ['packages/*/test/*'],
@@ -56,12 +72,20 @@ module.exports = {
                 'global-require': 'off',
                 // This rule doesn't handle devDependencies being defined
                 // in the monorepo root package.json.
-                'import/no-extraneous-dependencies': 'off'
-              }
-            }
-          ]
-        }
-      }
-    })
-  ]
+                'import/no-extraneous-dependencies': 'off',
+              },
+            },
+          ],
+        },
+      },
+    }),
+    neutrino => {
+      neutrino.register('prettierrc', neutrino => {
+        const handler = neutrino.outputHandlers.get('eslintrc');
+        const eslintConfig = handler(neutrino);
+
+        return eslintConfig.rules['prettier/prettier'][1];
+      });
+    },
+  ],
 };

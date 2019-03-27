@@ -43,11 +43,14 @@ test('updates lint config by default', t => {
   const api = new Neutrino();
   api.use(lint());
   api.use(mw());
-  const options = api.config.module.rule('lint').use('eslint').get('options');
+  const options = api.config.module
+    .rule('lint')
+    .use('eslint')
+    .get('options');
   t.deepEqual(options.baseConfig.env, {
     browser: true,
-    commonjs:true,
-    es6: true
+    commonjs: true,
+    es6: true,
   });
   t.deepEqual(options.baseConfig.plugins, ['babel', 'react']);
   t.deepEqual(options.baseConfig.settings, { react: { pragma: 'h' } });
@@ -57,6 +60,9 @@ test('does not update lint config if useEslintrc true', t => {
   const api = new Neutrino();
   api.use(lint({ eslint: { useEslintrc: true } }));
   api.use(mw());
-  const options = api.config.module.rule('lint').use('eslint').get('options');
+  const options = api.config.module
+    .rule('lint')
+    .use('eslint')
+    .get('options');
   t.deepEqual(options.baseConfig, {});
 });

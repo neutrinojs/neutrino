@@ -5,9 +5,7 @@ import './App.css';
 const message = 'Welcome to <%= data.name %>';
 const App = () => (
   <div className="App">
-    <h1>
-      {message}
-    </h1>
+    <h1>{message}</h1>
   </div>
 );
 

@@ -1,12 +1,12 @@
 # Neutrino Clean Middleware
 
-`@neutrinojs/clean` is Neutrino middleware for removing or cleaning build directories.
+`@neutrinojs/clean` is Neutrino middleware for removing or cleaning build
+directories.
 
-[![NPM version][npm-image]][npm-url]
-[![NPM downloads][npm-downloads]][npm-url]
+[![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url]
 
-By default, this plugin will remove all files inside webpack's `output.path` directory,
-as well as all unused webpack assets after every successful rebuild.
+By default, this plugin will remove all files inside webpack's `output.path`
+directory, as well as all unused webpack assets after every successful rebuild.
 
 ## Requirements
 
@@ -33,8 +33,8 @@ as well as all unused webpack assets after every successful rebuild.
 
 ## Usage
 
-`@neutrinojs/clean` can be consumed from the Neutrino API, middleware, or presets. Require this package
-and plug it into Neutrino:
+`@neutrinojs/clean` can be consumed from the Neutrino API, middleware, or
+presets. Require this package and plug it into Neutrino:
 
 ```js
 const clean = require('@neutrinojs/clean');
@@ -43,11 +43,13 @@ const clean = require('@neutrinojs/clean');
 neutrino.use(clean());
 
 // Usage shows the default values of this middleware:
-neutrino.use(clean({
-  verbose: neutrino.options.debug,
-  // Override pluginId to add an additional clean plugin instance
-  pluginId: 'clean'
-}));
+neutrino.use(
+  clean({
+    verbose: neutrino.options.debug,
+    // Override pluginId to add an additional clean plugin instance
+    pluginId: 'clean',
+  }),
+);
 ```
 
 ```js
@@ -56,7 +58,7 @@ const clean = require('@neutrinojs/clean');
 
 // Use with default options
 module.exports = {
-  use: [clean()]
+  use: [clean()],
 };
 
 // Usage shows the default values of this middleware:
@@ -65,9 +67,9 @@ module.exports = {
     clean({
       verbose: neutrino.options.debug,
       // Override pluginId to add an additional banner plugin instance
-      pluginId: 'clean'
-    })
-  ]
+      pluginId: 'clean',
+    }),
+  ],
 };
 ```
 
@@ -78,35 +80,40 @@ for available options.
 
 ## Clean external directories
 
-Pass the `dangerouslyAllowCleanPatternsOutsideProject: true` option to remove directories outside of the project root. This is disabled by default to prevent deletion of unintended directories.
+Pass the `dangerouslyAllowCleanPatternsOutsideProject: true` option to remove
+directories outside of the project root. This is disabled by default to prevent
+deletion of unintended directories.
 
 ```js
 module.exports = {
   use: [
     clean({
       dangerouslyAllowCleanPatternsOutsideProject: true,
-    })
-  ]
+    }),
+  ],
 };
 ```
 
 ## Customization
 
-`@neutrinojs/clean` creates some conventions to make overriding the configuration easier once you are ready to
-make changes.
+`@neutrinojs/clean` creates some conventions to make overriding the
+configuration easier once you are ready to make changes.
 
 ### Plugins
 
-The following is a list of plugins and their identifiers which can be overridden:
+The following is a list of plugins and their identifiers which can be
+overridden:
 
-| Name | Description | NODE_ENV |
-| --- | --- | --- |
-| `clean` | Removes directories before building. | all |
+| Name    | Description                          | NODE_ENV |
+| ------- | ------------------------------------ | -------- |
+| `clean` | Removes directories before building. | all      |
 
 ## Contributing
 
-This middleware is part of the [neutrino](https://github.com/neutrinojs/neutrino) repository, a monorepo
-containing all resources for developing Neutrino and its core presets and middleware. Follow the
+This middleware is part of the
+[neutrino](https://github.com/neutrinojs/neutrino) repository, a monorepo
+containing all resources for developing Neutrino and its core presets and
+middleware. Follow the
 [contributing guide](https://neutrinojs.org/contributing/) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/clean.svg

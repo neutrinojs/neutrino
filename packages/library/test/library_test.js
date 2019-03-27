@@ -33,7 +33,7 @@ test('throws when polyfills defined', t => {
 
   t.throws(
     () => api.use(mw({ name: 'alpha', polyfills: {} })),
-    /The polyfills option has been removed/
+    /The polyfills option has been removed/,
   );
 });
 
@@ -52,7 +52,7 @@ test('valid preset production', t => {
   t.deepEqual(config.stats, {
     children: false,
     entrypoints: false,
-    modules: false
+    modules: false,
   });
 
   // NODE_ENV/command specific
@@ -78,7 +78,7 @@ test('valid preset development', t => {
   t.deepEqual(config.stats, {
     children: false,
     entrypoints: false,
-    modules: false
+    modules: false,
   });
 
   // NODE_ENV/command specific
@@ -122,38 +122,45 @@ test('valid preset commonjs2 libraryTarget', t => {
 test('targets option test', t => {
   const api = new Neutrino();
   const targets = {
-    browsers: ['last 2 iOS versions']
+    browsers: ['last 2 iOS versions'],
   };
 
   api.use(mw({ name: 'alpha', targets }));
 
-  t.deepEqual(api.config.module
-    .rule('compile')
-    .use('babel')
-    .get('options')
-    .presets[0][1].targets, targets);
+  t.deepEqual(
+    api.config.module
+      .rule('compile')
+      .use('babel')
+      .get('options').presets[0][1].targets,
+    targets,
+  );
 });
 
 test('targets false option test', t => {
   const api = new Neutrino();
   api.use(mw({ name: 'alpha', targets: false }));
 
-  t.deepEqual(api.config.module
-    .rule('compile')
-    .use('babel')
-    .get('options')
-    .presets[0][1].targets, {});
+  t.deepEqual(
+    api.config.module
+      .rule('compile')
+      .use('babel')
+      .get('options').presets[0][1].targets,
+    {},
+  );
 });
 
 test('updates lint config by default when target is web', t => {
   const api = new Neutrino();
   api.use(lint());
   api.use(mw({ name: 'alpha', target: 'web' }));
-  const options = api.config.module.rule('lint').use('eslint').get('options');
+  const options = api.config.module
+    .rule('lint')
+    .use('eslint')
+    .get('options');
   t.deepEqual(options.baseConfig.env, {
     browser: true,
-    commonjs:true,
-    es6: true
+    commonjs: true,
+    es6: true,
   });
 });
 
@@ -161,10 +168,13 @@ test('updates lint config by default when target is node', t => {
   const api = new Neutrino();
   api.use(lint());
   api.use(mw({ name: 'alpha', target: 'node' }));
-  const options = api.config.module.rule('lint').use('eslint').get('options');
+  const options = api.config.module
+    .rule('lint')
+    .use('eslint')
+    .get('options');
   t.deepEqual(options.baseConfig.env, {
-    commonjs:true,
-    es6: true
+    commonjs: true,
+    es6: true,
   });
 });
 
@@ -172,6 +182,9 @@ test('does not update lint config if useEslintrc true', t => {
   const api = new Neutrino();
   api.use(lint({ eslint: { useEslintrc: true } }));
   api.use(mw({ name: 'alpha' }));
-  const options = api.config.module.rule('lint').use('eslint').get('options');
+  const options = api.config.module
+    .rule('lint')
+    .use('eslint')
+    .get('options');
   t.deepEqual(options.baseConfig, {});
 });

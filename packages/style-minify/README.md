@@ -1,11 +1,10 @@
 # Neutrino Style Minify Middleware
 
 `@neutrinojs/style-minify` is Neutrino middleware for minifying styles using
-[`OptimizeCssAssetsPlugin`](https://www.npmjs.com/package/optimize-css-assets-webpack-plugin). This middleware is usually only
-added during production builds.
+[`OptimizeCssAssetsPlugin`](https://www.npmjs.com/package/optimize-css-assets-webpack-plugin).
+This middleware is usually only added during production builds.
 
-[![NPM version][npm-image]][npm-url]
-[![NPM downloads][npm-downloads]][npm-url]
+[![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url]
 
 ## Requirements
 
@@ -32,8 +31,8 @@ added during production builds.
 
 ## Usage
 
-`@neutrinojs/style-minify` can be consumed from the Neutrino API, middleware, or presets. Require this package
-and plug it into Neutrino:
+`@neutrinojs/style-minify` can be consumed from the Neutrino API, middleware, or
+presets. Require this package and plug it into Neutrino:
 
 ```js
 const styleMinify = require('@neutrinojs/style-minify');
@@ -42,14 +41,16 @@ const styleMinify = require('@neutrinojs/style-minify');
 neutrino.use(styleMinify());
 
 // Usage showing overriding options
-neutrino.use(styleMinify({
-  pluginId: 'optimize-css',
-  plugin: {
-    assetNameRegExp: /\.css$/g,
-    cssProcessorOptions: {},
-    canPrint: true,
-  }
-}));
+neutrino.use(
+  styleMinify({
+    pluginId: 'optimize-css',
+    plugin: {
+      assetNameRegExp: /\.css$/g,
+      cssProcessorOptions: {},
+      canPrint: true,
+    },
+  }),
+);
 ```
 
 ```js
@@ -58,7 +59,7 @@ const styleMinify = require('@neutrinojs/style-minify');
 
 // Use with default options
 module.exports = {
-  use: [styleMinify()]
+  use: [styleMinify()],
 };
 
 // Usage showing overriding options
@@ -70,31 +71,35 @@ module.exports = {
         assetNameRegExp: /\.css$/g,
         cssProcessorOptions: {},
         canPrint: true,
-      }
-    })
-  ]
+      },
+    }),
+  ],
 };
 ```
 
-The `plugin` property is passed to [optimize-css-assets-webpack-plugin](https://github.com/NMFR/optimize-css-assets-webpack-plugin#configuration).
+The `plugin` property is passed to
+[optimize-css-assets-webpack-plugin](https://github.com/NMFR/optimize-css-assets-webpack-plugin#configuration).
 
 ## Customization
 
-`@neutrinojs/style-minify` creates some conventions to make overriding the configuration easier once you are ready to
-make changes.
+`@neutrinojs/style-minify` creates some conventions to make overriding the
+configuration easier once you are ready to make changes.
 
 ### Plugins
 
-The following is a list of plugins and their identifiers which can be overridden:
+The following is a list of plugins and their identifiers which can be
+overridden:
 
-| Name | Description | NODE_ENV |
-| --- | --- | --- |
-| `optimize-css` | Minifies css using `OptimizeCssAssetsPlugin`. | all |
+| Name           | Description                                   | NODE_ENV |
+| -------------- | --------------------------------------------- | -------- |
+| `optimize-css` | Minifies css using `OptimizeCssAssetsPlugin`. | all      |
 
 ## Contributing
 
-This middleware is part of the [neutrino](https://github.com/neutrinojs/neutrino) repository, a monorepo
-containing all resources for developing Neutrino and its core presets and middleware. Follow the
+This middleware is part of the
+[neutrino](https://github.com/neutrinojs/neutrino) repository, a monorepo
+containing all resources for developing Neutrino and its core presets and
+middleware. Follow the
 [contributing guide](https://neutrinojs.org/contributing/) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/style-minify.svg

@@ -6,8 +6,6 @@
     ":semanticCommitsDisabled",
     ":unpublishSafe"
   ],
-  "reviewers": [
-    "neutrinojs/core-contributors"
-  ],
+  "reviewers": ["neutrinojs/core-contributors"],
   "pinVersions": false
 }

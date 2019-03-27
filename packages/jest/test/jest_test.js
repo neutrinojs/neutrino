@@ -81,10 +81,13 @@ test('updates lint config by default', t => {
   const api = new Neutrino();
   api.use(airbnbPreset());
   api.use(mw());
-  const options = api.config.module.rule('lint').use('eslint').get('options');
+  const options = api.config.module
+    .rule('lint')
+    .use('eslint')
+    .get('options');
   t.deepEqual(options.baseConfig.extends, [
     require.resolve('eslint-config-airbnb'),
-    'plugin:jest/recommended'
+    'plugin:jest/recommended',
   ]);
 });
 
@@ -92,7 +95,10 @@ test('does not update lint config if useEslintrc true', t => {
   const api = new Neutrino();
   api.use(eslintPreset({ eslint: { useEslintrc: true } }));
   api.use(mw());
-  const options = api.config.module.rule('lint').use('eslint').get('options');
+  const options = api.config.module
+    .rule('lint')
+    .use('eslint')
+    .get('options');
   t.deepEqual(options.baseConfig, {});
 });
 
@@ -107,6 +113,6 @@ test('configures moduleFileExtensions correctly', t => {
     'wasm',
     'jsx',
     'js',
-    'json'
+    'json',
   ]);
 });

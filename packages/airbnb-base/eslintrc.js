@@ -4,6 +4,6 @@ const middleware = require('.');
 module.exports = neutrino({
   use: middleware(),
   options: {
-    root: __dirname
-  }
+    root: __dirname,
+  },
 }).eslintrc();

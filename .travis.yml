@@ -2,17 +2,18 @@ dist: xenial
 language: node_js
 cache: yarn
 node_js:
-- '8'
-- '10'
-- '11'
+  - '8'
+  - '10'
+  - '11'
 before_install:
-# Use newer yarn than that pre-installed in the Travis image.
-- curl -sSfL https://yarnpkg.com/install.sh | bash
-- export PATH="$HOME/.yarn/bin:$PATH"
+  # Use newer yarn than that pre-installed in the Travis image.
+  - curl -sSfL https://yarnpkg.com/install.sh | bash
+  - export PATH="$HOME/.yarn/bin:$PATH"
 install:
-- yarn --frozen-lockfile
+  - yarn --frozen-lockfile
 script:
-- yarn validate:eslintrc
-- yarn lint
-- yarn test
-- scripts/test-create-project-ci.sh
+  - yarn validate:eslintrc
+  - yarn lint
+  - yarn prettier:check
+  - yarn test
+  - scripts/test-create-project-ci.sh

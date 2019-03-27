@@ -1,10 +1,9 @@
 # Neutrino HTML Template Middleware
 
-`@neutrinojs/html-template` is Neutrino middleware for automatically creating HTML files for configured
-entry points.
+`@neutrinojs/html-template` is Neutrino middleware for automatically creating
+HTML files for configured entry points.
 
-[![NPM version][npm-image]][npm-url]
-[![NPM downloads][npm-downloads]][npm-url]
+[![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url]
 
 ## Requirements
 
@@ -31,8 +30,8 @@ entry points.
 
 ## Usage
 
-`@neutrinojs/html-template` can be consumed from the Neutrino API, middleware, or presets. Require this package
-and plug it into Neutrino:
+`@neutrinojs/html-template` can be consumed from the Neutrino API, middleware,
+or presets. Require this package and plug it into Neutrino:
 
 ```js
 const htmlTemplate = require('@neutrinojs/html-template');
@@ -40,24 +39,28 @@ const htmlTemplate = require('@neutrinojs/html-template');
 // Usage shows default values
 // Accepts options specified by html-webpack-plugin:
 // https://github.com/jantimon/html-webpack-plugin#configuration
-neutrino.use(htmlTemplate({
-  // @neutrinojs/html-template includes a custom template that has more features
-  // (eg appMountId and lang support) than the default html-webpack-plugin template:
-  // https://github.com/jantimon/html-webpack-plugin/blob/master/default_index.ejs
-  template: require.resolve('@neutrinojs/html-template/template.ejs'),
-  appMountId: 'root',
-  lang: 'en',
-  meta: {
-    viewport: 'width=device-width, initial-scale=1'
-  },
-  // Override pluginId to add an additional html-template plugin instance
-  pluginId: 'html'
-}));
+neutrino.use(
+  htmlTemplate({
+    // @neutrinojs/html-template includes a custom template that has more features
+    // (eg appMountId and lang support) than the default html-webpack-plugin template:
+    // https://github.com/jantimon/html-webpack-plugin/blob/master/default_index.ejs
+    template: require.resolve('@neutrinojs/html-template/template.ejs'),
+    appMountId: 'root',
+    lang: 'en',
+    meta: {
+      viewport: 'width=device-width, initial-scale=1',
+    },
+    // Override pluginId to add an additional html-template plugin instance
+    pluginId: 'html',
+  }),
+);
 
 // Most commonly, you will want to override the initial page title:
-neutrino.use(htmlTemplate({
-  title: 'React Application'
-}));
+neutrino.use(
+  htmlTemplate({
+    title: 'React Application',
+  }),
+);
 ```
 
 ```js
@@ -77,41 +80,44 @@ module.exports = {
       appMountId: 'root',
       lang: 'en',
       meta: {
-        viewport: 'width=device-width, initial-scale=1'
+        viewport: 'width=device-width, initial-scale=1',
       },
       // Override pluginId to add an additional html-template plugin instance
-      pluginId: 'html'
-    })
-  ]
+      pluginId: 'html',
+    }),
+  ],
 };
 
 // Most commonly, you will want to override the initial page title:
 module.exports = {
   use: [
     htmlTemplate({
-      title: 'React Application'
-    })
-  ]
+      title: 'React Application',
+    }),
+  ],
 };
 ```
 
 ## Customization
 
-`@neutrinojs/html-template` creates some conventions to make overriding the configuration easier once you are ready to
-make changes.
+`@neutrinojs/html-template` creates some conventions to make overriding the
+configuration easier once you are ready to make changes.
 
 ### Plugins
 
-The following is a list of plugins and their identifiers which can be overridden:
+The following is a list of plugins and their identifiers which can be
+overridden:
 
-| Name | Description | NODE_ENV |
-| --- | --- | --- |
-| `html` | Automatically generates HTML files for configured entry points. | all |
+| Name   | Description                                                     | NODE_ENV |
+| ------ | --------------------------------------------------------------- | -------- |
+| `html` | Automatically generates HTML files for configured entry points. | all      |
 
 ## Contributing
 
-This middleware is part of the [neutrino](https://github.com/neutrinojs/neutrino) repository, a monorepo
-containing all resources for developing Neutrino and its core presets and middleware. Follow the
+This middleware is part of the
+[neutrino](https://github.com/neutrinojs/neutrino) repository, a monorepo
+containing all resources for developing Neutrino and its core presets and
+middleware. Follow the
 [contributing guide](https://neutrinojs.org/contributing/) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/html-template.svg

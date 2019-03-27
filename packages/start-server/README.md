@@ -1,10 +1,9 @@
 # Neutrino Start Server Middleware
 
-`@neutrinojs/start-server` is Neutrino middleware for starting a Node.js server for a file upon
-completion of a build.
+`@neutrinojs/start-server` is Neutrino middleware for starting a Node.js server
+for a file upon completion of a build.
 
-[![NPM version][npm-image]][npm-url]
-[![NPM downloads][npm-downloads]][npm-url]
+[![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url]
 
 ## Requirements
 
@@ -31,8 +30,8 @@ completion of a build.
 
 ## Usage
 
-`@neutrinojs/start-server` can be consumed from the Neutrino API, middleware, or presets. Require this package
-and plug it into Neutrino:
+`@neutrinojs/start-server` can be consumed from the Neutrino API, middleware, or
+presets. Require this package and plug it into Neutrino:
 
 ```js
 const startServer = require('@neutrinojs/start-server');
@@ -42,11 +41,13 @@ const startServer = require('@neutrinojs/start-server');
 neutrino.use(startServer());
 
 // Usage with custom server file to start
-neutrino.use(startServer({
-  name: 'custom.js',
-  // Override pluginId to add an additional start-server plugin instance
-  pluginId: 'start-server'
-}));
+neutrino.use(
+  startServer({
+    name: 'custom.js',
+    // Override pluginId to add an additional start-server plugin instance
+    pluginId: 'start-server',
+  }),
+);
 ```
 
 ```js
@@ -56,7 +57,7 @@ const startServer = require('@neutrinojs/start-server');
 // Use with default options, starting the server
 // for the main entry point, defaults to neutrino.options.mains.index
 module.exports = {
-  use: [startServer()]
+  use: [startServer()],
 };
 
 // Usage with custom server file to start
@@ -65,37 +66,42 @@ module.exports = {
     startServer({
       name: 'custom.js',
       // Override pluginId to add an additional start-server plugin instance
-      pluginId: 'start-server'
-    })
-  ]
+      pluginId: 'start-server',
+    }),
+  ],
 };
 ```
 
-By default this middleware will start a server with the first main entry point configured in Neutrino, by default
-`src/index`. This middleware optionally accepts an object with a `name` property for a path to a module which to
-start the server.
+By default this middleware will start a server with the first main entry point
+configured in Neutrino, by default `src/index`. This middleware optionally
+accepts an object with a `name` property for a path to a module which to start
+the server.
 
 ## Customization
 
-`@neutrinojs/start-server` creates some conventions to make overriding the configuration easier once you are
-ready to make changes.
+`@neutrinojs/start-server` creates some conventions to make overriding the
+configuration easier once you are ready to make changes.
 
 ### Plugins
 
-The following is a list of plugins and their identifiers which can be overridden:
+The following is a list of plugins and their identifiers which can be
+overridden:
 
-| Name | Description | NODE_ENV |
-| --- | --- | --- |
-| `start-server` | Start a Node.js for the first configured main entry point or specified file. | all |
+| Name           | Description                                                                  | NODE_ENV |
+| -------------- | ---------------------------------------------------------------------------- | -------- |
+| `start-server` | Start a Node.js for the first configured main entry point or specified file. | all      |
 
 ### Debugging
 
-You can start the Node.js server in `inspect` mode to debug the process by setting `neutrino.options.debug` to `true`.
+You can start the Node.js server in `inspect` mode to debug the process by
+setting `neutrino.options.debug` to `true`.
 
 ## Contributing
 
-This middleware is part of the [neutrino](https://github.com/neutrinojs/neutrino) repository, a monorepo
-containing all resources for developing Neutrino and its core presets and middleware. Follow the
+This middleware is part of the
+[neutrino](https://github.com/neutrinojs/neutrino) repository, a monorepo
+containing all resources for developing Neutrino and its core presets and
+middleware. Follow the
 [contributing guide](https://neutrinojs.org/contributing/) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/start-server.svg

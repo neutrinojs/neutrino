@@ -2,8 +2,7 @@
 
 `@neutrinojs/copy` is Neutrino middleware for copying files during building.
 
-[![NPM version][npm-image]][npm-url]
-[![NPM downloads][npm-downloads]][npm-url]
+[![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url]
 
 ## Requirements
 
@@ -30,8 +29,8 @@
 
 ## Usage
 
-`@neutrinojs/copy` can be consumed from the Neutrino API, middleware, or presets. Require this package
-and plug it into Neutrino:
+`@neutrinojs/copy` can be consumed from the Neutrino API, middleware, or
+presets. Require this package and plug it into Neutrino:
 
 ```js
 const copy = require('@neutrinojs/copy');
@@ -40,13 +39,15 @@ const copy = require('@neutrinojs/copy');
 neutrino.use(copy());
 
 // Usage shows the default values of this middleware:
-neutrino.use(copy({
-  patterns: [],
-  options: {
-    logLevel: neutrino.options.debug ? 'debug' : 'warn',
-  },
-  pluginId: 'copy'
-}));
+neutrino.use(
+  copy({
+    patterns: [],
+    options: {
+      logLevel: neutrino.options.debug ? 'debug' : 'warn',
+    },
+    pluginId: 'copy',
+  }),
+);
 ```
 
 ```js
@@ -55,7 +56,7 @@ const copy = require('@neutrinojs/copy');
 
 // Use with default options
 module.exports = {
-  use: [copy()]
+  use: [copy()],
 };
 
 // Usage shows the default values of this middleware:
@@ -66,36 +67,41 @@ module.exports = {
       options: {
         logLevel: neutrino.options.debug ? 'debug' : 'warn',
       },
-      pluginId: 'copy'
-    })
-  ]
+      pluginId: 'copy',
+    }),
+  ],
 };
 ```
 
-The `patterns` and `options` are defined from the [CopyWebpackPlugin](https://github.com/kevlened/copy-webpack-plugin).
-See their docs for details on valid values to specify.
+The `patterns` and `options` are defined from the
+[CopyWebpackPlugin](https://github.com/kevlened/copy-webpack-plugin). See their
+docs for details on valid values to specify.
 
 - `patterns`: An array of patterns specifying copy operations.
 - `options`: An object specifying copy options.
-- `pluginId`: The plugin identifier. Override this to add an additional copy plugin instance.
+- `pluginId`: The plugin identifier. Override this to add an additional copy
+  plugin instance.
 
 ## Customization
 
-`@neutrinojs/copy` creates some conventions to make overriding the configuration easier once you are ready to
-make changes.
+`@neutrinojs/copy` creates some conventions to make overriding the configuration
+easier once you are ready to make changes.
 
 ### Plugins
 
-The following is a list of plugins and their identifiers which can be overridden:
+The following is a list of plugins and their identifiers which can be
+overridden:
 
-| Name | Description | NODE_ENV |
-| --- | --- | --- |
-| `copy` |  Copy files during building. | all |
+| Name   | Description                 | NODE_ENV |
+| ------ | --------------------------- | -------- |
+| `copy` | Copy files during building. | all      |
 
 ## Contributing
 
-This middleware is part of the [neutrino](https://github.com/neutrinojs/neutrino) repository, a monorepo
-containing all resources for developing Neutrino and its core presets and middleware. Follow the
+This middleware is part of the
+[neutrino](https://github.com/neutrinojs/neutrino) repository, a monorepo
+containing all resources for developing Neutrino and its core presets and
+middleware. Follow the
 [contributing guide](https://neutrinojs.org/contributing/) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/copy.svg

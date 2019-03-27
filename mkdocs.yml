@@ -3,7 +3,9 @@ site_dir: 'build'
 strict: true
 
 site_name: 'Neutrino'
-site_description: 'Create and build modern JavaScript applications with zero initial configuration'
+site_description:
+  'Create and build modern JavaScript applications with zero initial
+  configuration'
 repo_name: 'neutrinojs/neutrino'
 repo_url: 'https://github.com/neutrinojs/neutrino'
 
@@ -21,8 +23,8 @@ theme:
 nav:
   - Introduction: './index.md'
   - Getting Started:
-    - Installation: './installation/index.md'
-    - Create new project: './installation/create-new-project.md'
+      - Installation: './installation/index.md'
+      - Create new project: './installation/create-new-project.md'
   - Usage: './usage.md'
   - Project Layout: './project-layout.md'
   - Customization: './customization.md'
@@ -30,52 +32,52 @@ nav:
   - Migration Guide: './migration-guide.md'
   - Migration Tool: './migrate.md'
   - Presets:
-    - What are presets?: './presets.md'
-    - Web Projects:
-      - React: './packages/react.md'
-      - Preact: './packages/preact.md'
-      - Vue: './packages/vue.md'
-      - Web: './packages/web.md'
-    - Node.js: './packages/node.md'
-    - React Components: './packages/react-components.md'
-    - Libraries: './packages/library.md'
-    - Linting:
-      - Airbnb: './packages/airbnb.md'
-      - StandardJS: './packages/standardjs.md'
-      - Airbnb Base: './packages/airbnb-base.md'
-    - Testing:
-      - Jest: './packages/jest.md'
-      - Karma: './packages/karma.md'
-      - Mocha: './packages/mocha.md'
+      - What are presets?: './presets.md'
+      - Web Projects:
+          - React: './packages/react.md'
+          - Preact: './packages/preact.md'
+          - Vue: './packages/vue.md'
+          - Web: './packages/web.md'
+      - Node.js: './packages/node.md'
+      - React Components: './packages/react-components.md'
+      - Libraries: './packages/library.md'
+      - Linting:
+          - Airbnb: './packages/airbnb.md'
+          - StandardJS: './packages/standardjs.md'
+          - Airbnb Base: './packages/airbnb-base.md'
+      - Testing:
+          - Jest: './packages/jest.md'
+          - Karma: './packages/karma.md'
+          - Mocha: './packages/mocha.md'
   - Middleware:
-    - What is middleware?: './middleware.md'
-    - banner: './packages/banner.md'
-    - clean: './packages/clean.md'
-    - compile-loader: './packages/compile-loader.md'
-    - copy: './packages/copy.md'
-    - dev-server: './packages/dev-server.md'
-    - eslint: './packages/eslint.md'
-    - font-loader: './packages/font-loader.md'
-    - html-loader: './packages/html-loader.md'
-    - html-template: './packages/html-template.md'
-    - image-loader: './packages/image-loader.md'
-    - start-server: './packages/start-server.md'
-    - style-loader: './packages/style-loader.md'
-    - style-minify: './packages/style-minify.md'
+      - What is middleware?: './middleware.md'
+      - banner: './packages/banner.md'
+      - clean: './packages/clean.md'
+      - compile-loader: './packages/compile-loader.md'
+      - copy: './packages/copy.md'
+      - dev-server: './packages/dev-server.md'
+      - eslint: './packages/eslint.md'
+      - font-loader: './packages/font-loader.md'
+      - html-loader: './packages/html-loader.md'
+      - html-template: './packages/html-template.md'
+      - image-loader: './packages/image-loader.md'
+      - start-server: './packages/start-server.md'
+      - style-loader: './packages/style-loader.md'
+      - style-minify: './packages/style-minify.md'
   - API: './api.md'
   - Creating Presets: './creating-presets.md'
   - Previous Versions:
-    - v8 Documentation: 'https://release-v8.neutrinojs.org/'
-    - v7 Documentation: 'https://release-v7.neutrinojs.org/'
-    - v6 Documentation: 'https://github.com/neutrinojs/neutrino/tree/release/v6/docs'
-    - v5 Documentation: 'https://github.com/neutrinojs/neutrino/tree/release/v5/docs'
-    - v4 Documentation: 'https://github.com/neutrinojs/neutrino/tree/release/v4/docs'
+      - v8 Documentation: 'https://release-v8.neutrinojs.org/'
+      - v7 Documentation: 'https://release-v7.neutrinojs.org/'
+      - v6 Documentation: 'https://github.com/neutrinojs/neutrino/tree/release/v6/docs'
+      - v5 Documentation: 'https://github.com/neutrinojs/neutrino/tree/release/v5/docs'
+      - v4 Documentation: 'https://github.com/neutrinojs/neutrino/tree/release/v4/docs'
   - FAQ: './faq.md'
   - Learning Resources: './learning-resources.md'
   - Contributing:
-    - Overview: './contributing/index.md'
-    - Development Process: './contributing/development.md'
-    - Code of Conduct: './contributing/code-of-conduct.md'
+      - Overview: './contributing/index.md'
+      - Development Process: './contributing/development.md'
+      - Code of Conduct: './contributing/code-of-conduct.md'
 
 # https://squidfunk.github.io/mkdocs-material/getting-started/#extensions
 markdown_extensions:

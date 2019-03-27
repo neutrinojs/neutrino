@@ -1,26 +1,31 @@
 # Neutrino React Preset
 
-`@neutrinojs/react` is a Neutrino preset that supports building React web applications.
+`@neutrinojs/react` is a Neutrino preset that supports building React web
+applications.
 
-[![NPM version][npm-image]][npm-url]
-[![NPM downloads][npm-downloads]][npm-url]
+[![NPM version][npm-image]][npm-url] [![NPM downloads][npm-downloads]][npm-url]
 
 ## Features
 
-- Zero upfront configuration necessary to start developing and building a React web app
-- Modern Babel compilation adding JSX, object rest spread syntax, and class properties.
+- Zero upfront configuration necessary to start developing and building a React
+  web app
+- Modern Babel compilation adding JSX, object rest spread syntax, and class
+  properties.
 - Support for React Hot Loader
 - Write JSX in .js or .jsx files
 - Extends from [@neutrinojs/web](https://neutrinojs.org/packages/web/)
-  - Modern Babel compilation supporting ES modules, last 2 major browser versions, async functions, and dynamic imports
+  - Modern Babel compilation supporting ES modules, last 2 major browser
+    versions, async functions, and dynamic imports
   - webpack loaders for importing HTML, CSS, images, icons, and fonts
   - webpack Dev Server during development
   - Automatic creation of HTML pages, no templating necessary
-  - Automatic stylesheet extraction; importing stylesheets into modules creates bundled external stylesheets
+  - Automatic stylesheet extraction; importing stylesheets into modules creates
+    bundled external stylesheets
   - Pre-configured to support CSS Modules via `*.module.css` file extensions
   - Hot Module Replacement support including CSS
   - Tree-shaking to create smaller bundles
-  - Production-optimized bundles with minification, easy chunking, and scope-hoisted modules for faster execution
+  - Production-optimized bundles with minification, easy chunking, and
+    scope-hoisted modules for faster execution
   - Easily extensible to customize your project as needed
 
 ## Requirements
@@ -34,14 +39,14 @@
 
 ## Quickstart
 
-The fastest way to get started is by using the `create-project` scaffolding tool.
-Don’t want to use the CLI helper? No worries, we have you covered with the [manual installation](#manual-installation).
+The fastest way to get started is by using the `create-project` scaffolding
+tool. Don’t want to use the CLI helper? No worries, we have you covered with the
+[manual installation](#manual-installation).
 
 ### create-project
 
-Run the following command to start the process. Substitute `<directory-name>` with the directory name you wish to create
-for this project.
-
+Run the following command to start the process. Substitute `<directory-name>`
+with the directory name you wish to create for this project.
 
 #### Yarn
 
@@ -49,26 +54,31 @@ for this project.
 ❯ yarn create @neutrinojs/project <directory-name>
 ```
 
-_Note: The `create` command is a shorthand that helps you do two things at once. See the [Yarn create docs](https://yarnpkg.com/lang/en/docs/cli/create/) for more details._
+_Note: The `create` command is a shorthand that helps you do two things at once.
+See the [Yarn create docs](https://yarnpkg.com/lang/en/docs/cli/create/) for
+more details._
 
 #### npm/npx
 
-[`npx`](https://github.com/zkat/npx) comes pre-installed with `npm`. If you’re running an older version of `npm`, then
-`npm install -g npm` to update to the latest version.
+[`npx`](https://github.com/zkat/npx) comes pre-installed with `npm`. If you’re
+running an older version of `npm`, then `npm install -g npm` to update to the
+latest version.
 
 ```
 ❯ npx @neutrinojs/create-project <directory-name>
 ```
 
-The CLI helper will prompt for the project to scaffold, and will offer to set
-up a test runner as well as linting to your project. Refer to the [Create new project](https://neutrinojs.org/installation/create-new-project/) section
-for details on all available options.
+The CLI helper will prompt for the project to scaffold, and will offer to set up
+a test runner as well as linting to your project. Refer to the
+[Create new project](https://neutrinojs.org/installation/create-new-project/)
+section for details on all available options.
 
 ### Manual Installation
 
-`@neutrinojs/react` can be installed via the Yarn or npm clients. Inside your project, make sure
-that the Neutrino and webpack related dependencies below are installed as development dependencies.
-You will also need React and React DOM for actual React development.
+`@neutrinojs/react` can be installed via the Yarn or npm clients. Inside your
+project, make sure that the Neutrino and webpack related dependencies below are
+installed as development dependencies. You will also need React and React DOM
+for actual React development.
 
 #### Yarn
 
@@ -84,15 +94,16 @@ You will also need React and React DOM for actual React development.
 ❯ npm install --save react react-dom
 ```
 
-After that, add a new directory named `src` in the root of the project, with
-a single JS file named `index.js` in it.
+After that, add a new directory named `src` in the root of the project, with a
+single JS file named `index.js` in it.
 
 ```bash
 ❯ mkdir src && touch src/index.js
 ```
 
-This React preset exposes an element in the page with an ID of `root` to which you can mount your application. Edit
-your `src/index.js` file with the following:
+This React preset exposes an element in the page with an ID of `root` to which
+you can mount your application. Edit your `src/index.js` file with the
+following:
 
 ```jsx
 import { render } from 'react-dom';
@@ -100,7 +111,8 @@ import { render } from 'react-dom';
 render(<h1>Hello world!</h1>, document.getElementById('root'));
 ```
 
-Now edit your project's `package.json` to add commands for starting and building the application:
+Now edit your project's `package.json` to add commands for starting and building
+the application:
 
 ```json
 {
@@ -111,17 +123,19 @@ Now edit your project's `package.json` to add commands for starting and building
 }
 ```
 
-Then create a `.neutrinorc.js` file alongside `package.json`, which contains your Neutrino configuration:
+Then create a `.neutrinorc.js` file alongside `package.json`, which contains
+your Neutrino configuration:
 
 ```js
 const react = require('@neutrinojs/react');
 
 module.exports = {
-  use: [react()]
+  use: [react()],
 };
 ```
 
-And create a `webpack.config.js` file, that uses the Neutrino API to access the generated webpack config:
+And create a `webpack.config.js` file, that uses the Neutrino API to access the
+generated webpack config:
 
 ```js
 const neutrino = require('neutrino');
@@ -145,42 +159,53 @@ Start the app, then open a browser to the address in the console:
 
 ## Project Layout
 
-`@neutrinojs/react` follows the standard [project layout](https://neutrinojs.org/project-layout/) specified by Neutrino. This
-means that by default all project source code should live in a directory named `src` in the root of the
-project. This includes JavaScript files, CSS stylesheets, images, and any other assets that would be available
-to import your compiled project.
+`@neutrinojs/react` follows the standard
+[project layout](https://neutrinojs.org/project-layout/) specified by Neutrino.
+This means that by default all project source code should live in a directory
+named `src` in the root of the project. This includes JavaScript files, CSS
+stylesheets, images, and any other assets that would be available to import your
+compiled project.
 
 ## Building
 
-`@neutrinojs/react` builds static assets to the `build` directory by default when running `yarn build`.
-You can either serve or deploy the contents of this `build` directory as a static site.
+`@neutrinojs/react` builds static assets to the `build` directory by default
+when running `yarn build`. You can either serve or deploy the contents of this
+`build` directory as a static site.
 
 ## Static assets
 
-If you wish to copy files to the build directory that are not imported from application code,
-use the [@neutrinojs/copy](https://neutrinojs.org/packages/copy/) preset alongside this one.
+If you wish to copy files to the build directory that are not imported from
+application code, use the
+[@neutrinojs/copy](https://neutrinojs.org/packages/copy/) preset alongside this
+one.
 
 ## Deployment Path
 
-By default `@neutrinojs/react` assumes that your application will be deployed at the root of a
-domain (eg: `https://www.my-app.com/`), and so sets webpack's
-[`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath) to `'/'`,
-which means assets will be loaded from the site root using absolute paths.
+By default `@neutrinojs/react` assumes that your application will be deployed at
+the root of a domain (eg: `https://www.my-app.com/`), and so sets webpack's
+[`output.publicPath`](https://webpack.js.org/configuration/output/#output-publicpath)
+to `'/'`, which means assets will be loaded from the site root using absolute
+paths.
 
-If your app is instead deployed within a subdirectory, you will need to adjust the `publicPath`
-[preset option](#preset-options). For example if your app is hosted at
-`https://my-username.github.io/my-app/`, you will need to set `publicPath` to `'/my-app/'`.
+If your app is instead deployed within a subdirectory, you will need to adjust
+the `publicPath` [preset option](#preset-options). For example if your app is
+hosted at `https://my-username.github.io/my-app/`, you will need to set
+`publicPath` to `'/my-app/'`.
 
-Alternatively, if you would like your app to be able to be served from any location, and are
-not using the HTML5 pushState history API or client-side routing, then you can set `publicPath`
-to the empty string, which will cause relative asset paths to be used instead.
+Alternatively, if you would like your app to be able to be served from any
+location, and are not using the HTML5 pushState history API or client-side
+routing, then you can set `publicPath` to the empty string, which will cause
+relative asset paths to be used instead.
 
 ## Preset options
 
-You can provide custom options and have them merged with this preset's default options to easily affect how this
-preset builds. You can modify React preset settings from `.neutrinorc.js` by overriding with an options object.
-The following shows how you can pass an options object to the React preset and override its options. See the
-[Web documentation](https://neutrinojs.org/packages/web/#preset-options) for specific options you can override with this object.
+You can provide custom options and have them merged with this preset's default
+options to easily affect how this preset builds. You can modify React preset
+settings from `.neutrinorc.js` by overriding with an options object. The
+following shows how you can pass an options object to the React preset and
+override its options. See the
+[Web documentation](https://neutrinojs.org/packages/web/#preset-options) for
+specific options you can override with this object.
 
 ```js
 const react = require('@neutrinojs/react');
@@ -199,54 +224,61 @@ module.exports = {
 
       // Example: change the page title
       html: {
-        title: 'Epic React App'
+        title: 'Epic React App',
       },
 
       // Target specific browsers with @babel/preset-env
       targets: {
-        browsers: [
-          'last 1 Chrome versions',
-          'last 1 Firefox versions'
-        ]
+        browsers: ['last 1 Chrome versions', 'last 1 Firefox versions'],
       },
 
       // Add additional Babel plugins, presets, or env options
       babel: {
         // Override options for @babel/preset-env:
         presets: [
-          ['@babel/preset-env', {
-            useBuiltIns: true,
-          }]
-        ]
-      }
-    })
-  ]
+          [
+            '@babel/preset-env',
+            {
+              useBuiltIns: true,
+            },
+          ],
+        ],
+      },
+    }),
+  ],
 };
 ```
 
 ## Customizing
 
-To override the build configuration, start with the documentation on [customization](https://neutrinojs.org/customization/).
-`@neutrinojs/react` does not use any additional named rules, loaders, or plugins that aren't already in use by the
-Web preset. See the [Web documentation customization](https://neutrinojs.org/packages/web/#customizing)
+To override the build configuration, start with the documentation on
+[customization](https://neutrinojs.org/customization/). `@neutrinojs/react` does
+not use any additional named rules, loaders, or plugins that aren't already in
+use by the Web preset. See the
+[Web documentation customization](https://neutrinojs.org/packages/web/#customizing)
 for preset-specific configuration to override.
 
-For details on merging and overriding Babel configuration, such as supporting decorator syntax, read more
-about using the [`compile-loader` `merge`](https://neutrinojs.org/packages/compile-loader/#advanced-merging) once you
-are comfortable customizing your build.
+For details on merging and overriding Babel configuration, such as supporting
+decorator syntax, read more about using the
+[`compile-loader` `merge`](https://neutrinojs.org/packages/compile-loader/#advanced-merging)
+once you are comfortable customizing your build.
 
-If the need arises, you can also compile `node_modules` by referring to the relevant
+If the need arises, you can also compile `node_modules` by referring to the
+relevant
 [`compile-loader` documentation](https://neutrinojs.org/packages/compile-loader/#compiling-node_modules).
 
 ### Advanced configuration
 
-By following the [customization guide](https://neutrinojs.org/customization/) and knowing the rule, loader, and plugin IDs from
-`@neutrinojs/web`, you can override and augment the build by providing a function to your `.neutrinorc.js` use
-array. You can also make these changes from the Neutrino API in custom middleware.
+By following the [customization guide](https://neutrinojs.org/customization/)
+and knowing the rule, loader, and plugin IDs from `@neutrinojs/web`, you can
+override and augment the build by providing a function to your `.neutrinorc.js`
+use array. You can also make these changes from the Neutrino API in custom
+middleware.
 
-By default Neutrino, and therefore this preset, creates a single **main** `index` entry point to your application, and
-this maps to the `index.*` file in the `src` directory. The extension is resolved by webpack. This value is provided by
-`neutrino.options.mains` at `neutrino.options.mains.index`.
+By default Neutrino, and therefore this preset, creates a single **main**
+`index` entry point to your application, and this maps to the `index.*` file in
+the `src` directory. The extension is resolved by webpack. This value is
+provided by `neutrino.options.mains` at `neutrino.options.mains.index`.
 
 If you wish to output multiple pages, you can configure them like so:
 
@@ -274,16 +306,17 @@ module.exports = {
         inject: true,
         template: 'my-custom-template.html',
       },
-    }
+    },
   },
-  use: [react()]
-}
+  use: [react()],
+};
 ```
 
 #### Vendoring
 
-External dependencies are automatically split into separate chunks from the application code,
-by the new webpack [SplitChunksPlugin](https://webpack.js.org/plugins/split-chunks-plugin/).
+External dependencies are automatically split into separate chunks from the
+application code, by the new webpack
+[SplitChunksPlugin](https://webpack.js.org/plugins/split-chunks-plugin/).
 
 _Example: The splitChunks settings can be adjusted like so:_
 
@@ -293,17 +326,15 @@ const react = require('@neutrinojs/react');
 module.exports = {
   use: [
     react(),
-    (neutrino) => {
-      neutrino.config
-        .optimization
-          .merge({
-            splitChunks: {
-              // Decrease the minimum size before extra chunks are created, to 10KB
-              minSize: 10000
-            }
-          });
-    }
-  ]
+    neutrino => {
+      neutrino.config.optimization.merge({
+        splitChunks: {
+          // Decrease the minimum size before extra chunks are created, to 10KB
+          minSize: 10000,
+        },
+      });
+    },
+  ],
 };
 ```
 
@@ -313,8 +344,8 @@ While `@neutrinojs/react` supports Hot Module Replacement for your app using
 React Hot Loader, it does require some application-specific changes in order to
 operate.
 
-First, install `react-hot-loader` as a dependency, this **must** be
-React Hot Loader v4+:
+First, install `react-hot-loader` as a dependency, this **must** be React Hot
+Loader v4+:
 
 #### Yarn
 
@@ -330,29 +361,30 @@ React Hot Loader v4+:
 
 ---
 
-Neutrino will then automatically load React Hot Loader then next time a build
-is performed. Next, you need to mark your root component as _hot-exported_.
+Neutrino will then automatically load React Hot Loader then next time a build is
+performed. Next, you need to mark your root component as _hot-exported_.
 
 For example, if your `src/index` main entry renders a root component from
 `App.jsx`, then the exported component needs to have a hot export:
 
 ```jsx
 // src/App.jsx
-import React from 'react'
-import { hot } from 'react-hot-loader'
+import React from 'react';
+import { hot } from 'react-hot-loader';
 
-const App = () => <div>Hello World!</div>
+const App = () => <div>Hello World!</div>;
 
 export default hot(module)(App);
 ```
 
-See the [React Hot Loader](https://gaearon.github.io/react-hot-loader/)
-docs for any API specifics on hot reloading other components.
+See the [React Hot Loader](https://gaearon.github.io/react-hot-loader/) docs for
+any API specifics on hot reloading other components.
 
 ## Contributing
 
-This preset is part of the [neutrino](https://github.com/neutrinojs/neutrino) repository, a monorepo
-containing all resources for developing Neutrino and its core presets and middleware. Follow the
+This preset is part of the [neutrino](https://github.com/neutrinojs/neutrino)
+repository, a monorepo containing all resources for developing Neutrino and its
+core presets and middleware. Follow the
 [contributing guide](https://neutrinojs.org/contributing/) for details.
 
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/react.svg

@@ -1,6 +1,10 @@
 const { DuplicateRuleError } = require('neutrino/errors');
 
-module.exports = ({ ruleId = 'compile', useId = 'babel', ...options } = {}) => (neutrino) => {
+module.exports = ({
+  ruleId = 'compile',
+  useId = 'babel',
+  ...options
+} = {}) => neutrino => {
   if (neutrino.config.module.rules.has(ruleId)) {
     throw new DuplicateRuleError('@neutrinojs/compile-loader', ruleId);
   }
@@ -16,13 +20,13 @@ module.exports = ({ ruleId = 'compile', useId = 'babel', ...options } = {}) => (
       cacheDirectory: true,
       babelrc: false,
       configFile: false,
-      ...(options.babel || {})
+      ...(options.babel || {}),
     });
 
-  neutrino.register('babel', (neutrino) =>
+  neutrino.register('babel', neutrino =>
     neutrino.config.module
       .rule(ruleId)
       .use(useId)
-      .get('options')
+      .get('options'),
   );
 };

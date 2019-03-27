@@ -16,12 +16,15 @@ const replaceStyleLoader = rule => {
   }
 };
 
-module.exports = (opts = {}) => (neutrino) => {
-  const options = merge({
-    style: {
-      ruleId: 'style'
-    }
-  }, opts);
+module.exports = (opts = {}) => neutrino => {
+  const options = merge(
+    {
+      style: {
+        ruleId: 'style',
+      },
+    },
+    opts,
+  );
 
   // Add vue extension as a higher priority than JS files.
   // Since neutrino.options.extensions is always a copy of a Set,
@@ -45,28 +48,28 @@ module.exports = (opts = {}) => (neutrino) => {
       .when(styleModulesEnabled, rule => {
         rule
           .oneOf('vue-modules')
-            .before('modules')
-            .test(styleTest)
-            .resourceQuery(/module/)
-            .batch(applyUse(styleRule.oneOf('modules')))
-            .batch(replaceStyleLoader);
+          .before('modules')
+          .test(styleTest)
+          .resourceQuery(/module/)
+          .batch(applyUse(styleRule.oneOf('modules')))
+          .batch(replaceStyleLoader);
       })
       .when(styleRule.oneOf('normal'), rule => {
         rule
           .oneOf('vue-normal')
-            .before(styleModulesEnabled ? 'modules' : 'normal')
-            .test(styleTest)
-            .resourceQuery(/\?vue/)
-            .batch(applyUse(styleRule.oneOf('normal')))
-            .batch(replaceStyleLoader);
+          .before(styleModulesEnabled ? 'modules' : 'normal')
+          .test(styleTest)
+          .resourceQuery(/\?vue/)
+          .batch(applyUse(styleRule.oneOf('normal')))
+          .batch(replaceStyleLoader);
       });
   }
 
   neutrino.config.module
     .rule('vue')
-      .test(neutrino.regexFromExtensions(['vue']))
-      .use('vue')
-        .loader(require.resolve('vue-loader'));
+    .test(neutrino.regexFromExtensions(['vue']))
+    .use('vue')
+    .loader(require.resolve('vue-loader'));
 
   neutrino.config.plugin('vue').use(require.resolve('vue-loader/lib/plugin'));
 
@@ -77,8 +80,10 @@ module.exports = (opts = {}) => (neutrino) => {
     // which will then be parsed by Babel, so no need for a double parse.
     neutrino.config.module
       .rule('compile')
-      .test(neutrino.regexFromExtensions(
-        neutrino.options.extensions.filter(ext => ext !== 'vue'))
+      .test(
+        neutrino.regexFromExtensions(
+          neutrino.options.extensions.filter(ext => ext !== 'vue'),
+        ),
       );
   }
 
@@ -90,18 +95,19 @@ module.exports = (opts = {}) => (neutrino) => {
 
     lintRule.use('eslint').tap(
       // Don't adjust the lint configuration for projects using their own .eslintrc.
-      lintOptions => lintOptions.useEslintrc
-        ? lintOptions
-        : merge(lintOptions, {
-            baseConfig: {
-              extends: ['plugin:vue/base'],
-              parser: 'vue-eslint-parser',
-              parserOptions: {
-                parser: 'babel-eslint'
+      lintOptions =>
+        lintOptions.useEslintrc
+          ? lintOptions
+          : merge(lintOptions, {
+              baseConfig: {
+                extends: ['plugin:vue/base'],
+                parser: 'vue-eslint-parser',
+                parserOptions: {
+                  parser: 'babel-eslint',
+                },
+                plugins: ['vue'],
               },
-              plugins: ['vue']
-            }
-          })
+            }),
     );
   }
 };

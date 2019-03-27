@@ -66,27 +66,44 @@ test('options.tests', t => {
 });
 
 test('throws when legacy options.node_modules is set', t => {
-  t.throws(() => new Neutrino({ node_modules: 'abc' }), /options\.node_modules has been removed/);
+  t.throws(
+    () => new Neutrino({ node_modules: 'abc' }),
+    /options\.node_modules has been removed/,
+  );
 });
 
 test('throws when legacy options.host is set', t => {
-  t.throws(() => new Neutrino({ host: 'abc' }), /options\.host has been removed/);
+  t.throws(
+    () => new Neutrino({ host: 'abc' }),
+    /options\.host has been removed/,
+  );
 });
 
 test('throws when legacy options.port is set', t => {
-  t.throws(() => new Neutrino({ port: 1234 }), /options\.port has been removed/);
+  t.throws(
+    () => new Neutrino({ port: 1234 }),
+    /options\.port has been removed/,
+  );
 });
 
 test('options.mains', t => {
   const api = new Neutrino();
 
-  t.deepEqual(api.options.mains.index, { entry: join(process.cwd(), 'src/index') });
+  t.deepEqual(api.options.mains.index, {
+    entry: join(process.cwd(), 'src/index'),
+  });
   api.options.mains.index = './alpha.js';
-  t.deepEqual(api.options.mains.index, { entry: join(process.cwd(), 'src/alpha.js') });
+  t.deepEqual(api.options.mains.index, {
+    entry: join(process.cwd(), 'src/alpha.js'),
+  });
   api.options.source = 'beta';
-  t.deepEqual(api.options.mains.index, { entry: join(process.cwd(), 'beta/alpha.js') });
+  t.deepEqual(api.options.mains.index, {
+    entry: join(process.cwd(), 'beta/alpha.js'),
+  });
   api.options.root = '/gamma';
-  t.deepEqual(api.options.mains.index, { entry: join('/gamma', 'beta/alpha.js') });
+  t.deepEqual(api.options.mains.index, {
+    entry: join('/gamma', 'beta/alpha.js'),
+  });
   api.options.mains.index = '/alpha.js';
   t.deepEqual(api.options.mains.index, { entry: '/alpha.js' });
 });
@@ -97,28 +114,48 @@ test('override options.mains', t => {
       alpha: 'beta',
       gamma: {
         entry: 'delta',
-        title: 'Gamma Page'
-      }
-    }
+        title: 'Gamma Page',
+      },
+    },
   });
 
-  t.deepEqual(api.options.mains.alpha, { entry: join(process.cwd(), 'src/beta') });
+  t.deepEqual(api.options.mains.alpha, {
+    entry: join(process.cwd(), 'src/beta'),
+  });
   api.options.mains.alpha = { entry: './alpha.js', minify: false };
-  t.deepEqual(api.options.mains.alpha, { entry: join(process.cwd(), 'src/alpha.js'), minify: false });
+  t.deepEqual(api.options.mains.alpha, {
+    entry: join(process.cwd(), 'src/alpha.js'),
+    minify: false,
+  });
   api.options.source = 'epsilon';
-  t.deepEqual(api.options.mains.alpha, { entry: join(process.cwd(), 'epsilon/alpha.js'), minify: false });
+  t.deepEqual(api.options.mains.alpha, {
+    entry: join(process.cwd(), 'epsilon/alpha.js'),
+    minify: false,
+  });
   api.options.root = '/zeta';
-  t.deepEqual(api.options.mains.alpha, { entry: join('/zeta', 'epsilon/alpha.js'), minify: false });
+  t.deepEqual(api.options.mains.alpha, {
+    entry: join('/zeta', 'epsilon/alpha.js'),
+    minify: false,
+  });
   api.options.mains.alpha = '/alpha.js';
   t.deepEqual(api.options.mains.alpha, { entry: '/alpha.js' });
 
-  t.deepEqual(api.options.mains.gamma, { entry: join('/zeta', 'epsilon/delta'), title: 'Gamma Page' });
+  t.deepEqual(api.options.mains.gamma, {
+    entry: join('/zeta', 'epsilon/delta'),
+    title: 'Gamma Page',
+  });
   api.options.mains.gamma = './alpha.js';
-  t.deepEqual(api.options.mains.gamma, { entry: join('/zeta', 'epsilon/alpha.js') });
+  t.deepEqual(api.options.mains.gamma, {
+    entry: join('/zeta', 'epsilon/alpha.js'),
+  });
   api.options.source = 'src';
-  t.deepEqual(api.options.mains.gamma, { entry: join('/zeta', 'src/alpha.js') });
+  t.deepEqual(api.options.mains.gamma, {
+    entry: join('/zeta', 'src/alpha.js'),
+  });
   api.options.root = process.cwd();
-  t.deepEqual(api.options.mains.gamma, { entry: join(process.cwd(), 'src/alpha.js') });
+  t.deepEqual(api.options.mains.gamma, {
+    entry: join(process.cwd(), 'src/alpha.js'),
+  });
   api.options.mains.gamma = '/alpha.js';
   t.deepEqual(api.options.mains.gamma, { entry: '/alpha.js' });
 });
@@ -127,18 +164,15 @@ test('override options.mains.index template', t => {
   const api = new Neutrino({
     mains: {
       index: {
-        template: 'alpha.eps'
-      }
-    }
+        template: 'alpha.eps',
+      },
+    },
   });
 
-  t.deepEqual(
-    api.options.mains.index,
-    {
-      entry: join(process.cwd(), 'src/index'),
-      template: 'alpha.eps'
-    }
-  );
+  t.deepEqual(api.options.mains.index, {
+    entry: join(process.cwd(), 'src/index'),
+    template: 'alpha.eps',
+  });
 });
 
 test('creates an instance of webpack-chain', t => {
@@ -176,9 +210,7 @@ test('creates a webpack config', t => {
   const api = new Neutrino();
 
   api.use(api => {
-    api.config.module
-      .rule('compile')
-      .test(api.regexFromExtensions(['js']));
+    api.config.module.rule('compile').test(api.regexFromExtensions(['js']));
   });
 
   t.notDeepEqual(api.config.toConfig(), {});
@@ -190,5 +222,8 @@ test('regexFromExtensions', t => {
   t.is(String(api.regexFromExtensions()), '/\\.(mjs|jsx|js)$/');
   t.is(String(api.regexFromExtensions(['js'])), '/\\.js$/');
   t.is(String(api.regexFromExtensions(['js', 'css'])), '/\\.(js|css)$/');
-  t.is(String(api.regexFromExtensions(['worker.js', 'worker.jsx'])), '/\\.(worker\\.js|worker\\.jsx)$/');
+  t.is(
+    String(api.regexFromExtensions(['worker.js', 'worker.jsx'])),
+    '/\\.(worker\\.js|worker\\.jsx)$/',
+  );
 });

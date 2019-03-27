@@ -66,6 +66,6 @@ test('throws when used twice', t => {
   api.use(mw());
   t.throws(
     () => api.use(mw()),
-    /@neutrinojs\/compile-loader has been used twice with the same ruleId of 'compile'/
+    /@neutrinojs\/compile-loader has been used twice with the same ruleId of 'compile'/,
   );
 });
