@@ -38,12 +38,15 @@ module.exports = (opts = {}) => {
       },
       opts,
     );
-    const { dependencies = {}, devDependencies = {} } = neutrino.options.packageJson || {};
+    const { dependencies = {}, devDependencies = {} } =
+      neutrino.options.packageJson || {};
     const corejs = {};
 
     if ('core-js' in dependencies || 'core-js' in devDependencies) {
       Object.assign(corejs, {
-        corejs: semver.major(dependencies['core-js'] || devDependencies['core-js'])
+        corejs: semver.major(
+          dependencies['core-js'] || devDependencies['core-js'],
+        ),
       });
     }
 
@@ -60,7 +63,7 @@ module.exports = (opts = {}) => {
                   debug: neutrino.options.debug,
                   targets: options.targets,
                   useBuiltIns: 'entry',
-                  ...corejs
+                  ...corejs,
                 },
               ],
             ],
