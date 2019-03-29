@@ -1,0 +1,23 @@
+environment:
+  matrix:
+    - nodejs_version: '11'
+    - nodejs_version: '10'
+    - nodejs_version: '8'
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - curl -sSfL https://yarnpkg.com/install.sh | bash
+  - set PATH=%APPDATA%\.yarn\bin;%PATH%
+  - yarn --frozen-lockfile
+matrix:
+  fast_finish: true
+build: off
+shallow_clone: true
+test_script:
+  - yarn validate:eslintrc
+  - yarn lint
+  - yarn prettier:check
+  - yarn test
+  - scripts/test-create-project-ci.sh
+cache:
+  - node_modules
+  - '%LOCALAPPDATA%/Yarn'
