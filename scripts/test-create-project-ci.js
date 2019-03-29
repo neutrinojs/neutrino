@@ -18,19 +18,15 @@ const server = spawn('yarn', ['verdaccio', '--config', 'verdaccio.yml'], {
 const kill = () => {
   server.kill();
 };
-const resetVersionBump = () =>
-  exec('git checkout lerna.json packages/*/package.json');
 const handleError = async err => {
   console.error(err);
   kill();
-  await resetVersionBump();
   process.exit(1);
 };
 
 process.on('unhandledRejection', handleError);
 process.on('SIGINT', () => {
   kill();
-  resetVersionBump();
 });
 
 async function main() {
@@ -60,7 +56,6 @@ async function main() {
   await Promise.all([
     remove(join(cacheDirectory, '*-neutrino-*')),
     remove(join(cacheDirectory, '*-@neutrinojs')),
-    resetVersionBump(),
   ]);
 }
 
