@@ -5,12 +5,14 @@ const { remove } = require('fs-extra');
 const { join } = require('path');
 
 const SERVER = 'http://localhost:4873/';
+const cwd = join(__dirname, '..');
 const env = {
   ...process.env,
   YARN_AUTH_TOKEN: `${SERVER.split('http')[1]}:_authToken=token`,
 };
 // Start verdaccio registry proxy in the background
 const server = spawn('yarn', ['verdaccio', '--config', 'verdaccio.yml'], {
+  cwd,
   env,
   stdio: 'inherit',
   detached: true,
@@ -40,11 +42,11 @@ async function main() {
   // The version will be bumped to the next pre-release suffix (`-0`) and the
   // package.json changes left in the working directory so that create-project
   // can read the correct version for installing matching monorepo packages.
-  await exec(`yarn release:ci`, { env, stdio: 'inherit' });
+  await exec(`yarn release:ci`, { env, cwd, stdio: 'inherit' });
 
   // Run the integration tests, which will install packages
   // from the verdaccio registry
-  await spawn('yarn', ['test:create-project'], { env, stdio: 'inherit' });
+  await spawn('yarn', ['test:create-project'], { env, cwd, stdio: 'inherit' });
 
   // Stop the verdaccio server
   kill();
