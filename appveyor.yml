@@ -17,7 +17,7 @@ test_script:
   - yarn lint
   - yarn prettier:check
   - yarn test
-  - scripts/test-create-project-ci.sh
+  - node scripts/test-create-project-ci.js
 cache:
   - node_modules
   - '%LOCALAPPDATA%/Yarn'
