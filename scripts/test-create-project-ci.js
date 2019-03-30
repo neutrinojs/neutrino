@@ -1,5 +1,4 @@
 /* eslint-disable import/no-extraneous-dependencies */
-const waitOn = require('wait-on');
 const { exec, spawn } = require('child-process-async');
 const { remove } = require('fs-extra');
 const { join } = require('path');
@@ -10,33 +9,16 @@ const env = {
   ...process.env,
   YARN_AUTH_TOKEN: `${SERVER.split('http')[1]}:_authToken=token`,
 };
-// Start verdaccio registry proxy in the background
-const server = spawn('yarn', ['verdaccio'], {
-  cwd,
-  env,
-  stdio: 'inherit',
-  detached: true,
-});
-const kill = () => {
-  server.kill();
-};
 const handleError = async err => {
   console.error(err);
-  kill();
   process.exit(1);
 };
 
 process.on('unhandledRejection', handleError);
-process.on('SIGINT', () => {
-  kill();
-});
 
 async function main() {
   const { stdout } = await exec('yarn cache dir');
   const cacheDirectory = stdout.toString().trim();
-
-  // Verdaccio isn't ready to immediately accept connections, so we need to wait
-  await waitOn({ resources: [SERVER] });
 
   // Publish all monorepo packages to the verdaccio registry.
   // The version will be bumped to the next pre-release suffix (`-0`) and the
@@ -47,9 +29,6 @@ async function main() {
   // Run the integration tests, which will install packages
   // from the verdaccio registry
   await spawn('yarn', ['test:create-project'], { env, cwd, stdio: 'inherit' });
-
-  // Stop the verdaccio server
-  kill();
 
   // Remove cached Neutrino packages to avoid Travis cache churn.
   // Not using `yarn cache clean` since it doesn't support globs,
