@@ -17,7 +17,8 @@ install:
     curl -sSfL https://yarnpkg.com/install.sh | bash
     set PATH=%APPDATA%\.yarn\bin;%APPDATA%\.config\yarn\global\node_modules\.bin;%PATH%
     yarn --frozen-lockfile
-    yarn forever start node_modules/verdaccio/build/lib/cli.js --config verdaccio.yml
+    node node_modules/forever/bin/forever start node_modules/verdaccio/build/lib/cli.js --config verdaccio.yml
+    node_modules/lerna/cli.js publish preminor --registry http://localhost:4873 --no-git-reset --yes
 
 test_script:
   - yarn validate:eslintrc

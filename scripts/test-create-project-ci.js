@@ -21,12 +21,6 @@ async function main() {
   const { stdout } = await exec('yarn cache dir');
   const cacheDirectory = stdout.toString().trim();
 
-  // Publish all monorepo packages to the verdaccio registry.
-  // The version will be bumped to the next pre-release suffix (`-0`) and the
-  // package.json changes left in the working directory so that create-project
-  // can read the correct version for installing matching monorepo packages.
-  await exec(`yarn release:ci`, { env, cwd, stdio: 'inherit' });
-
   // Run the integration tests, which will install packages
   // from the verdaccio registry
   await spawn('yarn', ['test:create-project'], { env, cwd, stdio: 'inherit' });
