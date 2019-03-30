@@ -28,6 +28,7 @@
     "test": "ava --fail-fast packages/*/test \"!packages/create-project/test\"",
     "test:create-project": "ava --verbose packages/create-project/test",
     "validate:eslintrc": "node scripts/validate-eslintrc.js",
+    "verdaccio": "node node_modules/verdaccio/build/lib/cli.js --config verdaccio.yml",
     "version": "[[ -z \"$SKIP_CHANGELOG\" ]] && (auto-changelog --package && git add CHANGELOG.md) || echo 'Skipping changelog.'"
   },
   "devDependencies": {

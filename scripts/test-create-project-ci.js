@@ -11,7 +11,7 @@ const env = {
   YARN_AUTH_TOKEN: `${SERVER.split('http')[1]}:_authToken=token`,
 };
 // Start verdaccio registry proxy in the background
-const server = spawn('yarn', ['verdaccio', '--config', 'verdaccio.yml'], {
+const server = spawn('yarn', ['verdaccio'], {
   cwd,
   env,
   stdio: 'inherit',
