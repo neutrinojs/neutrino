@@ -7,6 +7,7 @@ const SERVER = 'http://localhost:4873/';
 const cwd = join(__dirname, '..');
 const env = {
   ...process.env,
+  SKIP_CHANGELOG: true,
   YARN_AUTH_TOKEN: `${SERVER.split('http')[1]}:_authToken=token`,
 };
 const handleError = async err => {
