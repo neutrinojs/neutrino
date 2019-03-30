@@ -6,8 +6,10 @@ environment:
 install:
   - ps: Install-Product node $env:nodejs_version
   - curl -sSfL https://yarnpkg.com/install.sh | bash
-  - set PATH=%APPDATA%\.yarn\bin;%PATH%
+  - |
+    set PATH=%APPDATA%\.yarn\bin;%APPDATA%\.config\yarn\global\node_modules\.bin;%PATH%
   - yarn --frozen-lockfile
+  - START /B node node_modules/verdaccio/build/lib/cli.js --config verdaccio.yml
 matrix:
   fast_finish: true
 build: off
