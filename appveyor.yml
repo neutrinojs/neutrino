@@ -1,26 +1,30 @@
+image: Visual Studio 2017
+build: off
+shallow_clone: true
+matrix:
+  fast_finish: true
+
 environment:
   matrix:
     - nodejs_version: '11'
     - nodejs_version: '10'
     - nodejs_version: '8'
+
 install:
   - ps: Install-Product node $env:nodejs_version
-  - curl -sSfL https://yarnpkg.com/install.sh | bash
   - |
+    curl -sSfL https://yarnpkg.com/install.sh | bash
     set PATH=%APPDATA%\.yarn\bin;%APPDATA%\.config\yarn\global\node_modules\.bin;%PATH%
-  - yarn --frozen-lockfile
-  - |
+    yarn --frozen-lockfile
     yarn forever start node_modules/verdaccio/build/lib/cli.js --config verdaccio.yml
-matrix:
-  fast_finish: true
-build: off
-shallow_clone: true
+
 test_script:
   - yarn validate:eslintrc
   - yarn lint
   - yarn prettier:check
   - yarn test
   - node scripts/test-create-project-ci.js
+
 cache:
   - node_modules
   - '%LOCALAPPDATA%/Yarn'
