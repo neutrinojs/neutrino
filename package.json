@@ -24,7 +24,7 @@
     "release:prepare": "lerna version",
     "release:publish": "lerna publish from-package",
     "release:publish-next": "yarn release:publish --dist-tag next",
-    "release:ci": "SKIP_CHANGELOG=true lerna publish preminor --registry http://localhost:4873 --no-git-reset --yes",
+    "release:ci": "lerna publish preminor --registry http://localhost:4873 --no-git-reset --yes",
     "test": "ava --fail-fast packages/*/test \"!packages/create-project/test\"",
     "test:create-project": "ava --verbose packages/create-project/test",
     "validate:eslintrc": "node scripts/validate-eslintrc.js",
