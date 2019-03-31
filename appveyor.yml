@@ -14,8 +14,7 @@ install:
   - git --version
   - ps: Install-Product node $env:nodejs_version
   - |
-    curl -sSfL https://yarnpkg.com/install.sh | bash
-    export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+    choco install yarn
     yarn --frozen-lockfile
     node node_modules/forever/bin/forever start node_modules/verdaccio/build/lib/cli.js --config verdaccio.yml
     node node_modules/lerna/cli.js publish preminor --registry http://localhost:4873 --no-git-reset --yes
