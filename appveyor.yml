@@ -17,7 +17,7 @@ install:
     choco install yarn
     yarn --frozen-lockfile
     node node_modules/forever/bin/forever start node_modules/verdaccio/build/lib/cli.js --config verdaccio.yml
-    node node_modules/lerna/cli.js publish preminor --registry http://localhost:4873 --no-git-reset --yes
+    node node_modules/lerna/cli.js publish from-package preminor --registry http://localhost:4873 --no-git-reset --yes --git-head %APPVEYOR_REPO_COMMIT%
 
 test_script:
   - yarn validate:eslintrc
