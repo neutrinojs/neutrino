@@ -61,12 +61,11 @@ const scaffold = async ({ testName, ...prompts }) => {
 
   return directory;
 };
-const packageManagerSpawn = async (t, cwd, args) => {
+const packageManagerSpawn = async (t, cwd, command) => {
+  const args = command.split(' ');
+
   try {
-    const { stderr, exitCode } = await spawn('yarn', args.split(' '), {
-      cwd,
-      env,
-    });
+    const { stderr, exitCode } = await spawn('yarn', args, { cwd, env });
 
     if (exitCode === 0) {
       t.pass();
