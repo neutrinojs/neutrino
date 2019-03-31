@@ -91,7 +91,7 @@ tests.forEach(({ project, linter, testRunner }) => {
       testRunner: testRunner ? testRunner.package : false,
     });
     const pkgPath = join(dir, 'package.json');
-    const yarn = packageManagerSpawn.bind(t, dir);
+    const yarn = packageManagerSpawn.bind(null, t, dir);
 
     t.truthy(dir);
     assert.file(pkgPath);
