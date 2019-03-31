@@ -27,6 +27,10 @@ test_script:
   - yarn test
   - yarn ava --verbose packages/create-project/test
 
+after_test:
+  - |
+    for /f usebackq %F in (`yarn cache dir`) do rd /s /q %F\*-neutrino-*\ %F\*-@neutrinojs\
+
 cache:
   - node_modules
   - '%LOCALAPPDATA%/Yarn'

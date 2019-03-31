@@ -61,9 +61,12 @@ const scaffold = async ({ testName, ...prompts }) => {
 
   return directory;
 };
-const yarn = async (t, cwd, args) => {
+const packageManagerSpawn = async (t, cwd, args) => {
   try {
-    const { stderr, exitCode } = await spawn('yarn', args, { cwd, env });
+    const { stderr, exitCode } = await spawn('yarn', args.split(' '), {
+      cwd,
+      env,
+    });
 
     if (exitCode === 0) {
       t.pass();
@@ -74,9 +77,6 @@ const yarn = async (t, cwd, args) => {
     t.fail(`Failed to ${args[0]} project:\n\n${err}`);
   }
 };
-const buildable = async (t, cwd, args = []) => yarn(t, cwd, ['build', ...args]);
-const testable = async (t, cwd, args = []) => yarn(t, cwd, ['test', ...args]);
-const lintable = async (t, cwd, args = []) => yarn(t, cwd, ['lint', ...args]);
 
 tests.forEach(({ project, linter, testRunner }) => {
   const testName = testRunner
@@ -92,6 +92,7 @@ tests.forEach(({ project, linter, testRunner }) => {
       testRunner: testRunner ? testRunner.package : false,
     });
     const pkgPath = join(dir, 'package.json');
+    const yarn = packageManagerSpawn.bind(t, dir);
 
     t.truthy(dir);
     assert.file(pkgPath);
@@ -100,8 +101,8 @@ tests.forEach(({ project, linter, testRunner }) => {
     assert.file(join(dir, '.eslintrc.js'));
     assert.file(join(dir, '.gitignore'));
 
-    await lintable(t, dir);
-    await buildable(t, dir);
+    await yarn('lint');
+    await yarn('build');
 
     const pkg = require(pkgPath); // eslint-disable-line import/no-dynamic-require
 
@@ -110,7 +111,7 @@ tests.forEach(({ project, linter, testRunner }) => {
     // TODO: Find a way in the future to actually test that the spawned watchers
     // produce the expected result.
     if ('start' in pkg.scripts) {
-      await buildable(t, dir, ['--', '--mode', 'development']);
+      await yarn('build -- --mode development');
     }
 
     if (testRunner) {
@@ -123,7 +124,7 @@ tests.forEach(({ project, linter, testRunner }) => {
       }
 
       assert.file(join(dir, 'test/simple_test.js'));
-      await testable(t, dir);
+      await yarn('test');
     }
   });
 });
