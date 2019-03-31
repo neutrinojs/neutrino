@@ -23,7 +23,8 @@ async function main() {
 
   // Run the integration tests, which will install packages
   // from the verdaccio registry
-  await spawn('yarn', ['test:create-project'], { env, cwd, stdio: 'inherit' });
+  // ava --verbose packages/create-project/test
+  await spawn('node', ['node_modules/'], { env, cwd, stdio: 'inherit' });
 
   // Remove cached Neutrino packages to avoid Travis cache churn.
   // Not using `yarn cache clean` since it doesn't support globs,

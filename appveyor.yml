@@ -5,6 +5,8 @@ matrix:
   fast_finish: true
 
 environment:
+  SKIP_CHANGELOG: true
+  YARN_AUTH_TOKEN: '//localhost:4873/:_authToken=token'
   matrix:
     - nodejs_version: '11'
     - nodejs_version: '10'
@@ -24,7 +26,7 @@ test_script:
   - yarn lint
   - yarn prettier:check
   - yarn test
-  - node scripts/test-create-project-ci.js
+  - node node_modules/ava/cli.js --verbose packages/create-project/test
 
 cache:
   - node_modules
