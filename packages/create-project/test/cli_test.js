@@ -63,11 +63,7 @@ const scaffold = async ({ testName, ...prompts }) => {
 };
 const yarn = async (t, cwd, args) => {
   try {
-    const { stderr, exitCode } = spawn('yarn', args, {
-      cwd,
-      env,
-      stdio: 'pipe',
-    });
+    const { stderr, exitCode } = await spawn('yarn', args, { cwd, env });
 
     if (exitCode === 0) {
       t.pass();
