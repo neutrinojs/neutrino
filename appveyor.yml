@@ -25,7 +25,7 @@ test_script:
   - yarn lint
   - yarn prettier:check
   - yarn test
-  - yarn ava --verbose packages/create-project/test
+  - yarn ava --verbose --fail-fast packages/create-project/test
 
 after_test:
   - |

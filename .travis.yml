@@ -23,7 +23,7 @@ script:
   - yarn lint
   - yarn prettier:check
   - yarn test
-  - yarn ava --verbose packages/create-project/test
+  - yarn ava --verbose --fail-fast packages/create-project/test
 
 after_script:
   - rm -rf "$(yarn cache dir)"/*-neutrino-*/ "$(yarn cache dir)"/*-@neutrinojs/
