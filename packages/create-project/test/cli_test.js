@@ -3,10 +3,11 @@ import assert from 'yeoman-assert';
 import { run } from 'yeoman-test';
 import { tmpdir } from 'os';
 import { join } from 'path';
-import { spawn } from 'child_process';
+import { spawn } from 'child-process-async';
 import { N, presets } from '../commands/init/constants';
 
 const REGISTRY = 'http://localhost:4873';
+const { env } = process;
 const tests = [
   {
     project: presets.get(N.REACT),
@@ -60,42 +61,26 @@ const scaffold = async ({ testName, ...prompts }) => {
 
   return directory;
 };
-const spawnP = (cmd, args, options) =>
-  new Promise((resolve, reject) => {
-    const child = spawn(cmd, args, options);
-    let output = '';
-    const handleData = data => {
-      output += data.toString();
-    };
+const yarn = async (t, cwd, args) => {
+  try {
+    const { stderr, exitCode } = spawn('yarn', args, {
+      cwd,
+      env,
+      stdio: 'pipe',
+    });
 
-    child.stdout.on('data', handleData);
-    child.stderr.on('data', handleData);
-    child.on('close', code => (code === 0 ? resolve(code) : reject(output)));
-  });
-const buildable = async (t, dir, args = []) => {
-  try {
-    await spawnP('yarn', ['build', ...args], { cwd: dir, stdio: 'pipe' });
-    t.pass();
-  } catch (output) {
-    t.fail(`Failed to build project:\n\n${output}`);
+    if (exitCode === 0) {
+      t.pass();
+    } else {
+      t.fail(`Failed to ${args[0]} project:\n\n${stderr}`);
+    }
+  } catch (err) {
+    t.fail(`Failed to ${args[0]} project:\n\n${err}`);
   }
 };
-const testable = async (t, dir, args = []) => {
-  try {
-    await spawnP('yarn', ['test', ...args], { cwd: dir, stdio: 'pipe' });
-    t.pass();
-  } catch (output) {
-    t.fail(`Failed to test project:\n\n${output}`);
-  }
-};
-const lintable = async (t, dir, args = []) => {
-  try {
-    await spawnP('yarn', ['lint', ...args], { cwd: dir, stdio: 'pipe' });
-    t.pass();
-  } catch (output) {
-    t.fail(`Failed to lint project:\n\n${output}`);
-  }
-};
+const buildable = async (t, cwd, args = []) => yarn(t, cwd, ['build', ...args]);
+const testable = async (t, cwd, args = []) => yarn(t, cwd, ['test', ...args]);
+const lintable = async (t, cwd, args = []) => yarn(t, cwd, ['lint', ...args]);
 
 tests.forEach(({ project, linter, testRunner }) => {
   const testName = testRunner

@@ -10,10 +10,13 @@ before_install:
   - curl -sSfL https://yarnpkg.com/install.sh | bash
   - export PATH="$HOME/.yarn/bin:$PATH"
 install:
-  - yarn --frozen-lockfile
+  - |
+    yarn --frozen-lockfile
+    yarn forever start node_modules/verdaccio/build/lib/cli.js --config verdaccio.yml
+    yarn lerna publish from-package preminor --registry http://localhost:4873 --no-git-reset --yes --git-head $TRAVIS_COMMIT
 script:
   - yarn validate:eslintrc
   - yarn lint
   - yarn prettier:check
   - yarn test
-  - scripts/test-create-project-ci.sh
+  - yarn ava --verbose packages/create-project/test

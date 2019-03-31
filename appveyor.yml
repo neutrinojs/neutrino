@@ -13,20 +13,19 @@ environment:
     - nodejs_version: '8'
 
 install:
-  - git --version
   - ps: Install-Product node $env:nodejs_version
   - |
     choco install yarn
     yarn --frozen-lockfile
-    node node_modules/forever/bin/forever start node_modules/verdaccio/build/lib/cli.js --config verdaccio.yml
-    node node_modules/lerna/cli.js publish from-package preminor --registry http://localhost:4873 --no-git-reset --yes --git-head %APPVEYOR_REPO_COMMIT%
+    yarn forever start node_modules/verdaccio/build/lib/cli.js --config verdaccio.yml
+    yarn lerna publish from-package preminor --registry http://localhost:4873 --no-git-reset --yes --git-head %APPVEYOR_REPO_COMMIT%
 
 test_script:
   - yarn validate:eslintrc
   - yarn lint
   - yarn prettier:check
   - yarn test
-  - node node_modules/ava/cli.js --verbose packages/create-project/test
+  - yarn ava --verbose packages/create-project/test
 
 cache:
   - node_modules
