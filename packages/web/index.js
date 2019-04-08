@@ -8,6 +8,7 @@ const clean = require('@neutrinojs/clean');
 const devServer = require('@neutrinojs/dev-server');
 const babelMerge = require('babel-merge');
 const merge = require('deepmerge');
+const semver = require('semver');
 const { ConfigurationError } = require('neutrino/errors');
 
 module.exports = (opts = {}) => neutrino => {
@@ -127,6 +128,18 @@ module.exports = (opts = {}) => neutrino => {
     ];
   }
 
+  const { dependencies = {}, devDependencies = {} } =
+    neutrino.options.packageJson || {};
+  const corejs = {};
+
+  if ('core-js' in dependencies || 'core-js' in devDependencies) {
+    Object.assign(corejs, {
+      corejs: semver.major(
+        dependencies['core-js'] || devDependencies['core-js'],
+      ),
+    });
+  }
+
   Object.assign(options, {
     babel: babelMerge(
       {
@@ -138,6 +151,7 @@ module.exports = (opts = {}) => neutrino => {
               debug: neutrino.options.debug,
               useBuiltIns: 'entry',
               targets: options.targets,
+              ...corejs,
             },
           ],
         ],
