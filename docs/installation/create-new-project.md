@@ -1,7 +1,7 @@
 # Scaffold a Neutrino Project
 
 Neutrino can help you quickly start new projects by scaffolding your initial project structure.
-`@neutrinojs/create-project` uses middleware and presets behind the scene to build projects. If you are not
+`@neutrinojs/create-project` uses middleware and presets behind the scenes to build projects. If you are not
 familiar with them, take a moment to explore [middleware](../middleware/README.md)
 and [presets](../presets/README.md).
 
