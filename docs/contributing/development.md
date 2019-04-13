@@ -176,11 +176,12 @@ the latest changes from the master branch.
 
     `sed -i 's/"neutrino": "^9.0.0-0"/"neutrino": "^9.0.0-rc.0"/g' packages/*/package.json`
 
-5. Commit the changes using: `git commit -a -m 'vN.N.N'`
+5. Commit the changes using: `yarn release:commit`
 
-    If the release warrants having a longer description included in the changelog,
-    one can be provided by additionally passing `-e` to provide a multi-line commit
-    message that  `auto-changelog` will automatically add to `CHANGELOG.md`.
+    Your editor will open, where a multi-line commit message can be entered if you would
+    like the release to have a summary in the changelog above the list of commits. If a
+    summary is provided, the changelog will then need to be re-generated after the commit
+    (using `yarn changelog`) and then the commit amended to include the changes.
 
 6. Open a Pull Request and request review.
 7. Once the Pull request is merged, check out `master` at that revision.
@@ -188,5 +189,7 @@ the latest changes from the master branch.
     (It's important to not publish from the PR's branch, since with squash and
     merge the resultant package revision SHA will be different.)
 
-8. Git tag and push the new tag: `git tag vN.N.N && git push upstream vN.N.N`
-9. Publish to NPM: `yarn release:publish` (or for a pre-release, `yarn release:publish-next`)
+8. Git tag and push the new tag: `yarn release:tag`
+9. Double check the tagged commit (and its changelog) looks as expected on GitHub
+   (it's a lot easier to fix at this stage than after publishing ).
+10. Publish to NPM: `yarn release:publish` (or for a pre-release, `yarn release:publish-next`)
