@@ -77,7 +77,7 @@ module.exports = (options = {}) => neutrino => {
               warnings: true,
             },
           },
-          webpack: omit(neutrino.config.toConfig(), ['entry']),
+          webpack: omit(neutrino.config.toConfig(), ['entry', 'plugins']),
           reporters: ['mocha', 'coverage'],
           coverageReporter: {
             dir: '.coverage',
