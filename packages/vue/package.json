@@ -28,10 +28,10 @@
     "eslint-plugin-vue": "^5.2.2",
     "vue-loader": "^15.7.0",
     "vue-style-loader": "^4.1.2",
-    "vue-template-compiler": "^2.6.9"
+    "vue-template-compiler": "^2.6.10"
   },
   "devDependencies": {
-    "vue": "^2.6.9"
+    "vue": "^2.6.10"
   },
   "peerDependencies": {
     "neutrino": "^9.0.0-0",
