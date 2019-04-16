@@ -66,21 +66,21 @@ module.exports = class Project extends Generator {
     const project = presets.get(answers.project);
     const testRunner = presets.get(answers.testRunner);
     const linter = presets.get(answers.linter);
-    const packageJson = merge.all(
-      [
-        project.packageJson,
-        testRunner && testRunner.packageJson,
-        linter &&
-          merge(
-            linter.packageJson,
-            packageLint(
-              answers.project.includes('react'),
-              answers.project.includes('vue'),
-              testRunner,
-            ),
+    const packageJsons = [
+      project.packageJson,
+      testRunner && testRunner.packageJson,
+      linter &&
+        merge(
+          linter.packageJson,
+          packageLint(
+            answers.project.includes('react'),
+            answers.project.includes('vue'),
+            testRunner,
           ),
-      ].filter(Boolean),
-    );
+        ),
+    ].filter(Boolean);
+    const packageJson =
+      packageJsons.length > 1 ? merge.all(packageJsons) : packageJsons[0];
 
     this.data = {
       ...answers,
