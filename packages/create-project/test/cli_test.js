@@ -10,6 +10,9 @@ const REGISTRY = 'http://localhost:4873';
 const tests = [
   {
     project: presets.get(N.REACT),
+  },
+  {
+    project: presets.get(N.REACT),
     linter: presets.get(N.AIRBNB),
     testRunner: presets.get(N.JEST),
   },
@@ -98,16 +101,17 @@ const lintable = async (t, dir, args = []) => {
 };
 
 tests.forEach(({ project, linter, testRunner }) => {
-  const testName = testRunner
-    ? `create-project: ${project.name} + ${linter.name} + ${testRunner.name}`
-    : `create-project: ${project.name} + ${linter.name}`;
+  const testName = `create-project: ${[project, linter, testRunner]
+    .filter(Boolean)
+    .map(({ name }) => name)
+    .join(' + ')}`;
 
   test.serial(testName, async t => {
     const dir = await scaffold({
       testName,
       projectType: project.projectType,
       project: project.package,
-      linter: linter.package,
+      linter: linter ? linter.package : false,
       testRunner: testRunner ? testRunner.package : false,
     });
     const pkgPath = join(dir, 'package.json');
@@ -116,10 +120,13 @@ tests.forEach(({ project, linter, testRunner }) => {
     assert.file(pkgPath);
     assert.file(join(dir, '.neutrinorc.js'));
     assert.file(join(dir, 'webpack.config.js'));
-    assert.file(join(dir, '.eslintrc.js'));
     assert.file(join(dir, '.gitignore'));
 
-    await lintable(t, dir);
+    if (linter) {
+      assert.file(join(dir, '.eslintrc.js'));
+      await lintable(t, dir);
+    }
+
     await buildable(t, dir);
 
     const pkg = require(pkgPath); // eslint-disable-line import/no-dynamic-require
