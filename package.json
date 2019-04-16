@@ -15,17 +15,17 @@
     "packages/*"
   ],
   "scripts": {
-    "changelog": "auto-changelog --latest-version $(yarn -s print-version)",
+    "changelog": "auto-changelog --package lerna.json",
     "docs:bootstrap": "pip install -r docs/requirements.txt",
     "docs:serve": "mkdocs serve",
     "link:all": "lerna exec yarn link",
     "lint": "eslint --no-eslintrc --c ./.eslintrc.js --cache --report-unused-disable-directives --format codeframe --ext js,jsx .",
     "prettier:check": "prettier --ignore-path .eslintignore --check \"**/*.{css,html,js,jsx,json,md,yaml,yml}\"",
     "prettier:fix": "prettier --ignore-path .eslintignore --write \"**/*.{css,html,js,jsx,json,md,yaml,yml}\"",
-    "print-version": "jq -r .version lerna.json",
-    "release:prepare": "lerna version && prettier --write lerna.json",
-    "release:commit": "git commit --all --message v$(yarn -s print-version) --edit",
-    "release:tag": "git tag v$(yarn -s print-version) && git push upstream v$(yarn -s print-version)",
+    "print-version": "jq -r '\"v\" + .version' lerna.json",
+    "release:prepare": "lerna version && prettier --write lerna.json && yarn changelog",
+    "release:commit": "git commit --all --message $(yarn -s print-version) --edit",
+    "release:tag": "git tag $(yarn -s print-version) && git push upstream $(yarn -s print-version)",
     "release:publish": "lerna publish from-package",
     "release:publish-next": "yarn release:publish --dist-tag next",
     "release:ci": "lerna publish preminor --registry http://localhost:4873 --no-git-reset --yes",
@@ -36,11 +36,10 @@
     "validate:eslintrc:airbnb": "eslint --no-eslintrc --print-config . -c ./packages/airbnb/eslintrc.js > /dev/null",
     "validate:eslintrc:airbnb-base": "eslint --no-eslintrc --print-config . -c ./packages/airbnb-base/eslintrc.js > /dev/null",
     "validate:eslintrc:standardjs": "eslint --no-eslintrc --print-config . -c ./packages/standardjs/eslintrc.js > /dev/null",
-    "validate:eslintrc": "yarn validate:eslintrc:eslint && yarn validate:eslintrc:airbnb-base && yarn validate:eslintrc:airbnb && yarn validate:eslintrc:standardjs && yarn validate:eslintrc:root",
-    "version": "yarn changelog"
+    "validate:eslintrc": "yarn validate:eslintrc:eslint && yarn validate:eslintrc:airbnb-base && yarn validate:eslintrc:airbnb && yarn validate:eslintrc:standardjs && yarn validate:eslintrc:root"
   },
   "devDependencies": {
-    "auto-changelog": "^1.12.1",
+    "auto-changelog": "^1.13.0",
     "ava": "^1.4.1",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.1.0",
