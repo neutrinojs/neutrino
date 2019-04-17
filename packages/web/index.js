@@ -130,15 +130,9 @@ module.exports = (opts = {}) => neutrino => {
 
   const { dependencies = {}, devDependencies = {} } =
     neutrino.options.packageJson || {};
-  const corejs = {};
-
-  if ('core-js' in dependencies || 'core-js' in devDependencies) {
-    Object.assign(corejs, {
-      corejs: semver.major(
-        dependencies['core-js'] || devDependencies['core-js'],
-      ),
-    });
-  }
+  const corejs =
+    ('core-js' in dependencies || 'core-js' in devDependencies) &&
+    semver.major(dependencies['core-js'] || devDependencies['core-js']);
 
   Object.assign(options, {
     babel: babelMerge(
@@ -149,9 +143,9 @@ module.exports = (opts = {}) => neutrino => {
             require.resolve('@babel/preset-env'),
             {
               debug: neutrino.options.debug,
-              useBuiltIns: 'entry',
+              useBuiltIns: corejs ? 'entry' : false,
               targets: options.targets,
-              ...corejs,
+              ...(corejs && { corejs }),
             },
           ],
         ],
