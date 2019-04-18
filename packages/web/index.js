@@ -132,7 +132,7 @@ module.exports = (opts = {}) => neutrino => {
     neutrino.options.packageJson || {};
   const corejs =
     ('core-js' in dependencies || 'core-js' in devDependencies) &&
-    semver.major(dependencies['core-js'] || devDependencies['core-js']);
+    semver.coerce(dependencies['core-js'] || devDependencies['core-js']).major;
 
   Object.assign(options, {
     babel: babelMerge(
