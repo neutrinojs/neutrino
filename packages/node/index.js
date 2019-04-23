@@ -42,7 +42,8 @@ module.exports = (opts = {}) => {
       neutrino.options.packageJson || {};
     const corejs =
       ('core-js' in dependencies || 'core-js' in devDependencies) &&
-      semver.major(dependencies['core-js'] || devDependencies['core-js']);
+      semver.coerce(dependencies['core-js'] || devDependencies['core-js'])
+        .major;
 
     neutrino.use(
       compileLoader({
