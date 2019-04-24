@@ -33,7 +33,6 @@
     "babel-merge": "^2.0.1",
     "deepmerge": "^1.5.2",
     "lodash.omit": "^4.5.0",
-    "semver": "^6.0.0",
     "webpack-node-externals": "^1.7.2"
   },
   "peerDependencies": {

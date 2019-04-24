@@ -7,7 +7,6 @@ const nodeExternals = require('webpack-node-externals');
 const { basename, parse, format } = require('path');
 const merge = require('deepmerge');
 const omit = require('lodash.omit');
-const semver = require('semver');
 const { ConfigurationError } = require('neutrino/errors');
 
 const getOutputForEntry = entry =>
@@ -38,11 +37,7 @@ module.exports = (opts = {}) => {
       },
       opts,
     );
-    const { dependencies = {}, devDependencies = {} } =
-      neutrino.options.packageJson || {};
-    const corejs =
-      ('core-js' in dependencies || 'core-js' in devDependencies) &&
-      semver.major(dependencies['core-js'] || devDependencies['core-js']);
+    const coreJsVersion = neutrino.getDependencyVersion('core-js');
 
     neutrino.use(
       compileLoader({
@@ -56,8 +51,8 @@ module.exports = (opts = {}) => {
                 {
                   debug: neutrino.options.debug,
                   targets: options.targets,
-                  useBuiltIns: corejs ? 'entry' : false,
-                  ...(corejs && { corejs }),
+                  useBuiltIns: coreJsVersion ? 'entry' : false,
+                  ...(coreJsVersion && { corejs: coreJsVersion.major }),
                 },
               ],
             ],
