@@ -1,5 +1,6 @@
 const clone = require('lodash.clonedeep');
 const Config = require('webpack-chain');
+const semver = require('semver');
 const { isAbsolute, join } = require('path');
 const { ConfigurationError } = require('./errors');
 const { source } = require('./extensions');
@@ -147,6 +148,16 @@ module.exports = class Neutrino {
       extensions.length === 1
         ? String.raw`\.${exts[0]}$`
         : String.raw`\.(${exts.join('|')})$`,
+    );
+  }
+
+  getDependencyVersion(dependency) {
+    const { dependencies = {}, devDependencies = {} } =
+      this.options.packageJson || {};
+
+    return (
+      (dependency in dependencies || dependency in devDependencies) &&
+      semver.coerce(dependencies[dependency] || devDependencies[dependency])
     );
   }
 
