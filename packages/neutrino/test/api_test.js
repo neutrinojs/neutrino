@@ -227,3 +227,20 @@ test('regexFromExtensions', t => {
     '/\\.(worker\\.js|worker\\.jsx)$/',
   );
 });
+
+test('getDependencyVersion', t => {
+  const api = new Neutrino();
+
+  api.options.packageJson = {
+    devDependencies: {
+      neutrino: '^9',
+    },
+    dependencies: {
+      'core-js': '^3',
+    },
+  };
+
+  t.is(api.getDependencyVersion('neutrino').major, 9);
+  t.is(api.getDependencyVersion('core-js').major, 3);
+  t.is(api.getDependencyVersion('eslint'), false);
+});
