@@ -165,7 +165,7 @@ the latest changes from the master branch.
 1. Decide whether the new version should be a major/minor/patch/prerelease version bump.
 2. From the root of the Neutrino repository, run:
 
-    `git fetch upstream --quiet && git checkout --no-track -b version-bump upstream/master`
+    `git fetch upstream --quiet && git checkout --no-track -B version-bump upstream/master`
 
 3. Then run `yarn release:prepare` and pick the desired new version.
 4. Check the changes in the working directory and adjust if necessary.
@@ -176,10 +176,16 @@ the latest changes from the master branch.
 
     `sed -i 's/"neutrino": "^9.0.0"/"neutrino": "^10.0.0"/g' packages/*/package.json`
 
-    On OS X, you will need to add an additional set of quotes after the `-i`, ie:
-    `sed -i '' 's/....'`. For Neutrino pre-releases you will likely want to remove
-    the caret and pin to an exact version, since breaking changes can occur with
-    each release.
+    On OS X, you will need to add an additional set of quotes after the `-i`, e.g.:
+
+    `sed -i '' 's/"neutrino": "^9.0.0"/"neutrino": "^10.0.0"/g' packages/*/package.json`
+
+    For Neutrino pre-releases you will likely want to remove the caret and pin
+    to an exact version, since breaking changes can occur with each release.
+
+    `sed -i 's/"neutrino": "^9.0.0"/"neutrino": "9.0.0-rc.1"/g' packages/*/package.json`
+
+    `sed -i 's/"neutrino": "9.0.0-rc.1"/"neutrino": "9.0.0-rc.2"/g' packages/*/package.json`
 
 5. Commit the changes using: `yarn release:commit`
 
