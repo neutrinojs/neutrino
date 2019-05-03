@@ -3,7 +3,7 @@
 Use a chaining API to generate and simplify the modification of
 webpack configurations.
 
-This documentation corresponds to v4 of webpack-chain, which Neutrino utilizes.
+This documentation corresponds to v6 of webpack-chain, which Neutrino utilizes.
 
 _Note: while webpack-chain is utilized extensively in Neutrino, the package is
 completely standalone and can be used by any project.
@@ -319,6 +319,7 @@ neutrino.config
   .externals(externals)
   .loader(loader)
   .mode(mode)
+  .name(name)
   .parallelism(parallelism)
   .profile(profile)
   .recordsPath(recordsPath)
@@ -548,6 +549,64 @@ neutrino.config.optimization
   .usedExports(usedExports)
 ```
 
+#### Config optimization minimizers
+
+```js
+// Backed at neutrino.config.optimization.minimizers
+neutrino.config.optimization
+  .minimizer(name) : ChainedMap
+```
+
+#### Config optimization minimizers: adding
+
+_NOTE: Do not use `new` to create the minimizer plugin, as this will be done for you._
+
+```js
+neutrino.config.optimization
+  .minimizer(name)
+  .use(WebpackPlugin, args)
+
+// Examples
+
+neutrino.config.optimization
+  .minimizer('css')
+  .use(OptimizeCSSAssetsPlugin, [{ cssProcessorOptions: { safe: true } }])
+
+// Minimizer plugins can also be specified by their path, allowing the expensive require()s to be
+// skipped in cases where the plugin or webpack configuration won't end up being used.
+neutrino.config.optimization
+  .minimizer('css')
+  .use(require.resolve('optimize-css-assets-webpack-plugin'), [{ cssProcessorOptions: { safe: true } }])
+
+```
+
+#### Config optimization minimizers: modify arguments
+
+```js
+neutrino.config.optimization
+  .minimizer(name)
+  .tap(args => newArgs)
+
+// Example
+neutrino.config.optimization
+  .minimizer('css')
+  .tap(args => [...args, { cssProcessorOptions: { safe: false } }])
+```
+
+#### Config optimization minimizers: modify instantiation
+
+```js
+neutrino.config.optimization
+  .minimizer(name)
+  .init((Plugin, args) => new Plugin(...args));
+```
+
+#### Config optimization minimizers: removing
+
+```js
+neutrino.config.optimization.minimizers.delete(name)
+```
+
 #### Config plugins
 
 ```js
@@ -668,7 +727,7 @@ neutrino.config.resolve
 ```js
 neutrino.config.resolve
   .plugin(name)
-    .tap(args => newArgs)
+  .tap(args => newArgs)
 ```
 
 #### Config resolve plugins: modify instantiation
@@ -781,7 +840,7 @@ neutrino.config.devServer
   .openPage(openPage)
   .overlay(overlay)
   .pfx(pfx)
-  .pfxPassphrase(pfsPassphrase)
+  .pfxPassphrase(pfxPassphrase)
   .port(port)
   .progress(progress)
   .proxy(proxy)
@@ -889,6 +948,68 @@ neutrino.config.module
         .loader('file-loader')
 ```
 
+#### Config module rules oneOfs (conditional rules): ordering before
+
+Specify that the current `oneOf` context should operate before another named
+`oneOf`. You cannot use both `.before()` and `.after()` on the same `oneOf`.
+
+```js
+neutrino.config.module
+  .rule(name)
+    .oneOf(name)
+      .before()
+
+// Example
+
+neutrino.config.module
+  .rule('scss')
+    .test(/\.scss$/)
+    .oneOf('normal')
+      .use('sass')
+        .loader('sass-loader')
+        .end()
+      .end()
+    .oneOf('sass-vars')
+      .before('normal')
+      .resourceQuery(/\?sassvars/)
+      .use('sass-vars')
+        .loader('sass-vars-to-js-loader')
+```
+
+#### Config module rules oneOfs (conditional rules): ordering after
+
+Specify that the current `oneOf` context should operate after another named
+`oneOf`. You cannot use both `.before()` and `.after()` on the same `oneOf`.
+
+```js
+neutrino.config.module
+  .rule(name)
+    .oneOf(name)
+      .after()
+
+// Example
+
+neutrino.config.module
+  .rule('scss')
+    .test(/\.scss$/)
+    .oneOf('vue')
+      .resourceQuery(/\?vue/)
+      .use('vue-style')
+        .loader('vue-style-loader')
+        .end()
+      .end()
+    .oneOf('normal')
+      .use('sass')
+        .loader('sass-loader')
+        .end()
+      .end()
+    .oneOf('sass-vars')
+      .after('vue')
+      .resourceQuery(/\?sassvars/)
+      .use('sass-vars')
+        .loader('sass-vars-to-js-loader')
+```
+
 ---
 
 ### Merging Config
@@ -972,7 +1093,7 @@ neutrino.config.merge({
     [key]: value
   },
 
-  optimizations: {
+  optimization: {
     concatenateModules,
     flagIncludedChunks,
     mergeDuplicateChunks,

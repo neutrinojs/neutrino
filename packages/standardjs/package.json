@@ -28,7 +28,7 @@
     "eslint-config-standard": "^12.0.0",
     "eslint-config-standard-jsx": "^6.0.2",
     "eslint-plugin-import": "^2.17.1",
-    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-node": "^9.0.0",
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-standard": "^4.0.0"
