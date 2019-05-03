@@ -28,7 +28,7 @@
     "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@babel/preset-react": "^7.0.0",
     "@neutrinojs/web": "9.0.0-rc.1",
-    "babel-merge": "^2.0.1",
+    "babel-merge": "^3.0.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "deepmerge": "^1.5.2",
     "eslint-plugin-react": "^7.12.4",

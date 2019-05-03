@@ -22,7 +22,7 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "babel-merge": "^2.0.1",
+    "babel-merge": "^3.0.0",
     "babel-plugin-istanbul": "^5.1.1",
     "deepmerge": "^1.5.2",
     "karma-chrome-launcher": "^2.2.0",
