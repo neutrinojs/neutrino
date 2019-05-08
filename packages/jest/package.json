@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/jest",
-  "version": "9.0.0-rc.2",
+  "version": "9.0.0-rc.3",
   "description": "Neutrino preset for testing Neutrino projects with Jest",
   "main": "src/index.js",
   "keywords": [
@@ -31,6 +31,6 @@
   },
   "peerDependencies": {
     "jest": "^24.0.0",
-    "neutrino": "9.0.0-rc.2"
+    "neutrino": "9.0.0-rc.3"
   }
 }
