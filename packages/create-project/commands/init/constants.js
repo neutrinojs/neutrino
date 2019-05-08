@@ -70,7 +70,7 @@ const webapp = name => ({
     type: LINTING,
     package: N.AIRBNB,
     packageJson: {
-      devDependencies: [N.AIRBNB, ESLINT],
+      devDependencies: [version(N.AIRBNB), ESLINT],
     },
   },
   {
