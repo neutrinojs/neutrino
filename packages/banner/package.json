@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/banner",
-  "version": "9.0.0-rc.1",
+  "version": "9.0.0-rc.2",
   "description": "Neutrino middleware for injecting a banner into bundled files",
   "main": "index.js",
   "keywords": [
@@ -22,7 +22,7 @@
     "yarn": ">=1.2.1"
   },
   "peerDependencies": {
-    "neutrino": "9.0.0-rc.1",
+    "neutrino": "9.0.0-rc.2",
     "webpack": "^4.0.0"
   }
 }

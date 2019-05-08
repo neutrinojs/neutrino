@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/start-server",
-  "version": "9.0.0-rc.1",
+  "version": "9.0.0-rc.2",
   "description": "Neutrino middleware for starting a server after a build",
   "main": "index.js",
   "keywords": [
@@ -26,7 +26,7 @@
     "start-server-webpack-plugin": "^2.2.5"
   },
   "peerDependencies": {
-    "neutrino": "9.0.0-rc.1",
+    "neutrino": "9.0.0-rc.2",
     "webpack": "^4.0.0"
   }
 }
