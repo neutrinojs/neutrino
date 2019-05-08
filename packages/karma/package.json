@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/karma",
-  "version": "9.0.0-rc.1",
+  "version": "9.0.0-rc.2",
   "description": "Neutrino preset for testing Neutrino projects with Karma",
   "main": "index.js",
   "keywords": [
@@ -38,7 +38,7 @@
     "karma": "^4.0.0",
     "karma-cli": "^2.0.0",
     "mocha": "^6.0.0",
-    "neutrino": "9.0.0-rc.1",
+    "neutrino": "9.0.0-rc.2",
     "webpack": "^4.0.0"
   }
 }
