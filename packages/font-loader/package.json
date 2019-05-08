@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/font-loader",
-  "version": "9.0.0-rc.2",
+  "version": "9.0.0-rc.3",
   "description": "Neutrino middleware for importing and loading font files from modules",
   "main": "index.js",
   "keywords": [
@@ -25,7 +25,7 @@
     "file-loader": "^3.0.1"
   },
   "peerDependencies": {
-    "neutrino": "9.0.0-rc.2",
+    "neutrino": "9.0.0-rc.3",
     "webpack": "^4.0.0"
   }
 }
