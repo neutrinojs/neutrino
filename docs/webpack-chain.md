@@ -413,7 +413,6 @@ neutrino.config.resolve.alias : ChainedMap
 
 neutrino.config.resolve.alias
   .set(key, value)
-  .set(key, value)
   .delete(key)
   .clear()
 ```
