@@ -1,11 +1,12 @@
-const commandExists = require('command-exists');
 const { compile } = require('ejs');
 const { readFileSync } = require('fs-extra');
 const { stringify } = require('javascript-stringify');
 const { join } = require('path');
 
 const RE_INDENT = /^(?!\s*$)/gm;
-const isYarn = commandExists.sync('yarnpkg');
+const isYarn =
+  process.env.npm_config_user_agent &&
+  process.env.npm_config_user_agent.includes('yarn');
 const cli = isYarn ? 'yarn' : 'npm';
 const yarnReplacers = new Map();
 const npmReplacers = new Map();
