@@ -5,6 +5,7 @@ import { tmpdir } from 'os';
 import { join } from 'path';
 import { spawn } from 'child_process';
 import { N, presets } from '../commands/init/constants';
+import { packageManager } from '../commands/init/utils';
 
 const REGISTRY = 'http://localhost:4873';
 const tests = [
@@ -63,9 +64,10 @@ const scaffold = async ({ testName, ...prompts }) => {
 
   return directory;
 };
-const spawnP = (cmd, args, options) =>
+const spawnP = (cmd, options) =>
   new Promise((resolve, reject) => {
-    const child = spawn(cmd, args, options);
+    const [command, ...args] = cmd.split(' ');
+    const child = spawn(command, args, options);
     let output = '';
     const handleData = data => {
       output += data.toString();
@@ -75,25 +77,34 @@ const spawnP = (cmd, args, options) =>
     child.stderr.on('data', handleData);
     child.on('close', code => (code === 0 ? resolve(code) : reject(output)));
   });
-const buildable = async (t, dir, args = []) => {
+const buildable = async (t, dir, args = '') => {
   try {
-    await spawnP('yarn', ['build', ...args], { cwd: dir, stdio: 'pipe' });
+    await spawnP(
+      packageManager(args ? `run build ${args}` : 'run build', REGISTRY),
+      { cwd: dir, stdio: 'pipe' },
+    );
     t.pass();
   } catch (output) {
     t.fail(`Failed to build project:\n\n${output}`);
   }
 };
-const testable = async (t, dir, args = []) => {
+const testable = async (t, dir, args = '') => {
   try {
-    await spawnP('yarn', ['test', ...args], { cwd: dir, stdio: 'pipe' });
+    await spawnP(packageManager(args ? `test ${args}` : 'test', REGISTRY), {
+      cwd: dir,
+      stdio: 'pipe',
+    });
     t.pass();
   } catch (output) {
     t.fail(`Failed to test project:\n\n${output}`);
   }
 };
-const lintable = async (t, dir, args = []) => {
+const lintable = async (t, dir, args = '') => {
   try {
-    await spawnP('yarn', ['lint', ...args], { cwd: dir, stdio: 'pipe' });
+    await spawnP(
+      packageManager(args ? `run lint ${args}` : 'run lint', REGISTRY),
+      { cwd: dir, stdio: 'pipe' },
+    );
     t.pass();
   } catch (output) {
     t.fail(`Failed to lint project:\n\n${output}`);
@@ -136,7 +147,7 @@ tests.forEach(({ project, linter, testRunner }) => {
     // TODO: Find a way in the future to actually test that the spawned watchers
     // produce the expected result.
     if ('start' in pkg.scripts) {
-      await buildable(t, dir, ['--', '--mode', 'development']);
+      await buildable(t, dir, '-- --mode development');
     }
 
     if (testRunner) {
