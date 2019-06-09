@@ -117,14 +117,6 @@ If you want to have automatically wired sourcemaps added to your project, add
 ❯ npm install --save source-map-support
 ```
 
-**NOTE: If you use this preset along with eslint-plugin-import, including
-`@neutrinojs/airbnb` or Airbnb's ESLint configurations, you will experience
-linting errors for having `react` and `react-dom` installed in
-`devDependencies`. To overcome this error, you will need to add a
-[linting rule override](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-extraneous-dependencies.md).
-You can do this from your `.neutrinorc.js` file if using a Neutrino-based
-linting preset, or your `.eslintrc.js` file for other ESLint-ing mechanisms.**
-
 After that, add a new directory named `src` in the root of the project, with a
 single JS file named `index.js` in it. This `index` file can be used to render
 any components you wish to the browser to preview and.

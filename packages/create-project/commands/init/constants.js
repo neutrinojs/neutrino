@@ -39,9 +39,12 @@ const KARMA_CLI = 'karma-cli@^2';
 const MOCHA = 'mocha@^6';
 const PREACT = 'preact@^8';
 const PREACT_COMPAT = 'preact-compat@^3';
-const PROP_TYPES = 'prop-types@^15';
-const REACT = 'react@^16';
-const REACT_DOM = 'react-dom@^16';
+const PROP_TYPES_VERSION = '^15';
+const PROP_TYPES = `prop-types@${PROP_TYPES_VERSION}`;
+const REACT_VERSION = '^16';
+const REACT = `react@${REACT_VERSION}`;
+const REACT_DOM_VERSION = '^16';
+const REACT_DOM = `react-dom@${REACT_DOM_VERSION}`;
 const REACT_HOT_LOADER = 'react-hot-loader@^4';
 const VUE = 'vue@^2';
 const WEBPACK = 'webpack@^4';
@@ -183,6 +186,13 @@ const webapp = name => ({
         WEBPACK_CLI,
         WEBPACK_DEV_SERVER,
       ],
+      // peerDependencies are copied directly to package.json so must be an object,
+      // unlike dependencies and devDependencies which are passed to npm/yarn instead.
+      peerDependencies: {
+        'prop-types': PROP_TYPES_VERSION,
+        react: REACT_VERSION,
+        'react-dom': REACT_DOM_VERSION,
+      },
       scripts: {
         start: DEV_SERVER_START,
         build: BUILD,

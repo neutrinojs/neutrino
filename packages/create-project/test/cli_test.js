@@ -33,7 +33,7 @@ const tests = [
   },
   {
     project: presets.get(N.REACT_COMPONENTS),
-    linter: presets.get(N.STANDARDJS),
+    linter: presets.get(N.AIRBNB),
   },
   {
     project: presets.get(N.WEB_NODE_LIBRARY),
