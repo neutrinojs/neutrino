@@ -31,7 +31,7 @@
     "@neutrinojs/compile-loader": "9.0.0-rc.3",
     "@neutrinojs/start-server": "9.0.0-rc.3",
     "babel-merge": "^3.0.0",
-    "deepmerge": "^1.5.2",
+    "deepmerge": "^3.0.0",
     "lodash.omit": "^4.5.0",
     "webpack-node-externals": "^1.7.2"
   },

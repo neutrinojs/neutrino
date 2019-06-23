@@ -30,7 +30,7 @@
     "@neutrinojs/web": "9.0.0-rc.3",
     "babel-merge": "^3.0.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "deepmerge": "^1.5.2",
+    "deepmerge": "^3.0.0",
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-react-hooks": "^1.6.0"
   },

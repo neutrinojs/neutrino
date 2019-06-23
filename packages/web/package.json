@@ -35,7 +35,7 @@
     "@neutrinojs/image-loader": "9.0.0-rc.3",
     "@neutrinojs/style-loader": "9.0.0-rc.3",
     "babel-merge": "^3.0.0",
-    "deepmerge": "^1.5.2"
+    "deepmerge": "^3.0.0"
   },
   "peerDependencies": {
     "neutrino": "9.0.0-rc.3",
