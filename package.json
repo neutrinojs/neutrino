@@ -44,7 +44,7 @@
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.0.1",
-    "husky": "^2.0.0",
+    "husky": "^3.0.0",
     "jest": "^24.7.1",
     "karma": "^4.0.1",
     "karma-cli": "^2.0.0",
