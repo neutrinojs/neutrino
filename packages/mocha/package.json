@@ -20,9 +20,9 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@babel/core": "^7.4.3",
-    "@babel/plugin-transform-modules-commonjs": "^7.4.3",
-    "@babel/register": "^7.4.0",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-transform-modules-commonjs": "^7.5.0",
+    "@babel/register": "^7.5.5",
     "babel-merge": "^3.0.0",
     "deepmerge": "^1.5.2",
     "lodash.omit": "^4.5.0"
