@@ -25,7 +25,7 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "optimize-css-assets-webpack-plugin": "^5.0.1"
+    "optimize-css-assets-webpack-plugin": "^5.0.3"
   },
   "peerDependencies": {
     "neutrino": "9.0.0-rc.3",
