@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@neutrinojs/eslint": "9.0.0-rc.3",
-    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2"
   },
   "peerDependencies": {

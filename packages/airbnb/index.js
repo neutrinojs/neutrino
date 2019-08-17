@@ -15,8 +15,14 @@ module.exports = ({ eslint = {}, ...opts } = {}) => neutrino => {
         ...eslint,
         baseConfig: eslintMerge(
           {
-            extends: [require.resolve('eslint-config-airbnb')],
+            extends: [
+              require.resolve('eslint-config-airbnb'),
+              require.resolve('eslint-config-airbnb/hooks'),
+            ],
             rules: {
+              // Override AirBnB's configuration of 'always', since they only set that value due to
+              // babel-preset-airbnb not supporting class properties, whereas @neutrinojs/react does.
+              'react/state-in-constructor': ['error', 'never'],
               // Disable rules for which there are eslint-plugin-babel replacements:
               // https://github.com/babel/eslint-plugin-babel#rules
               'new-cap': 'off',
@@ -33,13 +39,6 @@ module.exports = ({ eslint = {}, ...opts } = {}) => neutrino => {
               'babel/semi': airbnbBaseStyle.semi,
               'babel/no-unused-expressions':
                 airbnbBaseBestPractices['no-unused-expressions'],
-            },
-            settings: {
-              react: {
-                // https://github.com/yannickcr/eslint-plugin-react#configuration
-                // This is undocumented, but equivalent to "latest version".
-                version: '999.999.999',
-              },
             },
           },
           eslint.baseConfig || {},

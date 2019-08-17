@@ -73,7 +73,10 @@ test('sets defaults when no options passed', t => {
       env: {
         es6: true,
       },
-      extends: [require.resolve('eslint-config-airbnb')],
+      extends: [
+        require.resolve('eslint-config-airbnb'),
+        require.resolve('eslint-config-airbnb/hooks'),
+      ],
       globals: {
         process: true,
       },
@@ -86,6 +89,7 @@ test('sets defaults when no options passed', t => {
       plugins: ['babel'],
       root: true,
       rules: {
+        'react/state-in-constructor': ['error', 'never'],
         'babel/new-cap': [
           'error',
           {
@@ -116,11 +120,7 @@ test('sets defaults when no options passed', t => {
         'object-curly-spacing': 'off',
         semi: 'off',
       },
-      settings: {
-        react: {
-          version: '999.999.999',
-        },
-      },
+      settings: {},
     },
     cache: true,
     cwd: api.options.root,
@@ -170,6 +170,7 @@ test('merges options with defaults', t => {
       },
       extends: [
         require.resolve('eslint-config-airbnb'),
+        require.resolve('eslint-config-airbnb/hooks'),
         'eslint-config-splendid',
       ],
       globals: {
@@ -185,6 +186,7 @@ test('merges options with defaults', t => {
       plugins: ['babel', 'jest'],
       root: true,
       rules: {
+        'react/state-in-constructor': ['error', 'never'],
         'babel/new-cap': [
           'error',
           {

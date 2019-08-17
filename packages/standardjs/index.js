@@ -41,9 +41,7 @@ module.exports = ({ eslint = {}, ...opts } = {}) => neutrino => {
             },
             settings: {
               react: {
-                // https://github.com/yannickcr/eslint-plugin-react#configuration
-                // This is undocumented, but equivalent to "latest version".
-                version: '999.999.999',
+                version: 'detect',
               },
             },
           },

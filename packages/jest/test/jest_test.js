@@ -87,6 +87,7 @@ test('updates lint config by default', t => {
     .get('options');
   t.deepEqual(options.baseConfig.extends, [
     require.resolve('eslint-config-airbnb'),
+    require.resolve('eslint-config-airbnb/hooks'),
     'plugin:jest/recommended',
   ]);
 });

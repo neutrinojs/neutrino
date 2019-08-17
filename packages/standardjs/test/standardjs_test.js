@@ -115,7 +115,7 @@ test('sets defaults when no options passed', t => {
       },
       settings: {
         react: {
-          version: '999.999.999',
+          version: 'detect',
         },
       },
     },
