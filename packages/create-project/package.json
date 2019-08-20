@@ -40,7 +40,7 @@
     "ejs": "^2.6.2",
     "fs-extra": "^8.1.0",
     "javascript-stringify": "^2.0.0",
-    "yargs": "^13.3.0",
+    "yargs": "^14.0.0",
     "yeoman-environment": "^2.4.0",
     "yeoman-generator": "^4.0.1"
   },
