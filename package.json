@@ -53,7 +53,7 @@
     "mocha": "^6.2.0",
     "prettier": "^1.18.2",
     "verdaccio": "^4.2.1",
-    "verdaccio-memory": "^2.0.0",
+    "verdaccio-memory": "^8.0.0",
     "webpack": "^4.39.1",
     "webpack-cli": "^3.3.6",
     "webpack-dev-server": "^3.8.0"
