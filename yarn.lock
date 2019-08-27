@@ -2052,10 +2052,10 @@
   resolved "https://registry.yarnpkg.com/@verdaccio/streams/-/streams-2.0.0.tgz#27f51d0cb19d5e49248860942092646e9a357967"
   integrity sha512-QW1LsYir3wNnqhSznbJlt0iqkcgve0LpXI8RkoTTBPrq3M6ei3Ys4iw+JQKFve3gmYw9O+w8lBiOLc1qvvsoVQ==
 
-"@verdaccio/streams@2.0.0-beta.0":
-  version "2.0.0-beta.0"
-  resolved "https://registry.yarnpkg.com/@verdaccio/streams/-/streams-2.0.0-beta.0.tgz#af8c7e673a3c368deacc8024c6f5671aa2ec32ac"
-  integrity sha512-EdVF6RP0abRNT0RfgLCsqLNv7FOpm+BpzMZoaQuQGHSBQRj7OTM8ft5mpbJ40rYVXKv6D8xyU0vUnoRl09ah6g==
+"@verdaccio/streams@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@verdaccio/streams/-/streams-8.0.0.tgz#d8e1aa4121c288b2a305de4607d19d0df3f49e52"
+  integrity sha512-N1zCrQfbo8xWMUyYRFLUuA1Xn9cbbvOslIZ1P2jX+E4HyA/4fBwZi6mpsa79RuOmm1Vu2GI/yXADiO4x9F4j2Q==
 
 "@verdaccio/ui-theme@0.2.2":
   version "0.2.2"
@@ -13745,13 +13745,13 @@ verdaccio-htpasswd@2.0.0:
     http-errors "1.7.2"
     unix-crypt-td-js "1.0.0"
 
-verdaccio-memory@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/verdaccio-memory/-/verdaccio-memory-2.0.0.tgz#a650fa816cc87c94fcd336df5b8bff8993054dfa"
-  integrity sha512-JLZTR7AAnwVTSbdf0/SmuRM2PhwFUJPKOHWRq0bjOlBKerfhLUS+Vg6NOPFaPd1hrf76i/y0G6seyghrZp/CVg==
+verdaccio-memory@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/verdaccio-memory/-/verdaccio-memory-8.0.0.tgz#3c61dcb6a2300566b09e4ee62485deddda9dde24"
+  integrity sha512-OByWbJ6a90LdYCVQSOl/X6Ug1NlWF448N1aN/LdMqNlX/I7rR2dE83Lj4rRFO5OPHLQu/ErMLyYcGMSAmQiEXQ==
   dependencies:
-    "@verdaccio/streams" "2.0.0-beta.0"
-    http-errors "1.7.2"
+    "@verdaccio/streams" "^8.0.0"
+    http-errors "1.7.3"
     memory-fs "0.4.1"
 
 verdaccio@^4.2.1:
