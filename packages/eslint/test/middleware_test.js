@@ -36,14 +36,13 @@ test('instantiates with options', t => {
 test('supports formatter being the name of an ESLint built-in formatter', t => {
   const api = new Neutrino();
   const formatter = 'compact';
-  const formatterPath = require.resolve(`eslint/lib/formatters/${formatter}`);
   api.use(mw({ eslint: { formatter } }));
 
   const loaderOptions = api.config.module
     .rule('lint')
     .use('eslint')
     .get('options');
-  t.is(loaderOptions.formatter, formatterPath);
+  t.is(loaderOptions.formatter, formatter);
 });
 
 test('supports formatter being a resolved path', t => {
@@ -153,7 +152,7 @@ test('sets defaults when no options passed', t => {
     cwd: api.options.root,
     emitWarning: false,
     failOnError: true,
-    formatter: require.resolve('eslint/lib/formatters/codeframe'),
+    formatter: 'codeframe',
     useEslintrc: false,
   });
 
@@ -276,7 +275,7 @@ test('merges options with defaults', t => {
     emitWarning: false,
     envs: ['jest'],
     failOnError: true,
-    formatter: require.resolve('eslint/lib/formatters/codeframe'),
+    formatter: 'codeframe',
     globals: ['$'],
     parser: 'esprima',
     parserOptions: {
@@ -347,7 +346,7 @@ test('sets only loader-specific defaults if useEslintrc true', t => {
     cwd: api.options.root,
     emitWarning: false,
     failOnError: true,
-    formatter: require.resolve('eslint/lib/formatters/codeframe'),
+    formatter: 'codeframe',
     useEslintrc: true,
   });
 });
