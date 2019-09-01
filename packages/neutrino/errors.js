@@ -1,3 +1,5 @@
+/* eslint-disable max-classes-per-file */
+
 class ConfigurationError extends Error {
   get name() {
     return this.constructor.name;

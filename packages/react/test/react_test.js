@@ -84,7 +84,7 @@ test('updates lint config by default', t => {
   t.deepEqual(options.baseConfig.plugins, ['babel', 'react', 'react-hooks']);
   t.deepEqual(options.baseConfig.settings, {
     react: {
-      version: '999.999.999',
+      version: 'detect',
     },
   });
 });
