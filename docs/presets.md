@@ -20,6 +20,6 @@ extended directly from the project you are building. No need to be locked in to 
 pattern, and no escape hatches that force you into maintaining the entire configuration should
 you need to make changes.
 
-Presets can be easily distributing by publishing them to npm or GitHub and installing them
+Presets can be easily distributed by publishing them to npm or GitHub and installing them
 in your project. This also allows others to discover and build projects based on your own
 presets.
