@@ -123,7 +123,7 @@ test('sets defaults when no options passed', t => {
     cwd: api.options.root,
     emitWarning: false,
     failOnError: true,
-    formatter: require.resolve('eslint/lib/formatters/codeframe'),
+    formatter: 'codeframe',
     useEslintrc: false,
   });
 });
@@ -217,7 +217,7 @@ test('merges options with defaults', t => {
     cwd: api.options.root,
     emitWarning: false,
     failOnError: true,
-    formatter: require.resolve('eslint/lib/formatters/codeframe'),
+    formatter: 'codeframe',
     reportUnusedDisableDirectives: true,
     useEslintrc: false,
   });

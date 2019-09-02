@@ -163,16 +163,6 @@ module.exports = ({ test, include, exclude, eslint = {} } = {}) => {
           ),
     };
 
-    if (typeof loaderOptions.formatter === 'string') {
-      try {
-        loaderOptions.formatter = require.resolve(
-          `eslint/lib/formatters/${loaderOptions.formatter}`,
-        );
-      } catch (err) {
-        // Pass the formatter as-is, since it may be the module name/path of an external formatter.
-      }
-    }
-
     neutrino.config.module
       .rule('lint')
       .test(test || neutrino.regexFromExtensions())
