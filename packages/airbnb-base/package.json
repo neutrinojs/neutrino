@@ -28,7 +28,7 @@
     "eslint-plugin-import": "^2.18.2"
   },
   "peerDependencies": {
-    "eslint": "^5.0.0",
+    "eslint": "^6.0.0",
     "neutrino": "9.0.0-rc.3",
     "webpack": "^4.0.0"
   }
