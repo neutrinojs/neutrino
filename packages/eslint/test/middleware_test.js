@@ -134,11 +134,9 @@ test('sets defaults when no options passed', t => {
       env: {
         es6: true,
       },
-      extends: [],
       globals: {
         process: true,
       },
-      overrides: [],
       parser: require.resolve('babel-eslint'),
       parserOptions: {
         ecmaVersion: 2018,
@@ -146,7 +144,6 @@ test('sets defaults when no options passed', t => {
       },
       plugins: ['babel'],
       root: true,
-      settings: {},
     },
     cache: true,
     cwd: api.options.root,
@@ -161,11 +158,9 @@ test('sets defaults when no options passed', t => {
     env: {
       es6: true,
     },
-    extends: [],
     globals: {
       process: true,
     },
-    overrides: [],
     parser: require.resolve('babel-eslint'),
     parserOptions: {
       ecmaVersion: 2018,
@@ -173,7 +168,7 @@ test('sets defaults when no options passed', t => {
     },
     plugins: ['babel'],
     root: true,
-    settings: {},
+    rules: {},
   });
 });
 
@@ -319,7 +314,7 @@ test('merges options with defaults', t => {
     plugins: ['babel', 'react', 'jest'],
     root: true,
     rules: {
-      quotes: ['warn', 'single'],
+      quotes: 'warn',
     },
     settings: {
       react: {

@@ -1,5 +1,3 @@
-const pick = require('lodash.pick');
-const { merge: eslintMerge } = require('eslint/lib/config/config-ops');
 const { ConfigurationError, DuplicateRuleError } = require('neutrino/errors');
 
 const arrayToObject = array =>
@@ -21,23 +19,38 @@ const eslintrc = neutrino => {
     );
   }
 
-  return eslintMerge(
+  const baseConfig = options.baseConfig || {};
+
+  return {
     // ESLint's CLIEngine (and thus eslint-loader) supports being passed a `baseConfig`
     // object which is roughly equivalent to the contents of an eslintrc config.
     // However `baseConfig` isn't supported in eslintrc so must be flattened.
-    options.baseConfig,
+    ...baseConfig,
     // In addition, the following top-level CLIEngine's options are equivalent to
     // options found inside `baseConfig`, and take precedence when using eslint-loader,
     // so we have to emulate that here by merging them in after `baseConfig`.
-    // All other options must not be ignored, since they are eslint-loader/CLIEngine specific.
-    {
-      ...pick(options, ['parser', 'parserOptions', 'plugins', 'rules']),
-      // These top level options are of type array, however their baseConfig/eslintrc
-      // equivalents must be objects (!?), so we have to convert first.
-      ...(options.envs && { env: arrayToObject(options.envs) }),
-      ...(options.globals && { globals: arrayToObject(options.globals) }),
+    // All other options must be ignored, since they are eslint-loader/CLIEngine specific.
+    // Note: The top level `envs` and `globals` options are of type array, however their
+    // baseConfig/eslintrc equivalents must be objects (!?), so we have to convert first.
+    env: {
+      ...baseConfig.env,
+      ...(options.envs && arrayToObject(options.envs)),
     },
-  );
+    globals: {
+      ...baseConfig.globals,
+      ...(options.globals && arrayToObject(options.globals)),
+    },
+    parser: options.parser || baseConfig.parser,
+    parserOptions: {
+      ...baseConfig.parserOptions,
+      ...options.parserOptions,
+    },
+    plugins: (baseConfig.plugins || []).concat(options.plugins || []),
+    rules: {
+      ...baseConfig.rules,
+      ...options.rules,
+    },
+  };
 };
 
 const validLoaderOptions = [
@@ -111,6 +124,8 @@ module.exports = ({ test, include, exclude, eslint = {} } = {}) => {
       throw new DuplicateRuleError('@neutrinojs/eslint', 'lint');
     }
 
+    const baseConfig = eslint.baseConfig || {};
+
     const loaderOptions = {
       // For supported options, see:
       // https://github.com/webpack-contrib/eslint-loader#options
@@ -137,30 +152,28 @@ module.exports = ({ test, include, exclude, eslint = {} } = {}) => {
       // the lint config will be inconsistent between standalone lint and eslint-loader.
       baseConfig: eslint.useEslintrc
         ? {}
-        : eslintMerge(
-            {
-              env: {
-                es6: true,
-              },
-              extends: [],
-              globals: {
-                process: true,
-              },
-              overrides: [],
-              parser: require.resolve('babel-eslint'),
-              parserOptions: {
-                ecmaVersion: 2018,
-                sourceType: 'module',
-              },
-              // Unfortunately we can't `require.resolve('eslint-plugin-babel')` due to:
-              // https://github.com/eslint/eslint/issues/6237
-              // ...so we have no choice but to rely on it being hoisted.
-              plugins: ['babel'],
-              root: true,
-              settings: {},
+        : {
+            parser: require.resolve('babel-eslint'),
+            root: true,
+            ...baseConfig,
+            env: {
+              es6: true,
+              ...baseConfig.env,
             },
-            eslint.baseConfig || {},
-          ),
+            globals: {
+              process: true,
+              ...baseConfig.globals,
+            },
+            parserOptions: {
+              ecmaVersion: 2018,
+              sourceType: 'module',
+              ...baseConfig.parserOptions,
+            },
+            // Unfortunately we can't `require.resolve('eslint-plugin-babel')` due to:
+            // https://github.com/eslint/eslint/issues/6237
+            // ...so we have no choice but to rely on it being hoisted.
+            plugins: ['babel', ...(baseConfig.plugins || [])],
+          },
     };
 
     neutrino.config.module

@@ -61,7 +61,6 @@ test('updates lint config by default', t => {
     globals: {
       process: true,
     },
-    overrides: [],
     parser: 'vue-eslint-parser',
     parserOptions: {
       ecmaVersion: 2018,
@@ -70,7 +69,6 @@ test('updates lint config by default', t => {
     },
     plugins: ['babel', 'vue'],
     root: true,
-    settings: {},
   });
 });
 
