@@ -47,7 +47,7 @@ test('supports formatter being the name of an ESLint built-in formatter', t => {
 
 test('supports formatter being a resolved path', t => {
   const api = new Neutrino();
-  const formatter = require.resolve('eslint/lib/formatters/compact');
+  const formatter = require.resolve('eslint/lib/cli-engine/formatters/compact');
   api.use(mw({ eslint: { formatter } }));
 
   const loaderOptions = api.config.module

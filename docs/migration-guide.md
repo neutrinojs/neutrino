@@ -190,8 +190,8 @@ module.exports = {
 }
 ```
 
-- **BREAKING CHANGE** Upgraded to latest major versions of webpack, webpack-dev-server, Babel 7,
-ESLint 5, and related packages [#809](https://github.com/neutrinojs/neutrino/pull/809).
+- **BREAKING CHANGE** Upgraded to latest major versions of webpack, webpack-dev-server, Babel,
+ESLint, and related packages [#809](https://github.com/neutrinojs/neutrino/pull/809) and others.
 - **BREAKING CHANGE** The `@neutrinojs/chunk` middleware has been removed in favor of webpack's
 improved functionality around `splitChunks` [#809](https://github.com/neutrinojs/neutrino/pull/809). See
 [the split chunks documentation](https://webpack.js.org/plugins/split-chunks-plugin/) for more information.

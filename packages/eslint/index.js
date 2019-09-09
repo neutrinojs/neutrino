@@ -4,7 +4,7 @@ const arrayToObject = array =>
   array.reduce((obj, item) => Object.assign(obj, { [item]: true }), {});
 
 // Return an ESLint config object matching the schema here:
-// https://github.com/eslint/eslint/blob/v5.7.0/conf/config-schema.js
+// https://github.com/eslint/eslint/blob/v6.3.0/conf/config-schema.js
 const eslintrc = neutrino => {
   const options = neutrino.config.module
     .rule('lint')
@@ -55,10 +55,8 @@ const eslintrc = neutrino => {
 
 const validLoaderOptions = [
   // Used by eslint-loader itself. See:
-  // https://github.com/webpack-contrib/eslint-loader#options
-  // (Plus more that aren't documented)
+  // https://github.com/webpack-contrib/eslint-loader/blob/v3.0.0/src/options.json
   'cache',
-  'cacheIdentifier',
   'emitError',
   'emitWarning',
   'eslintPath',
@@ -70,7 +68,7 @@ const validLoaderOptions = [
   'quiet',
   // Used by CLIEngine. See:
   // https://eslint.org/docs/developer-guide/nodejs-api#cliengine
-  // https://github.com/eslint/eslint/blob/v5.7.0/lib/cli-engine.js#L39-L62
+  // https://github.com/eslint/eslint/blob/v6.3.0/lib/cli-engine/cli-engine.js#L54-L76
   // Excluding the cache options (since eslint-loader handles that),
   // and any that are not applicable to `CLIEngine.executeOnText()`.
   'allowInlineConfig',
@@ -78,6 +76,7 @@ const validLoaderOptions = [
   'configFile',
   'cwd',
   'envs',
+  'fixTypes',
   'globals',
   'ignore',
   'ignorePath',
@@ -86,14 +85,15 @@ const validLoaderOptions = [
   'parserOptions',
   'plugins',
   'reportUnusedDisableDirectives',
+  'resolvePluginsRelativeTo',
   'rulePaths',
   'rules',
   'useEslintrc',
 ];
 
 module.exports = ({ test, include, exclude, eslint = {} } = {}) => {
-  // Neither eslint-loader nor ESLint's `CLIEngine` validate passed options, so
-  // we do so here to make it easier to work out why settings seemingly aren't
+  // Neither eslint-loader nor ESLint's `CLIEngine` fully validate passed options,
+  // so we do so here to make it easier to work out why settings seemingly aren't
   // taking effect. This is particularly important given that the configuration
   // options are inconsistently named between CLIEngine and the eslintrc schema.
   // Upstream issues for adding validation:

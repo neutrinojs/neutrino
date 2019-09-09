@@ -11,7 +11,7 @@ and eslint-loader.
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino 9 and one of the Neutrino build presets
 - webpack 4
-- ESLint 5
+- ESLint 6
 
 ## Installation
 
