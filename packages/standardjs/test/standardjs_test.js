@@ -75,7 +75,7 @@ test('sets defaults when no options passed', t => {
       },
       extends: [
         require.resolve('eslint-config-standard'),
-        require.resolve('eslint-config-standard-jsx'),
+        require.resolve('eslint-config-standard-react'),
       ],
       globals: {
         process: true,
@@ -85,7 +85,7 @@ test('sets defaults when no options passed', t => {
         ecmaVersion: 2018,
         sourceType: 'module',
       },
-      plugins: ['babel', 'standard'],
+      plugins: ['babel'],
       root: true,
       rules: {
         'babel/new-cap': [
@@ -93,6 +93,7 @@ test('sets defaults when no options passed', t => {
           {
             capIsNew: false,
             newIsCap: true,
+            properties: true,
           },
         ],
         'babel/no-invalid-this': 'off',
@@ -111,11 +112,6 @@ test('sets defaults when no options passed', t => {
         'no-unused-expressions': 'off',
         'object-curly-spacing': 'off',
         semi: 'off',
-      },
-      settings: {
-        react: {
-          version: 'detect',
-        },
       },
     },
     cache: true,
@@ -166,7 +162,7 @@ test('merges options with defaults', t => {
       },
       extends: [
         require.resolve('eslint-config-standard'),
-        require.resolve('eslint-config-standard-jsx'),
+        require.resolve('eslint-config-standard-react'),
         'eslint-config-splendid',
       ],
       globals: {
@@ -178,7 +174,7 @@ test('merges options with defaults', t => {
         ecmaVersion: 2018,
         sourceType: 'module',
       },
-      plugins: ['babel', 'standard', 'jest'],
+      plugins: ['babel', 'jest'],
       root: true,
       rules: {
         'babel/new-cap': [
@@ -186,6 +182,7 @@ test('merges options with defaults', t => {
           {
             capIsNew: false,
             newIsCap: true,
+            properties: true,
           },
         ],
         'babel/no-invalid-this': 'off',
