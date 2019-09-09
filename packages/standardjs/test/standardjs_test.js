@@ -80,7 +80,6 @@ test('sets defaults when no options passed', t => {
       globals: {
         process: true,
       },
-      overrides: [],
       parser: require.resolve('babel-eslint'),
       parserOptions: {
         ecmaVersion: 2018,
@@ -174,7 +173,6 @@ test('merges options with defaults', t => {
         jQuery: true,
         process: true,
       },
-      overrides: [],
       parser: require.resolve('babel-eslint'),
       parserOptions: {
         ecmaVersion: 2018,
@@ -191,14 +189,7 @@ test('merges options with defaults', t => {
           },
         ],
         'babel/no-invalid-this': 'off',
-        'babel/no-unused-expressions': [
-          'warn',
-          {
-            allowShortCircuit: true,
-            allowTaggedTemplates: true,
-            allowTernary: true,
-          },
-        ],
+        'babel/no-unused-expressions': 'warn',
         'babel/object-curly-spacing': ['error', 'always'],
         'babel/semi': ['error', 'never'],
         'new-cap': 'off',
