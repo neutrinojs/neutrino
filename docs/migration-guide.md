@@ -367,33 +367,34 @@ object using the [options here](https://webpack.js.org/configuration/dev-server/
 `style.extract` being set to `true` [#1221](https://github.com/neutrinojs/neutrino/pull/1221).
 Override `style.extract.enabled` instead.
 - **BREAKING CHANGE** `@neutrinojs/web` and its dependent middleware no longer include `worker-loader` for automatically
-loading `*.worker.js` files [#1069](https://github.com/neutrinojs/neutrino/pull/1069).  
-  In order to use the `worker-loader` your configuration should look like:
-  ```js
+loading `*.worker.js` files [#1069](https://github.com/neutrinojs/neutrino/pull/1069). In order to use the `worker-loader` your configuration should look like:
+
+```js
+// …
+react({
   // …
-  react({
-    // …
-  }),
-  (neutrino) => {
-    neutrino.config.output
-      .globalObject('this') // will prevent `window`
-    .end()
-    .module
-      .rule('worker')
-        .test(/\.worker\.js$/)
-        .use('worker')
-          .loader(require.resolve('worker-loader'))
-          // see https://github.com/webpack-contrib/worker-loader#options
-          // .options({
-          //   inline: true,
-          //   fallback: true,
-          // })
-          .end()
+}),
+(neutrino) => {
+  neutrino.config.output
+    .globalObject('this') // will prevent `window`
+  .end()
+  .module
+    .rule('worker')
+      .test(/\.worker\.js$/)
+      .use('worker')
+        .loader(require.resolve('worker-loader'))
+        // see https://github.com/webpack-contrib/worker-loader#options
+        // .options({
+        //   inline: true,
+        //   fallback: true,
+        // })
         .end()
-      .end();
-  },
-  // …
-  ```
+      .end()
+    .end();
+},
+// …
+```
+
 - **BREAKING CHANGE** The loading order for `config.resolve.extensions` has been rearranged to be closer in parity to
 what webpack has configured by default [#1080](https://github.com/neutrinojs/neutrino/pull/1080).
 - **BREAKING CHANGE** The tests directory is now additionally linted by default with `@neutrinojs/eslint` and its
