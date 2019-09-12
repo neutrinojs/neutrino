@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "lib": ["es6"],
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strict": true,
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "paths": {
+      "neutrino": ["../index.d.ts"]
+    }
+  },
+  "files": [
+    "../index.d.ts",
+    "neutrino-api.ts",
+    "neutrino-api.js",
+    "neutrino-config.ts",
+    "neutrino-config.js"
+  ],
+  "compileOnSave": false
+}

@@ -3,9 +3,14 @@
   "version": "9.0.0-rc.3",
   "description": "Create and build JS applications with managed configurations",
   "main": "index.js",
+  "typings": "types/index.d.ts",
   "bin": {
     "neutrino": "bin/neutrino.js"
   },
+  "files": [
+    "index.js",
+    "types/*.d.ts"
+  ],
   "keywords": [
     "neutrino",
     "webpack",
@@ -17,7 +22,8 @@
   "homepage": "https://neutrinojs.org",
   "bugs": "https://github.com/neutrinojs/neutrino/issues",
   "scripts": {
-    "test": "ava test"
+    "test": "ava test",
+    "test:types": "tsc -p ./types/test/tsconfig.json"
   },
   "engines": {
     "node": "^8.10 || >=10",
@@ -29,5 +35,8 @@
     "semver": "^6.3.0",
     "webpack-chain": "^6.0.0",
     "yargs-parser": "^14.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^3.6.3"
   }
 }
