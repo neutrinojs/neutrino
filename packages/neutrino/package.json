@@ -7,10 +7,6 @@
   "bin": {
     "neutrino": "bin/neutrino.js"
   },
-  "files": [
-    "index.js",
-    "types/*.d.ts"
-  ],
   "keywords": [
     "neutrino",
     "webpack",

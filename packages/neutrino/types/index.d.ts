@@ -7,18 +7,17 @@ declare class Neutrino<O extends Neutrino.Options = Neutrino.Options> {
   constructor(options?: O);
   options: O;
   config: Config;
-  use(middleware: Neutrino.Middleware): void;
-  register(name: string, handler: Neutrino.OutputHandler): void;
+  use(middleware: Neutrino.Middleware<O, any>): void;
+  register(name: string, handler: Neutrino.OutputHandler<any, any, any>): void;
   regexFromExtensions(extensions?: string[]): RegExp;
   webpack(): webpack.Configuration;
   inspect(): void;
 }
 
 declare namespace Neutrino {
-  type Middleware = (neutrino: Neutrino) => void;
-  type Use = Middleware[];
-  type OutputHandler<R extends unknown = unknown> = (neutrino: Neutrino) => R;
-  type Register<T extends OutputHandler> = T extends (arg: Neutrino) => infer R
+  type Middleware<O extends Options = Options, N extends Neutrino<O> = Neutrino<O>> = (neutrino: N) => void;
+  type OutputHandler<R extends any = any, O extends Options = Options, N extends Neutrino<O> = Neutrino<O>> = (neutrino: N) => R;
+  type Register<T extends OutputHandler<any, any, any>, O extends Options = Options> = T extends (neutrino: any) => infer R
     ? () => R
     : never;
 
@@ -33,8 +32,8 @@ declare namespace Neutrino {
     extensions?: string[];
   }
 
-  interface Configuration {
-    options?: Options;
-    use?: Middleware | (Middleware | false)[];
+  interface Configuration<O extends Options = Options> {
+    options?: O;
+    use?: Middleware<O, any> | (Middleware<O, any> | false)[];
   }
 }

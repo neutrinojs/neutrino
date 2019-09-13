@@ -49,32 +49,54 @@ neutrino.register("something", api => {
 
 // With custom options
 interface CustomOptions extends Neutrino.Options {
-  other: number;
+  alpha: number;
+  beta: boolean;
+  gamma: string;
 }
-const neutrinoWithCustomOpts = new Neutrino<CustomOptions>({ other: 123 });
+const neutrinoWithCustomOpts = new Neutrino<CustomOptions>({
+  alpha: 123,
+  beta: true,
+  gamma: '123',
+});
 
 is<Neutrino.Options>(neutrinoWithCustomOpts.options);
 is<CustomOptions>(neutrinoWithCustomOpts.options);
-is<number>(neutrinoWithCustomOpts.options.other);
+is<number>(neutrinoWithCustomOpts.options.alpha);
+is<boolean>(neutrinoWithCustomOpts.options.beta);
+is<string>(neutrinoWithCustomOpts.options.gamma);
 
-// With output handlers
-const handler1: Neutrino.OutputHandler<string> = neutrino => {
+// With output handlers & custom options
+type CustomNeutrino = Neutrino<CustomOptions> & {
+  handler1: Neutrino.Register<typeof handler1>
+  handler2: Neutrino.Register<typeof handler2>
+}
+
+const handler1: Neutrino.OutputHandler<string, CustomOptions, CustomNeutrino> = neutrino => { // using Neutrino.OutputHandler
   is<Neutrino>(neutrino);
+  is<CustomNeutrino>(neutrino);
+  is<() => string>(neutrino.handler1); // self
+  is<() => number>(neutrino.handler2);
+  is<CustomOptions>(neutrino.options);
   return "string";
 };
-const handler2 = (neutrino: Neutrino) => {
+const handler2 = (neutrino: CustomNeutrino) => {
   is<Neutrino>(neutrino);
+  is<CustomNeutrino>(neutrino);
+  is<() => string>(neutrino.handler1);
+  is<() => number>(neutrino.handler2); // self
   return Number(123);
 };
 
-type NeutrinoWithHandlers = Neutrino & {
-  handler1: Neutrino.Register<typeof handler1>;
-  handler2: Neutrino.Register<typeof handler2>;
-};
-
-const neutrinoWithHandlers = new Neutrino() as NeutrinoWithHandlers;
+const neutrinoWithHandlers = new Neutrino() as CustomNeutrino;
 neutrinoWithHandlers.register("handler1", handler1);
 neutrinoWithHandlers.register("handler2", handler2);
+
+const middleware = (neutrino: CustomNeutrino) => {
+  is<string>(neutrino.handler1())
+  is<number>(neutrino.handler2())
+}
+
+neutrinoWithHandlers.use(middleware)
 
 is<() => string>(neutrinoWithHandlers.handler1);
 is<() => number>(neutrinoWithHandlers.handler2);
