@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/style-minify",
-  "version": "9.0.0-rc.3",
+  "version": "9.0.0-rc.4",
   "description": "Neutrino middleware for minifying styles",
   "main": "index.js",
   "keywords": [
@@ -28,7 +28,7 @@
     "optimize-css-assets-webpack-plugin": "^5.0.3"
   },
   "peerDependencies": {
-    "neutrino": "9.0.0-rc.3",
+    "neutrino": "9.0.0-rc.4",
     "webpack": "^4.0.0"
   }
 }
