@@ -1,11 +1,10 @@
 import { h, render } from 'preact';
 
-let mount;
 const root = document.getElementById('root');
 const load = async () => {
   const { default: App } = await import('./App');
 
-  mount = render(<App />, root, mount);
+  render(<App />, root);
 };
 
 // This is needed for Hot Module Replacement

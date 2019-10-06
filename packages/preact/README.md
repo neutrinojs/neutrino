@@ -94,21 +94,6 @@ Preact development.
 ❯ npm install --save preact
 ```
 
-If you want to import React-based modules or packages, you should also install
-the `preact-compat` compatibility layer:
-
-#### Yarn
-
-```bash
-❯ yarn add preact-compat
-```
-
-#### npm
-
-```bash
-❯ npm install --save preact-compat
-```
-
 After that, add a new directory named `src` in the root of the project, with a
 single JS file named `index.js` in it.
 

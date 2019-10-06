@@ -37,8 +37,7 @@ const JEST = 'jest@^24';
 const KARMA = 'karma@^4';
 const KARMA_CLI = 'karma-cli@^2';
 const MOCHA = 'mocha@^6';
-const PREACT = 'preact@^8';
-const PREACT_COMPAT = 'preact-compat@^3';
+const PREACT = 'preact@^10';
 const PROP_TYPES_VERSION = '^15';
 const PROP_TYPES = `prop-types@${PROP_TYPES_VERSION}`;
 const REACT_VERSION = '^16';
@@ -132,7 +131,7 @@ const webapp = name => ({
     projectType: APPLICATION.value,
     package: N.PREACT,
     packageJson: {
-      dependencies: [PREACT, PREACT_COMPAT],
+      dependencies: [PREACT],
       devDependencies: [
         version(N.PREACT),
         version(N.NEUTRINO),
