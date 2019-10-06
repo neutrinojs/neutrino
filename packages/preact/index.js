@@ -11,7 +11,7 @@ module.exports = (opts = {}) => neutrino => {
         plugins: [
           [
             require.resolve('@babel/plugin-transform-react-jsx'),
-            { pragma: 'h' },
+            { pragma: 'h', pragmaFrag: 'Fragment' },
           ],
           // Using loose for the reasons here:
           // https://github.com/facebook/create-react-app/issues/4263
@@ -28,10 +28,10 @@ module.exports = (opts = {}) => neutrino => {
   neutrino.use(web(options));
 
   neutrino.config.resolve.alias
-    .set('react', 'preact-compat')
-    .set('react-dom', 'preact-compat')
-    .set('create-react-class', 'preact-compat/lib/create-react-class')
-    .set('react-addons-css-transition-group', 'preact-css-transition-group');
+    .set('react', 'preact/compat')
+    .set('react-dom/test-utils', 'preact/test-utils')
+    // Must be after test-utils
+    .set('react-dom', 'preact/compat');
 
   const lintRule = neutrino.config.module.rules.get('lint');
   if (lintRule) {
