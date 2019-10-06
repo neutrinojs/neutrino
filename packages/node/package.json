@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/node",
-  "version": "9.0.0-rc.3",
+  "version": "9.0.0-rc.4",
   "description": "Neutrino preset for building Node.js projects",
   "main": "index.js",
   "keywords": [
@@ -26,17 +26,17 @@
     "@babel/core": "^7.5.5",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.5.5",
-    "@neutrinojs/banner": "9.0.0-rc.3",
-    "@neutrinojs/clean": "9.0.0-rc.3",
-    "@neutrinojs/compile-loader": "9.0.0-rc.3",
-    "@neutrinojs/start-server": "9.0.0-rc.3",
+    "@neutrinojs/banner": "9.0.0-rc.4",
+    "@neutrinojs/clean": "9.0.0-rc.4",
+    "@neutrinojs/compile-loader": "9.0.0-rc.4",
+    "@neutrinojs/start-server": "9.0.0-rc.4",
     "babel-merge": "^3.0.0",
     "deepmerge": "^1.5.2",
     "lodash.omit": "^4.5.0",
     "webpack-node-externals": "^1.7.2"
   },
   "peerDependencies": {
-    "neutrino": "9.0.0-rc.3",
+    "neutrino": "9.0.0-rc.4",
     "webpack": "^4.0.0",
     "webpack-cli": "^3.0.0"
   }
