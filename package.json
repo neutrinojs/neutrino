@@ -22,7 +22,7 @@
     "lint": "eslint --no-eslintrc --config ./.eslintrc.js --cache --report-unused-disable-directives --format codeframe --ext js,jsx .",
     "prettier:check": "prettier --ignore-path .eslintignore --check \"**/*.{css,html,js,jsx,json,md,yaml,yml}\"",
     "prettier:fix": "prettier --ignore-path .eslintignore --write \"**/*.{css,html,js,jsx,json,md,yaml,yml}\"",
-    "print-version": "node -p \"require('./lerna.json').version\"",
+    "print-version": "node -p \"'v' +require('./lerna.json').version\"",
     "release:prepare": "lerna version && prettier --write lerna.json && yarn changelog",
     "release:commit": "git commit --all --message $(yarn -s print-version) --edit",
     "release:tag": "git tag $(yarn -s print-version) && git push upstream $(yarn -s print-version)",
