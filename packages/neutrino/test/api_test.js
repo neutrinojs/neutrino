@@ -244,3 +244,10 @@ test('getDependencyVersion', t => {
   t.is(api.getDependencyVersion('core-js').major, 3);
   t.is(api.getDependencyVersion('eslint'), false);
 });
+
+test('extensions option overrides defaults', t => {
+  const extensions = ['ts'];
+  const api = new Neutrino({ extensions });
+
+  t.deepEqual(api.options.extensions, extensions);
+});
