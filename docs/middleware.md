@@ -143,7 +143,7 @@ module.exports = (additionalEnvs = []) => (neutrino) => {
 const envLoader = require('neutrino-middleware-env-loader');
 
 module.exports = neutrino => {
-  neutrino.use(env(['SECRET_KEY']));
+  neutrino.use(envLoader(['SECRET_KEY']));
   neutrino.use(/* next middleware */);
   neutrino.use(/* next middleware */)
 };
