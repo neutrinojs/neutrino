@@ -11,7 +11,7 @@ with this symbol show sample console output from running the previous command._
 
 Developing for neutrino requires:
 
-- Node.js ^8.10 or 10+
+- Node.js 10+
 - Yarn v1.2.1+, installation instructions at https://yarnpkg.com/en/docs/install
 - git, GitHub account
 

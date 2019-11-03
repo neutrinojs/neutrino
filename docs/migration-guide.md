@@ -97,8 +97,8 @@ upgrade that may not be outlined here.
 
 A list of changes is detailed below for migrating:
 
-- **BREAKING CHANGE** The minimum supported Node.js version is 8.10. Node.js 6 and 9 are no longer supported
-[#792](https://github.com/neutrinojs/neutrino/pull/792).
+- **BREAKING CHANGE** The minimum supported Node.js version is 10. Node.js 6-9 are no longer supported
+[#792](https://github.com/neutrinojs/neutrino/pull/792) [#1481](https://github.com/neutrinojs/neutrino/pull/1481).
 - **BREAKING CHANGE** Consumption of middleware and presets are now dependent on the external CLIs and
 configuration files for which they are intended [#852](https://github.com/neutrinojs/neutrino/pull/852).
 This does not negate the need for a `.neutrinorc.js` file
