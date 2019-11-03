@@ -27,11 +27,12 @@ module.exports = class Neutrino {
   }
 
   getOptions(opts = {}) {
-    let moduleExtensions = new Set(source);
     const options = {
       debug: false,
+      extensions: new Set(source),
       ...clone(opts),
     };
+    let moduleExtensions = options.extensions;
 
     if ('node_modules' in options) {
       throw new ConfigurationError(
