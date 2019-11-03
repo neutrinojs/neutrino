@@ -7,7 +7,7 @@
   "bugs": "https://github.com/neutrinojs/neutrino/issues",
   "repository": "neutrinojs/neutrino",
   "engines": {
-    "node": "^8.10 || >=10",
+    "node": ">=10",
     "npm": ">=5.4.0",
     "yarn": ">=1.2.1"
   },
