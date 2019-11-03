@@ -11,7 +11,11 @@
   ],
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
-  "repository": "https://github.com/neutrinojs/neutrino/tree/master/packages/airbnb",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neutrinojs/neutrino.git",
+    "directory": "packages/airbnb"
+  },
   "homepage": "https://neutrinojs.org",
   "bugs": "https://github.com/neutrinojs/neutrino/issues",
   "publishConfig": {

@@ -12,7 +12,11 @@
   ],
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
-  "repository": "https://github.com/neutrinojs/neutrino/tree/master/packages/react",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neutrinojs/neutrino.git",
+    "directory": "packages/react"
+  },
   "homepage": "https://neutrinojs.org",
   "bugs": "https://github.com/neutrinojs/neutrino/issues",
   "publishConfig": {

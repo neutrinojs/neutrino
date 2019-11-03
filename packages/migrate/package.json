@@ -9,7 +9,11 @@
     "bin",
     "transforms"
   ],
-  "repository": "https://github.com/neutrinojs/neutrino/tree/master/packages/migrate",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neutrinojs/neutrino.git",
+    "directory": "packages/migrate"
+  },
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MPL-2.0",
   "keywords": [
