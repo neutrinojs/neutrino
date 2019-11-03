@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "chalk": "^2.4.2",
-    "deepmerge": "^1.5.2",
+    "deepmerge": "^4.0.0",
     "ejs": "^2.6.2",
     "fs-extra": "^8.1.0",
     "javascript-stringify": "^2.0.0",
