@@ -12,7 +12,11 @@
   ],
   "author": "Fahad Hossain <8bit.demoncoder@gmail.com>",
   "license": "MPL-2.0",
-  "repository": "https://github.com/neutrinojs/neutrino/tree/master/packages/preact",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neutrinojs/neutrino.git",
+    "directory": "packages/preact"
+  },
   "homepage": "https://neutrinojs.org",
   "bugs": "https://github.com/neutrinojs/neutrino/issues",
   "publishConfig": {

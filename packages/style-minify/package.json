@@ -13,7 +13,11 @@
   ],
   "author": "Tim Kelty <timkelty@gmail.com>",
   "license": "MPL-2.0",
-  "repository": "https://github.com/neutrinojs/neutrino/tree/master/packages/style-minify",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neutrinojs/neutrino.git",
+    "directory": "packages/style-minify"
+  },
   "homepage": "https://neutrinojs.org",
   "bugs": "https://github.com/neutrinojs/neutrino/issues",
   "publishConfig": {
