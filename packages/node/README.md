@@ -286,7 +286,7 @@ module.exports = {
             {
               // Targets the version of Node.js used to run webpack.
               targets: { node: 'current' },
-              useBuiltIns: 'entry',
+              useBuiltIns: 'usage',
             },
           ],
         ],

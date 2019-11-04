@@ -46,7 +46,7 @@ module.exports = (opts = {}) => {
               require.resolve('@babel/preset-env'),
               {
                 debug: neutrino.options.debug,
-                useBuiltIns: coreJsVersion ? 'entry' : false,
+                useBuiltIns: coreJsVersion ? 'usage' : false,
                 targets: options.targets,
                 ...(coreJsVersion && { corejs: coreJsVersion.major }),
               },

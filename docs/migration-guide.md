@@ -97,6 +97,11 @@ upgrade that may not be outlined here.
 
 A list of changes is detailed below for migrating:
 
+- **BREAKING CHANGE** The Web, React, Vue, Node.js, and Library presets now use `useBuiltIns: 'usage'` as the
+default when configuring `@babel/preset-env` for polyfills. As a result you no longer need to manually import
+`core-js`, `@babel/polyfill`, or `regenerator-runtime/runtime` in your entry points, as was neceesary when
+`useBuiltIns: 'entry'` was the default setting. **Note:** `core-js` still needs to be present in your `package.json`
+for this default to take effect. [#1470](https://github.com/neutrinojs/neutrino/issues/1470)
 - **BREAKING CHANGE** The minimum supported Node.js version is 10. Node.js 6-9 are no longer supported
 [#792](https://github.com/neutrinojs/neutrino/pull/792) [#1481](https://github.com/neutrinojs/neutrino/pull/1481).
 - **BREAKING CHANGE** Consumption of middleware and presets are now dependent on the external CLIs and
