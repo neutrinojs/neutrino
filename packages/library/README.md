@@ -19,10 +19,10 @@ for Web or Node.js targets.
 - Automatically marks dependencies as external
 - Easily extensible to customize your library as needed
 
-\*\*Important! If you need polyfills in your library code, consider including
-`core-js` in your `package.json`. This is will configure `@babel/present-env` to
+**Important! If you need polyfills in your code, consider including `core-js` in
+your `package.json`. This is will configure `@babel/present-env` to
 automatically include polyfills based on usage. More details
-[here](https://babeljs.io/docs/en/babel-preset-env#usebuiltins).
+[here](https://babeljs.io/docs/en/babel-preset-env#usebuiltins).**
 
 ## Requirements
 
