@@ -32,9 +32,10 @@ can build, test, and publish multiple React components from a single repository.
     scope-hoisted modules for faster execution
   - Easily extensible to customize your project as needed
 
-**Important! This preset does not include @babel/polyfill for size reasons. If
-you need polyfills in your library code, consider importing @babel/polyfill,
-core-js, or other alternative.**
+**Important! If you need polyfills in your code, consider including `core-js` in
+your `package.json`. This is will configure `@babel/present-env` to
+automatically include polyfills based on usage. More details
+[here](https://babeljs.io/docs/en/babel-preset-env#usebuiltins).**
 
 ## Requirements
 

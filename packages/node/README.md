@@ -18,6 +18,11 @@ applications.
 - Chunking of external dependencies apart from application code
 - Easily extensible to customize your project as needed
 
+**Important! If you need polyfills in your code, consider including `core-js` in
+your `package.json`. This is will configure `@babel/present-env` to
+automatically include polyfills based on usage. More details
+[here](https://babeljs.io/docs/en/babel-preset-env#usebuiltins).**
+
 ## Requirements
 
 - Node.js 10+
@@ -286,7 +291,7 @@ module.exports = {
             {
               // Targets the version of Node.js used to run webpack.
               targets: { node: 'current' },
-              useBuiltIns: 'entry',
+              useBuiltIns: 'usage',
             },
           ],
         ],

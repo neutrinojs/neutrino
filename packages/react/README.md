@@ -28,6 +28,10 @@ applications.
     scope-hoisted modules for faster execution
   - Easily extensible to customize your project as needed
 
+**Important! If you need polyfills in your code, consider including `core-js` in
+your `package.json`. This is will configure `@babel/preset-env` to automatically
+include polyfills based on usage. [\*](#polyfills)**
+
 ## Requirements
 
 - Node.js 10+
@@ -239,7 +243,7 @@ module.exports = {
           [
             '@babel/preset-env',
             {
-              useBuiltIns: 'entry',
+              useBuiltIns: 'usage',
             },
           ],
         ],
@@ -337,6 +341,15 @@ module.exports = {
   ],
 };
 ```
+
+## Polyfills
+
+`@babel/preset-react` has its own `useBuiltIns` option for polyfilling other
+Babel plugins. Don't confuse it with the `useBuiltIns` option for
+`@babel/preset-env`.
+
+- [`useBuiltIns` for `@babel/preset-env`](https://babeljs.io/docs/en/babel-preset-env#usebuiltins)
+- [`useBuiltIns` for `@babel/preset-react`](https://babeljs.io/docs/en/babel-preset-react#usebuiltins)
 
 ## Hot Module Replacement
 

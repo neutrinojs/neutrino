@@ -115,6 +115,11 @@ commands [#852](https://github.com/neutrinojs/neutrino/pull/852):
   e.g. `jest`, `karma start --single-run`, or `mocha`.
   - `neutrino lint` can typically be replaced with `eslint --cache --format codeframe --ext mjs,jsx,js src`.
   - `neutrino --inspect` command still exists to get information about the configuration that Neutrino will use.
+- **BREAKING CHANGE** The Web, React, Vue, Node.js, and Library presets now use `useBuiltIns: 'usage'` as the
+default when configuring `@babel/preset-env` for polyfills. As a result you no longer need to manually import
+`core-js`, `@babel/polyfill`, or `regenerator-runtime/runtime` in your entry points, as was neceesary when
+`useBuiltIns: 'entry'` was the default setting. **Note:** `core-js` still needs to be present in your `package.json`
+for this default to take effect. [#1484](https://github.com/neutrinojs/neutrino/issues/1470)
 - **BREAKING CHANGE** With the removal of the Neutrino CLI and its `--use` flag, the `.neutrinorc.js` file for
 setting middleware is now mandatory within a project.
 - **BREAKING CHANGE** With the removal of the Neutrino CLI, many of the Neutrino API methods and functionality

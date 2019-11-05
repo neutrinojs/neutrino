@@ -19,9 +19,10 @@ for Web or Node.js targets.
 - Automatically marks dependencies as external
 - Easily extensible to customize your library as needed
 
-**Important! This preset does not include @babel/polyfill for size reasons. If
-you need polyfills in your library code, consider importing @babel/polyfill,
-core-js, or other alternative.**
+**Important! If you need polyfills in your code, consider including `core-js` in
+your `package.json`. This is will configure `@babel/present-env` to
+automatically include polyfills based on usage. More details
+[here](https://babeljs.io/docs/en/babel-preset-env#usebuiltins).**
 
 ## Requirements
 
@@ -272,7 +273,7 @@ module.exports = {
             '@babel/preset-env',
             {
               debug: neutrino.options.debug,
-              useBuiltIns: 'entry',
+              useBuiltIns: 'usage',
             },
           ],
         ],
