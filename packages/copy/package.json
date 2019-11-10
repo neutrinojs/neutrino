@@ -27,7 +27,7 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "copy-webpack-plugin": "^5.0.4"
+    "copy-webpack-plugin": "^5.0.5"
   },
   "peerDependencies": {
     "neutrino": "9.0.0-rc.4",
