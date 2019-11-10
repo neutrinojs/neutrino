@@ -43,9 +43,10 @@ module.exports = (opts = {}) => neutrino => {
             {
               // Enable development helpers both in development and testing.
               development: process.env.NODE_ENV !== 'production',
-              // Use the native built-in instead of polyfilling.
-              // Don't confuse this with `@babel/preset-env`'s `useBuiltIns` option, they are different.
-              useBuiltIns: true,
+              // When spreading props, use inline object with spread elements directly instead of
+              // Babel's extend helper or Object.assign. @babel/env will still transpile these down
+              // if required for the target browsers.
+              useSpread: true,
             },
           ],
         ],
