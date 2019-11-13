@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/mocha",
-  "version": "9.0.0-rc.4",
+  "version": "9.0.0-rc.5",
   "description": "Neutrino preset for testing Neutrino projects with Mocha",
   "main": "src/index.js",
   "keywords": [
@@ -33,6 +33,6 @@
   },
   "peerDependencies": {
     "mocha": "^6.0.0",
-    "neutrino": "9.0.0-rc.4"
+    "neutrino": "9.0.0-rc.5"
   }
 }

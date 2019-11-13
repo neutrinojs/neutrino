@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/html-template",
-  "version": "9.0.0-rc.4",
+  "version": "9.0.0-rc.5",
   "description": "Neutrino middleware for automatic HTML file generation from metadata",
   "main": "index.js",
   "keywords": [
@@ -30,7 +30,7 @@
     "html-webpack-plugin": "4.0.0-beta.11"
   },
   "peerDependencies": {
-    "neutrino": "9.0.0-rc.4",
+    "neutrino": "9.0.0-rc.5",
     "webpack": "^4.0.0"
   }
 }
