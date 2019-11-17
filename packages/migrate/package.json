@@ -32,6 +32,6 @@
   "dependencies": {
     "camelcase": "^5.3.1",
     "jscodeshift": "^0.6.4",
-    "yargs": "^14.2.0"
+    "yargs": "^15.0.0"
   }
 }
