@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/react",
-  "version": "9.0.0-rc.5",
+  "version": "9.0.0",
   "description": "Neutrino preset for building React web applications",
   "main": "index.js",
   "keywords": [
@@ -31,7 +31,7 @@
     "@babel/core": "^7.7.5",
     "@babel/plugin-proposal-class-properties": "^7.7.4",
     "@babel/preset-react": "^7.7.4",
-    "@neutrinojs/web": "9.0.0-rc.5",
+    "@neutrinojs/web": "9.0.0",
     "babel-merge": "^3.0.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "deepmerge": "^1.5.2",
@@ -44,7 +44,7 @@
     "react-hot-loader": "^4.12.18"
   },
   "peerDependencies": {
-    "neutrino": "9.0.0-rc.5",
+    "neutrino": "^9.0.0",
     "webpack": "^4.0.0",
     "webpack-cli": "^3.0.0",
     "webpack-dev-server": "^3.0.0"
