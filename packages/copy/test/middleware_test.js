@@ -2,7 +2,10 @@ import test from 'ava';
 import Neutrino from '../../neutrino/Neutrino';
 
 const mw = (...args) => require('..')(...args);
-const options = { patterns: [{}], options: { ignore: /\.css$/ } };
+const options = {
+  patterns: ['shorthand-form', { from: 'source', to: 'dest' }],
+  options: { ignore: /\.css$/ },
+};
 
 test('loads middleware', t => {
   t.notThrows(() => require('..'));

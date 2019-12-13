@@ -28,10 +28,10 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "css-loader": "^3.2.0",
+    "css-loader": "^3.3.2",
     "deepmerge": "^1.5.2",
     "mini-css-extract-plugin": "^0.8.0",
-    "style-loader": "^1.0.0"
+    "style-loader": "^1.0.1"
   },
   "peerDependencies": {
     "neutrino": "9.0.0-rc.5",
