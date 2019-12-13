@@ -1,5 +1,5 @@
 {
-  "title": "Neutrino",
+  "title": "Neutrino v8",
   "root": "./docs",
   "plugins": ["edit-link", "prism", "-highlight", "github", "anchorjs", "npmsearchlist"],
   "pluginsConfig": {

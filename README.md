@@ -24,7 +24,7 @@ cover.
 
 ## Documentation
 
-See the [Neutrino docs](https://release-v8.neutrinojs.org/)
+See the [Neutrino v8 docs](https://release-v8.neutrinojs.org/)
 for details on installation, getting started, usage, and customizing.
 
 ### Contributing

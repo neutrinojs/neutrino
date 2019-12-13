@@ -54,6 +54,8 @@
   * [style-loader](./packages/style-loader/README.md)
   * [style-minify](./packages/style-minify/README.md)
   * [stylelint](./packages/stylelint/README.md)
+* [Latest Documentation](https://neutrinojs.org/)
+* [v8 Documentation](https://release-v8.neutrinojs.org/)
 * [v7 Documentation](https://release-v7.neutrinojs.org/)
 * [v6 Documentation](https://github.com/neutrinojs/neutrino/tree/release/v6/docs)
 * [v5 Documentation](https://github.com/neutrinojs/neutrino/tree/release/v5/docs)
