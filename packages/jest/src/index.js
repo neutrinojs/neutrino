@@ -26,7 +26,7 @@ function normalizeJestOptions(opts, neutrino, usingBabel) {
 
   // neutrino.options.extensions should be used instead of neutrino.regexFromExtensions()
   // because transformNames is used as a property name where a Regex object will cause issues.
-  // e.g., https://github.com/mozilla-neutrino/neutrino-dev/issues/638.
+  // e.g., https://github.com/neutrinojs/neutrino/issues/638.
   const transformNames = `\\.(${neutrino.options.extensions.join('|')})$`;
   const aliases = neutrino.config.resolve.alias.entries() || {};
   const moduleNames = Object

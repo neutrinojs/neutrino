@@ -96,7 +96,7 @@ module.exports = (neutrino, opts = {}) => {
         .add('node_modules')
         .add(neutrino.options.node_modules)
         .add(MODULES)
-        .when(__dirname.includes('neutrino-dev'), modules => {
+        .when(__dirname.includes('neutrino'), modules => {
           // Add monorepo node_modules to webpack module resolution
           modules.add(join(__dirname, '../../node_modules'));
         })
@@ -109,7 +109,7 @@ module.exports = (neutrino, opts = {}) => {
       .modules
         .add(neutrino.options.node_modules)
         .add(MODULES)
-        .when(__dirname.includes('neutrino-dev'), modules => {
+        .when(__dirname.includes('neutrino'), modules => {
           // Add monorepo node_modules to webpack module resolution
           modules.add(join(__dirname, '../../node_modules'));
         })

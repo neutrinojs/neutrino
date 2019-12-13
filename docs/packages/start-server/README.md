@@ -95,7 +95,7 @@ This can be done from the [API](../../api/README.md#optionsdebug) or the [CLI us
 
 ## Contributing
 
-This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
+This middleware is part of the [neutrino](https://github.com/neutrinojs/neutrino) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](https://neutrinojs.org/contributing/) for details.
 

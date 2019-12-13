@@ -19,13 +19,13 @@ module.exports = (neutrino, opts = {}) => {
 
   neutrino.config.resolve.modules
     .add(MODULES)
-    .when(__dirname.includes('neutrino-dev'), modules => {
+    .when(__dirname.includes('neutrino'), modules => {
       // Add monorepo node_modules to webpack module resolution
       modules.add(join(__dirname, '../../node_modules'));
     });
   neutrino.config.resolveLoader.modules
     .add(MODULES)
-    .when(__dirname.includes('neutrino-dev'), modules => {
+    .when(__dirname.includes('neutrino'), modules => {
       // Add monorepo node_modules to webpack module resolution
       modules.add(join(__dirname, '../../node_modules'));
     });

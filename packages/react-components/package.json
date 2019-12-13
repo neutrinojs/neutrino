@@ -9,7 +9,7 @@
     "index.js"
   ],
   "author": "Eli Perelman <eli@eliperelman.com>",
-  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/react-components",
+  "repository": "https://github.com/neutrinojs/neutrino/tree/master/packages/react-components",
   "license": "MPL-2.0",
   "publishConfig": {
     "access": "public"

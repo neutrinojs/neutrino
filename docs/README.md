@@ -1,4 +1,4 @@
-<h1><p align="center"><a href="https://neutrinojs.org"><img src="https://raw.githubusercontent.com/mozilla-neutrino/neutrino-dev/release/v8/docs/assets/logo.png" height="150"></a></p></h1>
+<h1><p align="center"><a href="https://neutrinojs.org"><img src="https://raw.githubusercontent.com/neutrinojs/neutrino/release/v8/docs/assets/logo.png" height="150"></a></p></h1>
 
 ### Create and build modern JavaScript applications with zero initial configuration
 #### Neutrino combines the power of webpack with the simplicity of presets.
@@ -8,7 +8,7 @@
 [![Build Status][travis-image]][travis-url]
 [![Join the Neutrino community on Spectrum][spectrum-image]][spectrum-url]
 
-[https://github.com/mozilla-neutrino/neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev)
+[https://github.com/neutrinojs/neutrino](https://github.com/neutrinojs/neutrino)
 
 ---
 
@@ -25,7 +25,7 @@ cover.
 [npm-image]: https://img.shields.io/npm/v/neutrino.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino.svg
 [npm-url]: https://npmjs.org/package/neutrino
-[travis-image]: https://travis-ci.org/mozilla-neutrino/neutrino-dev.svg?branch=master
-[travis-url]: https://travis-ci.org/mozilla-neutrino/neutrino-dev
+[travis-image]: https://travis-ci.org/neutrinojs/neutrino.svg?branch=master
+[travis-url]: https://travis-ci.org/neutrinojs/neutrino
 [spectrum-image]: https://withspectrum.github.io/badge/badge.svg
 [spectrum-url]: https://spectrum.chat/neutrino

@@ -12,7 +12,7 @@
     "bin",
     "commands"
   ],
-  "repository": "https://github.com/mozilla-neutrino/neutrino-dev/tree/master/packages/create-project",
+  "repository": "https://github.com/neutrinojs/neutrino/tree/master/packages/create-project",
   "author": "Hassan Ali <helfi92@gmail.com>",
   "license": "MPL-2.0",
   "keywords": [
