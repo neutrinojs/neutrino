@@ -21,7 +21,7 @@ cover.
 
 ## Documentation
 
-See the [Neutrino docs](https://neutrinojs.org/)
+See the [Neutrino docs](https://release-v8.neutrinojs.org/)
 for details on installation, getting started, usage, and customizing.
 
 [npm-image]: https://img.shields.io/npm/v/neutrino.svg

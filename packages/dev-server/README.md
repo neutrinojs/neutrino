@@ -119,7 +119,7 @@ By default this middleware will start a development server with Hot Module Repla
 preset or middleware.
 
 It is recommended to call this middleware only in development mode when `process.env.NODE_ENV === 'development'`.
-More information about usage of Neutrino middleware can be found in the [documentation](https://neutrinojs.org/middleware).
+More information about usage of Neutrino middleware can be found in the [documentation](https://release-v8.neutrinojs.org/middleware).
 
 ## Middleware options
 

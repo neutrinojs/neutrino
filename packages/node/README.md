@@ -55,7 +55,7 @@ If you want to have automatically wired sourcemaps added to your project, add `s
 
 ## Project Layout
 
-`@neutrinojs/node` follows the standard [project layout](https://neutrinojs.org/project-layout) specified by Neutrino. This
+`@neutrinojs/node` follows the standard [project layout](https://release-v8.neutrinojs.org/project-layout) specified by Neutrino. This
 means that by default all project source code should live in a directory named `src` in the root of the
 project. This includes JavaScript files that would be available to your compiled project.
 
@@ -88,7 +88,7 @@ _Note: The `create` command is a shorthand that helps you do two things at once.
 ```
 
 The CLI helper will prompt for the project to scaffold, and will offer to set
-up a test runner as well as linting to your project. Refer to the [Create new project](https://neutrinojs.org/installation/create-new-project) section
+up a test runner as well as linting to your project. Refer to the [Create new project](https://release-v8.neutrinojs.org/installation/create-new-project) section
 for details on all available options.
 
 ### Manual Installation
@@ -238,7 +238,7 @@ modification during development.
 ## Debugging
 
 You can start the Node.js server in `inspect` mode to debug the process by setting `neutrino.options.debug` to `true`.
-This can be done from the [API](https://neutrinojs.org/api#optionsdebug) or the [CLI using `--debug`](https://neutrinojs.org/cli#-debug).
+This can be done from the [API](https://release-v8.neutrinojs.org/api#optionsdebug) or the [CLI using `--debug`](https://release-v8.neutrinojs.org/cli#-debug).
 
 ## Preset options
 
@@ -317,14 +317,14 @@ module.exports = {
 
 ## Customizing
 
-To override the build configuration, start with the documentation on [customization](https://neutrinojs.org/customization/).
+To override the build configuration, start with the documentation on [customization](https://release-v8.neutrinojs.org/customization/).
 `@neutrinojs/node` creates some conventions to make overriding the configuration easier once you are ready to make
 changes.
 
 By default Neutrino, and therefore this preset, creates a single **main** `index` entry point to your application, and this
 maps to the `index.*` file in the `src` directory. This means that this preset is optimized toward a single main entry
 to your application. Code not imported in the hierarchy of the `index` entry will not be output to the bundle. To overcome
-this you must either define more mains via [`options.mains`](https://neutrinojs.org/customization/#optionsmains), import
+this you must either define more mains via [`options.mains`](https://release-v8.neutrinojs.org/customization/#optionsmains), import
 the code path somewhere along the `index` hierarchy, or define multiple configurations in your `.neutrinorc.js`.
 
 ### Vendoring
@@ -358,7 +358,7 @@ _Note: Some plugins are only available in certain environments. To override them
 
 ### Override configuration
 
-By following the [customization guide](https://neutrinojs.org/customization/) and knowing the rule, loader, and plugin IDs above,
+By following the [customization guide](https://release-v8.neutrinojs.org/customization/) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also
 make these changes from the Neutrino API in custom middleware.
 

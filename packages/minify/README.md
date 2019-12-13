@@ -77,9 +77,9 @@ make changes.
 
 ### Options
 
-- `babel`: Set options for [@neutrinojs/babel-minify](https://neutrinojs.org/packages/babel-minify/).
-- `image`: Set options for [@neutrinojs/image-minify](https://neutrinojs.org/packages/image-minify/).
-- `style`: Set options for [@neutrinojs/style-minify](https://neutrinojs.org/packages/style-minify/).
+- `babel`: Set options for [@neutrinojs/babel-minify](https://release-v8.neutrinojs.org/packages/babel-minify/).
+- `image`: Set options for [@neutrinojs/image-minify](https://release-v8.neutrinojs.org/packages/image-minify/).
+- `style`: Set options for [@neutrinojs/style-minify](https://release-v8.neutrinojs.org/packages/style-minify/).
 
 ### Plugins
 
