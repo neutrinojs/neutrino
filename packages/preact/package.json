@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/preact",
-  "version": "9.0.0-rc.5",
+  "version": "9.0.0",
   "description": "Neutrino preset for building Preact web applications",
   "main": "index.js",
   "keywords": [
@@ -31,7 +31,7 @@
     "@babel/core": "^7.7.5",
     "@babel/plugin-proposal-class-properties": "^7.7.4",
     "@babel/plugin-transform-react-jsx": "^7.7.4",
-    "@neutrinojs/web": "9.0.0-rc.5",
+    "@neutrinojs/web": "9.0.0",
     "babel-merge": "^3.0.0",
     "deepmerge": "^1.5.2",
     "eslint-plugin-react": "^7.17.0"
@@ -40,7 +40,7 @@
     "preact": "^10.1.0"
   },
   "peerDependencies": {
-    "neutrino": "9.0.0-rc.5",
+    "neutrino": "^9.0.0",
     "webpack": "^4.0.0",
     "webpack-cli": "^3.0.0",
     "webpack-dev-server": "^3.0.0"
