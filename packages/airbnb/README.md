@@ -40,7 +40,7 @@ another Neutrino preset for building your application source code.
 
 ## Project Layout
 
-`@neutrinojs/airbnb` follows the standard [project layout](https://neutrinojs.org/project-layout) specified by Neutrino. This
+`@neutrinojs/airbnb` follows the standard [project layout](https://release-v8.neutrinojs.org/project-layout) specified by Neutrino. This
 means that by default all project source code should live in a directory named `src` in the root of the
 project.
 
@@ -150,7 +150,7 @@ module.exports = {
 
 ## Middleware options
 
-This preset uses the same middleware options as [@neutrinojs/eslint](https://neutrinojs.org/packages/eslint/).
+This preset uses the same middleware options as [@neutrinojs/eslint](https://release-v8.neutrinojs.org/packages/eslint/).
 If you wish to customize what is included, excluded, or any ESLint options, you can provide an options object with the
 middleware and this will be merged with our internal defaults for this preset. Use an array pair instead of a string
 to supply these options.
@@ -173,7 +173,7 @@ module.exports = {
 
 ## Customizing
 
-To override the build configuration, start with the documentation on [customization](https://neutrinojs.org/customization/).
+To override the build configuration, start with the documentation on [customization](https://release-v8.neutrinojs.org/customization/).
 `@neutrinojs/airbnb` creates some conventions to make overriding the configuration easier once you are ready to
 make changes.
 
@@ -193,7 +193,7 @@ middleware.
 
 ### Override configuration
 
-By following the [customization guide](https://neutrinojs.org/customization/) and knowing the rule and loader IDs above,
+By following the [customization guide](https://release-v8.neutrinojs.org/customization/) and knowing the rule and loader IDs above,
 you can also override or augment the build by providing a function to your `.neutrinorc.js` use array. You can also
 make this change from the Neutrino API when using the `use` method.
 
@@ -241,7 +241,7 @@ If you cannot or do not wish to use Neutrino to execute one-off linting, you can
 `@neutrinojs/eslint`, from which this preset inherits, also provides a method for getting the ESLint
 configuration suitable for use in an eslintrc file. Typically this is used for providing hints or fix solutions to the
 development environment, e.g. IDEs and text editors. Doing this requires
-[creating an instance of the Neutrino API](https://neutrinojs.org/api/) and providing the middleware it uses. If you keep all
+[creating an instance of the Neutrino API](https://release-v8.neutrinojs.org/api/) and providing the middleware it uses. If you keep all
 this information in a `.neutrinorc.js`, this should be relatively straightforward. By providing all the middleware used
 to Neutrino, you can ensure all the linting options used across all middleware will be merged together for your
 development environment, without the need for copying, duplication, or loss of organization and separation.
@@ -310,7 +310,7 @@ in the [ESLint user guide](http://eslint.org/docs/user-guide/configuring#ignorin
 
 ## Contributing
 
-This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
+This preset is part of the [neutrino](https://github.com/neutrinojs/neutrino) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](https://neutrinojs.org/contributing/) for details.
 

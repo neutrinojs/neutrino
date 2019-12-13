@@ -40,7 +40,7 @@ another Neutrino preset for building your application source code.
 
 ## Project Layout
 
-`@neutrinojs/karma` follows the standard [project layout](https://neutrinojs.org/project-layout) specified by Neutrino. This
+`@neutrinojs/karma` follows the standard [project layout](https://release-v8.neutrinojs.org/project-layout) specified by Neutrino. This
 means that by default all project test code should live in a directory named `test` in the root of the
 project. Test files end in `_test.js` by default.
 
@@ -139,7 +139,7 @@ For more details on specific Karma usage, please refer to their
 ## Executing single tests
 
 By default this preset will execute every test file located in your test directory ending in the appropriate file
-extension. Use the command line [`files` parameters](https://neutrinojs.org/cli#neutrino-test) to execute individual tests.
+extension. Use the command line [`files` parameters](https://release-v8.neutrinojs.org/cli#neutrino-test) to execute individual tests.
 
 ## Watching for changes
 
@@ -215,7 +215,7 @@ module.exports = {
 
 ## Contributing
 
-This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
+This preset is part of the [neutrino](https://github.com/neutrinojs/neutrino) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](https://neutrinojs.org/contributing/) for details.
 

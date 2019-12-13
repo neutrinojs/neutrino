@@ -45,7 +45,7 @@
 
 ## Project Layout
 
-`@neutrinojs/web` follows the standard [project layout](https://neutrinojs.org/project-layout) specified by Neutrino. This
+`@neutrinojs/web` follows the standard [project layout](https://release-v8.neutrinojs.org/project-layout) specified by Neutrino. This
 means that by default all project source code should live in a directory named `src` in the root of the
 project. This includes JavaScript files, CSS stylesheets, images, and any other assets that would be available
 to your compiled project.
@@ -79,7 +79,7 @@ _Note: The `create` command is a shorthand that helps you do two things at once.
 ```
 
 The CLI helper will prompt for the project to scaffold, and will offer to set
-up a test runner as well as linting to your project. Refer to the [Create new project](https://neutrinojs.org/installation/create-new-project) section
+up a test runner as well as linting to your project. Refer to the [Create new project](https://release-v8.neutrinojs.org/installation/create-new-project) section
 for details on all available options.
 
 ### Manual Installation
@@ -164,7 +164,7 @@ You can either serve or deploy the contents of this `build` directory as a stati
 If you wish to copy files to the build directory that are not imported from application code, you can place
 them in a directory within `src` called `static`. All files in this directory will be copied from `src/static`
 to `build/static`. To change this behavior, specify your own patterns with
-[@neutrinojs/copy](https://neutrinojs.org/packages/copy/).
+[@neutrinojs/copy](https://release-v8.neutrinojs.org/packages/copy/).
 
 ## Paths
 
@@ -392,7 +392,7 @@ modification during development.
 
 ## Customizing
 
-To override the build configuration, start with the documentation on [customization](https://neutrinojs.org/customization/).
+To override the build configuration, start with the documentation on [customization](https://release-v8.neutrinojs.org/customization/).
 `@neutrinojs/web` creates some conventions to make overriding the configuration easier once you are ready to make
 changes.
 
@@ -458,7 +458,7 @@ _Note: Some plugins are only available in certain environments. To override them
 
 ### Override configuration
 
-By following the [customization guide](https://neutrinojs.org/customization/) and knowing the rule, loader, and plugin IDs above,
+By following the [customization guide](https://release-v8.neutrinojs.org/customization/) and knowing the rule, loader, and plugin IDs above,
 you can override and augment the build by by providing a function to your `.neutrinorc.js` use array. You can also
 make these changes from the Neutrino API in custom middleware.
 
@@ -484,7 +484,7 @@ module.exports = {
 
 ## Contributing
 
-This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
+This preset is part of the [neutrino](https://github.com/neutrinojs/neutrino) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](https://neutrinojs.org/contributing/) for details.
 

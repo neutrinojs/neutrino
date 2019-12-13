@@ -77,9 +77,9 @@ make changes.
 
 ### Options
 
-- `babel`: Set options for [@neutrinojs/babel-minify](https://neutrinojs.org/packages/babel-minify/).
-- `image`: Set options for [@neutrinojs/image-minify](https://neutrinojs.org/packages/image-minify/).
-- `style`: Set options for [@neutrinojs/style-minify](https://neutrinojs.org/packages/style-minify/).
+- `babel`: Set options for [@neutrinojs/babel-minify](https://release-v8.neutrinojs.org/packages/babel-minify/).
+- `image`: Set options for [@neutrinojs/image-minify](https://release-v8.neutrinojs.org/packages/image-minify/).
+- `style`: Set options for [@neutrinojs/style-minify](https://release-v8.neutrinojs.org/packages/style-minify/).
 
 ### Plugins
 
@@ -93,7 +93,7 @@ The following is a list of plugins and their identifiers which can be overridden
 
 ## Contributing
 
-This middleware is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
+This middleware is part of the [neutrino](https://github.com/neutrinojs/neutrino) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](https://neutrinojs.org/contributing/) for details.
 

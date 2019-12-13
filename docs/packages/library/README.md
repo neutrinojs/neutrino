@@ -405,7 +405,7 @@ require(['redux', 'redux-example'], ({ createStore }, reduxExample) => {
 ## Generating multiple builds
 
 The `@neutrinojs/library` middleware can be used in conjunction with the
-[`@neutrinojs/fork` middleware](https://neutrinojs.org/packages/fork/) to generate multiple library outputs
+[`@neutrinojs/fork` middleware](https://release-v8.neutrinojs.org/packages/fork/) to generate multiple library outputs
 when building. Follow the instructions to install the fork middleware, and change your `.neutrinorc.js`
 format as follows:
 
@@ -473,7 +473,7 @@ module.exports = {
 
 ## Contributing
 
-This preset is part of the [neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev) repository, a monorepo
+This preset is part of the [neutrino](https://github.com/neutrinojs/neutrino) repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
 [contributing guide](https://neutrinojs.org/contributing/) for details.
 

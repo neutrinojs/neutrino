@@ -20,6 +20,6 @@ In addition, your preset should also:
 ```
 
 It should also have a relevant description. If you prefer, you can also add your preset to the
-[neutrino-dev wiki](https://github.com/mozilla-neutrino/neutrino-dev/wiki/Community-Presets).
+[neutrino wiki](https://github.com/neutrinojs/neutrino/wiki/Community-Presets).
 
 {% npmsearchlist "q=keywords:neutrino-preset%20not:deprecated&size=250" %}{% endnpmsearchlist %}

@@ -1,14 +1,14 @@
 {
-  "title": "Neutrino",
+  "title": "Neutrino v8",
   "root": "./docs",
   "plugins": ["edit-link", "prism", "-highlight", "github", "anchorjs", "npmsearchlist"],
   "pluginsConfig": {
     "edit-link": {
-      "base": "https://github.com/mozilla-neutrino/neutrino-dev/tree/release/v8/docs",
+      "base": "https://github.com/neutrinojs/neutrino/tree/release/v8/docs",
       "label": "Edit page"
     },
     "github": {
-      "url": "https://github.com/mozilla-neutrino/neutrino-dev/"
+      "url": "https://github.com/neutrinojs/neutrino/"
     }
   }
 }
