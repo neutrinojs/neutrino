@@ -46,8 +46,8 @@ const REACT_DOM_VERSION = '^16';
 const REACT_DOM = `react-dom@${REACT_DOM_VERSION}`;
 const REACT_HOT_LOADER = 'react-hot-loader@^4';
 const VUE = 'vue@^2';
-const WEBPACK = 'webpack@^4';
-const WEBPACK_CLI = 'webpack-cli@^3';
+const WEBPACK = 'webpack@^5.0.0-beta.9';
+const WEBPACK_CLI = 'webpack-cli@^4.0.0-beta.1';
 const WEBPACK_DEV_SERVER = 'webpack-dev-server@^3';
 
 // package.json necessities

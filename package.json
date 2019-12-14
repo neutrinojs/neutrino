@@ -54,8 +54,8 @@
     "prettier": "^1.19.1",
     "verdaccio": "^4.3.5",
     "verdaccio-memory": "^8.4.2",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10",
+    "webpack": "^5.0.0-beta.9",
+    "webpack-cli": "^4.0.0-beta.1",
     "webpack-dev-server": "^3.9.0"
   }
 }
