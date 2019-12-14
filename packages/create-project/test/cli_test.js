@@ -20,7 +20,8 @@ const tests = [
   {
     project: presets.get(N.PREACT),
     linter: presets.get(N.AIRBNB),
-    testRunner: presets.get(N.KARMA),
+    // Blocked on https://github.com/webpack-contrib/karma-webpack/issues/431
+    // testRunner: presets.get(N.KARMA),
   },
   {
     project: presets.get(N.VUE),
