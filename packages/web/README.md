@@ -241,7 +241,7 @@ module.exports = {
 
       // Control which source map types are enabled for each NODE_ENV
       devtool: {
-        development: 'cheap-module-eval-source-map',
+        development: 'eval-cheap-module-source-map',
         production: undefined,
         test: 'source-map',
       },
@@ -372,7 +372,7 @@ web({
 
 ### Source Maps
 
-By default, the `'cheap-module-eval-source-map'` source map is enabled when
+By default, the `'eval-cheap-module-source-map'` source map is enabled when
 `NODE_ENV` is `'development'`, `'source-map'` for `'test'` and no source maps
 for `'production'`.
 

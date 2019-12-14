@@ -20,28 +20,28 @@ test('uses preset', t => {
   t.notThrows(() => new Neutrino().use(mw()));
 });
 
-test('valid preset production', t => {
+// Waiting for webpack 5 support:
+// https://github.com/vuejs/vue-loader/issues/1599
+test.skip('valid preset production', t => {
   process.env.NODE_ENV = 'production';
   const api = new Neutrino();
   api.use(mw());
   const config = api.config.toConfig();
 
-  const errors = validate(config);
   t.deepEqual(config.resolve.extensions, expectedExtensions);
-
-  t.is(errors.length, 0);
+  t.notThrows(() => validate(config));
 });
 
-test('valid preset development', t => {
+// Waiting for webpack 5 support:
+// https://github.com/vuejs/vue-loader/issues/1599
+test.skip('valid preset development', t => {
   process.env.NODE_ENV = 'development';
   const api = new Neutrino();
   api.use(mw());
   const config = api.config.toConfig();
 
-  const errors = validate(config);
   t.deepEqual(config.resolve.extensions, expectedExtensions);
-
-  t.is(errors.length, 0);
+  t.notThrows(() => validate(config));
 });
 
 test('updates lint config by default', t => {

@@ -31,7 +31,7 @@ module.exports = (opts = {}) => neutrino => {
       hot: true,
       html: {},
       devtool: {
-        development: 'cheap-module-eval-source-map',
+        development: 'eval-cheap-module-source-map',
         production: undefined,
         test: 'source-map',
       },
@@ -201,12 +201,8 @@ module.exports = (opts = {}) => neutrino => {
       // Override the default limit of 3 chunks per entrypoint in production, since
       // it speeds up builds and the greater number of requests is mitigated by use
       // of long term caching (and a non-issue if using HTTP2).
+      // TODO: Re-adjust based on https://github.com/webpack/changelog-v5/blob/master/MIGRATION%20GUIDE.md#cleanup-configuration
       maxInitialRequests: isProduction ? 5 : Infinity,
-      // By default the generated files use names that reference the chunk names, eg:
-      // `vendors~index~page2.b694ee99.js`. Setting to `false` causes them to use the
-      // chunk ID instead (eg `1.ceddedc0.js`), which prevents cache-busting when a
-      // new page is added with the same shared vendor dependencies.
-      name: !isProduction,
     })
     // Create a separate chunk for the webpack runtime, so it can be cached separately
     // from the more frequently-changing entrypoint chunks.
@@ -232,10 +228,6 @@ module.exports = (opts = {}) => neutrino => {
       '.json',
     ])
     .end()
-    .end()
-    .node.set('Buffer', false)
-    .set('fs', 'empty')
-    .set('tls', 'empty')
     .end()
     // The default output is too noisy, particularly with multiple entrypoints.
     .stats({
