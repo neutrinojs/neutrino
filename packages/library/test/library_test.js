@@ -103,7 +103,7 @@ test('valid preset Node.js target', t => {
   const api = new Neutrino();
   api.use(mw({ name: 'alpha', target: 'node' }));
 
-  const config = api.config.toConfig()
+  const config = api.config.toConfig();
 
   t.notThrows(() => validate(config));
 });
@@ -112,7 +112,7 @@ test('valid preset commonjs2 libraryTarget', t => {
   const api = new Neutrino();
   api.use(mw({ name: 'alpha', libraryTarget: 'commonjs2' }));
 
-  const config = api.config.toConfig()
+  const config = api.config.toConfig();
 
   t.notThrows(() => validate(config));
 });

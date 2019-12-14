@@ -24,7 +24,7 @@ test('valid preset production', t => {
   const api = new Neutrino();
   api.use(mw());
 
-  const config = api.config.toConfig()
+  const config = api.config.toConfig();
 
   t.notThrows(() => validate(config));
 });
@@ -34,7 +34,7 @@ test('valid preset development', t => {
   const api = new Neutrino();
   api.use(mw());
 
-  const config = api.config.toConfig()
+  const config = api.config.toConfig();
 
   t.notThrows(() => validate(config));
 });
