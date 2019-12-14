@@ -19,7 +19,7 @@ with Airbnb's ESLint config, following the
 - Node.js 10+
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino 9 and one of the Neutrino build presets
-- webpack 4
+- webpack 5
 - ESLint 6
 
 ## Quickstart
