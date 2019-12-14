@@ -53,8 +53,8 @@ const WEBPACK_DEV_SERVER = 'webpack-dev-server@^3';
 // package.json necessities
 const ENTRIES = { main: 'build/index.js', module: 'src/index.js' };
 const DEV_SERVER_START = 'webpack-dev-server --mode development --open';
-const WATCH_START = 'webpack --watch --mode development';
-const BUILD = 'webpack --mode production';
+const WATCH_START = 'webpack --watch --dev';
+const BUILD = 'webpack --prod';
 
 // For dependencies that are Neutrino monorepo packages, install the
 // same major version as found in create-project's package.json.

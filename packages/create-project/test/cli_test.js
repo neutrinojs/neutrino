@@ -148,7 +148,7 @@ tests.forEach(({ project, linter, testRunner }) => {
     // TODO: Find a way in the future to actually test that the spawned watchers
     // produce the expected result.
     if ('start' in pkg.scripts) {
-      await buildable(t, dir, '-- --mode development');
+      await buildable(t, dir, '-- --dev');
     }
 
     if (testRunner) {
