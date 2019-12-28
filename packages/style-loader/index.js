@@ -19,7 +19,9 @@ module.exports = (opts = {}) => neutrino => {
       loaders: [],
       extract: {
         enabled: isProduction,
-        loader: {},
+        loader: {
+          esModule: true,
+        },
         plugin: {
           filename: isProduction
             ? 'assets/[name].[contenthash:8].css'

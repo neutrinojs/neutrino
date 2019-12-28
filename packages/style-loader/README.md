@@ -62,7 +62,9 @@ neutrino.use(
     modulesTest: /\.module.css$/,
     extract: {
       enabled: process.env.NODE_ENV === 'production',
-      loader: {},
+      loader: {
+        esModule: true,
+      },
       plugin: {
         filename:
           process.env.NODE_ENV === 'production'
