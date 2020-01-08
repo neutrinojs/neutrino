@@ -22,7 +22,7 @@ using the Karma test runner.
 - Neutrino 9 and one of the Neutrino build presets
 - webpack 4
 - Karma 4 and Karma CLI 2
-- Mocha 6
+- Mocha 6 or 7
 
 ## Quickstart
 
