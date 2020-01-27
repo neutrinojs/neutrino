@@ -41,21 +41,21 @@
   "devDependencies": {
     "auto-changelog": "^1.16.2",
     "ava": "^1.4.1",
-    "eslint": "^6.7.2",
-    "eslint-config-prettier": "^6.7.0",
-    "eslint-plugin-prettier": "^3.1.1",
-    "husky": "^4.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.1",
     "jest": "^25.1.0",
     "karma": "^4.4.1",
     "karma-cli": "^2.0.0",
-    "lerna": "^3.19.0",
-    "lint-staged": "^10.0.0",
-    "mocha": "^7.0.0",
+    "lerna": "^3.20.2",
+    "lint-staged": "^10.0.3",
+    "mocha": "^7.0.1",
     "prettier": "^1.19.1",
-    "verdaccio": "^4.3.5",
+    "verdaccio": "^4.4.2",
     "verdaccio-memory": "^9.0.0",
-    "webpack": "^4.41.2",
+    "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.9.0"
+    "webpack-dev-server": "^3.10.1"
   }
 }
