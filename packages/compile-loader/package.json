@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/compile-loader",
-  "version": "9.0.0",
+  "version": "9.1.0",
   "description": "Neutrino middleware for compiling JavaScript using Babel configuration",
   "main": "index.js",
   "keywords": [
