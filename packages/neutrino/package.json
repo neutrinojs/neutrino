@@ -32,6 +32,6 @@
     "lodash.clonedeep": "^4.5.0",
     "semver": "^7.1.1",
     "webpack-chain": "^6.3.0",
-    "yargs-parser": "^17.0.0"
+    "yargs-parser": "^18.0.0"
   }
 }
