@@ -42,7 +42,7 @@
     "chalk": "^3.0.0",
     "deepmerge": "^1.5.2",
     "ejs": "^3.0.1",
-    "fs-extra": "^8.1.0",
+    "fs-extra": "^9.0.0",
     "javascript-stringify": "^2.0.1",
     "yargs": "^15.1.0",
     "yeoman-environment": "^2.7.0",
