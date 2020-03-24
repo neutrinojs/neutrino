@@ -6541,7 +6541,6 @@ fsevents@^1.2.7:
   dependencies:
     bindings "^1.5.0"
     nan "^2.12.1"
-    node-pre-gyp "*"
 
 fsevents@^2.1.2, fsevents@~2.1.1, fsevents@~2.1.2:
   version "2.1.2"
@@ -7207,7 +7206,7 @@ html-minifier@^3.5.8:
     relateurl "0.2.x"
     uglify-js "3.4.x"
 
-html-webpack-plugin@4.0.1:
+html-webpack-plugin@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-4.0.1.tgz#f5e5ec9cd40967e691df3ffce91bb65c6c0123ad"
   integrity sha512-L6JkRGdvcZcA/zYbELcGvdQKAPtH8mfRE7R5u9/9kXZlZyhteQoae43XPfRS9QEIrMGU/myoRT3X4Ysw1ISyfw==
