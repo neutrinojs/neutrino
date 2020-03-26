@@ -29,7 +29,6 @@ module.exports = {
                 jsxBracketSameLine: true,
                 trailingComma: 'all',
                 proseWrap: 'always',
-                endOfLine: 'lf',
               },
             ],
             // Allow using console since most of the code in this repo isn't run in a browser.
@@ -79,8 +78,8 @@ module.exports = {
         },
       },
     }),
-    neutrino => {
-      neutrino.register('prettierrc', neutrino => {
+    (neutrino) => {
+      neutrino.register('prettierrc', (neutrino) => {
         const handler = neutrino.outputHandlers.get('eslintrc');
         const eslintConfig = handler(neutrino);
 

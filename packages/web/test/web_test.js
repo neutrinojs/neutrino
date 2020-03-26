@@ -15,15 +15,15 @@ test.afterEach(() => {
   process.env.NODE_ENV = originalNodeEnv;
 });
 
-test('loads preset', t => {
+test('loads preset', (t) => {
   t.notThrows(() => require('..'));
 });
 
-test('uses preset', t => {
+test('uses preset', (t) => {
   t.notThrows(() => new Neutrino().use(mw()));
 });
 
-test('valid preset production', t => {
+test('valid preset production', (t) => {
   process.env.NODE_ENV = 'production';
   const api = new Neutrino();
   api.use(mw());
@@ -51,7 +51,7 @@ test('valid preset production', t => {
   t.is(errors.length, 0);
 });
 
-test('valid preset development', t => {
+test('valid preset development', (t) => {
   process.env.NODE_ENV = 'development';
   const api = new Neutrino();
   api.use(mw());
@@ -90,7 +90,7 @@ test('valid preset development', t => {
   t.is(errors.length, 0);
 });
 
-test('valid preset test', t => {
+test('valid preset test', (t) => {
   process.env.NODE_ENV = 'test';
   const api = new Neutrino();
   api.use(mw());
@@ -118,7 +118,7 @@ test('valid preset test', t => {
   t.is(errors.length, 0);
 });
 
-test('devtool string option production', t => {
+test('devtool string option production', (t) => {
   process.env.NODE_ENV = 'production';
   const api = new Neutrino();
   api.use(mw({ devtool: 'source-map' }));
@@ -127,7 +127,7 @@ test('devtool string option production', t => {
   t.is(config.devtool, 'source-map');
 });
 
-test('devtool object option production', t => {
+test('devtool object option production', (t) => {
   process.env.NODE_ENV = 'production';
   const api = new Neutrino();
   api.use(
@@ -142,7 +142,7 @@ test('devtool object option production', t => {
   t.is(config.devtool, 'source-map');
 });
 
-test('devtool string option development', t => {
+test('devtool string option development', (t) => {
   process.env.NODE_ENV = 'development';
   const api = new Neutrino();
   api.use(mw({ devtool: 'source-map' }));
@@ -151,7 +151,7 @@ test('devtool string option development', t => {
   t.is(config.devtool, 'source-map');
 });
 
-test('devtool object option development', t => {
+test('devtool object option development', (t) => {
   process.env.NODE_ENV = 'development';
   const api = new Neutrino();
   api.use(
@@ -166,7 +166,7 @@ test('devtool object option development', t => {
   t.is(config.devtool, 'source-map');
 });
 
-test('devtool string option test', t => {
+test('devtool string option test', (t) => {
   process.env.NODE_ENV = 'test';
   const api = new Neutrino();
   api.use(mw({ devtool: 'cheap-eval-source-map' }));
@@ -175,7 +175,7 @@ test('devtool string option test', t => {
   t.is(config.devtool, 'cheap-eval-source-map');
 });
 
-test('devtool object option test', t => {
+test('devtool object option test', (t) => {
   process.env.NODE_ENV = 'test';
   const api = new Neutrino();
   api.use(
@@ -190,7 +190,7 @@ test('devtool object option test', t => {
   t.is(config.devtool, 'cheap-eval-source-map');
 });
 
-test('supports env option using array form', t => {
+test('supports env option using array form', (t) => {
   const api = new Neutrino();
 
   const env = ['VAR1', 'VAR2'];
@@ -198,7 +198,7 @@ test('supports env option using array form', t => {
   t.deepEqual(api.config.plugin('env').get('args'), [env]);
 });
 
-test('supports env option using object form', t => {
+test('supports env option using object form', (t) => {
   const api = new Neutrino();
 
   const env = { VAR: 'default-value' };
@@ -206,7 +206,7 @@ test('supports env option using object form', t => {
   t.deepEqual(api.config.plugin('env').get('args'), [env]);
 });
 
-test('supports multiple mains with custom html-webpack-plugin options', t => {
+test('supports multiple mains with custom html-webpack-plugin options', (t) => {
   const mains = {
     index: './index',
     admin: {
@@ -251,7 +251,7 @@ test('supports multiple mains with custom html-webpack-plugin options', t => {
   ]);
 });
 
-test('throws when used twice', t => {
+test('throws when used twice', (t) => {
   const api = new Neutrino();
   api.use(mw());
   t.throws(
@@ -260,7 +260,7 @@ test('throws when used twice', t => {
   );
 });
 
-test('throws when minify.babel defined', t => {
+test('throws when minify.babel defined', (t) => {
   const api = new Neutrino();
   t.throws(
     () => api.use(mw({ minify: { babel: false } })),
@@ -268,7 +268,7 @@ test('throws when minify.babel defined', t => {
   );
 });
 
-test('throws when minify.image defined', t => {
+test('throws when minify.image defined', (t) => {
   const api = new Neutrino();
   t.throws(
     () => api.use(mw({ minify: { image: true } })),
@@ -276,7 +276,7 @@ test('throws when minify.image defined', t => {
   );
 });
 
-test('throws when minify.style defined', t => {
+test('throws when minify.style defined', (t) => {
   const api = new Neutrino();
   t.throws(
     () => api.use(mw({ minify: { style: false } })),
@@ -284,7 +284,7 @@ test('throws when minify.style defined', t => {
   );
 });
 
-test('throws when polyfills defined', t => {
+test('throws when polyfills defined', (t) => {
   const api = new Neutrino();
   t.throws(
     () => api.use(mw({ polyfills: {} })),
@@ -292,7 +292,7 @@ test('throws when polyfills defined', t => {
   );
 });
 
-test('throws when manifest defined', t => {
+test('throws when manifest defined', (t) => {
   const api = new Neutrino();
   t.throws(
     () => api.use(mw({ manifest: {} })),
@@ -300,7 +300,7 @@ test('throws when manifest defined', t => {
   );
 });
 
-test('throws when hotEntries defined', t => {
+test('throws when hotEntries defined', (t) => {
   const api = new Neutrino();
   t.throws(
     () => api.use(mw({ hotEntries: [] })),
@@ -308,7 +308,7 @@ test('throws when hotEntries defined', t => {
   );
 });
 
-test('throws when devServer.proxy is the deprecated string shorthand', t => {
+test('throws when devServer.proxy is the deprecated string shorthand', (t) => {
   const api = new Neutrino();
   t.throws(
     () => api.use(mw({ devServer: { proxy: 'foo' } })),
@@ -316,7 +316,7 @@ test('throws when devServer.proxy is the deprecated string shorthand', t => {
   );
 });
 
-test('throws when style.extract is true', t => {
+test('throws when style.extract is true', (t) => {
   const api = new Neutrino();
   t.throws(
     () => api.use(mw({ style: { extract: true } })),
@@ -324,7 +324,7 @@ test('throws when style.extract is true', t => {
   );
 });
 
-test('targets option test', t => {
+test('targets option test', (t) => {
   const api = new Neutrino();
   const targets = {
     browsers: ['last 2 iOS versions'],
@@ -332,35 +332,28 @@ test('targets option test', t => {
   api.use(mw({ targets }));
 
   t.deepEqual(
-    api.config.module
-      .rule('compile')
-      .use('babel')
-      .get('options').presets[0][1].targets,
+    api.config.module.rule('compile').use('babel').get('options').presets[0][1]
+      .targets,
     targets,
   );
 });
 
-test('targets false option test', t => {
+test('targets false option test', (t) => {
   const api = new Neutrino();
   api.use(mw({ targets: false }));
 
   t.deepEqual(
-    api.config.module
-      .rule('compile')
-      .use('babel')
-      .get('options').presets[0][1].targets,
+    api.config.module.rule('compile').use('babel').get('options').presets[0][1]
+      .targets,
     {},
   );
 });
 
-test('updates lint config by default', t => {
+test('updates lint config by default', (t) => {
   const api = new Neutrino();
   api.use(lint());
   api.use(mw());
-  const options = api.config.module
-    .rule('lint')
-    .use('eslint')
-    .get('options');
+  const options = api.config.module.rule('lint').use('eslint').get('options');
   t.deepEqual(options.baseConfig.env, {
     browser: true,
     commonjs: true,
@@ -368,13 +361,10 @@ test('updates lint config by default', t => {
   });
 });
 
-test('does not update lint config if useEslintrc true', t => {
+test('does not update lint config if useEslintrc true', (t) => {
   const api = new Neutrino();
   api.use(lint({ eslint: { useEslintrc: true } }));
   api.use(mw());
-  const options = api.config.module
-    .rule('lint')
-    .use('eslint')
-    .get('options');
+  const options = api.config.module.rule('lint').use('eslint').get('options');
   t.deepEqual(options.baseConfig, {});
 });

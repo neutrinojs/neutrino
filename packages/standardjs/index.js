@@ -1,7 +1,7 @@
 const lint = require('@neutrinojs/eslint');
 const { rules: standardRules } = require('eslint-config-standard');
 
-module.exports = ({ eslint = {}, ...opts } = {}) => neutrino => {
+module.exports = ({ eslint = {}, ...opts } = {}) => (neutrino) => {
   const baseConfig = eslint.baseConfig || {};
   neutrino.use(
     lint({

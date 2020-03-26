@@ -9,7 +9,7 @@ const merge = require('deepmerge');
 const omit = require('lodash.omit');
 const { ConfigurationError } = require('neutrino/errors');
 
-const getOutputForEntry = entry =>
+const getOutputForEntry = (entry) =>
   basename(format(merge(omit(parse(entry), ['base']), { ext: '.js' })));
 
 module.exports = (opts = {}) => {
@@ -19,7 +19,7 @@ module.exports = (opts = {}) => {
     );
   }
 
-  return neutrino => {
+  return (neutrino) => {
     const pkg = neutrino.options.packageJson;
     const sourceMap =
       (pkg && pkg.dependencies && pkg.dependencies['source-map-support']) ||
@@ -83,7 +83,7 @@ module.exports = (opts = {}) => {
       // Keep in sync with the options in the web and library presets.
       .merge([
         '.wasm',
-        ...neutrino.options.extensions.map(ext => `.${ext}`),
+        ...neutrino.options.extensions.map((ext) => `.${ext}`),
         '.json',
       ])
       .end()
@@ -94,7 +94,7 @@ module.exports = (opts = {}) => {
         entrypoints: false,
         modules: false,
       })
-      .when(process.env.NODE_ENV === 'development', config => {
+      .when(process.env.NODE_ENV === 'development', (config) => {
         const mainKeys = Object.keys(neutrino.options.mains);
 
         neutrino.use(
@@ -106,18 +106,18 @@ module.exports = (opts = {}) => {
           .devtool('inline-sourcemap')
           .output.devtoolModuleFilenameTemplate('[absolute-resource-path]')
           .end()
-          .when(options.hot, config => {
+          .when(options.hot, (config) => {
             config
               .plugin('hot')
               .use(require.resolve('webpack/lib/HotModuleReplacementPlugin'));
-            mainKeys.forEach(key => {
+            mainKeys.forEach((key) => {
               config
                 .entry(key)
                 .add(`${require.resolve('webpack/hot/poll')}?1000`);
             });
           });
       })
-      .when(process.env.NODE_ENV === 'production', config => {
+      .when(process.env.NODE_ENV === 'production', (config) => {
         config.when(options.clean !== false, () =>
           neutrino.use(clean(options.clean)),
         );

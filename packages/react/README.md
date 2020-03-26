@@ -330,7 +330,7 @@ const react = require('@neutrinojs/react');
 module.exports = {
   use: [
     react(),
-    neutrino => {
+    (neutrino) => {
       neutrino.config.optimization.merge({
         splitChunks: {
           // Decrease the minimum size before extra chunks are created, to 10KB

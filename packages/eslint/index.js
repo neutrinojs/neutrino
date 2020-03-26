@@ -1,11 +1,11 @@
 const { ConfigurationError, DuplicateRuleError } = require('neutrino/errors');
 
-const arrayToObject = array =>
+const arrayToObject = (array) =>
   array.reduce((obj, item) => Object.assign(obj, { [item]: true }), {});
 
 // Return an ESLint config object matching the schema here:
 // https://github.com/eslint/eslint/blob/v6.3.0/conf/config-schema.js
-const eslintrc = neutrino => {
+const eslintrc = (neutrino) => {
   const options = neutrino.config.module
     .rule('lint')
     .use('eslint')
@@ -100,7 +100,7 @@ module.exports = ({ test, include, exclude, eslint = {} } = {}) => {
   // https://github.com/webpack-contrib/eslint-loader/issues/252
   // https://github.com/eslint/eslint/issues/10272
   const invalidOptions = Object.keys(eslint).filter(
-    option => !validLoaderOptions.includes(option),
+    (option) => !validLoaderOptions.includes(option),
   );
 
   if (invalidOptions.length) {
@@ -113,7 +113,7 @@ module.exports = ({ test, include, exclude, eslint = {} } = {}) => {
     );
   }
 
-  return neutrino => {
+  return (neutrino) => {
     if (neutrino.config.module.rules.has('compile')) {
       throw new ConfigurationError(
         'Lint presets must be defined prior to any other presets in .neutrinorc.js.',
@@ -184,7 +184,7 @@ module.exports = ({ test, include, exclude, eslint = {} } = {}) => {
         include || [neutrino.options.source, neutrino.options.tests],
       )
       .end()
-      .when(exclude, rule => rule.exclude.merge(exclude))
+      .when(exclude, (rule) => rule.exclude.merge(exclude))
       .use('eslint')
       .loader(require.resolve('eslint-loader'))
       .options(loaderOptions);

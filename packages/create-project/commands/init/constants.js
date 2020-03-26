@@ -58,8 +58,8 @@ const BUILD = 'webpack --mode production';
 
 // For dependencies that are Neutrino monorepo packages, install the
 // same major version as found in create-project's package.json.
-const version = dependency => `${dependency}@^${neutrinoVersion}`;
-const webapp = name => ({
+const version = (dependency) => `${dependency}@^${neutrinoVersion}`;
+const webapp = (name) => ({
   html: {
     title: name,
   },
@@ -102,7 +102,7 @@ const webapp = name => ({
         build: BUILD,
       },
     },
-    options: name => ({ name }),
+    options: (name) => ({ name }),
   },
   {
     name: 'node',
@@ -286,13 +286,13 @@ const webapp = name => ({
       },
     },
   },
-].forEach(preset => {
+].forEach((preset) => {
   presets.set(preset.package, preset);
   presets.set(preset.name, preset);
 });
 
 // Question utilities
-const toChoice = pkg => {
+const toChoice = (pkg) => {
   const value = presets.get(pkg);
 
   return { name: value.description, value: pkg };
@@ -310,49 +310,49 @@ const questions = [
     name: 'project',
     type: 'list',
     message: '🤔  Next, what kind of application would you like to create?',
-    when: data => data.projectType === APPLICATION.value,
+    when: (data) => data.projectType === APPLICATION.value,
     choices: [N.REACT, N.PREACT, N.VUE, N.NODE, N.WEB].map(toChoice),
   },
   {
     name: 'project',
     type: 'list',
     message: '🤔  Next, what kind of library would you like to create?',
-    when: data => data.projectType === LIBRARY.value,
+    when: (data) => data.projectType === LIBRARY.value,
     choices: [N.WEB_NODE_LIBRARY].map(toChoice),
   },
   {
     name: 'project',
     type: 'list',
     message: '🤔  Next, what kind of components would you like to create?',
-    when: data => data.projectType === COMPONENTS.value,
+    when: (data) => data.projectType === COMPONENTS.value,
     choices: [N.REACT_COMPONENTS].map(toChoice),
   },
   {
     name: 'testRunner',
     type: 'list',
     message: '🤔  Would you like to add a test runner to your project?',
-    when: data => !data.project.includes('node'),
+    when: (data) => !data.project.includes('node'),
     choices: [N.JEST, N.KARMA, N.MOCHA].map(toChoice).concat(NONE),
   },
   {
     name: 'testRunner',
     type: 'list',
     message: '🤔  Would you like to add a test runner to your project?',
-    when: data => data.project.includes('node'),
+    when: (data) => data.project.includes('node'),
     choices: [N.JEST, N.MOCHA].map(toChoice).concat(NONE),
   },
   {
     name: 'linter',
     type: 'list',
     message: '🤔  Would you like to add linting to your project?',
-    when: data => data.project.includes('react'),
+    when: (data) => data.project.includes('react'),
     choices: [N.AIRBNB, N.STANDARDJS].map(toChoice).concat(NONE),
   },
   {
     name: 'linter',
     type: 'list',
     message: '🤔  Would you like to add linting to your project?',
-    when: data => !data.project.includes('react'),
+    when: (data) => !data.project.includes('react'),
     choices: [N.AIRBNB_BASE, N.STANDARDJS].map(toChoice).concat(NONE),
   },
 ];

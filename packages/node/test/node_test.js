@@ -11,24 +11,24 @@ test.afterEach(() => {
   process.env.NODE_ENV = originalNodeEnv;
 });
 
-test('loads preset', t => {
+test('loads preset', (t) => {
   t.notThrows(() => require('..'));
 });
 
-test('uses preset', t => {
+test('uses preset', (t) => {
   const api = new Neutrino();
 
   t.notThrows(() => api.use(mw()));
 });
 
-test('uses preset with custom main', t => {
+test('uses preset with custom main', (t) => {
   const api = new Neutrino({ mains: { server: 'server' } });
 
   t.notThrows(() => api.use(mw()));
   t.true(api.config.entryPoints.has('server'));
 });
 
-test('valid preset production', t => {
+test('valid preset production', (t) => {
   process.env.NODE_ENV = 'production';
   const api = new Neutrino();
   api.use(mw());
@@ -52,7 +52,7 @@ test('valid preset production', t => {
   t.is(errors.length, 0);
 });
 
-test('valid preset development', t => {
+test('valid preset development', (t) => {
   process.env.NODE_ENV = 'development';
   const api = new Neutrino();
   api.use(mw());
@@ -76,7 +76,7 @@ test('valid preset development', t => {
   t.is(errors.length, 0);
 });
 
-test('throws when polyfills defined', t => {
+test('throws when polyfills defined', (t) => {
   const api = new Neutrino();
   t.throws(
     () => api.use(mw({ polyfills: {} })),

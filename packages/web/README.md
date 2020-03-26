@@ -539,7 +539,7 @@ const web = require('@neutrinojs/web');
 module.exports = {
   use: [
     web(),
-    neutrino => {
+    (neutrino) => {
       neutrino.config.optimization.merge({
         splitChunks: {
           // Decrease the minimum size before extra chunks are created, to 10KB
@@ -567,7 +567,7 @@ const web = require('@neutrinojs/web');
 module.exports = {
   use: [
     web(),
-    neutrino => {
+    (neutrino) => {
       // Whilst the minimizer is only used when the separate `minimize` option is true
       // (ie in production), the conditional avoids the expensive require() in development.
       if (process.env.NODE_ENV === 'production') {

@@ -211,7 +211,7 @@ import Logger from 'super-logger';
 const Logger = require('super-logger');
 
 // AMD require
-require(['super-logger'], Logger => {
+require(['super-logger'], (Logger) => {
   // ...
 });
 ```
@@ -476,7 +476,7 @@ const library = require('@neutrinojs/library');
 module.exports = {
   use: [
     library({ name: 'reduxExample' }),
-    neutrino => {
+    (neutrino) => {
       // Whilst the minimizer is only used when the separate `minimize` option is true
       // (ie in production), the conditional avoids the expensive require() in development.
       if (process.env.NODE_ENV === 'production') {
@@ -573,7 +573,7 @@ module.exports = {
     library({
       /* ... */
     }),
-    neutrino => {
+    (neutrino) => {
       neutrino.config.resolve.extensions.add('.esm');
     },
   ],

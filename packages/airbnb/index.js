@@ -6,7 +6,7 @@ const {
   rules: airbnbBaseBestPractices,
 } = require('eslint-config-airbnb-base/rules/best-practices');
 
-module.exports = ({ eslint = {}, ...opts } = {}) => neutrino => {
+module.exports = ({ eslint = {}, ...opts } = {}) => (neutrino) => {
   const baseConfig = eslint.baseConfig || {};
   neutrino.use(
     lint({

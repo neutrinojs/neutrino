@@ -100,21 +100,21 @@ module.exports = {
 
 ```js
 // Before:
-module.exports = neutrino => {
+module.exports = (neutrino) => {
   neutrino.use('@neutrinojs/react');
 };
 
 // After:
 const react = require('@neutrinojs/react');
 
-module.exports = neutrino => {
+module.exports = (neutrino) => {
   neutrino.use(react());
 };
 ```
 
 ```js
 // Before:
-module.exports = neutrino => {
+module.exports = (neutrino) => {
   neutrino.use('@neutrinojs/react', {
     html: {
       title: 'Migration App',
@@ -125,7 +125,7 @@ module.exports = neutrino => {
 // After:
 const react = require('@neutrinojs/react');
 
-module.exports = neutrino => {
+module.exports = (neutrino) => {
   neutrino.use(
     react({
       html: {

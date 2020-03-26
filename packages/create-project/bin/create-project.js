@@ -5,7 +5,7 @@ const { createEnv } = require('yeoman-environment');
 const { basename, isAbsolute, join, resolve } = require('path');
 
 const env = createEnv();
-const done = exitCode => process.exit(exitCode || 0);
+const done = (exitCode) => process.exit(exitCode || 0);
 const dir = resolve(__dirname, '../commands/init');
 
 env.register(require.resolve(dir), 'create-project');

@@ -3,12 +3,12 @@ const merge = require('deepmerge');
 const omit = require('lodash.omit');
 const { join } = require('path');
 
-module.exports = (options = {}) => neutrino => {
+module.exports = (options = {}) => (neutrino) => {
   const lintRule = neutrino.config.module.rules.get('lint');
   if (lintRule) {
     lintRule.use('eslint').tap(
       // Don't adjust the lint configuration for projects using their own .eslintrc.
-      lintOptions =>
+      (lintOptions) =>
         lintOptions.useEslintrc
           ? lintOptions
           : merge(lintOptions, {
@@ -21,12 +21,12 @@ module.exports = (options = {}) => neutrino => {
     );
   }
 
-  neutrino.register('karma', neutrino => config => {
+  neutrino.register('karma', (neutrino) => (config) => {
     if (neutrino.config.module.rules.has('compile')) {
       neutrino.config.module
         .rule('compile')
         .use('babel')
-        .tap(options =>
+        .tap((options) =>
           babelMerge(options, {
             plugins: [require.resolve('babel-plugin-istanbul')],
           }),

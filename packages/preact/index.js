@@ -2,7 +2,7 @@ const babelMerge = require('babel-merge');
 const web = require('@neutrinojs/web');
 const merge = require('deepmerge');
 
-module.exports = (opts = {}) => neutrino => {
+module.exports = (opts = {}) => (neutrino) => {
   const options = {
     hot: true,
     ...opts,
@@ -37,7 +37,7 @@ module.exports = (opts = {}) => neutrino => {
   if (lintRule) {
     lintRule.use('eslint').tap(
       // Don't adjust the lint configuration for projects using their own .eslintrc.
-      lintOptions =>
+      (lintOptions) =>
         lintOptions.useEslintrc
           ? lintOptions
           : merge(lintOptions, {

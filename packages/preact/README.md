@@ -331,7 +331,7 @@ const preact = require('@neutrinojs/preact');
 module.exports = {
   use: [
     preact(),
-    neutrino => {
+    (neutrino) => {
       neutrino.config.optimization.merge({
         splitChunks: {
           // Decrease the minimum size before extra chunks are created, to 10KB

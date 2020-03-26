@@ -12,7 +12,7 @@ module.exports = ({ pluginId = 'html', ...options } = {}) => {
     );
   }
 
-  return neutrino => {
+  return (neutrino) => {
     neutrino.config
       .plugin(pluginId)
       .use(require.resolve('html-webpack-plugin'), [

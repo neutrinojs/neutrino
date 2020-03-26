@@ -11,25 +11,25 @@ test.afterEach(() => {
   process.env.NODE_ENV = originalNodeEnv;
 });
 
-test('loads middleware', t => {
+test('loads middleware', (t) => {
   t.notThrows(() => require('..'));
 });
 
-test('uses middleware', t => {
+test('uses middleware', (t) => {
   t.notThrows(() => {
     const api = new Neutrino();
     api.use(mw());
   });
 });
 
-test('instantiates', t => {
+test('instantiates', (t) => {
   const api = new Neutrino();
   api.use(mw());
 
   t.notThrows(() => api.config.toConfig());
 });
 
-test('instantiates in development', t => {
+test('instantiates in development', (t) => {
   process.env.NODE_ENV = 'development';
   const api = new Neutrino();
   api.use(mw());
@@ -37,7 +37,7 @@ test('instantiates in development', t => {
   t.notThrows(() => api.config.toConfig());
 });
 
-test('instantiates in production', t => {
+test('instantiates in production', (t) => {
   process.env.NODE_ENV = 'production';
   const api = new Neutrino();
   api.use(mw());
@@ -45,7 +45,7 @@ test('instantiates in production', t => {
   t.notThrows(() => api.config.toConfig());
 });
 
-test('exposes karma output handler', t => {
+test('exposes karma output handler', (t) => {
   const api = new Neutrino();
   api.use(mw());
 
@@ -54,7 +54,7 @@ test('exposes karma output handler', t => {
   t.is(typeof handler, 'function');
 });
 
-test('exposes karma config from output', t => {
+test('exposes karma config from output', (t) => {
   // Karma's config handler returns a function.
   // Force evaluation by calling it.
   const fakeKarma = new Map();
@@ -63,11 +63,11 @@ test('exposes karma config from output', t => {
   t.is(config, fakeKarma);
 });
 
-test('exposes karma method', t => {
+test('exposes karma method', (t) => {
   t.is(typeof neutrino(mw()).karma, 'function');
 });
 
-test('exposes karma config from method', t => {
+test('exposes karma config from method', (t) => {
   // Karma's config handler returns a function.
   // Force evaluation by calling it.
   const fakeKarma = new Map();
@@ -76,7 +76,7 @@ test('exposes karma config from method', t => {
   t.is(config, fakeKarma);
 });
 
-test('uses middleware with options', t => {
+test('uses middleware with options', (t) => {
   // Karma's config handler returns a function.
   // Force evaluation by calling it.
   const fakeKarma = new Map();
@@ -97,27 +97,21 @@ test('uses middleware with options', t => {
   t.is(options.webpackMiddleware.stats.errors, false);
 });
 
-test('updates lint config by default', t => {
+test('updates lint config by default', (t) => {
   const api = new Neutrino();
   api.use(lint());
   api.use(mw());
-  const options = api.config.module
-    .rule('lint')
-    .use('eslint')
-    .get('options');
+  const options = api.config.module.rule('lint').use('eslint').get('options');
   t.deepEqual(options.baseConfig.env, {
     es6: true,
     mocha: true,
   });
 });
 
-test('does not update lint config if useEslintrc true', t => {
+test('does not update lint config if useEslintrc true', (t) => {
   const api = new Neutrino();
   api.use(lint({ eslint: { useEslintrc: true } }));
   api.use(mw());
-  const options = api.config.module
-    .rule('lint')
-    .use('eslint')
-    .get('options');
+  const options = api.config.module.rule('lint').use('eslint').get('options');
   t.deepEqual(options.baseConfig, {});
 });

@@ -255,7 +255,7 @@ Enzyme.configure({ adapter: new EnzymeAdapter() });
 _shim.js for the example above_
 
 ```js
-global.requestAnimationFrame = callback => {
+global.requestAnimationFrame = (callback) => {
   setTimeout(callback, 0);
 };
 ```
@@ -292,12 +292,12 @@ const jest = require('@neutrinojs/jest');
 module.exports = {
   use: [
     jest(),
-    neutrino => {
+    (neutrino) => {
       if (process.env.NODE_ENV === 'test') {
         neutrino.config.module
           .rule('compile')
           .use('babel')
-          .tap(options =>
+          .tap((options) =>
             merge(options, {
               env: {
                 test: {

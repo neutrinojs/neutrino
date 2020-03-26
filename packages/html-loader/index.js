@@ -1,4 +1,4 @@
-module.exports = (options = {}) => neutrino => {
+module.exports = (options = {}) => (neutrino) => {
   neutrino.config.module
     .rule('html')
     .test(neutrino.regexFromExtensions(['html']))

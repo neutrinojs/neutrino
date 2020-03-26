@@ -10,7 +10,7 @@ const babelMerge = require('babel-merge');
 const merge = require('deepmerge');
 const { ConfigurationError } = require('neutrino/errors');
 
-module.exports = (opts = {}) => neutrino => {
+module.exports = (opts = {}) => (neutrino) => {
   if (neutrino.config.module.rules.has('compile')) {
     throw new ConfigurationError(
       '@neutrinojs/web is being used when a `compile` rule already exists, ' +
@@ -228,7 +228,7 @@ module.exports = (opts = {}) => neutrino => {
     // Keep in sync with the options in the node and library presets.
     .merge([
       '.wasm',
-      ...neutrino.options.extensions.map(ext => `.${ext}`),
+      ...neutrino.options.extensions.map((ext) => `.${ext}`),
       '.json',
     ])
     .end()
@@ -243,15 +243,15 @@ module.exports = (opts = {}) => neutrino => {
       entrypoints: false,
       modules: false,
     })
-    .when(process.env.NODE_ENV === 'development', config => {
+    .when(process.env.NODE_ENV === 'development', (config) => {
       neutrino.use(devServer(options.devServer));
-      config.when(options.hot, config => {
+      config.when(options.hot, (config) => {
         config
           .plugin('hot')
           .use(require.resolve('webpack/lib/HotModuleReplacementPlugin'));
       });
     })
-    .when(isProduction, config => {
+    .when(isProduction, (config) => {
       config.when(options.clean !== false, () =>
         neutrino.use(clean(options.clean)),
       );
@@ -261,7 +261,7 @@ module.exports = (opts = {}) => neutrino => {
   if (lintRule) {
     lintRule.use('eslint').tap(
       // Don't adjust the lint configuration for projects using their own .eslintrc.
-      lintOptions =>
+      (lintOptions) =>
         lintOptions.useEslintrc
           ? lintOptions
           : merge(lintOptions, {

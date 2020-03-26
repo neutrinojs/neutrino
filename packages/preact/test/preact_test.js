@@ -11,15 +11,15 @@ test.afterEach(() => {
   process.env.NODE_ENV = originalNodeEnv;
 });
 
-test('loads preset', t => {
+test('loads preset', (t) => {
   t.notThrows(() => require('..'));
 });
 
-test('uses preset', t => {
+test('uses preset', (t) => {
   t.notThrows(() => new Neutrino().use(mw()));
 });
 
-test('valid preset production', t => {
+test('valid preset production', (t) => {
   process.env.NODE_ENV = 'production';
   const api = new Neutrino();
   api.use(mw());
@@ -29,7 +29,7 @@ test('valid preset production', t => {
   t.is(errors.length, 0);
 });
 
-test('valid preset development', t => {
+test('valid preset development', (t) => {
   process.env.NODE_ENV = 'development';
   const api = new Neutrino();
   api.use(mw());
@@ -39,14 +39,11 @@ test('valid preset development', t => {
   t.is(errors.length, 0);
 });
 
-test('updates lint config by default', t => {
+test('updates lint config by default', (t) => {
   const api = new Neutrino();
   api.use(lint());
   api.use(mw());
-  const options = api.config.module
-    .rule('lint')
-    .use('eslint')
-    .get('options');
+  const options = api.config.module.rule('lint').use('eslint').get('options');
   t.deepEqual(options.baseConfig.env, {
     browser: true,
     commonjs: true,
@@ -56,13 +53,10 @@ test('updates lint config by default', t => {
   t.deepEqual(options.baseConfig.settings, { react: { pragma: 'h' } });
 });
 
-test('does not update lint config if useEslintrc true', t => {
+test('does not update lint config if useEslintrc true', (t) => {
   const api = new Neutrino();
   api.use(lint({ eslint: { useEslintrc: true } }));
   api.use(mw());
-  const options = api.config.module
-    .rule('lint')
-    .use('eslint')
-    .get('options');
+  const options = api.config.module.rule('lint').use('eslint').get('options');
   t.deepEqual(options.baseConfig, {});
 });

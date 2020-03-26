@@ -3,12 +3,12 @@ const omit = require('lodash.omit');
 const { basename, isAbsolute, join, relative } = require('path');
 const { media, style } = require('neutrino/extensions');
 
-module.exports = (options = {}) => neutrino => {
+module.exports = (options = {}) => (neutrino) => {
   const lintRule = neutrino.config.module.rules.get('lint');
   if (lintRule) {
     lintRule.use('eslint').tap(
       // Don't adjust the lint configuration for projects using their own .eslintrc.
-      lintOptions =>
+      (lintOptions) =>
         lintOptions.useEslintrc
           ? lintOptions
           : merge(lintOptions, {
@@ -19,7 +19,7 @@ module.exports = (options = {}) => neutrino => {
     );
   }
 
-  neutrino.register('jest', neutrino => {
+  neutrino.register('jest', (neutrino) => {
     const compileRule = neutrino.config.module.rules.get('compile');
     const babelOptions = compileRule
       ? omit(compileRule.use('babel').get('options'), ['cacheDirectory'])
@@ -28,7 +28,7 @@ module.exports = (options = {}) => neutrino => {
     // that also occurs when passing to the custom transformer using `globals` instead.
     process.env.JEST_BABEL_OPTIONS = JSON.stringify(babelOptions);
 
-    const getFinalPath = path => {
+    const getFinalPath = (path) => {
       if (isAbsolute(path)) {
         return path;
       }
@@ -37,7 +37,7 @@ module.exports = (options = {}) => neutrino => {
         ? join('<rootDir>', path)
         : join('<rootDir>', 'node_modules', path);
     };
-    const extensionsToNames = extensions => `\\.(${extensions.join('|')})$`;
+    const extensionsToNames = (extensions) => `\\.(${extensions.join('|')})$`;
     const { extensions, source, tests, root, debug } = neutrino.options;
     const modulesConfig = neutrino.config.resolve.modules.values();
     const aliases = neutrino.config.resolve.alias.entries() || {};
@@ -52,8 +52,8 @@ module.exports = (options = {}) => neutrino => {
           .values()
           // Jest does not yet support ES6 modules, see:
           // https://github.com/facebook/jest/issues/4842
-          .filter(ext => ext !== '.mjs')
-          .map(extension => extension.replace('.', '')),
+          .filter((ext) => ext !== '.mjs')
+          .map((extension) => extension.replace('.', '')),
         moduleNameMapper: Object.keys(aliases).reduce(
           (mapper, key) => ({
             ...mapper,

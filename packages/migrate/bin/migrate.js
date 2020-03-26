@@ -10,7 +10,7 @@ const cli = yargs
   .command(
     '$0 [files..]',
     'Migrate Neutrino middleware to the latest version via codemods',
-    yargs => {
+    (yargs) => {
       yargs.positional('files', {
         array: true,
         description: 'files to migrate',
@@ -38,7 +38,7 @@ const cli = yargs
 
 run(
   resolve(__dirname, '../transforms/middleware.js'),
-  cli.files.map(file => {
+  cli.files.map((file) => {
     const resolved = resolve(process.cwd(), file);
 
     if (!existsSync(resolved)) {
@@ -48,7 +48,7 @@ run(
     return resolved;
   }),
   { dry: cli.dry, silent: cli.silent, print: cli.print },
-).catch(err => {
+).catch((err) => {
   console.error(err);
   process.exit(1);
 });
