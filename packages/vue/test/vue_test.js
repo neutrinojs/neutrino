@@ -12,15 +12,15 @@ test.afterEach(() => {
   process.env.NODE_ENV = originalNodeEnv;
 });
 
-test('loads preset', t => {
+test('loads preset', (t) => {
   t.notThrows(() => require('..'));
 });
 
-test('uses preset', t => {
+test('uses preset', (t) => {
   t.notThrows(() => new Neutrino().use(mw()));
 });
 
-test('valid preset production', t => {
+test('valid preset production', (t) => {
   process.env.NODE_ENV = 'production';
   const api = new Neutrino();
   api.use(mw());
@@ -32,7 +32,7 @@ test('valid preset production', t => {
   t.is(errors.length, 0);
 });
 
-test('valid preset development', t => {
+test('valid preset development', (t) => {
   process.env.NODE_ENV = 'development';
   const api = new Neutrino();
   api.use(mw());
@@ -44,7 +44,7 @@ test('valid preset development', t => {
   t.is(errors.length, 0);
 });
 
-test('updates lint config by default', t => {
+test('updates lint config by default', (t) => {
   const api = new Neutrino();
   api.use(lint());
   api.use(mw());
@@ -72,28 +72,25 @@ test('updates lint config by default', t => {
   });
 });
 
-test('does not update lint config if useEslintrc true', t => {
+test('does not update lint config if useEslintrc true', (t) => {
   const api = new Neutrino();
   api.use(lint({ eslint: { useEslintrc: true } }));
   api.use(mw());
-  const options = api.config.module
-    .rule('lint')
-    .use('eslint')
-    .get('options');
+  const options = api.config.module.rule('lint').use('eslint').get('options');
   t.deepEqual(options.baseConfig, {});
 });
 
-test('adds style oneOfs in order', t => {
+test('adds style oneOfs in order', (t) => {
   const api = new Neutrino();
   api.use(mw());
   const { oneOfs } = api.config.module.rule('style');
   t.deepEqual(
-    oneOfs.values().map(oneOf => oneOf.name),
+    oneOfs.values().map((oneOf) => oneOf.name),
     ['vue-modules', 'vue-normal', 'modules', 'normal'],
   );
 });
 
-test('replaces style-loader with vue-style-loader in development', t => {
+test('replaces style-loader with vue-style-loader in development', (t) => {
   process.env.NODE_ENV = 'development';
   const api = new Neutrino();
   api.use(mw());
@@ -101,8 +98,8 @@ test('replaces style-loader with vue-style-loader in development', t => {
   api.config.module
     .rule('style')
     .oneOfs.values()
-    .filter(oneOf => oneOf.name.startsWith('vue-'))
-    .forEach(oneOf => {
+    .filter((oneOf) => oneOf.name.startsWith('vue-'))
+    .forEach((oneOf) => {
       t.is(
         oneOf.use('style').get('loader'),
         require.resolve('vue-style-loader'),

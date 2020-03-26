@@ -4,7 +4,7 @@ const Neutrino = require('./Neutrino');
 const { webpack, inspect } = require('./handlers');
 const { ConfigurationError } = require('./errors');
 
-const extractMiddlewareAndOptions = format =>
+const extractMiddlewareAndOptions = (format) =>
   typeof format === 'function' ? { ...format, use: format } : { ...format };
 
 module.exports = (
@@ -46,7 +46,7 @@ module.exports = (
   if (use) {
     try {
       if (Array.isArray(use)) {
-        use.forEach(use => neutrino.use(use));
+        use.forEach((use) => neutrino.use(use));
       } else {
         neutrino.use(use);
       }

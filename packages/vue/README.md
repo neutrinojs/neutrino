@@ -109,7 +109,7 @@ import App from './App.vue';
 
 new Vue({
   el: '#root',
-  render: h => h(App),
+  render: (h) => h(App),
 });
 ```
 
@@ -360,7 +360,7 @@ const vue = require('@neutrinojs/vue');
 module.exports = {
   use: [
     vue(),
-    neutrino => {
+    (neutrino) => {
       neutrino.config.optimization.merge({
         splitChunks: {
           // Decrease the minimum size before extra chunks are created, to 10KB

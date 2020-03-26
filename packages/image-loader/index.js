@@ -1,6 +1,6 @@
 const { DuplicateRuleError } = require('neutrino/errors');
 
-module.exports = (options = {}) => neutrino => {
+module.exports = (options = {}) => (neutrino) => {
   const ruleId = 'image';
   const isProduction = process.env.NODE_ENV === 'production';
   const defaultOptions = {

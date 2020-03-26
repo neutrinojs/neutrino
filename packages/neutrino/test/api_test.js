@@ -2,15 +2,15 @@ import test from 'ava';
 import { join } from 'path';
 import Neutrino from '../Neutrino';
 
-test('initializes with no arguments', t => {
+test('initializes with no arguments', (t) => {
   t.notThrows(() => new Neutrino());
 });
 
-test('initializes with options', t => {
+test('initializes with options', (t) => {
   t.notThrows(() => new Neutrino({ testing: true }));
 });
 
-test('initialization stores options', t => {
+test('initialization stores options', (t) => {
   const options = { alpha: 'a', beta: 'b', gamma: 'c' };
   const api = new Neutrino(options);
 
@@ -19,7 +19,7 @@ test('initialization stores options', t => {
   t.is(api.options.gamma, options.gamma);
 });
 
-test('options.root', t => {
+test('options.root', (t) => {
   const api = new Neutrino();
 
   t.is(api.options.root, process.cwd());
@@ -29,7 +29,7 @@ test('options.root', t => {
   t.is(api.options.root, '/alpha');
 });
 
-test('options.source', t => {
+test('options.source', (t) => {
   const api = new Neutrino();
 
   t.is(api.options.source, join(process.cwd(), 'src'));
@@ -41,7 +41,7 @@ test('options.source', t => {
   t.is(api.options.source, '/alpha');
 });
 
-test('options.output', t => {
+test('options.output', (t) => {
   const api = new Neutrino();
 
   t.is(api.options.output, join(process.cwd(), 'build'));
@@ -53,7 +53,7 @@ test('options.output', t => {
   t.is(api.options.output, '/alpha');
 });
 
-test('options.tests', t => {
+test('options.tests', (t) => {
   const api = new Neutrino();
 
   t.is(api.options.tests, join(process.cwd(), 'test'));
@@ -65,28 +65,28 @@ test('options.tests', t => {
   t.is(api.options.tests, '/alpha');
 });
 
-test('throws when legacy options.node_modules is set', t => {
+test('throws when legacy options.node_modules is set', (t) => {
   t.throws(
     () => new Neutrino({ node_modules: 'abc' }),
     /options\.node_modules has been removed/,
   );
 });
 
-test('throws when legacy options.host is set', t => {
+test('throws when legacy options.host is set', (t) => {
   t.throws(
     () => new Neutrino({ host: 'abc' }),
     /options\.host has been removed/,
   );
 });
 
-test('throws when legacy options.port is set', t => {
+test('throws when legacy options.port is set', (t) => {
   t.throws(
     () => new Neutrino({ port: 1234 }),
     /options\.port has been removed/,
   );
 });
 
-test('options.mains', t => {
+test('options.mains', (t) => {
   const api = new Neutrino();
 
   t.deepEqual(api.options.mains.index, {
@@ -108,7 +108,7 @@ test('options.mains', t => {
   t.deepEqual(api.options.mains.index, { entry: '/alpha.js' });
 });
 
-test('override options.mains', t => {
+test('override options.mains', (t) => {
   const api = new Neutrino({
     mains: {
       alpha: 'beta',
@@ -160,7 +160,7 @@ test('override options.mains', t => {
   t.deepEqual(api.options.mains.gamma, { entry: '/alpha.js' });
 });
 
-test('override options.mains.index template', t => {
+test('override options.mains.index template', (t) => {
   const api = new Neutrino({
     mains: {
       index: {
@@ -175,17 +175,17 @@ test('override options.mains.index template', t => {
   });
 });
 
-test('creates an instance of webpack-chain', t => {
+test('creates an instance of webpack-chain', (t) => {
   t.is(typeof new Neutrino().config.toConfig, 'function');
 });
 
-test('middleware receives API instance', t => {
+test('middleware receives API instance', (t) => {
   const api = new Neutrino();
 
-  api.use(n => t.is(n, api));
+  api.use((n) => t.is(n, api));
 });
 
-test('middleware fails on more than one argument', t => {
+test('middleware fails on more than one argument', (t) => {
   const api = new Neutrino();
   const errorMatch = /middleware only accepts a single argument/;
 
@@ -196,7 +196,7 @@ test('middleware fails on more than one argument', t => {
   /* eslint-enable no-unused-vars */
 });
 
-test('middleware only accepts functions', t => {
+test('middleware only accepts functions', (t) => {
   const api = new Neutrino();
   const errorMatch = /middleware can only be passed as functions/;
 
@@ -206,17 +206,17 @@ test('middleware only accepts functions', t => {
   t.throws(() => api.use({ alpha: 'beta' }), errorMatch);
 });
 
-test('creates a webpack config', t => {
+test('creates a webpack config', (t) => {
   const api = new Neutrino();
 
-  api.use(api => {
+  api.use((api) => {
     api.config.module.rule('compile').test(api.regexFromExtensions(['js']));
   });
 
   t.notDeepEqual(api.config.toConfig(), {});
 });
 
-test('regexFromExtensions', t => {
+test('regexFromExtensions', (t) => {
   const api = new Neutrino();
 
   t.is(String(api.regexFromExtensions()), '/\\.(mjs|jsx|js)$/');
@@ -228,7 +228,7 @@ test('regexFromExtensions', t => {
   );
 });
 
-test('getDependencyVersion', t => {
+test('getDependencyVersion', (t) => {
   const api = new Neutrino();
 
   api.options.packageJson = {
@@ -245,7 +245,7 @@ test('getDependencyVersion', t => {
   t.is(api.getDependencyVersion('eslint'), false);
 });
 
-test('extensions option overrides defaults', t => {
+test('extensions option overrides defaults', (t) => {
   const extensions = ['ts'];
   const api = new Neutrino({ extensions });
 

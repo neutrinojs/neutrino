@@ -152,7 +152,7 @@ const babelMerge = require('babel-merge');
 config.module
   .rule('compile')
   .use('babel')
-  .tap(options =>
+  .tap((options) =>
     babelMerge(
       {
         plugins: [
@@ -183,7 +183,7 @@ const { join } = require('path');
 module.exports = {
   use: [
     react(),
-    neutrino => {
+    (neutrino) => {
       neutrino.config.module
         .rule('compile')
         .include.add(join(__dirname, 'node_modules'));

@@ -50,9 +50,7 @@ const scaffold = async ({ testName, ...prompts }) => {
   const directory = `${join(
     tmpdir(),
     testName.replace(/[/+ @:]/g, '_'),
-  )}_${Math.random()
-    .toString(36)
-    .substr(2)}`;
+  )}_${Math.random().toString(36).substr(2)}`;
 
   await run(require.resolve(join(__dirname, '../commands/init')))
     .withOptions({
@@ -69,13 +67,13 @@ const spawnP = (cmd, options) =>
     const [command, ...args] = cmd.split(' ');
     const child = spawn(command, args, options);
     let output = '';
-    const handleData = data => {
+    const handleData = (data) => {
       output += data.toString();
     };
 
     child.stdout.on('data', handleData);
     child.stderr.on('data', handleData);
-    child.on('close', code => (code === 0 ? resolve(code) : reject(output)));
+    child.on('close', (code) => (code === 0 ? resolve(code) : reject(output)));
   });
 const buildable = async (t, dir, args = '') => {
   try {
@@ -117,7 +115,7 @@ tests.forEach(({ project, linter, testRunner }) => {
     .map(({ name }) => name)
     .join(' + ')}`;
 
-  test.serial(testName, async t => {
+  test.serial(testName, async (t) => {
     const dir = await scaffold({
       testName,
       projectType: project.projectType,

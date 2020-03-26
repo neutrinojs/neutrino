@@ -1,4 +1,4 @@
-module.exports = ({ pluginId = 'clean', ...opts } = {}) => neutrino => {
+module.exports = ({ pluginId = 'clean', ...opts } = {}) => (neutrino) => {
   const options = {
     verbose: neutrino.options.debug,
     ...opts,

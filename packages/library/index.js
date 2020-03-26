@@ -19,7 +19,7 @@ module.exports = (opts = {}) => {
     );
   }
 
-  return neutrino => {
+  return (neutrino) => {
     const options = merge(
       {
         target: 'web',
@@ -76,7 +76,7 @@ module.exports = (opts = {}) => {
     neutrino.config
       .when(
         options.externals !== false && process.env.NODE_ENV !== 'test',
-        config => config.externals([nodeExternals(options.externals)]),
+        (config) => config.externals([nodeExternals(options.externals)]),
       )
       .when(hasSourceMap, () => neutrino.use(banner()))
       .devtool('source-map')
@@ -85,7 +85,7 @@ module.exports = (opts = {}) => {
       .output.path(neutrino.options.output)
       .library(options.name)
       .libraryTarget(options.libraryTarget)
-      .when(options.libraryTarget === 'umd', output =>
+      .when(options.libraryTarget === 'umd', (output) =>
         output.umdNamedDefine(true),
       )
       .end()
@@ -94,18 +94,15 @@ module.exports = (opts = {}) => {
       // Keep in sync with the options in the node and web presets.
       .merge([
         '.wasm',
-        ...neutrino.options.extensions.map(ext => `.${ext}`),
+        ...neutrino.options.extensions.map((ext) => `.${ext}`),
         '.json',
       ])
       .end()
       .end()
-      .node.when(options.target === 'web', node => {
-        node
-          .set('Buffer', false)
-          .set('fs', 'empty')
-          .set('tls', 'empty');
+      .node.when(options.target === 'web', (node) => {
+        node.set('Buffer', false).set('fs', 'empty').set('tls', 'empty');
       })
-      .when(options.target === 'node', node => {
+      .when(options.target === 'node', (node) => {
         node.set('__filename', false).set('__dirname', false);
       })
       .end()
@@ -115,7 +112,7 @@ module.exports = (opts = {}) => {
         entrypoints: false,
         modules: false,
       })
-      .when(process.env.NODE_ENV === 'production', config => {
+      .when(process.env.NODE_ENV === 'production', (config) => {
         config.when(options.clean !== false, () =>
           neutrino.use(clean(options.clean)),
         );
@@ -125,7 +122,7 @@ module.exports = (opts = {}) => {
     if (lintRule) {
       lintRule.use('eslint').tap(
         // Don't adjust the lint configuration for projects using their own .eslintrc.
-        lintOptions =>
+        (lintOptions) =>
           lintOptions.useEslintrc
             ? lintOptions
             : merge(lintOptions, {

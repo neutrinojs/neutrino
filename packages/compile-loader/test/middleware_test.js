@@ -5,23 +5,23 @@ import neutrino from '../../neutrino';
 const mw = (...args) => require('..')(...args);
 const options = { test: /\.js$/, babel: { cacheDirectory: false } };
 
-test('loads middleware', t => {
+test('loads middleware', (t) => {
   t.notThrows(() => require('..'));
 });
 
-test('uses middleware', t => {
+test('uses middleware', (t) => {
   const api = new Neutrino();
 
   t.notThrows(() => api.use(mw()));
 });
 
-test('uses with options', t => {
+test('uses with options', (t) => {
   const api = new Neutrino();
 
   t.notThrows(() => api.use(mw(options)));
 });
 
-test('instantiates', t => {
+test('instantiates', (t) => {
   const api = new Neutrino();
 
   api.use(mw());
@@ -29,7 +29,7 @@ test('instantiates', t => {
   t.notThrows(() => api.config.toConfig());
 });
 
-test('instantiates with options', t => {
+test('instantiates with options', (t) => {
   const api = new Neutrino();
 
   api.use(mw(options));
@@ -37,7 +37,7 @@ test('instantiates with options', t => {
   t.notThrows(() => api.config.toConfig());
 });
 
-test('exposes babel output handler', t => {
+test('exposes babel output handler', (t) => {
   const api = new Neutrino();
 
   api.use(mw());
@@ -47,21 +47,21 @@ test('exposes babel output handler', t => {
   t.is(typeof handler, 'function');
 });
 
-test('exposes babel config from output', t => {
+test('exposes babel config from output', (t) => {
   const config = neutrino(mw()).output('babel');
 
   t.is(typeof config, 'object');
 });
 
-test('exposes babel method', t => {
+test('exposes babel method', (t) => {
   t.is(typeof neutrino(mw()).babel, 'function');
 });
 
-test('exposes babel config from method', t => {
+test('exposes babel config from method', (t) => {
   t.is(typeof neutrino(mw()).babel(), 'object');
 });
 
-test('throws when used twice', t => {
+test('throws when used twice', (t) => {
   const api = new Neutrino();
   api.use(mw());
   t.throws(

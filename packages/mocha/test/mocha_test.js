@@ -11,25 +11,25 @@ test.afterEach(() => {
   process.env.NODE_ENV = originalNodeEnv;
 });
 
-test('loads middleware', t => {
+test('loads middleware', (t) => {
   t.notThrows(() => require('..'));
 });
 
-test('uses middleware', t => {
+test('uses middleware', (t) => {
   t.notThrows(() => {
     const api = new Neutrino();
     api.use(mw());
   });
 });
 
-test('instantiates', t => {
+test('instantiates', (t) => {
   const api = new Neutrino();
   api.use(mw());
 
   t.notThrows(() => api.config.toConfig());
 });
 
-test('instantiates in development', t => {
+test('instantiates in development', (t) => {
   process.env.NODE_ENV = 'development';
   const api = new Neutrino();
   api.use(mw());
@@ -37,7 +37,7 @@ test('instantiates in development', t => {
   t.notThrows(() => api.config.toConfig());
 });
 
-test('instantiates in production', t => {
+test('instantiates in production', (t) => {
   process.env.NODE_ENV = 'production';
   const api = new Neutrino();
   api.use(mw());
@@ -45,7 +45,7 @@ test('instantiates in production', t => {
   t.notThrows(() => api.config.toConfig());
 });
 
-test('exposes mocha output handler', t => {
+test('exposes mocha output handler', (t) => {
   const api = new Neutrino();
   api.use(mw());
 
@@ -54,31 +54,25 @@ test('exposes mocha output handler', t => {
   t.is(typeof handler, 'function');
 });
 
-test('exposes mocha method', t => {
+test('exposes mocha method', (t) => {
   t.is(typeof neutrino(mw()).mocha, 'function');
 });
 
-test('updates lint config by default', t => {
+test('updates lint config by default', (t) => {
   const api = new Neutrino();
   api.use(lint());
   api.use(mw());
-  const options = api.config.module
-    .rule('lint')
-    .use('eslint')
-    .get('options');
+  const options = api.config.module.rule('lint').use('eslint').get('options');
   t.deepEqual(options.baseConfig.env, {
     es6: true,
     mocha: true,
   });
 });
 
-test('does not update lint config if useEslintrc true', t => {
+test('does not update lint config if useEslintrc true', (t) => {
   const api = new Neutrino();
   api.use(lint({ eslint: { useEslintrc: true } }));
   api.use(mw());
-  const options = api.config.module
-    .rule('lint')
-    .use('eslint')
-    .get('options');
+  const options = api.config.module.rule('lint').use('eslint').get('options');
   t.deepEqual(options.baseConfig, {});
 });

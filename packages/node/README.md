@@ -112,7 +112,7 @@ Edit your `src/index.js` file with the following:
 ```js
 import { createServer } from 'http';
 
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const port = process.env.PORT || 3000;
 
 createServer(async (req, res) => {
@@ -361,7 +361,7 @@ const node = require('@neutrinojs/node');
 module.exports = {
   use: [
     node(),
-    neutrino => {
+    (neutrino) => {
       // Whilst the minimizer is only used when the separate `minimize` option is true
       // (ie in production), the conditional avoids the expensive require() in development.
       if (process.env.NODE_ENV === 'production') {
@@ -429,7 +429,7 @@ const node = require('@neutrinojs/node');
 module.exports = {
   use: [
     node(),
-    neutrino => {
+    (neutrino) => {
       neutrino.config.resolve.extensions.add('.esm');
     },
   ],

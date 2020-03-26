@@ -1,13 +1,13 @@
 /* eslint-disable consistent-return */
 const camelcase = require('camelcase');
 
-const getIdentifierFromPackage = pkg => {
+const getIdentifierFromPackage = (pkg) => {
   const parts = pkg.split('/');
 
   return camelcase(parts[parts.length - 1]);
 };
 
-const getTargetAndArgs = element => {
+const getTargetAndArgs = (element) => {
   // In the use array, skip converting middleware that isn't a string
   // or an array. There may be conditional expressions prior to the actual
   // middleware usage, e.g., process.env.NODE_ENV === 'test' && <middleware>.
@@ -56,7 +56,7 @@ module.exports = ({ source }, { jscodeshift: j }) => {
           value.right &&
           value.right.type === 'ObjectExpression',
       )
-      .forEach(path => {
+      .forEach((path) => {
         // Skip the use property if it isn't an array.
         const use = path.value.right.properties.find(
           ({ key, value }) =>
@@ -69,7 +69,7 @@ module.exports = ({ source }, { jscodeshift: j }) => {
 
         // Convert middleware in the use array.
         Object.assign(use.value, {
-          elements: use.value.elements.map(element => {
+          elements: use.value.elements.map((element) => {
             // The target contains the package name, and any remaining
             // arguments should be captured to pass to the function call.
             const [target, args = []] = getTargetAndArgs(element);

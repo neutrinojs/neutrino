@@ -212,12 +212,12 @@ const mocha = require('@neutrinojs/mocha');
 module.exports = {
   use: [
     mocha(),
-    neutrino => {
+    (neutrino) => {
       if (process.env.NODE_ENV === 'test') {
         neutrino.config.module
           .rule('compile')
           .use('babel')
-          .tap(options =>
+          .tap((options) =>
             merge(options, {
               env: {
                 test: {

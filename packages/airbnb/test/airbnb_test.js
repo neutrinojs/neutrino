@@ -5,19 +5,19 @@ import neutrino from '../../neutrino';
 const mw = (...args) => require('..')(...args);
 const options = { eslint: { rules: { semi: false } } };
 
-test('loads preset', t => {
+test('loads preset', (t) => {
   t.notThrows(() => require('..'));
 });
 
-test('uses preset', t => {
+test('uses preset', (t) => {
   t.notThrows(() => new Neutrino().use(mw()));
 });
 
-test('uses with options', t => {
+test('uses with options', (t) => {
   t.notThrows(() => new Neutrino().use(mw(options)));
 });
 
-test('instantiates', t => {
+test('instantiates', (t) => {
   const api = new Neutrino();
 
   api.use(mw());
@@ -25,7 +25,7 @@ test('instantiates', t => {
   t.notThrows(() => api.config.toConfig());
 });
 
-test('instantiates with options', t => {
+test('instantiates with options', (t) => {
   const api = new Neutrino();
 
   api.use(mw(options));
@@ -33,7 +33,7 @@ test('instantiates with options', t => {
   t.notThrows(() => api.config.toConfig());
 });
 
-test('exposes eslintrc output handler', t => {
+test('exposes eslintrc output handler', (t) => {
   const api = new Neutrino();
 
   api.use(mw());
@@ -43,21 +43,21 @@ test('exposes eslintrc output handler', t => {
   t.is(typeof handler, 'function');
 });
 
-test('exposes eslintrc config from output', t => {
+test('exposes eslintrc config from output', (t) => {
   const config = neutrino(mw()).output('eslintrc');
 
   t.is(typeof config, 'object');
 });
 
-test('exposes eslintrc method', t => {
+test('exposes eslintrc method', (t) => {
   t.is(typeof neutrino(mw()).eslintrc, 'function');
 });
 
-test('exposes eslintrc config from method', t => {
+test('exposes eslintrc config from method', (t) => {
   t.is(typeof neutrino(mw()).eslintrc(), 'object');
 });
 
-test('sets defaults when no options passed', t => {
+test('sets defaults when no options passed', (t) => {
   const api = new Neutrino();
   api.use(mw());
 
@@ -129,7 +129,7 @@ test('sets defaults when no options passed', t => {
   });
 });
 
-test('merges options with defaults', t => {
+test('merges options with defaults', (t) => {
   const api = new Neutrino();
   api.use(
     mw({

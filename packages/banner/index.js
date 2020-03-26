@@ -1,4 +1,4 @@
-module.exports = ({ pluginId = 'banner', ...options } = {}) => neutrino => {
+module.exports = ({ pluginId = 'banner', ...options } = {}) => (neutrino) => {
   neutrino.config
     .plugin(pluginId)
     .use(require.resolve('webpack/lib/BannerPlugin'), [

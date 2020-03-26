@@ -1,7 +1,7 @@
 const merge = require('deepmerge');
 const { DuplicateRuleError } = require('neutrino/errors');
 
-module.exports = (opts = {}) => neutrino => {
+module.exports = (opts = {}) => (neutrino) => {
   const isProduction = process.env.NODE_ENV === 'production';
   const modules = 'modules' in opts ? opts.modules : true;
   const modulesTest =
@@ -55,7 +55,7 @@ module.exports = (opts = {}) => neutrino => {
     );
   }
 
-  rules.forEach(options => {
+  rules.forEach((options) => {
     const styleRule = neutrino.config.module.rule(options.ruleId);
     const loaders = [
       {
@@ -76,13 +76,13 @@ module.exports = (opts = {}) => neutrino => {
       ...(typeof loader === 'object' ? loader : { loader }),
     }));
 
-    loaders.forEach(loader => {
+    loaders.forEach((loader) => {
       styleRule
         .oneOf(options.oneOfId)
         .test(options.test)
         .use(loader.useId)
         .loader(loader.loader)
-        .when(loader.options, use => use.options(loader.options));
+        .when(loader.options, (use) => use.options(loader.options));
     });
   });
 

@@ -2,13 +2,13 @@ const babelMerge = require('babel-merge');
 const merge = require('deepmerge');
 const omit = require('lodash.omit');
 
-module.exports = (opts = {}) => neutrino => {
+module.exports = (opts = {}) => (neutrino) => {
   const lintRule = neutrino.config.module.rules.get('lint');
 
   if (lintRule) {
     lintRule.use('eslint').tap(
       // Don't adjust the lint configuration for projects using their own .eslintrc.
-      lintOptions =>
+      (lintOptions) =>
         lintOptions.useEslintrc
           ? lintOptions
           : merge(lintOptions, {
@@ -21,17 +21,14 @@ module.exports = (opts = {}) => neutrino => {
     );
   }
 
-  neutrino.register('mocha', neutrino => {
+  neutrino.register('mocha', (neutrino) => {
     const { extensions } = neutrino.options;
     const baseOptions = neutrino.config.module.rules.has('compile')
-      ? neutrino.config.module
-          .rule('compile')
-          .use('babel')
-          .get('options')
+      ? neutrino.config.module.rule('compile').use('babel').get('options')
       : {};
     const babelOptions = omit(
       babelMerge(baseOptions, {
-        extensions: extensions.map(ext => `.${ext}`),
+        extensions: extensions.map((ext) => `.${ext}`),
         plugins: [require.resolve('@babel/plugin-transform-modules-commonjs')],
       }),
       ['cacheDirectory'],

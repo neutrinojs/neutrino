@@ -124,10 +124,10 @@ module.exports = class Project extends Generator {
     );
 
     const presets = [linter, project, testRunner].filter(
-      preset => preset && preset !== NONE,
+      (preset) => preset && preset !== NONE,
     );
     const neutrinorc = rcTemplate({
-      middleware: presets.map(middleware => {
+      middleware: presets.map((middleware) => {
         const options = middleware.options
           ? getNeutrinorcOptions(name, middleware)
           : '';
@@ -142,7 +142,7 @@ module.exports = class Project extends Generator {
       '\n# Neutrino build directory\nbuild',
     );
     this.fs.write(join(directory, '.neutrinorc.js'), neutrinorc);
-    presets.forEach(preset => {
+    presets.forEach((preset) => {
       const templateDir = preset.package.replace('@neutrinojs/', '');
 
       this.fs.copyTpl(

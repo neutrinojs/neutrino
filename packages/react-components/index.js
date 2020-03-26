@@ -5,7 +5,7 @@ const nodeExternals = require('webpack-node-externals');
 const { extname, join, basename } = require('path');
 const { readdirSync } = require('fs');
 
-module.exports = (opts = {}) => neutrino => {
+module.exports = (opts = {}) => (neutrino) => {
   const options = merge(
     {
       html: process.env.NODE_ENV === 'development' && {
@@ -40,11 +40,11 @@ module.exports = (opts = {}) => neutrino => {
         options.components || 'components',
       );
 
-      Object.keys(neutrino.options.mains).forEach(key => {
+      Object.keys(neutrino.options.mains).forEach((key) => {
         delete neutrino.options.mains[key]; // eslint-disable-line no-param-reassign
       });
 
-      readdirSync(components).forEach(component => {
+      readdirSync(components).forEach((component) => {
         // eslint-disable-next-line no-param-reassign
         neutrino.options.mains[basename(component, extname(component))] = {
           entry: join(components, component),
@@ -59,7 +59,7 @@ module.exports = (opts = {}) => neutrino => {
       neutrino.use(react(options));
 
       neutrino.config
-        .when(options.externals, config =>
+        .when(options.externals, (config) =>
           config.externals([nodeExternals(options.externals)]),
         )
         .when(hasSourceMap, () => neutrino.use(banner()))

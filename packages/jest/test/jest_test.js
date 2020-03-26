@@ -13,11 +13,11 @@ test.afterEach(() => {
   process.env.NODE_ENV = originalNodeEnv;
 });
 
-test('loads middleware', t => {
+test('loads middleware', (t) => {
   t.notThrows(() => require('..'));
 });
 
-test('uses middleware', t => {
+test('uses middleware', (t) => {
   const api = new Neutrino();
 
   t.notThrows(() => {
@@ -25,14 +25,14 @@ test('uses middleware', t => {
   });
 });
 
-test('instantiates', t => {
+test('instantiates', (t) => {
   const api = new Neutrino();
   api.use(mw());
 
   t.notThrows(() => api.config.toConfig());
 });
 
-test('instantiates in development', t => {
+test('instantiates in development', (t) => {
   process.env.NODE_ENV = 'development';
   const api = new Neutrino();
   api.use(mw());
@@ -40,7 +40,7 @@ test('instantiates in development', t => {
   t.notThrows(() => api.config.toConfig());
 });
 
-test('instantiates in production', t => {
+test('instantiates in production', (t) => {
   process.env.NODE_ENV = 'production';
   const api = new Neutrino();
   api.use(mw());
@@ -48,7 +48,7 @@ test('instantiates in production', t => {
   t.notThrows(() => api.config.toConfig());
 });
 
-test('exposes jest output handler', t => {
+test('exposes jest output handler', (t) => {
   const api = new Neutrino();
   api.use(mw());
 
@@ -57,34 +57,31 @@ test('exposes jest output handler', t => {
   t.is(typeof handler, 'function');
 });
 
-test('exposes jest config from output', t => {
+test('exposes jest config from output', (t) => {
   const config = neutrino(mw()).output('jest');
 
   t.is(typeof config, 'object');
 });
 
-test('exposes jest method', t => {
+test('exposes jest method', (t) => {
   t.is(typeof neutrino(mw()).jest, 'function');
 });
 
-test('exposes jest config from method', t => {
+test('exposes jest config from method', (t) => {
   t.is(typeof neutrino(mw()).jest(), 'object');
 });
 
-test('uses middleware with options', t => {
+test('uses middleware with options', (t) => {
   const config = neutrino(mw({ testEnvironment: 'node' })).jest();
 
   t.is(config.testEnvironment, 'node');
 });
 
-test('updates lint config by default', t => {
+test('updates lint config by default', (t) => {
   const api = new Neutrino();
   api.use(airbnbPreset());
   api.use(mw());
-  const options = api.config.module
-    .rule('lint')
-    .use('eslint')
-    .get('options');
+  const options = api.config.module.rule('lint').use('eslint').get('options');
   t.deepEqual(options.baseConfig.extends, [
     require.resolve('eslint-config-airbnb'),
     require.resolve('eslint-config-airbnb/hooks'),
@@ -92,18 +89,15 @@ test('updates lint config by default', t => {
   ]);
 });
 
-test('does not update lint config if useEslintrc true', t => {
+test('does not update lint config if useEslintrc true', (t) => {
   const api = new Neutrino();
   api.use(eslintPreset({ eslint: { useEslintrc: true } }));
   api.use(mw());
-  const options = api.config.module
-    .rule('lint')
-    .use('eslint')
-    .get('options');
+  const options = api.config.module.rule('lint').use('eslint').get('options');
   t.deepEqual(options.baseConfig, {});
 });
 
-test('configures moduleFileExtensions correctly', t => {
+test('configures moduleFileExtensions correctly', (t) => {
   const api = new Neutrino();
   api.use(reactPreset());
   api.use(mw());

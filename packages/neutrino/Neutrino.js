@@ -16,7 +16,7 @@ const pathOptions = [
 ];
 // Support both a shorter string form and an object form that allows
 // specifying any page-specific options supported by the preset.
-const normalizeMainConfig = config =>
+const normalizeMainConfig = (config) =>
   typeof config === 'string' ? { entry: config } : config;
 
 module.exports = class Neutrino {
@@ -87,7 +87,9 @@ module.exports = class Neutrino {
         return [...moduleExtensions];
       },
       set(extensions) {
-        moduleExtensions = new Set(extensions.map(ext => ext.replace('.', '')));
+        moduleExtensions = new Set(
+          extensions.map((ext) => ext.replace('.', '')),
+        );
       },
     });
 
@@ -143,7 +145,7 @@ module.exports = class Neutrino {
   }
 
   regexFromExtensions(extensions = this.options.extensions) {
-    const exts = extensions.map(ext => ext.replace('.', '\\.'));
+    const exts = extensions.map((ext) => ext.replace('.', '\\.'));
 
     return new RegExp(
       extensions.length === 1

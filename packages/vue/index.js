@@ -1,8 +1,8 @@
 const web = require('@neutrinojs/web');
 const merge = require('deepmerge');
 
-const applyUse = from => to => {
-  from.uses.values().forEach(use => {
+const applyUse = (from) => (to) => {
+  from.uses.values().forEach((use) => {
     to.use(use.name).merge(use.entries());
   });
 };
@@ -10,13 +10,13 @@ const applyUse = from => to => {
 // vue-loader needs CSS files to be parsed with vue-style-loader instead of
 // style-loader, so we replace the loader with the one vue wants.
 // This is only required when using style-loader and not when extracting CSS.
-const replaceStyleLoader = rule => {
+const replaceStyleLoader = (rule) => {
   if (rule.uses.has('style')) {
     rule.use('style').loader(require.resolve('vue-style-loader'));
   }
 };
 
-module.exports = (opts = {}) => neutrino => {
+module.exports = (opts = {}) => (neutrino) => {
   const options = merge(
     {
       style: {
@@ -45,7 +45,7 @@ module.exports = (opts = {}) => neutrino => {
 
   if (styleRule) {
     styleRule
-      .when(styleModulesEnabled, rule => {
+      .when(styleModulesEnabled, (rule) => {
         rule
           .oneOf('vue-modules')
           .before('modules')
@@ -54,7 +54,7 @@ module.exports = (opts = {}) => neutrino => {
           .batch(applyUse(styleRule.oneOf('modules')))
           .batch(replaceStyleLoader);
       })
-      .when(styleRule.oneOf('normal'), rule => {
+      .when(styleRule.oneOf('normal'), (rule) => {
         rule
           .oneOf('vue-normal')
           .before(styleModulesEnabled ? 'modules' : 'normal')
@@ -82,7 +82,7 @@ module.exports = (opts = {}) => neutrino => {
       .rule('compile')
       .test(
         neutrino.regexFromExtensions(
-          neutrino.options.extensions.filter(ext => ext !== 'vue'),
+          neutrino.options.extensions.filter((ext) => ext !== 'vue'),
         ),
       );
   }
@@ -95,7 +95,7 @@ module.exports = (opts = {}) => neutrino => {
 
     lintRule.use('eslint').tap(
       // Don't adjust the lint configuration for projects using their own .eslintrc.
-      lintOptions =>
+      (lintOptions) =>
         lintOptions.useEslintrc
           ? lintOptions
           : merge(lintOptions, {
