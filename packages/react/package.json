@@ -36,7 +36,7 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "deepmerge": "^1.5.2",
     "eslint-plugin-react": "^7.18.0",
-    "eslint-plugin-react-hooks": "^2.3.0"
+    "eslint-plugin-react-hooks": "^3.0.0"
   },
   "devDependencies": {
     "react": "^16.12.0",
