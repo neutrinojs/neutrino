@@ -15,9 +15,8 @@ theme:
   palette:
     primary: 'teal'
     accent: 'teal'
-  # Disable the default top left logo until we sort out our custom one.
-  logo:
-    icon: ' '
+  icon:
+    repo: 'fontawesome/brands/github'
 
 # http://www.mkdocs.org/user-guide/writing-your-docs/#configure-pages-and-navigation
 nav:
