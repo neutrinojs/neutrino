@@ -30,7 +30,7 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "camelcase": "^5.3.1",
+    "camelcase": "^6.0.0",
     "jscodeshift": "^0.7.0",
     "yargs": "^15.1.0"
   }
