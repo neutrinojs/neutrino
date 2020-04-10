@@ -39,23 +39,23 @@
     "validate:eslintrc": "yarn validate:eslintrc:eslint && yarn validate:eslintrc:airbnb-base && yarn validate:eslintrc:airbnb && yarn validate:eslintrc:standardjs && yarn validate:eslintrc:root"
   },
   "devDependencies": {
-    "auto-changelog": "^1.16.2",
+    "auto-changelog": "^1.16.4",
     "ava": "^1.4.1",
     "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.9.0",
+    "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-prettier": "^3.1.2",
-    "husky": "^4.2.1",
-    "jest": "^25.1.0",
+    "husky": "^4.2.5",
+    "jest": "^25.3.0",
     "karma": "^4.4.1",
     "karma-cli": "^2.0.0",
     "lerna": "^3.20.2",
-    "lint-staged": "^10.0.3",
-    "mocha": "^7.0.1",
-    "prettier": "^2.0.2",
-    "verdaccio": "^4.4.2",
-    "verdaccio-memory": "^9.0.0",
-    "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.10.1"
+    "lint-staged": "^10.1.3",
+    "mocha": "^7.1.1",
+    "prettier": "^2.0.4",
+    "verdaccio": "^4.5.1",
+    "verdaccio-memory": "^9.4.0",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
   }
 }
