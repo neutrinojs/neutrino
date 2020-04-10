@@ -22,11 +22,11 @@
   },
   "dependencies": {
     "@neutrinojs/web": "9.1.0",
-    "css-loader": "^3.4.2",
+    "css-loader": "^3.5.1",
     "deepmerge": "^1.5.2",
-    "eslint-plugin-react": "^7.18.0",
-    "eslint-plugin-vue": "^6.1.2",
-    "vue-loader": "^15.8.3",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-vue": "^6.2.2",
+    "vue-loader": "^15.9.1",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.11"
   },
