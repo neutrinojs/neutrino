@@ -21,7 +21,7 @@ using the Karma test runner.
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino 9 and one of the Neutrino build presets
 - webpack 4
-- Karma 4 and Karma CLI 2
+- Karma 4 or 5 and Karma CLI 2
 - Mocha 6 or 7
 
 ## Quickstart
