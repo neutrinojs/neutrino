@@ -25,7 +25,7 @@ cover.
 [npm-image]: https://img.shields.io/npm/v/neutrino.svg
 [npm-downloads]: https://img.shields.io/npm/dt/neutrino.svg
 [npm-url]: https://www.npmjs.com/package/neutrino
-[travis-image]: https://api.travis-ci.org/neutrinojs/neutrino.svg?branch=master
-[travis-url]: https://travis-ci.org/neutrinojs/neutrino
+[travis-image]: https://api.travis-ci.com/neutrinojs/neutrino.svg?branch=master
+[travis-url]: https://travis-ci.com/neutrinojs/neutrino
 [netlify-image]: https://api.netlify.com/api/v1/badges/faef6419-2d67-488a-95a8-998e1ad3e40f/deploy-status
 [netlify-url]: https://app.netlify.com/sites/neutrinojs/deploys
