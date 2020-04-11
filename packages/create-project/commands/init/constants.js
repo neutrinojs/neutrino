@@ -34,7 +34,7 @@ const N = {
 // Tool dependencies
 const ESLINT = 'eslint@^6';
 const JEST = 'jest@^25';
-const KARMA = 'karma@^4';
+const KARMA = 'karma@^5';
 const KARMA_CLI = 'karma-cli@^2';
 const MOCHA = 'mocha@^7';
 const PREACT = 'preact@^10';
