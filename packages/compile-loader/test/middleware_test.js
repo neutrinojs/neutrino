@@ -1,71 +1,69 @@
-import test from 'ava';
-import Neutrino from '../../neutrino/Neutrino';
-import neutrino from '../../neutrino';
+const Neutrino = require('../../neutrino/Neutrino');
+const neutrino = require('../../neutrino');
 
 const mw = (...args) => require('..')(...args);
 const options = { test: /\.js$/, babel: { cacheDirectory: false } };
 
-test('loads middleware', (t) => {
-  t.notThrows(() => require('..'));
+test('loads middleware', () => {
+  expect(() => require('..')).not.toThrow();
 });
 
-test('uses middleware', (t) => {
+test('uses middleware', () => {
   const api = new Neutrino();
 
-  t.notThrows(() => api.use(mw()));
+  expect(() => api.use(mw())).not.toThrow();
 });
 
-test('uses with options', (t) => {
+test('uses with options', () => {
   const api = new Neutrino();
 
-  t.notThrows(() => api.use(mw(options)));
+  expect(() => api.use(mw(options))).not.toThrow();
 });
 
-test('instantiates', (t) => {
+test('instantiates', () => {
   const api = new Neutrino();
 
   api.use(mw());
 
-  t.notThrows(() => api.config.toConfig());
+  expect(() => api.config.toConfig()).not.toThrow();
 });
 
-test('instantiates with options', (t) => {
+test('instantiates with options', () => {
   const api = new Neutrino();
 
   api.use(mw(options));
 
-  t.notThrows(() => api.config.toConfig());
+  expect(() => api.config.toConfig()).not.toThrow();
 });
 
-test('exposes babel output handler', (t) => {
+test('exposes babel output handler', () => {
   const api = new Neutrino();
 
   api.use(mw());
 
   const handler = api.outputHandlers.get('babel');
 
-  t.is(typeof handler, 'function');
+  expect(typeof handler).toBe('function');
 });
 
-test('exposes babel config from output', (t) => {
+test('exposes babel config from output', () => {
   const config = neutrino(mw()).output('babel');
 
-  t.is(typeof config, 'object');
+  expect(typeof config).toBe('object');
 });
 
-test('exposes babel method', (t) => {
-  t.is(typeof neutrino(mw()).babel, 'function');
+test('exposes babel method', () => {
+  expect(typeof neutrino(mw()).babel).toBe('function');
 });
 
-test('exposes babel config from method', (t) => {
-  t.is(typeof neutrino(mw()).babel(), 'object');
+test('exposes babel config from method', () => {
+  expect(typeof neutrino(mw()).babel()).toBe('object');
 });
 
-test('throws when used twice', (t) => {
+test('throws when used twice', () => {
   const api = new Neutrino();
   api.use(mw());
-  t.throws(
-    () => api.use(mw()),
+  expect(() => api.use(mw())).toThrow(
     /@neutrinojs\/compile-loader has been used twice with the same ruleId of 'compile'/,
   );
 });

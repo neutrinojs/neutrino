@@ -1,11 +1,10 @@
-import test from 'ava';
-import assert from 'yeoman-assert';
-import { run } from 'yeoman-test';
-import { tmpdir } from 'os';
-import { join } from 'path';
-import { spawn } from 'child_process';
-import { N, presets } from '../commands/init/constants';
-import { packageManager } from '../commands/init/utils';
+const assert = require('yeoman-assert');
+const { run } = require('yeoman-test');
+const { tmpdir } = require('os');
+const { join } = require('path');
+const { spawn } = require('child_process');
+const { N, presets } = require('../commands/init/constants');
+const { packageManager } = require('../commands/init/utils');
 
 const REGISTRY = 'http://localhost:4873';
 const tests = [
@@ -115,7 +114,7 @@ tests.forEach(({ project, linter, testRunner }) => {
     .map(({ name }) => name)
     .join(' + ')}`;
 
-  test.serial(testName, async (t) => {
+  test.serial(testName, async () => {
     const dir = await scaffold({
       testName,
       projectType: project.projectType,
@@ -125,7 +124,7 @@ tests.forEach(({ project, linter, testRunner }) => {
     });
     const pkgPath = join(dir, 'package.json');
 
-    t.truthy(dir);
+    expect(dir).toBeTruthy();
     assert.file(pkgPath);
     assert.file(join(dir, '.neutrinorc.js'));
     assert.file(join(dir, 'webpack.config.js'));

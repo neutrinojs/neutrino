@@ -1,57 +1,56 @@
-import test from 'ava';
-import { validate } from 'webpack';
-import lint from '../../eslint';
-import Neutrino from '../../neutrino/Neutrino';
+const { validate } = require('webpack');
+const lint = require('../../eslint');
+const Neutrino = require('../../neutrino/Neutrino');
 
 const mw = (...args) => require('..')(...args);
 const originalNodeEnv = process.env.NODE_ENV;
 const expectedExtensions = ['.wasm', '.mjs', '.jsx', '.vue', '.js', '.json'];
 
-test.afterEach(() => {
-  // Restore the original NODE_ENV after each test (which Ava defaults to 'test').
+afterEach(() => {
+  // Restore the original NODE_ENV after each test (which Jest defaults to 'test').
   process.env.NODE_ENV = originalNodeEnv;
 });
 
-test('loads preset', (t) => {
-  t.notThrows(() => require('..'));
+test('loads preset', () => {
+  expect(() => require('..')).not.toThrow();
 });
 
-test('uses preset', (t) => {
-  t.notThrows(() => new Neutrino().use(mw()));
+test('uses preset', () => {
+  expect(() => new Neutrino().use(mw())).not.toThrow();
 });
 
-test('valid preset production', (t) => {
+test('valid preset production', () => {
   process.env.NODE_ENV = 'production';
   const api = new Neutrino();
   api.use(mw());
   const config = api.config.toConfig();
 
   const errors = validate(config);
-  t.deepEqual(config.resolve.extensions, expectedExtensions);
+  expect(config.resolve.extensions).toEqual(expectedExtensions);
 
-  t.is(errors.length, 0);
+  expect(errors).toHaveLength(0);
 });
 
-test('valid preset development', (t) => {
+test('valid preset development', () => {
   process.env.NODE_ENV = 'development';
   const api = new Neutrino();
   api.use(mw());
   const config = api.config.toConfig();
 
   const errors = validate(config);
-  t.deepEqual(config.resolve.extensions, expectedExtensions);
+  expect(config.resolve.extensions).toEqual(expectedExtensions);
 
-  t.is(errors.length, 0);
+  expect(errors).toHaveLength(0);
 });
 
-test('updates lint config by default', (t) => {
+test('updates lint config by default', () => {
   const api = new Neutrino();
   api.use(lint());
   api.use(mw());
 
   const lintRule = api.config.module.rule('lint');
-  t.deepEqual(lintRule.get('test'), /\.(mjs|jsx|vue|js)$/);
-  t.deepEqual(lintRule.use('eslint').get('options').baseConfig, {
+  expect(lintRule.get('test')).toEqual(/\.(mjs|jsx|vue|js)$/);
+  expect(lintRule.use('eslint').get('options').baseConfig).toEqual({
     env: {
       browser: true,
       commonjs: true,
@@ -72,25 +71,27 @@ test('updates lint config by default', (t) => {
   });
 });
 
-test('does not update lint config if useEslintrc true', (t) => {
+test('does not update lint config if useEslintrc true', () => {
   const api = new Neutrino();
   api.use(lint({ eslint: { useEslintrc: true } }));
   api.use(mw());
   const options = api.config.module.rule('lint').use('eslint').get('options');
-  t.deepEqual(options.baseConfig, {});
+  expect(options.baseConfig).toEqual({});
 });
 
-test('adds style oneOfs in order', (t) => {
+test('adds style oneOfs in order', () => {
   const api = new Neutrino();
   api.use(mw());
   const { oneOfs } = api.config.module.rule('style');
-  t.deepEqual(
-    oneOfs.values().map((oneOf) => oneOf.name),
-    ['vue-modules', 'vue-normal', 'modules', 'normal'],
-  );
+  expect(oneOfs.values().map((oneOf) => oneOf.name)).toEqual([
+    'vue-modules',
+    'vue-normal',
+    'modules',
+    'normal',
+  ]);
 });
 
-test('replaces style-loader with vue-style-loader in development', (t) => {
+test('replaces style-loader with vue-style-loader in development', () => {
   process.env.NODE_ENV = 'development';
   const api = new Neutrino();
   api.use(mw());
@@ -100,8 +101,7 @@ test('replaces style-loader with vue-style-loader in development', (t) => {
     .oneOfs.values()
     .filter((oneOf) => oneOf.name.startsWith('vue-'))
     .forEach((oneOf) => {
-      t.is(
-        oneOf.use('style').get('loader'),
+      expect(oneOf.use('style').get('loader')).toBe(
         require.resolve('vue-style-loader'),
       );
     });

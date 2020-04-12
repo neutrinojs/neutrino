@@ -1,45 +1,44 @@
-import test from 'ava';
-import Neutrino from '../../neutrino/Neutrino';
+const Neutrino = require('../../neutrino/Neutrino');
 
 const mw = (...args) => require('..')(...args);
 const options = { name: 'app.js' };
 
-test('loads middleware', (t) => {
-  t.notThrows(() => require('..'));
+test('loads middleware', () => {
+  expect(() => require('..')).not.toThrow();
 });
 
-test('uses middleware', (t) => {
-  t.notThrows(() => new Neutrino().use(mw()));
+test('uses middleware', () => {
+  expect(() => new Neutrino().use(mw())).not.toThrow();
 });
 
-test('uses with options', (t) => {
-  t.notThrows(() => new Neutrino().use(mw(options)));
+test('uses with options', () => {
+  expect(() => new Neutrino().use(mw(options))).not.toThrow();
 });
 
-test('uses middleware while debugging', (t) => {
+test('uses middleware while debugging', () => {
   const api = new Neutrino({ debug: true });
 
-  t.notThrows(() => api.use(mw()));
+  expect(() => api.use(mw())).not.toThrow();
 });
 
-test('uses with options while debugging', (t) => {
+test('uses with options while debugging', () => {
   const api = new Neutrino({ debug: true });
 
-  t.notThrows(() => api.use(mw(options)));
+  expect(() => api.use(mw(options))).not.toThrow();
 });
 
-test('instantiates', (t) => {
+test('instantiates', () => {
   const api = new Neutrino();
 
   api.use(mw());
 
-  t.notThrows(() => api.config.toConfig());
+  expect(() => api.config.toConfig()).not.toThrow();
 });
 
-test('instantiates with options', (t) => {
+test('instantiates with options', () => {
   const api = new Neutrino();
 
   api.use(mw(options));
 
-  t.notThrows(() => api.config.toConfig());
+  expect(() => api.config.toConfig()).not.toThrow();
 });

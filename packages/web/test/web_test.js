@@ -1,79 +1,78 @@
-import { resolve } from 'path';
+const { resolve } = require('path');
 
-import test from 'ava';
-import { validate } from 'webpack';
+const { validate } = require('webpack');
 
-import lint from '../../eslint';
-import Neutrino from '../../neutrino/Neutrino';
+const lint = require('../../eslint');
+const Neutrino = require('../../neutrino/Neutrino');
 
 const mw = (...args) => require('..')(...args);
 const expectedExtensions = ['.wasm', '.mjs', '.jsx', '.js', '.json'];
 const originalNodeEnv = process.env.NODE_ENV;
 
-test.afterEach(() => {
-  // Restore the original NODE_ENV after each test (which Ava defaults to 'test').
+afterEach(() => {
+  // Restore the original NODE_ENV after each test (which Jest defaults to 'test').
   process.env.NODE_ENV = originalNodeEnv;
 });
 
-test('loads preset', (t) => {
-  t.notThrows(() => require('..'));
+test('loads preset', () => {
+  expect(() => require('..')).not.toThrow();
 });
 
-test('uses preset', (t) => {
-  t.notThrows(() => new Neutrino().use(mw()));
+test('uses preset', () => {
+  expect(() => new Neutrino().use(mw())).not.toThrow();
 });
 
-test('valid preset production', (t) => {
+test('valid preset production', () => {
   process.env.NODE_ENV = 'production';
   const api = new Neutrino();
   api.use(mw());
   const config = api.config.toConfig();
 
   // Common
-  t.is(config.target, 'web');
-  t.deepEqual(config.resolve.extensions, expectedExtensions);
-  t.is(config.optimization.runtimeChunk, 'single');
-  t.is(config.optimization.splitChunks.chunks, 'all');
-  t.deepEqual(config.stats, {
+  expect(config.target).toBe('web');
+  expect(config.resolve.extensions).toEqual(expectedExtensions);
+  expect(config.optimization.runtimeChunk).toBe('single');
+  expect(config.optimization.splitChunks.chunks).toBe('all');
+  expect(config.stats).toEqual({
     children: false,
     entrypoints: false,
     modules: false,
   });
 
   // NODE_ENV/command specific
-  t.true(config.optimization.minimize);
-  t.false(config.optimization.splitChunks.name);
-  t.is(config.output.publicPath, '/');
-  t.is(config.devtool, undefined);
-  t.is(config.devServer, undefined);
+  expect(config.optimization.minimize).toBe(true);
+  expect(config.optimization.splitChunks.name).toBe(false);
+  expect(config.output.publicPath).toBe('/');
+  expect(config.devtool).toBeUndefined();
+  expect(config.devServer).toBeUndefined();
 
   const errors = validate(config);
-  t.is(errors.length, 0);
+  expect(errors).toHaveLength(0);
 });
 
-test('valid preset development', (t) => {
+test('valid preset development', () => {
   process.env.NODE_ENV = 'development';
   const api = new Neutrino();
   api.use(mw());
   const config = api.config.toConfig();
 
   // Common
-  t.is(config.target, 'web');
-  t.deepEqual(config.resolve.extensions, expectedExtensions);
-  t.is(config.optimization.runtimeChunk, 'single');
-  t.is(config.optimization.splitChunks.chunks, 'all');
-  t.is(config.output.publicPath, '/');
-  t.deepEqual(config.stats, {
+  expect(config.target).toBe('web');
+  expect(config.resolve.extensions).toEqual(expectedExtensions);
+  expect(config.optimization.runtimeChunk).toBe('single');
+  expect(config.optimization.splitChunks.chunks).toBe('all');
+  expect(config.output.publicPath).toBe('/');
+  expect(config.stats).toEqual({
     children: false,
     entrypoints: false,
     modules: false,
   });
 
   // NODE_ENV/command specific
-  t.false(config.optimization.minimize);
-  t.true(config.optimization.splitChunks.name);
-  t.is(config.devtool, 'cheap-module-eval-source-map');
-  t.deepEqual(config.devServer, {
+  expect(config.optimization.minimize).toBe(false);
+  expect(config.optimization.splitChunks.name).toBe(true);
+  expect(config.devtool).toBe('cheap-module-eval-source-map');
+  expect(config.devServer).toEqual({
     historyApiFallback: true,
     hot: true,
     overlay: true,
@@ -87,47 +86,47 @@ test('valid preset development', (t) => {
   });
 
   const errors = validate(config);
-  t.is(errors.length, 0);
+  expect(errors).toHaveLength(0);
 });
 
-test('valid preset test', (t) => {
+test('valid preset test', () => {
   process.env.NODE_ENV = 'test';
   const api = new Neutrino();
   api.use(mw());
   const config = api.config.toConfig();
 
   // Common
-  t.is(config.target, 'web');
-  t.deepEqual(config.resolve.extensions, expectedExtensions);
-  t.is(config.optimization.runtimeChunk, 'single');
-  t.is(config.optimization.splitChunks.chunks, 'all');
-  t.is(config.output.publicPath, '/');
-  t.deepEqual(config.stats, {
+  expect(config.target).toBe('web');
+  expect(config.resolve.extensions).toEqual(expectedExtensions);
+  expect(config.optimization.runtimeChunk).toBe('single');
+  expect(config.optimization.splitChunks.chunks).toBe('all');
+  expect(config.output.publicPath).toBe('/');
+  expect(config.stats).toEqual({
     children: false,
     entrypoints: false,
     modules: false,
   });
 
   // NODE_ENV/command specific
-  t.false(config.optimization.minimize);
-  t.true(config.optimization.splitChunks.name);
-  t.is(config.devtool, 'source-map');
-  t.is(config.devServer, undefined);
+  expect(config.optimization.minimize).toBe(false);
+  expect(config.optimization.splitChunks.name).toBe(true);
+  expect(config.devtool).toBe('source-map');
+  expect(config.devServer).toBeUndefined();
 
   const errors = validate(config);
-  t.is(errors.length, 0);
+  expect(errors).toHaveLength(0);
 });
 
-test('devtool string option production', (t) => {
+test('devtool string option production', () => {
   process.env.NODE_ENV = 'production';
   const api = new Neutrino();
   api.use(mw({ devtool: 'source-map' }));
   const config = api.config.toConfig();
 
-  t.is(config.devtool, 'source-map');
+  expect(config.devtool).toBe('source-map');
 });
 
-test('devtool object option production', (t) => {
+test('devtool object option production', () => {
   process.env.NODE_ENV = 'production';
   const api = new Neutrino();
   api.use(
@@ -139,19 +138,19 @@ test('devtool object option production', (t) => {
   );
   const config = api.config.toConfig();
 
-  t.is(config.devtool, 'source-map');
+  expect(config.devtool).toBe('source-map');
 });
 
-test('devtool string option development', (t) => {
+test('devtool string option development', () => {
   process.env.NODE_ENV = 'development';
   const api = new Neutrino();
   api.use(mw({ devtool: 'source-map' }));
   const config = api.config.toConfig();
 
-  t.is(config.devtool, 'source-map');
+  expect(config.devtool).toBe('source-map');
 });
 
-test('devtool object option development', (t) => {
+test('devtool object option development', () => {
   process.env.NODE_ENV = 'development';
   const api = new Neutrino();
   api.use(
@@ -163,19 +162,19 @@ test('devtool object option development', (t) => {
   );
   const config = api.config.toConfig();
 
-  t.is(config.devtool, 'source-map');
+  expect(config.devtool).toBe('source-map');
 });
 
-test('devtool string option test', (t) => {
+test('devtool string option test', () => {
   process.env.NODE_ENV = 'test';
   const api = new Neutrino();
   api.use(mw({ devtool: 'cheap-eval-source-map' }));
   const config = api.config.toConfig();
 
-  t.is(config.devtool, 'cheap-eval-source-map');
+  expect(config.devtool).toBe('cheap-eval-source-map');
 });
 
-test('devtool object option test', (t) => {
+test('devtool object option test', () => {
   process.env.NODE_ENV = 'test';
   const api = new Neutrino();
   api.use(
@@ -187,26 +186,26 @@ test('devtool object option test', (t) => {
   );
   const config = api.config.toConfig();
 
-  t.is(config.devtool, 'cheap-eval-source-map');
+  expect(config.devtool).toBe('cheap-eval-source-map');
 });
 
-test('supports env option using array form', (t) => {
+test('supports env option using array form', () => {
   const api = new Neutrino();
 
   const env = ['VAR1', 'VAR2'];
   api.use(mw({ env }));
-  t.deepEqual(api.config.plugin('env').get('args'), [env]);
+  expect(api.config.plugin('env').get('args')).toEqual([env]);
 });
 
-test('supports env option using object form', (t) => {
+test('supports env option using object form', () => {
   const api = new Neutrino();
 
   const env = { VAR: 'default-value' };
   api.use(mw({ env }));
-  t.deepEqual(api.config.plugin('env').get('args'), [env]);
+  expect(api.config.plugin('env').get('args')).toEqual([env]);
 });
 
-test('supports multiple mains with custom html-webpack-plugin options', (t) => {
+test('supports multiple mains with custom html-webpack-plugin options', () => {
   const mains = {
     index: './index',
     admin: {
@@ -220,7 +219,7 @@ test('supports multiple mains with custom html-webpack-plugin options', (t) => {
 
   const templatePath = resolve(__dirname, '../../html-template/template.ejs');
 
-  t.deepEqual(api.config.plugin('html-index').get('args'), [
+  expect(api.config.plugin('html-index').get('args')).toEqual([
     {
       appMountId: 'root',
       chunks: ['index'],
@@ -235,7 +234,7 @@ test('supports multiple mains with custom html-webpack-plugin options', (t) => {
     },
   ]);
 
-  t.deepEqual(api.config.plugin('html-admin').get('args'), [
+  expect(api.config.plugin('html-admin').get('args')).toEqual([
     {
       appMountId: 'root',
       chunks: ['admin'],
@@ -251,120 +250,109 @@ test('supports multiple mains with custom html-webpack-plugin options', (t) => {
   ]);
 });
 
-test('throws when used twice', (t) => {
+test('throws when used twice', () => {
   const api = new Neutrino();
   api.use(mw());
-  t.throws(
-    () => api.use(mw()),
+  expect(() => api.use(mw())).toThrow(
     /@neutrinojs\/web is being used when a `compile` rule already exists/,
   );
 });
 
-test('throws when minify.babel defined', (t) => {
+test('throws when minify.babel defined', () => {
   const api = new Neutrino();
-  t.throws(
-    () => api.use(mw({ minify: { babel: false } })),
+  expect(() => api.use(mw({ minify: { babel: false } }))).toThrow(
     /The minify\.babel option has been removed/,
   );
 });
 
-test('throws when minify.image defined', (t) => {
+test('throws when minify.image defined', () => {
   const api = new Neutrino();
-  t.throws(
-    () => api.use(mw({ minify: { image: true } })),
+  expect(() => api.use(mw({ minify: { image: true } }))).toThrow(
     /The minify\.image option has been removed/,
   );
 });
 
-test('throws when minify.style defined', (t) => {
+test('throws when minify.style defined', () => {
   const api = new Neutrino();
-  t.throws(
-    () => api.use(mw({ minify: { style: false } })),
+  expect(() => api.use(mw({ minify: { style: false } }))).toThrow(
     /The minify\.style option has been removed/,
   );
 });
 
-test('throws when polyfills defined', (t) => {
+test('throws when polyfills defined', () => {
   const api = new Neutrino();
-  t.throws(
-    () => api.use(mw({ polyfills: {} })),
+  expect(() => api.use(mw({ polyfills: {} }))).toThrow(
     /The polyfills option has been removed/,
   );
 });
 
-test('throws when manifest defined', (t) => {
+test('throws when manifest defined', () => {
   const api = new Neutrino();
-  t.throws(
-    () => api.use(mw({ manifest: {} })),
+  expect(() => api.use(mw({ manifest: {} }))).toThrow(
     /The manifest option has been removed/,
   );
 });
 
-test('throws when hotEntries defined', (t) => {
+test('throws when hotEntries defined', () => {
   const api = new Neutrino();
-  t.throws(
-    () => api.use(mw({ hotEntries: [] })),
+  expect(() => api.use(mw({ hotEntries: [] }))).toThrow(
     /The hotEntries option has been removed/,
   );
 });
 
-test('throws when devServer.proxy is the deprecated string shorthand', (t) => {
+test('throws when devServer.proxy is the deprecated string shorthand', () => {
   const api = new Neutrino();
-  t.throws(
-    () => api.use(mw({ devServer: { proxy: 'foo' } })),
+  expect(() => api.use(mw({ devServer: { proxy: 'foo' } }))).toThrow(
     /setting `devServer.proxy` to a string is no longer supported/,
   );
 });
 
-test('throws when style.extract is true', (t) => {
+test('throws when style.extract is true', () => {
   const api = new Neutrino();
-  t.throws(
-    () => api.use(mw({ style: { extract: true } })),
+  expect(() => api.use(mw({ style: { extract: true } }))).toThrow(
     /Setting `style.extract` to `true` is no longer supported/,
   );
 });
 
-test('targets option test', (t) => {
+test('targets option test', () => {
   const api = new Neutrino();
   const targets = {
     browsers: ['last 2 iOS versions'],
   };
   api.use(mw({ targets }));
 
-  t.deepEqual(
+  expect(
     api.config.module.rule('compile').use('babel').get('options').presets[0][1]
       .targets,
-    targets,
-  );
+  ).toEqual(targets);
 });
 
-test('targets false option test', (t) => {
+test('targets false option test', () => {
   const api = new Neutrino();
   api.use(mw({ targets: false }));
 
-  t.deepEqual(
+  expect(
     api.config.module.rule('compile').use('babel').get('options').presets[0][1]
       .targets,
-    {},
-  );
+  ).toEqual({});
 });
 
-test('updates lint config by default', (t) => {
+test('updates lint config by default', () => {
   const api = new Neutrino();
   api.use(lint());
   api.use(mw());
   const options = api.config.module.rule('lint').use('eslint').get('options');
-  t.deepEqual(options.baseConfig.env, {
+  expect(options.baseConfig.env).toEqual({
     browser: true,
     commonjs: true,
     es6: true,
   });
 });
 
-test('does not update lint config if useEslintrc true', (t) => {
+test('does not update lint config if useEslintrc true', () => {
   const api = new Neutrino();
   api.use(lint({ eslint: { useEslintrc: true } }));
   api.use(mw());
   const options = api.config.module.rule('lint').use('eslint').get('options');
-  t.deepEqual(options.baseConfig, {});
+  expect(options.baseConfig).toEqual({});
 });

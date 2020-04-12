@@ -1,4 +1,7 @@
-const eslint = require('@neutrinojs/eslint');
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`performs valid transformation 1`] = `
+"const eslint = require('@neutrinojs/eslint');
 const airbnbBase = require('@neutrinojs/airbnb-base');
 const node = require('@neutrinojs/node');
 const jest = require('@neutrinojs/jest');
@@ -24,11 +27,12 @@ module.exports = {
     }),
     node(),
     process.env.NODE_ENV === 'test' && jest({
-      testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
+      testRegex: '(/__tests__/.*|(\\\\\\\\.|/)(test|spec))\\\\\\\\.(jsx?|tsx?)$',
     }),
     (neutrino) => {
-      neutrino.config.externals(/^[a-z\-0-9]+$/);
+      neutrino.config.externals(/^[a-z\\\\-0-9]+$/);
       neutrino.use(fakePreset({ alpha: 'beta' }));
     },
   ],
-};
+};"
+`;

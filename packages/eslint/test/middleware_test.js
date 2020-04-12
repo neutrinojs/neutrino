@@ -1,39 +1,38 @@
-import test from 'ava';
-import Neutrino from '../../neutrino/Neutrino';
-import neutrino from '../../neutrino';
+const Neutrino = require('../../neutrino/Neutrino');
+const neutrino = require('../../neutrino');
 
 const mw = (...args) => require('..')(...args);
 const options = { eslint: { rules: { semi: false } } };
 
-test('loads middleware', (t) => {
-  t.notThrows(() => require('..'));
+test('loads middleware', () => {
+  expect(() => require('..')).not.toThrow();
 });
 
-test('uses middleware', (t) => {
-  t.notThrows(() => new Neutrino().use(mw()));
+test('uses middleware', () => {
+  expect(() => new Neutrino().use(mw())).not.toThrow();
 });
 
-test('uses with options', (t) => {
-  t.notThrows(() => new Neutrino().use(mw(options)));
+test('uses with options', () => {
+  expect(() => new Neutrino().use(mw(options))).not.toThrow();
 });
 
-test('instantiates', (t) => {
+test('instantiates', () => {
   const api = new Neutrino();
 
   api.use(mw());
 
-  t.notThrows(() => api.config.toConfig());
+  expect(() => api.config.toConfig()).not.toThrow();
 });
 
-test('instantiates with options', (t) => {
+test('instantiates with options', () => {
   const api = new Neutrino();
 
   api.use(mw(options));
 
-  t.notThrows(() => api.config.toConfig());
+  expect(() => api.config.toConfig()).not.toThrow();
 });
 
-test('supports formatter being the name of an ESLint built-in formatter', (t) => {
+test('supports formatter being the name of an ESLint built-in formatter', () => {
   const api = new Neutrino();
   const formatter = 'compact';
   api.use(mw({ eslint: { formatter } }));
@@ -42,10 +41,10 @@ test('supports formatter being the name of an ESLint built-in formatter', (t) =>
     .rule('lint')
     .use('eslint')
     .get('options');
-  t.is(loaderOptions.formatter, formatter);
+  expect(loaderOptions.formatter).toBe(formatter);
 });
 
-test('supports formatter being a resolved path', (t) => {
+test('supports formatter being a resolved path', () => {
   const api = new Neutrino();
   const formatter = require.resolve('eslint/lib/cli-engine/formatters/compact');
   api.use(mw({ eslint: { formatter } }));
@@ -54,50 +53,49 @@ test('supports formatter being a resolved path', (t) => {
     .rule('lint')
     .use('eslint')
     .get('options');
-  t.is(loaderOptions.formatter, formatter);
+  expect(loaderOptions.formatter).toBe(formatter);
 });
 
-test('exposes eslintrc output handler', (t) => {
+test('exposes eslintrc output handler', () => {
   const api = new Neutrino();
 
   api.use(mw());
 
   const handler = api.outputHandlers.get('eslintrc');
 
-  t.is(typeof handler, 'function');
+  expect(typeof handler).toBe('function');
 });
 
-test('exposes eslintrc config from output', (t) => {
+test('exposes eslintrc config from output', () => {
   const config = neutrino(mw()).output('eslintrc');
 
-  t.is(typeof config, 'object');
+  expect(typeof config).toBe('object');
 });
 
-test('exposes eslintrc method', (t) => {
-  t.is(typeof neutrino(mw()).eslintrc, 'function');
+test('exposes eslintrc method', () => {
+  expect(typeof neutrino(mw()).eslintrc).toBe('function');
 });
 
-test('exposes eslintrc config from method', (t) => {
-  t.is(typeof neutrino(mw()).eslintrc(), 'object');
+test('exposes eslintrc config from method', () => {
+  expect(typeof neutrino(mw()).eslintrc()).toBe('object');
 });
 
-test('throws when used after a compile preset', (t) => {
+test('throws when used after a compile preset', () => {
   const api = new Neutrino();
   api.use(require('../../web')());
 
-  t.throws(() => api.use(mw()), /Lint presets must be defined prior/);
+  expect(() => api.use(mw())).toThrow(/Lint presets must be defined prior/);
 });
 
-test('throws when used twice', (t) => {
+test('throws when used twice', () => {
   const api = new Neutrino();
   api.use(mw());
-  t.throws(
-    () => api.use(mw()),
+  expect(() => api.use(mw())).toThrow(
     /@neutrinojs\/eslint has been used twice with the same ruleId of 'lint'/,
   );
 });
 
-test('throws when invalid eslint-loader options are passed', (t) => {
+test('throws when invalid eslint-loader options are passed', () => {
   const api = new Neutrino();
   const options = {
     eslint: {
@@ -112,24 +110,23 @@ test('throws when invalid eslint-loader options are passed', (t) => {
       settings: {},
     },
   };
-  t.throws(
-    () => api.use(mw(options)),
+  expect(() => api.use(mw(options))).toThrow(
     /Unrecognised 'eslint' option\(s\): env, extends, overrides, root, settings\nValid options are: allowInlineConfig, /,
   );
 });
 
-test('sets defaults when no options passed', (t) => {
+test('sets defaults when no options passed', () => {
   const api = new Neutrino();
   api.use(mw());
 
   const lintRule = api.config.module.rule('lint');
-  t.deepEqual(lintRule.get('test'), /\.(mjs|jsx|js)$/);
-  t.deepEqual(lintRule.include.values(), [
+  expect(lintRule.get('test')).toEqual(/\.(mjs|jsx|js)$/);
+  expect(lintRule.include.values()).toEqual([
     api.options.source,
     api.options.tests,
   ]);
-  t.deepEqual(lintRule.exclude.values(), []);
-  t.deepEqual(lintRule.use('eslint').get('options'), {
+  expect(lintRule.exclude.values()).toEqual([]);
+  expect(lintRule.use('eslint').get('options')).toEqual({
     baseConfig: {
       env: {
         es6: true,
@@ -154,7 +151,7 @@ test('sets defaults when no options passed', (t) => {
   });
 
   const eslintrc = api.outputHandlers.get('eslintrc')(api);
-  t.deepEqual(eslintrc, {
+  expect(eslintrc).toEqual({
     env: {
       es6: true,
     },
@@ -172,7 +169,7 @@ test('sets defaults when no options passed', (t) => {
   });
 });
 
-test('merges options with defaults', (t) => {
+test('merges options with defaults', () => {
   const api = new Neutrino();
   api.use(
     mw({
@@ -226,10 +223,10 @@ test('merges options with defaults', (t) => {
   );
 
   const lintRule = api.config.module.rule('lint');
-  t.deepEqual(lintRule.get('test'), /\.js$/);
-  t.deepEqual(lintRule.include.values(), ['/app/src']);
-  t.deepEqual(lintRule.exclude.values(), [/node_modules/]);
-  t.deepEqual(lintRule.use('eslint').get('options'), {
+  expect(lintRule.get('test')).toEqual(/\.js$/);
+  expect(lintRule.include.values()).toEqual(['/app/src']);
+  expect(lintRule.exclude.values()).toEqual([/node_modules/]);
+  expect(lintRule.use('eslint').get('options')).toEqual({
     baseConfig: {
       env: {
         es6: true,
@@ -285,7 +282,7 @@ test('merges options with defaults', (t) => {
   });
 
   const eslintrc = api.outputHandlers.get('eslintrc')(api);
-  t.deepEqual(eslintrc, {
+  expect(eslintrc).toEqual({
     env: {
       es6: true,
       jasmine: true,
@@ -324,18 +321,18 @@ test('merges options with defaults', (t) => {
   });
 });
 
-test('sets only loader-specific defaults if useEslintrc true', (t) => {
+test('sets only loader-specific defaults if useEslintrc true', () => {
   const api = new Neutrino();
   api.use(mw({ eslint: { useEslintrc: true } }));
 
   const lintRule = api.config.module.rule('lint');
-  t.deepEqual(lintRule.get('test'), /\.(mjs|jsx|js)$/);
-  t.deepEqual(lintRule.include.values(), [
+  expect(lintRule.get('test')).toEqual(/\.(mjs|jsx|js)$/);
+  expect(lintRule.include.values()).toEqual([
     api.options.source,
     api.options.tests,
   ]);
-  t.deepEqual(lintRule.exclude.values(), []);
-  t.deepEqual(lintRule.use('eslint').get('options'), {
+  expect(lintRule.exclude.values()).toEqual([]);
+  expect(lintRule.use('eslint').get('options')).toEqual({
     baseConfig: {},
     cache: true,
     cwd: api.options.root,
@@ -346,12 +343,11 @@ test('sets only loader-specific defaults if useEslintrc true', (t) => {
   });
 });
 
-test('eslintrc output handler throws if useEslintrc true', (t) => {
+test('eslintrc output handler throws if useEslintrc true', () => {
   const api = new Neutrino();
   api.use(mw({ eslint: { useEslintrc: true } }));
 
-  t.throws(
-    () => api.outputHandlers.get('eslintrc')(api),
+  expect(() => api.outputHandlers.get('eslintrc')(api)).toThrow(
     /`useEslintrc` has been set to `true`/,
   );
 });

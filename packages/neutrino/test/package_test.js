@@ -1,87 +1,82 @@
-import test from 'ava';
-import neutrino from '..';
+const neutrino = require('..');
 
 const originalNodeEnv = process.env.NODE_ENV;
 
-test.afterEach(() => {
-  // Restore the original NODE_ENV after each test (which Ava defaults to 'test').
+afterEach(() => {
+  // Restore the original NODE_ENV after each test (which Jest defaults to 'test').
   process.env.NODE_ENV = originalNodeEnv;
 });
 
-test('default mode derived from production NODE_ENV', (t) => {
+test('default mode derived from production NODE_ENV', () => {
   process.env.NODE_ENV = 'production';
   const webpackConfig = neutrino().output('webpack');
-  t.is(webpackConfig.mode, 'production');
+  expect(webpackConfig.mode).toBe('production');
 });
 
-test('default mode derived from development NODE_ENV', (t) => {
+test('default mode derived from development NODE_ENV', () => {
   process.env.NODE_ENV = 'development';
   const webpackConfig = neutrino().output('webpack');
-  t.is(webpackConfig.mode, 'development');
+  expect(webpackConfig.mode).toBe('development');
 });
 
-test('default mode derived from test NODE_ENV', (t) => {
+test('default mode derived from test NODE_ENV', () => {
   process.env.NODE_ENV = 'test';
   const webpackConfig = neutrino().output('webpack');
-  t.is(webpackConfig.mode, 'development');
+  expect(webpackConfig.mode).toBe('development');
 });
 
-test('undefined mode and NODE_ENV sets only NODE_ENV', (t) => {
+test('undefined mode and NODE_ENV sets only NODE_ENV', () => {
   delete process.env.NODE_ENV;
   const webpackConfig = neutrino().output('webpack');
-  t.is(process.env.NODE_ENV, 'production');
-  t.false('mode' in webpackConfig);
+  expect(process.env.NODE_ENV).toBe('production');
+  expect('mode' in webpackConfig).toBe(false);
 });
 
-test('throws when vendor entrypoint defined', (t) => {
+test('throws when vendor entrypoint defined', () => {
   const mw = (neutrino) => neutrino.config.entry('vendor').add('lodash');
-  t.throws(
-    () => neutrino(mw).output('webpack'),
+  expect(() => neutrino(mw).output('webpack')).toThrow(
     /Remove the manual `vendor` entrypoint/,
   );
 });
 
-test('throws when trying to use a non-registered output', (t) => {
-  t.throws(
-    () => neutrino(Function.prototype).output('fake'),
+test('throws when trying to use a non-registered output', () => {
+  expect(() => neutrino(Function.prototype).output('fake')).toThrow(
     'Unable to find an output handler named "fake"',
   );
 });
 
-test('throws when trying to use a non-registered proxied method', (t) => {
-  t.throws(
-    () => neutrino(Function.prototype).fake(),
+test('throws when trying to use a non-registered proxied method', () => {
+  expect(() => neutrino(Function.prototype).fake()).toThrow(
     'Unable to find an output handler named "fake"',
   );
 });
 
-test('throws when trying to specify "env"', (t) => {
-  t.throws(
-    () => neutrino({ env: {} }),
+test('throws when trying to specify "env"', () => {
+  expect(() => neutrino({ env: {} })).toThrow(
     /Specifying "env" in middleware has been removed/,
   );
 });
 
-test('exposes webpack output handler', (t) => {
-  t.notThrows(() => neutrino(Function.prototype).output('webpack'));
+test('exposes webpack output handler', () => {
+  expect(() => neutrino(Function.prototype).output('webpack')).not.toThrow();
 });
 
-test('exposes webpack config from output', (t) => {
+test('exposes webpack config from output', () => {
   const handler = neutrino(Function.prototype).output('webpack');
-  t.is(typeof handler, 'object');
+  expect(typeof handler).toBe('object');
 });
 
-test('exposes webpack method', (t) => {
-  t.is(typeof neutrino(Function.prototype).webpack, 'function');
+test('exposes webpack method', () => {
+  expect(typeof neutrino(Function.prototype).webpack).toBe('function');
 });
 
-test('exposes webpack config from method', (t) => {
+test('exposes webpack config from method', () => {
   const handler = neutrino(Function.prototype).webpack();
-  t.is(typeof handler, 'object');
+  expect(typeof handler).toBe('object');
 });
 
-test('exposes inspect output handler', (t) => {
-  t.notThrows(() => {
+test('exposes inspect output handler', () => {
+  expect(() => {
     // Overriding console.log to prevent the inspect() method from logging to
     // the console during tests, interfering with the ava output.
     const original = console.log;
@@ -89,5 +84,5 @@ test('exposes inspect output handler', (t) => {
     console.log = Function.prototype;
     neutrino(Function.prototype).output('inspect');
     console.log = original.bind(console);
-  });
+  }).not.toThrow();
 });

@@ -1,49 +1,48 @@
-import test from 'ava';
-import Neutrino from '../../neutrino/Neutrino';
+const Neutrino = require('../../neutrino/Neutrino');
 
 const mw = (...args) => require('..')(...args);
 const options = { css: { modules: true }, style: { sourceMap: true } };
 const originalNodeEnv = process.env.NODE_ENV;
 
-test.afterEach(() => {
-  // Restore the original NODE_ENV after each test (which Ava defaults to 'test').
+afterEach(() => {
+  // Restore the original NODE_ENV after each test (which Jest defaults to 'test').
   process.env.NODE_ENV = originalNodeEnv;
 });
 
-test('loads middleware', (t) => {
-  t.notThrows(() => require('..'));
+test('loads middleware', () => {
+  expect(() => require('..')).not.toThrow();
 });
 
-test('uses middleware', (t) => {
-  t.notThrows(() => new Neutrino().use(mw()));
+test('uses middleware', () => {
+  expect(() => new Neutrino().use(mw())).not.toThrow();
 });
 
-test('uses with options', (t) => {
-  t.notThrows(() => new Neutrino().use(mw(options)));
+test('uses with options', () => {
+  expect(() => new Neutrino().use(mw(options))).not.toThrow();
 });
 
-test('instantiates', (t) => {
+test('instantiates', () => {
   const api = new Neutrino();
 
   api.use(mw());
 
-  t.notThrows(() => api.config.toConfig());
+  expect(() => api.config.toConfig()).not.toThrow();
 });
 
-test('instantiates with options', (t) => {
+test('instantiates with options', () => {
   const api = new Neutrino();
 
   api.use(mw(options));
 
-  t.notThrows(() => api.config.toConfig());
+  expect(() => api.config.toConfig()).not.toThrow();
 });
 
-test('uses CSS modules by default', (t) => {
+test('uses CSS modules by default', () => {
   const api = new Neutrino();
 
   api.use(mw());
 
-  t.true(api.config.module.rule('style').oneOfs.has('modules'));
+  expect(api.config.module.rule('style').oneOfs.has('modules')).toBe(true);
 
   const options = api.config.module
     .rule('style')
@@ -51,80 +50,101 @@ test('uses CSS modules by default', (t) => {
     .use('css')
     .get('options');
 
-  t.truthy(options && options.modules);
+  expect(options && options.modules).toBeTruthy();
 });
 
-test('respects disabling of CSS modules', (t) => {
+test('respects disabling of CSS modules', () => {
   const api = new Neutrino();
 
   api.use(mw({ modules: false }));
 
-  t.false(api.config.module.rule('style').oneOfs.has('modules'));
+  expect(api.config.module.rule('style').oneOfs.has('modules')).toBe(false);
 
   const style = api.config.module.rule('style').toConfig();
 
   style.oneOf.forEach((oneOf) => {
     oneOf.use.forEach((use) => {
-      t.falsy(use.options && use.options.css && use.options.css.modules);
+      expect(
+        use.options && use.options.css && use.options.css.modules,
+      ).toBeFalsy();
     });
   });
 });
 
-test('does not extract in development by default', (t) => {
+test('does not extract in development by default', () => {
   process.env.NODE_ENV = 'development';
   const api = new Neutrino();
 
   api.use(mw());
 
-  t.true(api.config.module.rule('style').oneOf('normal').uses.has('style'));
-  t.false(api.config.module.rule('style').oneOf('normal').uses.has('extract'));
+  expect(
+    api.config.module.rule('style').oneOf('normal').uses.has('style'),
+  ).toBe(true);
+  expect(
+    api.config.module.rule('style').oneOf('normal').uses.has('extract'),
+  ).toBe(false);
 });
 
-test('extracts in production by default', (t) => {
+test('extracts in production by default', () => {
   process.env.NODE_ENV = 'production';
   const api = new Neutrino();
 
   api.use(mw());
 
-  t.false(api.config.module.rule('style').oneOf('normal').uses.has('style'));
-  t.true(api.config.module.rule('style').oneOf('normal').uses.has('extract'));
+  expect(
+    api.config.module.rule('style').oneOf('normal').uses.has('style'),
+  ).toBe(false);
+  expect(
+    api.config.module.rule('style').oneOf('normal').uses.has('extract'),
+  ).toBe(true);
 });
 
-test('respects enabling of extract in development using extract.enabled', (t) => {
+test('respects enabling of extract in development using extract.enabled', () => {
   process.env.NODE_ENV = 'development';
   const api = new Neutrino();
 
   api.use(mw({ extract: { enabled: true } }));
 
-  t.false(api.config.module.rule('style').oneOf('normal').uses.has('style'));
-  t.true(api.config.module.rule('style').oneOf('normal').uses.has('extract'));
+  expect(
+    api.config.module.rule('style').oneOf('normal').uses.has('style'),
+  ).toBe(false);
+  expect(
+    api.config.module.rule('style').oneOf('normal').uses.has('extract'),
+  ).toBe(true);
 });
 
-test('respects disabling of extract in production using false', (t) => {
+test('respects disabling of extract in production using false', () => {
   process.env.NODE_ENV = 'production';
   const api = new Neutrino();
 
   api.use(mw({ extract: false }));
 
-  t.true(api.config.module.rule('style').oneOf('normal').uses.has('style'));
-  t.false(api.config.module.rule('style').oneOf('normal').uses.has('extract'));
+  expect(
+    api.config.module.rule('style').oneOf('normal').uses.has('style'),
+  ).toBe(true);
+  expect(
+    api.config.module.rule('style').oneOf('normal').uses.has('extract'),
+  ).toBe(false);
 });
 
-test('respects disabling of extract in production using extract.enabled', (t) => {
+test('respects disabling of extract in production using extract.enabled', () => {
   process.env.NODE_ENV = 'production';
   const api = new Neutrino();
 
   api.use(mw({ extract: { enabled: false } }));
 
-  t.true(api.config.module.rule('style').oneOf('normal').uses.has('style'));
-  t.false(api.config.module.rule('style').oneOf('normal').uses.has('extract'));
+  expect(
+    api.config.module.rule('style').oneOf('normal').uses.has('style'),
+  ).toBe(true);
+  expect(
+    api.config.module.rule('style').oneOf('normal').uses.has('extract'),
+  ).toBe(false);
 });
 
-test('throws when used twice', (t) => {
+test('throws when used twice', () => {
   const api = new Neutrino();
   api.use(mw());
-  t.throws(
-    () => api.use(mw()),
+  expect(() => api.use(mw())).toThrow(
     /@neutrinojs\/style-loader has been used twice with the same ruleId of 'style'/,
   );
 });

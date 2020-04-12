@@ -1,19 +1,11 @@
-import test from 'ava';
-import { execSync } from 'child_process';
-import { readFileSync } from 'fs';
-import { join, resolve } from 'path';
+const { readFileSync } = require('fs');
+const { resolve } = require('path');
+const { defineSnapshotTest } = require('jscodeshift/src/testUtils');
 
-const jscodeshift = join(execSync('yarn bin').toString().trim(), 'jscodeshift');
-const fixture = join(__dirname, 'fixtures/.neutrinorc.js');
-const transform = resolve(__dirname, '../transforms/middleware.js');
-const snapshot = readFileSync(join(__dirname, 'fixtures/.neutrinorc.js.txt'))
-  .toString()
-  .trim();
+const fixture = readFileSync(
+  resolve(__dirname, 'fixtures/.neutrinorc.js'),
+  'utf8',
+);
+const transform = require('../transforms/middleware.js');
 
-test('performs valid transformation', (t) => {
-  const output = execSync(`${jscodeshift} ${fixture} -t ${transform} -d -p -s`)
-    .toString()
-    .trim();
-
-  t.is(output, snapshot);
-});
+defineSnapshotTest(transform, {}, fixture, 'performs valid transformation');

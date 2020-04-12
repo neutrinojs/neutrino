@@ -14,10 +14,11 @@ module.exports = {
             'plugin:prettier/recommended',
             'prettier/babel',
             'prettier/react',
+            'plugin:jest/recommended',
+            'plugin:jest/style',
           ],
           env: {
             browser: true,
-            jest: true,
             mocha: true,
             node: true,
           },
@@ -38,14 +39,13 @@ module.exports = {
           },
           overrides: [
             {
-              files: [
-                'packages/create-project/commands/init/templates/**',
-                'packages/create-project/commands/init/templates/*/.*.js',
-              ],
+              files: ['packages/create-project/commands/init/templates/**'],
               rules: {
                 // The dependencies in create-project's templates are installed by
                 // by create-project and so are expected to be missing from package.json.
                 'import/no-extraneous-dependencies': 'off',
+                // Prevent eslint-plugin-jest false positives in Mocha/Karma template tests.
+                'jest/expect-expect': 'off',
               },
             },
             {

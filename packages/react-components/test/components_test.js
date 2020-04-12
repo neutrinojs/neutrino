@@ -1,26 +1,25 @@
-import test from 'ava';
-import { validate } from 'webpack';
-import Neutrino from '../../neutrino/Neutrino';
+const { validate } = require('webpack');
+const Neutrino = require('../../neutrino/Neutrino');
 
 const mw = (...args) => require('..')(...args);
 const originalNodeEnv = process.env.NODE_ENV;
 
-test.afterEach(() => {
-  // Restore the original NODE_ENV after each test (which Ava defaults to 'test').
+afterEach(() => {
+  // Restore the original NODE_ENV after each test (which Jest defaults to 'test').
   process.env.NODE_ENV = originalNodeEnv;
 });
 
-test('loads preset', (t) => {
-  t.notThrows(() => require('..'));
+test('loads preset', () => {
+  expect(() => require('..')).not.toThrow();
 });
 
-test('uses preset', (t) => {
+test('uses preset', () => {
   const api = new Neutrino({ root: __dirname });
 
-  t.notThrows(() => api.use(mw({ name: 'alpha' })));
+  expect(() => api.use(mw({ name: 'alpha' }))).not.toThrow();
 });
 
-test('valid preset production', (t) => {
+test('valid preset production', () => {
   process.env.NODE_ENV = 'production';
   const api = new Neutrino({ root: __dirname });
 
@@ -28,20 +27,20 @@ test('valid preset production', (t) => {
   const config = api.config.toConfig();
 
   // Common
-  t.is(config.target, 'web');
-  t.is(config.optimization.runtimeChunk, false);
-  t.is(config.optimization.splitChunks, false);
+  expect(config.target).toBe('web');
+  expect(config.optimization.runtimeChunk).toBe(false);
+  expect(config.optimization.splitChunks).toBe(false);
 
   // NODE_ENV/command specific
-  t.true(config.optimization.minimize);
-  t.is(config.devtool, 'source-map');
-  t.is(config.devServer, undefined);
+  expect(config.optimization.minimize).toBe(true);
+  expect(config.devtool).toBe('source-map');
+  expect(config.devServer).toBeUndefined();
 
   const errors = validate(config);
-  t.is(errors.length, 0);
+  expect(errors).toHaveLength(0);
 });
 
-test('valid preset development', (t) => {
+test('valid preset development', () => {
   process.env.NODE_ENV = 'development';
   const api = new Neutrino({ root: __dirname });
 
@@ -49,10 +48,10 @@ test('valid preset development', (t) => {
   const config = api.config.toConfig();
 
   // Common
-  t.is(config.target, 'web');
-  t.is(config.optimization.runtimeChunk, 'single');
-  t.is(config.optimization.splitChunks.chunks, 'all');
+  expect(config.target).toBe('web');
+  expect(config.optimization.runtimeChunk).toBe('single');
+  expect(config.optimization.splitChunks.chunks).toBe('all');
 
   const errors = validate(config);
-  t.is(errors.length, 0);
+  expect(errors).toHaveLength(0);
 });

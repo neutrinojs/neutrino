@@ -1,114 +1,110 @@
-import test from 'ava';
-import { join } from 'path';
-import Neutrino from '../Neutrino';
+const { join } = require('path');
+const Neutrino = require('../Neutrino');
 
-test('initializes with no arguments', (t) => {
-  t.notThrows(() => new Neutrino());
+test('initializes with no arguments', () => {
+  expect(() => new Neutrino()).not.toThrow();
 });
 
-test('initializes with options', (t) => {
-  t.notThrows(() => new Neutrino({ testing: true }));
+test('initializes with options', () => {
+  expect(() => new Neutrino({ testing: true })).not.toThrow();
 });
 
-test('initialization stores options', (t) => {
+test('initialization stores options', () => {
   const options = { alpha: 'a', beta: 'b', gamma: 'c' };
   const api = new Neutrino(options);
 
-  t.is(api.options.alpha, options.alpha);
-  t.is(api.options.beta, options.beta);
-  t.is(api.options.gamma, options.gamma);
+  expect(api.options.alpha).toBe(options.alpha);
+  expect(api.options.beta).toBe(options.beta);
+  expect(api.options.gamma).toBe(options.gamma);
 });
 
-test('options.root', (t) => {
+test('options.root', () => {
   const api = new Neutrino();
 
-  t.is(api.options.root, process.cwd());
+  expect(api.options.root).toBe(process.cwd());
   api.options.root = './alpha';
-  t.is(api.options.root, join(process.cwd(), 'alpha'));
+  expect(api.options.root).toBe(join(process.cwd(), 'alpha'));
   api.options.root = '/alpha';
-  t.is(api.options.root, '/alpha');
+  expect(api.options.root).toBe('/alpha');
 });
 
-test('options.source', (t) => {
+test('options.source', () => {
   const api = new Neutrino();
 
-  t.is(api.options.source, join(process.cwd(), 'src'));
+  expect(api.options.source).toBe(join(process.cwd(), 'src'));
   api.options.source = './alpha';
-  t.is(api.options.source, join(process.cwd(), 'alpha'));
+  expect(api.options.source).toBe(join(process.cwd(), 'alpha'));
   api.options.root = '/beta';
-  t.is(api.options.source, join('/beta', 'alpha'));
+  expect(api.options.source).toBe(join('/beta', 'alpha'));
   api.options.source = '/alpha';
-  t.is(api.options.source, '/alpha');
+  expect(api.options.source).toBe('/alpha');
 });
 
-test('options.output', (t) => {
+test('options.output', () => {
   const api = new Neutrino();
 
-  t.is(api.options.output, join(process.cwd(), 'build'));
+  expect(api.options.output).toBe(join(process.cwd(), 'build'));
   api.options.output = './alpha';
-  t.is(api.options.output, join(process.cwd(), 'alpha'));
+  expect(api.options.output).toBe(join(process.cwd(), 'alpha'));
   api.options.root = '/beta';
-  t.is(api.options.output, join('/beta', 'alpha'));
+  expect(api.options.output).toBe(join('/beta', 'alpha'));
   api.options.output = '/alpha';
-  t.is(api.options.output, '/alpha');
+  expect(api.options.output).toBe('/alpha');
 });
 
-test('options.tests', (t) => {
+test('options.tests', () => {
   const api = new Neutrino();
 
-  t.is(api.options.tests, join(process.cwd(), 'test'));
+  expect(api.options.tests).toBe(join(process.cwd(), 'test'));
   api.options.tests = './alpha';
-  t.is(api.options.tests, join(process.cwd(), 'alpha'));
+  expect(api.options.tests).toBe(join(process.cwd(), 'alpha'));
   api.options.root = '/beta';
-  t.is(api.options.tests, join('/beta', 'alpha'));
+  expect(api.options.tests).toBe(join('/beta', 'alpha'));
   api.options.tests = '/alpha';
-  t.is(api.options.tests, '/alpha');
+  expect(api.options.tests).toBe('/alpha');
 });
 
-test('throws when legacy options.node_modules is set', (t) => {
-  t.throws(
-    () => new Neutrino({ node_modules: 'abc' }),
+test('throws when legacy options.node_modules is set', () => {
+  expect(() => new Neutrino({ node_modules: 'abc' })).toThrow(
     /options\.node_modules has been removed/,
   );
 });
 
-test('throws when legacy options.host is set', (t) => {
-  t.throws(
-    () => new Neutrino({ host: 'abc' }),
+test('throws when legacy options.host is set', () => {
+  expect(() => new Neutrino({ host: 'abc' })).toThrow(
     /options\.host has been removed/,
   );
 });
 
-test('throws when legacy options.port is set', (t) => {
-  t.throws(
-    () => new Neutrino({ port: 1234 }),
+test('throws when legacy options.port is set', () => {
+  expect(() => new Neutrino({ port: 1234 })).toThrow(
     /options\.port has been removed/,
   );
 });
 
-test('options.mains', (t) => {
+test('options.mains', () => {
   const api = new Neutrino();
 
-  t.deepEqual(api.options.mains.index, {
+  expect(api.options.mains.index).toEqual({
     entry: join(process.cwd(), 'src/index'),
   });
   api.options.mains.index = './alpha.js';
-  t.deepEqual(api.options.mains.index, {
+  expect(api.options.mains.index).toEqual({
     entry: join(process.cwd(), 'src/alpha.js'),
   });
   api.options.source = 'beta';
-  t.deepEqual(api.options.mains.index, {
+  expect(api.options.mains.index).toEqual({
     entry: join(process.cwd(), 'beta/alpha.js'),
   });
   api.options.root = '/gamma';
-  t.deepEqual(api.options.mains.index, {
+  expect(api.options.mains.index).toEqual({
     entry: join('/gamma', 'beta/alpha.js'),
   });
   api.options.mains.index = '/alpha.js';
-  t.deepEqual(api.options.mains.index, { entry: '/alpha.js' });
+  expect(api.options.mains.index).toEqual({ entry: '/alpha.js' });
 });
 
-test('override options.mains', (t) => {
+test('override options.mains', () => {
   const api = new Neutrino({
     mains: {
       alpha: 'beta',
@@ -119,48 +115,48 @@ test('override options.mains', (t) => {
     },
   });
 
-  t.deepEqual(api.options.mains.alpha, {
+  expect(api.options.mains.alpha).toEqual({
     entry: join(process.cwd(), 'src/beta'),
   });
   api.options.mains.alpha = { entry: './alpha.js', minify: false };
-  t.deepEqual(api.options.mains.alpha, {
+  expect(api.options.mains.alpha).toEqual({
     entry: join(process.cwd(), 'src/alpha.js'),
     minify: false,
   });
   api.options.source = 'epsilon';
-  t.deepEqual(api.options.mains.alpha, {
+  expect(api.options.mains.alpha).toEqual({
     entry: join(process.cwd(), 'epsilon/alpha.js'),
     minify: false,
   });
   api.options.root = '/zeta';
-  t.deepEqual(api.options.mains.alpha, {
+  expect(api.options.mains.alpha).toEqual({
     entry: join('/zeta', 'epsilon/alpha.js'),
     minify: false,
   });
   api.options.mains.alpha = '/alpha.js';
-  t.deepEqual(api.options.mains.alpha, { entry: '/alpha.js' });
+  expect(api.options.mains.alpha).toEqual({ entry: '/alpha.js' });
 
-  t.deepEqual(api.options.mains.gamma, {
+  expect(api.options.mains.gamma).toEqual({
     entry: join('/zeta', 'epsilon/delta'),
     title: 'Gamma Page',
   });
   api.options.mains.gamma = './alpha.js';
-  t.deepEqual(api.options.mains.gamma, {
+  expect(api.options.mains.gamma).toEqual({
     entry: join('/zeta', 'epsilon/alpha.js'),
   });
   api.options.source = 'src';
-  t.deepEqual(api.options.mains.gamma, {
+  expect(api.options.mains.gamma).toEqual({
     entry: join('/zeta', 'src/alpha.js'),
   });
   api.options.root = process.cwd();
-  t.deepEqual(api.options.mains.gamma, {
+  expect(api.options.mains.gamma).toEqual({
     entry: join(process.cwd(), 'src/alpha.js'),
   });
   api.options.mains.gamma = '/alpha.js';
-  t.deepEqual(api.options.mains.gamma, { entry: '/alpha.js' });
+  expect(api.options.mains.gamma).toEqual({ entry: '/alpha.js' });
 });
 
-test('override options.mains.index template', (t) => {
+test('override options.mains.index template', () => {
   const api = new Neutrino({
     mains: {
       index: {
@@ -169,66 +165,65 @@ test('override options.mains.index template', (t) => {
     },
   });
 
-  t.deepEqual(api.options.mains.index, {
+  expect(api.options.mains.index).toEqual({
     entry: join(process.cwd(), 'src/index'),
     template: 'alpha.eps',
   });
 });
 
-test('creates an instance of webpack-chain', (t) => {
-  t.is(typeof new Neutrino().config.toConfig, 'function');
+test('creates an instance of webpack-chain', () => {
+  expect(typeof new Neutrino().config.toConfig).toBe('function');
 });
 
-test('middleware receives API instance', (t) => {
+test('middleware receives API instance', () => {
   const api = new Neutrino();
 
-  api.use((n) => t.is(n, api));
+  api.use((n) => expect(n).toBe(api));
 });
 
-test('middleware fails on more than one argument', (t) => {
+test('middleware fails on more than one argument', () => {
   const api = new Neutrino();
   const errorMatch = /middleware only accepts a single argument/;
 
   /* eslint-disable no-unused-vars */
-  t.notThrows(() => api.use(function good() {}));
-  t.notThrows(() => api.use(function good(neutrino) {}));
-  t.throws(() => api.use(function bad(neutrino, options) {}), errorMatch);
+  expect(() => api.use(function good() {})).not.toThrow();
+  expect(() => api.use(function good(neutrino) {})).not.toThrow();
+  expect(() => api.use(function bad(neutrino, options) {})).toThrow(errorMatch);
   /* eslint-enable no-unused-vars */
 });
 
-test('middleware only accepts functions', (t) => {
+test('middleware only accepts functions', () => {
   const api = new Neutrino();
   const errorMatch = /middleware can only be passed as functions/;
 
-  t.notThrows(() => api.use(function good() {}));
-  t.throws(() => api.use('bad'), errorMatch);
-  t.throws(() => api.use(['bad', { alpha: 'beta' }]), errorMatch);
-  t.throws(() => api.use({ alpha: 'beta' }), errorMatch);
+  expect(() => api.use(function good() {})).not.toThrow();
+  expect(() => api.use('bad')).toThrow(errorMatch);
+  expect(() => api.use(['bad', { alpha: 'beta' }])).toThrow(errorMatch);
+  expect(() => api.use({ alpha: 'beta' })).toThrow(errorMatch);
 });
 
-test('creates a webpack config', (t) => {
+test('creates a webpack config', () => {
   const api = new Neutrino();
 
   api.use((api) => {
     api.config.module.rule('compile').test(api.regexFromExtensions(['js']));
   });
 
-  t.notDeepEqual(api.config.toConfig(), {});
+  expect(api.config.toConfig()).not.toEqual({});
 });
 
-test('regexFromExtensions', (t) => {
+test('regexFromExtensions', () => {
   const api = new Neutrino();
 
-  t.is(String(api.regexFromExtensions()), '/\\.(mjs|jsx|js)$/');
-  t.is(String(api.regexFromExtensions(['js'])), '/\\.js$/');
-  t.is(String(api.regexFromExtensions(['js', 'css'])), '/\\.(js|css)$/');
-  t.is(
-    String(api.regexFromExtensions(['worker.js', 'worker.jsx'])),
+  expect(String(api.regexFromExtensions())).toBe('/\\.(mjs|jsx|js)$/');
+  expect(String(api.regexFromExtensions(['js']))).toBe('/\\.js$/');
+  expect(String(api.regexFromExtensions(['js', 'css']))).toBe('/\\.(js|css)$/');
+  expect(String(api.regexFromExtensions(['worker.js', 'worker.jsx']))).toBe(
     '/\\.(worker\\.js|worker\\.jsx)$/',
   );
 });
 
-test('getDependencyVersion', (t) => {
+test('getDependencyVersion', () => {
   const api = new Neutrino();
 
   api.options.packageJson = {
@@ -240,14 +235,14 @@ test('getDependencyVersion', (t) => {
     },
   };
 
-  t.is(api.getDependencyVersion('neutrino').major, 9);
-  t.is(api.getDependencyVersion('core-js').major, 3);
-  t.is(api.getDependencyVersion('eslint'), false);
+  expect(api.getDependencyVersion('neutrino').major).toBe(9);
+  expect(api.getDependencyVersion('core-js').major).toBe(3);
+  expect(api.getDependencyVersion('eslint')).toBe(false);
 });
 
-test('extensions option overrides defaults', (t) => {
+test('extensions option overrides defaults', () => {
   const extensions = ['ts'];
   const api = new Neutrino({ extensions });
 
-  t.deepEqual(api.options.extensions, extensions);
+  expect(api.options.extensions).toEqual(extensions);
 });

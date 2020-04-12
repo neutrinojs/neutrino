@@ -1,74 +1,73 @@
-import test from 'ava';
-import Neutrino from '../../neutrino/Neutrino';
-import neutrino from '../../neutrino';
+const Neutrino = require('../../neutrino/Neutrino');
+const neutrino = require('../../neutrino');
 
 const mw = (...args) => require('..')(...args);
 const options = { eslint: { rules: { semi: false } } };
 
-test('loads preset', (t) => {
-  t.notThrows(() => require('..'));
+test('loads preset', () => {
+  expect(() => require('..')).not.toThrow();
 });
 
-test('uses preset', (t) => {
-  t.notThrows(() => new Neutrino().use(mw()));
+test('uses preset', () => {
+  expect(() => new Neutrino().use(mw())).not.toThrow();
 });
 
-test('uses with options', (t) => {
-  t.notThrows(() => new Neutrino().use(mw(options)));
+test('uses with options', () => {
+  expect(() => new Neutrino().use(mw(options))).not.toThrow();
 });
 
-test('instantiates', (t) => {
+test('instantiates', () => {
   const api = new Neutrino();
 
   api.use(mw());
 
-  t.notThrows(() => api.config.toConfig());
+  expect(() => api.config.toConfig()).not.toThrow();
 });
 
-test('instantiates with options', (t) => {
+test('instantiates with options', () => {
   const api = new Neutrino();
 
   api.use(mw(options));
 
-  t.notThrows(() => api.config.toConfig());
+  expect(() => api.config.toConfig()).not.toThrow();
 });
 
-test('exposes eslintrc output handler', (t) => {
+test('exposes eslintrc output handler', () => {
   const api = new Neutrino();
 
   api.use(mw());
 
   const handler = api.outputHandlers.get('eslintrc');
 
-  t.is(typeof handler, 'function');
+  expect(typeof handler).toBe('function');
 });
 
-test('exposes eslintrc config from output', (t) => {
+test('exposes eslintrc config from output', () => {
   const config = neutrino(mw()).output('eslintrc');
 
-  t.is(typeof config, 'object');
+  expect(typeof config).toBe('object');
 });
 
-test('exposes eslintrc method', (t) => {
-  t.is(typeof neutrino(mw()).eslintrc, 'function');
+test('exposes eslintrc method', () => {
+  expect(typeof neutrino(mw()).eslintrc).toBe('function');
 });
 
-test('exposes eslintrc config from method', (t) => {
-  t.is(typeof neutrino(mw()).eslintrc(), 'object');
+test('exposes eslintrc config from method', () => {
+  expect(typeof neutrino(mw()).eslintrc()).toBe('object');
 });
 
-test('sets defaults when no options passed', (t) => {
+test('sets defaults when no options passed', () => {
   const api = new Neutrino();
   api.use(mw());
 
   const lintRule = api.config.module.rule('lint');
-  t.deepEqual(lintRule.get('test'), /\.(mjs|jsx|js)$/);
-  t.deepEqual(lintRule.include.values(), [
+  expect(lintRule.get('test')).toEqual(/\.(mjs|jsx|js)$/);
+  expect(lintRule.include.values()).toEqual([
     api.options.source,
     api.options.tests,
   ]);
-  t.deepEqual(lintRule.exclude.values(), []);
-  t.deepEqual(lintRule.use('eslint').get('options'), {
+  expect(lintRule.exclude.values()).toEqual([]);
+  expect(lintRule.use('eslint').get('options')).toEqual({
     baseConfig: {
       env: {
         es6: true,
@@ -129,7 +128,7 @@ test('sets defaults when no options passed', (t) => {
   });
 });
 
-test('merges options with defaults', (t) => {
+test('merges options with defaults', () => {
   const api = new Neutrino();
   api.use(
     mw({
@@ -158,10 +157,10 @@ test('merges options with defaults', (t) => {
   );
 
   const lintRule = api.config.module.rule('lint');
-  t.deepEqual(lintRule.get('test'), /\.js$/);
-  t.deepEqual(lintRule.include.values(), ['/app/src']);
-  t.deepEqual(lintRule.exclude.values(), [/node_modules/]);
-  t.deepEqual(lintRule.use('eslint').get('options'), {
+  expect(lintRule.get('test')).toEqual(/\.js$/);
+  expect(lintRule.include.values()).toEqual(['/app/src']);
+  expect(lintRule.exclude.values()).toEqual([/node_modules/]);
+  expect(lintRule.use('eslint').get('options')).toEqual({
     baseConfig: {
       env: {
         es6: true,
