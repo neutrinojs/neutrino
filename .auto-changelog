@@ -1,9 +1,5 @@
 {
   "commitLimit": false,
-  "includeBranch": [
-    "upstream/release/v7",
-    "upstream/release/v8"
-  ],
   "releaseSummary": true,
   "remote": "upstream"
 }
