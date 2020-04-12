@@ -192,7 +192,7 @@ the latest changes from the master branch.
     Your editor will open, where a multi-line commit message can be entered if you would
     like the release to have a summary in the changelog above the list of commits. If a
     summary is provided, the changelog will then need to be re-generated after the commit
-    (using `yarn changelog`) and then the commit amended to include the changes.
+    (using `yarn changelog:unreleased`) and then the commit amended to include the changes.
 
 6. Open a Pull Request and request review.
 7. Once the Pull request is merged, check out `master` at that revision.

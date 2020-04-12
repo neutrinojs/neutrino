@@ -15,7 +15,8 @@
     "packages/*"
   ],
   "scripts": {
-    "changelog": "auto-changelog --package lerna.json",
+    "changelog": "auto-changelog",
+    "changelog:unreleased": "auto-changelog --package lerna.json",
     "docs:bootstrap": "pip install -r docs/requirements.txt",
     "docs:serve": "mkdocs serve",
     "link:all": "lerna exec yarn link",
@@ -23,7 +24,7 @@
     "prettier:check": "prettier --ignore-path .eslintignore --check \"**/*.{css,html,js,jsx,json,md,yaml,yml}\"",
     "prettier:fix": "prettier --ignore-path .eslintignore --write \"**/*.{css,html,js,jsx,json,md,yaml,yml}\"",
     "print-version": "node -p \"'v' +require('./lerna.json').version\"",
-    "release:prepare": "lerna version && prettier --write lerna.json && yarn changelog",
+    "release:prepare": "lerna version && prettier --write lerna.json && yarn changelog:unreleased",
     "release:commit": "git commit --all --message $(yarn -s print-version) --edit",
     "release:tag": "git tag $(yarn -s print-version) && git push upstream $(yarn -s print-version)",
     "release:publish": "lerna publish from-package",
