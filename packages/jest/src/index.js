@@ -24,7 +24,7 @@ module.exports = (options = {}) => (neutrino) => {
       'cacheDirectory',
       'cacheCompression',
       'cacheIdentifier',
-      'customize'
+      'customize',
     ];
     const compileRule = neutrino.config.module.rules.get('compile');
     const babelOptions = compileRule
