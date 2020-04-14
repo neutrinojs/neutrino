@@ -20,7 +20,12 @@ module.exports = (options = {}) => (neutrino) => {
   }
 
   neutrino.register('jest', (neutrino) => {
-    const babelLoaderOptionsNames = ['cacheDirectory', 'cacheCompression', 'cacheIdentifier', 'customize'];
+    const babelLoaderOptionsNames = [
+      'cacheDirectory',
+      'cacheCompression',
+      'cacheIdentifier',
+      'customize'
+    ];
     const compileRule = neutrino.config.module.rules.get('compile');
     const babelOptions = compileRule
       ? omit(compileRule.use('babel').get('options'), babelLoaderOptionsNames)
