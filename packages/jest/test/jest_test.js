@@ -114,7 +114,7 @@ test('configures moduleFileExtensions correctly', (t) => {
   ]);
 });
 
-test("exposes babel config", (t) => {
+test('exposes babel config', (t) => {
   const api = new Neutrino();
   api.use(
     compileMiddleware({
@@ -122,7 +122,7 @@ test("exposes babel config", (t) => {
       cacheCompression: false,
       cacheIdentifier: false,
       customize: true,
-    })
+    }),
   );
   api.use(mw());
 
@@ -130,7 +130,7 @@ test("exposes babel config", (t) => {
   t.truthy(babelOptions);
 });
 
-test("exposes babel config without babel-loader specific options", (t) => {
+test('exposes babel config without babel-loader specific options', (t) => {
   const api = new Neutrino();
   api.use(
     compileMiddleware({
@@ -140,13 +140,13 @@ test("exposes babel config without babel-loader specific options", (t) => {
         cacheIdentifier: false,
         customize: true,
       },
-    })
+    }),
   );
   api.use(mw());
 
   const babelOptions = JSON.parse(process.env.JEST_BABEL_OPTIONS);
-  t.false("cacheDirectory" in babelOptions);
-  t.false("cacheCompression" in babelOptions);
-  t.false("cacheIdentifier" in babelOptions);
-  t.false("customize" in babelOptions);
+  t.false('cacheDirectory' in babelOptions);
+  t.false('cacheCompression' in babelOptions);
+  t.false('cacheIdentifier' in babelOptions);
+  t.false('customize' in babelOptions);
 });
