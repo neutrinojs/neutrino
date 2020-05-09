@@ -20,9 +20,15 @@ module.exports = (options = {}) => (neutrino) => {
   }
 
   neutrino.register('jest', (neutrino) => {
+    const babelLoaderOptionsNames = [
+      'cacheDirectory',
+      'cacheCompression',
+      'cacheIdentifier',
+      'customize',
+    ];
     const compileRule = neutrino.config.module.rules.get('compile');
     const babelOptions = compileRule
-      ? omit(compileRule.use('babel').get('options'), ['cacheDirectory'])
+      ? omit(compileRule.use('babel').get('options'), babelLoaderOptionsNames)
       : {};
     // Any parts of the babel config that are not serializable will be omitted, however
     // that also occurs when passing to the custom transformer using `globals` instead.

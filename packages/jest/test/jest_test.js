@@ -2,6 +2,7 @@ import test from 'ava';
 import airbnbPreset from '../../airbnb';
 import eslintPreset from '../../eslint';
 import reactPreset from '../../react';
+import compileMiddleware from '../../compile-loader';
 import Neutrino from '../../neutrino/Neutrino';
 import neutrino from '../../neutrino';
 
@@ -11,6 +12,7 @@ const originalNodeEnv = process.env.NODE_ENV;
 test.afterEach(() => {
   // Restore the original NODE_ENV after each test (which Ava defaults to 'test').
   process.env.NODE_ENV = originalNodeEnv;
+  process.env.JEST_BABEL_OPTIONS = undefined;
 });
 
 test('loads middleware', (t) => {
@@ -110,4 +112,41 @@ test('configures moduleFileExtensions correctly', (t) => {
     'js',
     'json',
   ]);
+});
+
+test('exposes babel config', (t) => {
+  const api = new Neutrino();
+  api.use(
+    compileMiddleware({
+      cacheDirectory: true,
+      cacheCompression: false,
+      cacheIdentifier: false,
+      customize: true,
+    }),
+  );
+  api.use(mw());
+
+  const babelOptions = JSON.parse(process.env.JEST_BABEL_OPTIONS);
+  t.truthy(babelOptions);
+});
+
+test('exposes babel config without babel-loader specific options', (t) => {
+  const api = new Neutrino();
+  api.use(
+    compileMiddleware({
+      babel: {
+        cacheDirectory: true,
+        cacheCompression: false,
+        cacheIdentifier: false,
+        customize: true,
+      },
+    }),
+  );
+  api.use(mw());
+
+  const babelOptions = JSON.parse(process.env.JEST_BABEL_OPTIONS);
+  t.false('cacheDirectory' in babelOptions);
+  t.false('cacheCompression' in babelOptions);
+  t.false('cacheIdentifier' in babelOptions);
+  t.false('customize' in babelOptions);
 });
