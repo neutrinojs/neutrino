@@ -26,11 +26,11 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@babel/core": "^7.9.0",
+    "@babel/core": "^7.9.6",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^26.0.1",
     "deepmerge": "^1.5.2",
-    "eslint-plugin-jest": "^23.8.2",
+    "eslint-plugin-jest": "^23.10.0",
     "lodash.omit": "^4.5.0"
   },
   "peerDependencies": {
