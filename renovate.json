@@ -3,9 +3,8 @@
     "config:base",
     ":maintainLockFilesWeekly",
     ":prNotPending",
-    ":semanticCommitsDisabled",
-    ":unpublishSafe"
+    ":semanticCommitsDisabled"
   ],
-  "reviewers": ["neutrinojs/core-contributors"],
+  "reviewers": ["team:neutrinojs/core-contributors"],
   "pinVersions": false
 }
