@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "camelcase": "^6.0.0",
-    "jscodeshift": "^0.9.0",
+    "jscodeshift": "^0.10.0",
     "yargs": "^15.3.1"
   }
 }
