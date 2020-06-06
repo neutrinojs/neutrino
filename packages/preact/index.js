@@ -13,12 +13,6 @@ module.exports = (opts = {}) => (neutrino) => {
             require.resolve('@babel/plugin-transform-react-jsx'),
             { pragma: 'h', pragmaFrag: 'Fragment' },
           ],
-          // Using loose for the reasons here:
-          // https://github.com/facebook/create-react-app/issues/4263
-          [
-            require.resolve('@babel/plugin-proposal-class-properties'),
-            { loose: true },
-          ],
         ],
       },
       opts.babel || {},
