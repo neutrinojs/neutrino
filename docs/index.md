@@ -1,4 +1,4 @@
-<h1><p align="center"><img src="assets/logo.png" height="150"></p></h1>
+<h1><p align="center"><img src="assets/logo.png" height="150" width="150"></p></h1>
 
 <h3>Create and build modern JavaScript applications with zero initial configuration</h3>
 <h4>Neutrino combines the power of webpack with the simplicity of presets.</h4>
