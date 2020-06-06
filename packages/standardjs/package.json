@@ -38,7 +38,7 @@
     "eslint-plugin-standard": "^4.0.1"
   },
   "peerDependencies": {
-    "eslint": "^6.0.0",
+    "eslint": "^7.0.0",
     "neutrino": "^9.0.0"
   }
 }
