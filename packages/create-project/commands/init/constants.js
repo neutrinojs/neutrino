@@ -32,7 +32,7 @@ const N = {
 };
 
 // Tool dependencies
-const ESLINT = 'eslint@^6';
+const ESLINT = 'eslint@^7';
 const JEST = 'jest@^26';
 const KARMA = 'karma@^5';
 const KARMA_CLI = 'karma-cli@^2';
