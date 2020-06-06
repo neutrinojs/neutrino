@@ -1,4 +1,4 @@
-dist: xenial
+dist: focal
 language: node_js
 cache: yarn
 node_js:
