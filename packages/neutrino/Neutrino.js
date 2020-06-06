@@ -202,7 +202,7 @@ module.exports = class Neutrino {
           '  https://neutrinojs.org/migrate\n' +
           '  https://neutrinojs.org/migration-guide',
       );
-    } else if (Array.isArray) {
+    } else if (Array.isArray(middleware)) {
       throw new ConfigurationError(
         `"${middleware[0]}" is specified as an array, but as of Neutrino 9,\n` +
           'middleware can only be passed as functions.\n' +

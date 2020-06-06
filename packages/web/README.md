@@ -409,6 +409,14 @@ invalidate cache as expected: https://github.com/babel/babel-loader/issues/690
 See [`@babel/preset-env`](https://babeljs.io/docs/en/babel-preset-env#targets)
 for all other available settings.
 
+### Style
+
+The `style` preset option controls the configuration passed to `@neutrinojs/style-loader`.
+
+Typically `style` is an object, however it can be set to `false` to disable
+`@neutrinojs/style-loader` entirely, or an array of objects, in which case multiple
+instances of `@neutrinojs/style-loader` will be used.
+
 ## Hot Module Replacement
 
 While `@neutrinojs/web` supports Hot Module Replacement your app, it does

@@ -349,6 +349,44 @@ test('targets false option test', (t) => {
   );
 });
 
+test('supports multiple style loaders using an array', (t) => {
+  const api = new Neutrino();
+  const style = [
+    {
+      test: /\.foo$/,
+    },
+    {
+      test: /\.bar$/,
+    },
+  ];
+  api.use(mw({ style }));
+
+  t.true(api.config.module.rules.has('style-0'));
+  t.deepEqual(api.config.module.rule('style-0').oneOf('normal').get('test'), /\.foo$/);
+  t.true(api.config.module.rules.has('style-1'));
+  t.deepEqual(api.config.module.rule('style-1').oneOf('normal').get('test'), /\.bar$/);
+});
+
+test('supports multiple style loaders using an array with custom ruleIds', (t) => {
+  const api = new Neutrino();
+  const style = [
+    {
+      ruleId: 'style-foo',
+      test: /\.foo$/,
+    },
+    {
+      ruleId: 'style-bar',
+      test: /\.bar$/,
+    },
+  ];
+  api.use(mw({ style }));
+
+  t.true(api.config.module.rules.has('style-foo'));
+  t.deepEqual(api.config.module.rule('style-foo').oneOf('normal').get('test'), /\.foo$/);
+  t.true(api.config.module.rules.has('style-bar'));
+  t.deepEqual(api.config.module.rule('style-bar').oneOf('normal').get('test'), /\.bar$/);
+});
+
 test('updates lint config by default', (t) => {
   const api = new Neutrino();
   api.use(lint());

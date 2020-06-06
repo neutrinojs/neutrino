@@ -212,7 +212,20 @@ module.exports = (opts = {}) => (neutrino) => {
     // from the more frequently-changing entrypoint chunks.
     .runtimeChunk('single')
     .end()
-    .when(options.style, () => neutrino.use(styleLoader(options.style)))
+    .when(options.style, () => {
+      // Allow passing an array of style configs, for use-cases where multiple
+      // independent style rules are required
+      if (Array.isArray(options.style)) {
+        options.style.forEach((styleConfig, index) => {
+          neutrino.use(styleLoader({
+            ruleId: `style-${index}`,
+            ...styleConfig,
+          }));
+        });
+      } else {
+        neutrino.use(styleLoader(options.style));
+      }
+    })
     .when(options.font, () => neutrino.use(fontLoader(options.font)))
     .when(options.image, () => neutrino.use(imageLoader(options.image)))
     .target('web')
