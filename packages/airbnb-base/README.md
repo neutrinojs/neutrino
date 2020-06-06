@@ -25,7 +25,7 @@ instead._
 - Yarn v1.2.1+, or npm v5.4+
 - Neutrino 9 and one of the Neutrino build presets
 - webpack 4
-- ESLint 6
+- ESLint 6 or 7
 
 ## Quickstart
 
