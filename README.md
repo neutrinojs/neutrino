@@ -1,4 +1,4 @@
-<h1><p align="center"><a href="https://neutrinojs.org"><img src="https://raw.githubusercontent.com/neutrinojs/neutrino/master/docs/assets/logo.png" height="150"></a></p></h1>
+<h1><p align="center"><a href="https://neutrinojs.org"><img src="https://raw.githubusercontent.com/neutrinojs/neutrino/master/docs/assets/logo.png" height="150" width="150"></a></p></h1>
 
 ### Create and build modern JavaScript applications with zero initial configuration
 
