@@ -28,16 +28,16 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@babel/core": "^7.9.6",
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/plugin-transform-react-jsx": "^7.9.4",
+    "@babel/core": "^7.10.2",
+    "@babel/plugin-proposal-class-properties": "^7.10.1",
+    "@babel/plugin-transform-react-jsx": "^7.10.1",
     "@neutrinojs/web": "9.1.0",
     "babel-merge": "^3.0.0",
     "deepmerge": "^1.5.2",
-    "eslint-plugin-react": "^7.19.0"
+    "eslint-plugin-react": "^7.20.0"
   },
   "devDependencies": {
-    "preact": "^10.4.1"
+    "preact": "^10.4.4"
   },
   "peerDependencies": {
     "neutrino": "^9.0.0",
