@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/jest",
-  "version": "9.1.0",
+  "version": "9.2.0",
   "description": "Neutrino preset for testing Neutrino projects with Jest",
   "main": "src/index.js",
   "keywords": [

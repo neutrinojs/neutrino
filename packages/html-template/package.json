@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/html-template",
-  "version": "9.1.0",
+  "version": "9.2.0",
   "description": "Neutrino middleware for automatic HTML file generation from metadata",
   "main": "index.js",
   "keywords": [
