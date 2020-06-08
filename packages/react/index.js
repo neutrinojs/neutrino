@@ -30,12 +30,6 @@ module.exports = (opts = {}) => (neutrino) => {
               removeImport: true,
             },
           ],
-          // Using loose for the reasons here:
-          // https://github.com/facebook/create-react-app/issues/4263
-          [
-            require.resolve('@babel/plugin-proposal-class-properties'),
-            { loose: true },
-          ],
         ].filter(Boolean),
         presets: [
           [

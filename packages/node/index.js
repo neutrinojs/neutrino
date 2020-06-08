@@ -51,6 +51,7 @@ module.exports = (opts = {}) => {
                 {
                   debug: neutrino.options.debug,
                   targets: options.targets,
+                  shippedProposals: true,
                   useBuiltIns: coreJsVersion ? 'usage' : false,
                   ...(coreJsVersion && { corejs: coreJsVersion.major }),
                 },
