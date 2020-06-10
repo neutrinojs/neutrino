@@ -30,11 +30,7 @@ module.exports = (opts = {}) => (neutrino) => {
       env: false,
       hot: true,
       html: {},
-      devtool: {
-        development: 'cheap-module-eval-source-map',
-        production: undefined,
-        test: 'source-map',
-      },
+      devtool: isProduction ? false : 'eval-cheap-module-source-map',
       devServer: {
         hot: opts.hot !== false,
       },
