@@ -30,7 +30,11 @@ module.exports = (opts = {}) => (neutrino) => {
       env: false,
       hot: true,
       html: {},
-      devtool: isProduction ? false : 'eval-cheap-module-source-map',
+      devtool: {
+        development: 'eval-cheap-module-source-map',
+        production: undefined,
+        test: 'source-map',
+      },
       devServer: {
         hot: opts.hot !== false,
       },
@@ -203,7 +207,7 @@ module.exports = (opts = {}) => (neutrino) => {
       // `vendors~index~page2.b694ee99.js`. Setting to `false` causes them to use the
       // chunk ID instead (eg `1.ceddedc0.js`), which prevents cache-busting when a
       // new page is added with the same shared vendor dependencies.
-      name: !isProduction,
+      // name: !isProduction,
     })
     // Create a separate chunk for the webpack runtime, so it can be cached separately
     // from the more frequently-changing entrypoint chunks.
@@ -230,10 +234,10 @@ module.exports = (opts = {}) => (neutrino) => {
     ])
     .end()
     .end()
-    .node.set('Buffer', false)
-    .set('fs', 'empty')
-    .set('tls', 'empty')
-    .end()
+    // .node.set('Buffer', false)
+    // .set('fs', 'empty')
+    // .set('tls', 'empty')
+    // .end()
     // The default output is too noisy, particularly with multiple entrypoints.
     .stats({
       children: false,
