@@ -55,6 +55,7 @@ module.exports = (options = {}) => (neutrino) => {
           ? modulesConfig
           : ['node_modules'],
         moduleFileExtensions: neutrino.config.resolve.extensions
+          .add('.js')
           .values()
           // Jest does not yet support ES6 modules, see:
           // https://github.com/facebook/jest/issues/4842
