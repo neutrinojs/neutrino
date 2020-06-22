@@ -161,7 +161,7 @@ test('configures webpack aliases in moduleNameMapper correctly', (t) => {
   const config = api.outputHandlers.get('jest')(api);
 
   t.true(
-    Object.entries(config.moduleNameMapper).some(function ([key, alias]) {
+    Object.entries(config.moduleNameMapper).some(([key, alias]) => {
       return key === '^react$' && alias === reactPath;
     }),
   );
