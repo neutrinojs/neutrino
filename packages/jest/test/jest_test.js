@@ -1,3 +1,4 @@
+import path from 'path';
 import test from 'ava';
 import airbnbPreset from '../../airbnb';
 import eslintPreset from '../../eslint';
@@ -149,4 +150,19 @@ test('exposes babel config without babel-loader specific options', (t) => {
   t.false('cacheCompression' in babelOptions);
   t.false('cacheIdentifier' in babelOptions);
   t.false('customize' in babelOptions);
+});
+
+test('configures webpack aliases in moduleNameMapper correctly', (t) => {
+  const api = new Neutrino();
+  const reactPath = path.resolve(path.join('node_modules', 'react'));
+  api.use(reactPreset());
+  api.use(mw());
+  api.config.resolve.alias.set('react', reactPath);
+  const config = api.outputHandlers.get('jest')(api);
+
+  t.true(
+    Object.entries(config.moduleNameMapper).some(([key, alias]) => {
+      return key === '^react$' && alias === reactPath;
+    }),
+  );
 });

@@ -63,7 +63,7 @@ module.exports = (options = {}) => (neutrino) => {
         moduleNameMapper: Object.keys(aliases).reduce(
           (mapper, key) => ({
             ...mapper,
-            [`^${key}$`]: `${getFinalPath(aliases[key])}$1`,
+            [`^${key}$`]: `${getFinalPath(aliases[key])}`,
           }),
           {
             [extensionsToNames(media)]: require.resolve('./file-mock'),
