@@ -51,7 +51,7 @@
     "karma-cli": "^2.0.0",
     "lerna": "^3.22.0",
     "lint-staged": "^10.2.9",
-    "mocha": "^7.2.0",
+    "mocha": "^8.0.0",
     "prettier": "^2.0.5",
     "verdaccio": "^4.6.2",
     "verdaccio-memory": "^9.5.0",
