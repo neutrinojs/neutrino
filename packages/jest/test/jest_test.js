@@ -119,7 +119,7 @@ test('configures default moduleFileExtensions', (t) => {
   api.use(mw());
   const config = api.outputHandlers.get('jest')(api);
 
-  t.deepEqual(config.moduleFileExtensions, ['js']);
+  t.false('moduleFileExtensions' in config);
 });
 
 test('exposes babel config', (t) => {
