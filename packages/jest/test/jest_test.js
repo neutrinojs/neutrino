@@ -115,6 +115,14 @@ test('configures moduleFileExtensions correctly', (t) => {
   ]);
 });
 
+test('configures default moduleFileExtensions', (t) => {
+  const api = new Neutrino();
+  api.use(mw());
+  const config = api.outputHandlers.get('jest')(api);
+
+  t.false('moduleFileExtensions' in config);
+});
+
 test('exposes babel config', (t) => {
   const api = new Neutrino();
   api.use(

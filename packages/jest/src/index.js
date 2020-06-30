@@ -47,6 +47,12 @@ module.exports = (options = {}) => (neutrino) => {
     const { extensions, source, tests, root, debug } = neutrino.options;
     const modulesConfig = neutrino.config.resolve.modules.values();
     const aliases = neutrino.config.resolve.alias.entries() || {};
+    const moduleFileExtensions = neutrino.config.resolve.extensions
+      .values()
+      // Jest does not yet support ES6 modules, see:
+      // https://github.com/facebook/jest/issues/4842
+      .filter((ext) => ext !== '.mjs')
+      .map((extension) => extension.replace('.', ''));
 
     return merge(
       {
@@ -54,12 +60,7 @@ module.exports = (options = {}) => (neutrino) => {
         moduleDirectories: modulesConfig.length
           ? modulesConfig
           : ['node_modules'],
-        moduleFileExtensions: neutrino.config.resolve.extensions
-          .values()
-          // Jest does not yet support ES6 modules, see:
-          // https://github.com/facebook/jest/issues/4842
-          .filter((ext) => ext !== '.mjs')
-          .map((extension) => extension.replace('.', '')),
+        ...(moduleFileExtensions.length && { moduleFileExtensions }),
         moduleNameMapper: Object.keys(aliases).reduce(
           (mapper, key) => ({
             ...mapper,
