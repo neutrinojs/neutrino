@@ -53,17 +53,14 @@ module.exports = (options = {}) => (neutrino) => {
       // https://github.com/facebook/jest/issues/4842
       .filter((ext) => ext !== '.mjs')
       .map((extension) => extension.replace('.', ''));
-    const extensionsOptions = moduleFileExtensions.length
-      ? { moduleFileExtensions }
-      : undefined;
 
     return merge(
       {
         rootDir: root,
-        ...extensionsOptions,
         moduleDirectories: modulesConfig.length
           ? modulesConfig
           : ['node_modules'],
+        ...(moduleFileExtensions.length && { moduleFileExtensions }),
         moduleNameMapper: Object.keys(aliases).reduce(
           (mapper, key) => ({
             ...mapper,
