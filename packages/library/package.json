@@ -42,7 +42,7 @@
     "@neutrinojs/compile-loader": "9.2.0",
     "babel-merge": "^3.0.0",
     "deepmerge": "^1.5.2",
-    "webpack-node-externals": "^1.7.2"
+    "webpack-node-externals": "^2.0.0"
   },
   "peerDependencies": {
     "neutrino": "^9.0.0",
