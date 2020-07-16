@@ -17,7 +17,7 @@ types.
 
 ### What is the added value versus all the boilerplate projects out there?
 
-The proliferation of boilerplate and meta-packages is one thing we are trying to reduce. These types of projects 
+The proliferation of boilerplate and meta-packages is one thing we are trying to reduce. These types of projects
 are great and do serve a purpose. But what if you wanted to make a configuration change across all your
 projects? You must make config changes in many places, including the original boilerplate, whereas presets
 give you the power to confine these changes to a single package. Some of these projects also make a trade-off
