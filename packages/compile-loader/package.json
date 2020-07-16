@@ -27,7 +27,7 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@babel/core": "^7.10.2",
+    "@babel/core": "^7.10.5",
     "babel-loader": "^8.1.0"
   },
   "peerDependencies": {
