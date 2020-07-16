@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/image-loader",
-  "version": "9.2.0",
+  "version": "9.3.0",
   "description": "Neutrino middleware for importing and loading image files from modules",
   "main": "index.js",
   "keywords": [
