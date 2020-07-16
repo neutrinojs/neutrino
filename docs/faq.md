@@ -9,10 +9,10 @@ need to make a change to your build steps, you are forced to make that change ac
 your similar projects. Using a preset rather than a boilerplate keeps this process DRY.
 
 Tools like [Create React App](https://github.com/facebook/create-react-app) have
-been fantastic improvements to the tooling ecosystem, but unfortunately, only work on specific
-environments like React, and do not allow simple extensibility of the build configuration. To 
+been fantastic improvements to the tooling ecosystem, but unfortunately, it only works on specific
+environments like React, and do not allow simple extensibility of the build configuration. To
 answer this, new and similar projects are cropping up to build different types of projects,
-often duplicating efforts that miss out on the best practices to share with the other project
+often duplicating efforts and missing out on opportunities to share best practices with the other project
 types.
 
 ### What is the added value versus all the boilerplate projects out there?
@@ -39,7 +39,7 @@ config.plugins.push(new webpack.EnvironmentPlugin(['NODE_ENV']));
 ```
 
 If you wanted to extend this plugin in your project to add more environment variables, you would most likely
-resort to either adding a new instance of the EnvironmentPlugin by requiring webpack yourself, or looping through
+resort to either adding a new instance of the `EnvironmentPlugin` by requiring webpack yourself, or looping through
 webpack's plugin array, removing the plugin, and re-instantiating it with your arguments.
 
 ```js
@@ -49,7 +49,7 @@ config.plugins = config.plugins.map(plugin => {
   }
   
   return new webpack.EnvironmentPlugin([...plugin.keys, ...customEnvironmentVariables]);
-}); 
+});
 ```
 
 This forces a much higher maintenance burden on your project, and this is only a very simple example. Modifying
@@ -61,12 +61,12 @@ possible when working with raw webpack configuration data.
 
 ### Can I just re-use my existing webpack configuration?
 
-The Neutrino configuration does let you merge a configuration object but does not accept a normal webpack configuration
+The Neutrino configuration does let you merge a configuration object, but does not accept a normal webpack configuration
 out of the box. Since Neutrino uses webpack-chain and enforces naming of plugins, rules, and loaders, you must use an
 object that corresponds with this "schema". Typically this would involve transforming your webpack configuration to nest
 entities requiring a name into an object which maps the name to the entity.
 
-In short, you must transform your webpack configuration to merge it into the Neutrino configuration cleanly.
+In short, you must transform your webpack configuration to facilitate its merging into the Neutrino configuration cleanly.
 
 ### What is the difference between middleware and presets?
 
