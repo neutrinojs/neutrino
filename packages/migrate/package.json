@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/migrate",
-  "version": "9.2.0",
+  "version": "9.3.0",
   "description": "Migrate Neutrino projects to the latest version via codemods",
   "bin": {
     "migrate": "./bin/migrate.js"
