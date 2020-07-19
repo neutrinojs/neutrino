@@ -35,20 +35,37 @@ module.exports = (opts = {}) => (neutrino) => {
       neutrino.use(react(options));
     },
     () => {
-      const components = join(
-        neutrino.options.source,
-        options.components || 'components',
-      );
-
       Object.keys(neutrino.options.mains).forEach((key) => {
         delete neutrino.options.mains[key]; // eslint-disable-line no-param-reassign
       });
 
-      readdirSync(components).forEach((component) => {
-        // eslint-disable-next-line no-param-reassign
-        neutrino.options.mains[basename(component, extname(component))] = {
-          entry: join(components, component),
-        };
+      const componentPaths = [];
+      if (Array.isArray(options.components)) {
+        options.components
+          .filter((componentOptionEntry) => componentOptionEntry != null)
+          .forEach((componentOptionEntry) =>
+            componentPaths.push(componentOptionEntry),
+          );
+
+        if (componentPaths.length === 0) {
+          // Blank array supplied, add default
+          componentPaths.push('components');
+        }
+      } else {
+        componentPaths.push(options.components || 'components');
+      }
+
+      componentPaths.forEach((componentOptionEntry) => {
+        const components = join(
+          neutrino.options.source,
+          componentOptionEntry || 'components',
+        );
+        readdirSync(components).forEach((component) => {
+          // eslint-disable-next-line no-param-reassign
+          neutrino.options.mains[basename(component, extname(component))] = {
+            entry: join(components, component),
+          };
+        });
       });
 
       const pkg = neutrino.options.packageJson || {};

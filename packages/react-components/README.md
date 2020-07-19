@@ -287,6 +287,20 @@ module.exports = {
 };
 ```
 
+_Example: Multiple components directory:_
+
+```js
+const reactComponents = require('@neutrinojs/react-components');
+
+module.exports = {
+  use: [
+    reactComponents({
+      components: ['components', 'react-stuff'], // now you can put your components in src/react-stuff/ and src/components/
+    }),
+  ],
+};
+```
+
 [npm-image]: https://img.shields.io/npm/v/@neutrinojs/react-components.svg
 [npm-downloads]: https://img.shields.io/npm/dt/@neutrinojs/react-components.svg
 [npm-url]: https://www.npmjs.com/package/@neutrinojs/react-components
