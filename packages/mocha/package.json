@@ -24,7 +24,7 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@babel/core": "^7.10.5",
+    "@babel/core": "^7.11.4",
     "@babel/plugin-transform-modules-commonjs": "^7.10.4",
     "@babel/register": "^7.10.5",
     "babel-merge": "^3.0.0",
