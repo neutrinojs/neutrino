@@ -50,6 +50,6 @@
   },
   "devDependencies": {
     "yeoman-assert": "^3.1.1",
-    "yeoman-test": "^2.7.0"
+    "yeoman-test": "^3.0.0"
   }
 }
