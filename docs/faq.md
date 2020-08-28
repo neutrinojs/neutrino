@@ -66,7 +66,7 @@ out of the box. Since Neutrino uses webpack-chain and enforces naming of plugins
 object that corresponds with this "schema". Typically this would involve transforming your webpack configuration to nest
 entities requiring a name into an object which maps the name to the entity.
 
-In short, you must transform your webpack configuration to facilitate its merging into the Neutrino configuration cleanly.
+In short, you must transform your webpack configuration in order to merge it into the Neutrino configuration cleanly.
 
 ### What is the difference between middleware and presets?
 
