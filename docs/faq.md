@@ -38,9 +38,9 @@ For example, let's say that a preset instead used the webpack object configurati
 config.plugins.push(new webpack.EnvironmentPlugin(['NODE_ENV']));
 ```
 
-If you wanted to extend this plugin in your project to add more environment variables, you would most likely
+If you wanted to extend this plugin in your own project to add more environment variables, you would most likely
 resort to either adding a new instance of the `EnvironmentPlugin` by requiring webpack yourself, or looping through
-webpack's plugin array, removing the plugin, and re-instantiating it with your arguments.
+webpack's plugin array, removing the plugin, and re-instantiating it with your own arguments.
 
 ```js
 config.plugins = config.plugins.map(plugin => {
