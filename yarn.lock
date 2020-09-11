@@ -3043,10 +3043,12 @@ ast-types-flow@^0.0.7:
   resolved "https://registry.yarnpkg.com/ast-types-flow/-/ast-types-flow-0.0.7.tgz#f70b735c6bca1a5c9c22d982c3e39e7feba3bdad"
   integrity sha1-9wtzXGvKGlycItmCw+Oef+ujva0=
 
-ast-types@0.13.3:
-  version "0.13.3"
-  resolved "https://registry.yarnpkg.com/ast-types/-/ast-types-0.13.3.tgz#50da3f28d17bdbc7969a3a2d83a0e4a72ae755a7"
-  integrity sha512-XTZ7xGML849LkQP86sWdQzfhwbt3YwIO6MqbX9mUNYY98VKaaVZP7YNNm70IpwecbkkxmfC5IYAzOQ/2p29zRA==
+ast-types@0.14.1:
+  version "0.14.1"
+  resolved "https://registry.yarnpkg.com/ast-types/-/ast-types-0.14.1.tgz#0b415043770d7a2cbe4b2770271cbd7d2c9f61b9"
+  integrity sha512-pfSiukbt23P1qMhNnsozLzhMLBs7EEeXqPyvPmnuZM+RMfwfqwDbSVKYflgGuVI7/VehR4oMks0igzdNAg4VeQ==
+  dependencies:
+    tslib "^2.0.1"
 
 ast-types@0.9.6:
   version "0.9.6"
@@ -8797,10 +8799,10 @@ jsbn@~0.1.0:
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
   integrity sha1-peZUwuWi3rXyAdls77yoDA7y9RM=
 
-jscodeshift@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/jscodeshift/-/jscodeshift-0.10.0.tgz#d77cc57dd9a4d24ebcf569468fb04ee36d4632ec"
-  integrity sha512-xpH2FVSEepXoNr6+cPlPHzPzBY1W9bPulufhCHOShzk8+CTCzAOQKytuOXT0b/9PvmO4biRi0g/ZIylVew815w==
+jscodeshift@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/jscodeshift/-/jscodeshift-0.11.0.tgz#4f95039408f3f06b0e39bb4d53bc3139f5330e2f"
+  integrity sha512-SdRK2C7jjs4k/kT2mwtO07KJN9RnjxtKn03d9JVj6c3j9WwaLcFYsICYDnLAzY0hp+wG2nxl+Cm2jWLiNVYb8g==
   dependencies:
     "@babel/core" "^7.1.6"
     "@babel/parser" "^7.1.6"
@@ -8814,11 +8816,11 @@ jscodeshift@^0.10.0:
     babel-core "^7.0.0-bridge.0"
     colors "^1.1.2"
     flow-parser "0.*"
-    graceful-fs "^4.1.11"
+    graceful-fs "^4.2.4"
     micromatch "^3.1.10"
     neo-async "^2.5.0"
     node-dir "^0.1.17"
-    recast "^0.18.1"
+    recast "^0.20.3"
     temp "^0.8.1"
     write-file-atomic "^2.3.0"
 
@@ -12267,15 +12269,16 @@ readdirp@~3.4.0:
   dependencies:
     picomatch "^2.2.1"
 
-recast@^0.18.1:
-  version "0.18.10"
-  resolved "https://registry.yarnpkg.com/recast/-/recast-0.18.10.tgz#605ebbe621511eb89b6356a7e224bff66ed91478"
-  integrity sha512-XNvYvkfdAN9QewbrxeTOjgINkdY/odTgTS56ZNEWL9Ml0weT4T3sFtvnTuF+Gxyu46ANcRm1ntrF6F5LAJPAaQ==
+recast@^0.20.3:
+  version "0.20.3"
+  resolved "https://registry.yarnpkg.com/recast/-/recast-0.20.3.tgz#ac9387e4a59e5c8caef9057a35e306646287a7ef"
+  integrity sha512-jrEPzRV5B7wfRiN0UYMtjgIx1Hp8MRHdLcMYqMNd0DoOe1CB5JmPL/04I7WPuuApCs7LCSisYK/FfKnPEaJrzw==
   dependencies:
-    ast-types "0.13.3"
+    ast-types "0.14.1"
     esprima "~4.0.0"
     private "^0.1.8"
     source-map "~0.6.1"
+    tslib "^2.0.1"
 
 recast@~0.11.12:
   version "0.11.23"
@@ -14089,6 +14092,11 @@ tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0:
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.13.0.tgz#c881e13cc7015894ed914862d276436fa9a47043"
   integrity sha512-i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q==
+
+tslib@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.0.1.tgz#410eb0d113e5b6356490eec749603725b021b43e"
+  integrity sha512-SgIkNheinmEBgx1IUNirK0TUD4X9yjjBRTqqjggWCU3pUEqIk3/Uwl3yRixYKT6WjQuGiwDv4NomL3wqRCj+CQ==
 
 tsscmp@1.0.6:
   version "1.0.6"
