@@ -1,0 +1,38 @@
+{
+  "name": "@neutrinojs/pnp",
+  "version": "9.4.0",
+  "description": "Neutrino middleware for Plug'n'Play support",
+  "main": "index.js",
+  "keywords": [
+    "neutrino",
+    "neutrino-middleware",
+    "pnp",
+    "plug and play",
+    "yarn2"
+  ],
+  "author": "Constantine Genchevsky <const.gen@gmail.com>",
+  "license": "MPL-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neutrinojs/neutrino.git",
+    "directory": "packages/pnp"
+  },
+  "homepage": "https://neutrinojs.org",
+  "bugs": "https://github.com/neutrinojs/neutrino/issues",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=10",
+    "npm": ">=5.4.0",
+    "yarn": ">=1.2.1"
+  },
+  "dependencies": {
+    "pnp-webpack-plugin": "^1.6.4",
+    "module-alias": "2.2.2"
+  },
+  "peerDependencies": {
+    "neutrino": "^9.0.0",
+    "webpack": "^4.0.0"
+  }
+}
