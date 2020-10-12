@@ -276,6 +276,12 @@ Or:
 NODE_ENV={production,development,test} neutrino --inspect
 ```
 
+If your Neutrino configuration file is not named `.neutrinojs.js`, specify the filename using `--config`. For example:
+
+```bash
+neutrino --inspect --mode {production,development} --config .custom.neutrino.config.js
+```
+
 As of Neutrino 9, the `--inspect` output when using the official presets is now sufficiently
 self-contained that it can be passed to webpack with no additional changes required.
 
