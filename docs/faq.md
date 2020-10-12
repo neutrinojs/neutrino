@@ -70,7 +70,7 @@ In short, you must transform your webpack configuration in order to merge it int
 
 ### What is the difference between middleware and presets?
 
-The term "presets" are a hold-over from Neutrino pre-v5. Presets **are** middleware, the difference in reality, is in
+The term "presets" are a hold-over from Neutrino pre-v5. Presets **are** middleware, the difference in reality is in
 name only. To keep the term "presets" relevant, we typically want to use it when referring to major project types:
 React projects, Node.js projects, composite middleware (a conglomeration of many middlewares), etc.
 
