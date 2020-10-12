@@ -9,7 +9,7 @@ need to make a change to your build steps, you are forced to make that change ac
 your similar projects. Using a preset rather than a boilerplate keeps this process DRY.
 
 Tools like [Create React App](https://github.com/facebook/create-react-app) have
-been fantastic improvements to the tooling ecosystem, but unfortunately, it only works on specific
+been fantastic improvements to the tooling ecosystem, but unfortunately only work on specific
 environments like React, and do not allow simple extensibility of the build configuration. To
 answer this, new and similar projects are cropping up to build different types of projects,
 often duplicating efforts and missing out on opportunities to share best practices with the other project
