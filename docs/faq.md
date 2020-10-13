@@ -12,13 +12,13 @@ Tools like [Create React App](https://github.com/facebook/create-react-app) have
 been fantastic improvements to the tooling ecosystem, but unfortunately only work on specific
 environments like React, and do not allow simple extensibility of the build configuration. To
 answer this, new and similar projects are cropping up to build different types of projects,
-often duplicating efforts which miss out on the best practices to share with the other project
+often duplicating efforts and missing out on opportunities to share best practices with the other project
 types.
 
 ### What is the added value versus all the boilerplate projects out there?
 
-The proliferation of boilerplate and meta-packages is one thing we are trying to reduce. These types of projects 
-are great, and do serve a purpose. But what if you wanted to make a configuration change across all your
+The proliferation of boilerplate and meta-packages is one thing we are trying to reduce. These types of projects
+are great and do serve a purpose. But what if you wanted to make a configuration change across all your
 projects? You must make config changes in many places, including the original boilerplate, whereas presets
 give you the power to confine these changes to a single package. Some of these projects also make a trade-off
 between ease of set up and black-boxing the configuration. Once you decide to make a configuration change,
@@ -28,7 +28,7 @@ represents a good balance between ease of set up and future extensibility.
 ### Why don't presets use a normal webpack configuration object instead of the chaining API?
 
 The webpack configuration works well when it is embedded into a single project, and it is the only configuration
-file to maintain. Once the configuration is no longer co-located with the project, and needs to be extended or
+file to maintain. Once the configuration is no longer co-located with the project and needs to be extended or
 modified across different projects, it becomes very messy to make those modifications.
 
 For example, let's say that a preset instead used the webpack object configuration and added an instance of the
@@ -72,7 +72,7 @@ In short, you must transform your webpack configuration in order to merge it int
 
 The term "presets" are a hold-over from Neutrino pre-v5. Presets **are** middleware, the difference in reality is in
 name only. To keep the term "presets" relevant, we typically want to use it when referring to major project types:
-React projects, Node.js projects, composite middleware (conglomeration of many middleware), etc.
+React projects, Node.js projects, composite middleware (a conglomeration of many middlewares), etc.
 
 The takeaway: most middleware can just be middleware, and use the term preset for major project types or
 composite middleware.
