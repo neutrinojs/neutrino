@@ -39,9 +39,7 @@ module.exports = (options = {}) => (neutrino) => {
         return path;
       }
 
-      return path.startsWith('.')
-        ? join('<rootDir>', path)
-        : join('<rootDir>', 'node_modules', path);
+      return path.startsWith('.') ? join('<rootDir>', path) : path;
     };
     const extensionsToNames = (extensions) => `\\.(${extensions.join('|')})$`;
     const { extensions, source, tests, root, debug } = neutrino.options;
