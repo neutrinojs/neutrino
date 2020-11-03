@@ -1,5 +1,6 @@
 const { ConfigurationError, DuplicateRuleError } = require('neutrino/errors');
 const aliasPlugins = require('./alias-plugins');
+const aliasImportResolvers = require('./alias-import-resolvers');
 
 const arrayToObject = (array) =>
   array.reduce((obj, item) => Object.assign(obj, { [item]: true }), {});
@@ -197,3 +198,4 @@ module.exports = ({ test, include, exclude, eslint = {} } = {}) => {
 };
 
 module.exports.aliasPlugins = aliasPlugins;
+module.exports.aliasImportResolvers = aliasImportResolvers;

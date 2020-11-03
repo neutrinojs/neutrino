@@ -2,7 +2,7 @@ const moduleAlias = require('module-alias');
 const pnpApi = process.versions.pnp ? require('pnpapi') : null; // eslint-disable-line import/no-unresolved
 
 function toFullName(pluginName) {
-  const ESLINT_PREFIX = 'eslint-plugin-';
+  const ESLINT_PREFIX = 'eslint-import-resolver-';
   const ORGANIZATION_EXPRESSION = /^(@[\d.A-z-]+)\/(.+)$/;
   const nameIsFull = pluginName.indexOf(ESLINT_PREFIX) === 0;
   const nameIsOrganization = ORGANIZATION_EXPRESSION.test(pluginName);
@@ -19,23 +19,28 @@ function toFullName(pluginName) {
 }
 
 function aliasModuleFrom(baseFilename = __filename) {
-  return function aliasPlugin(pluginName) {
-    let resolvedPluginPath;
+  return function aliasImportResolver(importResolverName) {
+    let resolvedImportResolverPath;
 
     if (pnpApi) {
-      resolvedPluginPath = pnpApi.resolveRequest(pluginName, baseFilename);
+      resolvedImportResolverPath = pnpApi.resolveRequest(
+        importResolverName,
+        baseFilename,
+      );
     } else {
-      resolvedPluginPath = require.resolve(pluginName, {
+      resolvedImportResolverPath = require.resolve(importResolverName, {
         paths: [baseFilename],
       });
     }
 
-    moduleAlias.addAlias(pluginName, resolvedPluginPath);
+    moduleAlias.addAlias(importResolverName, resolvedImportResolverPath);
   };
 }
 
-module.exports = function aliasPlugins(eslintConfig, baseFilename) {
-  const { plugins = [] } = eslintConfig;
+module.exports = function aliasImportResolvers(eslintConfig, baseFilename) {
+  const { settings = {} } = eslintConfig;
+  const resolver = settings['import/resolver'] || {};
+  const resolversNames = Object.keys(resolver);
 
-  plugins.map(toFullName).forEach(aliasModuleFrom(baseFilename));
+  resolversNames.map(toFullName).forEach(aliasModuleFrom(baseFilename));
 };
