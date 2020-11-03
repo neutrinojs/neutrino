@@ -2,10 +2,12 @@ const merge = require('deepmerge');
 const omit = require('lodash.omit');
 const { basename, isAbsolute, join, relative } = require('path');
 const { media, style } = require('neutrino/extensions');
+const { aliasPlugins } = require('@neutrinojs/eslint');
 
 module.exports = (options = {}) => (neutrino) => {
   const lintRule = neutrino.config.module.rules.get('lint');
   if (lintRule) {
+    aliasPlugins({ plugins: ['jest'] }, __filename);
     lintRule.use('eslint').tap(
       // Don't adjust the lint configuration for projects using their own .eslintrc.
       (lintOptions) =>

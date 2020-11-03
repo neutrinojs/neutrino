@@ -30,6 +30,7 @@
   "dependencies": {
     "@babel/core": "^7.11.4",
     "@babel/plugin-transform-react-jsx": "^7.10.4",
+    "@neutrinojs/eslint": "9.4.0",
     "@neutrinojs/web": "9.4.0",
     "babel-merge": "^3.0.0",
     "deepmerge": "^1.5.2",
