@@ -29,7 +29,8 @@
   "dependencies": {
     "babel-eslint": "^10.1.0",
     "eslint-loader": "^4.0.2",
-    "eslint-plugin-babel": "^5.3.1"
+    "eslint-plugin-babel": "^5.3.1",
+    "module-alias": "^2.2.2"
   },
   "peerDependencies": {
     "eslint": "^6.0.0 || ^7.0.0",

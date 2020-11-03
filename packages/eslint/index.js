@@ -1,4 +1,5 @@
 const { ConfigurationError, DuplicateRuleError } = require('neutrino/errors');
+const aliasPlugins = require('./alias-plugins');
 
 const arrayToObject = (array) =>
   array.reduce((obj, item) => Object.assign(obj, { [item]: true }), {});
@@ -125,7 +126,7 @@ module.exports = ({ test, include, exclude, eslint = {} } = {}) => {
     }
 
     const baseConfig = eslint.baseConfig || {};
-
+    const usedPlugins = ['babel'];
     const loaderOptions = {
       // For supported options, see:
       // https://github.com/webpack-contrib/eslint-loader#options
@@ -172,9 +173,11 @@ module.exports = ({ test, include, exclude, eslint = {} } = {}) => {
             // Unfortunately we can't `require.resolve('eslint-plugin-babel')` due to:
             // https://github.com/eslint/eslint/issues/6237
             // ...so we have no choice but to rely on it being hoisted.
-            plugins: ['babel', ...(baseConfig.plugins || [])],
+            plugins: [...usedPlugins, ...(baseConfig.plugins || [])],
           },
     };
+
+    aliasPlugins({ plugins: usedPlugins });
 
     neutrino.config.module
       .rule('lint')
@@ -192,3 +195,5 @@ module.exports = ({ test, include, exclude, eslint = {} } = {}) => {
     neutrino.register('eslintrc', eslintrc);
   };
 };
+
+module.exports.aliasPlugins = aliasPlugins;

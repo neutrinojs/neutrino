@@ -186,6 +186,58 @@ The following is a list of rules and their identifiers which can be overridden:
 | ------ | ------------------------------------------------------------------------------------------------------------------------------- | -------- |
 | `lint` | By default, lints JS and JSX files from the `src` and `test` directories using ESLint. Contains a single loader named `eslint`. | all      |
 
+## Utility functions
+
+### Plugins aliasing
+
+When developing your custom ESLint preset, you may face a problem with sharable ESLint configs and plugins. This is due to ESLint plugins resolving system which searches for plugins packages in the project root. This may fail in some environments, especially in Plug'n'Play. This module provides `aliasPlugins()` function to resolve this issue in your package. You can import it in 2 ways: `require('@neutrinojs/eslint/alias-plugins')` or `require('@neutrinojs/eslint').aliasPlugins`. Example:
+
+```js
+const eslint = require('@neutrinojs/eslint');
+const eslintBaseConfig = { plugins: ['node'] };
+
+neutrino.use(eslint({
+  eslint: {
+    baseConfig: eslintBaseConfig
+  }
+}))
+
+lint.aliasPlugins(
+  // ESLint config that contains used plugins
+  eslintBaseConfig,
+  // Path to the current module file, so aliases can be correctly resolved relative to your package
+  // In most cases it is always `__filename`
+  __filename
+);
+```
+
+If you use 3rd party configs, plugins will not be present in the configuration. So you have to list them manually just for aliasing. For example:
+
+```js
+const eslint = require('@neutrinojs/eslint');
+const usedPlugins = ['react', 'react-hooks', 'jsx-a11y', 'import'];
+const eslintBaseConfig = {
+  extends: [
+    require.resolve('eslint-config-airbnb'),
+    require.resolve('eslint-config-airbnb/hooks')
+  ]
+};
+
+neutrino.use(eslint({
+  eslint: {
+    baseConfig: eslintBaseConfig
+  }
+}))
+
+lint.aliasPlugins(
+  // ESLint config that contains only used plugins
+  { plugins: usedPlugins },
+  // Path to the current module file, so aliases can be correctly resolved relative to your package
+  // In most cases it is always `__filename`
+  __filename
+);
+```
+
 ## Contributing
 
 This middleware is part of the
