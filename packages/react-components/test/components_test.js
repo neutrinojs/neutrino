@@ -56,3 +56,35 @@ test('valid preset development', (t) => {
   const errors = validate(config);
   t.is(errors.length, 0);
 });
+
+test('valid single component folder', (t) => {
+  process.env.NODE_ENV = 'production';
+  const api = new Neutrino({ root: __dirname });
+
+  api.use(mw({ components: 'components' }));
+  const config = api.config.toConfig();
+
+  // Single Entry
+  t.truthy(config.entry);
+  t.is(Object.entries(config.entry).length, 1);
+
+  const errors = validate(config);
+  t.is(errors.length, 0);
+});
+
+test('valid multiple component folder', (t) => {
+  process.env.NODE_ENV = 'production';
+  const api = new Neutrino({ root: __dirname });
+
+  api.use(mw({ components: ['components', 'multiComponents'] }));
+  const config = api.config.toConfig();
+
+  t.log(config);
+
+  // Multi Entry
+  t.truthy(config.entry);
+  t.is(Object.entries(config.entry).length, 2);
+
+  const errors = validate(config);
+  t.is(errors.length, 0);
+});

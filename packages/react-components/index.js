@@ -39,20 +39,11 @@ module.exports = (opts = {}) => (neutrino) => {
         delete neutrino.options.mains[key]; // eslint-disable-line no-param-reassign
       });
 
-      const componentPaths = [];
-      if (Array.isArray(options.components)) {
-        options.components
-          .filter((componentOptionEntry) => componentOptionEntry != null)
-          .forEach((componentOptionEntry) =>
-            componentPaths.push(componentOptionEntry),
-          );
-
-        if (componentPaths.length === 0) {
-          // Blank array supplied, add default
-          componentPaths.push('components');
-        }
-      } else {
-        componentPaths.push(options.components || 'components');
+      let componentPaths = options.components;
+      if (options.components == null) {
+        componentPaths = ['components'];
+      } else if (!Array.isArray(options.components)) {
+        componentPaths = [options.components];
       }
 
       componentPaths.forEach((componentOptionEntry) => {
