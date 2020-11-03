@@ -79,8 +79,6 @@ test('valid multiple component folder', (t) => {
   api.use(mw({ components: ['components', 'multiComponents'] }));
   const config = api.config.toConfig();
 
-  t.log(config);
-
   // Multi Entry
   t.truthy(config.entry);
   t.is(Object.entries(config.entry).length, 2);
