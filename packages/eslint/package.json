@@ -36,5 +36,10 @@
     "eslint": "^6.0.0 || ^7.0.0",
     "neutrino": "^9.0.0",
     "webpack": "^4.0.0"
-  }
+  },
+  "peerDependenciesMeta": {
+    "webpack": {
+       "optional": true
+     }
+   } 
 }
