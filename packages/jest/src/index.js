@@ -67,6 +67,7 @@ module.exports = (options = {}) => (neutrino) => {
             [`^${key}$`]: `${getFinalPath(aliases[key])}`,
           }),
           {
+            ...options.moduleNameMapper,
             [extensionsToNames(media)]: require.resolve('./file-mock'),
             [extensionsToNames(style)]: require.resolve('./style-mock'),
           },
