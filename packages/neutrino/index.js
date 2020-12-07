@@ -1,17 +1,13 @@
 const yargsParser = require('yargs-parser');
-const { join } = require('path');
 const Neutrino = require('./Neutrino');
+const Preset = require('./Preset')
 const { webpack, inspect } = require('./handlers');
 const { ConfigurationError } = require('./errors');
 
-const extractMiddlewareAndOptions = (format) =>
-  typeof format === 'function' ? { ...format, use: format } : { ...format };
-
 module.exports = (
-  // eslint-disable-next-line global-require, import/no-dynamic-require
-  middleware = require(join(process.cwd(), '.neutrinorc.js')),
+  middleware
 ) => {
-  const { use, options, env } = extractMiddlewareAndOptions(middleware);
+  const { use, options, env } = Preset.getExports(Preset.create(middleware));
 
   if (env) {
     throw new ConfigurationError(
