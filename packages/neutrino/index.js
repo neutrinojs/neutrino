@@ -1,12 +1,10 @@
 const yargsParser = require('yargs-parser');
 const Neutrino = require('./Neutrino');
-const Preset = require('./Preset')
+const Preset = require('./Preset');
 const { webpack, inspect } = require('./handlers');
 const { ConfigurationError } = require('./errors');
 
-module.exports = (
-  middleware
-) => {
+module.exports = (middleware) => {
   const { use, options, env } = Preset.getExports(Preset.create(middleware));
 
   if (env) {
