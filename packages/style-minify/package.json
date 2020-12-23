@@ -29,7 +29,7 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "optimize-css-assets-webpack-plugin": "^5.0.3"
+    "optimize-css-assets-webpack-plugin": "^5.0.4"
   },
   "peerDependencies": {
     "neutrino": "^9.0.0",
