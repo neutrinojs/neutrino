@@ -174,3 +174,13 @@ test('configures webpack aliases in moduleNameMapper correctly', (t) => {
     }),
   );
 });
+
+test('gives custom moduleNameMapper entries priority over default entries', (t) => {
+  const api = new Neutrino();
+  api.use(mw({ moduleNameMapper: { foo: 'bar' } }));
+  const config = api.outputHandlers.get('jest')(api);
+  const moduleNameMapper = Object.entries(config.moduleNameMapper);
+
+  t.true(moduleNameMapper.length > 1);
+  t.deepEqual(moduleNameMapper[0], ['foo', 'bar']);
+});
