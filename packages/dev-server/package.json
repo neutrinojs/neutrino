@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/dev-server",
-  "version": "9.4.0",
+  "version": "9.5.0",
   "description": "Neutrino middleware for starting a webpack-dev-server",
   "main": "index.js",
   "keywords": [
