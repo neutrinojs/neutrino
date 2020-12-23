@@ -26,8 +26,8 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "file-loader": "^6.0.0",
-    "url-loader": "^4.1.0"
+    "file-loader": "^6.2.0",
+    "url-loader": "^4.1.1"
   },
   "peerDependencies": {
     "neutrino": "^9.0.0",
