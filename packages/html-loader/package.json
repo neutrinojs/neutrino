@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/html-loader",
-  "version": "9.4.0",
+  "version": "9.5.0",
   "description": "Neutrino middleware for importing and loading HTML files from modules",
   "main": "index.js",
   "keywords": [

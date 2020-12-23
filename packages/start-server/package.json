@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/start-server",
-  "version": "9.4.0",
+  "version": "9.5.0",
   "description": "Neutrino middleware for starting a server after a build",
   "main": "index.js",
   "keywords": [

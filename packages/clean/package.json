@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/clean",
-  "version": "9.4.0",
+  "version": "9.5.0",
   "description": "Neutrino middleware for cleaning bundle output directories",
   "main": "index.js",
   "keywords": [
