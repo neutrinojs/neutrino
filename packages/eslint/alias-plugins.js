@@ -1,5 +1,4 @@
 const moduleAlias = require('module-alias');
-const pnpApi = process.versions.pnp ? require('pnpapi') : null; // eslint-disable-line import/no-unresolved
 
 function toFullName(pluginName) {
   const ESLINT_PREFIX = 'eslint-plugin-';
@@ -20,15 +19,9 @@ function toFullName(pluginName) {
 
 function aliasModuleFrom(baseFilename = __filename) {
   return function aliasPlugin(pluginName) {
-    let resolvedPluginPath;
-
-    if (pnpApi) {
-      resolvedPluginPath = pnpApi.resolveRequest(pluginName, baseFilename);
-    } else {
-      resolvedPluginPath = require.resolve(pluginName, {
-        paths: [baseFilename],
-      });
-    }
+    const resolvedPluginPath = require.resolve(pluginName, {
+      paths: [baseFilename],
+    });
 
     moduleAlias.addAlias(pluginName, resolvedPluginPath);
   };
