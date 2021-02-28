@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/karma",
-  "version": "9.4.0",
+  "version": "9.5.0",
   "description": "Neutrino preset for testing Neutrino projects with Karma",
   "main": "index.js",
   "keywords": [
@@ -26,7 +26,7 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@babel/core": "^7.11.4",
+    "@babel/core": "^7.12.10",
     "babel-merge": "^3.0.0",
     "babel-plugin-istanbul": "^6.0.0",
     "deepmerge": "^1.5.2",

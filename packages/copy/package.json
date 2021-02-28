@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/copy",
-  "version": "9.4.0",
+  "version": "9.5.0",
   "description": "Neutrino middleware for copying files to a bundle output directory",
   "main": "index.js",
   "keywords": [
@@ -27,7 +27,7 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "copy-webpack-plugin": "^5.1.1"
+    "copy-webpack-plugin": "^5.1.2"
   },
   "peerDependencies": {
     "neutrino": "^9.0.0",

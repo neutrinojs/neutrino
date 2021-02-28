@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/eslint",
-  "version": "9.4.0",
+  "version": "9.5.0",
   "description": "Neutrino middleware for linting source code using ESLint",
   "main": "index.js",
   "keywords": [
