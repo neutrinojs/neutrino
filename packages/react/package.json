@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/react",
-  "version": "9.4.0",
+  "version": "9.5.0",
   "description": "Neutrino preset for building React web applications",
   "main": "index.js",
   "keywords": [
@@ -28,19 +28,19 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@babel/core": "^7.11.4",
-    "@babel/preset-react": "^7.10.4",
-    "@neutrinojs/web": "9.4.0",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-react": "^7.12.10",
+    "@neutrinojs/web": "9.5.0",
     "babel-merge": "^3.0.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "deepmerge": "^1.5.2",
-    "eslint-plugin-react": "^7.20.6",
-    "eslint-plugin-react-hooks": "^4.1.0"
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0"
   },
   "devDependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-hot-loader": "^4.12.21"
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-hot-loader": "^4.13.0"
   },
   "peerDependencies": {
     "neutrino": "^9.0.0",

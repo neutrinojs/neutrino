@@ -1,6 +1,6 @@
 {
   "name": "@neutrinojs/compile-loader",
-  "version": "9.4.0",
+  "version": "9.5.0",
   "description": "Neutrino middleware for compiling JavaScript using Babel configuration",
   "main": "index.js",
   "keywords": [
@@ -27,8 +27,8 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "@babel/core": "^7.11.4",
-    "babel-loader": "^8.1.0"
+    "@babel/core": "^7.12.10",
+    "babel-loader": "^8.2.2"
   },
   "peerDependencies": {
     "neutrino": "^9.0.0",

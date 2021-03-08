@@ -1,6 +1,6 @@
 {
   "name": "neutrino",
-  "version": "9.4.0",
+  "version": "9.5.0",
   "description": "Create and build JS applications with managed configurations",
   "main": "index.js",
   "bin": {
@@ -30,8 +30,8 @@
   },
   "dependencies": {
     "lodash.clonedeep": "^4.5.0",
-    "semver": "^7.3.2",
+    "semver": "^7.3.4",
     "webpack-chain": "^6.5.1",
-    "yargs-parser": "^20.0.0"
+    "yargs-parser": "^20.2.4"
   }
 }
