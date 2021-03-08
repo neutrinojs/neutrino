@@ -19,14 +19,15 @@ module.exports = function pnp(settings = {}) {
     const PnpWebpackPlugin = require(`pnp-webpack-plugin`);
 
     function PnpPlugin() {
-      return PnpWebpackPlugin;
+      // create new instance of Plugin config
+      return { ...PnpWebpackPlugin };
     }
     function PnpLoaderPlugin() {
       return PnpWebpackPlugin.moduleLoader(module);
     }
 
     /* eslint-disable prettier/prettier */
-     neutrino.config
+    neutrino.config
       .resolve
         .plugin(pluginId)
           .use(PnpPlugin)

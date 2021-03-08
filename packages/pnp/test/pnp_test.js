@@ -16,13 +16,13 @@ test('uses with options', (t) => {
   t.notThrows(() => new Neutrino().use(mw(options)));
 });
 
-// test('instantiates', (t) => {
-//   const api = new Neutrino();
+test('instantiates', (t) => {
+  const api = new Neutrino();
 
-//   api.use(mw());
+  api.use(mw());
 
-//   t.notThrows(() => api.config.toConfig());
-// });
+  t.notThrows(() => api.config.toConfig());
+});
 
 test('instantiates with options', (t) => {
   const api = new Neutrino();
