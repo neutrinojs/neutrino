@@ -39,7 +39,7 @@
   },
   "peerDependenciesMeta": {
     "webpack": {
-       "optional": true
-     }
-   } 
+      "optional": true
+    }
+  }
 }

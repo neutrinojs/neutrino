@@ -26,17 +26,14 @@ module.exports = function pnp(settings = {}) {
       return PnpWebpackPlugin.moduleLoader(module);
     }
 
-    /* eslint-disable prettier/prettier */
-    neutrino.config
-      .resolve
-        .plugin(pluginId)
-          .use(PnpPlugin)
-          .end()
-        .end()
-      .resolveLoader
-        .plugin(pluginId)
-          .use(PnpLoaderPlugin)
-          .end()
-        .end();
+    neutrino.config.resolve
+      .plugin(pluginId)
+      .use(PnpPlugin)
+      .end()
+      .end()
+      .resolveLoader.plugin(pluginId)
+      .use(PnpLoaderPlugin)
+      .end()
+      .end();
   };
 };
