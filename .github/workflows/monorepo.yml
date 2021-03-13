@@ -15,10 +15,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '12.x'
-      - name: Publish package
-        run: npm publish --ignore-scripts --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Get Yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
