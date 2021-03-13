@@ -4,10 +4,7 @@ on: push
 jobs:
   lint:
     name: Lint the project
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -23,12 +20,11 @@ jobs:
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ matrix.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ matrix.os }}-yarn-
+            ${{ runner.os }}-yarn-
       - name: Install dependencies
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
-        run: yarn install --frozen-lockfile
+        run: yarn install --prefer-offline --frozen-lockfile
       - name: Validate .eslintrc
         run: yarn validate:eslintrc
       - name: Linting
@@ -37,7 +33,7 @@ jobs:
           yarn prettier:check
   test:
     needs: lint
-    name: Test the project on ${{ matrix.os }}
+    name: Test the project on ${{ matrix.os }}, Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -58,12 +54,11 @@ jobs:
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ matrix.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ matrix.os }}-yarn-
+            ${{ runner.os }}-yarn-
       - name: Install dependencies
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
-        run: yarn install --frozen-lockfile
+        run: yarn install --prefer-offline --frozen-lockfile
       - name: Testing
         run: |
           yarn test
