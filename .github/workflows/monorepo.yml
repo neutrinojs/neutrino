@@ -40,7 +40,7 @@ jobs:
         os: [ubuntu-latest]
         node_version: [10.x, 12.x, 14.x]
     env:
-      CREATE_PROJECT_YARN: false
+      CREATE_PROJECT_YARN: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
