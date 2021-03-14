@@ -61,7 +61,7 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install dependencies
         run: yarn install --prefer-offline --frozen-lockfile
-      - name: Testing
-        run: |
-          yarn test
-          scripts/test-create-project-ci.sh
+      - name: Unit tests
+        run: yarn test
+      - name: Project creation tests
+        run: scripts/test-create-project-ci.sh
