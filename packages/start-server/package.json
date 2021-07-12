@@ -27,10 +27,10 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
-    "start-server-webpack-plugin": "^2.2.5"
+    "start-server-nestjs-webpack-plugin": "^2.2.5"
   },
   "peerDependencies": {
     "neutrino": "^9.0.0",
-    "webpack": "^4.0.0"
+    "webpack": "^5.0.0"
   }
 }

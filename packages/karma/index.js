@@ -49,7 +49,7 @@ module.exports =
                 flags: ['--no-sandbox'],
               },
             },
-            frameworks: ['mocha'],
+            frameworks: ['mocha', 'webpack'],
             files: [
               {
                 pattern: tests,
@@ -69,9 +69,8 @@ module.exports =
               [tests]: ['webpack'],
               [sources]: ['webpack'],
             },
-            webpackMiddleware: {
-              // Only display webpack compile duration and errors/warnings, since
-              // the focus should be on the output from the tests/karma instead.
+            webpack: {
+              ...omit(neutrino.config.toConfig(), ['entry']),
               stats: {
                 all: false,
                 errors: true,
@@ -79,7 +78,6 @@ module.exports =
                 warnings: true,
               },
             },
-            webpack: omit(neutrino.config.toConfig(), ['entry']),
             reporters: ['mocha', 'coverage'],
             coverageReporter: {
               dir: '.coverage',
