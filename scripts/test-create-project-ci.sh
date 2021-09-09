@@ -36,6 +36,9 @@ else
   # Verdaccio isn't ready to immediately accept connections, so we need to wait
   while ! nc -zw 1 localhost 4873; do sleep 1; done
 
+  # legacy peer deps is needed
+  npm config set legacy-peer-deps true
+
   # Publish all monorepo packages to the verdaccio registry.
   # The version will be bumped to the next minor version with a pre-release suffix,
   # and the package.json changes left in the working directory so that create-project
