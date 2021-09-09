@@ -46,9 +46,9 @@ const REACT_DOM_VERSION = '^16';
 const REACT_DOM = `react-dom@${REACT_DOM_VERSION}`;
 const REACT_HOT_LOADER = 'react-hot-loader@^4';
 const VUE = 'vue@^2';
-const WEBPACK = 'webpack@^4';
-const WEBPACK_CLI = 'webpack-cli@^3';
-const WEBPACK_DEV_SERVER = 'webpack-dev-server@^3';
+const WEBPACK = 'webpack@^5';
+const WEBPACK_CLI = 'webpack-cli@^4';
+const WEBPACK_DEV_SERVER = 'webpack-dev-server@^4';
 
 // package.json necessities
 const ENTRIES = { main: 'build/index.js', module: 'src/index.js' };
