@@ -18,5 +18,6 @@ build
 # Lint dotfiles
 !.*.js
 
-# Do not use prettier to re-format the changelog
+# Do not use prettier to re-format the changelog or github actions
 CHANGELOG.md
+.github/workflows
