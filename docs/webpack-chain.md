@@ -622,12 +622,6 @@ neutrino.config
   .plugin(name)
   .use(WebpackPlugin, args)
 
-// Examples
-
-neutrino.config
-  .plugin('hot')
-  .use(webpack.HotModuleReplacementPlugin);
-
 // Plugins can also be specified by their path, allowing the expensive require()s to be
 // skipped in cases where the plugin or webpack configuration won't end up being used.
 neutrino.config
@@ -829,7 +823,6 @@ neutrino.config.devServer
   .historyApiFallback(historyApiFallback)
   .host(host)
   .hot(hot)
-  .hotOnly(hotOnly)
   .https(https)
   .inline(inline)
   .info(info)
@@ -851,7 +844,6 @@ neutrino.config.devServer
   .staticOptions(staticOptions)
   .stats(stats)
   .stdin(stdin)
-  .useLocalIp(useLocalIp)
   .watchContentBase(watchContentBase)
   .watchOptions(watchOptions)
 ```
@@ -1074,7 +1066,6 @@ neutrino.config.merge({
     historyApiFallback,
     host,
     hot,
-    hotOnly,
     https,
     inline,
     lazy,
