@@ -3,15 +3,14 @@ name: Neutrino Monorepo Tests
 on: [push, pull_request]
 
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
+  test:
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        os: [ubuntu-latest]
         node: ['12', '14', '16']
 
-    name: Node ${{ matrix.node }} on ${{ matrix.os }}
+    name: Node ${{ matrix.node }}
 
     steps:
       - name: Check out Git repository
