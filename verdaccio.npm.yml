@@ -7,11 +7,13 @@ uplinks:
   npmjs:
     url: https://registry.npmjs.org/
     # Increase number of failed requests before disabling uplink (default 2).
-    max_fails: 5
+    max_fails: 20
     # Increase the time before cached package metadata is re-fetched (default 2m).
     maxage: 10m
     # Disable caching of package tarballs since it duplicates the local yarn cache.
     cache: false
+    # Increase the max time when a request becomes a failure (default 5m).
+    fail_timeout: 10m
 packages:
   'neutrino':
     access: $anonymous
