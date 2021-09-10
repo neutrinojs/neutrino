@@ -8,8 +8,8 @@
   "repository": "neutrinojs/neutrino",
   "engines": {
     "node": ">=12",
-    "npm": ">=5.4.0",
-    "yarn": ">=1.2.1"
+    "npm": ">=6.13.0",
+    "yarn": ">=1.22.0"
   },
   "workspaces": [
     "packages/*"
