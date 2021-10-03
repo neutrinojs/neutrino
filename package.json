@@ -7,9 +7,9 @@
   "bugs": "https://github.com/neutrinojs/neutrino/issues",
   "repository": "neutrinojs/neutrino",
   "engines": {
-    "node": ">=10",
-    "npm": ">=5.4.0",
-    "yarn": ">=1.2.1"
+    "node": ">=12",
+    "npm": ">=6.13.0",
+    "yarn": ">=1.22.0"
   },
   "workspaces": [
     "packages/*"
@@ -53,8 +53,8 @@
     "lint-staged": "^10.5.3",
     "mocha": "^8.2.1",
     "prettier": "^2.2.1",
-    "verdaccio": "^4.10.0",
-    "verdaccio-memory": "^9.7.2",
+    "verdaccio": "^5.1.0",
+    "verdaccio-memory": "^10.0.0",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"

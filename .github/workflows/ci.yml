@@ -1,0 +1,64 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: 'yarn'
+
+      - name: Install modules
+        run: yarn install --prefer-offline --frozen-lockfile
+
+      - name: Run validate:eslintrc
+        run: yarn validate:eslintrc
+
+      - name: Run lint
+        run: yarn lint
+
+      - name: Run prettier:check
+        run: yarn prettier:check
+
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node: ['12', '14', '16']
+
+    name: Test Node ${{ matrix.node }}
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'yarn'
+
+      - name: Install modules
+        run: yarn install --prefer-offline --frozen-lockfile
+
+      - name: Run unit tests
+        run: yarn test
+
+      - name: Create test project with yarn
+        run: scripts/test-create-project-ci.sh
+        env:
+          CREATE_PROJECT_YARN: 'true'
+
+      - name: Create test project with npm
+        run: scripts/test-create-project-ci.sh
+        env:
+          CREATE_PROJECT_YARN: 'false'
