@@ -1,4 +1,4 @@
-name: Neutrino Monorepo Tests
+name: CI
 
 on: [push, pull_request]
 
@@ -35,7 +35,7 @@ jobs:
       matrix:
         node: ['12', '14', '16']
 
-    name: Node ${{ matrix.node }}
+    name: Test Node ${{ matrix.node }}
 
     steps:
       - name: Check out Git repository
