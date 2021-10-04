@@ -268,7 +268,14 @@ const webapp = (name) => ({
     type: TESTING,
     package: N.KARMA,
     packageJson: {
-      devDependencies: [version(N.KARMA), KARMA, KARMA_CLI, MOCHA],
+      devDependencies: [
+        version(N.KARMA),
+        KARMA,
+        KARMA_CLI,
+        MOCHA,
+        'assert',
+        'process',
+      ],
       scripts: {
         test: 'karma start --single-run',
       },

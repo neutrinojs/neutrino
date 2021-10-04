@@ -35,6 +35,16 @@ module.exports =
           );
       }
 
+      // Provide default shims
+      neutrino.config
+        .plugin('provide-shim')
+        .use(require.resolve('webpack/lib/ProvidePlugin'), [
+          {
+            assert: require.resolve('assert'),
+            process: require.resolve('process/browser'),
+          },
+        ]);
+
       const tests = join(neutrino.options.tests, '**/*_test.js');
       const sources = join(neutrino.options.source, '**/*.js*');
 
