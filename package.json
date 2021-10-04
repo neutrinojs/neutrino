@@ -50,7 +50,7 @@
     "karma": "^5.2.3",
     "karma-cli": "^2.0.0",
     "lerna": "^3.22.1",
-    "lint-staged": "^10.5.3",
+    "lint-staged": "^11.0.0",
     "mocha": "^8.2.1",
     "prettier": "^2.2.1",
     "verdaccio": "^5.1.0",
