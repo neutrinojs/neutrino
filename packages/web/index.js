@@ -233,13 +233,8 @@ module.exports =
         entrypoints: false,
         modules: false,
       })
-      .when(process.env.NODE_ENV === 'development', (config) => {
+      .when(process.env.NODE_ENV === 'development', () => {
         neutrino.use(devServer(options.devServer));
-        config.when(options.hot, (config) => {
-          config
-            .plugin('hot')
-            .use(require.resolve('webpack/lib/HotModuleReplacementPlugin'));
-        });
       })
       .when(isProduction, (config) => {
         config.when(options.clean !== false, () =>
