@@ -69,6 +69,9 @@ module.exports =
 
     neutrino.config.module
       .rule('vue')
+      // plugin-webpack5.js from vue-loader needs the vue rule
+      // inserted before html-loader, otherwise it will not work
+      .before('html')
       .test(neutrino.regexFromExtensions(['vue']))
       .use('vue')
       .loader(require.resolve('vue-loader'));
