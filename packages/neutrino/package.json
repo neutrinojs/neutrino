@@ -29,9 +29,9 @@
     "yarn": ">=1.2.1"
   },
   "dependencies": {
+    "@gem-mine/webpack-chain": "^7.1.0",
     "lodash.clonedeep": "^4.5.0",
     "semver": "^7.3.4",
-    "webpack-chain": "^6.5.1",
     "yargs-parser": "^20.2.4"
   }
 }

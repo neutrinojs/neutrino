@@ -112,7 +112,7 @@ module.exports =
     }
 
     // Force @babel/preset-env default behavior (.browserslistrc)
-    if (options.targets === false) {
+    if (!options.targets) {
       options.targets = {};
     } else if (!options.targets.node && !options.targets.browsers) {
       options.targets.browsers = [

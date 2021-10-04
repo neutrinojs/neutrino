@@ -80,8 +80,9 @@ test('adds style oneOfs in order', (t) => {
   const api = new Neutrino();
   api.use(mw());
   const { oneOfs } = api.config.module.rule('style');
+
   t.deepEqual(
-    oneOfs.values().map((oneOf) => oneOf.name),
+    oneOfs.values().map((oneOf) => oneOf.ruleName),
     ['vue-modules', 'vue-normal', 'modules', 'normal'],
   );
 });
@@ -94,7 +95,7 @@ test('replaces style-loader with vue-style-loader in development', (t) => {
   api.config.module
     .rule('style')
     .oneOfs.values()
-    .filter((oneOf) => oneOf.name.startsWith('vue-'))
+    .filter((oneOf) => oneOf.ruleName.startsWith('vue-'))
     .forEach((oneOf) => {
       t.is(
         oneOf.use('style').get('loader'),

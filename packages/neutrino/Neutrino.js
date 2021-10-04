@@ -1,5 +1,5 @@
 const clone = require('lodash.clonedeep');
-const Config = require('webpack-chain');
+const Config = require('@gem-mine/webpack-chain');
 const semver = require('semver');
 const { isAbsolute, join } = require('path');
 const { ConfigurationError } = require('./errors');
