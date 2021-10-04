@@ -16,8 +16,8 @@ stylesheets from modules.
 
 ## Requirements
 
-- Node.js 10+
-- Yarn v1.2.1+, or npm v5.4+
+- Node.js 12+
+- Yarn v1.22+, or npm v6.13+
 - neutrino 10
 - webpack 5
 
