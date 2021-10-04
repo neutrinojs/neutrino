@@ -10,11 +10,7 @@ module.exports = {
       // Excludes are managed via `.eslintignore`.
       eslint: {
         baseConfig: {
-          extends: [
-            'plugin:prettier/recommended',
-            'prettier/babel',
-            'prettier/react',
-          ],
+          extends: ['plugin:prettier/recommended'],
           env: {
             browser: true,
             jest: true,
@@ -26,7 +22,7 @@ module.exports = {
               'error',
               {
                 singleQuote: true,
-                jsxBracketSameLine: true,
+                bracketSameLine: true,
                 trailingComma: 'all',
                 proseWrap: 'always',
               },
