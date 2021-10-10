@@ -42,7 +42,7 @@
   "devDependencies": {
     "auto-changelog": "^2.2.1",
     "ava": "^1.4.1",
-    "eslint": "^7.16.0",
+    "eslint": "^8.0.0",
     "eslint-config-prettier": "^8.0.0",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^4.3.6",
