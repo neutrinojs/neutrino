@@ -105,6 +105,9 @@ module.exports = (opts = {}) => {
           .output.devtoolModuleFilenameTemplate('[absolute-resource-path]')
           .end()
           .when(options.hot, (config) => {
+            config
+              .plugin('hot')
+              .use(require.resolve('webpack/lib/HotModuleReplacementPlugin'));
             mainKeys.forEach((key) => {
               config
                 .entry(key)
