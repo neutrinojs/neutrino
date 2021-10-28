@@ -84,10 +84,14 @@ module.exports = (opts = {}) => {
       .target(options.target)
       .context(neutrino.options.root)
       .output.path(neutrino.options.output)
-      .library(options.name)
       .libraryTarget(options.libraryTarget)
       .when(options.libraryTarget === 'umd', (output) =>
         output.umdNamedDefine(true),
+      )
+      // https://github.com/webpack/webpack/issues/11800
+      // commonjs2 should not have library defined
+      .when(options.libraryTarget !== 'commonjs2', (output) =>
+        output.library(options.name),
       )
       .end()
       .resolve.extensions // Based on the webpack defaults:
