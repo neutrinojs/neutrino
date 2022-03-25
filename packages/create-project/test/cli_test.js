@@ -50,7 +50,7 @@ const scaffold = async ({ testName, ...prompts }) => {
   const directory = `${join(
     tmpdir(),
     testName.replace(/[/+ @:]/g, '_'),
-  )}_${Math.random().toString(36).substr(2)}`;
+  )}_${Math.random().toString(36).slice(2)}`;
 
   await run(require.resolve(join(__dirname, '../commands/init')))
     .withOptions({
